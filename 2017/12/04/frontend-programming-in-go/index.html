@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>Frontend Programming in Go</title>
+  <meta name="keywords" content="Go,Golang,GopherJS,Go to JavaScript,Go WebAssembly,Frontend Programming in Go"/>
+  <meta name="description" content="Discuss why I choose Go to be my frontend programming language. Wirte Go code and run your application on web browsers."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="Frontend Programming in Go" /><meta property="og:image" content="https://pbs.twimg.com/profile_images/605816243870760960/4hP2sH_O.png" />
+<meta property="og:description" content="Discuss why I choose Go to be my frontend programming language. Wirte Go code and run your application on web browsers." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2017/12/04/frontend-programming-in-go/"
+           rel="bookmark"
+           title="Permalink to Frontend Programming in Go">
+          Frontend Programming in Go
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2020-07-15T08:43:00+08:00">
+    Updated: July 15, 2020
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2017/12/04/frontend-programming-in-go%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p>When it comes to frontend programming, most people will mention JavaScript,
+Vue.js, React, etc. But when the code grow bigger and bigger, it becomes very
+difficult to maintain the code, especially when you come back to the code after
+half a year without touching the code.</p>
+<p>The JavaScript is full of &quot;surprise&quot;, which means a lot of tricks and
+unintuitive meanings of some concepts are inherent in the JavaScript. It makes
+other people difficult to understand the code after code becomes bigger. Even
+myself cannot understand the JavaScript code I written half an year ago.</p>
+<div class="section" id="advantages-of-go">
+<h2>Advantages of Go</h2>
+<ol class="arabic simple">
+<li>Go is simple: The <a class="reference external" href="https://golang.org/">official website of Go</a> programming language provides
+very good online tutorials. You can master the main language concepts and run
+the code online very easily. There are no fancy syntax sugars in Go, which
+makes you get less pain when you read the Go code written by other people.</li>
+<li>Go standard library is rich: When you want to write some feature in your
+application, usually you can easily implement the feature via the methods
+provided in standard library, or search GitHub or do googling for the feature
+you need, the chances are that someone already implement it.</li>
+<li>Modularity: When your program grows bigger, inevitably you need to organize
+your code into pieces which make the code easy to understand and maintain.
+In Go, you can move some of the code into <em>packages</em>, and combine the
+packages into the your application.</li>
+<li>Easy for testing: Go officially provides automated testing for packages.
+Follow the Go conventions to write you testing code and run <cite>go test</cite>, then
+it's done!</li>
+<li>Reusable for both frontend and backend: One reason for node.js to be so
+popular is that you can write JavaScript code and run it on both frontend
+(browsers) and backend (servers). Go is already very popular on backend
+server development, why not write Go code also on the frontend?</li>
+<li>Maintenance: Go's <em>less is more</em> philosophy, packages, and automated testing
+make it easy to maintain the Go code. When you leave your code for several
+months and come back to the code, or read the code by others, you will easily
+pick it up and do whatever you need to do.</li>
+<li>Easy to transpile to JavaScript: GopherJS is a great transpiler
+(source-to-source compiler) which compiles ALL your Go code into JavaScript
+under almost all situations (if your code does not involve with IO
+operation). For example, I have an offline application which does Chinese
+conversion. Without any modification, I successfully make it run on browsers
+with GopherJS. This is really impressing, and very easy to port existing Go
+code to web browsers without any modification if no IO involved. <a class="footnote-reference" href="#id6" id="id1">[4]</a></li>
+</ol>
+
+</div>
+<div class="section" id="run-go-code-on-browser">
+<h2>Run Go Code on Browser</h2>
+<p>There are two ways to make your Go code run on browsers. One is via transpilers
+which compiles the Go code to JavaScript. The other is via WebAssembly, which is
+supported experimentally in the <a class="reference external" href="https://blog.golang.org/go1.11">Go 1.11</a> release.</p>
+<ol class="arabic simple">
+<li>Transpiler: The first way to run Go code on browsers is via <a class="reference external" href="https://github.com/gopherjs/gopherjs">GopherJS</a>, which
+transpiles Go code into JavaScript. As mentioned in previous section, it
+compiles almost everything in Go to JavaScript if no IO or OS operations
+involved. Besides, You may need a Go library to help you do DOM
+manipulation. You can take a look of my <a class="reference external" href="https://github.com/siongui/godom">godom</a> project on GitHub to make DOM
+manipulation easy and similar to JavaScript counterpart.</li>
+<li>WebAssembly: WebAssembly is the future for web application development. Right
+now all major browsers support wasm, and the official Go compiler 1.11 adds
+an experimental port to WebAssembly (js/wasm). See <a class="footnote-reference" href="#id3" id="id2">[1]</a> for more information
+and try it using <a class="reference external" href="https://blog.golang.org/go1.11">Go 1.11</a>.</li>
+</ol>
+</div>
+<div class="section" id="table-of-content">
+<h2>Table of Content</h2>
+<p>This post is the first to introduce Go in the field of frontend programming. I
+will write a series of posts to show you how to write and run Go code on the
+browsers. If any advices, please leave your comments on GitHub!</p>
+<div class="section" id="go-webassembly">
+<h3>Go WebAssembly</h3>
+<p><strong>Basics</strong>:</p>
+<ul class="simple">
+<li><a class="reference external" href="/2018/10/06/load-and-run-golang-wasm-code/">Load and Run Go WebAssembly Module</a></li>
+<li><a class="reference external" href="/2018/07/30/golang-wasm-hello-world/">[Go WebAssembly] First Wasm Program - Hello World</a></li>
+<li><a class="reference external" href="/2018/10/04/golang-wasm-querySelector/">[Go WebAssembly] querySelector Example</a></li>
+<li><a class="reference external" href="/2018/10/05/golang-wasm-querySelectorAll/">[Go WebAssembly] querySelectorAll Example</a></li>
+<li><a class="reference external" href="/2018/10/16/golang-wasm-addEventListener-event-binding/">[Go WebAssembly] Event Binding - addEventListener Example</a></li>
+<li><a class="reference external" href="/2018/10/19/golang-wasm-xmlhttprequest-xhr/">[Go WebAssembly] XMLHttpRequest (XHR)</a></li>
+</ul>
+</div>
+<div class="section" id="gopherjs">
+<h3>GopherJS</h3>
+<p><strong>Basics</strong>:</p>
+<ul class="simple">
+<li><a class="reference external" href="/2017/12/05/first-frontend-go-program-hello-world/">First Frontend Go Program - Hello World in Browser</a></li>
+<li><a class="reference external" href="/2017/12/08/js-new-keyword-in-go/">JavaScript new Keyword in Go</a></li>
+<li><a class="reference external" href="/2017/12/09/querySelector-querySelectorAll-getElementById-in-go/">querySelector, querySelectorAll, getElementById in Go</a></li>
+<li><a class="reference external" href="/2017/12/10/innerHTML-textContent-in-go/">innerHTML and textContent in Go</a></li>
+<li><a class="reference external" href="/2017/12/11/addEventListener-event-binding-in-go/">Event Binding - addEventListener in Go</a></li>
+<li><a class="reference external" href="/2017/12/12/keyboard-event-arrow-key-in-go/">Keyboard Event (Arrow Keys) in Go</a></li>
+<li><a class="reference external" href="/2017/12/13/create-and-append-element-or-text-node-in-go/">Create and Append Element or Text Node in Go</a></li>
+<li><a class="reference external" href="/2017/12/14/xmlhttprequest-xhr-in-go/">XMLHttpRequest (XHR) in Go</a></li>
+<li><a class="reference external" href="/2017/12/15/html-data-attribute-in-go/">HTML data-* Attribute in Go</a></li>
+<li><a class="reference external" href="/2017/12/18/html-element-style-property-in-go/">HTML Element style Property in Go</a></li>
+<li><a class="reference external" href="/2017/12/20/html-element-classlist-property-in-go/">HTML Element classList Property in Go</a></li>
+<li><a class="reference external" href="/2017/12/21/settimeout-in-go/">setTimeout method in Go</a></li>
+<li><a class="reference external" href="/2017/12/26/detect-browser-language-preference-in-go/">Detect Browser Language Preference in Go</a></li>
+<li><a class="reference external" href="/2017/12/28/js-null-test-in-go/">JavaScript null Check in Go</a></li>
+<li><a class="reference external" href="/2017/12/30/js-undefined-test-in-go/">JavaScript undefined Check in Go</a></li>
+<li><a class="reference external" href="/2018/01/05/element-position-scroll-included-in-go/">Element Position (Scroll Included) in Go</a></li>
+<li><a class="reference external" href="/2018/04/25/check-if-html-input-text-value-is-integer-in-go/">Check if Value of HTML Input Text Field is Integer in Go</a></li>
+<li><a class="reference external" href="/2020/07/15/simulate-enter-key-pressed-in-go/">Simulate Enter Key Pressed in Go</a></li>
+</ul>
+<p><strong>Application</strong>:</p>
+<ul class="simple">
+<li><a class="reference external" href="/2018/01/01/show-css-loader-while-resource-loading-in-go/">Show CSS Loader While Resource Loading in Go</a></li>
+<li><a class="reference external" href="/2018/01/07/tooltip-in-go/">Tooltip in Go</a></li>
+<li><a class="reference external" href="/2018/01/09/tooltip-with-close-delay-in-go/">Tooltip with Close Delay in Go</a></li>
+<li><a class="reference external" href="/2018/01/14/convert-text-to-html-link-in-go/">Convert Text to HTML Link in Go</a></li>
+<li><a class="reference external" href="/2017/05/18/go-websocket-client-example-with-echo-server/">[GopherJS] WebSocket Client Example With Echo Server</a></li>
+<li><a class="reference external" href="/2018/04/24/online-lemoine-conjecture-demo-in-go/">Online Lemoine’s Conjecture Demo in Go</a></li>
+</ul>
+<p><a class="reference external" href="https://bulma.io/">Bulma</a>:</p>
+<ul class="simple">
+<li><a class="reference external" href="/2018/01/18/bulma-navbar-with-go-toggle/">Bulma Navbar with Go Toggle</a></li>
+<li><a class="reference external" href="/2018/02/01/bulma-dropdown-with-go-toggle/">Bulma Dropdown with Go Toggle</a></li>
+<li><a class="reference external" href="/2018/02/10/bulma-modal-with-go-toggle/">Bulma Modal with Go Toggle</a></li>
+</ul>
+<p><a class="reference external" href="https://vuejs.org/">Vue.js</a>:</p>
+<ul class="simple">
+<li><a class="reference external" href="/2018/01/21/toggle-dom-element-with-gopherjs-vue/">Toggle (Show/Hide) HTML Element via Go and Vue.js</a></li>
+<li><a class="reference external" href="/2018/01/23/show-keyCode-of-pressed-key-via-gopherjs-vue/">Show keyCode of Pressed Key via Go and Vue.js</a></li>
+<li><a class="reference external" href="/2018/03/08/virtual-keypad-via-gopherjs-vue/">Virtual Keyboard via Go and Vue.js</a></li>
+<li><a class="reference external" href="/2018/05/01/sieve-of-eratosthenes-via-gopherjs-vue/">Online Sieve of Eratosthenes Demo via Go and Vue.js</a></li>
+<li><a class="reference external" href="/2018/05/04/watch-data-change-via-gopherjs-vue/">Watch Data Change via Go and Vue.js</a></li>
+<li><a class="reference external" href="/2018/05/07/watch-data-change-with-option-via-gopherjs-vue/">Watch Data Change With Options via Go and Vue.js</a></li>
+</ul>
+<p><a class="reference external" href="https://developer.chrome.com/extensions/getstarted">Chrome Extension</a>:</p>
+<ul class="simple">
+<li><a class="reference external" href="/2017/04/30/go-gopherjs-chrome-extension-for-chinese-translation/">[Golang/GopherJS] Chrome Extension for Chinese Conversion</a></li>
+<li><a class="reference external" href="/2018/02/02/tab-url-chrome-extension-in-go/">Get Current Tab URL From Chrome Extension in Go</a></li>
+</ul>
+<p><strong>References</strong>:</p>
+<ul class="simple">
+<li><a class="reference external" href="/2017/12/07/synonyms-go-and-javascript/">Synonyms - Go and JavaScript</a></li>
+</ul>
+
+<hr class="docutils" />
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[1]</a></td><td><a class="reference external" href="/2018/07/30/golang-wasm-hello-world/">[Go WebAssembly] First Wasm Program - Hello World</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[2]</td><td><a class="reference external" href="https://github.com/lpereira/gomoku">GitHub - lpereira/gomoku: Gomoku compiles Go code to C++</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id5" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[3]</td><td><div class="first last line-block">
+<div class="line"><a class="reference external" href="https://www.reddit.com/r/golang/comments/7jby77/introducing_joy_translate_go_to_javascript/">Introducing Joy: translate Go to JavaScript : golang</a></div>
+<div class="line"><a class="reference external" href="https://github.com/matthewmueller/joy">GitHub - matthewmueller/joy: A delightful Go to Javascript compiler</a></div>
+</div>
+</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id6" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[4]</a></td><td><a class="reference external" href="https://github.com/siongui/gojianfan">GitHub - siongui/gojianfan: Traditional and Simplified Chinese Conversion in Go</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id7" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[5]</td><td><div class="first last line-block">
+<div class="line"><a class="reference external" href="https://www.reddit.com/r/golang/comments/8gxy9u/jsgo_playground_edit_and_run_go_code_in_the/">Jsgo Playground: Edit and run Go code in the browser, supporting arbitrary import paths. : golang</a></div>
+<div class="line"><a class="reference external" href="https://github.com/dave/jsgo">GitHub - dave/jsgo: GopherJS compiler, serving framework and CDN.</a></div>
+<div class="line"><a class="reference external" href="https://play.jsgo.io/">Jsgo Playground</a></div>
+<div class="line"><a class="reference external" href="https://github.com/dave/play">GitHub - dave/play: jsgo playground: edit and run Go code in the browser, supporting arbitrary import paths</a></div>
+</div>
+</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id8" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[6]</td><td><a class="reference external" href="https://old.reddit.com/r/golang/comments/9sb7fi/gopherjs_or_webassembly/">Gopherjs or webassembly ? : golang</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id9" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[7]</td><td><a class="reference external" href="https://old.reddit.com/r/golang/comments/a68oop/future_of_gopherjs_and_go_in_the_browser/">Future of GopherJS and Go in the browser : golang</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id10" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[8]</td><td><a class="reference external" href="https://old.reddit.com/r/golang/comments/a8bbgq/pure_go_web_development/">Pure Go web development? : golang</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id11" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[9]</td><td><div class="first last line-block">
+<div class="line"><a class="reference external" href="https://old.reddit.com/r/golang/comments/fszeix/running_golang_on_the_browser_with_webassembly/">Running Golang on the browser with WebAssembly and TinyGo : golang</a></div>
+<div class="line"><a class="reference external" href="https://marianogappa.github.io/software/2020/04/01/webassembly-tinygo-cheesse/">Running Golang on the browser with WebAssembly and TinyGo – Mariano Gappa's Blog</a></div>
+</div>
+</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id12" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[10]</td><td><div class="first last line-block">
+<div class="line"><a class="reference external" href="https://github.com/gopherjs/gopherjs/issues/899">Unify GopherJS's `syscall/js` and GopherWasm · Issue #899 · gopherjs/gopherjs · GitHub</a></div>
+<div class="line"><a class="reference external" href="https://github.com/gopherjs/gopherwasm">GitHub - gopherjs/gopherwasm: This package is deprecated. Use syscall/js of GopherJS instead.</a></div>
+<div class="line"><a class="reference external" href="https://github.com/gopherjs/gopherjs/pull/908">Add syscall/js by hajimehoshi · Pull Request #908 · gopherjs/gopherjs · GitHub</a></div>
+<div class="line"><a class="reference external" href="https://github.com/gopherjs/gopherjs/issues/920">Build tag to indicate syscall/js support? · Issue #920 · gopherjs/gopherjs · GitHub</a></div>
+<div class="line"><a class="reference external" href="https://github.com/gopherjs/gopherjs/issues/962">syscall/js: support for Go 1.14 changes · Issue #962 · gopherjs/gopherjs · GitHub</a></div>
+</div>
+</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/frontend-programming-in-go.html">Frontend Programming in Go</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/go.html">Go</a>
+,       <a href="/tag/golang.html">Golang</a>
+,       <a href="/tag/gopherjs.html">GopherJS</a>
+,       <a href="/tag/go-to-javascript.html">Go to JavaScript</a>
+,       <a href="/tag/go-webassembly.html">Go WebAssembly</a>
+,       <a href="/tag/frontend-programming-in-go.html">Frontend Programming in Go</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

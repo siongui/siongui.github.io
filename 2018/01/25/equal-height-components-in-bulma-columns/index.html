@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>Equal Height Components in Bulma Columns</title>
+  <meta name="keywords" content="CSS,html,Responsive Web Design,Bulma"/>
+  <meta name="description" content="Make Bulma components (message, card, etc.) to be of equal height in columns."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="Equal Height Components in Bulma Columns" /><meta property="og:image" content="https://cloud.githubusercontent.com/assets/18059922/25303180/ed993e0a-274d-11e7-887e-5425109adb65.png" />
+<meta property="og:description" content="Make Bulma components (message, card, etc.) to be of equal height in columns." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2018/01/25/equal-height-components-in-bulma-columns/"
+           rel="bookmark"
+           title="Permalink to Equal Height Components in Bulma Columns">
+          Equal Height Components in Bulma Columns
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2018-01-25T08:10:00+08:00">
+    January 25, 2018
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2018/01/25/equal-height-components-in-bulma-columns%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css"><p>Look at the following example. We have three <a class="reference external" href="https://bulma.io/documentation/components/message/">message</a> components in <a class="reference external" href="https://bulma.io/documentation/columns/basics/">columns</a> of
+Bulma (version 0.6.2).</p>
+<br>
+
+<div class="columns">
+  <div class="column">
+
+<article class="message">
+  <div class="message-header">
+    <p>Header of Column 1</p>
+  </div>
+  <div class="message-body">
+    Body of Column 1
+  </div>
+</article>
+
+  </div>
+  <div class="column">
+
+<article class="message">
+  <div class="message-header">
+    <p>Header of Column 2</p>
+  </div>
+  <div class="message-body">
+    Body of Column 3
+  </div>
+</article>
+
+  </div>
+  <div class="column">
+
+<article class="message">
+  <div class="message-header">
+    <p>Header of Column 2</p>
+  </div>
+  <div class="message-body">
+    Body of<br><br> Column 3
+  </div>
+</article>
+
+  </div>
+</div>
+<br><p>The column 3 is higher than the other two columns on wide screens, and it looks
+ugly. We want to make the three messages to be of equal height. (You should not
+view this page on mobile devices because the columns will be stacked)</p>
+<p>The solution <a class="footnote-reference" href="#id3" id="id1">[2]</a> is to add <tt class="docutils literal">height: 100%;</tt> to your components. In this case,
+we add the following rule in CSS:</p>
+<br><div class="highlight"><pre><span></span><span class="p">.</span><span class="nc">message</span> <span class="p">{</span>
+  <span class="k">height</span><span class="p">:</span> <span class="mi">100</span><span class="kt">%</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>After adding <tt class="docutils literal">height: 100%;</tt>, The above example will look like:</p>
+<style>
+.message.after {
+  height: 100%;
+}
+.message-body {
+  border: 0;
+}
+</style>
+<br>
+
+<div class="columns">
+  <div class="column">
+
+<article class="message after">
+  <div class="message-header">
+    <p>Header of Column 1</p>
+  </div>
+  <div class="message-body">
+    Body of Column 1
+  </div>
+</article>
+
+  </div>
+  <div class="column">
+
+<article class="message after">
+  <div class="message-header">
+    <p>Header of Column 2</p>
+  </div>
+  <div class="message-body">
+    Body of Column 3
+  </div>
+</article>
+
+  </div>
+  <div class="column">
+
+<article class="message after">
+  <div class="message-header">
+    <p>Header of Column 2</p>
+  </div>
+  <div class="message-body">
+    Body of<br><br> Column 3
+  </div>
+</article>
+
+  </div>
+</div>
+<br><p>Now it looks better and should be the result of most designers want.</p>
+
+<hr class="docutils" />
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td><div class="first last line-block">
+<div class="line"><a class="reference external" href="https://www.google.com/search?q=bulma+columns+equal+height">bulma columns equal height - Google search</a></div>
+<div class="line"><a class="reference external" href="https://duckduckgo.com/?q=bulma+columns+equal+height">bulma columns equal height - DuckDuckGo search</a></div>
+<div class="line"><a class="reference external" href="https://www.ecosia.org/search?q=bulma+columns+equal+height">bulma columns equal height - Ecosia search</a></div>
+<div class="line"><a class="reference external" href="https://www.qwant.com/?q=bulma+columns+equal+height">bulma columns equal height - Qwant search</a></div>
+<div class="line"><a class="reference external" href="https://www.bing.com/search?q=bulma+columns+equal+height">bulma columns equal height - Bing search</a></div>
+<div class="line"><a class="reference external" href="https://search.yahoo.com/search?p=bulma+columns+equal+height">bulma columns equal height - Yahoo search</a></div>
+<div class="line"><a class="reference external" href="https://www.baidu.com/s?wd=bulma+columns+equal+height">bulma columns equal height - Baidu search</a></div>
+<div class="line"><a class="reference external" href="https://www.yandex.com/search/?text=bulma+columns+equal+height">bulma columns equal height - Yandex search</a></div>
+</div>
+</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[2]</a></td><td><a class="reference external" href="https://github.com/jgthms/bulma/issues/218">Equal height of card components · Issue #218 · jgthms/bulma · GitHub</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[3]</td><td><a class="reference external" href="https://github.com/jgthms/bulma/issues/696">[Question] How to set columns height equal to the longest column? · Issue #696 · jgthms/bulma · GitHub</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id5" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[4]</td><td><a class="reference external" href="https://stackoverflow.com/questions/43564132/how-to-set-column-height-equal-to-longest-column-in-bulma-flexbox">css - How to set column height equal to longest column in Bulma (flexbox)? - Stack Overflow</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id6" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[5]</td><td><div class="first last line-block">
+<div class="line"><a class="reference external" href="https://www.google.com/search?q=bulma+is-full+height">bulma is-full height - Google search</a></div>
+<div class="line"><a class="reference external" href="https://duckduckgo.com/?q=bulma+is-full+height">bulma is-full height - DuckDuckGo search</a></div>
+<div class="line"><a class="reference external" href="https://www.ecosia.org/search?q=bulma+is-full+height">bulma is-full height - Ecosia search</a></div>
+<div class="line"><a class="reference external" href="https://www.qwant.com/?q=bulma+is-full+height">bulma is-full height - Qwant search</a></div>
+<div class="line"><a class="reference external" href="https://www.bing.com/search?q=bulma+is-full+height">bulma is-full height - Bing search</a></div>
+<div class="line"><a class="reference external" href="https://search.yahoo.com/search?p=bulma+is-full+height">bulma is-full height - Yahoo search</a></div>
+<div class="line"><a class="reference external" href="https://www.baidu.com/s?wd=bulma+is-full+height">bulma is-full height - Baidu search</a></div>
+<div class="line"><a class="reference external" href="https://www.yandex.com/search/?text=bulma+is-full+height">bulma is-full height - Yandex search</a></div>
+</div>
+</td></tr>
+</tbody>
+</table>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/css.html">CSS</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/css.html">CSS</a>
+,       <a href="/tag/html.html">html</a>
+,       <a href="/tag/responsive-web-design.html">Responsive Web Design</a>
+,       <a href="/tag/bulma.html">Bulma</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>[JavaScript] Append Text at the Beginning of Each Line</title>
+  <meta name="keywords" content="JavaScript,Copy to Clipboard,Online Toolkit,String Manipulation,Regular Expression"/>
+  <meta name="description" content="Append text at the beginning of each line via JavaScript."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="[JavaScript] Append Text at the Beginning of Each Line" />    <meta property="og:image" content="/./extra/Dharma_wheel.svg" /><meta property="og:description" content="Append text at the beginning of each line via JavaScript." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2018/01/11/javascript-append-text-at-the-beginning-of-each-line/"
+           rel="bookmark"
+           title="Permalink to [JavaScript] Append Text at the Beginning of Each Line">
+          [JavaScript] Append Text at the Beginning of Each Line
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2018-01-11T04:50:00+08:00">
+    January 11, 2018
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2018/01/11/javascript-append-text-at-the-beginning-of-each-line%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><style>
+textarea {
+  box-sizing: border-box;
+  width: 100%;
+}
+</style><input type="text" id="text" tabindex="1" placeholder="text to be prepended">
+<button type="button" id="prepend">Prepend</button><br><br>
+Paste your lines below:<br>
+<textarea id="origin" rows="10"></textarea><br><br>
+Lines after prepended:<br>
+<textarea id="after" rows="10"></textarea><br>
+<button type="button" id="copy" tabindex="2">Copy textarea to clipboard</button><script>
+  var inputElm = document.getElementById("text");
+  var buttonElm = document.getElementById("prepend");
+  var oriTextareaElm = document.getElementById("origin");
+  var afterTextareaElm = document.getElementById("after");
+  var copyElm = document.getElementById("copy");
+  inputElm.onkeyup = function(event) {
+    // press enter
+    if (event.keyCode == 13) {
+      prependToEachLine();
+    }
+  }
+  buttonElm.onclick = function(event) { prependToEachLine(); }
+  copyElm.onclick = function(event) {
+    afterTextareaElm.select();
+    var isSuccessful = document.execCommand('copy');
+    if (isSuccessful) {
+      afterTextareaElm.value = "Copy OK";
+    } else {
+      afterTextareaElm.value = "Copy Fail";
+    }
+  }
+
+  function prependToEachLine() {
+    afterTextareaElm.value = oriTextareaElm.value.replace(/^/gm, inputElm.value);
+  }
+
+</script>
+<p>The first <em>textarea</em> is the lines to be prepended. The second <em>textarea</em> is the
+lines after prepended. The JavaScript code to append text at the beginning of
+each line is:</p>
+<div class="highlight"><pre><span></span><span class="nx">afterTextareaElm</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">oriTextareaElm</span><span class="p">.</span><span class="nx">value</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/^/gm</span><span class="p">,</span> <span class="nx">inputElm</span><span class="p">.</span><span class="nx">value</span><span class="p">);</span>
+</pre></div>
+<ul class="simple">
+<li><tt class="docutils literal">^</tt> means beginning of line.</li>
+<li><tt class="docutils literal">g</tt> means global match</li>
+<li><tt class="docutils literal">m</tt> means multiline matching</li>
+</ul>
+<p>If you are not familiar with JavaScript regular expression, see <a class="footnote-reference" href="#id4" id="id1">[3]</a>.</p>
+<hr class="docutils" />
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td><a class="reference external" href="/2016/04/03/search-links-of-major-search-engines/">Search Links of Major Search Engines</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[2]</td><td><a class="reference external" href="/2016/03/15/sed-append-text-at-the-beginning-of-each-line/">[sed] Append Text at the Beginning of Each Line</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[3]</a></td><td><div class="first last line-block">
+<div class="line"><a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions">Regular Expressions - JavaScript | MDN</a></div>
+<div class="line"><a class="reference external" href="https://www.w3schools.com/js/js_regexp.asp">JavaScript RegExp Object</a></div>
+</div>
+</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id5" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[4]</td><td><a class="reference external" href="https://stackoverflow.com/questions/39068128/html-textarea-isnt-responsive">css - HTML Textarea isn't responsive - Stack Overflow</a></td></tr>
+</tbody>
+</table>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/javascript.html">JavaScript</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/javascript.html">JavaScript</a>
+,       <a href="/tag/copy-to-clipboard.html">Copy to Clipboard</a>
+,       <a href="/tag/online-toolkit.html">Online Toolkit</a>
+,       <a href="/tag/string-manipulation.html">String Manipulation</a>
+,       <a href="/tag/regular-expression.html">Regular Expression</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

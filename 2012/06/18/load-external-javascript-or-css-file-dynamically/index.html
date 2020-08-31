@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>Load External JavaScript or CSS file Dynamically</title>
+  <meta name="keywords" content="JavaScript,CORS,CSS"/>
+  <meta name="description" content="Load JavaScript or CSS on demand."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="Load External JavaScript or CSS file Dynamically" /><meta property="og:image" content="http://www.javatpoint.com/images/javascript/javascript_logo.png" />
+<meta property="og:description" content="Load JavaScript or CSS on demand." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2012/06/18/load-external-javascript-or-css-file-dynamically/"
+           rel="bookmark"
+           title="Permalink to Load External JavaScript or CSS file Dynamically">
+          Load External JavaScript or CSS file Dynamically
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2015-02-23T10:27:00+08:00">
+    Updated: February 23, 2015
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2012/06/18/load-external-javascript-or-css-file-dynamically%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p>Sometimes it is useful to load <a class="reference external" href="https://www.google.com/search?q=JavaScript">JavaScript</a> or <a class="reference external" href="https://www.google.com/search?q=CSS">CSS</a> file dynamically. In <a class="footnote-reference" href="#id7" id="id1">[1]</a> and
+<a class="footnote-reference" href="#id8" id="id2">[2]</a>, there are several different method to do this. Here I do not do anything
+original. I just summarize the posts and give a single function to load external
+<a class="reference external" href="https://www.google.com/search?q=JavaScript">JavaScript</a> or <a class="reference external" href="https://www.google.com/search?q=CSS">CSS</a> files on demand in two different ways. The following is my
+summarized function to load <a class="reference external" href="https://www.google.com/search?q=JavaScript">JavaScript</a> or <a class="reference external" href="https://www.google.com/search?q=CSS">CSS</a>:</p>
+<div class="section" id="source-code">
+<h2>Source Code</h2>
+<div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">AJAXLoad</span><span class="p">(</span><span class="nx">type</span><span class="p">,</span> <span class="nx">loadByXMLHttp</span><span class="p">,</span> <span class="nx">url</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">ext</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">type</span> <span class="o">==</span> <span class="s2">&quot;js&quot;</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">ext</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;script&#39;</span><span class="p">);</span>
+    <span class="nx">ext</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">&quot;type&quot;</span><span class="p">,</span><span class="s2">&quot;text/javascript&quot;</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">type</span> <span class="o">==</span> <span class="s2">&quot;css&quot;</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">ext</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;link&#39;</span><span class="p">);</span>
+    <span class="nx">ext</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">&quot;type&quot;</span><span class="p">,</span> <span class="s2">&quot;text/css&quot;</span><span class="p">);</span>
+    <span class="nx">ext</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">&quot;rel&quot;</span><span class="p">,</span> <span class="s2">&quot;stylesheet&quot;</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">loadByXMLHttp</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">type</span> <span class="o">==</span> <span class="s2">&quot;js&quot;</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">ext</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">&quot;src&quot;</span><span class="p">,</span> <span class="nx">url</span><span class="p">);</span>
+      <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">ext</span> <span class="o">!=</span> <span class="s2">&quot;undefined&quot;</span><span class="p">)</span> <span class="p">{</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="s2">&quot;head&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">].</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">ext</span><span class="p">);}</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">type</span> <span class="o">==</span> <span class="s2">&quot;css&quot;</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">ext</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">&quot;href&quot;</span><span class="p">,</span> <span class="nx">url</span><span class="p">);</span>
+      <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">ext</span> <span class="o">!=</span> <span class="s2">&quot;undefined&quot;</span><span class="p">)</span> <span class="p">{</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="s2">&quot;head&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">].</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">ext</span><span class="p">);}</span>
+    <span class="p">}</span>
+    <span class="k">return</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="kd">var</span> <span class="nx">xmlhttp</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">XMLHttpRequest</span><span class="p">)</span> <span class="p">{</span><span class="nx">xmlhttp</span><span class="o">=</span><span class="k">new</span> <span class="nx">XMLHttpRequest</span><span class="p">();}</span>
+  <span class="k">else</span> <span class="p">{</span><span class="nx">xmlhttp</span><span class="o">=</span><span class="k">new</span> <span class="nx">ActiveXObject</span><span class="p">(</span><span class="s2">&quot;Microsoft.XMLHTTP&quot;</span><span class="p">);}</span>
+  <span class="nx">xmlhttp</span><span class="p">.</span><span class="nx">onreadystatechange</span><span class="o">=</span><span class="kd">function</span><span class="p">(){</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">xmlhttp</span><span class="p">.</span><span class="nx">readyState</span><span class="o">==</span><span class="mi">4</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">xmlhttp</span><span class="p">.</span><span class="nx">status</span> <span class="o">==</span> <span class="mi">200</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">ext</span><span class="p">.</span><span class="nx">innerHTML</span><span class="o">=</span><span class="nx">xmlhttp</span><span class="p">.</span><span class="nx">responseText</span><span class="p">;</span>
+        <span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="s2">&quot;head&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">].</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">ext</span><span class="p">);</span>
+      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;cannot load external file :&#39;</span><span class="o">+</span><span class="nx">url</span><span class="p">);</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+  <span class="nx">xmlhttp</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span><span class="nx">url</span><span class="p">,</span><span class="kc">true</span><span class="p">);</span>
+  <span class="nx">xmlhttp</span><span class="p">.</span><span class="nx">send</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+
+</div>
+<div class="section" id="usage">
+<h2>Usage</h2>
+<div class="highlight"><pre><span></span><span class="c1">// Usage 1: Load CSS in element tag</span>
+<span class="nx">AJAXLoad</span><span class="p">(</span><span class="s2">&quot;css&quot;</span><span class="p">,</span> <span class="kc">false</span><span class="p">,</span> <span class="s2">&quot;http://fonts.googleapis.com/css?family=Gentium+Basic|Special+Elite&amp;subset=latin,latin-ext&quot;</span><span class="p">);</span>
+
+<span class="c1">// Usage 2: Load JavaScript in element tag</span>
+<span class="nx">AJAXLoad</span><span class="p">(</span><span class="s2">&quot;js&quot;</span><span class="p">,</span> <span class="kc">false</span><span class="p">,</span> <span class="s2">&quot;http://www.example.com/static/index.js&quot;</span><span class="p">);</span>
+
+<span class="c1">// Usage 3: Load CSS by XMLHttp call (AJAX way)</span>
+<span class="nx">AJAXLoad</span><span class="p">(</span><span class="s2">&quot;css&quot;</span><span class="p">,</span> <span class="kc">true</span><span class="p">,</span> <span class="s2">&quot;http://fonts.googleapis.com/css?family=Gentium+Basic|Special+Elite&amp;subset=latin,latin-ext&quot;</span><span class="p">);</span>
+
+<span class="c1">// Usage 4: Load JavaScript in by XMLHttp call (AJAX way)</span>
+<span class="nx">AJAXLoad</span><span class="p">(</span><span class="s2">&quot;js&quot;</span><span class="p">,</span> <span class="kc">true</span><span class="p">,</span> <span class="s2">&quot;http://www.example.com/static/index.js&quot;</span><span class="p">);</span>
+</pre></div>
+<p>For most cases, usage 1 and 2 will work as expected. But usage 3 or 4 will not
+work because of <a class="reference external" href="http://en.wikipedia.org/wiki/Cross-site_scripting">cross domain scripting</a>. For security reasons, XMLHttp call to
+servers on other domains is not allowed. There are several workaround to achieve
+<a class="reference external" href="http://en.wikipedia.org/wiki/Cross-site_scripting">cross domain scripting</a>, but this is beyond the topic of this post.</p>
+
+<p>If you load <a class="reference external" href="https://www.google.com/search?q=JavaScript">JavaScript</a> after the page is ready, there are chances that you code
+will not run automatically. Please refer to <a class="footnote-reference" href="#id9" id="id3">[3]</a>, <a class="footnote-reference" href="#id10" id="id4">[4]</a>, and <a class="footnote-reference" href="#id11" id="id5">[5]</a> for more
+details. And to know how XMLHttp works, please refer to <a class="footnote-reference" href="#id12" id="id6">[6]</a>.</p>
+<hr class="docutils" />
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id7" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td><a class="reference external" href="http://ntt.cc/2008/02/10/4-ways-to-dynamically-load-external-javascriptwith-source.html">4 ways to dynamically load external JavaScript(with source)</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id8" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[2]</a></td><td><a class="reference external" href="http://www.javascriptkit.com/javatutors/loadjavascriptcss.shtml">Dynamically loading an external JavaScript or CSS file</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id9" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id3">[3]</a></td><td><a class="reference external" href="http://stackoverflow.com/questions/1891947/are-dynamically-inserted-script-tags-meant-to-work">Are dynamically inserted &lt;script&gt; tags meant to work?</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id10" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id4">[4]</a></td><td><a class="reference external" href="http://stackoverflow.com/questions/1197575/can-scripts-be-inserted-with-innerhtml">Can scripts be inserted with innerHTML?</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id11" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id5">[5]</a></td><td><a class="reference external" href="http://stackoverflow.com/questions/4619668/executing-script-inside-div-retrieved-by-ajax">Executing &lt;script&gt; inside &lt;div&gt; retrieved by AJAX</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id12" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id6">[6]</a></td><td><a class="reference external" href="http://www.w3schools.com/ajax/default.asp">AJAX Tutorial</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id13" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[7]</td><td><a class="reference external" href="/2016/06/04/gopherjs-add-css-dynamically/">[GopherJS] Insert CSS Dynamically</a></td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/javascript.html">JavaScript</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/javascript.html">JavaScript</a>
+,       <a href="/tag/cors.html">CORS</a>
+,       <a href="/tag/css.html">CSS</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

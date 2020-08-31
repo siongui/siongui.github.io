@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>如何透過GitHub在本站寫文章</title>
+  <meta name="keywords" content="Web開發"/>
+  <meta name="description" content="透過GitHub平台協同撰寫網站"/>
+  <meta name="author" content="戴上為"/><meta property="og:title" content="如何透過GitHub在本站寫文章" />    <meta property="og:image" content="/zh/../extra/Dharma_wheel.svg" /><meta property="og:description" content="透過GitHub平台協同撰寫網站" /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/zh/../extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/zh/../theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/zh/">理論與實作</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/zh/pages/about.html">關於</a>
+    <a class="nav-item" href="/zh/archives.html">歸檔</a>
+    <a class="nav-item" href="/zh/categories.html">分類</a>
+    <a class="nav-item" href="/zh/tags.html">標籤</a>
+    <a class="nav-item" href="/zh/authors.html">作者</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/">English</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/zh/2015/04/21/post-on-this-site/"
+           rel="bookmark"
+           title="Permalink to 如何透過GitHub在本站寫文章">
+          如何透過GitHub在本站寫文章
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2016-01-05T04:17:00+08:00">
+    Updated: 一月 05, 2016
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2015/04/21/post-on-this-site%25zh.rst">在Github上編輯</a></div></aside>
+    <hr>
+
+    <div class="main-content"><div class="section" id="id1">
+<h2>背景</h2>
+<p>先看Git背景：
+<a class="reference external" href="http://blog.jobbole.com/85772/">Git 10 周年访谈：Linus 讲述背后故事</a></p>
+<p>後來 <a class="reference external" href="https://github.com/">GitHub</a> 推出 <a class="reference external" href="https://pages.github.com/">GitHub Pages</a> ，結合近年興起的 <a class="reference external" href="https://www.google.com/search?q=static+site+generator">static site generator</a> ，
+讓懂技術的部落客有非常powerful的工具來撰寫以前很難做到的部落格功能。</p>
+<p>本站利用 <a class="reference external" href="http://blog.getpelican.com/">Pelican</a> 來製作部落格，有以下的優點：</p>
+<blockquote>
+<ul class="simple">
+<li>可用 <a class="reference external" href="http://docutils.sourceforge.net/rst.html">reStructuredText</a>, <a class="reference external" href="http://daringfireball.net/projects/markdown/">Markdown</a>, 或 <a class="reference external" href="http://www.methods.co.nz/asciidoc/">AsciiDoc</a> 等等 <a class="reference external" href="http://www.worldhello.net/gotgithub/appendix/markups.html">簡易標記語言</a> 撰寫</li>
+<li>因為用標記語言寫，可以自由搬移內容到各處/各服務。</li>
+<li>因為用標記語言寫，容易轉成其他格式，比方說HTML, PDF, 或是電子書等等。
+(可利用 <a class="reference external" href="http://pandoc.org/">Pandoc</a> 之類的程式進行格式互轉)</li>
+<li>支援用LaTeX打數學式</li>
+<li>支援插入片斷的程式碼（包含程式碼上色）</li>
+<li>支援插入整個檔案的程式碼（包含程式碼上色）</li>
+<li>很容易就可以 HTML/JavaScript/CSS 程式demo</li>
+<li>容易在網頁嵌入影片以及聲音檔</li>
+<li>減少JavaScript，增進瀏覽網頁的速度</li>
+<li>可自由控制廣告位置，以及如何呈現，或是不放廣告</li>
+<li>可自由插入網頁評論系統： <a class="reference external" href="http://browsingthenet.blogspot.com/2013/04/google-plus-comments-on-any-website.html">Google+ comments</a>, <a class="reference external" href="https://developers.facebook.com/docs/plugins/comments">Facebook comments</a>,
+<a class="reference external" href="https://disqus.com/">Disqus</a>, ...</li>
+<li>網站會根據螢幕大小做不同呈現(responsive web design)</li>
+<li>容易做SEO,以及可以指定Facebook分享時顯示的圖片及參數。</li>
+<li>支援多語系，同篇文章不同語言版本互相連結。</li>
+<li>幾乎可以這樣說：只有想不到，沒有做不到。</li>
+</ul>
+</blockquote>
+<p>本網頁主要的repo是 <a class="reference external" href="https://github.com/siongui/userpages">userpages</a>, 含網站template以及網站內容都在此。然後透過
+<a class="reference external" href="https://travis-ci.org/">Travis CI</a> 自動編譯並上傳到 <a class="reference external" href="https://github.com/siongui/siongui.github.io">siongui.github.io</a> 。</p>
+
+</div>
+<div class="section" id="id2">
+<h2>撰寫流程</h2>
+<p>有兩種方式，一種是pull request方式，一種是collaborator方式。</p>
+<div class="section" id="pull-request">
+<h3>(1) pull request方式</h3>
+<ol class="arabic simple">
+<li>首先註冊 <a class="reference external" href="https://github.com/">GitHub</a> 帳號</li>
+<li><a class="reference external" href="https://help.github.com/articles/fork-a-repo/">fork</a> 本站 <a class="reference external" href="https://github.com/siongui/userpages">repo</a>, 利用 <a class="reference external" href="http://docutils.sourceforge.net/rst.html">rst</a> 格式寫文章，然後 <a class="reference external" href="https://help.github.com/articles/using-pull-requests/">pull request</a> 提交。</li>
+</ol>
+</div>
+<div class="section" id="collaborator">
+<h3>(2) collaborator方式</h3>
+<ol class="arabic simple">
+<li>首先註冊 <a class="reference external" href="https://github.com/">GitHub</a> 帳號</li>
+<li>聯絡站主，站主將該帳號加為 <a class="reference external" href="https://github.com/siongui/userpages">userpages</a> 的 collaborator，直接clone該repo，
+直接對 <a class="reference external" href="https://github.com/siongui/userpages">userpages</a> 新增/修改/commit/push。</li>
+<li>此方式在commit前最好先git pull更新一下本機端clone的repo，若沒更新，
+若有兩人以上同時修改並push，則需要做一個merge的動作。</li>
+</ol>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>如何寫文章</h2>
+<p>透過範例學習最快，本站每篇文章都有一個 <tt class="docutils literal">在GitHub上編輯</tt> 的連結，
+可連回到原始檔案，然後在點選 <tt class="docutils literal">raw</tt> 看原始 <a class="reference external" href="http://docutils.sourceforge.net/rst.html">rst</a> 格式。</p>
+<div class="section" id="id4">
+<h3>文章的放置位置以及語言</h3>
+<p>舉例來說，2015年4月21日的文章，就在
+<strong>content/articles/2015/04/21/</strong>
+目錄(若該目錄不存在則自己創建)下新增一個該文章的檔案，檔名取為</p>
+<p><strong>SLUG%LANG.rst</strong> ，其中 <em>SLUG</em> 是網址上的顯示名稱， <em>LANG</em> 是語言</p>
+<p>舉例來說，若新增一個檔案名為 <strong>content/articles/2015/04/21/post-on-this-site%zh.rst</strong>
+則該文章的網址是 <strong>/zh/2015/04/21/post-on-this-site/</strong> ，該文章的語言是傳統中文</p>
+<p>若新增一個檔案名為 <strong>content/articles/2015/04/21/post-on-this-site%en.rst</strong>
+則該文章的網址是 <strong>/2015/04/21/post-on-this-site/</strong> ，該文章的語言是英文</p>
+
+</div>
+<div class="section" id="id5">
+<h3>文章內容大致格式</h3>
+<div class="highlight"><pre><span></span>如何透過GitHub在本站寫文章
+##########################
+
+:date: 2015-04-21T03:53+08:00
+:modified: 2016-01-05T04:06+08:00
+:author: 某某某
+:tags: Web開發, CSS, HTML
+:category: Web開發
+:summary: 透過GitHub平台協同撰寫網站
+:og_image: http://....
+:license: CC|MIT|BSD|Apache2.0 ...
+
+(your main content here)
+</pre></div>
+<ul class="simple">
+<li><strong>date</strong> ：文章創建日期，可加可不加，不加的話則是用目錄裡的日期當成此文章日期</li>
+<li><strong>modified</strong> ：文章修改日期</li>
+<li><strong>author</strong> ：作者名</li>
+<li><strong>tags</strong> ：可以有好幾個。</li>
+<li><strong>category</strong> ：只可以有一個。</li>
+<li><strong>summary</strong> ：文章摘要，此摘要即為 <a class="reference external" href="http://www.w3schools.com/tags/tag_meta.asp">HTML meta description</a> 以及 <a class="reference external" href="http://davidwalsh.name/facebook-meta-tags">og:description</a></li>
+<li><strong>og_image</strong> ：是此文被分享或貼到Facebook或Google+之類的社交網站上時，顯示的圖片網址。
+(參考 <a class="footnote-reference" href="#id24" id="id6">[7]</a>)</li>
+<li><strong>license</strong> ：此文章 and/or 程式碼的授權，可以是 <a class="reference external" href="http://creativecommons.org.tw/">CC</a>, MIT, BSD, Apache 2.0, ...</li>
+</ul>
+<p><strong>tags</strong>, <strong>category</strong>, <strong>author</strong>, <strong>summary</strong> 為建議必填，其他欄位可視情形填或不填。</p>
+<p><a class="reference external" href="http://docutils.sourceforge.net/rst.html">rst</a> 格式怎樣寫可參考 <a class="footnote-reference" href="#id18" id="id7">[1]</a> ，至於用LaTeX寫數學，可看 <a class="footnote-reference" href="#id19" id="id8">[2]</a> 。</p>
+<p>如何撰寫文章的更多細節，請閱讀 <a class="reference external" href="http://docs.getpelican.com/en/3.5.0/content.html">Pelican官方文件</a></p>
+</div>
+<div class="section" id="id9">
+<h3>注意事項</h3>
+<ul>
+<li><p class="first">每行建議不超過80個字母，一個中文算兩個字母。（非硬性規定）</p>
+</li>
+<li><p class="first">若不確定LaTex顯示出來如何，可先在 <a class="footnote-reference" href="#id20" id="id10">[3]</a> 輸入看結果。
+(參考 <a class="footnote-reference" href="#id21" id="id11">[4]</a> 輸入數學符號)</p>
+</li>
+<li><p class="first">可參考 <a class="footnote-reference" href="#id22" id="id12">[5]</a> 來寫 <a class="reference external" href="http://docutils.sourceforge.net/rst.html">rst</a></p>
+</li>
+<li><p class="first">可利用 <a class="reference external" href="http://rst.ninjs.org/">線上reStructuredText編輯器</a>
+（可線上預覽，但因為CSS不同，預覽與實際網站呈現會有些差異）</p>
+</li>
+<li><p class="first">亦可利用 <a class="reference external" href="http://www.sublimetext.com/">Sublime Text</a> + <a class="reference external" href="https://github.com/timonwong/OmniMarkupPreviewer">OmniMarkupPreviewer</a> plugin
+來撰寫文章並預覽，但同樣因為CSS不同的關係，預覽與實際網站呈現會有些差異</p>
+</li>
+<li><p class="first">標題下的 <tt class="docutils literal">#</tt> 長度至少要跟標題長度一樣長，或更長，例如以下是錯誤寫法：</p>
+<div class="highlight"><pre><span></span><span class="gh">[Math] The infamous Grasshopper problem</span>
+<span class="gh">################################</span>
+</pre></div>
+<p>正確寫法是：</p>
+<div class="highlight"><pre><span></span><span class="gh">[Math] The infamous Grasshopper problem</span>
+<span class="gh">#######################################</span>
+</pre></div>
+</li>
+<li><p class="first"><a class="reference external" href="https://github.com/siongui/userpages">userpages</a> 更改(commit並push到GitHub上)後， <a class="reference external" href="https://travis-ci.org/">Travis CI</a> 會自動編譯
+並更新 <a class="reference external" href="https://github.com/siongui/siongui.github.io">siongui.github.io</a> 內容。</p>
+</li>
+</ul>
+</div>
+<div class="section" id="seofacebook">
+<h3>SEO以及Facebook分享</h3>
+<p>網站SEO(意指容易在搜尋引擎被找到)有三個重點：</p>
+<blockquote>
+<ul class="simple">
+<li>HTML title： 該網頁的title，必須配合搜尋關鍵字</li>
+<li>URL：舉例來說，若網頁是談有關random number的文章，網址裡最好是：
+<em>/2015/04/21/random-number/</em> ，將random number這兩個關鍵字包含在網址裡。
+若是用 <em>/2015/04/21/blog-post_21.html</em> 之類的網址，將不利於SEO。</li>
+<li>日期：文章日期越新越好。</li>
+</ul>
+</blockquote>
+<p>文章被分享或貼到Facebook或Google+之類的社交網站上時，
+文章的顯示圖片網址是metadata裡的 <em>og_image</em>,
+文章描述則是 <em>summary</em> 裡填寫的描述。
+Facebook分享之詳情請參考 <a class="footnote-reference" href="#id24" id="id13">[7]</a> 或是 <a class="reference external" href="https://developers.facebook.com/docs/sharing/best-practices">Facebook官方指南</a> 。</p>
+<p>網站SEO更多詳情請看 <a class="footnote-reference" href="#id26" id="id14">[9]</a>, <a class="footnote-reference" href="#id28" id="id15">[10]</a>, <a class="footnote-reference" href="#id30" id="id16">[11]</a> 。</p>
+</div>
+</div>
+<div class="section" id="id17">
+<h2>預覽整個網站</h2>
+<p>本站目前只能在 Ubuntu Linux 上將整個網站編譯出來並預覽，詳情請看： <a class="reference external" href="https://github.com/siongui/userpages/blob/master/README.rst">README</a> 。
+Windows平台理論上應該也可以將整個網站編譯出來並預覽，但從沒試過。</p>
+</div>
+<div class="section" id="https-siongui-github-io">
+<h2>更新網站( <a class="reference external" href="https://siongui.github.io/">https://siongui.github.io/</a> )</h2>
+<p>只要將 <a class="reference external" href="https://github.com/siongui/userpages">userpages</a> 的新commit從本機push到GitHub上， <a class="reference external" href="https://travis-ci.org/">Travis CI</a> 會
+自動編譯並更新 <a class="reference external" href="https://github.com/siongui/siongui.github.io">siongui.github.io</a> 內容，不需要手動操作。</p>
+<hr class="docutils" />
+<p>參考：</p>
+<table class="docutils footnote" frame="void" id="id18" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id7">[1]</a></td><td><a class="reference external" href="http://docutils.sourceforge.net/rst.html">reStructuredText</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id19" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id8">[2]</a></td><td><a class="reference external" href="http://docutils.sourceforge.net/docs/ref/rst/directives.html#math">reStructuredText Directives - math</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id20" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id10">[3]</a></td><td><a class="reference external" href="http://www.codecogs.com/latex/eqneditor.php">Online LaTeX Equation Editor - create, integrate and download</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id21" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id11">[4]</a></td><td><a class="reference external" href="http://en.wikibooks.org/wiki/LaTeX/Mathematics">LaTeX/Mathematics - Wikibooks, open books for an open world</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id22" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id12">[5]</a></td><td><a class="reference external" href="http://www.worldhello.net/gotgithub/appendix/markups.html">7. 附录：轻量级标记语言 — GotGitHub</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id23" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[6]</td><td><a class="reference external" href="http://rst.ninjs.org/">Online reStructuredText editor</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id24" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[7]</td><td><em>(<a class="fn-backref" href="#id6">1</a>, <a class="fn-backref" href="#id13">2</a>)</em> <a class="reference external" href="http://davidwalsh.name/facebook-meta-tags">Facebook Open Graph META Tags</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id25" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[8]</td><td><a class="reference external" href="http://feedfree.me/">feedfree</a></td></tr>
+</tbody>
+</table>
+<p>網站SEO：</p>
+<table class="docutils footnote" frame="void" id="id26" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id14">[9]</a></td><td><a class="reference external" href="http://www.williamlong.info/archives/4212.html">网站结构优化策略-月光博客</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id28" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id15">[10]</a></td><td><a class="reference external" href="http://www.williamlong.info/archives/4213.html">网站页面优化策略-月光博客</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id30" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id16">[11]</a></td><td><a class="reference external" href="http://www.williamlong.info/archives/4214.html">网站内链优化策略-月光博客</a></td></tr>
+</tbody>
+</table>
+<table class="docutils citation" frame="void" id="a" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[a]</td><td><a class="reference external" href="http://web.jobbole.com/84805/">Meta 标签与搜索引擎优化 - WEB前端 - 伯乐在线</a></td></tr>
+</tbody>
+</table>
+<p>Vim開發環境：</p>
+<table class="docutils footnote" frame="void" id="id32" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[12]</td><td><a class="reference external" href="https://github.com/rainyear/lolita/issues/5">Vim as Golang IDE · Issue #5 · rainyear/lolita · GitHub</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id33" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[13]</td><td><a class="reference external" href="http://studygolang.com/articles/1785">Golang开发环境搭建-Vim篇</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id34" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[14]</td><td><a class="reference external" href="http://www.drbunsen.org/the-text-triumvirate/">Dr. Bunsen / The Text Triumvirate</a>
+(<a class="reference external" href="http://blog.jobbole.com/86571/">文本三巨头：zsh、tmux 和 vim</a>)</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id35" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[15]</td><td><a class="reference external" href="http://blog.jobbole.com/86132/">Vim入门教程 - 博客 - 伯乐在线</a></td></tr>
+</tbody>
+</table>
+<hr class="docutils" />
+<p>附錄：</p>
+<p><a class="reference external" href="https://www.google.com/search?q=travis+ci+%2B+pelican">travis ci + pelican</a></p>
+</div>
+</div>
+
+    <footer><hr><address><b>作者</b>:
+    <a rel="author"
+       href="/zh/author/dai-shang-wei.html">戴上為</a>
+  </address><aside>
+    <i>&isin;</i> <b>分類</b>:
+    <a href="/zh/category/webkai-fa.html">Web開發</a>
+  </aside><aside>
+    <i>&sum;</i> <b>標籤</b>:
+      <a href="/zh/tag/webkai-fa.html">Web開發</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

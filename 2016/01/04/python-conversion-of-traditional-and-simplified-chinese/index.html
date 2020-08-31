@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>[Python] Conversion of Traditional and Simplified Chinese</title>
+  <meta name="keywords" content="Python,String Manipulation,OpenCC,apt command,Conversion of Traditional and Simplified Chinese"/>
+  <meta name="description" content="Conversion of Traditional and Simplified Chinese by OpenCC and Python programming language."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="[Python] Conversion of Traditional and Simplified Chinese" /><meta property="og:image" content="https://www.python.org/static/opengraph-icon-200x200.png" />
+<meta property="og:description" content="Conversion of Traditional and Simplified Chinese by OpenCC and Python programming language." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2016/01/04/python-conversion-of-traditional-and-simplified-chinese/"
+           rel="bookmark"
+           title="Permalink to [Python] Conversion of Traditional and Simplified Chinese">
+          [Python] Conversion of Traditional and Simplified Chinese
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2016-01-04T00:49:00+08:00">
+    January 04, 2016
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2016/01/04/python-conversion-of-traditional-and-simplified-chinese%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p><a class="reference external" href="http://opencc.byvoid.com/">OpenCC</a> is a tool (both online and offline) for conversion Traditional and
+Simplified Chinese. In this post, we will write a <a class="reference external" href="https://www.python.org/">Python</a> program to use <a class="reference external" href="http://opencc.byvoid.com/">OpenCC</a>
+to convert Simplified Chinese to Traditional Chinese.</p>
+<div class="section" id="install-opencc">
+<h2>Install <a class="reference external" href="http://opencc.byvoid.com/">OpenCC</a></h2>
+<p>See <a class="reference external" href="https://github.com/BYVoid/OpenCC">OpenCC repository on GitHub</a> for installation. If you use Ubuntu Linux
+15.10, you can install <a class="reference external" href="http://opencc.byvoid.com/">OpenCC</a> by:</p>
+<div class="highlight"><pre><span></span>$ sudo apt-get install opencc
+</pre></div>
+</div>
+<div class="section" id="opencc-binding-for-python">
+<h2><a class="reference external" href="http://opencc.byvoid.com/">OpenCC</a> binding for <a class="reference external" href="https://www.python.org/">Python</a></h2>
+<p>I found a lot of <a class="reference external" href="http://opencc.byvoid.com/">OpenCC</a> bindings for <a class="reference external" href="https://www.python.org/">Python</a> (<a class="footnote-reference" href="#id7" id="id1">[3]</a>, <a class="footnote-reference" href="#id9" id="id2">[5]</a>, <a class="footnote-reference" href="#id10" id="id3">[6]</a>) We will use
+<a class="reference external" href="https://github.com/cute/pyopencc">pyOpenCC</a> in <a class="footnote-reference" href="#id7" id="id4">[3]</a> to convert Chinese. If you use Ubuntu Linux 15.10, you can
+install <a class="reference external" href="https://pypi.python.org/pypi/pyopencc">pyOpenCC</a> by:</p>
+<div class="highlight"><pre><span></span><span class="c1"># Install necessary header files for compilation</span>
+$ sudo apt-get install python-dev libopencc-dev
+<span class="c1"># Install pip. Ignore this step if you already installed pip</span>
+$ sudo apt-get install python-pip
+<span class="c1"># Install pyOpenCC</span>
+$ sudo pip install pyopencc
+</pre></div>
+
+</div>
+<div class="section" id="souce-code-for-demo">
+<h2>Souce Code For Demo</h2>
+<figure class="github-file">
+            <figcaption>
+              <a href="https://github.com/siongui/userpages/blob/master/content/code/python-opencc/convert-chinese.py">convert-chinese.py</a> |
+              <a href="https://github.com/siongui/userpages">repository</a> |
+              <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/code/python-opencc/convert-chinese.py">view raw</a>
+            </figcaption><div class="code-file">
+            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
+<span class="c1"># -*- coding:utf-8 -*-</span>
+
+<span class="kn">import</span> <span class="nn">pyopencc</span>
+<span class="n">CN2TW</span> <span class="o">=</span> <span class="n">pyopencc</span><span class="o">.</span><span class="n">OpenCC</span><span class="p">(</span><span class="s1">&#39;zhs2zhtw_vp.ini&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">convert</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+  <span class="nb">print</span><span class="p">(</span><span class="n">CN2TW</span><span class="p">(</span><span class="s2">&quot;中国鼠标软件打印机&quot;</span><span class="p">))</span>
+</pre></div>
+</td></tr></table></div></figure><p>You can replace <tt class="docutils literal">zhs2zhtw_vp.ini</tt> with other configurations according to your
+needs. All configurations I found by <tt class="docutils literal">locate opencc</tt> are:</p>
+<div class="highlight"><pre><span></span>mix2zhs.ini
+mix2zht.ini
+zhs2zht.ini
+zhs2zhtw_p.ini
+zhs2zhtw_v.ini
+zhs2zhtw_vp.ini
+zht2zhs.ini
+zht2zhtw_p.ini
+zht2zhtw_v.ini
+zht2zhtw_vp.ini
+zhtw2zhcn_s.ini
+zhtw2zhcn_t.ini
+zhtw2zhs.ini
+zhtw2zht.ini
+</pre></div>
+
+<div class="section" id="output-of-demo">
+<h3>Output of Demo</h3>
+<div class="highlight"><pre><span></span>中國滑鼠軟體列印機
+</pre></div>
+<p>Tested on: <tt class="docutils literal">Ubuntu Linux 15.10</tt>, <tt class="docutils literal">Python 2.7.10</tt>, <tt class="docutils literal">opencc <span class="pre">0.4.3-2build1</span></tt>,
+<tt class="docutils literal"><span class="pre">pyopencc-0.4.2.2</span></tt>.</p>
+<hr class="docutils" />
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id5" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td><a class="reference external" href="http://opencc.byvoid.com/">開放中文轉換 Open Chinese Convert (OpenCC)</a>
+(<a class="reference external" href="https://github.com/BYVoid/OpenCC">source code</a>)</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id6" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[2]</td><td>Google Search: <a class="reference external" href="https://www.google.com/search?q=python+opencc">python opencc</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id7" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[3]</td><td><em>(<a class="fn-backref" href="#id1">1</a>, <a class="fn-backref" href="#id4">2</a>)</em> <a class="reference external" href="https://github.com/cute/pyopencc">pyOpenCC</a>
+(<a class="reference external" href="https://pypi.python.org/pypi/pyopencc">PyPI</a>,
+<a class="reference external" href="http://liguangming.com/opencc-python-binding">OpenCC Python binding</a>)</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id8" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[4]</td><td><a class="reference external" href="https://code.google.com/p/python-jianfan/">python-jianfan - A python library for translation between traditional and simplified chinese - Google Project Hosting</a>
+(<a class="reference external" href="https://github.com/siongui/python-jianfan">mirror</a>)</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id9" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[5]</a></td><td><a class="reference external" href="https://bitbucket.org/victorlin/opencc_python">A Python wrapper for Open Chinese Convert</a>
+(<a class="reference external" href="https://pypi.python.org/pypi/opencc-python/">PyPI</a>)</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id10" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id3">[6]</a></td><td><a class="reference external" href="https://github.com/lepture/opencc-python">A ctypes-based OpenCC converter for Chinese</a>
+(<a class="reference external" href="https://pypi.python.org/pypi/OpenCC">PyPI</a>)</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id11" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[7]</td><td><a class="reference external" href="http://danceintech.blogspot.com/2015/01/python-opencc-ubuntu.html">Python 繁簡轉換套件　OpenCC 安裝及使用方法 (Ubuntu)</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id12" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[8]</td><td><a class="reference external" href="http://sushiwens.blogspot.com/2012/07/opencc-in-python.html">使用opencc in python繁體（正體）簡體中文轉換</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id13" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[9]</td><td><a class="reference external" href="/2016/01/03/go-conversion-of-traditional-and-simplified-chinese/">[Golang] Conversion of Traditional and Simplified Chinese</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id14" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[10]</td><td><a class="reference external" href="/2012/10/03/javascript-conversion-of-traditional-and-simplified-chinese/">[JavaScript] Conversion of Traditional and Simplified Chinese</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id15" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[11]</td><td>Google Search: <a class="reference external" href="https://www.google.com/search?q=Python.h%3A+No+such+file+or+directory">Python.h: No such file or directory</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id16" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[12]</td><td><a class="reference external" href="/2017/02/19/go-converter-of-traditional-and-simplified-chinese/">[Golang] Converter for Traditional and Simplified Chinese</a></td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/python.html">Python</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/python.html">Python</a>
+,       <a href="/tag/string-manipulation.html">String Manipulation</a>
+,       <a href="/tag/opencc.html">OpenCC</a>
+,       <a href="/tag/apt-command.html">apt command</a>
+,       <a href="/tag/conversion-of-traditional-and-simplified-chinese.html">Conversion of Traditional and Simplified Chinese</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

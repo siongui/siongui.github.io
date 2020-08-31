@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>Pāli Input Method on Ubuntu Linux</title>
+  <meta name="keywords" content="Pāli Input Method,Ubuntu Linux"/>
+  <meta name="description" content="Type romanized Pāli on your Ubuntu Linux."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="Pāli Input Method on Ubuntu Linux" />    <meta property="og:image" content="/./extra/Dharma_wheel.svg" /><meta property="og:description" content="Type romanized Pāli on your Ubuntu Linux." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2012/05/23/pali-input-method-on-ubuntu-linux/"
+           rel="bookmark"
+           title="Permalink to Pāli Input Method on Ubuntu Linux">
+          Pāli Input Method on Ubuntu Linux
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2012-05-23T00:00:00+08:00">
+    May 23, 2012
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2012/05/23/pali-input-method-on-ubuntu-linux%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p>The blog post <a class="footnote-reference" href="#id4" id="id1">[1]</a> discusses how to create an input method for romanized
+<a class="reference external" href="https://en.wikipedia.org/wiki/Pali">Pāli</a>, but it doesn't give references for tweaking the mim file, i.e.,
+tweaking the input method. Also, the blog post <a class="footnote-reference" href="#id4" id="id2">[1]</a> seems to come from the
+thread <a class="footnote-reference" href="#id5" id="id3">[2]</a>.</p>
+<p>The blog post is good, but I need another feature that when I type the key
+combination &quot;alt + a&quot;, ā will show up. The same for other vowels. After some
+investigation, removing <a class="reference external" href="https://en.wikipedia.org/wiki/Sanskrit">Sanskrit</a> part, and making necessary modifications, the
+following is my <em>mim</em> file (tested on <a class="reference external" href="http://releases.ubuntu.com/12.04/">Ubuntu 12.04</a>).</p>
+
+<figure class="github-file">
+            <figcaption>
+              <a href="https://github.com/siongui/userpages/blob/master/content/articles/2012/05/23/pali-translit.mim">pali-translit.mim</a> |
+              <a href="https://github.com/siongui/userpages">repository</a> |
+              <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/articles/2012/05/23/pali-translit.mim">view raw</a>
+            </figcaption><div class="code-file">
+            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42</pre></div></td><td class="code"><div class="highlight"><pre><span></span>;; pali-translit.mim
+;;
+;; Input method for Pali transliteration using the ITRANS scheme.
+
+(input-method t pali-translit)
+
+(title &quot;pali-translit&quot;)
+
+(map
+(trans
+
+(&quot;aa&quot; &quot;ā&quot;)
+((A-a) &quot;ā&quot;)
+(&quot;AA&quot; &quot;Ā&quot;)
+((A-A) &quot;Ā&quot;)
+(&quot;ii&quot; &quot;ī&quot;)
+((A-i) &quot;ī&quot;)
+(&quot;II&quot; &quot;Ī&quot;)
+((A-I) &quot;Ī&quot;)
+(&quot;uu&quot; &quot;ū&quot;)
+((A-u) &quot;ū&quot;)
+(&quot;UU&quot; &quot;Ū&quot;)
+((A-U) &quot;Ū&quot;)
+(&quot;.l&quot; &quot;ḷ&quot;)
+(&quot;.L&quot; &quot;Ḷ&quot;)
+(&quot;.M&quot; &quot;ṁ&quot;)
+(&quot;.m&quot; &quot;ṃ&quot;)
+(&quot;;n&quot; &quot;ṅ&quot;)
+(&quot;;N&quot; &quot;Ṅ&quot;)
+(&quot;~n&quot; &quot;ñ&quot;)
+(&quot;~N&quot; &quot;Ñ&quot;)
+(&quot;.t&quot; &quot;ṭ&quot;)
+(&quot;.T&quot; &quot;Ṭ&quot;)
+(&quot;.d&quot; &quot;ḍ&quot;)
+(&quot;.D&quot; &quot;Ḍ&quot;)
+(&quot;.n&quot; &quot;ṇ&quot;)
+(&quot;.N&quot; &quot;Ṇ&quot;)
+))
+
+(state
+(init
+(trans)))
+</pre></div>
+</td></tr></table></div></figure>
+<hr class="docutils" />
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td><em>(<a class="fn-backref" href="#id1">1</a>, <a class="fn-backref" href="#id2">2</a>)</em> <a class="reference external" href="http://thanhsiang.org/faqing/node/109">How to use iBus to input Romanized Pali and Sanskrit in Ubuntu</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id5" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id3">[2]</a></td><td><a class="reference external" href="http://ubuntuforums.org/showthread.php?t=646207">Sanskrit input (Devanagari and transliteration)</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id6" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[3]</td><td><a class="reference external" href="http://www.nongnu.org/m17n/manual-en/m17nDBFormat.html">Data format of the m17n database</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id7" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[4]</td><td><a class="reference external" href="http://en.wikipedia.org/wiki/ITRANS">ITRANS</a></td></tr>
+</tbody>
+</table>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/pali.html">Pāli</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/pali-input-method.html">Pāli Input Method</a>
+,       <a href="/tag/ubuntu-linux.html">Ubuntu Linux</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

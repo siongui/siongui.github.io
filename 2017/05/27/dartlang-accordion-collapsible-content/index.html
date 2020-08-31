@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>[Dart] Accordion (Collapsible Content)</title>
+  <meta name="keywords" content="Dart,html,CSS,Accordion (Collapsible Content)"/>
+  <meta name="description" content="Accordion (collapsible content) implementation via Dart."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="[Dart] Accordion (Collapsible Content)" /><meta property="og:image" content="http://christineosazuwa.com/wp-content/uploads/2015/05/13-06_accordionmenu1.jpg" />
+<meta property="og:description" content="Accordion (collapsible content) implementation via Dart." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2017/05/27/dartlang-accordion-collapsible-content/"
+           rel="bookmark"
+           title="Permalink to [Dart] Accordion (Collapsible Content)">
+          [Dart] Accordion (Collapsible Content)
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2017-05-27T23:14:00+08:00">
+    May 27, 2017
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2017/05/27/dartlang-accordion-collapsible-content%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p>Accordion (collapsible content) implementation via Dart.
+The accordion here is similar to the accordion example in <a class="reference external" href="https://getbootstrap.com/docs/3.3/javascript/#collapse-example-accordion">Bootstrap Collapse</a>.</p>
+<p class="align-center rubric"><a class="reference external" href="https://dartpad.dartlang.org/c460f6d354148c8d74dae92543c7fb42">Run on DartPad</a></p>
+<p>The following is the source code for above demo.</p>
+<p><strong>HTML</strong>:</p>
+<div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;accordion&quot;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;panel&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;panel-title&quot;</span><span class="p">&gt;</span>
+      Title #1
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;panel-body&quot;</span><span class="p">&gt;</span>
+      Content Body #1
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;panel&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;panel-title&quot;</span><span class="p">&gt;</span>
+      Title #2
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;panel-body&quot;</span><span class="p">&gt;</span>
+      Content Body #2
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;panel&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;panel-title&quot;</span><span class="p">&gt;</span>
+      Title #3
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;panel-body&quot;</span><span class="p">&gt;</span>
+      Content Body #3
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</pre></div>
+<p>Wrap all your panels in the element with <tt class="docutils literal">.accordion</tt> class.
+The panels consist of <tt class="docutils literal">div.panel</tt>, and there are <tt class="docutils literal"><span class="pre">div.panel-title</span></tt> and
+<tt class="docutils literal"><span class="pre">div.panel-body</span></tt> inside <tt class="docutils literal">div.panel</tt>.</p>
+
+<p><strong>Dart</strong>:</p>
+<div class="highlight"><pre><span></span><span class="k">import</span> <span class="s1">&#39;dart:html&#39;</span><span class="p">;</span>
+
+<span class="kt">void</span> <span class="n">setupAccordion</span><span class="p">(</span><span class="n">Element</span> <span class="n">accordion</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="n">titles</span> <span class="o">=</span> <span class="n">accordion</span><span class="p">.</span><span class="n">querySelectorAll</span><span class="p">(</span><span class="s2">&quot;.panel-title&quot;</span><span class="p">);</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="n">title</span> <span class="k">in</span> <span class="n">titles</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">title</span><span class="p">.</span><span class="n">dataset</span><span class="p">[</span><span class="s2">&quot;index&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">titles</span><span class="p">.</span><span class="n">indexOf</span><span class="p">(</span><span class="n">title</span><span class="p">).</span><span class="n">toString</span><span class="p">();</span>
+    <span class="n">title</span><span class="p">.</span><span class="n">onClick</span><span class="p">.</span><span class="n">listen</span><span class="p">((</span><span class="n">Event</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">Element</span> <span class="n">elm</span> <span class="o">=</span> <span class="n">e</span><span class="p">.</span><span class="n">target</span><span class="p">;</span>
+      <span class="kd">var</span> <span class="n">bodys</span> <span class="o">=</span> <span class="n">accordion</span><span class="p">.</span><span class="n">querySelectorAll</span><span class="p">(</span><span class="s2">&quot;.panel-body&quot;</span><span class="p">);</span>
+      <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="n">body</span> <span class="k">in</span> <span class="n">bodys</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">elm</span><span class="p">.</span><span class="n">dataset</span><span class="p">[</span><span class="s2">&quot;index&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">bodys</span><span class="p">.</span><span class="n">indexOf</span><span class="p">(</span><span class="n">body</span><span class="p">).</span><span class="n">toString</span><span class="p">())</span> <span class="p">{</span>
+          <span class="k">if</span> <span class="p">(</span><span class="n">body</span><span class="p">.</span><span class="n">style</span><span class="p">.</span><span class="n">display</span> <span class="o">==</span> <span class="s2">&quot;block&quot;</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">body</span><span class="p">.</span><span class="n">style</span><span class="p">.</span><span class="n">display</span> <span class="o">=</span> <span class="s2">&quot;none&quot;</span><span class="p">;</span>
+          <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="n">body</span><span class="p">.</span><span class="n">style</span><span class="p">.</span><span class="n">display</span> <span class="o">=</span> <span class="s2">&quot;block&quot;</span><span class="p">;</span>
+          <span class="p">}</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+          <span class="n">body</span><span class="p">.</span><span class="n">style</span><span class="p">.</span><span class="n">display</span> <span class="o">=</span> <span class="s2">&quot;none&quot;</span><span class="p">;</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">});</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="n">accordions</span> <span class="o">=</span> <span class="n">querySelectorAll</span><span class="p">(</span><span class="s2">&quot;.accordion&quot;</span><span class="p">);</span>
+
+  <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="n">accordion</span> <span class="k">in</span> <span class="n">accordions</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">setupAccordion</span><span class="p">(</span><span class="n">accordion</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<p>Find all elements with <tt class="docutils literal">.accordion</tt> class, and setup the event listeners of
+panel titles. When users click on the title of the panel, if the body of the
+panel is hidden, show the panel body and hide all other panel bodys. Otherwise
+hide all panel bodys.</p>
+<p><strong>CSS</strong>:</p>
+<div class="highlight"><pre><span></span><span class="p">.</span><span class="nc">panel</span> <span class="p">{</span>
+  <span class="k">margin-bottom</span><span class="p">:</span> <span class="mi">1</span><span class="kt">rem</span><span class="p">;</span>
+  <span class="k">border</span><span class="p">:</span> <span class="mi">1</span><span class="kt">px</span> <span class="kc">solid</span> <span class="mh">#ccc</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="p">.</span><span class="nc">panel-title</span> <span class="p">{</span>
+  <span class="k">font-weight</span><span class="p">:</span> <span class="kc">bold</span><span class="p">;</span>
+  <span class="k">padding</span><span class="p">:</span> <span class="mf">0.01</span><span class="kt">em</span> <span class="mi">16</span><span class="kt">px</span><span class="p">;</span>
+  <span class="k">cursor</span><span class="p">:</span> <span class="kc">pointer</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="p">.</span><span class="nc">panel-body</span> <span class="p">{</span>
+  <span class="k">padding</span><span class="p">:</span> <span class="mf">0.01</span><span class="kt">em</span> <span class="mi">16</span><span class="kt">px</span><span class="p">;</span>
+  <span class="k">display</span><span class="p">:</span> <span class="kc">none</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>Nothing special in CSS code here. For demo purpose, I make CSS very simple. You
+can try to add some animation if you want.</p>
+
+<hr class="docutils" />
+<p>Tested on:</p>
+<ul class="simple">
+<li><a class="reference external" href="https://dartpad.dartlang.org/">DartPad</a>.</li>
+<li><tt class="docutils literal">Chromium Version 58.0.3029.110 Built on Ubuntu , running on Ubuntu 17.04 <span class="pre">(64-bit)</span></tt></li>
+</ul>
+<hr class="docutils" />
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id1" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td><a class="reference external" href="/2017/05/24/javascript-accordion-collapsible-content/">[JavaScript] Accordion (Collapsible Content)</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[2]</td><td><a class="reference external" href="https://www.dartlang.org/resources/synonyms">Synonyms - Dart, JavaScript, C#, Python | Dart</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[3]</td><td><a class="reference external" href="https://webdev.dartlang.org/articles/low-level-html/improving-the-dom">Improving the DOM | webdev.dartlang.org</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[4]</td><td><a class="reference external" href="https://www.dartlang.org/resources/dart-tips/dart-tips-ep-4">Strings, Numbers, Booleans, Oh My! - Dart Tips, Episode 4 | Dart</a></td></tr>
+</tbody>
+</table>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/dart.html">Dart</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/dart.html">Dart</a>
+,       <a href="/tag/html.html">html</a>
+,       <a href="/tag/css.html">CSS</a>
+,       <a href="/tag/accordion-collapsible-content.html">Accordion (Collapsible Content)</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

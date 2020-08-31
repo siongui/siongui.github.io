@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>[Dart] Online Input Method - Pali (Pāli, Pāḷi)</title>
+  <meta name="keywords" content="Dart,Pāli Input Method,IME"/>
+  <meta name="description" content="Online Pali (Pāli, Pāḷi) Input Method using Dart programming language."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="[Dart] Online Input Method - Pali (Pāli, Pāḷi)" />    <meta property="og:image" content="/./extra/Dharma_wheel.svg" /><meta property="og:description" content="Online Pali (Pāli, Pāḷi) Input Method using Dart programming language." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2015/02/23/dart-online-input-method-pali/"
+           rel="bookmark"
+           title="Permalink to [Dart] Online Input Method - Pali (Pāli, Pāḷi)">
+          [Dart] Online Input Method - Pali (Pāli, Pāḷi)
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2015-02-23T08:43:00+08:00">
+    February 23, 2015
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2015/02/23/dart-online-input-method-pali%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p>Inspired by <a class="reference external" href="https://code.google.com/p/palipad/">palipad</a>
+(<a class="reference external" href="http://palipad.googlecode.com/git/palipad.html">demo of palipad</a>),
+I write a <a class="reference external" href="https://www.dartlang.org/">Dart</a> webapp which help users input <a class="reference external" href="http://en.wikipedia.org/wiki/Pali">Pāli</a> language online.
+The implementation is simple. Create an <a class="reference external" href="http://www.w3schools.com/tags/tag_input.asp">input:text</a> element first, and then
+listen to the <a class="reference external" href="http://www.w3schools.com/jsref/event_onkeyup.asp">onKeyup event</a> of the <a class="reference external" href="http://www.w3schools.com/tags/tag_input.asp">input:text</a> element. The last two
+characters of the <a class="reference external" href="http://www.w3schools.com/tags/tag_input.asp">input:text</a> element will be replaced according to the
+following rule.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="55%" />
+<col width="45%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">Type</th>
+<th class="head">For</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>AA</td>
+<td>Ā</td>
+</tr>
+<tr><td>aa</td>
+<td>ā</td>
+</tr>
+<tr><td>II</td>
+<td>Ī</td>
+</tr>
+<tr><td>ii</td>
+<td>ī</td>
+</tr>
+<tr><td>UU</td>
+<td>Ū</td>
+</tr>
+<tr><td>uu</td>
+<td>ū</td>
+</tr>
+<tr><td>&quot;N</td>
+<td>Ṅ</td>
+</tr>
+<tr><td>&quot;n</td>
+<td>ṅ</td>
+</tr>
+<tr><td>.M</td>
+<td>Ṃ</td>
+</tr>
+<tr><td>.m</td>
+<td>ṃ</td>
+</tr>
+<tr><td>~N</td>
+<td>Ñ</td>
+</tr>
+<tr><td>~n</td>
+<td>ñ</td>
+</tr>
+<tr><td>.T</td>
+<td>Ṭ</td>
+</tr>
+<tr><td>.t</td>
+<td>ṭ</td>
+</tr>
+<tr><td>.D</td>
+<td>Ḍ</td>
+</tr>
+<tr><td>.d</td>
+<td>ḍ</td>
+</tr>
+<tr><td>.N</td>
+<td>Ṇ</td>
+</tr>
+<tr><td>.n</td>
+<td>ṇ</td>
+</tr>
+<tr><td>.L</td>
+<td>Ḷ</td>
+</tr>
+<tr><td>.l</td>
+<td>ḷ</td>
+</tr>
+</tbody>
+</table>
+
+<p class="align-center rubric"><a class="reference external" href="https://siongui.github.io/dart-online-input-method-pali/">Demo</a> (<a class="reference external" href="https://github.com/siongui/dart-online-input-method-pali">Fork me on Github</a>)</p>
+<p>Source Code for Demo (<em>HTML</em>):</p>
+<script src="https://gist-it.appspot.com/github/siongui/dart-online-input-method-pali/blob/master/pali.html"></script><noscript>You need to enable JavaScript to see pali.html!</noscript>
+<p>Source Code for Demo (<em>Dart</em>):</p>
+<script src="https://gist-it.appspot.com/github/siongui/dart-online-input-method-pali/blob/master/pali.dart"></script><noscript>You need to enable JavaScript to see pali.dart!</noscript><hr class="docutils" />
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id1" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td><a class="reference external" href="http://stackoverflow.com/questions/14433156/respond-immediately-to-textarea-changes-in-dart">events - Respond immediately to textarea changes in Dart - Stack Overflow</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[2]</td><td><a class="reference external" href="https://api.dartlang.org/apidocs/channels/stable/dartdoc-viewer/dart:core.String">dart:core.String API Docs</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[3]</td><td><a class="reference external" href="http://stackoverflow.com/questions/22747125/use-static-variable-in-function">dart - Use static variable in function() - Stack Overflow</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[4]</td><td><a class="reference external" href="http://stackoverflow.com/questions/2897155/get-cursor-position-in-characters-within-a-text-input-field">javascript - Get cursor position (in characters) within a text Input field - Stack Overflow</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id5" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[5]</td><td><a class="reference external" href="http://stackoverflow.com/questions/22797294/textarea-cursor-position">dart - TextArea cursor position - Stack Overflow</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id6" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[6]</td><td><a class="reference external" href="http://stackoverflow.com/questions/21730134/caret-position-in-an-editable-div-dartlang">dart - caret position in an editable div (dartlang) - Stack Overflow</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id7" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[7]</td><td><a class="reference external" href="http://stackoverflow.com/questions/28477487/setting-and-getting-selectionrange-caret-position-in-contenteditable-div-element">selection - Setting and getting selectionrange/caret position in contenteditable div element (dart) - Stack Overflow</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id8" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[8]</td><td><a class="reference external" href="/2012/05/23/pali-input-method-on-ubuntu-linux/">Pāli Input Method on Ubuntu Linux</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id9" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[9]</td><td><a class="reference external" href="/2016/01/12/go-online-input-method-pali-by-gopherjs/">[Golang] Online Input Method (Pāli) by GopherJS</a></td></tr>
+</tbody>
+</table>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/dart.html">Dart</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/dart.html">Dart</a>
+,       <a href="/tag/pali-input-method.html">Pāli Input Method</a>
+,       <a href="/tag/ime.html">IME</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

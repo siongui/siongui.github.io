@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>[Golang] JSONP Example (CORS) by GopherJS</title>
+  <meta name="keywords" content="Go,Golang,GopherJS,Go to JavaScript,JSON,JSONP,CORS,HTTP GET,DOM,Web application,web,Full-Stack Go,Full-Stack Golang,Go net/http"/>
+  <meta name="description" content="Run Golang program in your browser by GopherJS. Show how to make cross-domain requests (CORS) by JSONP (JSON with Padding) technique, which allows data to be retrieved from servers of other domains. This is an example of full-stack Go, which uses Golang to develop web applications in both front-end and backend."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="[Golang] JSONP Example (CORS) by GopherJS" />    <meta property="og:image" content="/./extra/Dharma_wheel.svg" /><meta property="og:description" content="Run Golang program in your browser by GopherJS. Show how to make cross-domain requests (CORS) by JSONP (JSON with Padding) technique, which allows data to be retrieved from servers of other domains. This is an example of full-stack Go, which uses Golang to develop web applications in both front-end and backend." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2016/01/23/go-jsonp-example-cors-by-gopherjs/"
+           rel="bookmark"
+           title="Permalink to [Golang] JSONP Example (CORS) by GopherJS">
+          [Golang] JSONP Example (CORS) by GopherJS
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2016-01-23T02:45:00+08:00">
+    January 23, 2016
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2016/01/23/go-jsonp-example-cors-by-gopherjs%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><div class="section" id="introduction">
+<h2>Introduction</h2>
+<p>It is really cool to run <a class="reference external" href="https://golang.org/">Go</a> code in the browser. <a class="reference external" href="http://www.gopherjs.org/">GopherJS</a> is a compiler from
+<a class="reference external" href="https://golang.org/">Go</a> to <a class="reference external" href="https://en.wikipedia.org/wiki/JavaScript">JavaScript</a>, which makes this possible.
+In this post, we will show how to make cross-domain requests (<a class="reference external" href="https://www.google.com/search?q=CORS">CORS</a>) by <a class="reference external" href="https://www.google.com/search?q=JSONP">JSONP</a>
+(JSON with Padding) technique, which allows data to be retrieved from servers of
+other domains.
+This is an example of full-stack <a class="reference external" href="https://golang.org/">Go</a>, which uses <a class="reference external" href="https://golang.org/">Golang</a> to develop web
+applications in both front-end (runs on browsers) and backend (runs on servers).</p>
+</div>
+<div class="section" id="install-gopherjs">
+<h2>Install <a class="reference external" href="http://www.gopherjs.org/">GopherJS</a></h2>
+<p>Run the following command to install <a class="reference external" href="http://www.gopherjs.org/">GopherJS</a> and
+<a class="reference external" href="https://godoc.org/honnef.co/go/js/dom">GopherJS bindings for the JavaScript DOM APIs</a>:</p>
+<div class="highlight"><pre><span></span>$ go get -u github.com/gopherjs/gopherjs
+$ go get -u honnef.co/go/js/dom
+</pre></div>
+</div>
+<div class="section" id="source-code">
+<h2>Source Code</h2>
+<p>First we write a simple HTML for our demo: (<em>index.html</em>)</p>
+<div class="highlight"><pre><span></span><span class="cp">&lt;!doctype html&gt;</span>
+<span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>JSONP example of Full-Stack Golang<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;demo.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</pre></div>
+
+<p>A callback function whose name is <em>mycallback</em> are declared by <em>js.Global.Set</em>
+method. The <em>mycallback</em> function will receive <a class="reference external" href="http://www.w3schools.com/json/">JSON</a> data from the server.
+Beside, a <em>script</em> element are inserted to the <em>head</em> element to make
+cross-domain request.</p>
+<figure class="github-file">
+            <figcaption>
+              <a href="https://github.com/siongui/userpages/blob/master/content/code/gopherjs-dom/src/jsonp/jsonp.go">jsonp.go</a> |
+              <a href="https://github.com/siongui/userpages">repository</a> |
+              <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/code/gopherjs-dom/src/jsonp/jsonp.go">view raw</a>
+            </figcaption><div class="code-file">
+            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="s">&quot;github.com/gopherjs/gopherjs/js&quot;</span>
+<span class="kn">import</span> <span class="s">&quot;honnef.co/go/js/dom&quot;</span>
+<span class="kn">import</span> <span class="s">&quot;net/url&quot;</span>
+
+<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nx">js</span><span class="p">.</span><span class="nx">Global</span><span class="p">.</span><span class="nx">Set</span><span class="p">(</span><span class="s">&quot;mycallback&quot;</span><span class="p">,</span> <span class="kd">func</span><span class="p">(</span><span class="nx">jsonData</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
+		<span class="nb">println</span><span class="p">(</span><span class="nx">jsonData</span><span class="p">[</span><span class="s">&quot;input&quot;</span><span class="p">])</span>
+	<span class="p">})</span>
+
+	<span class="nx">targetUrl</span> <span class="o">:=</span> <span class="s">&quot;/jsonp?callback=mycallback&quot;</span> <span class="o">+</span>
+		<span class="s">&quot;&amp;input=&quot;</span> <span class="o">+</span> <span class="nx">url</span><span class="p">.</span><span class="nx">QueryEscape</span><span class="p">(</span><span class="s">&quot;你好&quot;</span><span class="p">)</span>
+
+	<span class="nx">d</span> <span class="o">:=</span> <span class="nx">dom</span><span class="p">.</span><span class="nx">GetWindow</span><span class="p">().</span><span class="nx">Document</span><span class="p">()</span>
+	<span class="nx">ext</span> <span class="o">:=</span> <span class="nx">d</span><span class="p">.</span><span class="nx">CreateElement</span><span class="p">(</span><span class="s">&quot;script&quot;</span><span class="p">)</span>
+	<span class="nx">ext</span><span class="p">.</span><span class="nx">SetAttribute</span><span class="p">(</span><span class="s">&quot;src&quot;</span><span class="p">,</span> <span class="nx">targetUrl</span><span class="p">)</span>
+	<span class="nx">head</span> <span class="o">:=</span> <span class="nx">d</span><span class="p">.</span><span class="nx">GetElementsByTagName</span><span class="p">(</span><span class="s">&quot;head&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">].(</span><span class="o">*</span><span class="nx">dom</span><span class="p">.</span><span class="nx">HTMLHeadElement</span><span class="p">)</span>
+	<span class="nx">head</span><span class="p">.</span><span class="nx">AppendChild</span><span class="p">(</span><span class="nx">ext</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div></figure>
+<p>The server receive the name of the callback function and data from the client.
+Then encode the data in <a class="reference external" href="http://www.w3schools.com/json/">JSON</a> format, and send the <a class="reference external" href="http://www.w3schools.com/json/">JSON</a> data to the callback
+function.</p>
+<figure class="github-file">
+            <figcaption>
+              <a href="https://github.com/siongui/userpages/blob/master/content/code/gopherjs-dom/src/jsonp/server.go">server.go</a> |
+              <a href="https://github.com/siongui/userpages">repository</a> |
+              <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/code/gopherjs-dom/src/jsonp/server.go">view raw</a>
+            </figcaption><div class="code-file">
+            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="s">&quot;net/http&quot;</span>
+<span class="kn">import</span> <span class="s">&quot;fmt&quot;</span>
+<span class="kn">import</span> <span class="s">&quot;encoding/json&quot;</span>
+
+<span class="kd">func</span> <span class="nx">jsonpHandler</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">if</span> <span class="nx">r</span><span class="p">.</span><span class="nx">Method</span> <span class="o">!=</span> <span class="s">&quot;GET&quot;</span> <span class="p">{</span>
+		<span class="k">return</span>
+	<span class="p">}</span>
+	<span class="k">if</span> <span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span> <span class="o">!=</span> <span class="s">&quot;/jsonp&quot;</span> <span class="p">{</span>
+		<span class="k">return</span>
+	<span class="p">}</span>
+	<span class="nx">w</span><span class="p">.</span><span class="nx">Header</span><span class="p">().</span><span class="nx">Set</span><span class="p">(</span><span class="s">&quot;Content-Type&quot;</span><span class="p">,</span> <span class="s">&quot;application/javascript; charset=utf-8&quot;</span><span class="p">)</span>
+	<span class="nx">b</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">json</span><span class="p">.</span><span class="nx">Marshal</span><span class="p">(</span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">{</span>
+		<span class="s">&quot;input&quot;</span><span class="p">:</span> <span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Query</span><span class="p">().</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;input&quot;</span><span class="p">),</span>
+	<span class="p">})</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Fprintf</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="s">&quot;%s(%s);&quot;</span><span class="p">,</span> <span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Query</span><span class="p">().</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;callback&quot;</span><span class="p">),</span> <span class="nx">b</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nx">http</span><span class="p">.</span><span class="nx">Handle</span><span class="p">(</span><span class="s">&quot;/&quot;</span><span class="p">,</span> <span class="nx">http</span><span class="p">.</span><span class="nx">FileServer</span><span class="p">(</span><span class="nx">http</span><span class="p">.</span><span class="nx">Dir</span><span class="p">(</span><span class="s">&quot;./src&quot;</span><span class="p">)))</span>
+	<span class="nx">http</span><span class="p">.</span><span class="nx">HandleFunc</span><span class="p">(</span><span class="s">&quot;/jsonp&quot;</span><span class="p">,</span> <span class="nx">jsonpHandler</span><span class="p">)</span>
+	<span class="nx">http</span><span class="p">.</span><span class="nx">ListenAndServe</span><span class="p">(</span><span class="s">&quot;:8000&quot;</span><span class="p">,</span> <span class="kc">nil</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div></figure>
+<p>Compile the <a class="reference external" href="https://golang.org/">Go</a> code to <a class="reference external" href="https://en.wikipedia.org/wiki/JavaScript">JavaScript</a> by:</p>
+<div class="highlight"><pre><span></span>$ gopherjs build jsonp.go -o demo.js
+</pre></div>
+<p>Put <em>demo.js</em> together with the <em>index.html</em> and in the same directory. Modify
+the path in <em>server.go</em> to the path where you place <em>demo.js</em> and <em>index.html</em>.
+Run the server by:</p>
+<div class="highlight"><pre><span></span>$ go run server.go
+</pre></div>
+<p>Open your browser with URL <a class="reference external" href="http://localhost:8000/">localhost:8000</a>. Open the
+console of the browser, and you will see the data printed out by the callback
+function.</p>
+<hr class="docutils" />
+<p>Tested on: <tt class="docutils literal">Ubuntu Linux 15.10</tt>, <tt class="docutils literal">Go 1.5.3</tt>,
+<tt class="docutils literal">Chromium Version 47.0.2526.106 Ubuntu 15.10 <span class="pre">(64-bit)</span></tt>.</p>
+<hr class="docutils" />
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id1" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td><a class="reference external" href="http://www.gopherjs.org/">GopherJS - A compiler from Go to JavaScript</a>
+(<a class="reference external" href="https://github.com/gopherjs/gopherjs">GitHub</a>,
+<a class="reference external" href="http://www.gopherjs.org/playground/">GopherJS Playground</a>,
+<a class="reference external" href="https://godoc.org/github.com/gopherjs/gopherjs/js"><img alt="godoc" src="https://godoc.org/github.com/gopherjs/gopherjs/js?status.png" /></a>)</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[2]</td><td><a class="reference external" href="https://github.com/gopherjs/gopherjs/wiki/bindings">Bindings · gopherjs/gopherjs Wiki · GitHub</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[3]</td><td><a class="reference external" href="https://godoc.org/honnef.co/go/js/dom">dom - GopherJS bindings for the JavaScript DOM APIs</a>
+(<a class="reference external" href="https://github.com/dominikh/go-js-dom">GitHub</a>)</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[4]</td><td><a class="reference external" href="/2015/02/20/jsonp-on-google-app-engine-python/">JSONP on Google App Engine Python</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id5" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[5]</td><td><a class="reference external" href="https://www.google.com/search?q=golang+encodeuricomponent">golang encodeuricomponent</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id6" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[6]</td><td><a class="reference external" href="http://stackoverflow.com/questions/13826808/recommended-way-to-encode-decode-urls">escaping - Recommended way to encode/decode URLs - Stack Overflow</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id7" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[7]</td><td><a class="reference external" href="https://www.google.com/search?q=golang+get+url+from+request">golang get url from request</a></td></tr>
+</tbody>
+</table>
+
+<table class="docutils footnote" frame="void" id="id8" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[8]</td><td><a class="reference external" href="http://stackoverflow.com/questions/15407719/in-gos-http-package-how-do-i-get-the-query-string-on-a-post-request">In go's http package, how do I get the query string on a POST request? - Stack Overflow</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id9" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[9]</td><td><a class="reference external" href="/2015/02/15/dart-http-post-json-to-go-server/">[Webapp] Dart HTTP POST JSON Data to Go Server</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id10" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[10]</td><td><a class="reference external" href="https://www.google.com/search?q=golang+http+write+response">golang http write response</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id11" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[11]</td><td><a class="reference external" href="https://golang.org/doc/articles/wiki/#tmp_4">Writing Web Applications - The Go Programming Language</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id12" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[12]</td><td><a class="reference external" href="https://golang.org/pkg/net/http/">http - The Go Programming Language</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id13" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[13]</td><td><a class="reference external" href="https://golang.org/pkg/encoding/json/">encoding/json - The Go Programming Language</a></td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/gopherjs.html">GopherJS</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/go.html">Go</a>
+,       <a href="/tag/golang.html">Golang</a>
+,       <a href="/tag/gopherjs.html">GopherJS</a>
+,       <a href="/tag/go-to-javascript.html">Go to JavaScript</a>
+,       <a href="/tag/json.html">JSON</a>
+,       <a href="/tag/jsonp.html">JSONP</a>
+,       <a href="/tag/cors.html">CORS</a>
+,       <a href="/tag/http-get.html">HTTP GET</a>
+,       <a href="/tag/dom.html">DOM</a>
+,       <a href="/tag/web-application.html">Web application</a>
+,       <a href="/tag/web.html">web</a>
+,       <a href="/tag/full-stack-go.html">Full-Stack Go</a>
+,       <a href="/tag/full-stack-golang.html">Full-Stack Golang</a>
+,       <a href="/tag/go-nethttp.html">Go net/http</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

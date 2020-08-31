@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>[Vue.js] Tooltip</title>
+  <meta name="keywords" content="Vue.js,Tooltip,JavaScript,mouseenter,mouseleave,element offset,DOM,element position"/>
+  <meta name="description" content="Simple tooltip implementation via Vue.js."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="[Vue.js] Tooltip" /><meta property="og:image" content="https://d30y9cdsu7xlg0.cloudfront.net/png/383467-200.png" />
+<meta property="og:description" content="Simple tooltip implementation via Vue.js." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2017/03/05/vuejs-tooltip/"
+           rel="bookmark"
+           title="Permalink to [Vue.js] Tooltip">
+          [Vue.js] Tooltip
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2017-03-05T01:49:00+08:00">
+    March 05, 2017
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2017/03/05/vuejs-tooltip%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p>See demo first. Move the cursor (mouse pointer) to hover over the blue text with
+underline:</p>
+<style>
+span[data-descr] {
+    text-decoration: underline;
+    color: blue;
+    cursor: help;
+}
+.invisible {
+    display: none;
+}
+.tooltip {
+    position: absolute;
+    background-color: yellow;
+    border: 1px gray solid;
+    border-radius: 3px;
+    padding: 3px;
+}
+</style>
+
+
+<div style="text-align: center; padding: 2em;">
+
+<div id="vueapp">
+  <div class="tooltip invisible" ref="tooltip"></div>
+  This is a <span data-descr="hello, I am tooltip!">tooltip</span> example
+  via <span data-descr="I am Vue.js!">Vue.js</span>.
+</div>
+
+</div>
+
+<script src="https://unpkg.com/vue@2.2.1/dist/vue.js"></script>
+<script>
+'use strict';
+
+new Vue({
+  el: '#vueapp',
+  mounted: function() {
+
+    var tt = this.$refs.tooltip;
+
+    function ShowTooltip(e) {
+      var elm = e.target;
+      tt.style.left = elm.offsetLeft + 'px';
+      tt.style.top = (elm.offsetTop + elm.offsetHeight + 5) + 'px';
+      tt.textContent = elm.dataset.descr;
+      tt.classList.remove("invisible");
+    }
+
+    function HideTooltip(e) {
+      tt.classList.add("invisible");
+    }
+
+    var spans = this.$el.querySelectorAll("span[data-descr]");
+    for (var i = 0; i < spans.length; ++i) {
+      var span = spans[i];
+      span.addEventListener("mouseenter", ShowTooltip);
+      span.addEventListener("mouseleave", HideTooltip);
+    }
+
+  }
+})
+</script><p>The idea comes from the <a class="reference external" href="https://www.google.com/search?q=JavaScript">JavaScript</a> implementation of my post <a class="footnote-reference" href="#id4" id="id1">[1]</a>. The
+following is complete source code.</p>
+<p><strong>HTML</strong>:</p>
+<div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;vueapp&quot;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;tooltip invisible&quot;</span> <span class="na">ref</span><span class="o">=</span><span class="s">&quot;tooltip&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+  This is a <span class="p">&lt;</span><span class="nt">span</span> <span class="na">data-descr</span><span class="o">=</span><span class="s">&quot;hello, I am tooltip!&quot;</span><span class="p">&gt;</span>tooltip<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span> example
+  via <span class="p">&lt;</span><span class="nt">span</span> <span class="na">data-descr</span><span class="o">=</span><span class="s">&quot;I am Vue.js!&quot;</span><span class="p">&gt;</span>Vue.js<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>.
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://unpkg.com/vue@2.2.1/dist/vue.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</pre></div>
+<p>The <em>div</em> element with <em>ref=&quot;tooltip&quot;</em> <a class="footnote-reference" href="#id6" id="id2">[3]</a> is the tooltip which shows the hint.
+If the mouse hovers over the span element with <em>data-descr</em> attribute, the
+tooltip will appear and the content of the tooltip is the texts in <em>data-descr</em>
+attribute.</p>
+
+<p><strong>CSS</strong>:</p>
+<div class="highlight"><pre><span></span><span class="nt">span</span><span class="o">[</span><span class="nt">data-descr</span><span class="o">]</span> <span class="p">{</span>
+    <span class="k">text-decoration</span><span class="p">:</span> <span class="kc">underline</span><span class="p">;</span>
+    <span class="k">color</span><span class="p">:</span> <span class="kc">blue</span><span class="p">;</span>
+    <span class="k">cursor</span><span class="p">:</span> <span class="kc">help</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="p">.</span><span class="nc">invisible</span> <span class="p">{</span>
+    <span class="k">display</span><span class="p">:</span> <span class="kc">none</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="p">.</span><span class="nc">tooltip</span> <span class="p">{</span>
+    <span class="k">position</span><span class="p">:</span> <span class="kc">absolute</span><span class="p">;</span>
+    <span class="k">background-color</span><span class="p">:</span> <span class="kc">yellow</span><span class="p">;</span>
+    <span class="k">border</span><span class="p">:</span> <span class="mi">1</span><span class="kt">px</span> <span class="kc">gray</span> <span class="kc">solid</span><span class="p">;</span>
+    <span class="k">border-radius</span><span class="p">:</span> <span class="mi">3</span><span class="kt">px</span><span class="p">;</span>
+    <span class="k">padding</span><span class="p">:</span> <span class="mi">3</span><span class="kt">px</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p><strong>JavaScript</strong>:</p>
+<div class="highlight"><pre><span></span><span class="s1">&#39;use strict&#39;</span><span class="p">;</span>
+
+<span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span>
+  <span class="nx">el</span><span class="o">:</span> <span class="s1">&#39;#vueapp&#39;</span><span class="p">,</span>
+  <span class="nx">mounted</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+
+    <span class="kd">var</span> <span class="nx">tt</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">$refs</span><span class="p">.</span><span class="nx">tooltip</span><span class="p">;</span>
+
+    <span class="kd">function</span> <span class="nx">ShowTooltip</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">elm</span> <span class="o">=</span> <span class="nx">e</span><span class="p">.</span><span class="nx">target</span><span class="p">;</span>
+      <span class="nx">tt</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">left</span> <span class="o">=</span> <span class="nx">elm</span><span class="p">.</span><span class="nx">offsetLeft</span> <span class="o">+</span> <span class="s1">&#39;px&#39;</span><span class="p">;</span>
+      <span class="nx">tt</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">top</span> <span class="o">=</span> <span class="p">(</span><span class="nx">elm</span><span class="p">.</span><span class="nx">offsetTop</span> <span class="o">+</span> <span class="nx">elm</span><span class="p">.</span><span class="nx">offsetHeight</span> <span class="o">+</span> <span class="mi">5</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;px&#39;</span><span class="p">;</span>
+      <span class="nx">tt</span><span class="p">.</span><span class="nx">textContent</span> <span class="o">=</span> <span class="nx">elm</span><span class="p">.</span><span class="nx">dataset</span><span class="p">.</span><span class="nx">descr</span><span class="p">;</span>
+      <span class="nx">tt</span><span class="p">.</span><span class="nx">classList</span><span class="p">.</span><span class="nx">remove</span><span class="p">(</span><span class="s2">&quot;invisible&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="kd">function</span> <span class="nx">HideTooltip</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">tt</span><span class="p">.</span><span class="nx">classList</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="s2">&quot;invisible&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="kd">var</span> <span class="nx">spans</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">$el</span><span class="p">.</span><span class="nx">querySelectorAll</span><span class="p">(</span><span class="s2">&quot;span[data-descr]&quot;</span><span class="p">);</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">spans</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="o">++</span><span class="nx">i</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">span</span> <span class="o">=</span> <span class="nx">spans</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+      <span class="nx">span</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;mouseenter&quot;</span><span class="p">,</span> <span class="nx">ShowTooltip</span><span class="p">);</span>
+      <span class="nx">span</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;mouseleave&quot;</span><span class="p">,</span> <span class="nx">HideTooltip</span><span class="p">);</span>
+    <span class="p">}</span>
+
+  <span class="p">}</span>
+<span class="p">})</span>
+</pre></div>
+
+<p>In <a class="reference external" href="https://vuejs.org/v2/api/#mounted">mounted</a> hook of <a class="reference external" href="https://vuejs.org/v2/guide/instance.html">Vue instance</a> <a class="footnote-reference" href="#id7" id="id3">[4]</a>, use <a class="reference external" href="https://www.google.com/search?q=querySelectorAll">querySelectorAll</a> to find all
+<em>span</em> elements with <em>data-descr</em> attibute in <a class="reference external" href="https://vuejs.org/v2/api/#vm-el">vm.$el</a>, and setup corresponding
+<a class="reference external" href="https://developer.mozilla.org/en/docs/Web/Events/mouseenter">mouseenter</a>/<a class="reference external" href="https://developer.mozilla.org/en/docs/Web/Events/mouseleave">mouseleave</a> event handlder to show/hide the tooltip.</p>
+<hr class="docutils" />
+<p>Tested on:</p>
+<ul class="simple">
+<li><tt class="docutils literal">Chromium Version 56.0.2924.76 Built on Ubuntu , running on Ubuntu 16.10 <span class="pre">(64-bit)</span></tt></li>
+<li><tt class="docutils literal">Vue.js 2.2.1</tt></li>
+</ul>
+<hr class="docutils" />
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td><a class="reference external" href="/2017/03/04/css-only-tooltip-and-javascript-implementation/">Pure CSS Tooltip and JavaScript Implementation</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id5" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[2]</td><td><a class="reference external" href="https://www.google.com/search?q=vuejs+tooltip">vuejs tooltip - Google search</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id6" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[3]</a></td><td><div class="first last line-block">
+<div class="line"><a class="reference external" href="https://vuejs.org/v2/api/#ref">Special Attributes - ref - Vue.js</a></div>
+<div class="line"><a class="reference external" href="https://vuejs.org/v2/api/#vm-refs">Instance Properties - vm.$refs - Vue.js</a></div>
+</div>
+</td></tr>
+</tbody>
+</table>
+
+<table class="docutils footnote" frame="void" id="id7" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id3">[4]</a></td><td><a class="reference external" href="https://vuejs.org/v2/guide/instance.html#Instance-Lifecycle-Hooks">Instance Lifecycle Hooks - The Vue Instance — Vue.js</a></td></tr>
+</tbody>
+</table>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/vuejs.html">Vue.js</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/vuejs.html">Vue.js</a>
+,       <a href="/tag/tooltip.html">Tooltip</a>
+,       <a href="/tag/javascript.html">JavaScript</a>
+,       <a href="/tag/mouseenter.html">mouseenter</a>
+,       <a href="/tag/mouseleave.html">mouseleave</a>
+,       <a href="/tag/element-offset.html">element offset</a>
+,       <a href="/tag/dom.html">DOM</a>
+,       <a href="/tag/element-position.html">element position</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

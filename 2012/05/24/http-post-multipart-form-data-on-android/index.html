@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>HTTP POST (multipart/form-data) on Android</title>
+  <meta name="keywords" content="Android,HTTP POST,Java,multipart/form-data"/>
+  <meta name="description" content="Upload a file to the server in your Android app."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="HTTP POST (multipart/form-data) on Android" />    <meta property="og:image" content="/./extra/Dharma_wheel.svg" /><meta property="og:description" content="Upload a file to the server in your Android app." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2012/05/24/http-post-multipart-form-data-on-android/"
+           rel="bookmark"
+           title="Permalink to HTTP POST (multipart/form-data) on Android">
+          HTTP POST (multipart/form-data) on Android
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2012-05-24T00:00:00+08:00">
+    May 24, 2012
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2012/05/24/http-post-multipart-form-data-on-android%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p>Since the coming of cloud computing, sometimes we would like to let the <a class="reference external" href="https://www.android.com/">Android</a>
+application send <a class="reference external" href="https://en.wikipedia.org/wiki/POST_%28HTTP%29">HTTP POST</a> request to a server and get result back from the
+server. Especially, we would like to do HTTP POST which includes
+<a class="reference external" href="http://stackoverflow.com/questions/4526273/what-does-enctype-multipart-form-data-mean">multipart form data</a> (file and variables). This post is going to show you how
+to do this.</p>
+<p>Assume the data to be posted contains a file whose name is <strong>uploadedFile</strong>, a
+variable whose name is <strong>to</strong>, and a variable whose name is <strong>from</strong>. The
+following is the code snippet for posting the data to the server:</p>
+
+<figure class="github-file">
+            <figcaption>
+              <a href="https://github.com/siongui/userpages/blob/master/content/articles/2012/05/24/http-post-multipart-form-data-on-android.java">http-post-multipart-form-data-on-android.java</a> |
+              <a href="https://github.com/siongui/userpages">repository</a> |
+              <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/articles/2012/05/24/http-post-multipart-form-data-on-android.java">view raw</a>
+            </figcaption><div class="code-file">
+            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cm">/* set the variable needed by http post */</span>
+<span class="kd">private</span> <span class="n">String</span> <span class="n">uploadFile</span><span class="o">=</span><span class="s">&quot;/sdcard/test.png&quot;</span><span class="p">;</span>
+<span class="kd">private</span> <span class="n">String</span> <span class="n">actionUrl</span> <span class="o">=</span> <span class="s">&quot;http://your_domain/your_post_url&quot;</span><span class="p">;</span>
+<span class="kd">final</span> <span class="n">String</span> <span class="n">end</span> <span class="o">=</span> <span class="s">&quot;\r\n&quot;</span><span class="p">;</span>
+<span class="kd">final</span> <span class="n">String</span> <span class="n">twoHyphens</span> <span class="o">=</span> <span class="s">&quot;--&quot;</span><span class="p">;</span>
+<span class="kd">final</span> <span class="n">String</span> <span class="n">boundary</span> <span class="o">=</span> <span class="s">&quot;*****++++++************++++++++++++&quot;</span><span class="p">;</span>
+
+<span class="n">URL</span> <span class="n">url</span> <span class="o">=</span> <span class="k">new</span> <span class="n">URL</span><span class="p">(</span><span class="n">actionUrl</span><span class="p">);</span>
+<span class="n">HttpURLConnection</span> <span class="n">conn</span> <span class="o">=</span> <span class="p">(</span><span class="n">HttpURLConnection</span><span class="p">)</span><span class="n">url</span><span class="p">.</span><span class="na">openConnection</span><span class="p">();</span>
+
+<span class="n">conn</span><span class="p">.</span><span class="na">setDoInput</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+<span class="n">conn</span><span class="p">.</span><span class="na">setDoOutput</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+<span class="n">conn</span><span class="p">.</span><span class="na">setUseCaches</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+<span class="n">conn</span><span class="p">.</span><span class="na">setRequestMethod</span><span class="p">(</span><span class="s">&quot;POST&quot;</span><span class="p">);</span>
+
+<span class="cm">/* setRequestProperty */</span>
+<span class="n">conn</span><span class="p">.</span><span class="na">setRequestProperty</span><span class="p">(</span><span class="s">&quot;Connection&quot;</span><span class="p">,</span> <span class="s">&quot;Keep-Alive&quot;</span><span class="p">);</span>
+<span class="n">conn</span><span class="p">.</span><span class="na">setRequestProperty</span><span class="p">(</span><span class="s">&quot;Charset&quot;</span><span class="p">,</span> <span class="s">&quot;UTF-8&quot;</span><span class="p">);</span>
+<span class="n">conn</span><span class="p">.</span><span class="na">setRequestProperty</span><span class="p">(</span><span class="s">&quot;Content-Type&quot;</span><span class="p">,</span> <span class="s">&quot;multipart/form-data;boundary=&quot;</span><span class="o">+</span> <span class="n">boundary</span><span class="p">);</span>
+
+<span class="n">DataOutputStream</span> <span class="n">ds</span> <span class="o">=</span> <span class="k">new</span> <span class="n">DataOutputStream</span><span class="p">(</span><span class="n">conn</span><span class="p">.</span><span class="na">getOutputStream</span><span class="p">());</span>
+<span class="n">ds</span><span class="p">.</span><span class="na">writeBytes</span><span class="p">(</span><span class="n">twoHyphens</span> <span class="o">+</span> <span class="n">boundary</span> <span class="o">+</span> <span class="n">end</span><span class="p">);</span>
+<span class="n">ds</span><span class="p">.</span><span class="na">writeBytes</span><span class="p">(</span><span class="s">&quot;Content-Disposition: form-data; name=\&quot;from\&quot;&quot;</span><span class="o">+</span><span class="n">end</span><span class="o">+</span><span class="n">end</span><span class="o">+</span><span class="s">&quot;auto&quot;</span><span class="o">+</span><span class="n">end</span><span class="p">);</span>
+<span class="n">ds</span><span class="p">.</span><span class="na">writeBytes</span><span class="p">(</span><span class="n">twoHyphens</span> <span class="o">+</span> <span class="n">boundary</span> <span class="o">+</span> <span class="n">end</span><span class="p">);</span>
+<span class="n">ds</span><span class="p">.</span><span class="na">writeBytes</span><span class="p">(</span><span class="s">&quot;Content-Disposition: form-data; name=\&quot;to\&quot;&quot;</span><span class="o">+</span><span class="n">end</span><span class="o">+</span><span class="n">end</span><span class="o">+</span><span class="s">&quot;ja&quot;</span><span class="o">+</span><span class="n">end</span><span class="p">);</span>
+<span class="n">ds</span><span class="p">.</span><span class="na">writeBytes</span><span class="p">(</span><span class="n">twoHyphens</span> <span class="o">+</span> <span class="n">boundary</span> <span class="o">+</span> <span class="n">end</span><span class="p">);</span>
+<span class="n">ds</span><span class="p">.</span><span class="na">writeBytes</span><span class="p">(</span><span class="s">&quot;Content-Disposition: form-data; name=\&quot;uploadedFile\&quot;;filename=\&quot;&quot;</span> <span class="o">+</span> <span class="n">uploadFile</span> <span class="o">+</span><span class="s">&quot;\&quot;&quot;</span> <span class="o">+</span> <span class="n">end</span><span class="p">);</span>
+<span class="n">ds</span><span class="p">.</span><span class="na">writeBytes</span><span class="p">(</span><span class="n">end</span><span class="p">);</span>
+
+<span class="n">FileInputStream</span> <span class="n">fStream</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FileInputStream</span><span class="p">(</span><span class="n">uploadFile</span><span class="p">);</span>
+<span class="kt">int</span> <span class="n">bufferSize</span> <span class="o">=</span> <span class="mi">1024</span><span class="p">;</span>
+<span class="kt">byte</span><span class="o">[]</span> <span class="n">buffer</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">byte</span><span class="o">[</span><span class="n">bufferSize</span><span class="o">]</span><span class="p">;</span>
+<span class="kt">int</span> <span class="n">length</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+
+<span class="k">while</span><span class="p">((</span><span class="n">length</span> <span class="o">=</span> <span class="n">fStream</span><span class="p">.</span><span class="na">read</span><span class="p">(</span><span class="n">buffer</span><span class="p">))</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">ds</span><span class="p">.</span><span class="na">write</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">length</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="n">ds</span><span class="p">.</span><span class="na">writeBytes</span><span class="p">(</span><span class="n">end</span><span class="p">);</span>
+<span class="n">ds</span><span class="p">.</span><span class="na">writeBytes</span><span class="p">(</span><span class="n">twoHyphens</span> <span class="o">+</span> <span class="n">boundary</span> <span class="o">+</span> <span class="n">twoHyphens</span> <span class="o">+</span> <span class="n">end</span><span class="p">);</span>
+<span class="cm">/* close streams */</span>
+<span class="n">fStream</span><span class="p">.</span><span class="na">close</span><span class="p">();</span>
+<span class="n">ds</span><span class="p">.</span><span class="na">flush</span><span class="p">();</span>
+<span class="n">ds</span><span class="p">.</span><span class="na">close</span><span class="p">();</span>
+
+<span class="k">if</span><span class="p">(</span><span class="n">conn</span><span class="p">.</span><span class="na">getResponseCode</span><span class="p">()</span> <span class="o">!=</span> <span class="n">HttpURLConnection</span><span class="p">.</span><span class="na">HTTP_OK</span><span class="p">){</span>
+  <span class="n">Toast</span><span class="p">.</span><span class="na">makeText</span><span class="p">(</span><span class="n">getBaseContext</span><span class="p">(),</span> <span class="n">conn</span><span class="p">.</span><span class="na">getResponseMessage</span><span class="p">(),</span> <span class="n">Toast</span><span class="p">.</span><span class="na">LENGTH_LONG</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="n">StringBuffer</span> <span class="n">b</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuffer</span><span class="p">();</span>
+<span class="n">InputStream</span> <span class="n">is</span> <span class="o">=</span> <span class="n">conn</span><span class="p">.</span><span class="na">getInputStream</span><span class="p">();</span>
+<span class="kt">byte</span><span class="o">[]</span> <span class="n">data</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">byte</span><span class="o">[</span><span class="n">bufferSize</span><span class="o">]</span><span class="p">;</span>
+<span class="kt">int</span> <span class="n">leng</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+<span class="k">while</span><span class="p">((</span><span class="n">leng</span> <span class="o">=</span> <span class="n">is</span><span class="p">.</span><span class="na">read</span><span class="p">(</span><span class="n">data</span><span class="p">))</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">b</span><span class="p">.</span><span class="na">append</span><span class="p">(</span><span class="k">new</span> <span class="n">String</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">leng</span><span class="p">));</span>
+<span class="p">}</span>
+<span class="n">String</span> <span class="n">result</span> <span class="o">=</span> <span class="n">b</span><span class="p">.</span><span class="na">toString</span><span class="p">();</span>
+</pre></div>
+</td></tr></table></div></figure>
+<p>Hope this example would be helpful for those who are interested!</p>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/android.html">Android</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/android.html">Android</a>
+,       <a href="/tag/http-post.html">HTTP POST</a>
+,       <a href="/tag/java.html">Java</a>
+,       <a href="/tag/multipartform-data.html">multipart/form-data</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

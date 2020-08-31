@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>[Go語言] 刪除字串前綴或後綴</title>
+  <meta name="keywords" content="Go語言,字串處理"/>
+  <meta name="description" content="利用Go語言來刪除字串前綴或後綴。"/>
+  <meta name="author" content="戴上為"/><meta property="og:title" content="[Go語言] 刪除字串前綴或後綴" /><meta property="og:image" content="https://d2d42mpnbqmzj3.cloudfront.net/images/stories/doc-excel/remove-prefix-suffix/doc-remove-prefix-1.png" />
+<meta property="og:description" content="利用Go語言來刪除字串前綴或後綴。" /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/zh/../extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/zh/../theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/zh/">理論與實作</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/zh/pages/about.html">關於</a>
+    <a class="nav-item" href="/zh/archives.html">歸檔</a>
+    <a class="nav-item" href="/zh/categories.html">分類</a>
+    <a class="nav-item" href="/zh/tags.html">標籤</a>
+    <a class="nav-item" href="/zh/authors.html">作者</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/">English</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/zh/2018/09/28/go-remove-prefix-or-suffix-from-string/"
+           rel="bookmark"
+           title="Permalink to [Go語言] 刪除字串前綴或後綴">
+          [Go語言] 刪除字串前綴或後綴
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2018-09-28T00:38:00+08:00">
+    九月 28, 2018
+  </time></aside>
+    <aside><div class="available-translations">
+      <span>翻譯</span>:&nbsp;<a href="/zh/../2016/12/28/go-remove-prefix-or-suffix-from-string/">English</a>&nbsp;</div><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2016/12/28/go-remove-prefix-or-suffix-from-string%25zh.rst">在Github上編輯</a></div></aside>
+    <hr>
+
+    <div class="main-content"><div class="section" id="id1">
+<h2>刪除字串前綴</h2>
+<p>Q: 如何從 <tt class="docutils literal">sammadiṭṭhi</tt> 中刪除開頭的 <tt class="docutils literal">samma</tt> ？</p>
+<p>A: 利用 <a class="reference external" href="https://golang.org/pkg/strings/">strings</a> package 裡的 <a class="reference external" href="https://golang.org/pkg/strings/#TrimPrefix">TrimPrefix</a> function</p>
+<blockquote>
+<div class="highlight"><pre><span></span><span class="nx">result</span> <span class="o">:=</span> <span class="nx">strings</span><span class="p">.</span><span class="nx">TrimPrefix</span><span class="p">(</span><span class="s">&quot;sammadiṭṭhi&quot;</span><span class="p">,</span> <span class="s">&quot;samma&quot;</span><span class="p">)</span>
+</pre></div>
+<p>看 <a class="reference external" href="https://play.golang.org/p/sOIZognDV6">這裡</a> 的官方 <a class="reference external" href="https://golang.org/pkg/strings/#TrimPrefix">TrimPrefix</a> 範例。</p>
+</blockquote>
+</div>
+<div class="section" id="id2">
+<h2>刪除字串後綴</h2>
+<p>Q: 如何從 <tt class="docutils literal">sammadiṭṭhi</tt> 中刪除結尾的 <tt class="docutils literal">diṭṭhi</tt> ？</p>
+<p>A: 利用 <a class="reference external" href="https://golang.org/pkg/strings/">strings</a> package 裡的 <a class="reference external" href="https://golang.org/pkg/strings/#TrimSuffix">TrimSuffix</a> function</p>
+<blockquote>
+<div class="highlight"><pre><span></span><span class="nx">result</span> <span class="o">:=</span> <span class="nx">strings</span><span class="p">.</span><span class="nx">TrimSuffix</span><span class="p">(</span><span class="s">&quot;sammadiṭṭhi&quot;</span><span class="p">,</span> <span class="s">&quot;diṭṭhi&quot;</span><span class="p">)</span>
+</pre></div>
+<p>看 <a class="reference external" href="https://play.golang.org/p/9DR1iBH8O4">這裡</a> 的官方 <a class="reference external" href="https://golang.org/pkg/strings/#TrimSuffix">TrimSuffix</a> 範例。</p>
+</blockquote>
+<hr class="docutils" />
+<p>Tested on: <tt class="docutils literal">Ubuntu Linux 16.10</tt>, <tt class="docutils literal">Go 1.7.4</tt>.</p>
+<hr class="docutils" />
+
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td><div class="first last line-block">
+<div class="line"><a class="reference external" href="https://www.google.com/search?q=golang+remove+prefix">golang remove prefix - Google search</a></div>
+<div class="line"><a class="reference external" href="https://duckduckgo.com/?q=golang+remove+prefix">golang remove prefix - DuckDuckGo search</a></div>
+<div class="line"><a class="reference external" href="https://www.ecosia.org/search?q=golang+remove+prefix">golang remove prefix - Ecosia search</a></div>
+<div class="line"><a class="reference external" href="https://www.bing.com/search?q=golang+remove+prefix">golang remove prefix - Bing search</a></div>
+<div class="line"><a class="reference external" href="https://search.yahoo.com/search?p=golang+remove+prefix">golang remove prefix - Yahoo search</a></div>
+<div class="line"><a class="reference external" href="https://www.baidu.com/s?wd=golang+remove+prefix">golang remove prefix - Baidu search</a></div>
+<div class="line"><a class="reference external" href="https://www.yandex.com/search/?text=golang+remove+prefix">golang remove prefix - Yandex search</a></div>
+<div class="line"><a class="reference external" href="https://golang.org/pkg/strings/#TrimPrefix">func TrimPrefix - Package strings - The Go Programming Language</a></div>
+<div class="line"><a class="reference external" href="https://golang.org/pkg/strings/#TrimSuffix">func TrimSuffix - Package strings - The Go Programming Language</a></div>
+</div>
+</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[2]</td><td><div class="first last line-block">
+<div class="line"><a class="reference external" href="https://www.google.com/search?q=golang+remove+prefix+from+string">golang remove prefix from string - Google search</a></div>
+<div class="line"><a class="reference external" href="https://duckduckgo.com/?q=golang+remove+prefix+from+string">golang remove prefix from string - DuckDuckGo search</a></div>
+<div class="line"><a class="reference external" href="https://www.ecosia.org/search?q=golang+remove+prefix+from+string">golang remove prefix from string - Ecosia search</a></div>
+<div class="line"><a class="reference external" href="https://www.bing.com/search?q=golang+remove+prefix+from+string">golang remove prefix from string - Bing search</a></div>
+<div class="line"><a class="reference external" href="https://search.yahoo.com/search?p=golang+remove+prefix+from+string">golang remove prefix from string - Yahoo search</a></div>
+<div class="line"><a class="reference external" href="https://www.baidu.com/s?wd=golang+remove+prefix+from+string">golang remove prefix from string - Baidu search</a></div>
+<div class="line"><a class="reference external" href="https://www.yandex.com/search/?text=golang+remove+prefix+from+string">golang remove prefix from string - Yandex search</a></div>
+</div>
+</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id5" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[3]</td><td><div class="first last line-block">
+<div class="line"><a class="reference external" href="https://www.google.com/search?q=golang+trim+prefix+from+string">golang trim prefix from string - Google search</a></div>
+<div class="line"><a class="reference external" href="https://duckduckgo.com/?q=golang+trim+prefix+from+string">golang trim prefix from string - DuckDuckGo search</a></div>
+<div class="line"><a class="reference external" href="https://www.ecosia.org/search?q=golang+trim+prefix+from+string">golang trim prefix from string - Ecosia search</a></div>
+<div class="line"><a class="reference external" href="https://www.bing.com/search?q=golang+trim+prefix+from+string">golang trim prefix from string - Bing search</a></div>
+<div class="line"><a class="reference external" href="https://search.yahoo.com/search?p=golang+trim+prefix+from+string">golang trim prefix from string - Yahoo search</a></div>
+<div class="line"><a class="reference external" href="https://www.baidu.com/s?wd=golang+trim+prefix+from+string">golang trim prefix from string - Baidu search</a></div>
+<div class="line"><a class="reference external" href="https://www.yandex.com/search/?text=golang+trim+prefix+from+string">golang trim prefix from string - Yandex search</a></div>
+</div>
+</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+    <footer><hr><address><b>作者</b>:
+    <a rel="author"
+       href="/zh/author/dai-shang-wei.html">戴上為</a>
+  </address><aside>
+    <i>&isin;</i> <b>分類</b>:
+    <a href="/zh/category/goyu-yan.html">Go語言</a>
+  </aside><aside>
+    <i>&sum;</i> <b>標籤</b>:
+      <a href="/zh/tag/goyu-yan.html">Go語言</a>
+,       <a href="/zh/tag/zi-chuan-chu-li.html">字串處理</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

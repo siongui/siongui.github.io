@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>Multiple Files Upload with Google App Engine Python</title>
+  <meta name="keywords" content="Google App Engine,html,JavaScript,multipart/form-data,multiple files upload,Python"/>
+  <meta name="description" content="Let website users upload multiple files to Google App Engine (Python) servers."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="Multiple Files Upload with Google App Engine Python" />    <meta property="og:image" content="/./extra/Dharma_wheel.svg" /><meta property="og:description" content="Let website users upload multiple files to Google App Engine (Python) servers." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2012/05/29/multiple-files-upload-with-google-app-engine-python/"
+           rel="bookmark"
+           title="Permalink to Multiple Files Upload with Google App Engine Python">
+          Multiple Files Upload with Google App Engine Python
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2012-05-29T00:00:00+08:00">
+    May 29, 2012
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2012/05/29/multiple-files-upload-with-google-app-engine-python%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p>On client side (<strong>HTML</strong> code for browsers):</p>
+<div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">strong</span><span class="p">&gt;</span>Upload Files:<span class="p">&lt;/</span><span class="nt">strong</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">form</span> <span class="na">method</span><span class="o">=</span><span class="s">&quot;post&quot;</span> <span class="na">action</span><span class="o">=</span><span class="s">&quot;/postmultifiles&quot;</span> <span class="na">enctype</span><span class="o">=</span><span class="s">&quot;multipart/form-data&quot;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;file&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;filesToUpload[]&quot;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;filesToUpload&quot;</span> <span class="na">multiple</span><span class="o">=</span><span class="s">&quot;&quot;</span> <span class="na">onChange</span><span class="o">=</span><span class="s">&quot;makeFileList();&quot;</span> <span class="p">/&gt;</span>
+  <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;submit&quot;</span> <span class="na">value</span><span class="o">=</span><span class="s">&quot;Send&quot;</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;&lt;</span><span class="nt">strong</span><span class="p">&gt;</span>Files You Selected:<span class="p">&lt;/</span><span class="nt">strong</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">ul</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;fileList&quot;</span><span class="p">&gt;&lt;</span><span class="nt">li</span><span class="p">&gt;</span>No Files Selected<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+</pre></div>
+
+<p>On client side (<strong>JavaScript</strong> code for browsers):</p>
+<div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">makeFileList</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">input</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;filesToUpload&quot;</span><span class="p">);</span>
+  <span class="kd">var</span> <span class="nx">ul</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;fileList&quot;</span><span class="p">);</span>
+  <span class="k">while</span> <span class="p">(</span><span class="nx">ul</span><span class="p">.</span><span class="nx">hasChildNodes</span><span class="p">())</span> <span class="p">{</span>
+    <span class="nx">ul</span><span class="p">.</span><span class="nx">removeChild</span><span class="p">(</span><span class="nx">ul</span><span class="p">.</span><span class="nx">firstChild</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">input</span><span class="p">.</span><span class="nx">files</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">li</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">&quot;li&quot;</span><span class="p">);</span>
+    <span class="nx">li</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="nx">input</span><span class="p">.</span><span class="nx">files</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">name</span><span class="p">;</span>
+    <span class="nx">ul</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">li</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">ul</span><span class="p">.</span><span class="nx">hasChildNodes</span><span class="p">())</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">li</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">&quot;li&quot;</span><span class="p">);</span>
+    <span class="nx">li</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="s1">&#39;No Files Selected&#39;</span><span class="p">;</span>
+    <span class="nx">ul</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">li</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<p>The above <em>HTML/JavaScript</em> code comes from <a class="footnote-reference" href="#id3" id="id1">[1]</a>. Put the code on your webpage.
+When users choose multiple files, the files will be listed on the webpage.</p>
+<div class="line-block">
+<div class="line">----</div>
+</div>
+
+<p>On server side (<strong>Python</strong> code for Google App Engine):</p>
+<div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MultipleFilePage</span><span class="p">(</span><span class="n">webapp2</span><span class="o">.</span><span class="n">RequestHandler</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">post</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">file_data</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">getall</span><span class="p">(</span><span class="s1">&#39;filesToUpload[]&#39;</span><span class="p">):</span>
+      <span class="n">file_name</span> <span class="o">=</span> <span class="n">file_data</span><span class="o">.</span><span class="n">filename</span>
+      <span class="n">file_content</span> <span class="o">=</span> <span class="n">file_data</span><span class="o">.</span><span class="n">value</span>
+      <span class="c1"># do something here...</span>
+</pre></div>
+<p>The code for receiving multiple files is easy. Please check the above code,
+which comes from <a class="footnote-reference" href="#id4" id="id2">[2]</a>.</p>
+<hr class="docutils" />
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td><a class="reference external" href="http://davidwalsh.name/multiple-file-upload">Multiple File Upload Input</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[2]</a></td><td><a class="reference external" href="http://stackoverflow.com/questions/1503526/receive-multi-file-post-with-google-app-engine">Receive multi file post with google app engine</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id5" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[3]</td><td><a class="reference external" href="http://www.html5rocks.com/en/tutorials/file/dndfiles/">Reading local files in JavaScript - HTML5 Rocks</a></td></tr>
+</tbody>
+</table>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/web-development.html">Web Development</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/google-app-engine.html">Google App Engine</a>
+,       <a href="/tag/html.html">html</a>
+,       <a href="/tag/javascript.html">JavaScript</a>
+,       <a href="/tag/multipartform-data.html">multipart/form-data</a>
+,       <a href="/tag/multiple-files-upload.html">multiple files upload</a>
+,       <a href="/tag/python.html">Python</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>Check if Value of HTML Input Text Field is Integer in Go</title>
+  <meta name="keywords" content="Go,Golang,GopherJS,Go to JavaScript,Frontend Programming in Go,Type Casting,Type Conversion"/>
+  <meta name="description" content="Check if the value of HTML input text field is integer in Go. Compiled to JavaScript using GopherJS."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="Check if Value of HTML Input Text Field is Integer in Go" /><meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Lemoine.jpg/250px-Lemoine.jpg" />
+<meta property="og:description" content="Check if the value of HTML input text field is integer in Go. Compiled to JavaScript using GopherJS." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2018/04/25/check-if-html-input-text-value-is-integer-in-go/"
+           rel="bookmark"
+           title="Permalink to Check if Value of HTML Input Text Field is Integer in Go">
+          Check if Value of HTML Input Text Field is Integer in Go
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2018-04-25T23:04:00+08:00">
+    April 25, 2018
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2017/12/04/check-if-html-input-text-value-is-integer-in-go%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p>Check if the value of HTML input text field is integer in Go. Compiled to
+JavaScript using GopherJS.</p>
+<p class="align-center rubric"><a class="reference external" href="/2018/04/23/javascript-check-if-input-text-value-is-integer/">Demo</a></p>
+<p>Note that above demo is written in JavaScript, and is not 100% the same as the
+following demo written in Go. You have to compile the Go code to JavaScript
+using GopherJS. The JavaScript demo is not very correct, because if you input
+<em>2.1</em>, it will tell you it's integer <em>2</em> because of JavaScript <em>parseInt()</em>
+method treats <em>2.1</em> as 2. The Go demo is correct, and it will tell you <em>2.1</em> is
+invalid.</p>
+<p>The following are source code in Go and HTML.</p>
+<p><strong>HTML</strong></p>
+<div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;n&quot;</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">button</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;button&quot;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;check&quot;</span><span class="p">&gt;</span>Check Integer<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;&lt;</span><span class="nt">br</span><span class="p">&gt;&lt;</span><span class="nt">br</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;result&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</pre></div>
+<p><strong>Go (appdom.go)</strong>: This file use <em>github.com/siongui/godom</em>. Please <em>go get</em> it
+before compiling this file using GopherJS.</p>
+<p>We use <a class="reference external" href="https://golang.org/pkg/strconv/#Atoi">strconv.Atoi</a> in Go standard library to convert the string to integer
+for us. If the input is not integer, <em>error</em> will be returned.</p>
+<div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+      <span class="p">.</span> <span class="s">&quot;github.com/siongui/godom&quot;</span>
+      <span class="s">&quot;strconv&quot;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+      <span class="nx">elmn</span> <span class="o">:=</span> <span class="nx">Document</span><span class="p">.</span><span class="nx">QuerySelector</span><span class="p">(</span><span class="s">&quot;input[name=&#39;n&#39;]&quot;</span><span class="p">)</span>
+      <span class="nx">btn</span> <span class="o">:=</span> <span class="nx">Document</span><span class="p">.</span><span class="nx">QuerySelector</span><span class="p">(</span><span class="s">&quot;#check&quot;</span><span class="p">)</span>
+      <span class="nx">info</span> <span class="o">:=</span> <span class="nx">Document</span><span class="p">.</span><span class="nx">QuerySelector</span><span class="p">(</span><span class="s">&quot;#result&quot;</span><span class="p">)</span>
+
+      <span class="nx">btn</span><span class="p">.</span><span class="nx">AddEventListener</span><span class="p">(</span><span class="s">&quot;click&quot;</span><span class="p">,</span> <span class="kd">func</span><span class="p">(</span><span class="nx">e</span> <span class="nx">Event</span><span class="p">)</span> <span class="p">{</span>
+              <span class="nx">_</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">strconv</span><span class="p">.</span><span class="nx">Atoi</span><span class="p">(</span><span class="nx">elmn</span><span class="p">.</span><span class="nx">Value</span><span class="p">())</span>
+              <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+                      <span class="nx">info</span><span class="p">.</span><span class="nx">SetInnerHTML</span><span class="p">(</span><span class="nx">err</span><span class="p">.</span><span class="nx">Error</span><span class="p">())</span>
+                      <span class="k">return</span>
+              <span class="p">}</span>
+              <span class="nx">info</span><span class="p">.</span><span class="nx">SetInnerHTML</span><span class="p">(</span><span class="s">&quot;input is integer&quot;</span><span class="p">)</span>
+      <span class="p">})</span>
+<span class="p">}</span>
+</pre></div>
+<p>The link of full source code is available <a class="reference external" href="https://github.com/siongui/frontend-programming-in-go/tree/master/029-input-text-integer-check">on my GitHub repo</a>.</p>
+
+<p>Tested on:</p>
+<ul class="simple">
+<li><tt class="docutils literal">Chromium 65.0.3325.181 on Ubuntu 17.10 <span class="pre">(64-bit)</span></tt></li>
+<li><tt class="docutils literal">Go 1.10.1</tt></li>
+<li><tt class="docutils literal">GopherJS <span class="pre">1.10-3</span></tt></li>
+</ul>
+<hr class="docutils" />
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id1" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td><a class="reference external" href="/2018/04/23/javascript-check-if-input-text-value-is-integer/">[JavaScript] Check if Value of Input Text Field is Integer</a></td></tr>
+</tbody>
+</table>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/frontend-programming-in-go.html">Frontend Programming in Go</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/go.html">Go</a>
+,       <a href="/tag/golang.html">Golang</a>
+,       <a href="/tag/gopherjs.html">GopherJS</a>
+,       <a href="/tag/go-to-javascript.html">Go to JavaScript</a>
+,       <a href="/tag/frontend-programming-in-go.html">Frontend Programming in Go</a>
+,       <a href="/tag/type-casting.html">Type Casting</a>
+,       <a href="/tag/type-conversion.html">Type Conversion</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

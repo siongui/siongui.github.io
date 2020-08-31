@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>[Golang] Wait For Goroutines to Finish</title>
+  <meta name="keywords" content="Go,Golang,Goroutine,Go Channels,Go sync Package,Go defer Statement"/>
+  <meta name="description" content="Use channels to wait for all goroutines to finish"/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="[Golang] Wait For Goroutines to Finish" /><meta property="og:image" content="https://cdn-images-1.medium.com/max/1200/1*GWYUFH14uOVLNHY-L1tv2w.jpeg" />
+<meta property="og:description" content="Use channels to wait for all goroutines to finish" /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2015/03/23/go-wait-for-goroutine-to-finish/"
+           rel="bookmark"
+           title="Permalink to [Golang] Wait For Goroutines to Finish">
+          [Golang] Wait For Goroutines to Finish
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2018-05-16T22:56:00+08:00">
+    Updated: May 16, 2018
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2015/03/23/go-wait-for-goroutine-to-finish%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><div class="contents topic" id="this-post-shows-two-approaches-to-wait-for-all-goroutines-to-finish">
+<p class="topic-title">This post shows two approaches to wait for all <a class="reference external" href="https://tour.golang.org/concurrency/1">goroutines</a> to
+finish.</p>
+<ul class="simple">
+<li><a class="reference internal" href="#channel-1" id="id16">Channel </a></li>
+<li><a class="reference internal" href="#sync-waitgroup-4" id="id17">sync.WaitGroup </a></li>
+</ul>
+</div>
+<div class="section" id="channel-1">
+<h2><a class="toc-backref" href="#id16">Channel <a class="footnote-reference" href="#id3" id="id1">[1]</a></a></h2>
+<p>Wait for all goroutines to finish via <a class="reference external" href="https://tour.golang.org/concurrency/2">channels</a>:</p>
+<p class="align-center rubric"><a class="reference external" href="https://play.golang.org/p/dHYMGZNbnj5">Run Code on Go Playground</a></p>
+<div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+      <span class="s">&quot;fmt&quot;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nx">routine</span><span class="p">(</span><span class="nx">site</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">c</span> <span class="kd">chan</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">defer</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span> <span class="nx">c</span> <span class="o">&lt;-</span> <span class="mi">1</span> <span class="p">}()</span>
+
+      <span class="c1">// do something</span>
+      <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">site</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+      <span class="nx">c</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kt">int</span><span class="p">)</span>
+
+      <span class="nx">sites</span> <span class="o">:=</span> <span class="p">[]</span><span class="kt">string</span><span class="p">{</span>
+              <span class="s">&quot;https://www.google.com/&quot;</span><span class="p">,</span>
+              <span class="s">&quot;https://duckduckgo.com/&quot;</span><span class="p">,</span>
+              <span class="s">&quot;https://www.bing.com/&quot;</span><span class="p">}</span>
+
+      <span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">site</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">sites</span> <span class="p">{</span>
+              <span class="k">go</span> <span class="nx">routine</span><span class="p">(</span><span class="nx">site</span><span class="p">,</span> <span class="nx">c</span><span class="p">)</span>
+      <span class="p">}</span>
+
+      <span class="c1">// wait all goroutines to finish</span>
+      <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="nx">sites</span><span class="p">);</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+              <span class="o">&lt;-</span><span class="nx">c</span>
+      <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+</div>
+<div class="section" id="sync-waitgroup-4">
+<h2><a class="toc-backref" href="#id17">sync.WaitGroup <a class="footnote-reference" href="#id6" id="id2">[4]</a></a></h2>
+<p>Wait for all goroutines to finish via <a class="reference external" href="https://golang.org/pkg/sync/#WaitGroup">sync.WaitGroup</a>:</p>
+<p class="align-center rubric"><a class="reference external" href="https://play.golang.org/p/7jSEcLb5SyD">Run Code on Go Playground</a></p>
+<div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+      <span class="s">&quot;fmt&quot;</span>
+      <span class="s">&quot;sync&quot;</span>
+<span class="p">)</span>
+
+<span class="kd">var</span> <span class="nx">wg</span> <span class="nx">sync</span><span class="p">.</span><span class="nx">WaitGroup</span>
+
+<span class="kd">func</span> <span class="nx">routine</span><span class="p">(</span><span class="nx">site</span> <span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
+      <span class="c1">// Decrement the counter when the goroutine completes.</span>
+      <span class="k">defer</span> <span class="nx">wg</span><span class="p">.</span><span class="nx">Done</span><span class="p">()</span>
+
+      <span class="c1">// do something</span>
+      <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">site</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+      <span class="nx">sites</span> <span class="o">:=</span> <span class="p">[]</span><span class="kt">string</span><span class="p">{</span>
+              <span class="s">&quot;https://www.google.com/&quot;</span><span class="p">,</span>
+              <span class="s">&quot;https://duckduckgo.com/&quot;</span><span class="p">,</span>
+              <span class="s">&quot;https://www.bing.com/&quot;</span><span class="p">}</span>
+
+      <span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">site</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">sites</span> <span class="p">{</span>
+              <span class="c1">// Increment the WaitGroup counter.</span>
+              <span class="nx">wg</span><span class="p">.</span><span class="nx">Add</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+              <span class="k">go</span> <span class="nx">routine</span><span class="p">(</span><span class="nx">site</span><span class="p">)</span>
+      <span class="p">}</span>
+
+      <span class="c1">// wait all goroutines to finish</span>
+      <span class="nx">wg</span><span class="p">.</span><span class="nx">Wait</span><span class="p">()</span>
+<span class="p">}</span>
+</pre></div>
+
+<hr class="docutils" />
+<p>Tested on: <a class="reference external" href="https://play.golang.org/">The Go Playground</a></p>
+<hr class="docutils" />
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td><a class="reference external" href="https://groups.google.com/d/topic/golang-nuts/mNhXnWLFOo4">Waiting for all goroutines to finish before ending main - Google Groups</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[2]</td><td><a class="reference external" href="https://duckduckgo.com/">DuckDuckGo</a> Search: <a class="reference external" href="https://duckduckgo.com/?q=golang+wait+for+goroutine+to+finish">golang wait for goroutine to finish</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id5" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[3]</td><td><a class="reference external" href="https://www.google.com/">Google</a> Search: <a class="reference external" href="https://www.google.com/search?q=golang+wait+for+goroutine+to+finish">golang wait for goroutine to finish</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id6" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[4]</a></td><td><a class="reference external" href="https://www.hawkingrei.com/blog/2017/08/26/gracefully-use-waitgroup/">优雅の使用sync.WaitGroup - hawkingrei |  Blog</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id7" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[5]</td><td><a class="reference external" href="https://old.reddit.com/r/golang/comments/9o4vh5/goroutine_antipattern/">goroutine anti-pattern? : golang</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id8" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[6]</td><td><a class="reference external" href="https://old.reddit.com/r/golang/comments/9zzeai/non_blocking_way_of_notifying_a_goroutine_by_many/">Non blocking way of notifying a goroutine, by many at once : golang</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id9" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[7]</td><td><a class="reference external" href="https://old.reddit.com/r/golang/comments/a1wznn/can_someone_explain_why_this_program_isnt_faster/">Can someone explain why this program isn't faster with goroutines? : golang</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id10" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[8]</td><td><a class="reference external" href="https://old.reddit.com/r/golang/comments/a2b4iu/how_to_storeretrieve_channels_in_sync_map/">How to store/retrieve channels in sync map? : golang</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id11" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[9]</td><td><a class="reference external" href="https://old.reddit.com/r/golang/comments/a2f3lb/goroutines_blocking_on_channels_vs_goroutines/">Goroutines blocking on channels vs goroutines blocking on system calls : golang</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id12" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[10]</td><td><a class="reference external" href="https://old.reddit.com/r/golang/comments/a39ybz/is_it_safe_to_assume_that_the_compiler_will_make/">Is it safe to assume that the compiler will make goroutines cooperative regardless of the code? : golang</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id13" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[11]</td><td><a class="reference external" href="https://old.reddit.com/r/golang/comments/a2w1tj/thread_safe_access_to_struct_members/">Thread safe access to struct members : golang</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id14" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[12]</td><td><a class="reference external" href="https://old.reddit.com/r/golang/comments/a3a1wh/scheduling_in_go_part_iii/">Scheduling In Go : Part III : golang</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id15" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[13]</td><td><a class="reference external" href="https://old.reddit.com/r/golang/comments/a6w1ps/help_understanding_channel_blocking/">Help understanding channel blocking : golang</a></td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/go.html">Go</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/go.html">Go</a>
+,       <a href="/tag/golang.html">Golang</a>
+,       <a href="/tag/goroutine.html">Goroutine</a>
+,       <a href="/tag/go-channels.html">Go Channels</a>
+,       <a href="/tag/go-sync-package.html">Go sync Package</a>
+,       <a href="/tag/go-defer-statement.html">Go defer Statement</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

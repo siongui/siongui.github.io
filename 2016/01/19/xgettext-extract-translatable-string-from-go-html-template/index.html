@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>xgettext Extract Translatable Strings From Golang html/template</title>
+  <meta name="keywords" content="Go,Golang,i18n,Locale,gettext,html,Web application,web,sed,Regular Expression,Golang template"/>
+  <meta name="description" content="Use xgettext (one of GNU gettext utilities) to extract translatable strings from HTML templates of Go html/template."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="xgettext Extract Translatable Strings From Golang html/template" />    <meta property="og:image" content="/./extra/Dharma_wheel.svg" /><meta property="og:description" content="Use xgettext (one of GNU gettext utilities) to extract translatable strings from HTML templates of Go html/template." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2016/01/19/xgettext-extract-translatable-string-from-go-html-template/"
+           rel="bookmark"
+           title="Permalink to xgettext Extract Translatable Strings From Golang html/template">
+          xgettext Extract Translatable Strings From Golang html/template
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2016-01-19T21:09:00+08:00">
+    January 19, 2016
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2016/01/19/xgettext-extract-translatable-string-from-go-html-template%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p>GNU <a class="reference external" href="https://www.gnu.org/software/gettext/">gettext</a> tools are great for creating <a class="reference external" href="https://en.wikipedia.org/wiki/Internationalization_and_localization">i18n</a> (web) applications. <a class="reference external" href="https://www.gnu.org/software/gettext/manual/html_node/xgettext-Invocation.html">xgettext</a> is
+one of GNU <a class="reference external" href="https://www.gnu.org/software/gettext/">gettext</a> utilities, which extracts translatable strings from given
+input files, and outputs <a class="reference external" href="https://www.gnu.org/software/gettext/manual/html_node/PO-Files.html">PO</a> template (<em>POT</em> file).</p>
+<p>If <a class="reference external" href="http://www.w3schools.com/html/">HTML</a> templates are written by <a class="reference external" href="https://golang.org/">Go</a> <a class="reference external" href="https://golang.org/pkg/html/template/">html/template</a> (read <a class="footnote-reference" href="#id7" id="id1">[3]</a>), you will
+find that <a class="reference external" href="https://www.gnu.org/software/gettext/manual/html_node/xgettext-Invocation.html">xgettext</a> cannot extracts translatable strings directly from the
+templates, because <a class="reference external" href="https://golang.org/">Go</a> <a class="reference external" href="https://golang.org/pkg/html/template/">html/template</a> uses different syntax.</p>
+<p>We can write a custom <em>gettext</em> function and use this function in templates by
+<a class="reference external" href="https://golang.org/">Go</a> <a class="reference external" href="https://golang.org/pkg/html/template/">html/template</a> (read <a class="footnote-reference" href="#id7" id="id2">[3]</a>), but the <em>gettext</em> function must be called with
+the following syntax:</p>
+<div class="highlight"><pre><span></span>{{gettext &quot;Home&quot;}}
+</pre></div>
+<p>But <a class="reference external" href="https://www.gnu.org/software/gettext/manual/html_node/xgettext-Invocation.html">xgettext</a> can not extract above strings. The idiomatic syntax used for
+<a class="reference external" href="https://www.gnu.org/software/gettext/manual/html_node/xgettext-Invocation.html">xgettext</a> to extract strings are:</p>
+<div class="highlight"><pre><span></span>{{gettext(&quot;Home&quot;)}}
+</pre></div>
+
+<p>So how to extract the translatable strings in syntax of <a class="reference external" href="https://golang.org/">Go</a> <a class="reference external" href="https://golang.org/pkg/html/template/">html/template</a>?
+After some googling <a class="footnote-reference" href="#id8" id="id3">[4]</a>, I found <a class="footnote-reference" href="#id9" id="id4">[5]</a> provides me the idea of solution. The
+solution is to uses <a class="reference external" href="http://www.grymoire.com/Unix/Sed.html">sed</a> to convert the <a class="reference external" href="https://golang.org/">Go</a> <a class="reference external" href="https://golang.org/pkg/html/template/">html/template</a> syntax to idiomatic
+syntax by the following command:</p>
+<div class="highlight"><pre><span></span>sed <span class="s2">&quot;s/{{gettext \(&quot;</span>.*<span class="s2">&quot;\)}}/{{gettext(\1)}}/g&quot;</span> html.go <span class="p">|</span> xgettext --no-wrap --language<span class="o">=</span>c --from-code<span class="o">=</span>UTF-8 --output<span class="o">=</span>locale/messages.pot -
+</pre></div>
+<p>After conversion of syntax, the output are feeded to <a class="reference external" href="https://www.gnu.org/software/gettext/manual/html_node/xgettext-Invocation.html">xgettext</a> to extract
+strings. <a class="reference external" href="http://handlebarsjs.com/">Handlebars</a> templates uses syntax silimiar to <a class="reference external" href="https://golang.org/">Go</a> <a class="reference external" href="https://golang.org/pkg/html/template/">html/template</a>,
+so the solution here is also applied to <a class="reference external" href="http://handlebarsjs.com/">Handlebars</a> templates.</p>
+<hr class="docutils" />
+<p>Tested on: <tt class="docutils literal">Ubuntu Linux 15.10</tt>, <tt class="docutils literal">Go 1.5.3</tt>.</p>
+<hr class="docutils" />
+
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id5" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td><a class="reference external" href="/2016/01/07/i18n-web-application-by-gnu-gettext-tools/">Internationalization (i18n) of Web Application by GNU gettext Tools</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id6" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[2]</td><td><a class="reference external" href="/2016/01/08/golang-i18n-go-application-by-gnu-gettext/">[Golang] Internationalization (i18n) of Go Application by GNU gettext Tools</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id7" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[3]</td><td><em>(<a class="fn-backref" href="#id1">1</a>, <a class="fn-backref" href="#id2">2</a>)</em> <a class="reference external" href="/2016/01/19/i18n-go-web-application-by-gettext-html-template/">i18n Golang Web Application by gettext and html/template</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id8" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id3">[4]</a></td><td><a class="reference external" href="https://www.google.com/search?q=xgettext+example">xgettext example</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id9" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id4">[5]</a></td><td><a class="reference external" href="http://stackoverflow.com/questions/7645319/let-xgettext-find-keywords-in-comments">php - Let xgettext find keywords in comments - Stack Overflow</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id10" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[6]</td><td><a class="reference external" href="https://github.com/gmarty/xgettext">gmarty/xgettext · GitHub</a> (Extract translatable strings from Handlebars templates.)</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id11" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[7]</td><td><a class="reference external" href="https://github.com/arendjr/grunt-xgettext">arendjr/grunt-xgettext: Grunt xgettext plugin for JavaScript and Handlebars</a></td></tr>
+</tbody>
+</table>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/go.html">Go</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/go.html">Go</a>
+,       <a href="/tag/golang.html">Golang</a>
+,       <a href="/tag/i18n.html">i18n</a>
+,       <a href="/tag/locale.html">Locale</a>
+,       <a href="/tag/gettext.html">gettext</a>
+,       <a href="/tag/html.html">html</a>
+,       <a href="/tag/web-application.html">Web application</a>
+,       <a href="/tag/web.html">web</a>
+,       <a href="/tag/sed.html">sed</a>
+,       <a href="/tag/regular-expression.html">Regular Expression</a>
+,       <a href="/tag/golang-template.html">Golang template</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

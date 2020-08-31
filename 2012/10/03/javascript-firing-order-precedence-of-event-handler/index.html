@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>[JavaScript] Firing Order (Precedence) of Event Handler</title>
+  <meta name="keywords" content="JavaScript,event firing order"/>
+  <meta name="description" content="Use onmousedown event instead of onclick event if the event handler to be fired before onblur event."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="[JavaScript] Firing Order (Precedence) of Event Handler" /><meta property="og:image" content="http://www.javatpoint.com/images/javascript/javascript_logo.png" />
+<meta property="og:description" content="Use onmousedown event instead of onclick event if the event handler to be fired before onblur event." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2012/10/03/javascript-firing-order-precedence-of-event-handler/"
+           rel="bookmark"
+           title="Permalink to [JavaScript] Firing Order (Precedence) of Event Handler">
+          [JavaScript] Firing Order (Precedence) of Event Handler
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2015-03-03T23:00:00+08:00">
+    Updated: March 03, 2015
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2012/10/03/javascript-firing-order-precedence-of-event-handler%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p>There are two HTML elements, one is <em>div</em> element, and the other is <em>input</em>
+element. Assume that the focus is at <em>input</em> element in the beginning. <a class="reference external" href="http://www.w3schools.com/jsref/event_onclick.asp">onclick</a>
+event handler of <em>div</em> element and <a class="reference external" href="http://www.w3schools.com/jsref/event_onblur.asp">onblur</a> event handler of <em>input</em> element are
+registered. If <em>div</em> element is clicked, <em>input</em> element will lose focus. Here
+comes the question:</p>
+<blockquote>
+<p><em>Which event handler is fired first?</em></p>
+<blockquote>
+<p><a class="reference external" href="http://www.w3schools.com/jsref/event_onclick.asp">onclick</a> event handler of <em>div</em> element?</p>
+<p>or <a class="reference external" href="http://www.w3schools.com/jsref/event_onblur.asp">onblur</a> event handler of <em>input</em> element?</p>
+</blockquote>
+<p>The answer is <a class="reference external" href="http://www.w3schools.com/jsref/event_onblur.asp">onblur</a> event handler of <em>input</em> element is fired <strong>before</strong>
+<a class="reference external" href="http://www.w3schools.com/jsref/event_onclick.asp">onclick</a> event handler of <em>div</em> element.</p>
+</blockquote>
+
+<ul>
+<li><p class="first">What if I want <a class="reference external" href="http://www.w3schools.com/jsref/event_onblur.asp">onblur</a> event handler fired <strong>after</strong> <a class="reference external" href="http://www.w3schools.com/jsref/event_onclick.asp">onclick</a> event handler?</p>
+<blockquote>
+<p>This is a question similar to that asked in reference <a class="footnote-reference" href="#id4" id="id1">[1]</a>, and also the
+question I had when I developed my web application.</p>
+</blockquote>
+</li>
+</ul>
+<p>There are good news and bad news for the quesiton:</p>
+<blockquote>
+<ul class="simple">
+<li>The bad news is, according to references <a class="footnote-reference" href="#id5" id="id2">[2]</a> and <a class="footnote-reference" href="#id6" id="id3">[3]</a>, the firing order
+(precedence) of event handlers are not defined in the HTML spec and hence
+depends on browser implementations.</li>
+<li>The good news is that although <a class="reference external" href="http://www.w3schools.com/jsref/event_onblur.asp">onblur</a> event handler is fired before
+<a class="reference external" href="http://www.w3schools.com/jsref/event_onclick.asp">onclick</a> event handler, <a class="reference external" href="http://www.w3schools.com/jsref/event_onmousedown.asp">onmousedown</a> event handler is fired <strong>before</strong>
+<a class="reference external" href="http://www.w3schools.com/jsref/event_onblur.asp">onblur</a> event handler. So we can move <a class="reference external" href="http://www.w3schools.com/jsref/event_onclick.asp">onclick</a> event handler to <a class="reference external" href="http://www.w3schools.com/jsref/event_onmousedown.asp">onmousedown</a>
+event of <em>div</em> element, which achieves the same result we need.</li>
+</ul>
+</blockquote>
+
+<div class="section" id="summary">
+<h2>Summary</h2>
+<ol class="arabic simple">
+<li>Firing order (precedence) of event handlers depends on browser
+implementation. No spec on this.</li>
+<li>Register event handler to <a class="reference external" href="http://www.w3schools.com/jsref/event_onmousedown.asp">onmousedown</a> event instead of <a class="reference external" href="http://www.w3schools.com/jsref/event_onclick.asp">onclick</a> event, if
+you want the event handler to be fired <strong>before</strong> <a class="reference external" href="http://www.w3schools.com/jsref/event_onblur.asp">onblur</a> event handler.</li>
+</ol>
+<hr class="docutils" />
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td><a class="reference external" href="http://stackoverflow.com/questions/4084780/how-should-i-fire-javascript-blur-event-after-click-event-that-causes-the-blur">jquery - How should I fire Javascript blur event after click event that causes the blur? - Stack Overflow</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id5" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[2]</a></td><td><a class="reference external" href="http://stackoverflow.com/questions/282245/what-is-the-event-precedence-in-javascript">What is the event precedence in JavaScript? - Stack Overflow</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id6" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id3">[3]</a></td><td><a class="reference external" href="http://stackoverflow.com/questions/5143817/javascript-event-handler-order">Javascript event handler order - Stack Overflow</a></td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/javascript.html">JavaScript</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/javascript.html">JavaScript</a>
+,       <a href="/tag/event-firing-order.html">event firing order</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

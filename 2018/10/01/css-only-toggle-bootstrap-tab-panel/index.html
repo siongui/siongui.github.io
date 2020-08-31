@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>Pure CSS Bootstrap Tab Panel</title>
+  <meta name="keywords" content="Pure CSS Toggle,toggle,toggleable,html,CSS,Bootstrap,Tab Panel"/>
+  <meta name="description" content="CSS only toggle Bootstrap tab panel. No JavaScript required."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="Pure CSS Bootstrap Tab Panel" /><meta property="og:image" content="http://codepen.io/wizly/pen/BlKxo/image/large.png" />
+<meta property="og:description" content="CSS only toggle Bootstrap tab panel. No JavaScript required." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2018/10/01/css-only-toggle-bootstrap-tab-panel/"
+           rel="bookmark"
+           title="Permalink to Pure CSS Bootstrap Tab Panel">
+          Pure CSS Bootstrap Tab Panel
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2018-10-01T22:59:00+08:00">
+    October 01, 2018
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2018/10/01/css-only-toggle-bootstrap-tab-panel%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p>CSS only toggle <a class="reference external" href="https://getbootstrap.com/">Bootstrap</a> <a class="reference external" href="https://getbootstrap.com/docs/4.1/components/navs/#javascript-behavior">tab panel</a>. No <em>JavaScript</em> required.
+Click the following tabs to see demo.</p>
+<style>
+input[name="nav-tab"] {
+  display: none;
+}
+
+/* the magic: show tab panes */
+#home:checked ~ #nav-tabContent > #nav-home,
+#profile:checked ~ #nav-tabContent > #nav-profile,
+#contact:checked ~ #nav-tabContent > #nav-contact {
+  display: block;
+  opacity: 1;
+}
+/* the magic: make tab active */
+#home:checked ~ nav > #nav-tab > #nav-home-tab,
+#profile:checked ~ nav > #nav-tab > #nav-profile-tab,
+#contact:checked ~ nav > #nav-tab > #nav-contact-tab {
+  color: #495057;
+  background-color: #fff;
+  border-color: #dee2e6 #dee2e6 #fff;
+}
+</style>
+
+<!-- you can put the following line in your html head -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+<input type="radio" id="home" name="nav-tab">
+<input type="radio" id="profile" name="nav-tab">
+<input type="radio" id="contact" name="nav-tab">
+<nav>
+  <div class="nav nav-tabs" id="nav-tab" role="tablist">
+    <a class="nav-item nav-link" id="nav-home-tab"><label for="home">Home</label></a>
+    <a class="nav-item nav-link" id="nav-profile-tab"><label for="profile">Profile</label></a>
+    <a class="nav-item nav-link" id="nav-contact-tab"><label for="contact">Contact</label></a>
+  </div>
+</nav>
+<div class="tab-content" id="nav-tabContent">
+  <div class="tab-pane fade" id="nav-home">My Home</div>
+  <div class="tab-pane fade" id="nav-profile">My Profile</div>
+  <div class="tab-pane fade" id="nav-contact">My Contact</div>
+</div><div class="line-block">
+<div class="line"><br /></div>
+<div class="line"><br /></div>
+</div>
+<p>The technique comes from <em>Pure CSS Tab Panel</em> <a class="footnote-reference" href="#id2" id="id1">[1]</a>. We need:</p>
+<p>1 - Visible HTML <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/label">label</a> elements, which is the navigation tabs.</p>
+<p>2 - Invisible HTML <em>input</em> <em>radio</em> elements, referenced by the <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/label#Using_the_for_attribute">for</a> attribute of
+<em>label</em> elements. The value of <em>name</em> attribute of these elements must be the
+same.</p>
+<p>3 - Tab contents, invisible in the beginning.</p>
+<p>When users click on the visible label elements, the corresponding input radio
+element is checked. We use CSS3 <strong>:checked</strong> selector to select corresponding
+tab content, and make the selected tab content visible.</p>
+<p>The complete source code is as follows:</p>
+<p><strong>HTML</strong>:</p>
+<div class="highlight"><pre><span></span><span class="c">&lt;!-- you can put the following line in your html head --&gt;</span>
+<span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css&quot;</span> <span class="na">integrity</span><span class="o">=</span><span class="s">&quot;sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO&quot;</span> <span class="na">crossorigin</span><span class="o">=</span><span class="s">&quot;anonymous&quot;</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;radio&quot;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;home&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;nav-tab&quot;</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;radio&quot;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;profile&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;nav-tab&quot;</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;radio&quot;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;contact&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;nav-tab&quot;</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">nav</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;nav nav-tabs&quot;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;nav-tab&quot;</span> <span class="na">role</span><span class="o">=</span><span class="s">&quot;tablist&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;nav-item nav-link&quot;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;nav-home-tab&quot;</span><span class="p">&gt;&lt;</span><span class="nt">label</span> <span class="na">for</span><span class="o">=</span><span class="s">&quot;home&quot;</span><span class="p">&gt;</span>Home<span class="p">&lt;/</span><span class="nt">label</span><span class="p">&gt;&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;nav-item nav-link&quot;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;nav-profile-tab&quot;</span><span class="p">&gt;&lt;</span><span class="nt">label</span> <span class="na">for</span><span class="o">=</span><span class="s">&quot;profile&quot;</span><span class="p">&gt;</span>Profile<span class="p">&lt;/</span><span class="nt">label</span><span class="p">&gt;&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;nav-item nav-link&quot;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;nav-contact-tab&quot;</span><span class="p">&gt;&lt;</span><span class="nt">label</span> <span class="na">for</span><span class="o">=</span><span class="s">&quot;contact&quot;</span><span class="p">&gt;</span>Contact<span class="p">&lt;/</span><span class="nt">label</span><span class="p">&gt;&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">nav</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;tab-content&quot;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;nav-tabContent&quot;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;tab-pane fade&quot;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;nav-home&quot;</span><span class="p">&gt;</span>My Home<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;tab-pane fade&quot;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;nav-profile&quot;</span><span class="p">&gt;</span>My Profile<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;tab-pane fade&quot;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;nav-contact&quot;</span><span class="p">&gt;</span>My Contact<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</pre></div>
+
+<p><strong>CSS</strong>:</p>
+<div class="highlight"><pre><span></span><span class="nt">input</span><span class="o">[</span><span class="nt">name</span><span class="o">=</span><span class="s2">&quot;nav-tab&quot;</span><span class="o">]</span> <span class="p">{</span>
+  <span class="k">display</span><span class="p">:</span> <span class="kc">none</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c">/* the magic: show tab panes */</span>
+<span class="p">#</span><span class="nn">home</span><span class="p">:</span><span class="nd">checked</span> <span class="o">~</span> <span class="p">#</span><span class="nn">nav-tabContent</span> <span class="o">&gt;</span> <span class="p">#</span><span class="nn">nav-home</span><span class="o">,</span>
+<span class="p">#</span><span class="nn">profile</span><span class="p">:</span><span class="nd">checked</span> <span class="o">~</span> <span class="p">#</span><span class="nn">nav-tabContent</span> <span class="o">&gt;</span> <span class="p">#</span><span class="nn">nav-profile</span><span class="o">,</span>
+<span class="p">#</span><span class="nn">contact</span><span class="p">:</span><span class="nd">checked</span> <span class="o">~</span> <span class="p">#</span><span class="nn">nav-tabContent</span> <span class="o">&gt;</span> <span class="p">#</span><span class="nn">nav-contact</span> <span class="p">{</span>
+  <span class="k">display</span><span class="p">:</span> <span class="kc">block</span><span class="p">;</span>
+  <span class="k">opacity</span><span class="p">:</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c">/* the magic: make tab active */</span>
+<span class="p">#</span><span class="nn">home</span><span class="p">:</span><span class="nd">checked</span> <span class="o">~</span> <span class="nt">nav</span> <span class="o">&gt;</span> <span class="p">#</span><span class="nn">nav-tab</span> <span class="o">&gt;</span> <span class="p">#</span><span class="nn">nav-home-tab</span><span class="o">,</span>
+<span class="p">#</span><span class="nn">profile</span><span class="p">:</span><span class="nd">checked</span> <span class="o">~</span> <span class="nt">nav</span> <span class="o">&gt;</span> <span class="p">#</span><span class="nn">nav-tab</span> <span class="o">&gt;</span> <span class="p">#</span><span class="nn">nav-profile-tab</span><span class="o">,</span>
+<span class="p">#</span><span class="nn">contact</span><span class="p">:</span><span class="nd">checked</span> <span class="o">~</span> <span class="nt">nav</span> <span class="o">&gt;</span> <span class="p">#</span><span class="nn">nav-tab</span> <span class="o">&gt;</span> <span class="p">#</span><span class="nn">nav-contact-tab</span> <span class="p">{</span>
+  <span class="k">color</span><span class="p">:</span> <span class="mh">#495057</span><span class="p">;</span>
+  <span class="k">background-color</span><span class="p">:</span> <span class="mh">#fff</span><span class="p">;</span>
+  <span class="k">border-color</span><span class="p">:</span> <span class="mh">#dee2e6</span> <span class="mh">#dee2e6</span> <span class="mh">#fff</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<ul class="simple">
+<li>The first rule hides the tab content and input radio box.</li>
+<li>In second rule. We use <strong>:checked</strong> and general sibling selector (~) to make
+the user-selected tab content visible.</li>
+<li>In third rule, we make the selected navigation tab look active.</li>
+</ul>
+<hr class="docutils" />
+<p>Tested on:</p>
+<ul class="simple">
+<li><tt class="docutils literal">Chromium 69.0.3497.81 on Ubuntu 18.04 <span class="pre">(64-bit)</span></tt></li>
+<li><tt class="docutils literal">Bootstrap 4.1.3</tt></li>
+</ul>
+<hr class="docutils" />
+
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td><a class="reference external" href="/2017/05/21/css-only-tab-panel/">Pure CSS Tab Panel</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[2]</td><td><a class="reference external" href="/2018/01/30/css-only-bulma-tab-panel/">Pure CSS Bulma Tabs</a></td></tr>
+</tbody>
+</table>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/css.html">CSS</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/pure-css-toggle.html">Pure CSS Toggle</a>
+,       <a href="/tag/toggle.html">toggle</a>
+,       <a href="/tag/toggleable.html">toggleable</a>
+,       <a href="/tag/html.html">html</a>
+,       <a href="/tag/css.html">CSS</a>
+,       <a href="/tag/bootstrap.html">Bootstrap</a>
+,       <a href="/tag/tab-panel.html">Tab Panel</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

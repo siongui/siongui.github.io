@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>Pure CSS Bootstrap Modal</title>
+  <meta name="keywords" content="Pure CSS Toggle,toggle,toggleable,html,CSS,Modal (Popup),Bootstrap"/>
+  <meta name="description" content="CSS only toggle Bootstrap modal. No JavaScript required."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="Pure CSS Bootstrap Modal" /><meta property="og:image" content="https://scripts-cdn.softpedia.com/screenshots/Bootstrap-Modal_1.png" />
+<meta property="og:description" content="CSS only toggle Bootstrap modal. No JavaScript required." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2018/09/25/css-only-toggle-bootstrap-modal/"
+           rel="bookmark"
+           title="Permalink to Pure CSS Bootstrap Modal">
+          Pure CSS Bootstrap Modal
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2018-09-25T21:44:00+08:00">
+    September 25, 2018
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2018/09/25/css-only-toggle-bootstrap-modal%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p>CSS only toggle <a class="reference external" href="https://getbootstrap.com/">Bootstrap</a> <a class="reference external" href="https://getbootstrap.com/docs/4.1/components/modal/">modal</a>. No <em>JavaScript</em> required.
+Click the following button to see demo.</p>
+<style>
+#element-toggle {
+  display: none;
+}
+#element-toggle:checked ~ #exampleModal {
+  display: block;
+}
+</style>
+
+<!-- you can put the following line in your html head -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+<div style="margin: 2rem;">
+
+<!-- Pseudo-Button trigger modal -->
+<label type="button" class="btn btn-primary" for="element-toggle">
+  Launch demo modal
+</label>
+<input id="element-toggle" type="checkbox" />
+
+<!-- Modal -->
+<div class="modal fade show" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <label for="element-toggle" type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </label>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <label for="element-toggle" type="button" class="btn btn-secondary" data-dismiss="modal">Close</label>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><p>The above demo apply the technique of <em>Semantic UI</em> modal <a class="footnote-reference" href="#id3" id="id1">[2]</a> to <em>Bootstrap</em>
+modal.</p>
+<p>The following is the source code for above demo.</p>
+<p><strong>HTML</strong>:</p>
+<div class="highlight"><pre><span></span><span class="c">&lt;!-- you can put the following line in your html head --&gt;</span>
+<span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css&quot;</span> <span class="na">integrity</span><span class="o">=</span><span class="s">&quot;sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO&quot;</span> <span class="na">crossorigin</span><span class="o">=</span><span class="s">&quot;anonymous&quot;</span><span class="p">&gt;</span>
+
+<span class="c">&lt;!-- Pseudo-Button trigger modal --&gt;</span>
+<span class="p">&lt;</span><span class="nt">label</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;button&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;btn btn-primary&quot;</span> <span class="na">for</span><span class="o">=</span><span class="s">&quot;element-toggle&quot;</span><span class="p">&gt;</span>
+  Launch demo modal
+<span class="p">&lt;/</span><span class="nt">label</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">input</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;element-toggle&quot;</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;checkbox&quot;</span> <span class="p">/&gt;</span>
+
+<span class="c">&lt;!-- Modal --&gt;</span>
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;modal fade show&quot;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;exampleModal&quot;</span> <span class="na">tabindex</span><span class="o">=</span><span class="s">&quot;-1&quot;</span> <span class="na">role</span><span class="o">=</span><span class="s">&quot;dialog&quot;</span> <span class="na">aria-labelledby</span><span class="o">=</span><span class="s">&quot;exampleModalLabel&quot;</span> <span class="na">aria-hidden</span><span class="o">=</span><span class="s">&quot;true&quot;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;modal-dialog&quot;</span> <span class="na">role</span><span class="o">=</span><span class="s">&quot;document&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;modal-content&quot;</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;modal-header&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">h5</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;modal-title&quot;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;exampleModalLabel&quot;</span><span class="p">&gt;</span>Modal title<span class="p">&lt;/</span><span class="nt">h5</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">label</span> <span class="na">for</span><span class="o">=</span><span class="s">&quot;element-toggle&quot;</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;button&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;close&quot;</span> <span class="na">data-dismiss</span><span class="o">=</span><span class="s">&quot;modal&quot;</span> <span class="na">aria-label</span><span class="o">=</span><span class="s">&quot;Close&quot;</span><span class="p">&gt;</span>
+          <span class="p">&lt;</span><span class="nt">span</span> <span class="na">aria-hidden</span><span class="o">=</span><span class="s">&quot;true&quot;</span><span class="p">&gt;</span><span class="ni">&amp;times;</span><span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+        <span class="p">&lt;/</span><span class="nt">label</span><span class="p">&gt;</span>
+      <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;modal-body&quot;</span><span class="p">&gt;</span>
+        ...
+      <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;modal-footer&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">label</span> <span class="na">for</span><span class="o">=</span><span class="s">&quot;element-toggle&quot;</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;button&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;btn btn-secondary&quot;</span> <span class="na">data-dismiss</span><span class="o">=</span><span class="s">&quot;modal&quot;</span><span class="p">&gt;</span>Close<span class="p">&lt;/</span><span class="nt">label</span><span class="p">&gt;</span>
+      <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</pre></div>
+<p>The modal trigger consists of visible <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/label">label</a> and invisible <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/checkbox">input checkbox</a>
+elements. We apply <tt class="docutils literal">.btn</tt> class to the <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/label">label</a> element to make it look like a
+button. The <strong>Close</strong> and <strong>×</strong> button in the modal is also a <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/label">label</a> element. If
+users click on the <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/label">label</a> element, the visibility of the modal is toggled.</p>
+
+<p><strong>CSS</strong>:</p>
+<div class="highlight"><pre><span></span><span class="p">#</span><span class="nn">element-toggle</span> <span class="p">{</span>
+  <span class="k">display</span><span class="p">:</span> <span class="kc">none</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="p">#</span><span class="nn">element-toggle</span><span class="p">:</span><span class="nd">checked</span> <span class="o">~</span> <span class="p">#</span><span class="nn">exampleModal</span> <span class="p">{</span>
+  <span class="k">display</span><span class="p">:</span> <span class="kc">block</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>Only two rules in CSS code:</p>
+<ul class="simple">
+<li>First rule make <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/checkbox">input checkbox</a> element invisible.</li>
+<li>Second rule toggles the visibility of the modal when users click on the
+label elements.</li>
+</ul>
+<hr class="docutils" />
+<p>Tested on:</p>
+<ul class="simple">
+<li><tt class="docutils literal">Chromium 69.0.3497.81 on Ubuntu 18.04 <span class="pre">(64-bit)</span></tt></li>
+<li><tt class="docutils literal">Bootstrap 4.1.3</tt></li>
+</ul>
+<hr class="docutils" />
+
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td><a class="reference external" href="/2018/01/27/css-only-toggle-bulma-modal/">Bulma Modal with Pure CSS Toggle</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[2]</a></td><td><a class="reference external" href="/2018/01/31/css-only-toggle-semantic-ui-modal/">Pure CSS Semantic UI Modal</a></td></tr>
+</tbody>
+</table>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/css.html">CSS</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/pure-css-toggle.html">Pure CSS Toggle</a>
+,       <a href="/tag/toggle.html">toggle</a>
+,       <a href="/tag/toggleable.html">toggleable</a>
+,       <a href="/tag/html.html">html</a>
+,       <a href="/tag/css.html">CSS</a>
+,       <a href="/tag/modal-popup.html">Modal (Popup)</a>
+,       <a href="/tag/bootstrap.html">Bootstrap</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

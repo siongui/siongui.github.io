@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>Internationalization (i18n) of Web Application by GNU gettext Tools</title>
+  <meta name="keywords" content="Python,JavaScript,Go,Golang,Web application,web,i18n,find command,Google App Engine,web.py,Locale,sed,gettext"/>
+  <meta name="description" content="Support multiple languages in your (web) applications, by GNU gettext tools, which include xgettext, msginit, msgmerge, and msgfmt."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="Internationalization (i18n) of Web Application by GNU gettext Tools" />    <meta property="og:image" content="/./extra/Dharma_wheel.svg" /><meta property="og:description" content="Support multiple languages in your (web) applications, by GNU gettext tools, which include xgettext, msginit, msgmerge, and msgfmt." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2016/01/07/i18n-web-application-by-gnu-gettext-tools/"
+           rel="bookmark"
+           title="Permalink to Internationalization (i18n) of Web Application by GNU gettext Tools">
+          Internationalization (i18n) of Web Application by GNU gettext Tools
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2016-01-07T02:28:00+08:00">
+    January 07, 2016
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2016/01/07/i18n-web-application-by-gnu-gettext-tools%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p>GNU <a class="reference external" href="https://www.gnu.org/software/gettext/">gettext</a> tools are great for creating i18n (web) applications. In this post,
+we will show how to use <a class="reference external" href="https://www.gnu.org/software/gettext/">gettext</a> tools, which include <em>xgettext</em>, <em>msginit</em>,
+<em>msgmerge</em>, and <em>msgfmt</em> to create i18n applications.</p>
+<p>My work, <a class="reference external" href="https://palidictionary.appspot.com/">Pāḷi Dictionary</a>, is a example of i18n web application. I will show
+how to use <a class="reference external" href="https://www.gnu.org/software/gettext/">gettext</a> tools by how I use <a class="reference external" href="https://www.gnu.org/software/gettext/">gettext</a> tools in <a class="reference external" href="https://palidictionary.appspot.com/">Pāḷi Dictionary</a>.</p>
+<div class="section" id="mark-strings-for-i18n">
+<h2>Mark strings for <a class="reference external" href="https://en.wikipedia.org/wiki/Internationalization_and_localization">i18n</a></h2>
+<p>First, mark strings you want to tranlste by <tt class="docutils literal"><span class="pre">_(&quot;string&quot;)</span></tt>. For example,</p>
+<div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>Hello World<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+</pre></div>
+<p>after mark</p>
+<div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>_(&quot;Hello World&quot;)<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+</pre></div>
+
+</div>
+<div class="section" id="extract-translatable-strings">
+<h2>Extract translatable strings</h2>
+<p>Next, we extract the marked strings in previous step by <a class="reference external" href="https://www.gnu.org/software/gettext/manual/html_node/xgettext-Invocation.html">xgettext</a>, which
+extracts translatable strings from given input files. Assume the marked strings
+are located in <em>html</em> files under <tt class="docutils literal">app/html/</tt> directory. Run <a class="reference external" href="https://www.gnu.org/software/gettext/manual/html_node/xgettext-Invocation.html">xgettext</a> by:</p>
+<div class="highlight"><pre><span></span>$ xgettext --no-wrap --from-code<span class="o">=</span>UTF-8 --keyword<span class="o">=</span>_ --output<span class="o">=</span>locale/messages.pot <span class="sb">`</span>find app/html/ -name <span class="s2">&quot;*.html&quot;</span><span class="sb">`</span>
+</pre></div>
+<p>A file named <em>messages.pot</em> will be created under <tt class="docutils literal">locale/</tt> directory. We will
+put all i18n-related stuff in <tt class="docutils literal">locale/</tt> directory.</p>
+<p>Next, we will set <em>charset</em> in <em>messages.pot</em>. You can open your editor to edit
+by hand. I use <a class="reference external" href="http://www.grymoire.com/Unix/Sed.html">sed</a> to automate the task:</p>
+<div class="highlight"><pre><span></span>$ sed -i <span class="s2">&quot;s/charset=CHARSET/charset=utf-8/g&quot;</span> locale/messages.pot
+</pre></div>
+
+</div>
+<div class="section" id="generate-translation-file-for-each-supported-language">
+<h2>Generate translation file for each supported language</h2>
+<p>Support we want to support three languages (<em>English</em>, <em>Traditional Chinese</em>,
+and <em>Vietnamese</em>). We use <strong>en_US</strong> <a class="reference external" href="https://en.wikipedia.org/wiki/Locale">locale</a> for <em>English</em>, <strong>zh_TW</strong> for
+<em>Traditional Chinese</em>, and <strong>vi_VN</strong> for <em>Vietnamese</em>. <a class="reference external" href="https://www.gnu.org/software/gettext/manual/html_node/msginit-Invocation.html">msginit</a> is used to
+generate translation file for each supported language:</p>
+<div class="highlight"><pre><span></span>$ msginit --no-wrap --no-translator --input<span class="o">=</span>locale/messages.pot --locale<span class="o">=</span>en_US -o locale/en_US/LC_MESSAGES/messages.po
+$ msginit --no-wrap --no-translator --input<span class="o">=</span>locale/messages.pot --locale<span class="o">=</span>zh_TW -o locale/zh_TW/LC_MESSAGES/messages.po
+$ msginit --no-wrap --no-translator --input<span class="o">=</span>locale/messages.pot --locale<span class="o">=</span>vi_VN -o locale/vi_VN/LC_MESSAGES/messages.po
+</pre></div>
+<p>the input is the <em>messages.pot</em> in previous step, and three <strong>PO</strong> files are
+generated and put in respective directories. Then edit these <strong>PO</strong> files to
+translate the strings in the files.</p>
+</div>
+<div class="section" id="update-translation-file-for-each-supported-language">
+<h2>Update translation file for each supported language</h2>
+<p>Everytime you add or delete translatable strings in original <em>html</em> files,
+<a class="reference external" href="https://www.gnu.org/software/gettext/manual/html_node/msgmerge-Invocation.html">msgmerge</a> is used to help you update the <strong>PO</strong> files for each locale.
+Re-generate <strong>messages.pot</strong> again by <a class="reference external" href="https://www.gnu.org/software/gettext/manual/html_node/xgettext-Invocation.html">xgettext</a> and then run <a class="reference external" href="https://www.gnu.org/software/gettext/manual/html_node/msgmerge-Invocation.html">msgmerge</a>:</p>
+<div class="highlight"><pre><span></span>$ msgmerge --no-wrap --backup<span class="o">=</span>none --update locale/en_US/LC_MESSAGES/messages.po locale/messages.pot
+$ msgmerge --no-wrap --backup<span class="o">=</span>none --update locale/zh_TW/LC_MESSAGES/messages.po locale/messages.pot
+$ msgmerge --no-wrap --backup<span class="o">=</span>none --update locale/vi_VN/LC_MESSAGES/messages.po locale/messages.pot
+</pre></div>
+<p>After the update, you maybe need to edit the <strong>PO</strong> files to translate the newly
+added strings.</p>
+</div>
+<div class="section" id="generate-mo-file-for-run-time-use-of-web-application">
+<h2>Generate <a class="reference external" href="https://www.gnu.org/software/gettext/manual/html_node/MO-Files.html">MO</a> file for run-time use of web application</h2>
+<p>During the run-time of i18n application, the <strong>POT</strong> or <strong>PO</strong> files are not
+used. Instead we will generate <strong>MO</strong> files from <strong>PO</strong> files in previous step
+for run-time application use. <strong>MO</strong> files are binary message catalog. We can
+generate <strong>MO</strong> files by <a class="reference external" href="https://www.gnu.org/software/gettext/manual/html_node/msgfmt-Invocation.html">msgfmt</a>:</p>
+<div class="highlight"><pre><span></span>msgfmt locale/en_US/LC_MESSAGES/messages.po -o locale/en_US/LC_MESSAGES/messages.mo
+msgfmt locale/zh_TW/LC_MESSAGES/messages.po -o locale/zh_TW/LC_MESSAGES/messages.mo
+msgfmt locale/vi_VN/LC_MESSAGES/messages.po -o locale/vi_VN/LC_MESSAGES/messages.mo
+</pre></div>
+<p>These <strong>MO</strong> files are the files we really need in our applications during
+run-time.</p>
+</div>
+<div class="section" id="use-mo-file-in-your-application">
+<h2>Use <a class="reference external" href="https://www.gnu.org/software/gettext/manual/html_node/MO-Files.html">MO</a> file in your application</h2>
+<p>The use of <strong>MO</strong> files are supported in different programming languages, such
+as <a class="reference external" href="https://www.python.org/">Python</a> or <a class="reference external" href="https://golang.org/">Go</a>. The following posts show how to use <strong>MO</strong> files during
+run-time.</p>
+<div class="section" id="for-go-to-use-gettext">
+<h3>For <a class="reference external" href="https://golang.org/">Go</a> to use <a class="reference external" href="https://www.gnu.org/software/gettext/">gettext</a></h3>
+<p>Please read <a class="footnote-reference" href="#id11" id="id1">[7]</a> and <a class="footnote-reference" href="#id14" id="id2">[10]</a> to see how to use the <strong>PO</strong> and <strong>MO</strong> file in your
+<a class="reference external" href="https://golang.org/">Go</a> (web) application.</p>
+</div>
+<div class="section" id="for-python-to-use-gettext">
+<h3>For <a class="reference external" href="https://www.python.org/">Python</a> to use <a class="reference external" href="https://www.gnu.org/software/gettext/">gettext</a></h3>
+<p>Please read <a class="footnote-reference" href="#id12" id="id3">[8]</a> and <a class="footnote-reference" href="#id13" id="id4">[9]</a> to see how to use the <strong>PO</strong> and <strong>MO</strong> file in your
+<a class="reference external" href="https://www.python.org/">Python</a> (web) application.</p>
+<hr class="docutils" />
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id5" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td><a class="reference external" href="https://www.gnu.org/software/gettext/">gettext - GNU Project - Free Software Foundation (FSF)</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id6" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[2]</td><td><a class="reference external" href="http://wiki.maemo.org/Internationalize_a_Python_application">Internationalize a Python application - maemo.org wiki</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id7" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[3]</td><td><a class="reference external" href="http://www.supernifty.org/blog/2011/09/16/python-localization-made-easy/">Python localization made easy «  Supernifty – nifty stuff</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id8" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[4]</td><td><a class="reference external" href="http://stackoverflow.com/questions/14124630/i18n-strategies-for-go-with-app-engine">localization - I18n strategies for Go with App Engine - Stack Overflow</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id9" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[5]</td><td><a class="reference external" href="https://docs.moodle.org/dev/Table_of_locales">Table of locales - MoodleDocs</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id10" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[6]</td><td><a class="reference external" href="http://webapp-improved.appspot.com/api/webapp2_extras/i18n.html#webapp2_extras.i18n.default_config">default i18n config of webapp2</a>
+(default locale dir of webapp2 i18n is $PROJECT_DIR/locale,
+and default domain of webapp2 i18n is 'messages')</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id11" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[7]</a></td><td><a class="reference external" href="/2016/01/08/golang-i18n-go-application-by-gnu-gettext/">[Golang] Internationalization (i18n) of Go Application by GNU gettext Tools</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id12" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id3">[8]</a></td><td><a class="reference external" href="/2016/01/14/python-i18n-py-application-by-gnu-gettext/">[Python] Internationalization (i18n) of Python Application by GNU gettext Tools</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id13" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id4">[9]</a></td><td><a class="reference external" href="/2016/01/17/i18n-python-web-application-by-gettext-jinja2/">i18n Python Web Application by gettext and Jinja2</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id14" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[10]</a></td><td><a class="reference external" href="/2016/01/19/i18n-go-web-application-by-gettext-html-template/">i18n Golang Web Application by gettext and html/template</a></td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/web-development.html">Web Development</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/python.html">Python</a>
+,       <a href="/tag/javascript.html">JavaScript</a>
+,       <a href="/tag/go.html">Go</a>
+,       <a href="/tag/golang.html">Golang</a>
+,       <a href="/tag/web-application.html">Web application</a>
+,       <a href="/tag/web.html">web</a>
+,       <a href="/tag/i18n.html">i18n</a>
+,       <a href="/tag/find-command.html">find command</a>
+,       <a href="/tag/google-app-engine.html">Google App Engine</a>
+,       <a href="/tag/webpy.html">web.py</a>
+,       <a href="/tag/locale.html">Locale</a>
+,       <a href="/tag/sed.html">sed</a>
+,       <a href="/tag/gettext.html">gettext</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

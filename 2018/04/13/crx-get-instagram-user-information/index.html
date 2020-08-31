@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>[Chrome Extension] Get Instagram User Information From HTML Source</title>
+  <meta name="keywords" content="JavaScript,Chrome Extension,JSON,Instagram,Web Scrape"/>
+  <meta name="description" content="Chrome extension to help you get user information on user profile page. Also show id and invisible link to profile picture on the profile page."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="[Chrome Extension] Get Instagram User Information From HTML Source" /><meta property="og:image" content="https://www.otzberg.net/iguserid/instagram_user_id_chrome.png" />
+<meta property="og:description" content="Chrome extension to help you get user information on user profile page. Also show id and invisible link to profile picture on the profile page." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2018/04/13/crx-get-instagram-user-information/"
+           rel="bookmark"
+           title="Permalink to [Chrome Extension] Get Instagram User Information From HTML Source">
+          [Chrome Extension] Get Instagram User Information From HTML Source
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2018-04-13T23:46:00+08:00">
+    April 13, 2018
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2018/04/13/crx-get-instagram-user-information%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p>Instagram now bans access to the URL:</p>
+<blockquote>
+<em>https://www.instagram.com/&lt;username&gt;/?__a=1</em></blockquote>
+<p>So now we cannot get user information, such as id, profile pic url, etc. by XHR
+to the URL. But I found there is another place to get the user information, that
+is, from HTML source of user profile page you are visiting. So I modified my
+previous Chrome extension to adapt to the change.</p>
+<p>This new Chrome extension gets the JSON format variable <em>window._sharedData</em>
+from the HTML source and show id and an invisible link to user profile pic. When
+you visit the user profile page, press F5 to refresh the page to make this
+extension work.</p>
+<p><strong>manifest.json</strong>:</p>
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;manifest_version&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+
+  <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;showinfo&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;description&quot;</span> <span class="p">:</span> <span class="s2">&quot;Show Instagram Id and invisible profile pic link on user page&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;0.1&quot;</span><span class="p">,</span>
+
+  <span class="nt">&quot;incognito&quot;</span><span class="p">:</span> <span class="s2">&quot;split&quot;</span><span class="p">,</span>
+
+  <span class="nt">&quot;content_scripts&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="nt">&quot;matches&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;https://www.instagram.com/*&quot;</span><span class="p">],</span>
+      <span class="nt">&quot;js&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;showinfo.js&quot;</span><span class="p">]</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+
+  <span class="nt">&quot;permissions&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="s2">&quot;https://www.instagram.com/*&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;tabs&quot;</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+<p><strong>showinfo.js</strong>:</p>
+<div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">showId</span><span class="p">(</span><span class="nx">elm</span><span class="p">,</span> <span class="nx">user</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// chech if id already exist</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">elm</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&quot;a._idofuser&quot;</span><span class="p">)</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="kd">var</span> <span class="nx">span_l8ji8</span> <span class="o">=</span> <span class="nx">elm</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&quot;span._l8ji8&quot;</span><span class="p">);</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">span_l8ji8</span> <span class="o">==</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">span_l8ji8</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">&quot;span&quot;</span><span class="p">);</span>
+    <span class="nx">span_l8ji8</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">&quot;class&quot;</span><span class="p">,</span> <span class="s2">&quot;_l8ji8&quot;</span><span class="p">);</span>
+    <span class="nx">elm</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">span_l8ji8</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="kd">var</span> <span class="nx">id</span> <span class="o">=</span> <span class="nx">user</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">];</span>
+
+  <span class="kd">var</span> <span class="nx">link</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">);</span>
+  <span class="nx">link</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">&quot;target&quot;</span><span class="p">,</span> <span class="s2">&quot;_blank&quot;</span><span class="p">);</span>
+  <span class="nx">link</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">&quot;class&quot;</span><span class="p">,</span> <span class="s2">&quot;_q3gn4 _idofuser&quot;</span><span class="p">);</span>
+  <span class="nx">link</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">createTextNode</span><span class="p">(</span><span class="nx">id</span><span class="p">));</span>
+
+  <span class="nx">span_l8ji8</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">&quot;br&quot;</span><span class="p">));</span>
+  <span class="nx">span_l8ji8</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">createTextNode</span><span class="p">(</span><span class="s2">&quot;ID: &quot;</span><span class="p">));</span>
+  <span class="nx">span_l8ji8</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">link</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">addProfilePicDownloadLink</span><span class="p">(</span><span class="nx">user</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">div_b0acm</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&quot;div._b0acm&quot;</span><span class="p">);</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">div_b0acm</span> <span class="o">==</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;no profile pic?&quot;</span><span class="p">);</span>
+    <span class="k">return</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="kd">var</span> <span class="nx">div</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">&quot;div&quot;</span><span class="p">);</span>
+  <span class="nx">div</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">&quot;style&quot;</span><span class="p">,</span> <span class="s2">&quot;z-index: 55; height: 40px; width: 46px; position: absolute; right: 10px; top: 8px; display: inline-block;&quot;</span><span class="p">);</span>
+
+  <span class="kd">var</span> <span class="nx">picurl</span> <span class="o">=</span> <span class="nx">user</span><span class="p">[</span><span class="s2">&quot;profile_pic_url_hd&quot;</span><span class="p">];</span>
+  <span class="kd">var</span> <span class="nx">username</span> <span class="o">=</span> <span class="nx">user</span><span class="p">[</span><span class="s2">&quot;username&quot;</span><span class="p">];</span>
+  <span class="kd">var</span> <span class="nx">link</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">);</span>
+  <span class="nx">link</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">&quot;href&quot;</span><span class="p">,</span> <span class="nx">picurl</span><span class="p">);</span>
+  <span class="nx">link</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">&quot;target&quot;</span><span class="p">,</span> <span class="s2">&quot;_blank&quot;</span><span class="p">);</span>
+  <span class="nx">link</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">&quot;style&quot;</span><span class="p">,</span> <span class="s2">&quot;height: 40px; width: 40px; display: inline-block;&quot;</span><span class="p">);</span>
+
+  <span class="c1">// show on hover</span>
+  <span class="nx">link</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;mouseenter&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">e</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">background</span> <span class="o">=</span> <span class="s2">&quot;#999&quot;</span><span class="p">;</span>
+  <span class="p">});</span>
+  <span class="nx">link</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;mouseleave&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">e</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">background</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+  <span class="p">});</span>
+
+  <span class="c1">// filename will not change to username</span>
+  <span class="c1">// because href is on the different domain</span>
+  <span class="c1">// https://stackoverflow.com/a/10049353</span>
+  <span class="nx">link</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">&quot;download&quot;</span><span class="p">,</span> <span class="nx">username</span><span class="p">);</span>
+
+  <span class="nx">div</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">link</span><span class="p">);</span>
+  <span class="nx">div_b0acm</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">div</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">findSharedData</span><span class="p">(</span><span class="nx">elm</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">elm</span><span class="p">.</span><span class="nx">nodeType</span> <span class="o">==</span> <span class="nx">Node</span><span class="p">.</span><span class="nx">ELEMENT_NODE</span> <span class="o">||</span> <span class="nx">elm</span><span class="p">.</span><span class="nx">nodeType</span> <span class="o">==</span> <span class="nx">Node</span><span class="p">.</span><span class="nx">DOCUMENT_NODE</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">elm</span><span class="p">.</span><span class="nx">childNodes</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+      <span class="c1">// recursively call self</span>
+      <span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">findSharedData</span><span class="p">(</span><span class="nx">elm</span><span class="p">.</span><span class="nx">childNodes</span><span class="p">[</span><span class="nx">i</span><span class="p">]);</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">result</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">result</span><span class="p">;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="k">if</span> <span class="p">(</span><span class="nx">elm</span><span class="p">.</span><span class="nx">nodeType</span> <span class="o">==</span> <span class="nx">Node</span><span class="p">.</span><span class="nx">TEXT_NODE</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">elm</span><span class="p">.</span><span class="nx">nodeValue</span><span class="p">.</span><span class="nx">startsWith</span><span class="p">(</span><span class="s2">&quot;window._sharedData = &quot;</span><span class="p">))</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">jsonString</span> <span class="o">=</span> <span class="nx">elm</span><span class="p">.</span><span class="nx">nodeValue</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="s2">&quot;window._sharedData = &quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">);</span>
+      <span class="nx">jsonString</span> <span class="o">=</span> <span class="nx">jsonString</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+      <span class="k">return</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">jsonString</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">sdata</span> <span class="o">=</span> <span class="nx">findSharedData</span><span class="p">(</span><span class="nb">document</span><span class="p">);</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">sdata</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="nx">sdata</span><span class="p">[</span><span class="s2">&quot;entry_data&quot;</span><span class="p">].</span><span class="nx">hasOwnProperty</span><span class="p">(</span><span class="s2">&quot;ProfilePage&quot;</span><span class="p">))</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">user</span> <span class="o">=</span> <span class="nx">sdata</span><span class="p">[</span><span class="s2">&quot;entry_data&quot;</span><span class="p">][</span><span class="s2">&quot;ProfilePage&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;graphql&quot;</span><span class="p">][</span><span class="s2">&quot;user&quot;</span><span class="p">];</span>
+
+  <span class="c1">// wait page to be loaded</span>
+  <span class="kd">var</span> <span class="nx">timerId</span> <span class="o">=</span> <span class="nx">setInterval</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">n</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&quot;div._tb97a&quot;</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">n</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">clearInterval</span><span class="p">(</span><span class="nx">timerId</span><span class="p">);</span>
+      <span class="nx">showId</span><span class="p">(</span><span class="nx">n</span><span class="p">,</span> <span class="nx">user</span><span class="p">);</span>
+      <span class="nx">addProfilePicDownloadLink</span><span class="p">(</span><span class="nx">user</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">},</span> <span class="mi">500</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+<hr class="docutils" />
+
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id1" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td><a class="reference external" href="/2018/04/12/go-get-instagram-user-information-from-html-source/">[Golang] Get Instagram User Information From HTML Source</a></td></tr>
+</tbody>
+</table>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/chrome-extension.html">Chrome Extension</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/javascript.html">JavaScript</a>
+,       <a href="/tag/chrome-extension.html">Chrome Extension</a>
+,       <a href="/tag/json.html">JSON</a>
+,       <a href="/tag/instagram.html">Instagram</a>
+,       <a href="/tag/web-scrape.html">Web Scrape</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

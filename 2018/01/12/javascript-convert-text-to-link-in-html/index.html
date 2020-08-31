@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>[JavaScript] Convert Text to Link in HTML</title>
+  <meta name="keywords" content="JavaScript,String Manipulation,Regular Expression"/>
+  <meta name="description" content="Convert specific texts to clickable links (<a> tag) in HTML document via JavaScript."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="[JavaScript] Convert Text to Link in HTML" /><meta property="og:image" content="http://talkerscode.com/webtricks/images/convert_url.jpg" />
+<meta property="og:description" content="Convert specific texts to clickable links (<a> tag) in HTML document via JavaScript." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2018/01/12/javascript-convert-text-to-link-in-html/"
+           rel="bookmark"
+           title="Permalink to [JavaScript] Convert Text to Link in HTML">
+          [JavaScript] Convert Text to Link in HTML
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2018-01-12T05:33:00+08:00">
+    January 12, 2018
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2018/01/12/javascript-convert-text-to-link-in-html%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p>See demo first. (demo texts from the note in <a class="reference external" href="http://agama.buddhason.org/SN/SN0011.htm">SN.1.11</a>)</p>
+<div class="line-block">
+<div class="line">　　「世尊；眾祐」，南傳作「世尊」</div>
+<div class="line">　　(bhagavā，音譯為「婆伽婆；婆伽梵；薄伽梵」，</div>
+<div class="line">　　義譯為「有幸者」，古譯為「尊祐」)，</div>
+<div class="line">　　菩提比丘長老英譯為「幸福者」(the Blessed One)。</div>
+<div class="line">　　請參看〈世尊譯詞的探討〉。</div>
+</div>
+<p>View page source of this web page, and you will find <strong>世尊譯詞的探討</strong> is plain
+text in the page source. It is converted to a clickable link (&lt;a&gt; tag) via
+JavaScript.</p>
+<script>
+var textToUrlMapping = {
+  "世尊譯詞的探討": "http://agama.buddhason.org/book/bb/bb21.htm",
+};
+
+function TextToLink(elm) {
+  elm.innerHTML = elm.innerHTML.replace(/〈(.+)〉/g, function(text, str1) {
+    if (textToUrlMapping.hasOwnProperty(str1)) {
+      return '〈<a href="'+ textToUrlMapping[str1] +
+             '" target="_blank">' + str1 +
+             '</a>〉';
+    }
+    return str1;
+  });
+}
+
+var t = document.querySelector(".line-block");
+TextToLink(t);
+</script><p>The following is the source code of the demo.</p>
+<p><strong>JavaScript</strong>:</p>
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">textToUrlMapping</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s2">&quot;世尊譯詞的探討&quot;</span><span class="o">:</span> <span class="s2">&quot;http://agama.buddhason.org/book/bb/bb21.htm&quot;</span><span class="p">,</span>
+<span class="p">};</span>
+
+<span class="kd">function</span> <span class="nx">TextToLink</span><span class="p">(</span><span class="nx">elm</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">elm</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="nx">elm</span><span class="p">.</span><span class="nx">innerHTML</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/〈(.+)〉/g</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">text</span><span class="p">,</span> <span class="nx">str1</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">textToUrlMapping</span><span class="p">.</span><span class="nx">hasOwnProperty</span><span class="p">(</span><span class="nx">str1</span><span class="p">))</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="s1">&#39;〈&lt;a href=&quot;&#39;</span><span class="o">+</span> <span class="nx">textToUrlMapping</span><span class="p">[</span><span class="nx">str1</span><span class="p">]</span> <span class="o">+</span>
+             <span class="s1">&#39;&quot; target=&quot;_blank&quot;&gt;&#39;</span> <span class="o">+</span> <span class="nx">str1</span> <span class="o">+</span>
+             <span class="s1">&#39;&lt;/a&gt;〉&#39;</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">str1</span><span class="p">;</span>
+  <span class="p">});</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">t</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&quot;.line-block&quot;</span><span class="p">);</span>
+<span class="nx">TextToLink</span><span class="p">(</span><span class="nx">t</span><span class="p">);</span>
+</pre></div>
+<ul class="simple">
+<li>Use <a class="reference external" href="https://www.google.com/search?q=querySelector">querySelector</a> to select the element which contains the texts.</li>
+<li>Call <em>TextToLink</em> function to convert the text in the element to link.</li>
+<li>In <em>TextToLink</em> function, extract the text in 〈〉 via the pattern
+<strong>〈(.+)〉</strong>.</li>
+<li>Get the URL from text-to-url mapping, and create the link by the text and url.</li>
+</ul>
+
+<hr class="docutils" />
+<p>Tested on: <tt class="docutils literal">Chromium 63.0.3239.84 on Ubuntu 17.10 <span class="pre">(64-bit)</span></tt></p>
+<hr class="docutils" />
+<p><strong>References</strong>:</p>
+<table class="docutils footnote" frame="void" id="id1" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td><div class="first last line-block">
+<div class="line"><a class="reference external" href="https://www.google.com/search?q=javascript+convert+text+to+link">javascript convert text to link - Google search</a></div>
+<div class="line"><a class="reference external" href="https://duckduckgo.com/?q=javascript+convert+text+to+link">javascript convert text to link - DuckDuckGo search</a></div>
+<div class="line"><a class="reference external" href="https://www.ecosia.org/search?q=javascript+convert+text+to+link">javascript convert text to link - Ecosia search</a></div>
+<div class="line"><a class="reference external" href="https://www.qwant.com/?q=javascript+convert+text+to+link">javascript convert text to link - Qwant search</a></div>
+<div class="line"><a class="reference external" href="https://www.bing.com/search?q=javascript+convert+text+to+link">javascript convert text to link - Bing search</a></div>
+<div class="line"><a class="reference external" href="https://search.yahoo.com/search?p=javascript+convert+text+to+link">javascript convert text to link - Yahoo search</a></div>
+<div class="line"><a class="reference external" href="https://www.baidu.com/s?wd=javascript+convert+text+to+link">javascript convert text to link - Baidu search</a></div>
+<div class="line"><a class="reference external" href="https://www.yandex.com/search/?text=javascript+convert+text+to+link">javascript convert text to link - Yandex search</a></div>
+</div>
+</td></tr>
+</tbody>
+</table>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/javascript.html">JavaScript</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/javascript.html">JavaScript</a>
+,       <a href="/tag/string-manipulation.html">String Manipulation</a>
+,       <a href="/tag/regular-expression.html">Regular Expression</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

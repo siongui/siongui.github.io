@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>[JavaScript] Copy to Clipboard</title>
+  <meta name="keywords" content="JavaScript,Copy to Clipboard"/>
+  <meta name="description" content="Copy content of textarea to clipboard via JavaScript."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="[JavaScript] Copy to Clipboard" /><meta property="og:image" content="http://www.javatpoint.com/images/javascript/javascript_logo.png" />
+<meta property="og:description" content="Copy content of textarea to clipboard via JavaScript." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2016/04/09/js-copy-to-clipboard/"
+           rel="bookmark"
+           title="Permalink to [JavaScript] Copy to Clipboard">
+          [JavaScript] Copy to Clipboard
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2016-04-09T04:34:00+08:00">
+    April 09, 2016
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2016/04/09/js-copy-to-clipboard%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p>Copy content of <a class="reference external" href="http://www.w3schools.com/tags/tag_textarea.asp">textarea</a> to clipboard via <a class="reference external" href="https://www.google.com/search?q=JavaScript">JavaScript</a>.</p>
+<p class="align-center rubric"><a class="reference external" href="/code/javascript-copy-to-clipboard/index.html">Demo</a></p>
+<p>Source Code for Demo (<em>html</em>):</p>
+<figure class="github-file">
+            <figcaption>
+              <a href="https://github.com/siongui/userpages/blob/master/content/code/javascript-copy-to-clipboard/index.html">index.html</a> |
+              <a href="https://github.com/siongui/userpages">repository</a> |
+              <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/code/javascript-copy-to-clipboard/index.html">view raw</a>
+            </figcaption><div class="code-file">
+            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cp">&lt;!doctype html&gt;</span>
+<span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;&lt;</span><span class="nt">title</span><span class="p">&gt;</span>JavaScript Copy to Clipboard<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">textarea</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;text&quot;</span><span class="p">&gt;</span>Hello World<span class="p">&lt;/</span><span class="nt">textarea</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">br</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">button</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;copy&quot;</span><span class="p">&gt;</span>Copy Textarea<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;copy.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</pre></div>
+</td></tr></table></div></figure>
+<p>Source Code for Demo (<em>JavaScript</em>):</p>
+<figure class="github-file">
+            <figcaption>
+              <a href="https://github.com/siongui/userpages/blob/master/content/code/javascript-copy-to-clipboard/copy.js">copy.js</a> |
+              <a href="https://github.com/siongui/userpages">repository</a> |
+              <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/code/javascript-copy-to-clipboard/copy.js">view raw</a>
+            </figcaption><div class="code-file">
+            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">textareaElm</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;text&quot;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">copyBtnElm</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;copy&quot;</span><span class="p">);</span>
+
+<span class="nx">copyBtnElm</span><span class="p">.</span><span class="nx">onclick</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">textareaElm</span><span class="p">.</span><span class="nx">select</span><span class="p">();</span>
+  <span class="kd">var</span> <span class="nx">isSuccessful</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">execCommand</span><span class="p">(</span><span class="s1">&#39;copy&#39;</span><span class="p">);</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">isSuccessful</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">textareaElm</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="s2">&quot;Copy OK&quot;</span><span class="p">;</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="nx">textareaElm</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="s2">&quot;Copy Fail&quot;</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div></figure>
+<p>This comes from the answer of <a class="footnote-reference" href="#id2" id="id1">[1]</a>. See the answer for browser support.</p>
+<hr class="docutils" />
+<p>Tested on: <tt class="docutils literal">Chromium 49.0.2623.108 Ubuntu 15.10 <span class="pre">(64-bit)</span></tt>.</p>
+<hr class="docutils" />
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td><div class="first last line-block">
+<div class="line"><a class="reference external" href="http://stackoverflow.com/a/30810322">How do I copy to the clipboard in JavaScript? - Stack Overflow</a></div>
+<div class="line"><a class="reference external" href="https://www.google.com/search?q=javascript+copy+to+clipboard">javascript copy to clipboard</a></div>
+</div>
+</td></tr>
+</tbody>
+</table>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/javascript.html">JavaScript</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/javascript.html">JavaScript</a>
+,       <a href="/tag/copy-to-clipboard.html">Copy to Clipboard</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

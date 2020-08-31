@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>[Golang] Type Conversion between String and Floating Number</title>
+  <meta name="keywords" content="Go,Golang,Type Casting,Type Conversion"/>
+  <meta name="description" content="Go type conversion (type casting) between string and floating number."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="[Golang] Type Conversion between String and Floating Number" /><meta property="og:image" content="http://2.bp.blogspot.com/-O2uOFWMD_zs/Ve3Iq9rfX_I/AAAAAAAAPxE/ZKRsGxscEsY/s1600/go_lang_mascot_by_kirael_art-d7kunhu.gif" />
+<meta property="og:description" content="Go type conversion (type casting) between string and floating number." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2017/04/13/go-string-float-number-type-casting/"
+           rel="bookmark"
+           title="Permalink to [Golang] Type Conversion between String and Floating Number">
+          [Golang] Type Conversion between String and Floating Number
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2017-04-13T14:10:00+08:00">
+    April 13, 2017
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2017/04/13/go-string-float-number-type-casting%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p>Example of Go type conversion (type casting) between <em>string</em> and floating
+number (<em>float64</em>).</p>
+<div class="section" id="problem">
+<h2>Problem</h2>
+<p>Assume we have the following two variable of type <em>string</em>:</p>
+<div class="highlight"><pre><span></span><span class="nx">width</span> <span class="o">:=</span> <span class="s">&quot;560&quot;</span>
+<span class="nx">height</span> <span class="o">:=</span> <span class="s">&quot;315&quot;</span>
+</pre></div>
+<p>We want to calculate the <a class="reference external" href="https://www.google.com/search?q=aspect+ratio">aspect ratio</a>, i.e., width/height, and then represent
+the ratio as percents using the symbol %.</p>
+<p>The final result will be (of type <em>string</em>):</p>
+<div class="highlight"><pre><span></span><span class="mf">56.25</span><span class="o">%</span>
+</pre></div>
+</div>
+<div class="section" id="solution">
+<h2>Solution</h2>
+<ul class="simple">
+<li><dl class="first docutils">
+<dt>Convert <em>string</em> to <em>float64</em>:</dt>
+<dd><ul class="first last">
+<li>Use <a class="reference external" href="https://golang.org/pkg/strconv/#ParseFloat">strconv.ParseFloat</a></li>
+<li><a class="reference external" href="https://play.golang.org/p/_k1m0zF_5N">Run Example on Go Playground</a></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Convert <em>float64</em> to <em>string</em>:</dt>
+<dd><ul class="first last">
+<li>Use <a class="reference external" href="https://golang.org/pkg/strconv/#FormatFloat">strconv.FormatFloat</a></li>
+<li><a class="reference external" href="https://play.golang.org/p/-uFB07wMPz">Run Example on Go Playground</a></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+
+<p>The following code convert <em>string</em> to <em>float64</em>, calculate aspect ratio, and
+then convert the <em>float64</em> result back to <em>string</em>.</p>
+<p class="align-center rubric"><a class="reference external" href="https://play.golang.org/p/q6AKBn5n-T">Run Code on Go Playground</a></p>
+<div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+      <span class="s">&quot;fmt&quot;</span>
+      <span class="s">&quot;strconv&quot;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+      <span class="nx">width</span> <span class="o">:=</span> <span class="s">&quot;560&quot;</span>
+      <span class="nx">height</span> <span class="o">:=</span> <span class="s">&quot;315&quot;</span>
+
+      <span class="c1">// convert string to float64</span>
+      <span class="nx">w</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">strconv</span><span class="p">.</span><span class="nx">ParseFloat</span><span class="p">(</span><span class="nx">width</span><span class="p">,</span> <span class="mi">64</span><span class="p">)</span>
+      <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+              <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+      <span class="p">}</span>
+      <span class="nx">h</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">strconv</span><span class="p">.</span><span class="nx">ParseFloat</span><span class="p">(</span><span class="nx">height</span><span class="p">,</span> <span class="mi">64</span><span class="p">)</span>
+      <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+              <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+      <span class="p">}</span>
+
+      <span class="c1">// make calculation and then convert float64 to string</span>
+      <span class="nx">aspectRatio</span> <span class="o">:=</span> <span class="nx">strconv</span><span class="p">.</span><span class="nx">FormatFloat</span><span class="p">(</span><span class="nx">h</span><span class="o">*</span><span class="mi">100</span><span class="o">/</span><span class="nx">w</span><span class="p">,</span> <span class="sc">&#39;f&#39;</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">64</span><span class="p">)</span> <span class="o">+</span> <span class="s">&quot;%&quot;</span>
+
+      <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;aspect ratio: &quot;</span><span class="p">,</span> <span class="nx">aspectRatio</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+
+<hr class="docutils" />
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id1" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td><div class="first last line-block">
+<div class="line"><a class="reference external" href="https://www.google.com/search?q=golang+string+to+float">golang string to float - Google search</a></div>
+<div class="line"><a class="reference external" href="https://duckduckgo.com/?q=golang+string+to+float">golang string to float - DuckDuckGo search</a></div>
+<div class="line"><a class="reference external" href="https://www.ecosia.org/search?q=golang+string+to+float">golang string to float - Ecosia search</a></div>
+<div class="line"><a class="reference external" href="https://www.qwant.com/?q=golang+string+to+float">golang string to float - Qwant search</a></div>
+<div class="line"><a class="reference external" href="https://www.bing.com/search?q=golang+string+to+float">golang string to float - Bing search</a></div>
+<div class="line"><a class="reference external" href="https://search.yahoo.com/search?p=golang+string+to+float">golang string to float - Yahoo search</a></div>
+<div class="line"><a class="reference external" href="https://www.baidu.com/s?wd=golang+string+to+float">golang string to float - Baidu search</a></div>
+<div class="line"><a class="reference external" href="https://www.yandex.com/search/?text=golang+string+to+float">golang string to float - Yandex search</a></div>
+</div>
+</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[2]</td><td><a class="reference external" href="https://golang.org/pkg/strconv/#ParseFloat">func ParseFloat - strconv - The Go Programming Language</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[3]</td><td><div class="first last line-block">
+<div class="line"><a class="reference external" href="https://www.google.com/search?q=golang+float+to+string">golang float to string - Google search</a></div>
+<div class="line"><a class="reference external" href="https://duckduckgo.com/?q=golang+float+to+string">golang float to string - DuckDuckGo search</a></div>
+<div class="line"><a class="reference external" href="https://www.ecosia.org/search?q=golang+float+to+string">golang float to string - Ecosia search</a></div>
+<div class="line"><a class="reference external" href="https://www.qwant.com/?q=golang+float+to+string">golang float to string - Qwant search</a></div>
+<div class="line"><a class="reference external" href="https://www.bing.com/search?q=golang+float+to+string">golang float to string - Bing search</a></div>
+<div class="line"><a class="reference external" href="https://search.yahoo.com/search?p=golang+float+to+string">golang float to string - Yahoo search</a></div>
+<div class="line"><a class="reference external" href="https://www.baidu.com/s?wd=golang+float+to+string">golang float to string - Baidu search</a></div>
+<div class="line"><a class="reference external" href="https://www.yandex.com/search/?text=golang+float+to+string">golang float to string - Yandex search</a></div>
+</div>
+</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[4]</td><td><a class="reference external" href="https://golang.org/pkg/strconv/#FormatFloat">func FormatFloat - strconv - The Go Programming Language</a></td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/go.html">Go</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/go.html">Go</a>
+,       <a href="/tag/golang.html">Golang</a>
+,       <a href="/tag/type-casting.html">Type Casting</a>
+,       <a href="/tag/type-conversion.html">Type Conversion</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

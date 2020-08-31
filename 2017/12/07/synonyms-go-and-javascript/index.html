@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>Synonyms - Go and JavaScript</title>
+  <meta name="keywords" content="Go,Golang,GopherJS,Go to JavaScript,DOM,JavaScript,Frontend Programming in Go"/>
+  <meta name="description" content="Synonyms - Go/GopherJS idioms and snippets translated to JavaScript"/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="Synonyms - Go and JavaScript" /><meta property="og:image" content="https://pbs.twimg.com/profile_images/605816243870760960/4hP2sH_O.png" />
+<meta property="og:description" content="Synonyms - Go/GopherJS idioms and snippets translated to JavaScript" /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2017/12/07/synonyms-go-and-javascript/"
+           rel="bookmark"
+           title="Permalink to Synonyms - Go and JavaScript">
+          Synonyms - Go and JavaScript
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2020-07-15T08:48:00+08:00">
+    Updated: July 15, 2020
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2017/12/04/synonyms-go-and-javascript%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p>Inspired by <a class="footnote-reference" href="#id5" id="id1">[4]</a>, This post provides synonyms of <a class="reference external" href="https://golang.org/">Golang</a> and <a class="reference external" href="https://en.wikipedia.org/wiki/JavaScript">JavaScript</a> in
+frontend programming, and served as references for developers who already have
+basic understanding of JavaScript and <a class="reference external" href="http://www.gopherjs.org/">GopherJS</a>/<a class="reference external" href="https://github.com/siongui/godom">godom</a>.</p>
+<div class="contents topic" id="table-of-content">
+<p class="topic-title"><strong>Table of Content</strong></p>
+<ul class="simple">
+<li><a class="reference internal" href="#import-packages" id="id15">import packages</a></li>
+<li><a class="reference internal" href="#window-object" id="id16">window object</a></li>
+<li><a class="reference internal" href="#alert-method" id="id17">alert() method</a></li>
+<li><a class="reference internal" href="#settimeout-method" id="id18">setTimeout() method</a></li>
+<li><a class="reference internal" href="#javascript-new-keyword" id="id19">JavaScript new Keyword</a><ul>
+<li><a class="reference internal" href="#new-with-chain-dots" id="id20">new with Chain Dots</a></li>
+<li><a class="reference internal" href="#new-with-option" id="id21">new with option</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#queryselector" id="id22">querySelector</a></li>
+<li><a class="reference internal" href="#queryselectorall" id="id23">querySelectorAll</a></li>
+<li><a class="reference internal" href="#getelementbyid" id="id24">getElementById</a></li>
+<li><a class="reference internal" href="#innerhtml" id="id25">innerHTML</a></li>
+<li><a class="reference internal" href="#textcontent" id="id26">textContent</a></li>
+<li><a class="reference internal" href="#addeventlistener" id="id27">addEventListener</a></li>
+<li><a class="reference internal" href="#createelement" id="id28">createElement</a></li>
+<li><a class="reference internal" href="#createtextnode" id="id29">createTextNode</a></li>
+<li><a class="reference internal" href="#appendchild" id="id30">appendChild</a></li>
+<li><a class="reference internal" href="#html-data-attribute" id="id31">HTML data-* Attribute</a></li>
+<li><a class="reference internal" href="#inline-style-property" id="id32">Inline style Property</a></li>
+<li><a class="reference internal" href="#classlist-property" id="id33">classList Property</a></li>
+<li><a class="reference internal" href="#navigator-language-api" id="id34">Navigator Language API</a></li>
+<li><a class="reference internal" href="#null-check" id="id35">null Check</a></li>
+<li><a class="reference internal" href="#undefined-check" id="id36">undefined Check</a></li>
+</ul>
+</div>
+
+<hr class="docutils" />
+<div class="section" id="import-packages">
+<h2><a class="toc-backref" href="#id15">import packages</a></h2>
+<p><strong>JavaScript</strong>: no need to import any packages</p>
+<p><strong>GopherJS</strong></p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="p">(</span>
+      <span class="s">&quot;github.com/gopherjs/gopherjs/js&quot;</span>
+<span class="p">)</span>
+</pre></div>
+<p><strong>GopherJS + godom</strong></p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="p">(</span>
+      <span class="p">.</span> <span class="s">&quot;github.com/siongui/godom&quot;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<div class="section" id="window-object">
+<h2><a class="reference external" href="http://www.w3schools.com/jsref/obj_window.asp">window</a> object</h2>
+<p><strong>JavaScript</strong></p>
+<div class="highlight"><pre><span></span><span class="nb">window</span>
+</pre></div>
+<p><strong>GopherJS</strong></p>
+<div class="highlight"><pre><span></span><span class="nx">js</span><span class="p">.</span><span class="nx">Global</span>
+</pre></div>
+<p><strong>GopherJS + godom</strong></p>
+<div class="highlight"><pre><span></span><span class="nx">Window</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<div class="section" id="alert-method">
+<h2><a class="reference external" href="http://www.w3schools.com/jsref/met_win_alert.asp">alert()</a> method</h2>
+<p><strong>JavaScript</strong></p>
+<div class="highlight"><pre><span></span><span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;Hello World&quot;</span><span class="p">);</span>
+</pre></div>
+<p><strong>GopherJS</strong></p>
+<div class="highlight"><pre><span></span><span class="nx">js</span><span class="p">.</span><span class="nx">Global</span><span class="p">.</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;alert&quot;</span><span class="p">,</span> <span class="s">&quot;Hello World&quot;</span><span class="p">)</span>
+</pre></div>
+<p><strong>GopherJS + godom</strong></p>
+<div class="highlight"><pre><span></span><span class="nx">Window</span><span class="p">.</span><span class="nx">Alert</span><span class="p">(</span><span class="s">&quot;Hello World&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<div class="section" id="settimeout-method">
+<h2><a class="reference external" href="https://www.google.com/search?q=setTimeout">setTimeout()</a> method</h2>
+<p><strong>JavaScript</strong></p>
+<div class="highlight"><pre><span></span><span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;3 seconds timeout&quot;</span><span class="p">);</span>
+<span class="p">},</span> <span class="mi">3000</span><span class="p">);</span>
+</pre></div>
+<p><strong>Go (or GopherJS)</strong></p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="s">&quot;time&quot;</span>
+
+<span class="nx">time</span><span class="p">.</span><span class="nx">AfterFunc</span><span class="p">(</span><span class="mi">3</span><span class="o">*</span><span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">,</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+      <span class="nb">println</span><span class="p">(</span><span class="s">&quot;3 seconds timeout&quot;</span><span class="p">)</span>
+<span class="p">})</span>
+</pre></div>
+<p class="align-center rubric"><a class="reference external" href="https://gopherjs.github.io/playground/#/LjCARICREZ">Run Code on GopherJS Playground</a></p>
+
+</div>
+<hr class="docutils" />
+<div class="section" id="javascript-new-keyword">
+<h2><a class="toc-backref" href="#id19">JavaScript new Keyword</a></h2>
+<p><strong>JavaScript</strong></p>
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">d</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">();</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">d</span><span class="p">);</span>
+</pre></div>
+<p><strong>GopherJS</strong></p>
+<div class="highlight"><pre><span></span><span class="nx">d</span> <span class="o">:=</span> <span class="nx">js</span><span class="p">.</span><span class="nx">Global</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;Date&quot;</span><span class="p">).</span><span class="nx">New</span><span class="p">()</span>
+<span class="nb">println</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span>
+</pre></div>
+<p><strong>GopherJS + godom</strong></p>
+<div class="highlight"><pre><span></span><span class="nx">d</span> <span class="o">:=</span> <span class="nx">Window</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;Date&quot;</span><span class="p">).</span><span class="nx">New</span><span class="p">()</span>
+<span class="nb">println</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span>
+</pre></div>
+<div class="section" id="new-with-chain-dots">
+<h3><a class="toc-backref" href="#id20">new with Chain Dots</a></h3>
+<p><strong>JavaScript</strong></p>
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">joint</span><span class="p">.</span><span class="nx">dia</span><span class="p">.</span><span class="nx">Graph</span><span class="p">;</span>
+</pre></div>
+<p><strong>GopherJS</strong></p>
+<div class="highlight"><pre><span></span><span class="nx">x</span> <span class="o">:=</span> <span class="nx">js</span><span class="p">.</span><span class="nx">Global</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;joint&quot;</span><span class="p">).</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;dia&quot;</span><span class="p">).</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;Graph&quot;</span><span class="p">).</span><span class="nx">New</span><span class="p">()</span>
+</pre></div>
+<p><strong>GopherJS + godom</strong></p>
+<div class="highlight"><pre><span></span><span class="nx">x</span> <span class="o">:=</span> <span class="nx">Window</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;joint&quot;</span><span class="p">).</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;dia&quot;</span><span class="p">).</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;Graph&quot;</span><span class="p">).</span><span class="nx">New</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="section" id="new-with-option">
+<h3><a class="toc-backref" href="#id21">new with option</a></h3>
+<p><strong>JavaScript</strong></p>
+<div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">ke</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">KeyboardEvent</span><span class="p">(</span><span class="s2">&quot;keyup&quot;</span><span class="p">,</span> <span class="p">{</span><span class="nx">keyCode</span><span class="o">:</span> <span class="mi">13</span><span class="p">});</span>
+<span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">dispatchEvent</span><span class="p">(</span><span class="nx">ke</span><span class="p">);</span>
+</pre></div>
+<p><strong>GopherJS</strong></p>
+<div class="highlight"><pre><span></span><span class="nx">option</span> <span class="o">:=</span> <span class="nx">js</span><span class="p">.</span><span class="nx">Global</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;Object&quot;</span><span class="p">).</span><span class="nx">New</span><span class="p">()</span>
+<span class="nx">option</span><span class="p">.</span><span class="nx">Set</span><span class="p">(</span><span class="s">&quot;keyCode&quot;</span><span class="p">,</span> <span class="mi">13</span><span class="p">)</span>
+<span class="nx">ke</span> <span class="o">:=</span> <span class="nx">js</span><span class="p">.</span><span class="nx">Global</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;KeyboardEvent&quot;</span><span class="p">).</span><span class="nx">New</span><span class="p">(</span><span class="s">&quot;keyup&quot;</span><span class="p">,</span> <span class="nx">option</span><span class="p">)</span>
+<span class="nx">js</span><span class="p">.</span><span class="nx">Global</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;document&quot;</span><span class="p">).</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;body&quot;</span><span class="p">).</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;dispatchEvent&quot;</span><span class="p">,</span> <span class="nx">ke</span><span class="p">)</span>
+</pre></div>
+<p><strong>GopherJS + godom</strong></p>
+<div class="highlight"><pre><span></span><span class="nx">option</span> <span class="o">:=</span> <span class="nx">Window</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;Object&quot;</span><span class="p">).</span><span class="nx">New</span><span class="p">()</span>
+<span class="nx">option</span><span class="p">.</span><span class="nx">Set</span><span class="p">(</span><span class="s">&quot;keyCode&quot;</span><span class="p">,</span> <span class="mi">13</span><span class="p">)</span>
+<span class="nx">ke</span> <span class="o">:=</span> <span class="nx">Window</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;KeyboardEvent&quot;</span><span class="p">).</span><span class="nx">New</span><span class="p">(</span><span class="s">&quot;keyup&quot;</span><span class="p">,</span> <span class="nx">option</span><span class="p">)</span>
+<span class="nx">Document</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;body&quot;</span><span class="p">).</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;dispatchEvent&quot;</span><span class="p">,</span> <span class="nx">ke</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="queryselector">
+<h2><a class="toc-backref" href="#id22">querySelector</a></h2>
+<p><strong>JavaScript</strong></p>
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">elm</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&quot;#foo&quot;</span><span class="p">);</span>
+</pre></div>
+<p><strong>GopherJS</strong></p>
+<div class="highlight"><pre><span></span><span class="nx">elm</span> <span class="o">:=</span> <span class="nx">js</span><span class="p">.</span><span class="nx">Global</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;document&quot;</span><span class="p">).</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;querySelector&quot;</span><span class="p">,</span> <span class="s">&quot;#foo&quot;</span><span class="p">)</span>
+</pre></div>
+<p><strong>GopherJS + godom</strong></p>
+<div class="highlight"><pre><span></span><span class="nx">elm</span> <span class="o">:=</span> <span class="nx">Document</span><span class="p">.</span><span class="nx">QuerySelector</span><span class="p">(</span><span class="s">&quot;#foo&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<div class="section" id="queryselectorall">
+<h2><a class="toc-backref" href="#id23">querySelectorAll</a></h2>
+<p><strong>JavaScript</strong></p>
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">nodeList</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelectorAll</span><span class="p">(</span><span class="s2">&quot;div&quot;</span><span class="p">);</span>
+<span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">nodeList</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="o">++</span><span class="nx">i</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">elm</span> <span class="o">=</span> <span class="nx">nodeList</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+  <span class="c1">// do something with the element</span>
+<span class="p">}</span>
+</pre></div>
+<p><strong>GopherJS</strong></p>
+<div class="highlight"><pre><span></span><span class="nx">d</span> <span class="o">:=</span> <span class="nx">js</span><span class="p">.</span><span class="nx">Global</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;document&quot;</span><span class="p">)</span>
+<span class="nx">nodeList</span> <span class="o">:=</span> <span class="nx">d</span><span class="p">.</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;querySelectorAll&quot;</span><span class="p">,</span> <span class="s">&quot;div&quot;</span><span class="p">)</span>
+<span class="nx">length</span> <span class="o">:=</span> <span class="nx">nodeList</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;length&quot;</span><span class="p">).</span><span class="nx">Int</span><span class="p">()</span>
+<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+      <span class="nx">elm</span> <span class="o">:=</span> <span class="nx">nodeList</span><span class="p">.</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;item&quot;</span><span class="p">,</span> <span class="nx">i</span><span class="p">)</span>
+      <span class="c1">// do something with the element</span>
+<span class="p">}</span>
+</pre></div>
+<p><strong>GopherJS + godom</strong></p>
+<div class="highlight"><pre><span></span><span class="nx">nodeList</span> <span class="o">:=</span> <span class="nx">Document</span><span class="p">.</span><span class="nx">QuerySelectorAll</span><span class="p">(</span><span class="s">&quot;div&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">elm</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">nodeList</span> <span class="p">{</span>
+      <span class="c1">// do something with the element</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<div class="section" id="getelementbyid">
+<h2><a class="toc-backref" href="#id24">getElementById</a></h2>
+<p><strong>JavaScript</strong></p>
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">element</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;foo&quot;</span><span class="p">);</span>
+</pre></div>
+<p><strong>GopherJS</strong></p>
+<div class="highlight"><pre><span></span><span class="nx">element</span> <span class="o">:=</span> <span class="nx">js</span><span class="p">.</span><span class="nx">Global</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;document&quot;</span><span class="p">).</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;getElementById&quot;</span><span class="p">,</span> <span class="s">&quot;foo&quot;</span><span class="p">)</span>
+</pre></div>
+<p><strong>GopherJS + godom</strong></p>
+<div class="highlight"><pre><span></span><span class="nx">element</span> <span class="o">:=</span> <span class="nx">Document</span><span class="p">.</span><span class="nx">GetElementById</span><span class="p">(</span><span class="s">&quot;foo&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<div class="section" id="innerhtml">
+<h2><a class="toc-backref" href="#id25">innerHTML</a></h2>
+<p><strong>JavaScript</strong></p>
+<div class="highlight"><pre><span></span><span class="c1">// set innerHTML</span>
+<span class="nx">element</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="s2">&quot;&lt;strong&gt;Hello World&lt;/strong&gt;&quot;</span><span class="p">;</span>
+
+<span class="c1">// get innerHTML</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">element</span><span class="p">.</span><span class="nx">innerHTML</span><span class="p">);</span>
+</pre></div>
+<p><strong>GopherJS</strong></p>
+<div class="highlight"><pre><span></span><span class="c1">// set innerHTML</span>
+<span class="nx">element</span><span class="p">.</span><span class="nx">Set</span><span class="p">(</span><span class="s">&quot;innerHTML&quot;</span><span class="p">,</span> <span class="s">&quot;&lt;strong&gt;Hello World&lt;/strong&gt;&quot;</span><span class="p">)</span>
+
+<span class="c1">// get innerHTML</span>
+<span class="nb">println</span><span class="p">(</span><span class="nx">element</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;innerHTML&quot;</span><span class="p">).</span><span class="nx">String</span><span class="p">())</span>
+</pre></div>
+<p><strong>GopherJS + godom</strong></p>
+<div class="highlight"><pre><span></span><span class="c1">// set innerHTML</span>
+<span class="nx">element</span><span class="p">.</span><span class="nx">SetInnerHTML</span><span class="p">(</span><span class="s">&quot;&lt;strong&gt;Hello World&lt;/strong&gt;&quot;</span><span class="p">)</span>
+
+<span class="c1">// get innerHTML</span>
+<span class="nb">println</span><span class="p">(</span><span class="nx">element</span><span class="p">.</span><span class="nx">InnerHTML</span><span class="p">())</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<div class="section" id="textcontent">
+<h2><a class="toc-backref" href="#id26">textContent</a></h2>
+<p><strong>JavaScript</strong></p>
+<div class="highlight"><pre><span></span><span class="c1">// set textContent</span>
+<span class="nx">element</span><span class="p">.</span><span class="nx">textContent</span> <span class="o">=</span> <span class="s2">&quot;Hello World&quot;</span><span class="p">;</span>
+
+<span class="c1">// get textContent</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">element</span><span class="p">.</span><span class="nx">textContent</span><span class="p">);</span>
+</pre></div>
+<p><strong>GopherJS</strong></p>
+<div class="highlight"><pre><span></span><span class="c1">// set textContent</span>
+<span class="nx">element</span><span class="p">.</span><span class="nx">Set</span><span class="p">(</span><span class="s">&quot;textContent&quot;</span><span class="p">,</span> <span class="s">&quot;Hello World&quot;</span><span class="p">)</span>
+
+<span class="c1">// get textContent</span>
+<span class="nb">println</span><span class="p">(</span><span class="nx">element</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;textContent&quot;</span><span class="p">).</span><span class="nx">String</span><span class="p">())</span>
+</pre></div>
+<p><strong>GopherJS + godom</strong></p>
+<div class="highlight"><pre><span></span><span class="c1">// set textContent</span>
+<span class="nx">element</span><span class="p">.</span><span class="nx">SetTextContent</span><span class="p">(</span><span class="s">&quot;Hello World&quot;</span><span class="p">)</span>
+
+<span class="c1">// get textContent</span>
+<span class="nb">println</span><span class="p">(</span><span class="nx">element</span><span class="p">.</span><span class="nx">TextContent</span><span class="p">())</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<div class="section" id="addeventlistener">
+<h2><a class="toc-backref" href="#id27">addEventListener</a></h2>
+<p><strong>JavaScript</strong></p>
+<div class="highlight"><pre><span></span><span class="nx">element</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;click&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// do something here</span>
+<span class="p">});</span>
+</pre></div>
+<p><strong>GopherJS</strong></p>
+<div class="highlight"><pre><span></span><span class="nx">element</span><span class="p">.</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;addEventListener&quot;</span><span class="p">,</span> <span class="s">&quot;click&quot;</span><span class="p">,</span> <span class="kd">func</span><span class="p">(</span><span class="nx">event</span> <span class="o">*</span><span class="nx">js</span><span class="p">.</span><span class="nx">Object</span><span class="p">)</span> <span class="p">{</span>
+      <span class="c1">// do something here</span>
+<span class="p">})</span>
+</pre></div>
+<p><strong>GopherJS + godom</strong></p>
+<div class="highlight"><pre><span></span><span class="nx">element</span><span class="p">.</span><span class="nx">AddEventListener</span><span class="p">(</span><span class="s">&quot;click&quot;</span><span class="p">,</span> <span class="kd">func</span><span class="p">(</span><span class="nx">e</span> <span class="nx">Event</span><span class="p">)</span> <span class="p">{</span>
+      <span class="c1">// do something here</span>
+<span class="p">})</span>
+</pre></div>
+
+</div>
+<hr class="docutils" />
+<div class="section" id="createelement">
+<h2><a class="toc-backref" href="#id28">createElement</a></h2>
+<p><strong>JavaScript</strong></p>
+<div class="highlight"><pre><span></span><span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">&quot;span&quot;</span><span class="p">);</span>
+</pre></div>
+<p><strong>GopherJS</strong></p>
+<div class="highlight"><pre><span></span><span class="nx">js</span><span class="p">.</span><span class="nx">Global</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;document&quot;</span><span class="p">).</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;createElement&quot;</span><span class="p">,</span> <span class="s">&quot;span&quot;</span><span class="p">)</span>
+</pre></div>
+<p><strong>GopherJS + godom</strong></p>
+<div class="highlight"><pre><span></span><span class="nx">Document</span><span class="p">.</span><span class="nx">CreateElement</span><span class="p">(</span><span class="s">&quot;span&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<div class="section" id="createtextnode">
+<h2><a class="toc-backref" href="#id29">createTextNode</a></h2>
+<p><strong>JavaScript</strong></p>
+<div class="highlight"><pre><span></span><span class="nb">document</span><span class="p">.</span><span class="nx">createTextNode</span><span class="p">(</span><span class="s2">&quot;Hello World&quot;</span><span class="p">);</span>
+</pre></div>
+<p><strong>GopherJS</strong></p>
+<div class="highlight"><pre><span></span><span class="nx">js</span><span class="p">.</span><span class="nx">Global</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;document&quot;</span><span class="p">).</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;createTextNode&quot;</span><span class="p">,</span> <span class="s">&quot;Hello World&quot;</span><span class="p">)</span>
+</pre></div>
+<p><strong>GopherJS + godom</strong></p>
+<div class="highlight"><pre><span></span><span class="nx">Document</span><span class="p">.</span><span class="nx">CreateTextNode</span><span class="p">(</span><span class="s">&quot;Hello World&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<div class="section" id="appendchild">
+<h2><a class="toc-backref" href="#id30">appendChild</a></h2>
+<p><strong>JavaScript</strong></p>
+<div class="highlight"><pre><span></span><span class="nx">parentElement</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">childElement</span><span class="p">);</span>
+</pre></div>
+<p><strong>GopherJS</strong></p>
+<div class="highlight"><pre><span></span><span class="nx">parentElement</span><span class="p">.</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;appendChild&quot;</span><span class="p">,</span> <span class="nx">childElement</span><span class="p">)</span>
+</pre></div>
+<p><strong>GopherJS + godom</strong></p>
+<div class="highlight"><pre><span></span><span class="nx">parentElement</span><span class="p">.</span><span class="nx">AppendChild</span><span class="p">(</span><span class="nx">childElement</span><span class="p">)</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<div class="section" id="html-data-attribute">
+<h2><a class="toc-backref" href="#id31">HTML data-* Attribute</a></h2>
+<p><strong>HTML</strong></p>
+<div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;foo&quot;</span> <span class="na">data-demo-value</span><span class="o">=</span><span class="s">&quot;hello world&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</pre></div>
+<p><strong>JavaScript</strong></p>
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">f</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&quot;#foo&quot;</span><span class="p">);</span>
+
+<span class="c1">// get value</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">f</span><span class="p">.</span><span class="nx">dataset</span><span class="p">.</span><span class="nx">demoValue</span><span class="p">);</span>
+
+<span class="c1">// set value</span>
+<span class="nx">f</span><span class="p">.</span><span class="nx">dataset</span><span class="p">.</span><span class="nx">demoValue</span> <span class="o">=</span> <span class="s2">&quot;world hello&quot;</span><span class="p">;</span>
+</pre></div>
+<p><strong>GopherJS</strong></p>
+<div class="highlight"><pre><span></span><span class="nx">f</span> <span class="o">:=</span> <span class="nx">js</span><span class="p">.</span><span class="nx">Global</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;document&quot;</span><span class="p">).</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;querySelector&quot;</span><span class="p">,</span> <span class="s">&quot;#foo&quot;</span><span class="p">)</span>
+
+<span class="c1">// get value</span>
+<span class="nb">println</span><span class="p">(</span><span class="nx">f</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;dataset&quot;</span><span class="p">).</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;demoValue&quot;</span><span class="p">).</span><span class="nx">String</span><span class="p">())</span>
+
+<span class="c1">// set value</span>
+<span class="nx">f</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;dataset&quot;</span><span class="p">).</span><span class="nx">Set</span><span class="p">(</span><span class="s">&quot;demoValue&quot;</span><span class="p">,</span> <span class="s">&quot;world hello&quot;</span><span class="p">)</span>
+</pre></div>
+<p><strong>GopherJS + godom</strong></p>
+<div class="highlight"><pre><span></span><span class="nx">f</span> <span class="o">:=</span> <span class="nx">Document</span><span class="p">.</span><span class="nx">QuerySelector</span><span class="p">(</span><span class="s">&quot;#foo&quot;</span><span class="p">)</span>
+
+<span class="c1">// get value</span>
+<span class="nb">println</span><span class="p">(</span><span class="nx">f</span><span class="p">.</span><span class="nx">Dataset</span><span class="p">().</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;demoValue&quot;</span><span class="p">).</span><span class="nx">String</span><span class="p">())</span>
+
+<span class="c1">// set value</span>
+<span class="nx">f</span><span class="p">.</span><span class="nx">Dataset</span><span class="p">().</span><span class="nx">Set</span><span class="p">(</span><span class="s">&quot;demoValue&quot;</span><span class="p">,</span> <span class="s">&quot;world hello&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<div class="section" id="inline-style-property">
+<h2><a class="toc-backref" href="#id32">Inline style Property</a></h2>
+<p><strong>JavaScript</strong></p>
+<div class="highlight"><pre><span></span><span class="c1">// set the color of element</span>
+<span class="nx">elm</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">color</span> <span class="o">=</span> <span class="s2">&quot;red&quot;</span><span class="p">;</span>
+
+<span class="c1">// get the color of element</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">elm</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">color</span><span class="p">);</span>
+</pre></div>
+<p><strong>GopherJS</strong></p>
+<div class="highlight"><pre><span></span><span class="c1">// set the color of element</span>
+<span class="nx">elm</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;style&quot;</span><span class="p">).</span><span class="nx">Set</span><span class="p">(</span><span class="s">&quot;color&quot;</span><span class="p">,</span> <span class="s">&quot;red&quot;</span><span class="p">)</span>
+
+<span class="c1">// get the color of element</span>
+<span class="nb">println</span><span class="p">(</span><span class="nx">elm</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;style&quot;</span><span class="p">).</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;color&quot;</span><span class="p">).</span><span class="nx">String</span><span class="p">())</span>
+</pre></div>
+<p><strong>GopherJS + godom</strong></p>
+<div class="highlight"><pre><span></span><span class="c1">// set the color of element</span>
+<span class="nx">elm</span><span class="p">.</span><span class="nx">Style</span><span class="p">().</span><span class="nx">SetColor</span><span class="p">(</span><span class="s">&quot;red&quot;</span><span class="p">)</span>
+
+<span class="c1">// get the color of element</span>
+<span class="nb">println</span><span class="p">(</span><span class="nx">elm</span><span class="p">.</span><span class="nx">Style</span><span class="p">().</span><span class="nx">Color</span><span class="p">())</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<div class="section" id="classlist-property">
+<h2><a class="toc-backref" href="#id33">classList Property</a></h2>
+<p><strong>JavaScript</strong></p>
+<div class="highlight"><pre><span></span><span class="c1">// add class to element</span>
+<span class="nx">element</span><span class="p">.</span><span class="nx">classList</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="s2">&quot;invisible&quot;</span><span class="p">);</span>
+
+<span class="c1">// check if specified class value exists in class attribute of the element</span>
+<span class="nx">element</span><span class="p">.</span><span class="nx">classList</span><span class="p">.</span><span class="nx">contains</span><span class="p">(</span><span class="s2">&quot;invisible&quot;</span><span class="p">);</span>
+</pre></div>
+<p><strong>GopherJS</strong></p>
+<div class="highlight"><pre><span></span><span class="c1">// add class to element</span>
+<span class="nx">element</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;classList&quot;</span><span class="p">).</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;add&quot;</span><span class="p">,</span> <span class="s">&quot;invisible&quot;</span><span class="p">)</span>
+
+<span class="c1">// check if specified class value exists in class attribute of the element</span>
+<span class="nx">element</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;classList&quot;</span><span class="p">).</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;contains&quot;</span><span class="p">,</span> <span class="s">&quot;invisible&quot;</span><span class="p">).</span><span class="nx">Bool</span><span class="p">()</span>
+</pre></div>
+<p><strong>GopherJS + godom</strong></p>
+<div class="highlight"><pre><span></span><span class="c1">// add class to element</span>
+<span class="nx">element</span><span class="p">.</span><span class="nx">ClassList</span><span class="p">().</span><span class="nx">Add</span><span class="p">(</span><span class="s">&quot;invisible&quot;</span><span class="p">)</span>
+
+<span class="c1">// check if specified class value exists in class attribute of the element</span>
+<span class="nx">element</span><span class="p">.</span><span class="nx">ClassList</span><span class="p">().</span><span class="nx">Contains</span><span class="p">(</span><span class="s">&quot;invisible&quot;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+<div class="section" id="navigator-language-api">
+<h2><a class="toc-backref" href="#id34">Navigator Language API</a></h2>
+<p><strong>JavaScript</strong></p>
+<div class="highlight"><pre><span></span><span class="c1">// preferred language of the user, string type</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">navigator</span><span class="p">.</span><span class="nx">language</span><span class="p">);</span>
+
+<span class="c1">// languages known to the user, array type</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">navigator</span><span class="p">.</span><span class="nx">languages</span><span class="p">);</span>
+</pre></div>
+<p><strong>GopherJS</strong></p>
+<div class="highlight"><pre><span></span><span class="c1">// preferred language of the user, cast as string</span>
+<span class="nb">println</span><span class="p">(</span><span class="nx">js</span><span class="p">.</span><span class="nx">Global</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;navigator&quot;</span><span class="p">).</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;language&quot;</span><span class="p">).</span><span class="nx">String</span><span class="p">())</span>
+
+<span class="c1">// languages known to the user, also cast as string</span>
+<span class="nb">println</span><span class="p">(</span><span class="nx">js</span><span class="p">.</span><span class="nx">Global</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;navigator&quot;</span><span class="p">).</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;languages&quot;</span><span class="p">).</span><span class="nx">String</span><span class="p">())</span>
+</pre></div>
+<p><strong>GopherJS + godom</strong></p>
+<div class="highlight"><pre><span></span><span class="c1">// preferred language of the user, string type</span>
+<span class="nb">println</span><span class="p">(</span><span class="nx">Window</span><span class="p">.</span><span class="nx">Navigator</span><span class="p">().</span><span class="nx">Language</span><span class="p">())</span>
+
+<span class="c1">// languages known to the user, string type</span>
+<span class="nb">println</span><span class="p">(</span><span class="nx">Window</span><span class="p">.</span><span class="nx">Navigator</span><span class="p">().</span><span class="nx">Languages</span><span class="p">())</span>
+</pre></div>
+</div>
+<div class="section" id="null-check">
+<h2><a class="toc-backref" href="#id35">null Check</a></h2>
+<p><strong>JavaScript</strong></p>
+<div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="nx">value</span> <span class="o">===</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// do something</span>
+<span class="p">}</span>
+</pre></div>
+<p><strong>GopherJS</strong></p>
+<div class="highlight"><pre><span></span><span class="k">if</span> <span class="nx">value</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+      <span class="c1">// do something</span>
+<span class="p">}</span>
+</pre></div>
+<p class="align-center rubric"><a class="reference external" href="https://gopherjs.github.io/playground/#/59HcuBcHOk">Run Code on GopherJS Playground</a></p>
+</div>
+<div class="section" id="undefined-check">
+<h2><a class="toc-backref" href="#id36">undefined Check</a></h2>
+<p><strong>JavaScript</strong></p>
+<div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="nx">something</span> <span class="o">===</span> <span class="kc">undefined</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// do something</span>
+<span class="p">}</span>
+</pre></div>
+<p><strong>GopherJS</strong></p>
+<div class="highlight"><pre><span></span><span class="k">if</span> <span class="nx">something</span> <span class="o">==</span> <span class="nx">js</span><span class="p">.</span><span class="nx">Undefined</span> <span class="p">{</span>
+      <span class="c1">// do something</span>
+<span class="p">}</span>
+</pre></div>
+<p class="align-center rubric"><a class="reference external" href="http://www.gopherjs.org/playground/#/Kxr4h5nxBQ">Run Code on GopherJS Playground</a></p>
+<hr class="docutils" />
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td><a class="reference external" href="http://www.gopherjs.org/">GopherJS - A compiler from Go to JavaScript</a>
+(<a class="reference external" href="https://github.com/gopherjs/gopherjs">GitHub</a>,
+<a class="reference external" href="http://www.gopherjs.org/playground/">GopherJS Playground</a>,
+<a class="reference external" href="https://godoc.org/github.com/gopherjs/gopherjs/js"><img alt="godoc" src="https://godoc.org/github.com/gopherjs/gopherjs/js?status.png" /></a>)</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[2]</td><td><a class="reference external" href="https://github.com/gopherjs/gopherjs/wiki/bindings">Bindings · gopherjs/gopherjs Wiki · GitHub</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[3]</td><td><a class="reference external" href="https://github.com/siongui/godom">GitHub - siongui/godom: Make DOM manipulation in Go as similar to JavaScript as possible. (via GopherJS)</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id5" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[4]</a></td><td><a class="reference external" href="https://www.dartlang.org/resources/synonyms">Synonyms - Dart, JavaScript, C#, Python | Dart</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id6" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[5]</td><td><a class="reference external" href="/2016/01/29/go-gopherjs-synonyms-with-javascript/">[Golang] GopherJS Synonyms with JavaScript</a></td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/frontend-programming-in-go.html">Frontend Programming in Go</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/go.html">Go</a>
+,       <a href="/tag/golang.html">Golang</a>
+,       <a href="/tag/gopherjs.html">GopherJS</a>
+,       <a href="/tag/go-to-javascript.html">Go to JavaScript</a>
+,       <a href="/tag/dom.html">DOM</a>
+,       <a href="/tag/javascript.html">JavaScript</a>
+,       <a href="/tag/frontend-programming-in-go.html">Frontend Programming in Go</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

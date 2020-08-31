@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>Go語言 函數參數點點點(...)意義</title>
+  <meta name="keywords" content="Web開發,Go語言"/>
+  <meta name="description" content="Go語言 函數參數(function argument) 點點點(...)意義"/>
+  <meta name="author" content="戴上為"/><meta property="og:title" content="Go語言 函數參數點點點(...)意義" />    <meta property="og:image" content="/zh/../extra/Dharma_wheel.svg" /><meta property="og:description" content="Go語言 函數參數(function argument) 點點點(...)意義" /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/zh/../extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/zh/../theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/zh/">理論與實作</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/zh/pages/about.html">關於</a>
+    <a class="nav-item" href="/zh/archives.html">歸檔</a>
+    <a class="nav-item" href="/zh/categories.html">分類</a>
+    <a class="nav-item" href="/zh/tags.html">標籤</a>
+    <a class="nav-item" href="/zh/authors.html">作者</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/">English</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/zh/2017/02/07/go-function-argument-dot-dot-dot/"
+           rel="bookmark"
+           title="Permalink to Go語言 函數參數點點點(...)意義">
+          Go語言 函數參數點點點(...)意義
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2017-02-08T08:32:00+08:00">
+    Updated: 二月 08, 2017
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2017/02/07/go-function-argument-dot-dot-dot%25zh.rst">在Github上編輯</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p><a class="reference external" href="https://golang.org/">Go語言</a> 函數參數(<a class="reference external" href="https://www.google.com/search?q=function+argument">function argument</a>) 點點點(...)意義是，此函數可以傳入零個，
+一個，或多個參數，此函數稱為 <a class="reference external" href="https://zh.wikipedia.org/wiki/%E5%8F%AF%E8%AE%8A%E5%8F%83%E6%95%B8%E5%87%BD%E6%95%B8">可變參數函數</a> (<a class="reference external" href="https://en.wikipedia.org/wiki/Variadic_function">variadic function</a>)。</p>
+<p>舉例來說，假設有一個函數：</p>
+<div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">giveMeString</span><span class="p">(</span><span class="nx">s</span> <span class="o">...</span><span class="kt">string</span><span class="p">)</span>
+</pre></div>
+<p>則我們在呼叫此函數時，可以這樣呼叫：</p>
+<div class="highlight"><pre><span></span><span class="nx">giveMeString</span><span class="p">()</span>
+<span class="nx">giveMeString</span><span class="p">(</span><span class="s">&quot;hello&quot;</span><span class="p">)</span>
+<span class="nx">giveMeString</span><span class="p">(</span><span class="s">&quot;hello&quot;</span><span class="p">,</span> <span class="s">&quot;world&quot;</span><span class="p">)</span>
+</pre></div>
+<p>以上呼叫函數的方式皆可，再多傳幾個 <em>string</em> 型態的參數都可以。
+在Go語言標準函式庫裡，最有名的例子是 <a class="reference external" href="https://golang.org/pkg/fmt/#Printf">fmt.Printf</a> ，相信大家都有用過。</p>
+<p><a class="reference external" href="https://play.golang.org/p/Qk2A6LbZfQ">在Go Playground上執行範例</a></p>
+
+<div class="section" id="id1">
+<h2>同場加映</h2>
+<p>延續上面的例子，假設有一個 <em>[]string</em> 型態的變數想要傳入上面的函數，
+該怎樣做呢？</p>
+<p>比方說：</p>
+<div class="highlight"><pre><span></span><span class="nx">s</span> <span class="o">:=</span> <span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&quot;hello&quot;</span><span class="p">,</span> <span class="s">&quot;world&quot;</span><span class="p">}</span>
+</pre></div>
+<p>上面這個變數該如何傳入呢？ 答案：</p>
+<div class="highlight"><pre><span></span><span class="nx">s</span> <span class="o">:=</span> <span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&quot;hello&quot;</span><span class="p">,</span> <span class="s">&quot;world&quot;</span><span class="p">}</span>
+<span class="nx">giveMeString</span><span class="p">(</span><span class="nx">s</span><span class="o">...</span><span class="p">)</span>
+</pre></div>
+<p>在變數名稱後一樣加三個點就可以傳入。</p>
+
+<hr class="docutils" />
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td><div class="first last line-block">
+<div class="line"><a class="reference external" href="https://www.google.com/search?q=golang+arguments+dot">golang arguments dot - Google search</a></div>
+<div class="line"><a class="reference external" href="https://duckduckgo.com/?q=golang+arguments+dot">golang arguments dot - DuckDuckGo search</a></div>
+<div class="line"><a class="reference external" href="https://www.ecosia.org/search?q=golang+arguments+dot">golang arguments dot - Ecosia search</a></div>
+<div class="line"><a class="reference external" href="https://www.bing.com/search?q=golang+arguments+dot">golang arguments dot - Bing search</a></div>
+<div class="line"><a class="reference external" href="https://search.yahoo.com/search?p=golang+arguments+dot">golang arguments dot - Yahoo search</a></div>
+<div class="line"><a class="reference external" href="https://www.baidu.com/s?wd=golang+arguments+dot">golang arguments dot - Baidu search</a></div>
+<div class="line"><a class="reference external" href="https://www.yandex.com/search/?text=golang+arguments+dot">golang arguments dot - Yandex search</a></div>
+</div>
+</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[2]</td><td><a class="reference external" href="http://stackoverflow.com/a/23669857">go - dot dot dot in Golang. interface with empty braces - Stack Overflow</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[3]</td><td><div class="first last line-block">
+<div class="line"><a class="reference external" href="https://www.google.com/search?q=variadic+golang">variadic golang - Google search</a></div>
+<div class="line"><a class="reference external" href="https://duckduckgo.com/?q=variadic+golang">variadic golang - DuckDuckGo search</a></div>
+<div class="line"><a class="reference external" href="https://www.ecosia.org/search?q=variadic+golang">variadic golang - Ecosia search</a></div>
+<div class="line"><a class="reference external" href="https://www.bing.com/search?q=variadic+golang">variadic golang - Bing search</a></div>
+<div class="line"><a class="reference external" href="https://search.yahoo.com/search?p=variadic+golang">variadic golang - Yahoo search</a></div>
+<div class="line"><a class="reference external" href="https://www.baidu.com/s?wd=variadic+golang">variadic golang - Baidu search</a></div>
+<div class="line"><a class="reference external" href="https://www.yandex.com/search/?text=variadic+golang">variadic golang - Yandex search</a></div>
+</div>
+</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+    <footer><hr><address><b>作者</b>:
+    <a rel="author"
+       href="/zh/author/dai-shang-wei.html">戴上為</a>
+  </address><aside>
+    <i>&isin;</i> <b>分類</b>:
+    <a href="/zh/category/goyu-yan.html">Go語言</a>
+  </aside><aside>
+    <i>&sum;</i> <b>標籤</b>:
+      <a href="/zh/tag/webkai-fa.html">Web開發</a>
+,       <a href="/zh/tag/goyu-yan.html">Go語言</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

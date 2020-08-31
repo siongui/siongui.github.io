@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8">
+  <title>[Math] United States of America Mathematical Olympiad (USAMO) 2015 Problem 3</title>
+  <meta name="keywords" content="Math"/>
+  <meta name="description" content="United States of America Mathematical Olympiad (USAMO) 2015 Problem 3"/>
+  <meta name="author" content="Shen-Fu Tsai"/><meta property="og:title" content="[Math] United States of America Mathematical Olympiad (USAMO) 2015 Problem 3" />    <meta property="og:image" content="/./extra/Dharma_wheel.svg" /><meta property="og:description" content="United States of America Mathematical Olympiad (USAMO) 2015 Problem 3" /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2015/05/11/USAMO-2015-3/"
+           rel="bookmark"
+           title="Permalink to [Math] United States of America Mathematical Olympiad (USAMO) 2015 Problem 3">
+          [Math] United States of America Mathematical Olympiad (USAMO) 2015 Problem 3
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2015-05-11T19:00:00-08:00">
+    May 11, 2015
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2015/05/11/USAMO-2015-3%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p>As high school math competition gets harder and harder, it becomes notable for
+me to independently solve solve a 3/6 problem at <a class="reference external" href="https://www.imo-official.org/">IMO</a>. Given <a class="reference external" href="http://www.maa.org/math-competitions">USAMO</a> appears, in
+my opinion, to be at least as hard as <a class="reference external" href="https://www.imo-official.org/">IMO</a>, I should write this down.</p>
+<p>Problem: Let <span class="formula"><i>n</i></span> be a positive integer. We color each subset of <span class="formula"><i>N</i> = {1, 2, ..., <i>n</i>}</span> with
+blue or red, including empty set. Given a subset <span class="formula"><i>A</i></span> of <span class="formula"><i>N</i></span>, let <span class="formula"><i>f</i>(<i>A</i>)</span> be the
+number of blue subsets of <span class="formula"><i>A</i></span>. Find <span class="formula"><i>T</i>(<i>n</i>)</span>, the number of colorings such that for any
+subsets <span class="formula"><i>A</i></span> and <span class="formula"><i>B</i></span> of <span class="formula"><i>N</i></span>.</p>
+<p><span class="formula"><i>f</i>(<i>A</i>)<i>f</i>(<i>B</i>) = <i>f</i>(<i>A</i>∩<i>B</i>)<i>f</i>(<i>A</i>∪<i>B</i>)</span>   (*)</p>
+<p>At first I wasn't sure whether it's a combinatoric or functional problem, though there is never a
+need, and actually bad, for every problem to belong to a specific category because that gives people
+some non-intuitive clue to the approach. After spending quite some time working on it as a
+functional problem, I didn't seem to get anywhere. I have to admit that I then shamelessly wrote a
+simple code to compute some values of <span class="formula"><i>T</i>(<i>n</i>)</span> and then guessed the pattern and prove it, which
+is a great advantage, and never possible, in real competition.</p>
+<p>Anyways, the key observation is this: what will happen if the empty set is red and
+<span class="formula"><i>f</i>(<i>empthset</i>) = 0</span>? Then one of <span class="formula"><i>f</i>({1}), …, <i>f</i>({<i>n</i>})</span> is zero. Let's
+say <span class="formula"><i>f</i>({1}) = 0</span>, then one of <span class="formula"><i>f</i>({1, 2}), <i>f</i>({1, 3}), …..., <i>f</i>({1, <i>n</i>})</span> is zero.
+Let's say <span class="formula"><i>f</i>({1, 2}) = 0</span>, then...</p>
+<p>Eventually, with f(emptyset)=0 we arrive at a situation that without loss of generality, for any
+subset <span class="formula"><i>A</i></span> of <span class="formula">{1, 2, ..., <i>n</i> − 1}</span> its color is red and <span class="formula"><i>f</i>(<i>A</i>) = 0</span>, and all sets that
+may have non-zero f() value are those including n. Moreover, interestingly we could treat these
+<span class="formula">2<sup><i>n</i> − 1</sup></span> sets containing <span class="formula"><i>n</i></span> as another identical problem on
+<span class="formula">{1, 2, 3, ..., <i>n</i> − 1}</span>, as long as <span class="formula"><i>n</i></span> is temporarily ignored. Now either
+<span class="formula"><i>f</i>({<i>n</i>}) = 1</span>, or <span class="formula"><i>f</i>({<i>n</i>}) = 0</span> and maybe some set containing <span class="formula"><i>n</i></span> is not 0, and so
+on. So if <span class="formula"><i>G</i>(<i>n</i>)</span> is the number of coloring with
+<span class="formula"><i>f</i>(∅) = 1</span>, we might have</p>
+<p><span class="formula"><i>T</i>(<i>n</i>) = <i>C</i>(<i>n</i>, 0)<i>G</i>(<i>n</i>) + <i>C</i>(<i>n</i>, 1)<i>G</i>(<i>n</i> − 1) + <i>C</i>(<i>n</i>, 2)<i>G</i>(<i>n</i> − 2) + ... + <i>C</i>(<i>n</i>, <i>n</i>)<i>G</i>(0) + 1</span></p>
+<p>The rough argument is to have a minimum set <span class="formula"><i>A</i></span> with <span class="formula"><i>f</i>(<i>A</i>) = 1</span>. For <span class="formula">|<i>A</i>| = 0</span> the
+count is <span class="formula"><i>C</i>(<i>n</i>, 0)<i>G</i>(<i>n</i>)</span>, for <span class="formula">|<i>A</i>| = 1</span> the count is <span class="formula"><i>C</i>(<i>n</i>, 1)<i>G</i>(<i>n</i> − 1)</span>, and so on. 1
+counts for the coloring with <span class="formula"><i>f</i>(<i>A</i>) = 0</span> for every <span class="formula"><i>A</i></span>.</p>
+<p>Again, I then shamelessly changed my code to figure out <span class="formula"><i>G</i>(<i>n</i>) = 2<sup><i>n</i></sup></span>, and so</p>
+<p><span class="formula"><i>T</i>(<i>n</i>) = <i>C</i>(<i>n</i>, 0)2<sup><i>n</i></sup> + <i>C</i>(<i>n</i>, 1)2<sup><i>n</i> − 1</sup> + <i>C</i>(<i>n</i>, 2)2<sup><i>n</i> − 2</sup> + … + <i>C</i>(<i>n</i>, <i>n</i>)2<sup>0</sup> + 1 = (1 + 2)<sup><i>n</i></sup> + 1 = 3<sup><i>n</i></sup> + 1</span></p>
+<p>Now the rigorous proof will strengthen the arguments and show <span class="formula"><i>G</i>(<i>n</i>) = 2<sup><i>n</i></sup></span>. As always, it
+appears much less intuitive when we make it formal.</p>
+<div class="section" id="proof">
+<h2>Proof</h2>
+<p>Throughout the proof we ignore the trivial coloring with all subsets labeled red, and will add it
+back at the last step. We're also only concerned with coloring that makes (*) hold. We proceed with
+a series of lemmas, some of which self-evident.</p>
+<div class="section" id="lemma-1">
+<h3>Lemma 1</h3>
+<p><span class="formula"><i>f</i>(<i>A</i>) &gt; 0</span> iff <span class="formula"><i>A</i></span> contains a blue subset.</p>
+</div>
+<div class="section" id="lemma-2">
+<h3>Lemma 2</h3>
+<p>There is an unique minimum blue subset <span class="formula"><i>S</i></span>.</p>
+<p>To prove it, consider two different minimum blue subsets <span class="formula"><i>S</i></span> and <span class="formula"><i>S</i>’</span> with same size.
+Then <span class="formula"><i>f</i>(<i>S</i>∩<i>S</i>’) &gt; 0</span>. Since <span class="formula"><i>S</i>∩<i>S</i>’</span> is smaller than <span class="formula"><i>S</i></span> and <span class="formula"><i>S</i>’</span>, by
+Lemma 1 this is a contradiction.
+<span class="formula">◇</span></p>
+</div>
+<div class="section" id="lemma-3">
+<h3>Lemma 3</h3>
+<p><span class="formula"><i>f</i>(<i>A</i>) &gt; 0</span> iff <span class="formula"><i>A</i></span> contains the minimum blue subset <span class="formula"><i>S</i></span>.</p>
+<p>If <span class="formula"><i>f</i>(<i>A</i>) &gt; 0</span> then <span class="formula"><i>B</i> = <i>S</i>∩<i>A</i></span> also has <span class="formula"><i>f</i>(<i>B</i>) &gt; 0</span>, meaning <span class="formula"><i>B</i></span> has a blue
+subset. Now if <span class="formula"><i>A</i></span> doesn't contain <span class="formula"><i>S</i></span>, then <span class="formula">|<i>B</i>| &lt; |<i>S</i>|</span>, a contradiction.
+<span class="formula">◇</span></p>
+</div>
+<div class="section" id="lemma-4">
+<h3>Lemma 4</h3>
+<p>Let <span class="formula"><i>T</i>(<i>n</i>)</span> be the answer to the original problem, and <span class="formula"><i>G</i>(<i>n</i>)</span> be the number
+of colorings with <span class="formula"><i>f</i>(∅) = 1</span>. Then <span class="formula"><i>T</i>(<i>n</i>) = <i>C</i>(<i>n</i>, 0)<i>G</i>(<i>n</i>) + <i>C</i>(<i>n</i>, 1)<i>G</i>(<i>n</i> − 1) + … + <i>C</i>(<i>n</i>, <i>n</i>)<i>G</i>(0) + 1</span></p>
+<p>Let the minimum blue subset be <span class="formula"><i>S</i></span>. By Lemma 3 all subsets not containing <span class="formula"><i>S</i></span> should be
+red. We can check that (1) the problem of coloring subsets containing S is equivalent to the original problem on set <span class="formula"><i>N</i> − <i>S</i></span> when we map each <span class="formula"><i>X</i></span> to <span class="formula"><i>X</i> − <i>S</i></span>. (2) (*) still holds whether
+<span class="formula"><i>A</i></span> and <span class="formula"><i>B</i></span> contains <span class="formula"><i>S</i></span> or not. So by iterating through all possible <span class="formula"><i>S</i></span>
+we get the <span class="formula"><i>T</i>(<i>n</i>)</span> as described.
+<span class="formula">◇</span></p>
+<p>Finally, it suffices to show that <span class="formula"><i>G</i>(<i>n</i>) = 2<sup><i>n</i></sup></span>. This is the most interesting part to me.</p>
+<p>The idea is to prove that each coloring of singletons <span class="formula">{1}, {2}, {3}, …, {<i>n</i>}</span>
+leads to one and only one possible colorings of the rest, and therefore <span class="formula"><i>G</i>(<i>n</i>) = 2<sup><i>n</i></sup></span>.</p>
+<p>To show there's only one possible coloring given a coloring of all singletons, first observe that
+<span class="formula"><i>f</i>({<i>i</i>})</span> is either 1 or 2. So <span class="formula"><i>f</i>(<i>doubleton</i>)</span> is either 1, 2, or 4. By induction on
+<span class="formula">|<i>A</i>|</span> we can see that <span class="formula"><i>f</i>(<i>A</i>)</span> can take at most one value, which is a power of 2, because
+<span class="formula"><i>f</i>(<i>A</i>) = <i>f</i>({<i>x</i>})<i>f</i>(<i>A</i> − {<i>x</i>}) ⁄ <i>f</i>(∅) = <i>f</i>({<i>x</i>})<i>f</i>(<i>A</i> − {<i>x</i>})</span> where <span class="formula"><i>x</i></span> belongs to
+<span class="formula"><i>A</i></span>. Now the last remaining piece is to show such <span class="formula"><i>f</i></span> makes (*) hold all the time.</p>
+<p>For any <span class="formula"><i>A</i></span>, because the only possible <span class="formula"><i>f</i>(<i>A</i>)</span> is constructed as product of other
+<span class="formula"><i>f</i>()</span> which are power of 2, <span class="formula"><i>L</i>(<i>A</i>) = log<sub>2</sub>(<i>f</i>(<i>A</i>))</span> is always integer, and
+<span class="formula"><i>L</i>(<i>A</i>) = <i>L</i>({<i>x</i>}) + <i>L</i>(<i>A</i> − {<i>x</i>})</span>. Therefore <span class="formula"><i>L</i>(<i>A</i>)</span> is the number of blue singletons contained
+by <span class="formula"><i>A</i></span>! Now how are non-singletons colored so that <span class="formula"><i>f</i>(<i>A</i>)</span> is also the number of blue
+subsets owned by <span class="formula"><i>A</i></span>? We can color <span class="formula"><i>A</i></span> blue iff all singletons of <span class="formula"><i>A</i></span> are blue. Then
+<span class="formula"><i>f</i>’(<i>A</i>)</span>, the function defined based on this coloring, is the number of subsets of <span class="formula"><i>A</i></span>
+containing only singletons that are blue, i.e. <span class="formula"><i>f</i>’(<i>A</i>) = 2<sup><i>L</i>(<i>A</i>)</sup> = <i>f</i>(<i>A</i>)</span>, so this only possible
+<span class="formula"><i>f</i>(<i>A</i>)</span> is also achievable.</p>
+<p>Q.E.D.</p>
+<p>An example of coloring with <span class="formula"><i>f</i>(∅) = 1</span> when <span class="formula"><i>n</i> = 4</span>. Notation: color/f/L</p>
+<p><span class="formula">∅ : <i>B</i> ⁄ 1 ⁄ 0</span></p>
+<p><span class="formula">{1} : <i>B</i> ⁄ 2 ⁄ 1, {2} : <i>R</i> ⁄ 1 ⁄ 0, {3} : <i>R</i> ⁄ 1 ⁄ 0, {4} : <i>B</i> ⁄ 2 ⁄ 1</span></p>
+<p><span class="formula">{1, 2} : <i>R</i> ⁄ 2 ⁄ 1, {1, 3} : <i>R</i> ⁄ 2 ⁄ 1, {1, 4} : <i>B</i> ⁄ 4 ⁄ 2, {2, 3} : <i>R</i> ⁄ 1 ⁄ 0, {2, 4} : <i>R</i> ⁄ 2 ⁄ 1, {3, 4} : <i>R</i> ⁄ 2 ⁄ 1</span></p>
+<p><span class="formula">{1, 2, 3} : <i>R</i> ⁄ 2 ⁄ 1, {1, 2, 4} : <i>R</i> ⁄ 4 ⁄ 2, 1, 3, 4 : <i>R</i> ⁄ 4 ⁄ 2, {2, 3, 4} : <i>R</i> ⁄ 2 ⁄ 1</span></p>
+<p><span class="formula">{1, 2, 3, 4} : <i>R</i> ⁄ 4 ⁄ 2</span></p>
+<hr class="docutils" />
+<p><a class="reference external" href="http://oathbystyx.blogspot.com/2015/05/2015-usamo-3.html">post</a>
+by
+<a class="reference external" href="/pages/shen-fu-tsai.html">Shen-Fu Tsai</a></p>
+<hr class="docutils" />
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id1" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td><a class="reference external" href="http://www.artofproblemsolving.com/wiki/index.php/USAMO_Problems_and_Solutions">USAMO Problems and Solutions</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[2]</td><td><a class="reference external" href="https://www.imo-official.org/">International Mathematical Olympiad</a></td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/shen-fu-tsai.html">Shen-Fu Tsai</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/math.html">Math</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/math.html">Math</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

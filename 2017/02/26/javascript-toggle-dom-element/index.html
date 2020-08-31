@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>[JavaScript] Toggle (Show/Hide) HTML Element</title>
+  <meta name="keywords" content="JavaScript,DOM,toggle,toggleable,html,CSS"/>
+  <meta name="description" content="Toggle (Show/Hide) HTML DOM element in JavaScript."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="[JavaScript] Toggle (Show/Hide) HTML Element" /><meta property="og:image" content="http://www.javatpoint.com/images/javascript/javascript_logo.png" />
+<meta property="og:description" content="Toggle (Show/Hide) HTML DOM element in JavaScript." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2017/02/26/javascript-toggle-dom-element/"
+           rel="bookmark"
+           title="Permalink to [JavaScript] Toggle (Show/Hide) HTML Element">
+          [JavaScript] Toggle (Show/Hide) HTML Element
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2017-02-26T04:23:00+08:00">
+    February 26, 2017
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2017/02/26/javascript-toggle-dom-element%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p>Toggle (Show/Hide) <a class="reference external" href="https://www.google.com/search?q=HTML">HTML</a> <a class="reference external" href="https://www.google.com/search?q=DOM+element">DOM element</a> in <a class="reference external" href="https://www.google.com/search?q=JavaScript">JavaScript</a>. See demo first. Please
+click the following text to toggle the element.</p>
+<br>
+<style>
+.invisible {
+  display: none;
+}
+.menu-toggle {
+  cursor: pointer;
+}
+.menu {
+  width: 200px;
+  height: 200px;
+  background-color: yellow;
+}
+</style>
+
+<div style="background-color: Azure; padding: 5px;">
+<div class="menu-toggle">
+  <!--
+  <span class="invisible">&#9660;</span>
+  <span>&#9658;</span>
+  -->
+  Click me to toggle
+</div>
+<div class="invisible menu">
+  menu content
+</div>
+</div>
+
+<script>
+var menu = document.querySelector(".menu");
+var menuToggle = document.querySelector(".menu-toggle");
+menuToggle.addEventListener("click", function(e) {
+  menu.classList.toggle("invisible");
+});
+</script>
+<br><p>There are two HTML elements in the demo. The HTML code is as follows:</p>
+<div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;menu-toggle&quot;</span><span class="p">&gt;</span>
+  Click me to toggle
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;invisible menu&quot;</span><span class="p">&gt;</span>
+  menu content
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</pre></div>
+<p>When users click on the first <em>div</em> element, the second <em>div</em> element will
+become visible if it is invisible, or become invisible if it is visible. In
+other words, the click of first <em>div</em> toggles the visibility of the second
+<em>div</em>. To achieve the toggle effect, we need the following <strong>CSS</strong> classes:</p>
+<div class="highlight"><pre><span></span><span class="p">.</span><span class="nc">invisible</span> <span class="p">{</span>
+  <span class="k">display</span><span class="p">:</span> <span class="kc">none</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="p">.</span><span class="nc">menu-toggle</span> <span class="p">{</span>
+  <span class="k">cursor</span><span class="p">:</span> <span class="kc">pointer</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="p">.</span><span class="nc">menu</span> <span class="p">{</span>
+  <span class="k">width</span><span class="p">:</span> <span class="mi">200</span><span class="kt">px</span><span class="p">;</span>
+  <span class="k">height</span><span class="p">:</span> <span class="mi">200</span><span class="kt">px</span><span class="p">;</span>
+  <span class="k">background-color</span><span class="p">:</span> <span class="kc">yellow</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>The class <tt class="docutils literal">.invisible</tt> will hide the elements that have this class. In the
+beginning, the second <em>div</em> has <tt class="docutils literal">.invisible</tt> class so it is hidden.
+Next we will add <em>click</em> event listener to the first <em>div</em> element. In the event
+listener we will toggle the <tt class="docutils literal">.invisible</tt> class of second <em>div</em> element.</p>
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">menu</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&quot;.menu&quot;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">menuToggle</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&quot;.menu-toggle&quot;</span><span class="p">);</span>
+<span class="nx">menuToggle</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;click&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">menu</span><span class="p">.</span><span class="nx">classList</span><span class="p">.</span><span class="nx">toggle</span><span class="p">(</span><span class="s2">&quot;invisible&quot;</span><span class="p">);</span>
+<span class="p">});</span>
+</pre></div>
+<p>It is easy to toggle the <tt class="docutils literal">.invisible</tt> class of DOM element. The <a class="reference external" href="https://www.w3schools.com/jsref/prop_element_classlist.asp">classList</a>
+property of DOM element provides <a class="reference external" href="https://developer.mozilla.org/en/docs/Web/API/Element/classList">toggle</a> method to toggle CSS class of the DOM
+element. In the event listener, the <tt class="docutils literal">invisible</tt> class of second <em>div</em> element
+is toggled, so it is shown/hidden by the clicks of first <em>div</em> element.</p>
+<hr class="docutils" />
+<p>Tested on:</p>
+<ul class="simple">
+<li><tt class="docutils literal">Chromium Version 55.0.2883.87 Built on Ubuntu , running on Ubuntu 16.10 <span class="pre">(64-bit)</span></tt></li>
+</ul>
+<hr class="docutils" />
+
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id1" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td><div class="first last line-block">
+<div class="line"><a class="reference external" href="https://www.google.com/search?q=javascript+toggle+element">javascript toggle element - Google search</a></div>
+<div class="line"><a class="reference external" href="https://duckduckgo.com/?q=javascript+toggle+element">javascript toggle element - DuckDuckGo search</a></div>
+<div class="line"><a class="reference external" href="https://www.ecosia.org/search?q=javascript+toggle+element">javascript toggle element - Ecosia search</a></div>
+<div class="line"><a class="reference external" href="https://www.qwant.com/?q=javascript+toggle+element">javascript toggle element - Qwant search</a></div>
+<div class="line"><a class="reference external" href="https://www.bing.com/search?q=javascript+toggle+element">javascript toggle element - Bing search</a></div>
+<div class="line"><a class="reference external" href="https://search.yahoo.com/search?p=javascript+toggle+element">javascript toggle element - Yahoo search</a></div>
+<div class="line"><a class="reference external" href="https://www.baidu.com/s?wd=javascript+toggle+element">javascript toggle element - Baidu search</a></div>
+<div class="line"><a class="reference external" href="https://www.yandex.com/search/?text=javascript+toggle+element">javascript toggle element - Yandex search</a></div>
+</div>
+</td></tr>
+</tbody>
+</table>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/javascript.html">JavaScript</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/javascript.html">JavaScript</a>
+,       <a href="/tag/dom.html">DOM</a>
+,       <a href="/tag/toggle.html">toggle</a>
+,       <a href="/tag/toggleable.html">toggleable</a>
+,       <a href="/tag/html.html">html</a>
+,       <a href="/tag/css.html">CSS</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>[JavaScript] String startswith, endswith and contains Implementation</title>
+  <meta name="keywords" content="html,String Manipulation,JavaScript,DOM"/>
+  <meta name="description" content="JavaScript equivalent of Python string startswith, endswith, and contains."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="[JavaScript] String startswith, endswith and contains Implementation" /><meta property="og:image" content="http://www.javatpoint.com/images/javascript/javascript_logo.png" />
+<meta property="og:description" content="JavaScript equivalent of Python string startswith, endswith, and contains." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2012/09/27/javascript-string-startswith-endswith-contains/"
+           rel="bookmark"
+           title="Permalink to [JavaScript] String startswith, endswith and contains Implementation">
+          [JavaScript] String startswith, endswith and contains Implementation
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2015-02-20T23:11:00+08:00">
+    Updated: February 20, 2015
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2012/09/27/javascript-string-startswith-endswith-contains%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p>When we do programming with strings, it's very common to have the following
+questions:</p>
+<blockquote>
+<ol class="arabic simple">
+<li>how do I check whether the <em>string</em> starts with <em>prefix</em>?</li>
+<li>how do I check whether the <em>string</em> ends with <em>suffix</em>?</li>
+<li>how do I check whether the <em>string</em> contains <em>sub-string</em>?</li>
+</ol>
+</blockquote>
+<p>We will show how to do these case by case in JavaScript:</p>
+<div class="section" id="string-startswith">
+<h2>String startswith</h2>
+<p>We can use JavaScript built-in <a class="reference external" href="http://www.w3schools.com/jsref/jsref_indexof.asp">indexOf()</a> function to check whether a string
+starts (or begins) with prefix. For alternative solution, please refer to
+reference <a class="footnote-reference" href="#id4" id="id1">[1]</a>.</p>
+<div class="highlight"><pre><span></span><span class="cm">/**</span>
+<span class="cm"> * The string starts with prefix?</span>
+<span class="cm"> * @param {string} string The string starts with prefix?</span>
+<span class="cm"> * @param {string} prefix The string starts with prefix?</span>
+<span class="cm"> * @return {boolean} true if string starts with prefix, otherwise false</span>
+<span class="cm"> */</span>
+<span class="nx">startswith</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">string</span><span class="p">,</span> <span class="nx">prefix</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">string</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">prefix</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+
+</div>
+<div class="section" id="string-endswith">
+<h2>String endswith</h2>
+<p>Again we use JavaScript built-in <a class="reference external" href="http://www.w3schools.com/jsref/jsref_indexof.asp">indexOf()</a> function to check whether a string
+ends with suffix. For alternative solution, please refer to reference <a class="footnote-reference" href="#id5" id="id2">[2]</a>.</p>
+<div class="highlight"><pre><span></span><span class="cm">/**</span>
+<span class="cm"> * The string ends with suffix?</span>
+<span class="cm"> * @param {string} string The string ends with suffix?</span>
+<span class="cm"> * @param {string} suffix The string ends with suffix?</span>
+<span class="cm"> * @return {boolean} true if string ends with suffix, otherwise false</span>
+<span class="cm"> */</span>
+<span class="nx">endswith</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">string</span><span class="p">,</span> <span class="nx">suffix</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">string</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">suffix</span><span class="p">,</span> <span class="nx">string</span><span class="p">.</span><span class="nx">length</span> <span class="o">-</span> <span class="nx">suffix</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+
+</div>
+<div class="section" id="string-contains">
+<h2>String contains</h2>
+<p>The same trick of JavaScript built-in <a class="reference external" href="http://www.w3schools.com/jsref/jsref_indexof.asp">indexOf()</a> function to check whether a
+string contains another string. For alternative solution, please refer to
+reference <a class="footnote-reference" href="#id6" id="id3">[3]</a>.</p>
+<div class="highlight"><pre><span></span><span class="cm">/**</span>
+<span class="cm"> * The string contains substr?</span>
+<span class="cm"> * @param {string} string The string contains substr?</span>
+<span class="cm"> * @param {string} substr The string contains substr?</span>
+<span class="cm"> * @return {boolean} true if string contains substr, otherwise false</span>
+<span class="cm"> */</span>
+<span class="nx">contains</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">string</span><span class="p">,</span> <span class="nx">substr</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">string</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">substr</span><span class="p">)</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+<hr class="docutils" />
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td><a class="reference external" href="http://stackoverflow.com/questions/646628/how-to-check-if-a-string-startswith-another-string">How to check if a string “StartsWith” another string?</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id5" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[2]</a></td><td><a class="reference external" href="http://stackoverflow.com/questions/280634/endswith-in-javascript">endsWith in javascript</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id6" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id3">[3]</a></td><td><a class="reference external" href="http://stackoverflow.com/questions/1789945/how-can-i-check-if-one-string-contains-another-substring">How can I check if one string contains another substring?</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id7" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[4]</td><td><a class="reference external" href="http://www.w3schools.com/jsref/jsref_indexof.asp">JavaScript String indexOf() Method</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id8" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[5]</td><td><a class="reference external" href="/2012/10/02/javascript-basename/">JavaScript basename()</a></td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/javascript.html">JavaScript</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/html.html">html</a>
+,       <a href="/tag/string-manipulation.html">String Manipulation</a>
+,       <a href="/tag/javascript.html">JavaScript</a>
+,       <a href="/tag/dom.html">DOM</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

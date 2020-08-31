@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>Watch Data Change With Options via Go and Vue.js</title>
+  <meta name="keywords" content="Go,Golang,GopherJS,Go to JavaScript,Frontend Programming in Go,Vue.js,gopherjs-vue"/>
+  <meta name="description" content="Run data change watchers with option via Go/GopherJS/gopherjs-vue."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="Watch Data Change With Options via Go and Vue.js" /><meta property="og:image" content="https://cdn-images-1.medium.com/max/1024/1*kzBgrHhQRwEycJV8YQYR0A.png" />
+<meta property="og:description" content="Run data change watchers with option via Go/GopherJS/gopherjs-vue." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2018/05/07/watch-data-change-with-option-via-gopherjs-vue/"
+           rel="bookmark"
+           title="Permalink to Watch Data Change With Options via Go and Vue.js">
+          Watch Data Change With Options via Go and Vue.js
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2018-05-07T23:33:00+08:00">
+    May 07, 2018
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2017/12/04/watch-data-change-with-option-via-gopherjs-vue%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p>In my <a class="reference external" href="/2018/05/04/watch-data-change-via-gopherjs-vue/">previous post</a> <a class="footnote-reference" href="#id3" id="id1">[1]</a>, we showed how to watch data changes using
+Go/GopherJS/<a class="reference external" href="https://github.com/oskca/gopherjs-vue">gopherjs-vue</a>. But sometimes we need to run watchers with option.
+For example, we may want to run watchers immediately after initialization, and
+default behavior does not run waters on initialization. In this case, we need to
+set options as well when waters are set.</p>
+<p>The code to set options is basically the same as the code of my previous post,
+except an object representing options is declared and passed as argument while
+setting the watchers.</p>
+<p>The following patch shows the code difference that adding <em>{immediate: true}</em>
+option to the watcher, which means running the watchers immediately after
+initialization.</p>
+<div class="highlight"><pre><span></span><span class="o">---</span> <span class="mo">031</span><span class="o">-</span><span class="nx">watch</span><span class="o">-</span><span class="nx">data</span><span class="o">-</span><span class="nx">change</span><span class="o">-</span><span class="nx">gopherjs</span><span class="o">-</span><span class="nx">vue</span><span class="o">/</span><span class="nx">app</span><span class="p">.</span><span class="k">go</span> <span class="mi">2018</span><span class="o">-</span><span class="mo">05</span><span class="o">-</span><span class="mo">04</span> <span class="mi">09</span><span class="p">:</span><span class="mi">09</span><span class="p">:</span><span class="mf">28.674070365</span> <span class="o">+</span><span class="mi">0800</span>
+<span class="o">+++</span> <span class="mo">032</span><span class="o">-</span><span class="nx">watch</span><span class="o">-</span><span class="nx">data</span><span class="o">-</span><span class="nx">change</span><span class="o">-</span><span class="nx">with</span><span class="o">-</span><span class="nx">option</span><span class="o">-</span><span class="nx">gopherjs</span><span class="o">-</span><span class="nx">vue</span><span class="o">/</span><span class="nx">app</span><span class="p">.</span><span class="k">go</span>     <span class="mi">2018</span><span class="o">-</span><span class="mo">05</span><span class="o">-</span><span class="mo">07</span> <span class="mi">22</span><span class="p">:</span><span class="mi">37</span><span class="p">:</span><span class="mf">18.242253159</span> <span class="o">+</span><span class="mi">0800</span>
+<span class="err">@@</span> <span class="o">-</span><span class="mi">24</span><span class="p">,</span><span class="mi">8</span> <span class="o">+</span><span class="mi">24</span><span class="p">,</span><span class="mi">10</span> <span class="err">@@</span>
+      <span class="c1">// create the VueJS viewModel using a struct pointer</span>
+      <span class="nx">app</span> <span class="o">:=</span> <span class="nx">vue</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="s">&quot;#vueapp&quot;</span><span class="p">,</span> <span class="nx">m</span><span class="p">)</span>
+
+<span class="o">+</span>     <span class="nx">option</span> <span class="o">:=</span> <span class="nx">js</span><span class="p">.</span><span class="nx">Global</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;Object&quot;</span><span class="p">).</span><span class="nx">New</span><span class="p">()</span>
+<span class="o">+</span>     <span class="nx">option</span><span class="p">.</span><span class="nx">Set</span><span class="p">(</span><span class="s">&quot;immediate&quot;</span><span class="p">,</span> <span class="kc">true</span><span class="p">)</span>
+      <span class="nx">app</span><span class="p">.</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;$watch&quot;</span><span class="p">,</span> <span class="s">&quot;userinput&quot;</span><span class="p">,</span> <span class="kd">func</span><span class="p">(</span><span class="nx">newVal</span><span class="p">,</span> <span class="nx">oldVal</span> <span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
+              <span class="nx">m</span><span class="p">.</span><span class="nx">OldValue</span> <span class="p">=</span> <span class="nx">oldVal</span>
+              <span class="nx">m</span><span class="p">.</span><span class="nx">NewValue</span> <span class="p">=</span> <span class="nx">newVal</span>
+<span class="o">-</span>     <span class="p">})</span>
+<span class="o">+</span>     <span class="p">},</span> <span class="nx">option</span><span class="p">)</span>
+ <span class="p">}</span>
+</pre></div>
+<p>The full code example is available <a class="reference external" href="https://github.com/siongui/frontend-programming-in-go/tree/master/032-watch-data-change-with-option-gopherjs-vue">on my GitHub repo</a>.</p>
+<p>For other example and demo of using watchers with option using gopherjs-vue, see
+<a class="reference external" href="/2018/05/01/sieve-of-eratosthenes-via-gopherjs-vue/">online Sieve of Eratosthenes</a> <a class="footnote-reference" href="#id4" id="id2">[2]</a>.</p>
+
+<p>Tested on:</p>
+<ul class="simple">
+<li><tt class="docutils literal">Chromium 65.0.3325.181 on Ubuntu 17.10 <span class="pre">(64-bit)</span></tt></li>
+<li><tt class="docutils literal">Go 1.10.2</tt></li>
+<li><tt class="docutils literal">GopherJS <span class="pre">1.10-3</span></tt></li>
+</ul>
+<hr class="docutils" />
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td><a class="reference external" href="/2018/05/04/watch-data-change-via-gopherjs-vue/">Watch Data Change via Go and Vue.js</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[2]</a></td><td><a class="reference external" href="/2018/05/01/sieve-of-eratosthenes-via-gopherjs-vue/">Online Sieve of Eratosthenes Demo via Go and Vue.js</a></td></tr>
+</tbody>
+</table>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/frontend-programming-in-go.html">Frontend Programming in Go</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/go.html">Go</a>
+,       <a href="/tag/golang.html">Golang</a>
+,       <a href="/tag/gopherjs.html">GopherJS</a>
+,       <a href="/tag/go-to-javascript.html">Go to JavaScript</a>
+,       <a href="/tag/frontend-programming-in-go.html">Frontend Programming in Go</a>
+,       <a href="/tag/vuejs.html">Vue.js</a>
+,       <a href="/tag/gopherjs-vue.html">gopherjs-vue</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

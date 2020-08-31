@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>GitHub Pages Symbolic Link Caveat</title>
+  <meta name="keywords" content="GitHub Pages,web,Web application"/>
+  <meta name="description" content="GitHub Pages set Content-Type according to the name of symlink, not the file name that the symlink references to."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="GitHub Pages Symbolic Link Caveat" /><meta property="og:image" content="http://1.bp.blogspot.com/-FgWmIO0TvWU/Vk-BfHJirXI/AAAAAAAAHdw/2yWPNJusZO8/s640/githubpages.jpg" />
+<meta property="og:description" content="GitHub Pages set Content-Type according to the name of symlink, not the file name that the symlink references to." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2017/03/30/github-pages-symlink-caveat/"
+           rel="bookmark"
+           title="Permalink to GitHub Pages Symbolic Link Caveat">
+          GitHub Pages Symbolic Link Caveat
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2017-03-30T23:11:00+08:00">
+    March 30, 2017
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2017/03/30/github-pages-symlink-caveat%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p><a class="reference external" href="https://pages.github.com/">GitHub Pages</a> set <em>Content-Type</em> according to the name of symlink, not the file
+name that the symlink references to.</p>
+<p>I have a URL of word as follows:</p>
+<div class="highlight"><pre><span></span>/browse/s/sacca
+</pre></div>
+<p>I want this url linked to <tt class="docutils literal">/</tt>, so I make a symlink as follows:</p>
+<div class="highlight"><pre><span></span>$ <span class="nb">cd</span> <span class="o">{{</span>root of websit<span class="o">}}</span>
+$ mkdir -p browse/s/
+$ ln -sf ../../index.html browse/s/sacca
+</pre></div>
+<p>But this does not work as expected. When I open <tt class="docutils literal">/browse/s/sacca</tt>, my browser
+downloads the file instead of rendering it as HTML, because the <em>Content-Type</em>
+is not <tt class="docutils literal">text/html</tt>.</p>
+<p>My solution is to add a trailing slash to the URL of the word as follows:</p>
+<div class="highlight"><pre><span></span>/browse/s/sacca/
+</pre></div>
+<p>And make symlink as follows:</p>
+<div class="highlight"><pre><span></span>$ <span class="nb">cd</span> <span class="o">{{</span>root of websit<span class="o">}}</span>
+$ mkdir -p browse/s/sacca/
+$ ln -sf ../../../index.html browse/s/sacca/index.html
+</pre></div>
+<p>I open <tt class="docutils literal">/browse/s/sacca/</tt>, and my browser renders it as HTML!</p>
+
+<hr class="docutils" />
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id1" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td><div class="first last line-block">
+<div class="line"><a class="reference external" href="https://www.google.com/search?q=github+pages+symlink">github pages symlink - Google search</a></div>
+<div class="line"><a class="reference external" href="https://duckduckgo.com/?q=github+pages+symlink">github pages symlink - DuckDuckGo search</a></div>
+<div class="line"><a class="reference external" href="https://www.ecosia.org/search?q=github+pages+symlink">github pages symlink - Ecosia search</a></div>
+<div class="line"><a class="reference external" href="https://www.qwant.com/?q=github+pages+symlink">github pages symlink - Qwant search</a></div>
+<div class="line"><a class="reference external" href="https://www.bing.com/search?q=github+pages+symlink">github pages symlink - Bing search</a></div>
+<div class="line"><a class="reference external" href="https://search.yahoo.com/search?p=github+pages+symlink">github pages symlink - Yahoo search</a></div>
+<div class="line"><a class="reference external" href="https://www.baidu.com/s?wd=github+pages+symlink">github pages symlink - Baidu search</a></div>
+<div class="line"><a class="reference external" href="https://www.yandex.com/search/?text=github+pages+symlink">github pages symlink - Yandex search</a></div>
+</div>
+</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[2]</td><td><div class="first last line-block">
+<div class="line"><a class="reference external" href="https://www.google.com/search?q=git+gh-pages+workflow">git gh-pages workflow - Google search</a></div>
+<div class="line"><a class="reference external" href="https://duckduckgo.com/?q=git+gh-pages+workflow">git gh-pages workflow - DuckDuckGo search</a></div>
+<div class="line"><a class="reference external" href="https://www.ecosia.org/search?q=git+gh-pages+workflow">git gh-pages workflow - Ecosia search</a></div>
+<div class="line"><a class="reference external" href="https://www.qwant.com/?q=git+gh-pages+workflow">git gh-pages workflow - Qwant search</a></div>
+<div class="line"><a class="reference external" href="https://www.bing.com/search?q=git+gh-pages+workflow">git gh-pages workflow - Bing search</a></div>
+<div class="line"><a class="reference external" href="https://search.yahoo.com/search?p=git+gh-pages+workflow">git gh-pages workflow - Yahoo search</a></div>
+<div class="line"><a class="reference external" href="https://www.baidu.com/s?wd=git+gh-pages+workflow">git gh-pages workflow - Baidu search</a></div>
+<div class="line"><a class="reference external" href="https://www.yandex.com/search/?text=git+gh-pages+workflow">git gh-pages workflow - Yandex search</a></div>
+</div>
+</td></tr>
+</tbody>
+</table>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/web-development.html">Web Development</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/github-pages.html">GitHub Pages</a>
+,       <a href="/tag/web.html">web</a>
+,       <a href="/tag/web-application.html">Web application</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8">
+  <title>[Algorithm] Insane DFS</title>
+  <meta name="keywords" content="Algorithm"/>
+  <meta name="description" content="Insane DFS"/>
+  <meta name="author" content="Shen-Fu Tsai"/><meta property="og:title" content="[Algorithm] Insane DFS" />    <meta property="og:image" content="/./extra/Dharma_wheel.svg" /><meta property="og:description" content="Insane DFS" /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2015/01/15/insane-dfs/"
+           rel="bookmark"
+           title="Permalink to [Algorithm] Insane DFS">
+          [Algorithm] Insane DFS
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2015-01-15T11:07:00-08:00">
+    January 15, 2015
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2015/01/15/insane-dfs%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p>The <a class="reference external" href="https://www.hackerrank.com/contests/w13/challenges/insane-dfs">hardest problem</a> in the latest weekly HackerRank challenge looks like a
+problem of graph theory, but only at the superficial level. It is not hard to
+tell that the &quot;suitable array&quot; defined by DFS traversal throughout a rooted tree
+is equivalent to all and only arrays a[] satisfying these constraints:</p>
+<ol class="arabic simple">
+<li>a[0] = 0, a[1] = 1 if N &gt; 1</li>
+<li>For n &gt; 0, a[n] <span class="formula"> ≤ </span> a[n - 1] + 1</li>
+</ol>
+<p>Let's start with DP. Let D[x][y] be the number of arrays a[0 ... x] with a[x]
+<span class="formula"> ≥ </span> y. Then, the number of arrays a[0 ... x] such that a[x] == y is
+exactly D[x - 1][y - 1] because a[x - 1] must be no less than y - 1. Thus we
+have relation</p>
+<p>D[x][y] = D[x - 1][y - 1] + D[x][y + 1] (*)</p>
+<p>with some boundary conditions, including D[x][0] = D[x][1]. For simplicity we
+can append a[N] = 1 in order to find the final answer. Suppose a[<span class="formula"><i>x</i><sub>0</sub></span>]
+and a[<span class="formula"><i>x</i><sub>1</sub></span>] are the only fixed numbers in [<span class="formula"><i>x</i><sub>0</sub></span>, <span class="formula"><i>x</i><sub>1</sub></span>], the
+core task is to compute f(<span class="formula"><i>x</i><sub>0</sub></span>, <span class="formula"><i>y</i><sub>0</sub></span>, <span class="formula"><i>x</i><sub>1</sub></span> - 1, <span class="formula"><i>y</i><sub>1</sub></span>
+- 1) = D[<span class="formula"><i>x</i><sub>1</sub></span> - 1][a[<span class="formula"><i>x</i><sub>1</sub></span>] - 1] from D[<span class="formula"><i>x</i><sub>0</sub></span>][0] =
+D[<span class="formula"><i>x</i><sub>0</sub></span>][1] = ... = D[<span class="formula"><i>x</i><sub>0</sub></span>][a[<span class="formula"><i>x</i><sub>0</sub></span>]] = 1, and the final
+answer will be the product of all such f(<span class="formula"><i>x</i><sub>0</sub>, <i>y</i><sub>0</sub>, <i>x</i><sub>1</sub>, <i>y</i><sub>1</sub></span>) modulo M.</p>
+<p>With initial observations, I almost felt f(<span class="formula"><i>x</i><sub>0</sub>, <i>y</i><sub>0</sub>, <i>x</i><sub>1</sub>, <i>y</i><sub>1</sub></span>) has
+binomial form C(a, b), although it doesn't because of boundary condition D[x][0]
+= D[x][1]. After some calculations, I noticed the nice relation</p>
+<p>f(<span class="formula"><i>x</i><sub>0</sub>, <i>y</i><sub>0</sub>, <i>x</i><sub>1</sub>, <i>y</i><sub>1</sub></span>) = C(2W - H, W) - C(2W - H, W - <span class="formula"><i>y</i><sub>1</sub></span> - 1)</p>
+<p>where W = <span class="formula"><i>x</i><sub>1</sub> − <i>x</i><sub>0</sub></span>, H = <span class="formula"><i>y</i><sub>1</sub> − <i>y</i><sub>0</sub></span>. The proof is actually
+mathematically very interesting.</p>
+<p>Imagine you're on an infinite xy-plane and stand at cell (0, <span class="formula"><i>y</i><sub>0</sub></span>).
+Relation (*) says you can only go in two directions (1, 1) or (0, -1). Denote
+them by step A and B. Then D[<span class="formula"><i>x</i><sub>1</sub></span>][<span class="formula"><i>y</i><sub>1</sub></span>] is the number of shortest
+path you may take to get to cell (<span class="formula"><i>x</i><sub>1</sub> − <i>x</i><sub>0</sub>, <i>y</i><sub>0</sub></span>), and the constraint
+D[x][0] = D[x][1] implies you are not allowed to go below x-axis. Now,
+C(2W - H, W) is the number of shortest paths you could take without this
+contraint. This is because to go from (0, <span class="formula"><i>y</i><sub>0</sub></span>) to
+(<span class="formula"><i>x</i><sub>1</sub> − <i>x</i><sub>0</sub>, <i>y</i><sub>1</sub></span>), the number of A step you need is exactly
+<span class="formula"><i>x</i><sub>1</sub> − <i>x</i><sub>0</sub></span> = W since only A step makes x-direction move. The number of
+required B step to count for y-direction move is hence
+<span class="formula"><i>y</i><sub>0</sub> − <i>y</i><sub>1</sub></span> + W = W - H. We could also transform the xy-plane to
+x'y'-plane with x' = x and y' = y - x. There A step become horizontal step
+(1, 0) and B step is vertical downward (0, -1), i.e. everything is square and
+not tilted.</p>
+<p>We now have to show C(2W - H, W - <span class="formula"><i>y</i><sub>1</sub></span> - 1) is number of shortest paths
+that goes under x-axis in xy-plane. Going under x-axis is the same as stepping
+into zone x' + y' &lt; 0 since y = x + y' = x' + y'. What is the number of such
+shortest paths? For illustration we draw an example of <span class="formula"><i>y</i><sub>0</sub></span> = 2,
+W - H = 6, <span class="formula"><i>x</i><sub>1</sub> − <i>x</i><sub>0</sub></span> = 13 in x'y'-plane below, where the goal is to go
+from upper left corner to lower right corner by stepping in at least one '*'
+cell, i.e. all '*' cells have x' + y' &lt; 0.</p>
+<pre class="literal-block">
+(0, 2)
+      oooooooooooooo
+      oooooooooooooo
+(0, 0)oooooooooooooo
+      *ooooooooooooo
+      **oooooooooooo
+      ***ooooooooooo
+      ****oooooooooo (13, -4)
+</pre>
+<p>Here's the magic: we can 'fold' the plane along x' + y' = 0 to get this:</p>
+<pre class="literal-block">
+(0, 2)
+      oooooooooooooo
+      oooooooooooooo
+(0, 0)oooooooooooooo
+      *ooo----------
+      **oo----------
+      ***o----------
+      ****---------- (13, -4)
+      ++++
+      ++++
+      ++++
+      ++++
+      ++++
+      ++++
+      ++++
+      ++++
+      ++++
+      ++++ (3, -14)
+</pre>
+<p>Fold all the '-' cells to the '+' cells shown above.  There's then a 1-1 mapping
+between the original shortest paths from (0, 2) to (13, -4) touching at least
+one '*' cell and the shortest paths from (0, 2) to (3, -14), and so the number
+of shortest paths is C(19, 3). To generalize, with some counting we can thus
+prove that it's C(2W - H, W - H + 1 - (<span class="formula"><i>y</i><sub>0</sub></span> + 1) - 1) =
+C(2W - H, W - <span class="formula"><i>y</i><sub>1</sub></span> - 1)</p>
+<p>Overall, this solution takes O(N) computation of binomial coefficient C(a, b).
+Assuming each C(a, b) requires O(b)log(M) where M is <span class="formula">10<sup>9</sup> + 7</span> and
+b = O(W), each boils down to O(W)log(M). The total time complexity is then
+O(N)log(M) and space complexity O(1).</p>
+<hr class="docutils" />
+<p><a class="reference external" href="http://oathbystyx.blogspot.com/2015/01/insane-dfs.html">post</a>
+by
+<a class="reference external" href="/pages/shen-fu-tsai.html">Shen-Fu Tsai</a></p>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/shen-fu-tsai.html">Shen-Fu Tsai</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/algorithm.html">Algorithm</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/algorithm.html">Algorithm</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

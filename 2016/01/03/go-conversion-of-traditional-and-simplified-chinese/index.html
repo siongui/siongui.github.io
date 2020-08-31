@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>[Golang] Conversion of Traditional and Simplified Chinese</title>
+  <meta name="keywords" content="Go,Golang,String Manipulation,OpenCC,apt command,Conversion of Traditional and Simplified Chinese"/>
+  <meta name="description" content="Conversion of Traditional and Simplified Chinese by OpenCC and Go programming language."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="[Golang] Conversion of Traditional and Simplified Chinese" /><meta property="og:image" content="http://www.unixstickers.com/image/cache/data/stickers/golang/golang.sh-600x600.png" />
+<meta property="og:description" content="Conversion of Traditional and Simplified Chinese by OpenCC and Go programming language." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2016/01/03/go-conversion-of-traditional-and-simplified-chinese/"
+           rel="bookmark"
+           title="Permalink to [Golang] Conversion of Traditional and Simplified Chinese">
+          [Golang] Conversion of Traditional and Simplified Chinese
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2016-01-03T01:22:00+08:00">
+    January 03, 2016
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2016/01/03/go-conversion-of-traditional-and-simplified-chinese%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p><a class="reference external" href="http://opencc.byvoid.com/">OpenCC</a> is a tool (both online and offline) for conversion Traditional and
+Simplified Chinese. In this post, we will write a <a class="reference external" href="https://golang.org/">Go</a> program to use <a class="reference external" href="http://opencc.byvoid.com/">OpenCC</a> to
+convert Simplified Chinese to Traditional Chinese.</p>
+<p><em>If you need a converter implemented in Go, please visit</em> <a class="reference external" href="https://github.com/siongui/gojianfan">gojianfan</a> <a class="footnote-reference" href="#id11" id="id1">[7]</a>.</p>
+<div class="section" id="install-opencc">
+<h2>Install <a class="reference external" href="http://opencc.byvoid.com/">OpenCC</a></h2>
+<p>See <a class="reference external" href="https://github.com/BYVoid/OpenCC">OpenCC repository on GitHub</a> for installation. If you use Ubuntu Linux
+15.10, you can search and install <a class="reference external" href="http://opencc.byvoid.com/">OpenCC</a> by following command:</p>
+<div class="highlight"><pre><span></span>$ apt-cache search opencc
+fcitx-modules - Flexible Input Method Framework - core modules
+libopencc-dbg - simplified-traditional chinese conversion library - debug
+libopencc-dev - simplified-traditional chinese conversion library - development
+libopencc1 - simplified-traditional chinese conversion library - runtime
+opencc - simplified-traditional chinese conversion tool
+python-opencc - simplified-traditional chinese conversion library - Python support
+$ sudo apt-get install opencc libopencc-dev
+</pre></div>
+
+</div>
+<div class="section" id="opencc-wrapper-for-golang">
+<h2><a class="reference external" href="http://opencc.byvoid.com/">OpenCC</a> wrapper for <a class="reference external" href="https://golang.org/">Golang</a></h2>
+<p>After some googling <a class="footnote-reference" href="#id6" id="id2">[2]</a>, I found an <a class="reference external" href="http://opencc.byvoid.com/">OpenCC</a> wrapper <a class="footnote-reference" href="#id7" id="id3">[3]</a> for <a class="reference external" href="https://golang.org/">Go</a>. I tried this
+wrapper but it did not work. So I forked it and made some modifications to make
+it work on my system. Assume <a class="reference external" href="https://golang.org/">Go</a> is already install in your system, install the
+my modified wrapper <a class="footnote-reference" href="#id8" id="id4">[4]</a> by:</p>
+<div class="highlight"><pre><span></span>$ go get github.com/siongui/go-opencc
+</pre></div>
+<p>Another problem I had is that README said the configurations are .json files. I
+run <tt class="docutils literal">locate opencc</tt> command:</p>
+<div class="highlight"><pre><span></span>$ locate opencc
+/usr/lib/x86_64-linux-gnu/libopencc.so.1
+/usr/lib/x86_64-linux-gnu/libopencc.so.1.0.0
+/usr/lib/x86_64-linux-gnu/opencc
+/usr/lib/x86_64-linux-gnu/opencc/from_tw_phrases.txt
+/usr/lib/x86_64-linux-gnu/opencc/from_tw_variants.txt
+/usr/lib/x86_64-linux-gnu/opencc/mix2zhs.ini
+/usr/lib/x86_64-linux-gnu/opencc/mix2zht.ini
+/usr/lib/x86_64-linux-gnu/opencc/simp_to_trad_characters.ocd
+/usr/lib/x86_64-linux-gnu/opencc/simp_to_trad_phrases.ocd
+/usr/lib/x86_64-linux-gnu/opencc/to_cn_phrases.txt
+/usr/lib/x86_64-linux-gnu/opencc/to_tw_phrases.txt
+/usr/lib/x86_64-linux-gnu/opencc/to_tw_variants.txt
+/usr/lib/x86_64-linux-gnu/opencc/trad_to_simp_characters.ocd
+/usr/lib/x86_64-linux-gnu/opencc/trad_to_simp_phrases.ocd
+/usr/lib/x86_64-linux-gnu/opencc/zhs2zht.ini
+/usr/lib/x86_64-linux-gnu/opencc/zhs2zhtw_p.ini
+/usr/lib/x86_64-linux-gnu/opencc/zhs2zhtw_v.ini
+/usr/lib/x86_64-linux-gnu/opencc/zhs2zhtw_vp.ini
+/usr/lib/x86_64-linux-gnu/opencc/zht2zhs.ini
+/usr/lib/x86_64-linux-gnu/opencc/zht2zhtw_p.ini
+/usr/lib/x86_64-linux-gnu/opencc/zht2zhtw_v.ini
+/usr/lib/x86_64-linux-gnu/opencc/zht2zhtw_vp.ini
+/usr/lib/x86_64-linux-gnu/opencc/zhtw2zhcn_s.ini
+/usr/lib/x86_64-linux-gnu/opencc/zhtw2zhcn_t.ini
+/usr/lib/x86_64-linux-gnu/opencc/zhtw2zhs.ini
+/usr/lib/x86_64-linux-gnu/opencc/zhtw2zht.ini
+/usr/share/doc/libopencc1
+/usr/share/doc/libopencc1/changelog.Debian.gz
+/usr/share/doc/libopencc1/copyright
+/var/lib/dpkg/info/libopencc1:amd64.list
+/var/lib/dpkg/info/libopencc1:amd64.md5sums
+/var/lib/dpkg/info/libopencc1:amd64.postinst
+/var/lib/dpkg/info/libopencc1:amd64.postrm
+/var/lib/dpkg/info/libopencc1:amd64.shlibs
+/var/lib/dpkg/info/libopencc1:amd64.symbols
+</pre></div>
+<p>I saw no .json files, but saw a lot of .ini files. I used these .ini files as
+configurations and it worked. I guess that maybe at some moment the author of
+<a class="reference external" href="http://opencc.byvoid.com/">OpenCC</a> changed the name of configurations.</p>
+
+</div>
+<div class="section" id="souce-code">
+<h2>Souce Code</h2>
+<figure class="github-file">
+            <figcaption>
+              <a href="https://github.com/siongui/userpages/blob/master/content/code/go-opencc/zhCN2zhTW.go">zhCN2zhTW.go</a> |
+              <a href="https://github.com/siongui/userpages">repository</a> |
+              <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/code/go-opencc/zhCN2zhTW.go">view raw</a>
+            </figcaption><div class="code-file">
+            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">mylib</span>
+
+<span class="kn">import</span> <span class="s">&quot;github.com/siongui/go-opencc&quot;</span>
+
+<span class="kd">func</span> <span class="nx">CN2TW</span><span class="p">(</span><span class="nx">input</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">string</span> <span class="p">{</span>
+	<span class="nx">c</span> <span class="o">:=</span> <span class="nx">opencc</span><span class="p">.</span><span class="nx">NewConverter</span><span class="p">(</span><span class="s">&quot;zhs2zhtw_vp.ini&quot;</span><span class="p">)</span>
+	<span class="k">defer</span> <span class="nx">c</span><span class="p">.</span><span class="nx">Close</span><span class="p">()</span>
+	<span class="k">return</span> <span class="nx">c</span><span class="p">.</span><span class="nx">Convert</span><span class="p">(</span><span class="nx">input</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div></figure><p>You can replace <tt class="docutils literal">zhs2zhtw_vp.ini</tt> with other configurations according to your
+needs. All configurations I found by <tt class="docutils literal">locate opencc</tt> are:</p>
+<div class="highlight"><pre><span></span>mix2zhs.ini
+mix2zht.ini
+zhs2zht.ini
+zhs2zhtw_p.ini
+zhs2zhtw_v.ini
+zhs2zhtw_vp.ini
+zht2zhs.ini
+zht2zhtw_p.ini
+zht2zhtw_v.ini
+zht2zhtw_vp.ini
+zhtw2zhcn_s.ini
+zhtw2zhcn_t.ini
+zhtw2zhs.ini
+zhtw2zht.ini
+</pre></div>
+</div>
+<div class="section" id="test">
+<h2>Test</h2>
+<figure class="github-file">
+            <figcaption>
+              <a href="https://github.com/siongui/userpages/blob/master/content/code/go-opencc/zhCN2zhTW_test.go">zhCN2zhTW_test.go</a> |
+              <a href="https://github.com/siongui/userpages">repository</a> |
+              <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/code/go-opencc/zhCN2zhTW_test.go">view raw</a>
+            </figcaption><div class="code-file">
+            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">mylib</span>
+
+<span class="kn">import</span> <span class="s">&quot;testing&quot;</span>
+
+<span class="kd">func</span> <span class="nx">TestCN2TW</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">t</span><span class="p">.</span><span class="nx">Log</span><span class="p">(</span><span class="nx">CN2TW</span><span class="p">(</span><span class="s">&quot;中国鼠标软件打印机&quot;</span><span class="p">))</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div></figure><div class="section" id="output-of-test">
+<h3>Output of Test</h3>
+<div class="highlight"><pre><span></span>=== RUN   TestCN2TW
+--- PASS: TestCN2TW (0.02s)
+        zhCN2zhTW_test.go:6: 中國滑鼠軟體列印機
+PASS
+</pre></div>
+<p>Tested on: <tt class="docutils literal">Ubuntu Linux 15.10</tt>, <tt class="docutils literal">Go 1.5.2</tt>, <tt class="docutils literal">opencc <span class="pre">0.4.3-2build1</span></tt>.</p>
+<hr class="docutils" />
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id5" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td><a class="reference external" href="http://opencc.byvoid.com/">開放中文轉換 Open Chinese Convert (OpenCC)</a>
+(<a class="reference external" href="https://github.com/BYVoid/OpenCC">source code</a>)</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id6" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[2]</a></td><td>Google Search: <a class="reference external" href="https://www.google.com/search?q=golang+opencc">golang opencc</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id7" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id3">[3]</a></td><td><a class="reference external" href="https://github.com/stevenyao/go-opencc">stevenyao/go-opencc · GitHub</a>
+(OpenCC wrapper for Golang, <a class="reference external" href="https://godoc.org/github.com/stevenyao/go-opencc"><img alt="godoc1" src="https://godoc.org/github.com/stevenyao/go-opencc?status.png" /></a>)</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id8" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id4">[4]</a></td><td><a class="reference external" href="https://github.com/siongui/go-opencc">siongui/go-opencc · GitHub</a>
+(my modified OpenCC wrapper for Golang, <a class="reference external" href="https://godoc.org/github.com/siongui/go-opencc"><img alt="godoc2" src="https://godoc.org/github.com/siongui/go-opencc?status.png" /></a>)</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id9" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[5]</td><td><a class="reference external" href="/2012/10/03/javascript-conversion-of-traditional-and-simplified-chinese/">[JavaScript] Conversion of Traditional and Simplified Chinese</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id10" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[6]</td><td><a class="reference external" href="/2016/01/04/python-conversion-of-traditional-and-simplified-chinese/">[Python] Conversion of Traditional and Simplified Chinese</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id11" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[7]</a></td><td><a class="reference external" href="/2017/02/19/go-converter-of-traditional-and-simplified-chinese/">[Golang] Converter for Traditional and Simplified Chinese</a></td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/go.html">Go</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/go.html">Go</a>
+,       <a href="/tag/golang.html">Golang</a>
+,       <a href="/tag/string-manipulation.html">String Manipulation</a>
+,       <a href="/tag/opencc.html">OpenCC</a>
+,       <a href="/tag/apt-command.html">apt command</a>
+,       <a href="/tag/conversion-of-traditional-and-simplified-chinese.html">Conversion of Traditional and Simplified Chinese</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

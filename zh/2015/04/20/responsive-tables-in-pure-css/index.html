@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>純CSS響應式Table</title>
+  <meta name="keywords" content="響應式網頁設計(Responsive Web Design),Web開發,CSS"/>
+  <meta name="description" content="利用HTML data屬性來達成純CSS響應式Table"/>
+  <meta name="author" content="戴上為"/><meta property="og:title" content="純CSS響應式Table" />    <meta property="og:image" content="/zh/../extra/Dharma_wheel.svg" /><meta property="og:description" content="利用HTML data屬性來達成純CSS響應式Table" /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/zh/../extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/zh/../theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/zh/">理論與實作</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/zh/pages/about.html">關於</a>
+    <a class="nav-item" href="/zh/archives.html">歸檔</a>
+    <a class="nav-item" href="/zh/categories.html">分類</a>
+    <a class="nav-item" href="/zh/tags.html">標籤</a>
+    <a class="nav-item" href="/zh/authors.html">作者</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/">English</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/zh/2015/04/20/responsive-tables-in-pure-css/"
+           rel="bookmark"
+           title="Permalink to 純CSS響應式Table">
+          純CSS響應式Table
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2015-04-20T03:31:00+08:00">
+    四月 20, 2015
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2015/04/20/responsive-tables-in-pure-css%25zh.rst">在Github上編輯</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p>在 <a class="footnote-reference" href="#id3" id="id1">[1]</a> 裡頭用一個有趣的手法來達成純CSS的響應式 <a class="reference external" href="http://www.w3schools.com/tags/tag_table.asp">Table</a>.
+把 <em>th</em> 欄位裡的資料，利用 <a class="reference external" href="http://www.w3schools.com/tags/att_global_data.asp">HTML data屬性</a> 藏在每筆 <em>td</em> 旁，
+若是大螢幕的裝置則正常顯示 <em>th</em> 裡的資料，若是小螢幕裝置則把
+<em>th</em> 隱藏起來，改成顯示藏在 <em>td</em> 旁的資料。</p>
+<p>參考範例碼（改寫自 <a class="footnote-reference" href="#id3" id="id2">[1]</a> ）：</p>
+<p><em>HTML</em></p>
+<div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">table</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">thead</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">tr</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">th</span><span class="p">&gt;</span>標頭1<span class="p">&lt;/</span><span class="nt">th</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">th</span><span class="p">&gt;</span>標頭2<span class="p">&lt;/</span><span class="nt">th</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">tr</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">thead</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">tbody</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">tr</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">td</span> <span class="na">data-header</span><span class="o">=</span><span class="s">&quot;標頭1&quot;</span><span class="p">&gt;</span>標頭1之資料1a<span class="p">&lt;/</span><span class="nt">td</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">td</span> <span class="na">data-header</span><span class="o">=</span><span class="s">&quot;標頭2&quot;</span><span class="p">&gt;</span>標頭2之資料2a<span class="p">&lt;/</span><span class="nt">td</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">tr</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">tr</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">td</span> <span class="na">data-header</span><span class="o">=</span><span class="s">&quot;標頭1&quot;</span><span class="p">&gt;</span>標頭1之資料1b<span class="p">&lt;/</span><span class="nt">td</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">td</span> <span class="na">data-header</span><span class="o">=</span><span class="s">&quot;標頭2&quot;</span><span class="p">&gt;</span>標頭2之資料2b<span class="p">&lt;/</span><span class="nt">td</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">tr</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">tbody</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">table</span><span class="p">&gt;</span>
+</pre></div>
+
+<p><em>CSS</em></p>
+<div class="highlight"><pre><span></span><span class="p">@</span><span class="k">media</span> <span class="nt">screen</span> <span class="nt">and</span> <span class="o">(</span><span class="nt">max-width</span><span class="o">:</span> <span class="nt">767px</span><span class="o">)</span>
+  <span class="nt">table</span> <span class="nt">td</span><span class="p">:</span><span class="nd">before</span> <span class="p">{</span>
+    <span class="nt">content</span><span class="o">:</span> <span class="nt">attr</span><span class="o">(</span><span class="nt">data-header</span><span class="o">);</span>
+    <span class="nt">float</span><span class="o">:</span> <span class="nt">left</span><span class="o">;</span>
+    <span class="nt">text-transform</span><span class="o">:</span> <span class="nt">uppercase</span><span class="o">;</span>
+    <span class="nt">font-weight</span><span class="o">:</span> <span class="nt">bold</span><span class="o">;</span>
+  <span class="p">}</span>
+<span class="err">}</span>
+</pre></div>
+<hr class="docutils" />
+<p>參考：</p>
+<table class="docutils footnote" frame="void" id="id3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td><em>(<a class="fn-backref" href="#id1">1</a>, <a class="fn-backref" href="#id2">2</a>)</em> <a class="reference external" href="https://techblog.livingsocial.com/blog/2015/04/06/responsive-tables-in-pure-css/">Responsive Tables in Pure CSS - LivingSocial's Technology Blog</a>
+(<a class="reference external" href="https://news.ycombinator.com/item?id=9328684">Hacker News討論</a>)</td></tr>
+</tbody>
+</table>
+
+<table class="docutils footnote" frame="void" id="id4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[2]</td><td><a class="reference external" href="http://stackoverflow.com/questions/18436864/how-to-make-responsive-table">html - How to make responsive table - Stack Overflow</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id5" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[3]</td><td>Google搜尋 <a class="reference external" href="https://www.google.com/search?q=Responsive+Tables+in+Pure+CSS">Responsive Tables in Pure CSS</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id6" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[4]</td><td>DuckDuckGo搜尋 <a class="reference external" href="https://duckduckgo.com/?q=Responsive+Tables+in+Pure+CSS">Responsive Tables in Pure CSS</a></td></tr>
+</tbody>
+</table>
+</div>
+
+    <footer><hr><address><b>作者</b>:
+    <a rel="author"
+       href="/zh/author/dai-shang-wei.html">戴上為</a>
+  </address><aside>
+    <i>&isin;</i> <b>分類</b>:
+    <a href="/zh/category/xiang-ying-shi-wang-ye-she-ji-responsive-web-design.html">響應式網頁設計(Responsive Web Design)</a>
+  </aside><aside>
+    <i>&sum;</i> <b>標籤</b>:
+      <a href="/zh/tag/xiang-ying-shi-wang-ye-she-ji-responsive-web-design.html">響應式網頁設計(Responsive Web Design)</a>
+,       <a href="/zh/tag/webkai-fa.html">Web開發</a>
+,       <a href="/zh/tag/css.html">CSS</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

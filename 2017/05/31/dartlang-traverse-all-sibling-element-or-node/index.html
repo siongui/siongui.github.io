@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>[Dart] Visit All Sibling Elements or Nodes</title>
+  <meta name="keywords" content="Dart,html,DOM,Traverse DOM Tree"/>
+  <meta name="description" content="DOM manipulation - traverse all sibling elements or nodes via Dart."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="[Dart] Visit All Sibling Elements or Nodes" /><meta property="og:image" content="https://i.stack.imgur.com/9zp3z.png" />
+<meta property="og:description" content="DOM manipulation - traverse all sibling elements or nodes via Dart." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2017/05/31/dartlang-traverse-all-sibling-element-or-node/"
+           rel="bookmark"
+           title="Permalink to [Dart] Visit All Sibling Elements or Nodes">
+          [Dart] Visit All Sibling Elements or Nodes
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2017-05-31T21:01:00+08:00">
+    May 31, 2017
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2017/05/31/dartlang-traverse-all-sibling-element-or-node%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p>DOM manipulation - traverse all sibling elements or nodes via Dart.</p>
+<div class="section" id="visit-all-sibling-elements">
+<h2>Visit All Sibling Elements</h2>
+<p>Use <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/API/NonDocumentTypeChildNode/nextElementSibling">nextElementSibling</a> and <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/API/NonDocumentTypeChildNode/previousElementSibling">previousElementSibling</a>:</p>
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="n">sibling</span> <span class="o">=</span> <span class="n">elm</span><span class="p">.</span><span class="n">nextElementSibling</span><span class="p">;</span>
+<span class="k">while</span> <span class="p">(</span><span class="n">sibling</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// do something with the sibling element</span>
+
+  <span class="n">sibling</span> <span class="o">=</span> <span class="n">sibling</span><span class="p">.</span><span class="n">nextElementSibling</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="n">sibling</span> <span class="o">=</span> <span class="n">elm</span><span class="p">.</span><span class="n">previousElementSibling</span><span class="p">;</span>
+<span class="k">while</span> <span class="p">(</span><span class="n">sibling</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// do something with the sibling element</span>
+
+  <span class="n">sibling</span> <span class="o">=</span> <span class="n">sibling</span><span class="p">.</span><span class="n">previousElementSibling</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="section" id="visit-all-sibling-nodes">
+<h2>Visit All Sibling Nodes</h2>
+<p>Use <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/API/Node/nextSibling">nextSibling</a> and <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/API/Node/previousSibling">previousSibling</a>:</p>
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="n">sibling</span> <span class="o">=</span> <span class="n">node</span><span class="p">.</span><span class="n">nextSibling</span><span class="p">;</span>
+<span class="k">while</span> <span class="p">(</span><span class="n">sibling</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// do something with the sibling node</span>
+
+  <span class="n">sibling</span> <span class="o">=</span> <span class="n">sibling</span><span class="p">.</span><span class="n">nextSibling</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="n">sibling</span> <span class="o">=</span> <span class="n">node</span><span class="p">.</span><span class="n">previousSibling</span><span class="p">;</span>
+<span class="k">while</span> <span class="p">(</span><span class="n">sibling</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// do something with the sibling node</span>
+
+  <span class="n">sibling</span> <span class="o">=</span> <span class="n">sibling</span><span class="p">.</span><span class="n">previousSibling</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+</div>
+<div class="section" id="difference-between-element-and-node">
+<h2>Difference Between Element and Node</h2>
+<p>In short, nodes include pure texts, comments, or elements. And elements are
+something like <em>div</em>, <em>p</em>, or any other HTML tags. Elements are one kind of
+nodes. For more details, see <a class="footnote-reference" href="#id4" id="id1">[1]</a> and <a class="footnote-reference" href="#id5" id="id2">[2]</a></p>
+</div>
+<div class="section" id="example">
+<h2>Example</h2>
+<p>See my another post <tt class="docutils literal">[Dart] Tab Panel</tt> <a class="footnote-reference" href="#id6" id="id3">[3]</a>. We traverse the sibling elements
+of tab pane to remove the <tt class="docutils literal">.active</tt> class of other tab pane.</p>
+<hr class="docutils" />
+<p>Tested on:</p>
+<ul class="simple">
+<li><a class="reference external" href="https://dartpad.dartlang.org/">DartPad</a></li>
+<li><tt class="docutils literal">Chromium Version 58.0.3029.110 Built on Ubuntu , running on Ubuntu 17.04 <span class="pre">(64-bit)</span></tt></li>
+</ul>
+<hr class="docutils" />
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td><a class="reference external" href="https://stackoverflow.com/questions/31097016/whats-the-difference-between-nextelementsibling-vs-nextsibling">javascript - Whats the difference between nextElementSibling vs nextSibling - Stack Overflow</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id5" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[2]</a></td><td><a class="reference external" href="https://www.w3schools.com/jsref/prop_element_nextelementsibling.asp">HTML DOM nextElementSibling Property</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id6" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id3">[3]</a></td><td><a class="reference external" href="/2017/05/29/dartlang-tab-panel/">[Dart] Tab Panel</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id7" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[4]</td><td><a class="reference external" href="/2017/05/30/javascript-traverse-all-sibling-element-or-node/">[JavaScript] Visit All Sibling Elements or Nodes</a></td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/dart.html">Dart</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/dart.html">Dart</a>
+,       <a href="/tag/html.html">html</a>
+,       <a href="/tag/dom.html">DOM</a>
+,       <a href="/tag/traverse-dom-tree.html">Traverse DOM Tree</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

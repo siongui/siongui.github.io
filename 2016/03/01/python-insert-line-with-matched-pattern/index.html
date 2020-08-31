@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>[Python] Insert Line With Matched Pattern</title>
+  <meta name="keywords" content="Python,reStructuredText,Regular Expression,String Manipulation,File Input/Output,Read Lines"/>
+  <meta name="description" content="Extract URL from reStructuredText link and insert the URL in the file as metadata via Python."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="[Python] Insert Line With Matched Pattern" />    <meta property="og:image" content="/./extra/Dharma_wheel.svg" /><meta property="og:description" content="Extract URL from reStructuredText link and insert the URL in the file as metadata via Python." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2016/03/01/python-insert-line-with-matched-pattern/"
+           rel="bookmark"
+           title="Permalink to [Python] Insert Line With Matched Pattern">
+          [Python] Insert Line With Matched Pattern
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2016-03-01T20:42:00+08:00">
+    March 01, 2016
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2016/03/01/python-insert-line-with-matched-pattern%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p>Extract URL from <a class="reference external" href="https://www.google.com/search?q=reStructuredText">reStructuredText</a> link and insert the URL into the file as
+rst metadata via <a class="reference external" href="https://www.python.org/">Python</a>.</p>
+<p>We extract URL from the following link in rst file:</p>
+<div class="highlight"><pre><span></span><span class="s">`舊網頁 </span><span class="si">&lt;http://nanda.online-dhamma.net/Tipitaka/Post-Canon/Visuddhimagga/Visuddhimagga.htm&gt;</span><span class="s">`_</span>
+</pre></div>
+<p>Then insert the URL back to the rst file as metadata.</p>
+
+<div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
+<span class="c1"># -*- coding:utf-8 -*-</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">re</span>
+
+<span class="n">oldlink</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">&#39;&lt;http.+&gt;&#39;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">processFile</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+  <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;process &quot;</span> <span class="o">+</span> <span class="n">path</span> <span class="o">+</span> <span class="s2">&quot; ...&quot;</span><span class="p">)</span>
+  <span class="n">tmpfilepath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;/tmp&quot;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">path</span><span class="p">))</span>
+  <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">,</span> <span class="nb">open</span><span class="p">(</span><span class="n">tmpfilepath</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fo</span><span class="p">:</span>
+    <span class="c1"># http://www.tutorialspoint.com/python/file_readlines.htm</span>
+    <span class="n">lines</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
+    <span class="n">insertAt</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">oldurl</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">lines</span><span class="p">):</span>
+      <span class="k">if</span> <span class="s2">&quot;:tags:&quot;</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
+        <span class="n">insertAt</span> <span class="o">=</span> <span class="n">index</span>
+      <span class="k">if</span> <span class="s2">&quot;舊網頁&quot;</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">oldlink</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+        <span class="n">oldurl</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="k">assert</span> <span class="n">insertAt</span> <span class="o">!=</span> <span class="mi">0</span>
+    <span class="k">assert</span> <span class="n">oldurl</span> <span class="o">!=</span> <span class="s2">&quot;&quot;</span>
+    <span class="c1"># http://www.tutorialspoint.com/python/list_insert.htm</span>
+    <span class="c1"># http://stackoverflow.com/questions/10507230/insert-line-at-middle-of-file-with-python</span>
+    <span class="c1"># http://stackoverflow.com/questions/11968998/remove-lines-that-contain-certain-string</span>
+    <span class="n">lines</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">insertAt</span><span class="p">,</span> <span class="s2">&quot;:oldurl: &quot;</span> <span class="o">+</span> <span class="n">oldurl</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">fo</span><span class="o">.</span><span class="n">writelines</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span>
+
+  <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">tmpfilepath</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">,</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fo</span><span class="p">:</span>
+    <span class="n">fo</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+
+
+<span class="k">def</span> <span class="nf">processDir</span><span class="p">(</span><span class="n">rootDir</span><span class="p">):</span>
+  <span class="c1"># http://www.tutorialspoint.com/python/os_walk.htm</span>
+  <span class="k">for</span> <span class="n">root</span><span class="p">,</span> <span class="n">dirs</span><span class="p">,</span> <span class="n">files</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="n">rootDir</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+      <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+      <span class="n">processFile</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+  <span class="c1"># http://stackoverflow.com/questions/50499/how-do-i-get-the-path-and-name-of-the-file-that-is-currently-executing</span>
+  <span class="n">processDir</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">),</span> <span class="s2">&quot;../content/articles&quot;</span><span class="p">))</span>
+</pre></div>
+
+<hr class="docutils" />
+<p>Tested on: <tt class="docutils literal">Ubuntu Linux 15.10</tt>, <tt class="docutils literal">Python 2.7.10</tt>.</p>
+<hr class="docutils" />
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id1" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td><a class="reference external" href="https://github.com/twnanda/twnanda/blob/master/tool/linkold.py">twnanda/linkold.py at master · twnanda/twnanda · GitHub</a></td></tr>
+</tbody>
+</table>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/python.html">Python</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/python.html">Python</a>
+,       <a href="/tag/restructuredtext.html">reStructuredText</a>
+,       <a href="/tag/regular-expression.html">Regular Expression</a>
+,       <a href="/tag/string-manipulation.html">String Manipulation</a>
+,       <a href="/tag/file-inputoutput.html">File Input/Output</a>
+,       <a href="/tag/read-lines.html">Read Lines</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

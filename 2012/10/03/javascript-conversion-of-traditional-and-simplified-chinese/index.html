@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>[JavaScript] Conversion of Traditional and Simplified Chinese</title>
+  <meta name="keywords" content="JavaScript,String Manipulation,Conversion of Traditional and Simplified Chinese"/>
+  <meta name="description" content="JavaScript library New Tong Wen Tang for conversion of Traditional and Simplified Chinese."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="[JavaScript] Conversion of Traditional and Simplified Chinese" /><meta property="og:image" content="https://udemy-images.udemy.com/course/750x422/672274_cd11_2.jpg" />
+<meta property="og:description" content="JavaScript library New Tong Wen Tang for conversion of Traditional and Simplified Chinese." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2012/10/03/javascript-conversion-of-traditional-and-simplified-chinese/"
+           rel="bookmark"
+           title="Permalink to [JavaScript] Conversion of Traditional and Simplified Chinese">
+          [JavaScript] Conversion of Traditional and Simplified Chinese
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2012-10-03T20:37:00+08:00">
+    October 03, 2012
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2012/10/03/javascript-conversion-of-traditional-and-simplified-chinese%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p>There is a easy-to-use library for conversion of Traditional and Simplified
+Chinese called <strong>New Tong Wen Tang</strong> <a class="footnote-reference" href="#id2" id="id1">[1]</a>. There are total 5 JavaScript files in
+the library (see following code snippet):</p>
+<div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">script</span> <span class="na">language</span><span class="o">=</span><span class="s">&quot;JavaScript&quot;</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;http://tongwen.openfoundry.org/src/web/tongwen_core.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">language</span><span class="o">=</span><span class="s">&quot;JavaScript&quot;</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;http://tongwen.openfoundry.org/src/web/tongwen_table_s2t.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">language</span><span class="o">=</span><span class="s">&quot;JavaScript&quot;</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;http://tongwen.openfoundry.org/src/web/tongwen_table_t2s.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">language</span><span class="o">=</span><span class="s">&quot;JavaScript&quot;</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;http://tongwen.openfoundry.org/src/web/tongwen_table_ps2t.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">language</span><span class="o">=</span><span class="s">&quot;JavaScript&quot;</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;http://tongwen.openfoundry.org/src/web/tongwen_table_pt2s.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</pre></div>
+<p><strong>tongwen_core.js</strong> is mandatory and must be included. <strong>tongwen_table_s2t.js</strong>
+and <strong>tongwen_table_ps2t.js</strong> are tables for conversion from <em>Simplified to
+Traditional Chinese</em>. <strong>tongwen_table_t2s.js</strong> and <strong>tongwen_table_pt2s.js</strong> are
+tables for conversion from <em>Traditional to Simplified Chinese</em>. Include these
+tables according to your requirements.</p>
+
+<div class="section" id="usage">
+<h2>Usage</h2>
+<p>To convert entire HTML document from Traditional to Simplified Chinese:</p>
+<div class="highlight"><pre><span></span><span class="nx">TongWen</span><span class="p">.</span><span class="nx">trans2Trad</span><span class="p">(</span><span class="nb">document</span><span class="p">);</span>
+</pre></div>
+<p>To convert entire HTML document from Simplified to Traditional Chinese:</p>
+<div class="highlight"><pre><span></span><span class="nx">TongWen</span><span class="p">.</span><span class="nx">trans2Simp</span><span class="p">(</span><span class="nb">document</span><span class="p">);</span>
+</pre></div>
+<p>To convert a string <em>str</em> from Traditional to Simplified Chinese:</p>
+<div class="highlight"><pre><span></span><span class="nx">str</span> <span class="o">=</span> <span class="nx">TongWen</span><span class="p">.</span><span class="nx">convert</span><span class="p">(</span><span class="nx">str</span><span class="p">,</span> <span class="nx">TongWen</span><span class="p">.</span><span class="nx">flagSimp</span><span class="p">);</span>
+</pre></div>
+<p>To convert a string <em>str</em> from Simplified to Traditional Chinese:</p>
+<div class="highlight"><pre><span></span><span class="nx">str</span> <span class="o">=</span> <span class="nx">TongWen</span><span class="p">.</span><span class="nx">convert</span><span class="p">(</span><span class="nx">str</span><span class="p">,</span> <span class="nx">TongWen</span><span class="p">.</span><span class="nx">flagTrad</span><span class="p">);</span>
+</pre></div>
+
+<hr class="docutils" />
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td><a class="reference external" href="http://tongwen.openfoundry.org/web.htm">新同文堂 for Web</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[2]</td><td><a class="reference external" href="/2016/01/03/go-conversion-of-traditional-and-simplified-chinese/">[Golang] Conversion of Traditional and Simplified Chinese</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[3]</td><td><a class="reference external" href="/2016/01/04/python-conversion-of-traditional-and-simplified-chinese/">[Python] Conversion of Traditional and Simplified Chinese</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id5" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[4]</td><td><a class="reference external" href="/2017/02/19/go-converter-of-traditional-and-simplified-chinese/">[Golang] Converter for Traditional and Simplified Chinese</a></td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/javascript.html">JavaScript</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/javascript.html">JavaScript</a>
+,       <a href="/tag/string-manipulation.html">String Manipulation</a>
+,       <a href="/tag/conversion-of-traditional-and-simplified-chinese.html">Conversion of Traditional and Simplified Chinese</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

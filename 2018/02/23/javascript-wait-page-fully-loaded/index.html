@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>JavaScript Wait Page to be Loaded</title>
+  <meta name="keywords" content="JavaScript,DOM"/>
+  <meta name="description" content="When web pages are rendered with JavaScript, how to wait until the DOM nodes of original contents are available for appending our nodes?"/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="JavaScript Wait Page to be Loaded" /><meta property="og:image" content="https://i.ytimg.com/vi/EA27xM71m0g/maxresdefault.jpg" />
+<meta property="og:description" content="When web pages are rendered with JavaScript, how to wait until the DOM nodes of original contents are available for appending our nodes?" /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2018/02/23/javascript-wait-page-fully-loaded/"
+           rel="bookmark"
+           title="Permalink to JavaScript Wait Page to be Loaded">
+          JavaScript Wait Page to be Loaded
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2018-02-23T10:34:00+08:00">
+    February 23, 2018
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2018/02/23/javascript-wait-page-fully-loaded%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p>Recently I am writing Chrome extension. I need to create DOM nodes and append
+the nodes to the original contents of the wepage. But when I tried to append my
+created DOM nodes to the nodes in the original content, nothing happened! I
+cannot see any of my nodes appended.</p>
+<p>I investigate the problem and found that the original page use a lot of
+JavaScript to render contents of the page, and the DOM nodes of original
+contents are not ready for appending my created nodes. I tried to do some Google
+searches <a class="footnote-reference" href="#id3" id="id1">[1]</a>, and some answers said we can listen to <em>onload</em> event of
+<em>DOMContentLoaded</em> event. But the answer does not work in my case.</p>
+<p>I wrote post of DOM ready <a class="footnote-reference" href="#id4" id="id2">[2]</a> long time ago, and the trick in the post is
+periodically check if the node to which my nodes are appended is available. If
+the node is not ready, sleep for a while and check again until the node is
+available. I applied this trick to my case, and it worked!</p>
+<p>The following is key point of the trick:</p>
+<div class="highlight"><pre><span></span><span class="c1">// wait the node to be ready</span>
+<span class="c1">// check interval: 500ms</span>
+<span class="kd">var</span> <span class="nx">timerId</span> <span class="o">=</span> <span class="nx">setInterval</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">n</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&quot;css-selector-of-node&quot;</span><span class="p">);</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">n</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// now the node is available, do something here.</span>
+    <span class="c1">// and also clear the timer.</span>
+    <span class="nx">clearInterval</span><span class="p">(</span><span class="nx">timerId</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">},</span> <span class="mi">500</span><span class="p">);</span>
+</pre></div>
+<p>Hope this would be helpful for those who have the same problem as me.</p>
+
+<hr class="docutils" />
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td><div class="first last line-block">
+<div class="line"><a class="reference external" href="https://www.google.com/search?q=javascript+wait+page+load">javascript wait page load - Google search</a></div>
+<div class="line"><a class="reference external" href="https://duckduckgo.com/?q=javascript+wait+page+load">javascript wait page load - DuckDuckGo search</a></div>
+<div class="line"><a class="reference external" href="https://www.ecosia.org/search?q=javascript+wait+page+load">javascript wait page load - Ecosia search</a></div>
+<div class="line"><a class="reference external" href="https://www.qwant.com/?q=javascript+wait+page+load">javascript wait page load - Qwant search</a></div>
+<div class="line"><a class="reference external" href="https://www.bing.com/search?q=javascript+wait+page+load">javascript wait page load - Bing search</a></div>
+<div class="line"><a class="reference external" href="https://search.yahoo.com/search?p=javascript+wait+page+load">javascript wait page load - Yahoo search</a></div>
+<div class="line"><a class="reference external" href="https://www.baidu.com/s?wd=javascript+wait+page+load">javascript wait page load - Baidu search</a></div>
+<div class="line"><a class="reference external" href="https://www.yandex.com/search/?text=javascript+wait+page+load">javascript wait page load - Yandex search</a></div>
+</div>
+</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[2]</a></td><td><a class="reference external" href="/2012/10/04/dom-ready-without-javascript-frameworks/">DOM Ready without JavaScript Frameworks</a></td></tr>
+</tbody>
+</table>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/javascript.html">JavaScript</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/javascript.html">JavaScript</a>
+,       <a href="/tag/dom.html">DOM</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

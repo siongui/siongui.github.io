@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>[Golang] Seed Pseudorandom Number Generator (PRNG) Properly</title>
+  <meta name="keywords" content="Go,Golang,Random Number"/>
+  <meta name="description" content="How to seed the pseudorandom number generator (PRNG) properly in Go programming language."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="[Golang] Seed Pseudorandom Number Generator (PRNG) Properly" />    <meta property="og:image" content="/./extra/Dharma_wheel.svg" /><meta property="og:description" content="How to seed the pseudorandom number generator (PRNG) properly in Go programming language." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2017/03/21/go-seed-pseudo-random-number-generator-properly/"
+           rel="bookmark"
+           title="Permalink to [Golang] Seed Pseudorandom Number Generator (PRNG) Properly">
+          [Golang] Seed Pseudorandom Number Generator (PRNG) Properly
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2017-03-21T15:08:00+08:00">
+    March 21, 2017
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2017/03/21/go-seed-pseudo-random-number-generator-properly%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p>In my <a class="reference external" href="/2015/04/13/go-generate-random-string/">previous post</a>, I use the <a class="reference external" href="https://www.google.com/search?q=pseudo+random+number+generator">pseudo random number generator</a> (PRNG) of <a class="reference external" href="https://golang.org/">Go</a>
+standard <a class="reference external" href="https://golang.org/pkg/math/rand/">math/rand</a> package to generate random string as follows:</p>
+<div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">mylib</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+      <span class="s">&quot;math/rand&quot;</span>
+      <span class="s">&quot;time&quot;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nx">RandomString</span><span class="p">(</span><span class="nx">strlen</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">string</span> <span class="p">{</span>
+      <span class="c1">// seed the PRNG</span>
+      <span class="nx">rand</span><span class="p">.</span><span class="nx">Seed</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">Now</span><span class="p">().</span><span class="nx">UTC</span><span class="p">().</span><span class="nx">UnixNano</span><span class="p">())</span>
+
+      <span class="c1">// generate randsom string with rand.Intn method</span>
+<span class="p">}</span>
+</pre></div>
+<p>As you can see, I seed the PRNG on each use because I have no idea what is the
+proper way to use the PRNG.</p>
+<p><a class="reference external" href="https://github.com/dchapes">&#64;dchapes</a> left a <a class="reference external" href="https://github.com/siongui/userpages/commit/77cd55346752ccaa2efa44b9084e97af81b664dd#commitcomment-21400225">comment</a> to tell me something I do not know before:</p>
+<ul class="simple">
+<li>Do <strong>not</strong> re-seed PRNGs on each use.</li>
+<li>Do <strong>not</strong> re-seed the global PRNG in a package.</li>
+</ul>
+<p>So I did some googling <a class="footnote-reference" href="#id4" id="id1">[1]</a> <a class="footnote-reference" href="#id5" id="id2">[2]</a>, and at the same time <a class="reference external" href="https://github.com/shurcooL">&#64;shurcooL</a> left another
+comment to show me how to <a class="reference external" href="https://github.com/siongui/userpages/commit/77cd55346752ccaa2efa44b9084e97af81b664dd#commitcomment-21401369">properly seed the PRNG</a>:</p>
+<blockquote>
+<p>If you're using global <tt class="docutils literal">rand.Rand</tt>, don't re-seed it. But if you want to
+set your own seed, create your own local instance of <tt class="docutils literal">rand.Rand</tt>.</p>
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">rand</span><span class="p">.</span><span class="nx">Rand</span> <span class="c1">// Rand for this package.</span>
+
+<span class="kd">func</span> <span class="nx">init</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">r</span> <span class="p">=</span> <span class="nx">rand</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="nx">rand</span><span class="p">.</span><span class="nx">NewSource</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">Now</span><span class="p">().</span><span class="nx">UnixNano</span><span class="p">()))</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nx">RandomString</span><span class="p">(</span><span class="nx">strlen</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">string</span> <span class="p">{</span>
+    <span class="c1">// use existing r, no need to re-seed it</span>
+    <span class="nx">r</span><span class="p">.</span><span class="nx">Intn</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nx">chars</span><span class="p">))</span>
+<span class="p">}</span>
+</pre></div>
+<p>You can also <a class="reference external" href="https://github.com/siongui/userpages/commit/6dc58d0b28a615ae19c43900358bcd258c1faac6#commitcomment-21402539">simplify this into one line</a>:</p>
+<div class="highlight"><pre><span></span><span class="c1">// r is a source of random numbers used in this package.</span>
+<span class="kd">var</span> <span class="nx">r</span> <span class="p">=</span> <span class="nx">rand</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="nx">rand</span><span class="p">.</span><span class="nx">NewSource</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">Now</span><span class="p">().</span><span class="nx">UnixNano</span><span class="p">()))</span>
+</pre></div>
+</blockquote>
+
+<hr class="docutils" />
+<p>According to above comments, the most proper way to seed the PRNG in my case is
+as follows:</p>
+<div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">mylib</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+      <span class="s">&quot;math/rand&quot;</span>
+      <span class="s">&quot;time&quot;</span>
+<span class="p">)</span>
+
+<span class="c1">// r is a source of random numbers used in this package.</span>
+<span class="kd">var</span> <span class="nx">r</span> <span class="p">=</span> <span class="nx">rand</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="nx">rand</span><span class="p">.</span><span class="nx">NewSource</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">Now</span><span class="p">().</span><span class="nx">UnixNano</span><span class="p">()))</span>
+
+<span class="kd">func</span> <span class="nx">RandomString</span><span class="p">(</span><span class="nx">strlen</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">string</span> <span class="p">{</span>
+      <span class="c1">// generate randsom string with r.Intn method</span>
+<span class="p">}</span>
+</pre></div>
+<p>You can see my post for complete example of using PRNG to generate random
+string. <a class="footnote-reference" href="#id6" id="id3">[3]</a></p>
+
+<hr class="docutils" />
+<p>Tested on: <tt class="docutils literal">Ubuntu Linux 16.10</tt>, <tt class="docutils literal">Go 1.8</tt>.</p>
+<hr class="docutils" />
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td><div class="first last line-block">
+<div class="line"><a class="reference external" href="https://www.google.com/search?q=Do+not+reseed+the+global+PRNG+in+a+package">Do not reseed the global PRNG in a package - Google search</a></div>
+<div class="line"><a class="reference external" href="https://duckduckgo.com/?q=Do+not+reseed+the+global+PRNG+in+a+package">Do not reseed the global PRNG in a package - DuckDuckGo search</a></div>
+<div class="line"><a class="reference external" href="https://www.ecosia.org/search?q=Do+not+reseed+the+global+PRNG+in+a+package">Do not reseed the global PRNG in a package - Ecosia search</a></div>
+<div class="line"><a class="reference external" href="https://www.qwant.com/?q=Do+not+reseed+the+global+PRNG+in+a+package">Do not reseed the global PRNG in a package - Qwant search</a></div>
+<div class="line"><a class="reference external" href="https://www.bing.com/search?q=Do+not+reseed+the+global+PRNG+in+a+package">Do not reseed the global PRNG in a package - Bing search</a></div>
+<div class="line"><a class="reference external" href="https://search.yahoo.com/search?p=Do+not+reseed+the+global+PRNG+in+a+package">Do not reseed the global PRNG in a package - Yahoo search</a></div>
+<div class="line"><a class="reference external" href="https://www.baidu.com/s?wd=Do+not+reseed+the+global+PRNG+in+a+package">Do not reseed the global PRNG in a package - Baidu search</a></div>
+<div class="line"><a class="reference external" href="https://www.yandex.com/search/?text=Do+not+reseed+the+global+PRNG+in+a+package">Do not reseed the global PRNG in a package - Yandex search</a></div>
+</div>
+</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id5" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[2]</a></td><td><a class="reference external" href="http://stackoverflow.com/questions/12321133/golang-random-number-generator-how-to-seed-properly">go - Golang random number generator how to seed properly - Stack Overflow</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id6" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id3">[3]</a></td><td><a class="reference external" href="/2015/04/13/go-generate-random-string/">[Golang] Generate Random String From [a-z0-9]</a></td></tr>
+</tbody>
+</table>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/go.html">Go</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/go.html">Go</a>
+,       <a href="/tag/golang.html">Golang</a>
+,       <a href="/tag/random-number.html">Random Number</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

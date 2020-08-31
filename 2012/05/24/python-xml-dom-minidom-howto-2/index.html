@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>Python Library xml.dom.minidom Howto (2)</title>
+  <meta name="keywords" content="DOM,html,minidom,Python,XML"/>
+  <meta name="description" content="Python XML/HTML manipulation primer of xml.dom.minidom"/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="Python Library xml.dom.minidom Howto (2)" />    <meta property="og:image" content="/./extra/Dharma_wheel.svg" /><meta property="og:description" content="Python XML/HTML manipulation primer of xml.dom.minidom" /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2012/05/24/python-xml-dom-minidom-howto-2/"
+           rel="bookmark"
+           title="Permalink to Python Library xml.dom.minidom Howto (2)">
+          Python Library xml.dom.minidom Howto (2)
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2017-02-01T02:09:00+08:00">
+    Updated: February 01, 2017
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2012/05/24/python-xml-dom-minidom-howto-2%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><div class="section" id="create-and-add-a-text-node">
+<h2>CREATE AND ADD A TEXT NODE</h2>
+<p>In previous post <a class="footnote-reference" href="#id3" id="id1">[1]</a>, we showed how to create a <a class="reference external" href="https://www.google.com/search?q=XML">XML</a> <a class="reference external" href="https://www.google.com/search?q=DOM">DOM</a>, of which the root
+element is called <em>html</em> via <a class="reference external" href="https://www.google.com/search?q=xml.dom.minidom">xml.dom.minidom</a>. In this post, we show how to add
+a text node to the root element. Note that the text node is the leaf in the <a class="reference external" href="https://www.google.com/search?q=DOM">DOM</a>
+trees, which means the text node has no children node or element.</p>
+<p><a class="reference external" href="https://repl.it/F1lF/0">Run code on repl.it</a></p>
+<figure class="github-file">
+            <figcaption>
+              <a href="https://github.com/siongui/userpages/blob/master/content/articles/2012/05/24/minidom-howto-2.py">minidom-howto-2.py</a> |
+              <a href="https://github.com/siongui/userpages">repository</a> |
+              <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/articles/2012/05/24/minidom-howto-2.py">view raw</a>
+            </figcaption><div class="code-file">
+            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
+<span class="c1"># -*- coding:utf-8 -*-</span>
+
+<span class="kn">import</span> <span class="nn">xml.dom.minidom</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+  <span class="n">impl</span> <span class="o">=</span> <span class="n">xml</span><span class="o">.</span><span class="n">dom</span><span class="o">.</span><span class="n">minidom</span><span class="o">.</span><span class="n">getDOMImplementation</span><span class="p">()</span>
+  <span class="n">dom</span> <span class="o">=</span> <span class="n">impl</span><span class="o">.</span><span class="n">createDocument</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;html&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+  <span class="n">root</span> <span class="o">=</span> <span class="n">dom</span><span class="o">.</span><span class="n">documentElement</span>
+  <span class="n">demoTextNode</span> <span class="o">=</span> <span class="n">dom</span><span class="o">.</span><span class="n">createTextNode</span><span class="p">(</span><span class="sa">u</span><span class="s1">&#39;Hello World!&#39;</span><span class="p">)</span>
+  <span class="n">root</span><span class="o">.</span><span class="n">appendChild</span><span class="p">(</span><span class="n">demoTextNode</span><span class="p">)</span>
+
+  <span class="nb">print</span><span class="p">(</span><span class="n">dom</span><span class="o">.</span><span class="n">toxml</span><span class="p">())</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+  <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</td></tr></table></div></figure>
+<p>In line 10, we get the root element of the document <a class="reference external" href="https://www.google.com/search?q=DOM">DOM</a>. In line 11, we create
+a text node, and in line 12, we add the text node to the root element. Note that
+the text node can be added to any element, not only to root element.</p>
+<p>The following is the output:</p>
+<div class="highlight"><pre><span></span>&lt;?xml <span class="nv">version</span><span class="o">=</span><span class="s2">&quot;1.0&quot;</span> ?&gt;&lt;html&gt;Hello World!&lt;/html&gt;
+</pre></div>
+<p>It's pretty easy and straight forward to manipulate the <a class="reference external" href="https://www.google.com/search?q=xml.dom.minidom">xml.dom.minidom</a>
+library. In the next post <a class="footnote-reference" href="#id6" id="id2">[3]</a>, we will show how to create an element and add it
+to the <a class="reference external" href="https://www.google.com/search?q=DOM">DOM</a> trees.</p>
+<hr class="docutils" />
+
+<p><em>Python Library xml.dom.minidom Howto</em> series:</p>
+<table class="docutils footnote" frame="void" id="id3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td><a class="reference external" href="/2012/05/24/python-xml-dom-minidom-howto-1/">Python Library xml.dom.minidom Howto (1)</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[2]</td><td><a class="reference external" href="/2012/05/24/python-xml-dom-minidom-howto-2/">Python Library xml.dom.minidom Howto (2)</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id6" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[3]</a></td><td><a class="reference external" href="/2012/05/24/python-xml-dom-minidom-howto-3/">Python Library xml.dom.minidom Howto (3)</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id7" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[4]</td><td><a class="reference external" href="/2012/05/24/python-xml-dom-minidom-howto-4/">Python Library xml.dom.minidom Howto (4)</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id8" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[5]</td><td><a class="reference external" href="/2012/05/24/python-xml-dom-minidom-howto-5/">Python Library xml.dom.minidom Howto (5)</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id9" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[6]</td><td><a class="reference external" href="/2012/05/24/python-xml-dom-minidom-howto-6/">Python Library xml.dom.minidom Howto (6)</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id10" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[7]</td><td><a class="reference external" href="/2012/05/27/python-xml-dom-minidom-howto-7/">Python Library xml.dom.minidom Howto (7)</a></td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/python.html">Python</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/dom.html">DOM</a>
+,       <a href="/tag/html.html">html</a>
+,       <a href="/tag/minidom.html">minidom</a>
+,       <a href="/tag/python.html">Python</a>
+,       <a href="/tag/xml.html">XML</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

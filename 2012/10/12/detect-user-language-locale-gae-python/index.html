@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>Detect User Language (Locale) on Google App Engine Python</title>
+  <meta name="keywords" content="Python,Locale,HTTP Header,Google App Engine,Accept-Language"/>
+  <meta name="description" content="Detect user locale/language from HTTP request header on Google App Engine for Python."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="Detect User Language (Locale) on Google App Engine Python" />    <meta property="og:image" content="/./extra/Dharma_wheel.svg" /><meta property="og:description" content="Detect user locale/language from HTTP request header on Google App Engine for Python." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2012/10/12/detect-user-language-locale-gae-python/"
+           rel="bookmark"
+           title="Permalink to Detect User Language (Locale) on Google App Engine Python">
+          Detect User Language (Locale) on Google App Engine Python
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2015-02-21T07:48:00+08:00">
+    Updated: February 21, 2015
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2012/10/12/detect-user-language-locale-gae-python%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p>The best way to guess/detect/determine the locale/language of users is probably
+by using the <a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html">Accept-Language</a> field in HTTP request header (see reference <a class="footnote-reference" href="#id4" id="id1">[1]</a>
+for detail). In this post, we will show how to detect/determine user locale
+according to <a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html">Accept-Language</a> field in HTTP request header on <a class="reference external" href="https://cloud.google.com/appengine/docs/python/">Google App Engine
+for Python</a>.</p>
+<p>Assume that the website we own support three locales: <em>de (German)</em>, <em>en_US
+(English, United States)</em>, and <em>zh_TW (Traditional Chinese)</em>. If these three
+locales matches the locales in <a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html">Accept-Language</a> field, the website will serve
+the web pages with the locale of higher preference. If no matches, the website
+will serve web page with <em>en_US</em> locale (default locale).</p>
+<p>The first thing to do to detect/determine user locale is parsing
+<a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html">Accept-Language</a> field. In previous post &quot;<em>[Python] Parse Accept-Language in
+HTTP Request Header</em>&quot; <a class="footnote-reference" href="#id5" id="id2">[2]</a>, this topic is discussed. Please refer to the post
+for detail.</p>
+<p>Next, the parsed data will be compared with supported locales of the website.
+The following code snippet demonstrates how to do this:</p>
+
+<div class="section" id="detect-locales-on-google-app-engine-python">
+<h2>Detect Locales on Google App Engine Python</h2>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">parseAcceptLanguage</span><span class="p">(</span><span class="n">acceptLanguage</span><span class="p">):</span>
+  <span class="n">languages</span> <span class="o">=</span> <span class="n">acceptLanguage</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
+  <span class="n">locale_q_pairs</span> <span class="o">=</span> <span class="p">[]</span>
+
+  <span class="k">for</span> <span class="n">language</span> <span class="ow">in</span> <span class="n">languages</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">language</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;;&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">language</span><span class="p">:</span>
+      <span class="c1"># no q =&gt; q = 1</span>
+      <span class="n">locale_q_pairs</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">language</span><span class="o">.</span><span class="n">strip</span><span class="p">(),</span> <span class="s2">&quot;1&quot;</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="n">locale</span> <span class="o">=</span> <span class="n">language</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;;&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+      <span class="n">q</span> <span class="o">=</span> <span class="n">language</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;;&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;=&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+      <span class="n">locale_q_pairs</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">locale</span><span class="p">,</span> <span class="n">q</span><span class="p">))</span>
+
+  <span class="k">return</span> <span class="n">locale_q_pairs</span>
+
+
+<span class="k">def</span> <span class="nf">detectLocale</span><span class="p">(</span><span class="n">acceptLanguage</span><span class="p">):</span>
+  <span class="n">defaultLocale</span> <span class="o">=</span> <span class="s1">&#39;en_US&#39;</span>
+  <span class="n">supportedLocales</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;de&#39;</span><span class="p">,</span> <span class="s1">&#39;en_US&#39;</span><span class="p">,</span> <span class="s1">&#39;zh_TW&#39;</span><span class="p">]</span>
+
+  <span class="n">locale_q_pairs</span> <span class="o">=</span> <span class="n">parseAcceptLanguage</span><span class="p">(</span><span class="n">acceptLanguage</span><span class="p">)</span>
+  <span class="k">for</span> <span class="n">pair</span> <span class="ow">in</span> <span class="n">locale_q_pairs</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">locale</span> <span class="ow">in</span> <span class="n">supportedLocales</span><span class="p">:</span>
+      <span class="c1"># pair[0] is locale, pair[1] is q value</span>
+      <span class="k">if</span> <span class="n">pair</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="s1">&#39;_&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">locale</span><span class="o">.</span><span class="n">lower</span><span class="p">()):</span>
+        <span class="k">return</span> <span class="n">locale</span>
+
+  <span class="k">return</span> <span class="n">defaultLocale</span>
+</pre></div>
+<p>The <em>parseAcceptLanguage</em> function is the same as the function in previous post
+<a class="footnote-reference" href="#id5" id="id3">[2]</a> for parsing <a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html">Accept-Language</a> field. The <em>detectLocale</em> function compares
+supported locales of the website with locales in <a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html">Accept-Language</a> field. Note
+that the default locale is set to <em>en_US</em>. You can change the <em>defaultLocale</em>
+and <em>supportedLocales</em> variables to fit the locales design in your website.</p>
+
+</div>
+<div class="section" id="example-usage">
+<h2>Example Usage</h2>
+<p>If you are using <a class="reference external" href="https://cloud.google.com/appengine/docs/python/gettingstartedpython27/usingwebapp">webapp2</a>, pass
+<code>self.request.headers.get('accept_language')</code>, the variable which contains
+<a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html">Accept-Language</a> field on <a class="reference external" href="https://cloud.google.com/appengine/docs/python/">Google App Engine for Python</a>, to <em>detectLocale</em>
+function and the locale to be served will be returned. The following example
+will give you idea of what it looks like:</p>
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">parseAcceptLanguage</span><span class="p">(</span><span class="s1">&#39;da, en-gb;q=0.8, en;q=0.7&#39;</span><span class="p">))</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">detectLocale</span><span class="p">(</span><span class="s1">&#39;da, en-gb;q=0.8, en;q=0.7&#39;</span><span class="p">))</span>
+<span class="p">[(</span><span class="s1">&#39;da&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;en-gb&#39;</span><span class="p">,</span> <span class="s1">&#39;0.8&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;en&#39;</span><span class="p">,</span> <span class="s1">&#39;0.7&#39;</span><span class="p">)]</span>
+<span class="n">en_US</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">parseAcceptLanguage</span><span class="p">(</span><span class="s1">&#39;zh, en-us; q=0.8, en; q=0.6&#39;</span><span class="p">))</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">detectLocale</span><span class="p">(</span><span class="s1">&#39;zh, en-us; q=0.8, en; q=0.6&#39;</span><span class="p">))</span>
+<span class="p">[(</span><span class="s1">&#39;zh&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;en-us&#39;</span><span class="p">,</span> <span class="s1">&#39;0.8&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;en&#39;</span><span class="p">,</span> <span class="s1">&#39;0.6&#39;</span><span class="p">)]</span>
+<span class="n">en_US</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">parseAcceptLanguage</span><span class="p">(</span><span class="s1">&#39;zh-tw, en-us; q=0.8, en; q=0.6&#39;</span><span class="p">))</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">detectLocale</span><span class="p">(</span><span class="s1">&#39;zh-tw, en-us; q=0.8, en; q=0.6&#39;</span><span class="p">))</span>
+<span class="p">[(</span><span class="s1">&#39;zh-tw&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;en-us&#39;</span><span class="p">,</span> <span class="s1">&#39;0.8&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;en&#39;</span><span class="p">,</span> <span class="s1">&#39;0.6&#39;</span><span class="p">)]</span>
+<span class="n">zh_TW</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">parseAcceptLanguage</span><span class="p">(</span><span class="s1">&#39;es-mx, es, en&#39;</span><span class="p">))</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">detectLocale</span><span class="p">(</span><span class="s1">&#39;es-mx, es, en&#39;</span><span class="p">))</span>
+<span class="p">[(</span><span class="s1">&#39;es-mx&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;es&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;en&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">)]</span>
+<span class="n">en_US</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">parseAcceptLanguage</span><span class="p">(</span><span class="s1">&#39;de; q=1.0, en; q=0.5&#39;</span><span class="p">))</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">detectLocale</span><span class="p">(</span><span class="s1">&#39;de; q=1.0, en; q=0.5&#39;</span><span class="p">))</span>
+<span class="p">[(</span><span class="s1">&#39;de&#39;</span><span class="p">,</span> <span class="s1">&#39;1.0&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;en&#39;</span><span class="p">,</span> <span class="s1">&#39;0.5&#39;</span><span class="p">)]</span>
+<span class="n">de</span>
+</pre></div>
+<hr class="docutils" />
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td><a class="reference external" href="http://www.w3.org/International/questions/qa-accept-lang-locales.en.php">Accept-Language used for locale setting</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id5" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[2]</td><td><em>(<a class="fn-backref" href="#id2">1</a>, <a class="fn-backref" href="#id3">2</a>)</em> <a class="reference external" href="/2012/10/11/python-parse-accept-language-in-http-request-header/">[Python] Parse Accept-Language in HTTP Request Header</a></td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/python.html">Python</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/python.html">Python</a>
+,       <a href="/tag/locale.html">Locale</a>
+,       <a href="/tag/http-header.html">HTTP Header</a>
+,       <a href="/tag/google-app-engine.html">Google App Engine</a>
+,       <a href="/tag/accept-language.html">Accept-Language</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

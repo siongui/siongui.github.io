@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>[Golang] Largest Product in a Series - Problem 8 - Project Euler</title>
+  <meta name="keywords" content="Go,Golang,Math,Project Euler,Type Casting,Type Conversion,String Manipulation"/>
+  <meta name="description" content="Go solution to largest product in a series - Problem 8 - Project Euler."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="[Golang] Largest Product in a Series - Problem 8 - Project Euler" /><meta property="og:image" content="https://4.bp.blogspot.com/-eFrfsvXskkA/WLFl8qVyTeI/AAAAAAAABDc/MmfP84F9wHMUh5sL4YpYaO7soS3nwnsNQCLcB/s1600/project-euler-problem-8-solution-in-java.jpg" />
+<meta property="og:description" content="Go solution to largest product in a series - Problem 8 - Project Euler." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2017/06/12/go-largest-product-in-a-series-problem-8-project-euler/"
+           rel="bookmark"
+           title="Permalink to [Golang] Largest Product in a Series - Problem 8 - Project Euler">
+          [Golang] Largest Product in a Series - Problem 8 - Project Euler
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2017-06-12T22:55:00+08:00">
+    June 12, 2017
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2017/06/12/go-largest-product-in-a-series-problem-8-project-euler%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p>Go solution to largest product in a series - Problem 8 - Project Euler. <a class="footnote-reference" href="#id2" id="id1">[1]</a></p>
+<p><strong>Problem</strong>:</p>
+<blockquote>
+<p>The four adjacent digits in the 1000-digit number that have the greatest
+product are <span class="formula">9 × 9 × 8 × 9 = 5832</span>.</p>
+<p>73167176531330624919225119674426574742355349194934
+96983520312774506326239578318016984801869478851843
+85861560789112949495459501737958331952853208805511
+12540698747158523863050715693290963295227443043557
+66896648950445244523161731856403098711121722383113
+62229893423380308135336276614282806444486645238749
+30358907296290491560440772390713810515859307960866
+70172427121883998797908792274921901699720888093776
+65727333001053367881220235421809751254540594752243
+52584907711670556013604839586446706324415722155397
+53697817977846174064955149290862569321978468622482
+83972241375657056057490261407972968652414535100474
+82166370484403199890008895243450658541227588666881
+16427171479924442928230863465674813919123162824586
+17866458359124566529476545682848912883142607690042
+24219022671055626321111109370544217506941658960408
+07198403850962455444362981230987879927244284909188
+84580156166097919133875499200524063689912560717606
+05886116467109405077541002256983155200055935729725
+71636269561882670428252483600823257530420752963450</p>
+<p>Find the thirteen adjacent digits in the 1000-digit number that have the
+greatest product. What is the value of this product?</p>
+</blockquote>
+<p><strong>Solution</strong>:</p>
+<blockquote>
+<p>Index at 197 (index starts from 0)</p>
+<p>5 X 5 X 7 X 6 X 6 X 8 X 9 X 6 X 6 X 4 X 8 X 9 X 5 = 23514624000</p>
+<p>If you use <em>int</em> type, integer overflow will happen. Use <em>int64</em> instead.</p>
+</blockquote>
+<p class="align-center rubric"><a class="reference external" href="https://play.golang.org/p/UywVL7NpC2">Run Code on Go Playground</a></p>
+<div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+      <span class="s">&quot;fmt&quot;</span>
+      <span class="s">&quot;strconv&quot;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nx">Get1000Digits</span><span class="p">()</span> <span class="p">(</span><span class="nx">digits</span> <span class="p">[]</span><span class="kt">int64</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">num1000</span> <span class="o">:=</span> <span class="s">`7316717653133062491922511967442657474235534919493496983520312774506326239578318016984801869478851843858615607891129494954595017379583319528532088055111254069874715852386305071569329096329522744304355766896648950445244523161731856403098711121722383113622298934233803081353362766142828064444866452387493035890729629049156044077239071381051585930796086670172427121883998797908792274921901699720888093776657273330010533678812202354218097512545405947522435258490771167055601360483958644670632441572215539753697817977846174064955149290862569321978468622482839722413756570560574902614079729686524145351004748216637048440319989000889524345065854122758866688116427171479924442928230863465674813919123162824586178664583591245665294765456828489128831426076900422421902267105562632111110937054421750694165896040807198403850962455444362981230987879927244284909188845801561660979191338754992005240636899125607176060588611646710940507754100225698315520005593572972571636269561882670428252483600823257530420752963450`</span>
+      <span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">runeValue</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">num1000</span> <span class="p">{</span>
+              <span class="nx">i</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">strconv</span><span class="p">.</span><span class="nx">ParseInt</span><span class="p">(</span><span class="nb">string</span><span class="p">(</span><span class="nx">runeValue</span><span class="p">),</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+              <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+                      <span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+              <span class="p">}</span>
+              <span class="nx">digits</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">digits</span><span class="p">,</span> <span class="nx">i</span><span class="p">)</span>
+      <span class="p">}</span>
+      <span class="k">return</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nx">AdjacentDigitsProduct</span><span class="p">(</span><span class="nx">index</span><span class="p">,</span> <span class="nx">howMany</span> <span class="kt">int64</span><span class="p">,</span> <span class="nx">digits</span> <span class="p">[]</span><span class="kt">int64</span><span class="p">)</span> <span class="kt">int64</span> <span class="p">{</span>
+      <span class="nx">product</span> <span class="o">:=</span> <span class="nb">int64</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+      <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="nb">int64</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nx">howMany</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+              <span class="nx">product</span> <span class="o">*=</span> <span class="nx">digits</span><span class="p">[</span><span class="nx">index</span><span class="o">+</span><span class="nx">i</span><span class="p">]</span>
+      <span class="p">}</span>
+      <span class="k">return</span> <span class="nx">product</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+      <span class="nx">digits</span> <span class="o">:=</span> <span class="nx">Get1000Digits</span><span class="p">()</span>
+      <span class="kd">var</span> <span class="nx">max</span><span class="p">,</span> <span class="nx">index</span> <span class="kt">int64</span> <span class="p">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
+      <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="nb">int64</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nb">int64</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nx">digits</span><span class="p">)</span><span class="o">-</span><span class="mi">13</span><span class="p">);</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+              <span class="nx">product</span> <span class="o">:=</span> <span class="nx">AdjacentDigitsProduct</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="nx">digits</span><span class="p">)</span>
+              <span class="k">if</span> <span class="nx">product</span> <span class="p">&gt;</span> <span class="nx">max</span> <span class="p">{</span>
+                      <span class="nx">max</span> <span class="p">=</span> <span class="nx">product</span>
+                      <span class="nx">index</span> <span class="p">=</span> <span class="nx">i</span>
+              <span class="p">}</span>
+      <span class="p">}</span>
+      <span class="nx">fmt</span><span class="p">.</span><span class="nx">Print</span><span class="p">(</span><span class="s">&quot;Index at &quot;</span><span class="p">)</span>
+      <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">index</span><span class="p">)</span>
+      <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="nb">int64</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="mi">13</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+              <span class="nx">fmt</span><span class="p">.</span><span class="nx">Print</span><span class="p">(</span><span class="nx">digits</span><span class="p">[</span><span class="nx">index</span><span class="o">+</span><span class="nx">i</span><span class="p">])</span>
+              <span class="k">if</span> <span class="nx">i</span> <span class="o">!=</span> <span class="mi">12</span> <span class="p">{</span>
+                      <span class="nx">fmt</span><span class="p">.</span><span class="nx">Print</span><span class="p">(</span><span class="s">&quot; X &quot;</span><span class="p">)</span>
+              <span class="p">}</span>
+      <span class="p">}</span>
+      <span class="nx">fmt</span><span class="p">.</span><span class="nx">Print</span><span class="p">(</span><span class="s">&quot; = &quot;</span><span class="p">)</span>
+      <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">max</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>Tested on: <a class="reference external" href="https://play.golang.org/">Go Playground</a></p>
+<hr class="docutils" />
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td><a class="reference external" href="https://projecteuler.net/problem=8">Largest product in a series - Problem 8 - Project Euler</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[2]</td><td><a class="reference external" href="/2016/02/03/go-iterate-over-utf8-non-ascii-string/">[Golang] Iterate Over UTF-8 Strings (non-ASCII strings)</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[3]</td><td><a class="reference external" href="/2017/04/14/go-string-int-type-casting/">[Golang] Type Conversion between String and Integer</a></td></tr>
+</tbody>
+</table>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/go.html">Go</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/go.html">Go</a>
+,       <a href="/tag/golang.html">Golang</a>
+,       <a href="/tag/math.html">Math</a>
+,       <a href="/tag/project-euler.html">Project Euler</a>
+,       <a href="/tag/type-casting.html">Type Casting</a>
+,       <a href="/tag/type-conversion.html">Type Conversion</a>
+,       <a href="/tag/string-manipulation.html">String Manipulation</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

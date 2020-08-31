@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>[Golang] Sort Files by Size</title>
+  <meta name="keywords" content="Go,Golang,Go sort"/>
+  <meta name="description" content="Sort files by size in Go. Use sort.Slice on the slice of os.FileInfo returned by ioutil.ReadDir."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="[Golang] Sort Files by Size" /><meta property="og:image" content="https://pbs.twimg.com/media/CxQV-tmUUAEDvzF.jpg" />
+<meta property="og:description" content="Sort files by size in Go. Use sort.Slice on the slice of os.FileInfo returned by ioutil.ReadDir." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2018/02/15/go-sort-files-by-size/"
+           rel="bookmark"
+           title="Permalink to [Golang] Sort Files by Size">
+          [Golang] Sort Files by Size
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2018-02-15T09:46:00+08:00">
+    February 15, 2018
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2018/02/15/go-sort-files-by-size%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p>Sort files in a directory by size in Go. The steps are:</p>
+<ol class="arabic simple">
+<li>Use <a class="reference external" href="https://golang.org/pkg/io/ioutil/#ReadDir">ioutil.ReadDir</a> to get files in a directory (not including
+sub-directories).</li>
+<li>Use <a class="reference external" href="https://golang.org/pkg/sort/#Slice">sort.Slice</a> to sort the files by size.</li>
+</ol>
+<p>The following are complete source code.</p>
+<figure class="github-file">
+            <figcaption>
+              <a href="https://github.com/siongui/userpages/blob/master/content/code/go/file-sort-by-size/sortfile.go">sortfile.go</a> |
+              <a href="https://github.com/siongui/userpages">repository</a> |
+              <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/code/go/file-sort-by-size/sortfile.go">view raw</a>
+            </figcaption><div class="code-file">
+            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1">// Sort file by size</span>
+<span class="kn">package</span> <span class="nx">sortfile</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+	<span class="s">&quot;os&quot;</span>
+	<span class="s">&quot;sort&quot;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nx">SortFileBySize</span><span class="p">(</span><span class="nx">files</span> <span class="p">[]</span><span class="nx">os</span><span class="p">.</span><span class="nx">FileInfo</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">sort</span><span class="p">.</span><span class="nx">Slice</span><span class="p">(</span><span class="nx">files</span><span class="p">,</span> <span class="kd">func</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span> <span class="nx">j</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">bool</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="nx">files</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">Size</span><span class="p">()</span> <span class="p">&lt;</span> <span class="nx">files</span><span class="p">[</span><span class="nx">j</span><span class="p">].</span><span class="nx">Size</span><span class="p">()</span>
+	<span class="p">})</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div></figure>
+<figure class="github-file">
+            <figcaption>
+              <a href="https://github.com/siongui/userpages/blob/master/content/code/go/file-sort-by-size/sortfile_test.go">sortfile_test.go</a> |
+              <a href="https://github.com/siongui/userpages">repository</a> |
+              <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/code/go/file-sort-by-size/sortfile_test.go">view raw</a>
+            </figcaption><div class="code-file">
+            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">sortfile</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+	<span class="s">&quot;fmt&quot;</span>
+	<span class="s">&quot;io/ioutil&quot;</span>
+	<span class="s">&quot;os&quot;</span>
+	<span class="s">&quot;testing&quot;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nx">ExampleSortFileBySize</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">files</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">ioutil</span><span class="p">.</span><span class="nx">ReadDir</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">Getenv</span><span class="p">(</span><span class="s">&quot;MY_DIR&quot;</span><span class="p">))</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+	<span class="p">}</span>
+	<span class="nx">SortFileBySize</span><span class="p">(</span><span class="nx">files</span><span class="p">)</span>
+	<span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">file</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">files</span> <span class="p">{</span>
+		<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">file</span><span class="p">.</span><span class="nx">Name</span><span class="p">()</span><span class="o">+</span><span class="s">&quot;: &quot;</span><span class="p">,</span> <span class="nx">file</span><span class="p">.</span><span class="nx">Size</span><span class="p">())</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div></figure><p>If you want to know how to sort prior to Go 1.8, see <a class="footnote-reference" href="#id3" id="id1">[1]</a>.</p>
+<p>If you want to find all files in a directory and all its sub-directories, see
+<a class="footnote-reference" href="#id4" id="id2">[2]</a>.</p>
+<p>Tested on:</p>
+<ul class="simple">
+<li><tt class="docutils literal">Ubuntu Linux 17.10</tt>, <tt class="docutils literal">Go 1.9.4</tt></li>
+</ul>
+<!-- - `Go Playground`_ -->
+<hr class="docutils" />
+<p>References:</p>
+
+<table class="docutils footnote" frame="void" id="id3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td><a class="reference external" href="/2017/05/07/go-sort-string-slice-of-rune/">[Golang] Sort String by Character</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[2]</a></td><td><a class="reference external" href="/2016/02/04/go-walk-all-files-in-directory/">[Golang] Walk All Files in Directory</a></td></tr>
+</tbody>
+</table>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/go.html">Go</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/go.html">Go</a>
+,       <a href="/tag/golang.html">Golang</a>
+,       <a href="/tag/go-sort.html">Go sort</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

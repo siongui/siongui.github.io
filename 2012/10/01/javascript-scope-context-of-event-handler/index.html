@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>[JavaScript] Scope (Context) of Event Handler Function</title>
+  <meta name="keywords" content="JavaScript,Function.prototype.bind()"/>
+  <meta name="description" content="Discuss the scope (context) of event handler and how to change what this keyword refers to."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="[JavaScript] Scope (Context) of Event Handler Function" /><meta property="og:image" content="http://www.javatpoint.com/images/javascript/javascript_logo.png" />
+<meta property="og:description" content="Discuss the scope (context) of event handler and how to change what this keyword refers to." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2012/10/01/javascript-scope-context-of-event-handler/"
+           rel="bookmark"
+           title="Permalink to [JavaScript] Scope (Context) of Event Handler Function">
+          [JavaScript] Scope (Context) of Event Handler Function
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2015-03-07T01:09:00+08:00">
+    Updated: March 07, 2015
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2012/10/01/javascript-scope-context-of-event-handler%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p>The scope (context) of event handler is headache for new JavaScript developers
+(at least for me when I try to write JavaScript web application in the
+beginning). Look at the following code snippet:</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="nx">contact</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="s1">&#39;Bob&#39;</span><span class="p">;</span>
+
+  <span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;click&quot;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">AddName</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
+<span class="p">};</span>
+
+<span class="nx">contact</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">AddName</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">alert</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span>
+<span class="p">};</span>
+</pre></div>
+</td></tr></table><p>The problems in references <a class="footnote-reference" href="#id12" id="id1">[3]</a> and <a class="footnote-reference" href="#id14" id="id2">[5]</a> are basically the same as the above.
+When JavaScript interpreter runs the line 8 of above code, error will be raised.
+The JavaScript interpreter will tell you that <em>this.name</em> does not exist. You
+may wonder that <em>this.name</em> is already assigned in line 2, why does the
+JavaScript interpreter raise error?</p>
+<p>The problem is that <em>this</em> keyword in line 8 refers to JavaScript built-in
+object <em>window</em>, not refers to the <em>contact</em> function object. In line 2, you
+assign the value <em>'Bob'</em> to the variable <em>name</em> in the scope (context) of
+<em>contact</em> function object. As a result, the JavaScript interpreter raises the
+error.</p>
+<p>So how to make the <em>this</em> keyword in line 8 refer to <em>contact</em> function object?</p>
+
+<p>For recent browsers which support <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind">Function.prototype.bind</a> natively, you can
+replace line 4:</p>
+<div class="highlight"><pre><span></span><span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;click&quot;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">AddName</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
+</pre></div>
+<p>with the following line:</p>
+<div class="highlight"><pre><span></span><span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;click&quot;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">AddName</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">),</span> <span class="kc">false</span><span class="p">);</span>
+</pre></div>
+<p>If you want to support old browsers like IE8, you can implement
+<a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind#Polyfill">custom Function.prototype.bind</a>, or you can use closures to change the scope
+(context): line 4 can be replaced with the following code:</p>
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+<span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;click&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span><span class="nx">self</span><span class="p">.</span><span class="nx">AddName</span><span class="p">();},</span> <span class="kc">false</span><span class="p">);</span>
+</pre></div>
+<p>Anonymous function and closures are used to make the <em>this</em> keyword in <em>AddName</em>
+function refer to <em>contact</em> function object.</p>
+<p>Other variant of the above problem is described in references <a class="footnote-reference" href="#id13" id="id3">[4]</a>. In summary,
+there are two ways to solve the above problem:</p>
+<blockquote>
+<ol class="arabic simple">
+<li><a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind">Function.prototype.bind</a>: Only provided in recent browsers, for old
+browsers, implement <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind#Polyfill">custom Function.prototype.bind</a>. See reference <a class="footnote-reference" href="#id10" id="id4">[1]</a>
+for more details.</li>
+<li>Closures: See references <a class="footnote-reference" href="#id11" id="id5">[2]</a> and <a class="footnote-reference" href="#id15" id="id6">[6]</a> for more details.</li>
+</ol>
+</blockquote>
+
+<p>The questions on <a class="reference external" href="http://stackoverflow.com/">Stack Overflow</a> in references <a class="footnote-reference" href="#id12" id="id7">[3]</a>, <a class="footnote-reference" href="#id13" id="id8">[4]</a>, <a class="footnote-reference" href="#id14" id="id9">[5]</a> are very
+helpful. Please read carefully.</p>
+<hr class="docutils" />
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id10" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id4">[1]</a></td><td><a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind">Function.prototype.bind() - JavaScript | MDN</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id11" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id5">[2]</a></td><td><a class="reference external" href="http://helephant.com/2008/04/26/objects-event-handlers-and-this-in-javascript/">Objects, event handlers and &quot;this&quot; in javascript  –  Helephant.com</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id12" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[3]</td><td><em>(<a class="fn-backref" href="#id1">1</a>, <a class="fn-backref" href="#id7">2</a>)</em> <a class="reference external" href="http://stackoverflow.com/questions/9488468/javascript-event-handler-scope">JavaScript Event Handler Scope - Stack Overflow</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id13" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[4]</td><td><em>(<a class="fn-backref" href="#id3">1</a>, <a class="fn-backref" href="#id8">2</a>)</em> <a class="reference external" href="http://stackoverflow.com/questions/2241896/global-javascript-event-handling-object-context">oop - Global Javascript Event Handling Object Context - Stack Overflow</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id14" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[5]</td><td><em>(<a class="fn-backref" href="#id2">1</a>, <a class="fn-backref" href="#id9">2</a>)</em> <a class="reference external" href="http://stackoverflow.com/questions/6300817/event-handler-called-with-wrong-context">javascript - Event Handler Called With Wrong Context - Stack Overflow</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id15" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id6">[6]</a></td><td><a class="reference external" href="http://www.tibobeijen.nl/blog/2009/07/27/taming-the-javascript-event-scope-closures/">Taming the Javascript event scope: Closures</a></td></tr>
+</tbody>
+</table>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/javascript.html">JavaScript</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/javascript.html">JavaScript</a>
+,       <a href="/tag/functionprototypebind.html">Function.prototype.bind()</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

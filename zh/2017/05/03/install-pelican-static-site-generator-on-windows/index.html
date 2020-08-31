@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>在Windows下安裝Pelican靜態網站產生器</title>
+  <meta name="keywords" content="Web開發"/>
+  <meta name="description" content="在Windows作業系統下，安裝Python的Pelican靜態網站產生器。"/>
+  <meta name="author" content="戴上為"/><meta property="og:title" content="在Windows下安裝Pelican靜態網站產生器" /><meta property="og:image" content="https://www.fullstackpython.com/img/visuals/pelican-flow.jpg" />
+<meta property="og:description" content="在Windows作業系統下，安裝Python的Pelican靜態網站產生器。" /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/zh/../extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/zh/../theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/zh/">理論與實作</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/zh/pages/about.html">關於</a>
+    <a class="nav-item" href="/zh/archives.html">歸檔</a>
+    <a class="nav-item" href="/zh/categories.html">分類</a>
+    <a class="nav-item" href="/zh/tags.html">標籤</a>
+    <a class="nav-item" href="/zh/authors.html">作者</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/">English</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/zh/2017/05/03/install-pelican-static-site-generator-on-windows/"
+           rel="bookmark"
+           title="Permalink to 在Windows下安裝Pelican靜態網站產生器">
+          在Windows下安裝Pelican靜態網站產生器
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2017-05-03T17:22:00+08:00">
+    五月 03, 2017
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2017/05/03/install-pelican-static-site-generator-on-windows%25zh.rst">在Github上編輯</a></div></aside>
+    <hr>
+
+    <div class="main-content"><ol class="arabic">
+<li><p class="first">安裝 <a class="reference external" href="https://www.cygwin.com/">Cygwin</a> （ <a class="reference external" href="https://www.cygwin.com/setup-x86_64.exe">64位元安裝檔</a> ）</p>
+<p>安裝時，請將 <strong>Python</strong> 以及 <strong>Devel</strong> 選成 <em>Install</em> （不要選 <em>Default</em> ）</p>
+</li>
+<li><p class="first">安裝須花頗多時間，完成後，在桌面建立一個 Cygwin Terminal 的捷徑。</p>
+</li>
+<li><p class="first">點擊捷徑進入 Cygwin Terminal，進入後先檢查 <a class="reference external" href="https://www.python.org/">Python</a> 以及 <a class="reference external" href="https://git-scm.com/">git</a> 是否安裝成功。</p>
+<p>先檢查 <a class="reference external" href="https://www.python.org/">Python</a> ：</p>
+<div class="highlight"><pre><span></span>$ python -V
+</pre></div>
+<p>如果成功會看到 <a class="reference external" href="https://www.python.org/">Python</a> 的版本號碼。</p>
+<p>接著檢查 <a class="reference external" href="https://git-scm.com/">git</a> ：</p>
+<div class="highlight"><pre><span></span>$ git --version
+</pre></div>
+<p>如果成功會看到 <a class="reference external" href="https://git-scm.com/">git</a> 的版本號碼。
+接著設定user名稱跟email：</p>
+<div class="highlight"><pre><span></span>$ git config --global user.name <span class="s2">&quot;你的GitHub使用者名稱&quot;</span>
+$ git config --global user.email <span class="s2">&quot;你的Email&quot;</span>
+</pre></div>
+<p>請依照自己的帳號及email做設定。</p>
+</li>
+<li><p class="first">安裝 <a class="reference external" href="https://pypi.python.org/pypi/pip">pip</a> <a class="footnote-reference" href="#id4" id="id2">[2]</a> ：</p>
+<div class="highlight"><pre><span></span>$ easy_install-2.7 pip
+</pre></div>
+<p>移除有問題的套件：</p>
+<div class="highlight"><pre><span></span>$ pip uninstall stgit
+$ pip uninstall bzr-fastimport
+</pre></div>
+</li>
+<li><p class="first">進入原始碼目錄，用 <a class="reference external" href="https://pypi.python.org/pypi/pip">pip</a> 安裝需要的 Python 套件：</p>
+<div class="highlight"><pre><span></span>$ pip install pelican
+$ pip install ghp-import
+$ pip install pyScss
+</pre></div>
+</li>
+</ol>
+
+<hr class="docutils" />
+<p>附錄：</p>
+<table class="docutils footnote" frame="void" id="id3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td><a class="reference external" href="http://www.worldhello.net/gotgithub/appendix/markups.html">7. 附录：轻量级标记语言 — GotGitHub</a>
+(<a class="reference external" href="https://github.com/gotgit/gotgithub/blob/master/appendix/markups.rst">GitHub</a>)</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[2]</a></td><td><a class="reference external" href="http://stackoverflow.com/a/30685412">python - Installing Pip-3.2 on Cygwin - Stack Overflow</a></td></tr>
+</tbody>
+</table>
+</div>
+
+    <footer><hr><address><b>作者</b>:
+    <a rel="author"
+       href="/zh/author/dai-shang-wei.html">戴上為</a>
+  </address><aside>
+    <i>&isin;</i> <b>分類</b>:
+    <a href="/zh/category/webkai-fa.html">Web開發</a>
+  </aside><aside>
+    <i>&sum;</i> <b>標籤</b>:
+      <a href="/zh/tag/webkai-fa.html">Web開發</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

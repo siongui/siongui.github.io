@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>[Golang] Login Facebook and Take Screenshot Programmatically</title>
+  <meta name="keywords" content="Go,Golang,Web Scrape,Scraping JavaScript Web Page"/>
+  <meta name="description" content="Web scraping JavaScript rendered webpages by Chrome Debugging Protocol . Write Go code to programmatically login Facebook and then take screenshot."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="[Golang] Login Facebook and Take Screenshot Programmatically" /><meta property="og:image" content="http://www.cuelogic.com/blog/wp-content/uploads/2014/11/GO.jpg" />
+<meta property="og:description" content="Web scraping JavaScript rendered webpages by Chrome Debugging Protocol . Write Go code to programmatically login Facebook and then take screenshot." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2017/05/03/go-programmatically-login-facebook-and-take-screenshot/"
+           rel="bookmark"
+           title="Permalink to [Golang] Login Facebook and Take Screenshot Programmatically">
+          [Golang] Login Facebook and Take Screenshot Programmatically
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2017-05-03T04:41:00+08:00">
+    May 03, 2017
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2017/05/03/go-programmatically-login-facebook-and-take-screenshot%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p>I heard the news of headless Chrome from HN <a class="footnote-reference" href="#id6" id="id1">[1]</a>, and found that it is possible
+to write a Go program <a class="footnote-reference" href="#id8" id="id2">[3]</a> to automatically web-scraping JavaScript rendered web
+pages via <em>Chrome Debugging Protocol</em> <a class="footnote-reference" href="#id7" id="id3">[2]</a>. I have tried to use Python dryscrape
+to programmatically login a website before <a class="footnote-reference" href="#id9" id="id4">[4]</a>, and now I will try to use Go
+<em>chromedp</em> package to login Facebook and take screenshot programmatically.</p>
+<p>Install Go <em>chromedp</em> package for programmatically drive the browser and
+simulate human user actions:</p>
+<div class="highlight"><pre><span></span>$ go get -u github.com/knq/chromedp
+</pre></div>
+<p>Install Go package for read password from console <a class="footnote-reference" href="#id10" id="id5">[5]</a>:</p>
+<div class="highlight"><pre><span></span>$ go get -u golang.org/x/crypto/ssh/terminal
+</pre></div>
+<p><strong>Login Facebook and Take Screenshot</strong>:</p>
+<figure class="github-file">
+            <figcaption>
+              <a href="https://github.com/siongui/userpages/blob/master/content/code/go/fb-login-screenshot/main.go">main.go</a> |
+              <a href="https://github.com/siongui/userpages">repository</a> |
+              <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/code/go/fb-login-screenshot/main.go">view raw</a>
+            </figcaption><div class="code-file">
+            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+	<span class="s">&quot;context&quot;</span>
+	<span class="s">&quot;fmt&quot;</span>
+	<span class="s">&quot;io/ioutil&quot;</span>
+	<span class="s">&quot;log&quot;</span>
+
+	<span class="nx">cdp</span> <span class="s">&quot;github.com/knq/chromedp&quot;</span>
+	<span class="nx">cdptypes</span> <span class="s">&quot;github.com/knq/chromedp/cdp&quot;</span>
+
+	<span class="s">&quot;golang.org/x/crypto/ssh/terminal&quot;</span>
+	<span class="s">&quot;syscall&quot;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nx">getCredentials</span><span class="p">()</span> <span class="p">(</span><span class="nx">u</span><span class="p">,</span> <span class="nx">p</span> <span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Print</span><span class="p">(</span><span class="s">&quot;Username: &quot;</span><span class="p">)</span>
+	<span class="nx">_</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">fmt</span><span class="p">.</span><span class="nx">Scan</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">u</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+	<span class="p">}</span>
+
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Print</span><span class="p">(</span><span class="s">&quot;Password: &quot;</span><span class="p">)</span>
+	<span class="nx">password</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">terminal</span><span class="p">.</span><span class="nx">ReadPassword</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="nx">syscall</span><span class="p">.</span><span class="nx">Stdin</span><span class="p">))</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+	<span class="p">}</span>
+	<span class="nx">p</span> <span class="p">=</span> <span class="nb">string</span><span class="p">(</span><span class="nx">password</span><span class="p">)</span>
+
+	<span class="k">return</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nx">facebookLogin</span><span class="p">(</span><span class="nx">username</span><span class="p">,</span> <span class="nx">password</span> <span class="kt">string</span><span class="p">)</span> <span class="nx">cdp</span><span class="p">.</span><span class="nx">Tasks</span> <span class="p">{</span>
+	<span class="nx">selname</span> <span class="o">:=</span> <span class="s">`//input[@id=&quot;email&quot;]`</span>
+	<span class="nx">selpass</span> <span class="o">:=</span> <span class="s">`//input[@id=&quot;pass&quot;]`</span>
+	<span class="kd">var</span> <span class="nx">buf</span> <span class="p">[]</span><span class="kt">byte</span>
+
+	<span class="k">return</span> <span class="nx">cdp</span><span class="p">.</span><span class="nx">Tasks</span><span class="p">{</span>
+		<span class="nx">cdp</span><span class="p">.</span><span class="nx">Navigate</span><span class="p">(</span><span class="s">`https://www.facebook.com`</span><span class="p">),</span>
+		<span class="nx">cdp</span><span class="p">.</span><span class="nx">WaitVisible</span><span class="p">(</span><span class="nx">selpass</span><span class="p">),</span>
+		<span class="nx">cdp</span><span class="p">.</span><span class="nx">SendKeys</span><span class="p">(</span><span class="nx">selname</span><span class="p">,</span> <span class="nx">username</span><span class="p">),</span>
+		<span class="nx">cdp</span><span class="p">.</span><span class="nx">SendKeys</span><span class="p">(</span><span class="nx">selpass</span><span class="p">,</span> <span class="nx">password</span><span class="p">),</span>
+		<span class="nx">cdp</span><span class="p">.</span><span class="nx">Submit</span><span class="p">(</span><span class="nx">selpass</span><span class="p">),</span>
+		<span class="nx">cdp</span><span class="p">.</span><span class="nx">WaitVisible</span><span class="p">(</span><span class="s">`//a[@title=&quot;Profile&quot;]`</span><span class="p">),</span>
+		<span class="nx">cdp</span><span class="p">.</span><span class="nx">CaptureScreenshot</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">buf</span><span class="p">),</span>
+		<span class="nx">cdp</span><span class="p">.</span><span class="nx">ActionFunc</span><span class="p">(</span><span class="kd">func</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span> <span class="nx">cdptypes</span><span class="p">.</span><span class="nx">Handler</span><span class="p">)</span> <span class="kt">error</span> <span class="p">{</span>
+			<span class="k">return</span> <span class="nx">ioutil</span><span class="p">.</span><span class="nx">WriteFile</span><span class="p">(</span><span class="s">&quot;myfb.png&quot;</span><span class="p">,</span> <span class="nx">buf</span><span class="p">,</span> <span class="mo">0644</span><span class="p">)</span>
+		<span class="p">}),</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="kd">var</span> <span class="nx">err</span> <span class="kt">error</span>
+
+	<span class="c1">// create context</span>
+	<span class="nx">ctxt</span><span class="p">,</span> <span class="nx">cancel</span> <span class="o">:=</span> <span class="nx">context</span><span class="p">.</span><span class="nx">WithCancel</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nx">Background</span><span class="p">())</span>
+	<span class="k">defer</span> <span class="nx">cancel</span><span class="p">()</span>
+
+	<span class="c1">// create chrome instance</span>
+	<span class="nx">c</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">cdp</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="nx">ctxt</span><span class="p">,</span> <span class="nx">cdp</span><span class="p">.</span><span class="nx">WithLog</span><span class="p">(</span><span class="nx">log</span><span class="p">.</span><span class="nx">Printf</span><span class="p">))</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nx">log</span><span class="p">.</span><span class="nx">Fatal</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+	<span class="p">}</span>
+
+	<span class="c1">// run task list</span>
+	<span class="nx">err</span> <span class="p">=</span> <span class="nx">c</span><span class="p">.</span><span class="nx">Run</span><span class="p">(</span><span class="nx">ctxt</span><span class="p">,</span> <span class="nx">facebookLogin</span><span class="p">(</span><span class="nx">getCredentials</span><span class="p">()))</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nx">log</span><span class="p">.</span><span class="nx">Fatal</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+	<span class="p">}</span>
+
+	<span class="c1">// shutdown chrome</span>
+	<span class="nx">err</span> <span class="p">=</span> <span class="nx">c</span><span class="p">.</span><span class="nx">Shutdown</span><span class="p">(</span><span class="nx">ctxt</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nx">log</span><span class="p">.</span><span class="nx">Fatal</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+	<span class="p">}</span>
+
+	<span class="c1">// wait for chrome to finish</span>
+	<span class="nx">err</span> <span class="p">=</span> <span class="nx">c</span><span class="p">.</span><span class="nx">Wait</span><span class="p">()</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nx">log</span><span class="p">.</span><span class="nx">Fatal</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div></figure>
+<hr class="docutils" />
+<p>Tested on: <tt class="docutils literal">Ubuntu Linux 17.04</tt>, <tt class="docutils literal">Go 1.8.1</tt>.</p>
+<hr class="docutils" />
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id6" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td><a class="reference external" href="https://news.ycombinator.com/item?id=14239194">Getting Started with Headless Chrome | Hacker News</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id7" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id3">[2]</a></td><td><div class="first last line-block">
+<div class="line"><a class="reference external" href="https://www.google.com/search?q=chrome+debugging+protocol+golang">chrome debugging protocol golang - Google search</a></div>
+<div class="line"><a class="reference external" href="https://duckduckgo.com/?q=chrome+debugging+protocol+golang">chrome debugging protocol golang - DuckDuckGo search</a></div>
+<div class="line"><a class="reference external" href="https://www.ecosia.org/search?q=chrome+debugging+protocol+golang">chrome debugging protocol golang - Ecosia search</a></div>
+<div class="line"><a class="reference external" href="https://www.qwant.com/?q=chrome+debugging+protocol+golang">chrome debugging protocol golang - Qwant search</a></div>
+<div class="line"><a class="reference external" href="https://www.bing.com/search?q=chrome+debugging+protocol+golang">chrome debugging protocol golang - Bing search</a></div>
+<div class="line"><a class="reference external" href="https://search.yahoo.com/search?p=chrome+debugging+protocol+golang">chrome debugging protocol golang - Yahoo search</a></div>
+<div class="line"><a class="reference external" href="https://www.baidu.com/s?wd=chrome+debugging+protocol+golang">chrome debugging protocol golang - Baidu search</a></div>
+<div class="line"><a class="reference external" href="https://www.yandex.com/search/?text=chrome+debugging+protocol+golang">chrome debugging protocol golang - Yandex search</a></div>
+</div>
+</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id8" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[3]</a></td><td><a class="reference external" href="https://github.com/knq/chromedp">GitHub - knq/chromedp: Package chromedp is a faster, simpler way to drive browsers (Chrome, Edge, Safari, Android, etc) without external dependencies (ie, Selenium, PhantomJS, etc) using the Chrome Debugging Protocol.</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id9" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id4">[4]</a></td><td><a class="reference external" href="/2016/01/06/python-web-scrape-javascript-webpage-by-dryscrape/">[Python] Web Scrape JavaScript Webpage by dryscrape</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id10" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id5">[5]</a></td><td><div class="first last line-block">
+<div class="line"><a class="reference external" href="/2016/04/23/go-read-yes-no-from-console/">[Golang] Read Yes/No From Console</a></div>
+<div class="line"><a class="reference external" href="https://www.google.com/search?q=golang+read+password">golang read password - Google search</a></div>
+</div>
+</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id11" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[6]</td><td><div class="first last line-block">
+<div class="line"><a class="reference external" href="http://web.jobbole.com/91489/">初探 Headless Chrome - WEB前端 - 伯乐在线</a></div>
+<div class="line"><a class="reference external" href="https://zhuanlan.zhihu.com/p/27100187">初探 Headless Chrome - 知乎专栏</a></div>
+</div>
+</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id12" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[7]</td><td><a class="reference external" href="https://old.reddit.com/r/golang/comments/9zhqga/whats_the_recommended_encryption_library_for_go/">What's the recommended encryption library for Go? : golang</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id13" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[8]</td><td><a class="reference external" href="https://old.reddit.com/r/golang/comments/9zui9g/library_for_accessing_the_pwned_passwords_api/">Library for accessing the Pwned Passwords API : golang</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id14" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[9]</td><td><a class="reference external" href="https://old.reddit.com/r/golang/comments/a176rf/question_about_context_package/">Question About Context Package : golang</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id15" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[10]</td><td><a class="reference external" href="https://old.reddit.com/r/golang/comments/a1s9no/validating_elliptic_curve_signatures_using_golang/">Validating elliptic curve signatures using Golang : golang</a></td></tr>
+</tbody>
+</table>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/go.html">Go</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/go.html">Go</a>
+,       <a href="/tag/golang.html">Golang</a>
+,       <a href="/tag/web-scrape.html">Web Scrape</a>
+,       <a href="/tag/scraping-javascript-web-page.html">Scraping JavaScript Web Page</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

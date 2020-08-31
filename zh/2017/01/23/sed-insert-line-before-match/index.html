@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>[sed] 在匹配前插入空行</title>
+  <meta name="keywords" content="Linux,sed"/>
+  <meta name="description" content="利用 sed 搜尋字串，若匹配則在此字串前插入空行"/>
+  <meta name="author" content="戴上為"/><meta property="og:title" content="[sed] 在匹配前插入空行" />    <meta property="og:image" content="/zh/../extra/Dharma_wheel.svg" /><meta property="og:description" content="利用 sed 搜尋字串，若匹配則在此字串前插入空行" /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/zh/../extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/zh/../theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/zh/">理論與實作</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/zh/pages/about.html">關於</a>
+    <a class="nav-item" href="/zh/archives.html">歸檔</a>
+    <a class="nav-item" href="/zh/categories.html">分類</a>
+    <a class="nav-item" href="/zh/tags.html">標籤</a>
+    <a class="nav-item" href="/zh/authors.html">作者</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/">English</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/zh/2017/01/23/sed-insert-line-before-match/"
+           rel="bookmark"
+           title="Permalink to [sed] 在匹配前插入空行">
+          [sed] 在匹配前插入空行
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2017-01-23T05:03:00+08:00">
+    一月 23, 2017
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2017/01/23/sed-insert-line-before-match%25zh.rst">在Github上編輯</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p>假設在某個目錄下，有許多副檔名為 <cite>.rst</cite> 的檔案，
+若檔案裡某一行開頭為 <tt class="docutils literal">:adsu</tt> ，則在此行前插入空行。</p>
+<p>舉例來說，假設檔案內容如下：</p>
+<div class="highlight"><pre><span></span>hello
+world
+:adsu
+你好
+世界
+</pre></div>
+<p>經過 <a class="reference external" href="https://www.google.com/search?q=sed">sed</a> 處理後，變成如下：</p>
+<div class="highlight"><pre><span></span>hello
+world
+
+:adsu
+你好
+世界
+</pre></div>
+
+<p>利用 <a class="reference external" href="https://www.google.com/search?q=Bash">Bash</a> script以及 <a class="reference external" href="https://www.google.com/search?q=sed">sed</a> 來達成此任務：</p>
+<div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+
+<span class="nv">rstdir</span><span class="o">=</span>content/articles/
+
+<span class="k">for</span> path in <span class="k">$(</span>find <span class="nv">$rstdir</span> -type f -name <span class="s2">&quot;*.rst&quot;</span><span class="k">)</span>
+<span class="k">do</span>
+  sed -i <span class="s1">&#39;0,/:adsu/s/:adsu/\n&amp;/&#39;</span> <span class="nv">$path</span>
+<span class="k">done</span>
+</pre></div>
+
+<hr class="docutils" />
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id1" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td><a class="reference external" href="http://stackoverflow.com/questions/30386483/command-to-insert-lines-before-first-match">linux - Command to insert lines before first match - Stack Overflow</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[2]</td><td><a class="reference external" href="/2016/05/23/bash-find-redundant-files-saved-by-chrome/">[Bash] Find Redundant Files Saved by Chrome</a></td></tr>
+</tbody>
+</table>
+</div>
+
+    <footer><hr><address><b>作者</b>:
+    <a rel="author"
+       href="/zh/author/dai-shang-wei.html">戴上為</a>
+  </address><aside>
+    <i>&isin;</i> <b>分類</b>:
+    <a href="/zh/category/linux.html">Linux</a>
+  </aside><aside>
+    <i>&sum;</i> <b>標籤</b>:
+      <a href="/zh/tag/linux.html">Linux</a>
+,       <a href="/zh/tag/sed.html">sed</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>[Golang] Caveats of GopherJS Development</title>
+  <meta name="keywords" content="Go,Golang,GopherJS,DOM,Go to JavaScript,XMLHttpRequest,html,Goroutine"/>
+  <meta name="description" content="Fix runtime error via goroutine in Go code compiled to JavaScript by GopherJS."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="[Golang] Caveats of GopherJS Development" />    <meta property="og:image" content="/./extra/Dharma_wheel.svg" /><meta property="og:description" content="Fix runtime error via goroutine in Go code compiled to JavaScript by GopherJS." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2016/02/07/go-caveat-of-gopherjs-development/"
+           rel="bookmark"
+           title="Permalink to [Golang] Caveats of GopherJS Development">
+          [Golang] Caveats of GopherJS Development
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2016-02-07T11:32:00+08:00">
+    February 07, 2016
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2016/02/07/go-caveat-of-gopherjs-development%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p>Fix runtime error via <a class="reference external" href="https://tour.golang.org/concurrency/1">goroutine</a> in <a class="reference external" href="https://golang.org/">Golang</a> code compiled to <a class="reference external" href="https://en.wikipedia.org/wiki/JavaScript">JavaScript</a> by
+<a class="reference external" href="http://www.gopherjs.org/">GopherJS</a>. I got runtime error when writing code to make <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest">XHR</a> requests and also
+code to generate <a class="reference external" href="http://www.w3schools.com/html/">HTML</a> via <a class="reference external" href="https://golang.org/pkg/html/template/">html/template</a></p>
+<p>The following code is an <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest">XHR</a> request to retrieve JSON data from server: <a class="footnote-reference" href="#id11" id="id1">[7]</a></p>
+<div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">XhrGetWordInfo</span><span class="p">(</span><span class="nx">word</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="nx">w</span> <span class="nx">WordInfo</span><span class="p">,</span> <span class="nx">err</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">resp</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">http</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="nx">HttpWordJsonPath</span><span class="p">(</span><span class="nx">word</span><span class="p">))</span>
+    <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+            <span class="k">return</span>
+    <span class="p">}</span>
+    <span class="k">defer</span> <span class="nx">resp</span><span class="p">.</span><span class="nx">Body</span><span class="p">.</span><span class="nx">Close</span><span class="p">()</span>
+
+    <span class="nx">dec</span> <span class="o">:=</span> <span class="nx">json</span><span class="p">.</span><span class="nx">NewDecoder</span><span class="p">(</span><span class="nx">resp</span><span class="p">.</span><span class="nx">Body</span><span class="p">)</span>
+    <span class="nx">err</span> <span class="p">=</span> <span class="nx">dec</span><span class="p">.</span><span class="nx">Decode</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">w</span><span class="p">)</span>
+    <span class="k">return</span>
+<span class="p">}</span>
+</pre></div>
+<p><em>XhrGetWordInfo</em> is called by:</p>
+<div class="highlight"><pre><span></span><span class="nx">XhrGetWordInfo</span><span class="p">(</span><span class="s">&quot;sacca&quot;</span><span class="p">)</span>
+</pre></div>
+
+<p>The following error showed up in browser console: <a class="footnote-reference" href="#id8" id="id2">[4]</a></p>
+<div class="highlight"><pre><span></span>Uncaught Error: runtime error: cannot block in JavaScript callback, fix by wrapping code in goroutine
+Uncaught TypeError: r is not a function
+</pre></div>
+<p>After some trial and error, the correct way to make <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest">XHR</a> requests is: <a class="footnote-reference" href="#id9" id="id3">[5]</a></p>
+<div class="highlight"><pre><span></span><span class="k">go</span> <span class="nx">XhrGetWordInfo</span><span class="p">(</span><span class="s">&quot;sacca&quot;</span><span class="p">)</span>
+</pre></div>
+<p>The code must be wrapped in <a class="reference external" href="https://tour.golang.org/concurrency/1">goroutine</a> to prevent blocking the execution.</p>
+<p>Similar situation <a class="footnote-reference" href="#id10" id="id4">[6]</a> happened again and the same solution was applied to fix
+the runtime error when generating <a class="reference external" href="http://www.w3schools.com/html/">HTML</a> via <a class="reference external" href="https://golang.org/pkg/html/template/">html/template</a>.</p>
+
+<hr class="docutils" />
+<p>Tested on: <tt class="docutils literal">Ubuntu Linux 15.10</tt>, <tt class="docutils literal">Go 1.5.3</tt>,
+<tt class="docutils literal">Chromium Version 48.0.2564.82 Ubuntu 15.10 <span class="pre">(64-bit)</span></tt>.</p>
+<hr class="docutils" />
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id5" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td><a class="reference external" href="http://www.gopherjs.org/">GopherJS - A compiler from Go to JavaScript</a>
+(<a class="reference external" href="https://github.com/gopherjs/gopherjs">GitHub</a>,
+<a class="reference external" href="http://www.gopherjs.org/playground/">GopherJS Playground</a>,
+<a class="reference external" href="https://godoc.org/github.com/gopherjs/gopherjs/js"><img alt="godoc" src="https://godoc.org/github.com/gopherjs/gopherjs/js?status.png" /></a>)</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id6" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[2]</td><td><a class="reference external" href="https://github.com/gopherjs/gopherjs/wiki/bindings">Bindings · gopherjs/gopherjs Wiki · GitHub</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id7" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[3]</td><td><a class="reference external" href="https://godoc.org/honnef.co/go/js/dom">dom - GopherJS bindings for the JavaScript DOM APIs</a>
+(<a class="reference external" href="https://github.com/dominikh/go-js-dom">GitHub</a>)</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id8" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[4]</a></td><td><a class="reference external" href="https://github.com/gopherjs/gopherjs/issues/389">net/http not working · Issue #389 · gopherjs/gopherjs · GitHub</a></td></tr>
+</tbody>
+</table>
+
+<table class="docutils footnote" frame="void" id="id9" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id3">[5]</a></td><td><a class="reference external" href="https://github.com/siongui/pali/commit/244565656c019a41625fd4337594b757cbfb606e">use net/http by goroutine · siongui/pali&#64;2445656 · GitHub</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id10" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id4">[6]</a></td><td><a class="reference external" href="https://github.com/siongui/pali/commit/39ffdf9589c98fa8ed85a09a609cfe3e936897d8">fix bug: use html/template by goroutine · siongui/pali&#64;39ffdf9 · GitHub</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id11" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[7]</a></td><td><a class="reference external" href="https://github.com/siongui/pali/commit/f8f1475af0935419b29e7f79963e1d7e4a0b5944">handle input text enter event. Bug: net/http not working · siongui/pali&#64;f8f1475 · GitHub</a></td></tr>
+</tbody>
+</table>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/gopherjs.html">GopherJS</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/go.html">Go</a>
+,       <a href="/tag/golang.html">Golang</a>
+,       <a href="/tag/gopherjs.html">GopherJS</a>
+,       <a href="/tag/dom.html">DOM</a>
+,       <a href="/tag/go-to-javascript.html">Go to JavaScript</a>
+,       <a href="/tag/xmlhttprequest.html">XMLHttpRequest</a>
+,       <a href="/tag/html.html">html</a>
+,       <a href="/tag/goroutine.html">Goroutine</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

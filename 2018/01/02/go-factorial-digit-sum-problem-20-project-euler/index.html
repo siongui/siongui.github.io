@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>[Golang] Factorial digit sum - Problem 20 - Project Euler</title>
+  <meta name="keywords" content="Go,Golang,Algorithm,Math,Project Euler,Large Integer Arithmetic"/>
+  <meta name="description" content="Go solution to Factorial digit sum - Problem 20 - Project Euler."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="[Golang] Factorial digit sum - Problem 20 - Project Euler" /><meta property="og:image" content="https://benvitalenum3ers.files.wordpress.com/2014/02/factorials-1.png" />
+<meta property="og:description" content="Go solution to Factorial digit sum - Problem 20 - Project Euler." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2018/01/02/go-factorial-digit-sum-problem-20-project-euler/"
+           rel="bookmark"
+           title="Permalink to [Golang] Factorial digit sum - Problem 20 - Project Euler">
+          [Golang] Factorial digit sum - Problem 20 - Project Euler
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2018-01-02T22:30:00+08:00">
+    January 02, 2018
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2017/12/31/go-factorial-digit-sum-problem-20-project-euler%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p><strong>Problem</strong>: <a class="footnote-reference" href="#id3" id="id1">[1]</a></p>
+<blockquote>
+<p>n! means n × (n − 1) × ... × 3 × 2 × 1</p>
+<p>For example, 10! = 10 × 9 × ... × 3 × 2 × 1 = 3628800,
+and the sum of the digits in the number 10! is 3 + 6 + 2 + 8 + 8 + 0 + 0 = 27.</p>
+<p>Find the sum of the digits in the number 100!</p>
+</blockquote>
+<p><strong>Solution</strong>:</p>
+<blockquote>
+<p>We use large number multiplication <a class="footnote-reference" href="#id4" id="id2">[2]</a> to calcualte 100!</p>
+<p>100! = 93326215443944152681699238856266700490715968264381621468592963895217599993229915608941463976156518286253697920827223758251185210916864000000000000000000000000</p>
+<p>sum of digits = 648</p>
+</blockquote>
+<p class="align-center rubric"><a class="reference external" href="https://play.golang.org/p/Pn14mMMbQXF">Run Code on Go Playground</a></p>
+<div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+      <span class="s">&quot;fmt&quot;</span>
+      <span class="s">&quot;strconv&quot;</span>
+<span class="p">)</span>
+
+<span class="kd">const</span> <span class="nx">MaxDigits</span> <span class="p">=</span> <span class="mi">200</span>
+<span class="kd">const</span> <span class="nx">BASE</span> <span class="p">=</span> <span class="mi">10</span>
+
+<span class="kd">func</span> <span class="nx">MakePositiveInt</span><span class="p">(</span><span class="nx">s</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="nx">n</span> <span class="p">[</span><span class="nx">MaxDigits</span><span class="p">]</span><span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+      <span class="c1">// make n zero</span>
+      <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nx">MaxDigits</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+              <span class="nx">n</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="mi">0</span>
+      <span class="p">}</span>
+
+      <span class="k">for</span> <span class="nx">index</span><span class="p">,</span> <span class="nx">digit</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">s</span> <span class="p">{</span>
+              <span class="nx">i</span> <span class="o">:=</span> <span class="nb">len</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span> <span class="o">-</span> <span class="nx">index</span> <span class="o">-</span> <span class="mi">1</span>
+              <span class="k">switch</span> <span class="nx">digit</span> <span class="p">{</span>
+              <span class="k">case</span> <span class="sc">&#39;0&#39;</span><span class="p">:</span>
+                      <span class="nx">n</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="mi">0</span>
+              <span class="k">case</span> <span class="sc">&#39;1&#39;</span><span class="p">:</span>
+                      <span class="nx">n</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="mi">1</span>
+              <span class="k">case</span> <span class="sc">&#39;2&#39;</span><span class="p">:</span>
+                      <span class="nx">n</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="mi">2</span>
+              <span class="k">case</span> <span class="sc">&#39;3&#39;</span><span class="p">:</span>
+                      <span class="nx">n</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="mi">3</span>
+              <span class="k">case</span> <span class="sc">&#39;4&#39;</span><span class="p">:</span>
+                      <span class="nx">n</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="mi">4</span>
+              <span class="k">case</span> <span class="sc">&#39;5&#39;</span><span class="p">:</span>
+                      <span class="nx">n</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="mi">5</span>
+              <span class="k">case</span> <span class="sc">&#39;6&#39;</span><span class="p">:</span>
+                      <span class="nx">n</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="mi">6</span>
+              <span class="k">case</span> <span class="sc">&#39;7&#39;</span><span class="p">:</span>
+                      <span class="nx">n</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="mi">7</span>
+              <span class="k">case</span> <span class="sc">&#39;8&#39;</span><span class="p">:</span>
+                      <span class="nx">n</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="mi">8</span>
+              <span class="k">case</span> <span class="sc">&#39;9&#39;</span><span class="p">:</span>
+                      <span class="nx">n</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="mi">9</span>
+              <span class="k">default</span><span class="p">:</span>
+                      <span class="nb">panic</span><span class="p">(</span><span class="s">&quot;invalid digit in number string&quot;</span><span class="p">)</span>
+              <span class="p">}</span>
+      <span class="p">}</span>
+
+      <span class="k">return</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nx">AddPositiveInt</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span> <span class="p">[</span><span class="nx">MaxDigits</span><span class="p">]</span><span class="kt">int</span><span class="p">)</span> <span class="p">(</span><span class="nx">c</span> <span class="p">[</span><span class="nx">MaxDigits</span><span class="p">]</span><span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">carry</span><span class="p">,</span> <span class="nx">sum</span> <span class="p">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
+
+      <span class="c1">// make c zero</span>
+      <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nx">MaxDigits</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+              <span class="nx">c</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="mi">0</span>
+      <span class="p">}</span>
+
+      <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nx">MaxDigits</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+              <span class="nx">sum</span> <span class="p">=</span> <span class="nx">a</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">+</span> <span class="nx">b</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">+</span> <span class="nx">carry</span>
+
+              <span class="k">if</span> <span class="nx">sum</span> <span class="o">&gt;=</span> <span class="nx">BASE</span> <span class="p">{</span>
+                      <span class="nx">carry</span> <span class="p">=</span> <span class="mi">1</span>
+                      <span class="nx">sum</span> <span class="o">-=</span> <span class="nx">BASE</span>
+              <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                      <span class="nx">carry</span> <span class="p">=</span> <span class="mi">0</span>
+              <span class="p">}</span>
+
+              <span class="nx">c</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="nx">sum</span>
+      <span class="p">}</span>
+
+      <span class="k">if</span> <span class="nx">carry</span> <span class="o">!=</span> <span class="mi">0</span> <span class="p">{</span>
+              <span class="nb">panic</span><span class="p">(</span><span class="s">&quot;overflow in addition&quot;</span><span class="p">)</span>
+      <span class="p">}</span>
+
+      <span class="k">return</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nx">MultiplyOneDigit</span><span class="p">(</span><span class="nx">a</span> <span class="p">[</span><span class="nx">MaxDigits</span><span class="p">]</span><span class="kt">int</span><span class="p">,</span> <span class="nx">n</span> <span class="kt">int</span><span class="p">)</span> <span class="p">(</span><span class="nx">b</span> <span class="p">[</span><span class="nx">MaxDigits</span><span class="p">]</span><span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">carry</span> <span class="p">=</span> <span class="mi">0</span>
+
+      <span class="c1">// make b zero</span>
+      <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nx">MaxDigits</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+              <span class="nx">b</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="mi">0</span>
+      <span class="p">}</span>
+
+      <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nx">MaxDigits</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+              <span class="nx">b</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="nx">n</span> <span class="o">*</span> <span class="nx">a</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span>
+
+              <span class="nx">b</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">+=</span> <span class="nx">carry</span>
+
+              <span class="k">if</span> <span class="nx">b</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="nx">BASE</span> <span class="p">{</span>
+                      <span class="nx">carry</span> <span class="p">=</span> <span class="nx">b</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">/</span> <span class="nx">BASE</span>
+                      <span class="nx">b</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">%=</span> <span class="nx">BASE</span>
+              <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                      <span class="nx">carry</span> <span class="p">=</span> <span class="mi">0</span>
+              <span class="p">}</span>
+      <span class="p">}</span>
+
+      <span class="k">if</span> <span class="nx">carry</span> <span class="o">!=</span> <span class="mi">0</span> <span class="p">{</span>
+              <span class="nb">panic</span><span class="p">(</span><span class="s">&quot;overflow in multiplication&quot;</span><span class="p">)</span>
+      <span class="p">}</span>
+
+      <span class="k">return</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nx">ShiftLeft</span><span class="p">(</span><span class="nx">a</span> <span class="p">[</span><span class="nx">MaxDigits</span><span class="p">]</span><span class="kt">int</span><span class="p">,</span> <span class="nx">n</span> <span class="kt">int</span><span class="p">)</span> <span class="p">[</span><span class="nx">MaxDigits</span><span class="p">]</span><span class="kt">int</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">i</span> <span class="kt">int</span>
+
+      <span class="k">for</span> <span class="nx">i</span> <span class="p">=</span> <span class="nx">MaxDigits</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&gt;=</span> <span class="nx">n</span><span class="p">;</span> <span class="nx">i</span><span class="o">--</span> <span class="p">{</span>
+              <span class="nx">a</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="nx">a</span><span class="p">[</span><span class="nx">i</span><span class="o">-</span><span class="nx">n</span><span class="p">]</span>
+      <span class="p">}</span>
+      <span class="k">for</span> <span class="nx">i</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="p">{</span>
+              <span class="nx">a</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="mi">0</span>
+              <span class="nx">i</span> <span class="o">-=</span> <span class="mi">1</span>
+      <span class="p">}</span>
+
+      <span class="k">return</span> <span class="nx">a</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nx">MultiplyPositiveInt</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span> <span class="p">[</span><span class="nx">MaxDigits</span><span class="p">]</span><span class="kt">int</span><span class="p">)</span> <span class="p">(</span><span class="nx">c</span> <span class="p">[</span><span class="nx">MaxDigits</span><span class="p">]</span><span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+      <span class="c1">// make c zero</span>
+      <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nx">MaxDigits</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+              <span class="nx">c</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="mi">0</span>
+      <span class="p">}</span>
+
+      <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nx">MaxDigits</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+              <span class="nx">tmp</span> <span class="o">:=</span> <span class="nx">MultiplyOneDigit</span><span class="p">(</span><span class="nx">b</span><span class="p">,</span> <span class="nx">a</span><span class="p">[</span><span class="nx">i</span><span class="p">])</span>
+              <span class="nx">tmp</span> <span class="p">=</span> <span class="nx">ShiftLeft</span><span class="p">(</span><span class="nx">tmp</span><span class="p">,</span> <span class="nx">i</span><span class="p">)</span>
+              <span class="nx">c</span> <span class="p">=</span> <span class="nx">AddPositiveInt</span><span class="p">(</span><span class="nx">c</span><span class="p">,</span> <span class="nx">tmp</span><span class="p">)</span>
+      <span class="p">}</span>
+
+      <span class="k">return</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nx">PrintPositiveInt</span><span class="p">(</span><span class="nx">a</span> <span class="p">[</span><span class="nx">MaxDigits</span><span class="p">]</span><span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">isLeadingZero</span> <span class="o">:=</span> <span class="kc">true</span>
+      <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="nx">MaxDigits</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="o">--</span> <span class="p">{</span>
+              <span class="k">if</span> <span class="nx">isLeadingZero</span> <span class="o">&amp;&amp;</span> <span class="nx">a</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+                      <span class="k">continue</span>
+              <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                      <span class="nx">isLeadingZero</span> <span class="p">=</span> <span class="kc">false</span>
+                      <span class="nx">fmt</span><span class="p">.</span><span class="nx">Print</span><span class="p">(</span><span class="nx">a</span><span class="p">[</span><span class="nx">i</span><span class="p">])</span>
+              <span class="p">}</span>
+      <span class="p">}</span>
+      <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;\n&quot;</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+      <span class="nx">result</span> <span class="o">:=</span> <span class="nx">MakePositiveInt</span><span class="p">(</span><span class="s">&quot;1&quot;</span><span class="p">)</span>
+      <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">2</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;=</span> <span class="mi">100</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+              <span class="nx">s</span> <span class="o">:=</span> <span class="nx">strconv</span><span class="p">.</span><span class="nx">Itoa</span><span class="p">(</span><span class="nx">i</span><span class="p">)</span>
+              <span class="nx">tmp</span> <span class="o">:=</span> <span class="nx">MakePositiveInt</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span>
+              <span class="nx">result</span> <span class="p">=</span> <span class="nx">MultiplyPositiveInt</span><span class="p">(</span><span class="nx">result</span><span class="p">,</span> <span class="nx">tmp</span><span class="p">)</span>
+      <span class="p">}</span>
+      <span class="nx">PrintPositiveInt</span><span class="p">(</span><span class="nx">result</span><span class="p">)</span>
+
+      <span class="nx">sum</span> <span class="o">:=</span> <span class="mi">0</span>
+      <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nx">MaxDigits</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+              <span class="nx">sum</span> <span class="o">+=</span> <span class="nx">result</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span>
+      <span class="p">}</span>
+      <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">sum</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>Tested on: <a class="reference external" href="https://play.golang.org/">Go Playground</a></p>
+<hr class="docutils" />
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td><a class="reference external" href="https://projecteuler.net/problem=20">Factorial digit sum - Problem 20 - Project Euler</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[2]</a></td><td><a class="reference external" href="/2017/12/31/go-big-natural-number-multiplication/">[Golang] Large Positive Integer Multiplication</a></td></tr>
+</tbody>
+</table>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/go.html">Go</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/go.html">Go</a>
+,       <a href="/tag/golang.html">Golang</a>
+,       <a href="/tag/algorithm.html">Algorithm</a>
+,       <a href="/tag/math.html">Math</a>
+,       <a href="/tag/project-euler.html">Project Euler</a>
+,       <a href="/tag/large-integer-arithmetic.html">Large Integer Arithmetic</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

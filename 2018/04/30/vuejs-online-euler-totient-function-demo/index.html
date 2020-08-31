@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>[Vue.js] Online Euler's Totient Function Demo</title>
+  <meta name="keywords" content="Vue.js,JavaScript,Algorithm,Prime Number,Math"/>
+  <meta name="description" content="Euler's Totient Function φ(n) counts the positive integers that are relatively prime to n. This online demo use naive method to calculate φ(n) and positive integers coprime to n."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="[Vue.js] Online Euler's Totient Function Demo" /><meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/EulerPhi.svg/1200px-EulerPhi.svg.png" />
+<meta property="og:description" content="Euler's Totient Function φ(n) counts the positive integers that are relatively prime to n. This online demo use naive method to calculate φ(n) and positive integers coprime to n." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2018/04/30/vuejs-online-euler-totient-function-demo/"
+           rel="bookmark"
+           title="Permalink to [Vue.js] Online Euler's Totient Function Demo">
+          [Vue.js] Online Euler's Totient Function Demo
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2018-04-30T23:46:00+08:00">
+    April 30, 2018
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2018/04/30/vuejs-online-euler-totient-function-demo%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p><a class="reference external" href="https://www.google.com/search?q=Euler's+totient+function">Euler's Totient Function</a> φ(n) counts the positive integers that are relatively
+prime to n, i.e., the number of positive integers whose GCD (Greatest Common
+Divisor) with n is 1.</p>
+<p>This online demo use naive method to calculate φ(n) and positive integers
+coprime to n. The UI interaction is written using <a class="reference external" href="https://vuejs.org/">Vue.js</a>, and the algorithm is
+implemented using JavaScript.</p>
+<div id="vueapp" style="margin: 2rem;">
+
+<div id="vueapp">
+  input positive integer: <input v-model="intn" placeholder="Input positive integer">
+  <p>φ(n): {{ phi }}</p>
+  <p>Numbers coprime to n: {{ coprimes }}</p>
+  <p>{{ message }}</p>
+</div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script><script>
+'use strict';
+
+// greatest common divisor (GCD) via Euclidean algorithm
+function GCD(a, b) {
+    while (b != 0) {
+            var t = b;
+            b = a % b;
+            a = t;
+    }
+    return a;
+}
+
+// Euler’s Totient Function
+function Phi(n) {
+    var result = {phi:1, coprimes: [1]};
+    for (var i = 2; i < n; i++) {
+            if (GCD(i, n) == 1) {
+                    result.phi += 1;
+                    result.coprimes.push(i);
+            }
+    }
+    return result;
+}
+
+new Vue({
+  el: '#vueapp',
+  data: {
+    intn: 1,
+    phi: "",
+    coprimes: "",
+    message: ""
+  },
+  watch: {
+    intn: {
+      immediate: true,
+      handler(val, oldVal) {
+        var n = parseInt(val);
+        if (isNaN(n)) {
+          this.message = "please input integer";
+          return;
+        }
+        if (n < 1) {
+          this.message = "input integer must >= 1";
+          return;
+        }
+        this.message = "";
+
+        var result = Phi(n);
+        this.phi = result.phi;
+        this.coprimes = result.coprimes;
+      }
+    }
+  }
+});
+</script><p><strong>HTML</strong>:</p>
+<div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;vueapp&quot;</span><span class="p">&gt;</span>
+  input positive integer: <span class="p">&lt;</span><span class="nt">input</span> <span class="na">v-model</span><span class="o">=</span><span class="s">&quot;intn&quot;</span> <span class="na">placeholder</span><span class="o">=</span><span class="s">&quot;Input positive integer&quot;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>φ(n): {{ phi }}<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Numbers coprime to n: {{ coprimes }}<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>{{ message }}<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</pre></div>
+<p>Given an input from user, we check if the input is a positive integer. Then we
+run GCD algorithm to check if the number is coprime to n. If yes, add the number
+to our result.</p>
+<p><strong>JavaScript</strong>:</p>
+<div class="highlight"><pre><span></span><span class="s1">&#39;use strict&#39;</span><span class="p">;</span>
+
+<span class="c1">// greatest common divisor (GCD) via Euclidean algorithm</span>
+<span class="kd">function</span> <span class="nx">GCD</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">while</span> <span class="p">(</span><span class="nx">b</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">t</span> <span class="o">=</span> <span class="nx">b</span><span class="p">;</span>
+            <span class="nx">b</span> <span class="o">=</span> <span class="nx">a</span> <span class="o">%</span> <span class="nx">b</span><span class="p">;</span>
+            <span class="nx">a</span> <span class="o">=</span> <span class="nx">t</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">a</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// Euler’s Totient Function</span>
+<span class="kd">function</span> <span class="nx">Phi</span><span class="p">(</span><span class="nx">n</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="p">{</span><span class="nx">phi</span><span class="o">:</span><span class="mi">1</span><span class="p">,</span> <span class="nx">coprimes</span><span class="o">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">]};</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">n</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">GCD</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span> <span class="nx">n</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="nx">result</span><span class="p">.</span><span class="nx">phi</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
+                    <span class="nx">result</span><span class="p">.</span><span class="nx">coprimes</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">i</span><span class="p">);</span>
+            <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">result</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span>
+  <span class="nx">el</span><span class="o">:</span> <span class="s1">&#39;#vueapp&#39;</span><span class="p">,</span>
+  <span class="nx">data</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">intn</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="nx">phi</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+    <span class="nx">coprimes</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+    <span class="nx">message</span><span class="o">:</span> <span class="s2">&quot;&quot;</span>
+  <span class="p">},</span>
+  <span class="nx">watch</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">intn</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">immediate</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+      <span class="nx">handler</span><span class="p">(</span><span class="nx">val</span><span class="p">,</span> <span class="nx">oldVal</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">n</span> <span class="o">=</span> <span class="nb">parseInt</span><span class="p">(</span><span class="nx">val</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">isNaN</span><span class="p">(</span><span class="nx">n</span><span class="p">))</span> <span class="p">{</span>
+          <span class="k">this</span><span class="p">.</span><span class="nx">message</span> <span class="o">=</span> <span class="s2">&quot;please input integer&quot;</span><span class="p">;</span>
+          <span class="k">return</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">n</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+          <span class="k">this</span><span class="p">.</span><span class="nx">message</span> <span class="o">=</span> <span class="s2">&quot;input integer must &gt;= 1&quot;</span><span class="p">;</span>
+          <span class="k">return</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">message</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+
+        <span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">Phi</span><span class="p">(</span><span class="nx">n</span><span class="p">);</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">phi</span> <span class="o">=</span> <span class="nx">result</span><span class="p">.</span><span class="nx">phi</span><span class="p">;</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">coprimes</span> <span class="o">=</span> <span class="nx">result</span><span class="p">.</span><span class="nx">coprimes</span><span class="p">;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</pre></div>
+
+<hr class="docutils" />
+<p>Tested on:</p>
+<ul class="simple">
+<li><tt class="docutils literal">Chromium 65.0.3325.181 on Ubuntu 17.10 <span class="pre">(64-bit)</span></tt></li>
+<li><tt class="docutils literal">Vue.js 2.5.16</tt></li>
+</ul>
+<hr class="docutils" />
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id1" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td><a class="reference external" href="/2017/06/04/go-euler-totient-function/">[Golang] Euler's Totient Function</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[2]</td><td><a class="reference external" href="/2018/04/29/vuejs-online-goldbach-conjecture-demo/">[Vue.js] Online Goldbach's Conjecture Demo</a></td></tr>
+</tbody>
+</table>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/vuejs.html">Vue.js</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/vuejs.html">Vue.js</a>
+,       <a href="/tag/javascript.html">JavaScript</a>
+,       <a href="/tag/algorithm.html">Algorithm</a>
+,       <a href="/tag/prime-number.html">Prime Number</a>
+,       <a href="/tag/math.html">Math</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

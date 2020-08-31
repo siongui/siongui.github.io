@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>[Makefile] String Replacement Example</title>
+  <meta name="keywords" content="Bash,Makefile,Commandline,String Manipulation"/>
+  <meta name="description" content="Example for how to replace a string in a variable in Makefile."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="[Makefile] String Replacement Example" />    <meta property="og:image" content="/./extra/Dharma_wheel.svg" /><meta property="og:description" content="Example for how to replace a string in a variable in Makefile." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2016/04/08/makefile-string-replace/"
+           rel="bookmark"
+           title="Permalink to [Makefile] String Replacement Example">
+          [Makefile] String Replacement Example
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2016-04-08T03:41:00+08:00">
+    April 08, 2016
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2016/04/08/makefile-string-replace%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><div class="line-block">
+<div class="line">First example: replace <tt class="docutils literal">.</tt> with <tt class="docutils literal">-</tt></div>
+<div class="line">i.e.,</div>
+<div class="line"><tt class="docutils literal"><span class="pre">mn.004.contrast-reading.html</span></tt> =&gt; <tt class="docutils literal"><span class="pre">mn-004-contrast-reading-html</span></tt></div>
+<div class="line"><br /></div>
+<div class="line"><br /></div>
+<div class="line">Second example: replace ending <tt class="docutils literal">.html</tt> with <tt class="docutils literal">%zh.rst</tt></div>
+<div class="line">i.e.,</div>
+<div class="line"><tt class="docutils literal"><span class="pre">mn.004.contrast-reading.html</span></tt> =&gt; <tt class="docutils literal"><span class="pre">mn.004.contrast-reading%zh.rst</span></tt></div>
+</div>
+<hr class="docutils" />
+
+<p>Source code:</p>
+<figure class="github-file">
+            <figcaption>
+              <a href="https://github.com/siongui/userpages/blob/master/content/code/make/replace-string/Makefile">Makefile</a> |
+              <a href="https://github.com/siongui/userpages">repository</a> |
+              <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/code/make/replace-string/Makefile">view raw</a>
+            </figcaption><div class="code-file">
+            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="nv">FILENAME</span><span class="o">:=</span> mn.004.contrast-reading.html
+
+<span class="nv">DOT</span><span class="o">:=</span> .
+<span class="nv">DASH</span><span class="o">:=</span> -
+<span class="c"># replace . with -</span>
+<span class="nv">RESULT</span><span class="o">=</span> <span class="k">$(</span>subst <span class="k">$(</span>DOT<span class="k">)</span>,<span class="k">$(</span>DASH<span class="k">)</span>,<span class="k">$(</span>FILENAME<span class="k">))</span>
+
+<span class="nv">HTML_SUFFIX</span><span class="o">:=</span> .html
+<span class="nv">RST_SUFFIX</span><span class="o">:=</span> <span class="se">\%</span>zh.rst
+<span class="c"># replace .html with %zh.rst</span>
+<span class="nv">RESULT2</span><span class="o">=</span> <span class="k">$(</span>subst <span class="k">$(</span>HTML_SUFFIX<span class="k">)</span>,<span class="k">$(</span>RST_SUFFIX<span class="k">)</span>,<span class="k">$(</span>FILENAME<span class="k">))</span>
+
+
+<span class="nf">default</span><span class="o">:</span>
+	@echo <span class="k">$(</span>RESULT<span class="k">)</span>
+	@echo <span class="k">$(</span>RESULT2<span class="k">)</span>
+</pre></div>
+</td></tr></table></div></figure>
+<p>Output:</p>
+<div class="highlight"><pre><span></span>mn-004-contrast-reading-html
+mn.004.contrast-reading%zh.rst
+</pre></div>
+<hr class="docutils" />
+<p>Tested on <tt class="docutils literal">Ubuntu Linux 15.10</tt>, <a class="reference external" href="http://packages.ubuntu.com/wily/make">GNU make 4.0-8.2</a>.</p>
+<hr class="docutils" />
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id1" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td><p class="first"><a class="reference external" href="https://www.google.com/search?q=shell+replace+character+in+string">shell replace character in string - Google search</a></p>
+<p><a class="reference external" href="https://duckduckgo.com/?q=shell+replace+character+in+string">shell replace character in string - DuckDuckGo search</a></p>
+<p><a class="reference external" href="https://www.bing.com/search?q=shell+replace+character+in+string">shell replace character in string - Bing search</a></p>
+<p><a class="reference external" href="https://search.yahoo.com/search?p=shell+replace+character+in+string">shell replace character in string - Yahoo search</a></p>
+<p><a class="reference external" href="https://www.baidu.com/s?wd=shell+replace+character+in+string">shell replace character in string - Baidu search</a></p>
+<p class="last"><a class="reference external" href="https://www.yandex.com/search/?text=shell+replace+character+in+string">shell replace character in string - Yandex search</a></p>
+</td></tr>
+</tbody>
+</table>
+
+<table class="docutils footnote" frame="void" id="id2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[2]</td><td><p class="first"><a class="reference external" href="https://www.google.com/search?q=makefile+replace+string+in+variable">makefile replace string in variable - Google search</a></p>
+<p><a class="reference external" href="https://duckduckgo.com/?q=makefile+replace+string+in+variable">makefile replace string in variable - DuckDuckGo search</a></p>
+<p><a class="reference external" href="https://www.bing.com/search?q=makefile+replace+string+in+variable">makefile replace string in variable - Bing search</a></p>
+<p><a class="reference external" href="https://search.yahoo.com/search?p=makefile+replace+string+in+variable">makefile replace string in variable - Yahoo search</a></p>
+<p><a class="reference external" href="https://www.baidu.com/s?wd=makefile+replace+string+in+variable">makefile replace string in variable - Baidu search</a></p>
+<p><a class="reference external" href="https://www.yandex.com/search/?text=makefile+replace+string+in+variable">makefile replace string in variable - Yandex search</a></p>
+<p class="last"><a class="reference external" href="ftp://ftp.gnu.org/old-gnu/Manuals/make-3.79.1/html_chapter/make_8.html">GNU make - Functions for Transforming Text</a></p>
+</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[3]</td><td><a class="reference external" href="https://github.com/twnanda/twnanda/commit/0323a193209a72041d7edb9e571125a5ce033844">makefile file name manipulation · twnanda/twnanda&#64;0323a19 · GitHub</a></td></tr>
+</tbody>
+</table>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/bash.html">Bash</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/bash.html">Bash</a>
+,       <a href="/tag/makefile.html">Makefile</a>
+,       <a href="/tag/commandline.html">Commandline</a>
+,       <a href="/tag/string-manipulation.html">String Manipulation</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

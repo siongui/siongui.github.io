@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>[Vim] Replace Using Regular Expression Group</title>
+  <meta name="keywords" content="Bash,String Manipulation,Regular Expression,Vim"/>
+  <meta name="description" content="Use regular expresion groups to replace texts in Vim."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="[Vim] Replace Using Regular Expression Group" /><meta property="og:image" content="https://image.slidesharecdn.com/pycon2016-160814073914/95/pycon-apac-2016-regular-expressionaz-34-638.jpg" />
+<meta property="og:description" content="Use regular expresion groups to replace texts in Vim." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2018/12/01/vim-replace-using-regular-expression-group/"
+           rel="bookmark"
+           title="Permalink to [Vim] Replace Using Regular Expression Group">
+          [Vim] Replace Using Regular Expression Group
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2018-12-01T00:36:00+08:00">
+    December 01, 2018
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2018/12/01/vim-replace-using-regular-expression-group%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p><strong>Question</strong></p>
+<blockquote>
+<p>I want to turn the following texts:</p>
+<div class="highlight"><pre><span></span>C413 TYPE
+C414 TYPE
+C415 TYPE
+</pre></div>
+<p>into:</p>
+<div class="highlight"><pre><span></span>平鐵板 C413
+平鐵板 C414
+平鐵板 C415
+</pre></div>
+<p>How to do it in <a class="reference external" href="http://www.vim.org/">Vim</a> editor?</p>
+</blockquote>
+<p><strong>Answer</strong></p>
+<blockquote>
+<p>I know that <a class="reference external" href="https://duckduckgo.com/?q=regular+expression">regular expression</a> groups can help me solve the problem, so I
+make some DuckDuckGo search <a class="footnote-reference" href="#id3" id="id1">[1]</a> and found that someone have the same problem
+as me <a class="footnote-reference" href="#id4" id="id2">[2]</a>. I follow the example and come up with my own answer:</p>
+<div class="highlight"><pre><span></span><span class="p">:</span>%s<span class="sr">/\(C\d\d\d\) TYPE/</span>平鐵板 \<span class="m">1</span>/gc
+</pre></div>
+</blockquote>
+
+<hr class="docutils" />
+<p>Tested on <tt class="docutils literal">Ubuntu Linux 18.04</tt>, <tt class="docutils literal">vim <span class="pre">2:8.0.1453-1ubuntu1</span></tt>.</p>
+<hr class="docutils" />
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td><a class="reference external" href="https://duckduckgo.com/?q=vim+replace+with+named+group">vim replace with named group at DuckDuckGo</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[2]</a></td><td><a class="reference external" href="https://stackoverflow.com/questions/19902089/vim-regex-capture-groups-bau-byau-ceu-cyeu">Vim Regex Capture Groups [bau -&gt; byau : ceu -&gt; cyeu] - Stack Overflow</a></td></tr>
+</tbody>
+</table>
+<!-- :%s/\(C\d\d\d\) TYPE/平鐵板 \1/gc -->
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/bash.html">Bash</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/bash.html">Bash</a>
+,       <a href="/tag/string-manipulation.html">String Manipulation</a>
+,       <a href="/tag/regular-expression.html">Regular Expression</a>
+,       <a href="/tag/vim.html">Vim</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

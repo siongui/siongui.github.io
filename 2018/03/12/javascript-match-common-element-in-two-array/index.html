@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>[JavaScript] Intersection of Two Arrays</title>
+  <meta name="keywords" content="JavaScript,Algorithm,Set Operation"/>
+  <meta name="description" content="Find common elements (matches, intersection) of two arrays in JavaScript."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="[JavaScript] Intersection of Two Arrays" /><meta property="og:image" content="http://4.bp.blogspot.com/-034xqHwdXwU/UqWAJEoDWKI/AAAAAAAAAHk/HyCOJbka4CU/s400/Intersection+of+two+arrays+java+coding+.jpg" />
+<meta property="og:description" content="Find common elements (matches, intersection) of two arrays in JavaScript." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2018/03/12/javascript-match-common-element-in-two-array/"
+           rel="bookmark"
+           title="Permalink to [JavaScript] Intersection of Two Arrays">
+          [JavaScript] Intersection of Two Arrays
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2018-03-12T23:21:00+08:00">
+    March 12, 2018
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2018/03/12/javascript-match-common-element-in-two-array%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p>See demo first:</p>
+Array A: <input type="text" name="arra" value="[1, 2, 3, 4, 5]"><br>
+Array B: <input type="text" name="arrb" value="[2, 3, 5, 7, 11]"><br>
+<br>
+<button type="button" id="getIntersection">Get Intersection</button>
+<input type="text" name="intersection"><br><script>
+var arra = document.querySelector("input[name='arra']");
+var arrb = document.querySelector("input[name='arrb']");
+var intersection = document.querySelector("input[name='intersection']");
+var btn = document.querySelector("#getIntersection");
+
+btn.addEventListener("click", function(e) {
+  var arrayA = eval(arra.value);
+  var arrayB = eval(arrb.value);
+  var arrayU = [];
+
+  var hashTable = {};
+  for (var i = 0; i < arrayA.length; i++) {
+    hashTable[arrayA[i]] = true;
+  }
+
+  for (var i = 0; i < arrayB.length; i++) {
+    if (hashTable.hasOwnProperty(arrayB[i])) {
+      arrayU.push(arrayB[i]);
+    }
+  }
+
+  intersection.value = JSON.stringify(arrayU);
+});
+</script><p>Find common elements in two arrays, i.e., intersection or matches in two arrays.
+There are many ways to find the intersection <a class="footnote-reference" href="#id5" id="id1">[1]</a> <a class="footnote-reference" href="#id7" id="id2">[3]</a>. Here we will implement
+the method mentioned in <a class="footnote-reference" href="#id6" id="id3">[2]</a>.</p>
+<p>The idea is to convert one array to the data structure of key-value pairs, i.e.,
+hash table. The hash table in JavaScript is built-in <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a> type. Then we check
+if items of the other array is in the hash table. If yes, the item is in the
+intersection of the two arrays.</p>
+<p>The following is the code for the demo:</p>
+<p><strong>HTML</strong>:</p>
+<div class="highlight"><pre><span></span>Array A: <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;arra&quot;</span> <span class="na">value</span><span class="o">=</span><span class="s">&quot;[1, 2, 3, 4, 5]&quot;</span><span class="p">&gt;&lt;</span><span class="nt">br</span><span class="p">&gt;</span>
+Array B: <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;arrb&quot;</span> <span class="na">value</span><span class="o">=</span><span class="s">&quot;[2, 3, 5, 7, 11]&quot;</span><span class="p">&gt;&lt;</span><span class="nt">br</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">br</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">button</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;button&quot;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;getIntersection&quot;</span><span class="p">&gt;</span>Get Intersection<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;intersection&quot;</span><span class="p">&gt;&lt;</span><span class="nt">br</span><span class="p">&gt;</span>
+</pre></div>
+<p><strong>JavaScript</strong>:</p>
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">arra</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&quot;input[name=&#39;arra&#39;]&quot;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">arrb</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&quot;input[name=&#39;arrb&#39;]&quot;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">intersection</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&quot;input[name=&#39;intersection&#39;]&quot;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">btn</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&quot;#getIntersection&quot;</span><span class="p">);</span>
+
+<span class="nx">btn</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;click&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">arrayA</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="nx">arra</span><span class="p">.</span><span class="nx">value</span><span class="p">);</span>
+  <span class="kd">var</span> <span class="nx">arrayB</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="nx">arrb</span><span class="p">.</span><span class="nx">value</span><span class="p">);</span>
+  <span class="kd">var</span> <span class="nx">arrayU</span> <span class="o">=</span> <span class="p">[];</span>
+
+  <span class="kd">var</span> <span class="nx">hashTable</span> <span class="o">=</span> <span class="p">{};</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">arrayA</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">hashTable</span><span class="p">[</span><span class="nx">arrayA</span><span class="p">[</span><span class="nx">i</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">arrayB</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">hashTable</span><span class="p">.</span><span class="nx">hasOwnProperty</span><span class="p">(</span><span class="nx">arrayB</span><span class="p">[</span><span class="nx">i</span><span class="p">]))</span> <span class="p">{</span>
+      <span class="nx">arrayU</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">arrayB</span><span class="p">[</span><span class="nx">i</span><span class="p">]);</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="nx">intersection</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">arrayU</span><span class="p">);</span>
+<span class="p">});</span>
+</pre></div>
+
+<p>For the same implementation in <a class="reference external" href="https://golang.org/">Go</a>, see <a class="footnote-reference" href="#id9" id="id4">[5]</a>.</p>
+<p>Tested on: <cite>Chromium 64.0.3282.167 on Ubuntu 17.10 (64-bit)</cite></p>
+<hr class="docutils" />
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id5" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td><div class="first last line-block">
+<div class="line"><a class="reference external" href="https://www.google.com/search?q=match+common+element+in+two+array">match common element in two array - Google search</a></div>
+<div class="line"><a class="reference external" href="https://duckduckgo.com/?q=match+common+element+in+two+array">match common element in two array - DuckDuckGo search</a></div>
+<div class="line"><a class="reference external" href="https://www.ecosia.org/search?q=match+common+element+in+two+array">match common element in two array - Ecosia search</a></div>
+<div class="line"><a class="reference external" href="https://www.qwant.com/?q=match+common+element+in+two+array">match common element in two array - Qwant search</a></div>
+<div class="line"><a class="reference external" href="https://www.bing.com/search?q=match+common+element+in+two+array">match common element in two array - Bing search</a></div>
+<div class="line"><a class="reference external" href="https://search.yahoo.com/search?p=match+common+element+in+two+array">match common element in two array - Yahoo search</a></div>
+<div class="line"><a class="reference external" href="https://www.baidu.com/s?wd=match+common+element+in+two+array">match common element in two array - Baidu search</a></div>
+<div class="line"><a class="reference external" href="https://www.yandex.com/search/?text=match+common+element+in+two+array">match common element in two array - Yandex search</a></div>
+</div>
+</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id6" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id3">[2]</a></td><td><a class="reference external" href="https://softwareengineering.stackexchange.com/a/223477">efficiency - Quick algorithm to find matches between two arrays - Software Engineering Stack Exchange</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id7" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[3]</a></td><td><div class="first last line-block">
+<div class="line"><a class="reference external" href="https://www.google.com/search?q=intersection+of+two+arrays">intersection of two arrays - Google search</a></div>
+<div class="line"><a class="reference external" href="https://duckduckgo.com/?q=intersection+of+two+arrays">intersection of two arrays - DuckDuckGo search</a></div>
+<div class="line"><a class="reference external" href="https://www.ecosia.org/search?q=intersection+of+two+arrays">intersection of two arrays - Ecosia search</a></div>
+<div class="line"><a class="reference external" href="https://www.qwant.com/?q=intersection+of+two+arrays">intersection of two arrays - Qwant search</a></div>
+<div class="line"><a class="reference external" href="https://www.bing.com/search?q=intersection+of+two+arrays">intersection of two arrays - Bing search</a></div>
+<div class="line"><a class="reference external" href="https://search.yahoo.com/search?p=intersection+of+two+arrays">intersection of two arrays - Yahoo search</a></div>
+<div class="line"><a class="reference external" href="https://www.baidu.com/s?wd=intersection+of+two+arrays">intersection of two arrays - Baidu search</a></div>
+<div class="line"><a class="reference external" href="https://www.yandex.com/search/?text=intersection+of+two+arrays">intersection of two arrays - Yandex search</a></div>
+</div>
+</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id8" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[4]</td><td><div class="first last line-block">
+<div class="line"><a class="reference external" href="https://www.geeksforgeeks.org/find-union-and-intersection-of-two-unsorted-arrays/">Find Union and Intersection of two unsorted arrays - GeeksforGeeks</a></div>
+<div class="line"><a class="reference external" href="https://www.geeksforgeeks.org/union-and-intersection-of-two-sorted-arrays-2/">Union and Intersection of two sorted arrays - GeeksforGeeks</a></div>
+</div>
+</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id9" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id4">[5]</a></td><td><a class="reference external" href="/2018/03/09/go-match-common-element-in-two-array/">[Golang] Intersection of Two Arrays</a></td></tr>
+</tbody>
+</table>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/javascript.html">JavaScript</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/javascript.html">JavaScript</a>
+,       <a href="/tag/algorithm.html">Algorithm</a>
+,       <a href="/tag/set-operation.html">Set Operation</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

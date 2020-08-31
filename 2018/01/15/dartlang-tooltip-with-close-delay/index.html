@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>[Dart] Tooltip with Close Delay</title>
+  <meta name="keywords" content="Dart,Tooltip,mouseenter,mouseleave,element offset,DOM,CSS
+element position"/>
+  <meta name="description" content="Show tooltip when the cursor hovers over the text, and close the tooltip with delay if the cursor is not in the tooltip via Dart programming language."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="[Dart] Tooltip with Close Delay" /><meta property="og:image" content="http://www.cssportal.com/blog/wp-content/uploads/2013/05/tooltip.png" />
+<meta property="og:description" content="Show tooltip when the cursor hovers over the text, and close the tooltip with delay if the cursor is not in the tooltip via Dart programming language." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2018/01/15/dartlang-tooltip-with-close-delay/"
+           rel="bookmark"
+           title="Permalink to [Dart] Tooltip with Close Delay">
+          [Dart] Tooltip with Close Delay
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2018-01-15T08:07:00+08:00">
+    January 15, 2018
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2018/01/15/dartlang-tooltip-with-close-delay%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p>See demo first.
+Move the cursor (mouse pointer) to hover over the blue text with underline:</p>
+<p class="align-center rubric"><a class="reference external" href="https://dartpad.dartlang.org/509a9fa17e355c230c6fa3a6b896ef8a">Demo</a></p>
+<p>If the cursor leaves the blue text and does not enter the tooltip within 250ms,
+the tooltip will be closed. If the cursor leaves the blue text and is in the
+tooltip after 250ms, the tooltip will still be visible without being closed.</p>
+<p>The demo here is not the same as the implementation of simple tooltip in my
+previous post <a class="footnote-reference" href="#id4" id="id1">[2]</a>. In my previous post, the tooltip will be closed right after
+the cursor leaves the blue text without any delay.</p>
+<p>To achieve the effect of the demo, first wrap the text with proper HTML tag. In
+the example of demo, we wrap the text <strong>tooltip</strong> and <strong>Dart</strong> with <em>span</em> tag.
+Then put the explanation of the text in the <em>data-descr</em> attribute of the tag,
+just like the following HTML code used in the demo:</p>
+<p><strong>HTML</strong>:</p>
+<div class="highlight"><pre><span></span>This is a <span class="p">&lt;</span><span class="nt">span</span> <span class="na">data-descr</span><span class="o">=</span><span class="s">&quot;hello, I am tooltip!&quot;</span><span class="p">&gt;</span>tooltip<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span> example via
+<span class="p">&lt;</span><span class="nt">span</span> <span class="na">data-descr</span><span class="o">=</span><span class="s">&quot;programming language from Google&quot;</span><span class="p">&gt;</span>Dart<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>.
+</pre></div>
+<p>Next, add the following rules to your CSS code:</p>
+<p><strong>CSS</strong>:</p>
+<div class="highlight"><pre><span></span><span class="o">*[</span><span class="nt">data-descr</span><span class="o">]</span> <span class="p">{</span>
+  <span class="k">text-decoration</span><span class="p">:</span> <span class="kc">underline</span><span class="p">;</span>
+  <span class="k">color</span><span class="p">:</span> <span class="kc">blue</span><span class="p">;</span>
+  <span class="k">cursor</span><span class="p">:</span> <span class="kc">help</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="p">.</span><span class="nc">invisible</span> <span class="p">{</span>
+  <span class="k">display</span><span class="p">:</span> <span class="kc">none</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="p">.</span><span class="nc">tooltip</span> <span class="p">{</span>
+  <span class="k">position</span><span class="p">:</span> <span class="kc">absolute</span><span class="p">;</span>
+  <span class="k">border</span><span class="p">:</span> <span class="mi">1</span><span class="kt">px</span> <span class="kc">gray</span> <span class="kc">solid</span><span class="p">;</span>
+  <span class="k">border-radius</span><span class="p">:</span> <span class="mi">3</span><span class="kt">px</span><span class="p">;</span>
+  <span class="k">padding</span><span class="p">:</span> <span class="mi">3</span><span class="kt">px</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<ol class="arabic simple">
+<li>First rule says add underline to the text wrapped in the element with
+<em>data-descr</em> attribute, make the text blue, and make the mouse cursor become
+help icon on hover over.</li>
+<li>Second rule, as the name suggests, is used to make element invisible.</li>
+<li>Third rule is used to style the tooltip box that shows the description of the
+text.</li>
+</ol>
+
+<p>Then add the following to your Dart code:</p>
+<p><strong>Dart</strong>:</p>
+<div class="highlight"><pre><span></span><span class="k">import</span> <span class="s1">&#39;dart:html&#39;</span><span class="p">;</span>
+<span class="k">import</span> <span class="s1">&#39;dart:async&#39;</span><span class="p">;</span>
+
+<span class="n">DivElement</span> <span class="n">tooltip</span><span class="p">;</span>
+
+<span class="c1">// indicate if the mouse cursor is in the tooltip</span>
+<span class="kt">bool</span> <span class="n">isCursorInTooltip</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+
+<span class="c1">// when cursor leaves the text, the delay time to close the tooltip if the</span>
+<span class="c1">// cursor is not in the tooltip. (milisecond)</span>
+<span class="kd">const</span> <span class="n">delay</span> <span class="o">=</span> <span class="kd">const</span> <span class="n">Duration</span><span class="p">(</span><span class="nl">milliseconds:</span> <span class="m">250</span><span class="p">);</span>
+
+<span class="c1">// event handler for mouseenter event of elements with data-descr attribute</span>
+<span class="kt">void</span> <span class="n">ShowTooltip</span><span class="p">(</span><span class="n">Event</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">Element</span> <span class="n">elm</span> <span class="o">=</span> <span class="n">e</span><span class="p">.</span><span class="n">target</span><span class="p">;</span>
+  <span class="n">tooltip</span><span class="p">.</span><span class="n">style</span><span class="p">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">elm</span><span class="p">.</span><span class="n">offsetLeft</span><span class="p">.</span><span class="n">toString</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&quot;px&quot;</span><span class="p">;</span>
+  <span class="n">tooltip</span><span class="p">.</span><span class="n">style</span><span class="p">.</span><span class="n">top</span> <span class="o">=</span> <span class="p">(</span><span class="n">elm</span><span class="p">.</span><span class="n">offsetTop</span> <span class="o">+</span> <span class="n">elm</span><span class="p">.</span><span class="n">offsetHeight</span> <span class="o">+</span> <span class="m">5</span><span class="p">).</span><span class="n">toString</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&quot;px&quot;</span><span class="p">;</span>
+  <span class="n">tooltip</span><span class="p">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">elm</span><span class="p">.</span><span class="n">dataset</span><span class="p">[</span><span class="s2">&quot;descr&quot;</span><span class="p">];</span>
+  <span class="n">tooltip</span><span class="p">.</span><span class="n">classes</span><span class="p">.</span><span class="n">remove</span><span class="p">(</span><span class="s2">&quot;invisible&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">// event handler for mouseleave event of elements with data-descr attribute</span>
+<span class="kt">void</span> <span class="n">HideTooltip</span><span class="p">(</span><span class="n">Event</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">new</span> <span class="n">Timer</span><span class="p">(</span><span class="n">delay</span><span class="p">,</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">isCursorInTooltip</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">tooltip</span><span class="p">.</span><span class="n">classes</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="s2">&quot;invisible&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">});</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+  <span class="c1">// create and append invisible tooltip to DOM tree</span>
+  <span class="n">tooltip</span> <span class="o">=</span> <span class="n">document</span><span class="p">.</span><span class="n">createElement</span><span class="p">(</span><span class="s2">&quot;div&quot;</span><span class="p">);</span>
+  <span class="n">tooltip</span><span class="p">.</span><span class="n">classes</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="s2">&quot;tooltip&quot;</span><span class="p">);</span>
+  <span class="n">tooltip</span><span class="p">.</span><span class="n">classes</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="s2">&quot;invisible&quot;</span><span class="p">);</span>
+  <span class="n">tooltip</span><span class="p">.</span><span class="n">onMouseEnter</span><span class="p">.</span><span class="n">listen</span><span class="p">((</span><span class="n">Event</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">isCursorInTooltip</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+  <span class="p">});</span>
+  <span class="n">tooltip</span><span class="p">.</span><span class="n">onMouseLeave</span><span class="p">.</span><span class="n">listen</span><span class="p">((</span><span class="n">Event</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">isCursorInTooltip</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+    <span class="n">tooltip</span><span class="p">.</span><span class="n">classes</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="s2">&quot;invisible&quot;</span><span class="p">);</span>
+  <span class="p">});</span>
+  <span class="n">document</span><span class="p">.</span><span class="n">body</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">tooltip</span><span class="p">);</span>
+
+  <span class="c1">// select all elements with data-descr attribute</span>
+  <span class="c1">// and attach mouseenter and mouseleave event handler</span>
+  <span class="kd">var</span> <span class="n">els</span> <span class="o">=</span> <span class="n">querySelectorAll</span><span class="p">(</span><span class="s1">&#39;*[data-descr]&#39;</span><span class="p">);</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="n">el</span> <span class="k">in</span> <span class="n">els</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">el</span><span class="p">.</span><span class="n">onMouseEnter</span><span class="p">.</span><span class="n">listen</span><span class="p">(</span><span class="n">ShowTooltip</span><span class="p">);</span>
+    <span class="n">el</span><span class="p">.</span><span class="n">onMouseLeave</span><span class="p">.</span><span class="n">listen</span><span class="p">(</span><span class="n">HideTooltip</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<p>In the Dart code:</p>
+<ol class="arabic simple">
+<li>Create and append a tooltip (<em>div</em> element) to the HTML <em>body</em>. The tooltip
+is used to show description on mouse hovering over the text. The tooltip is
+invisible in the beginning.</li>
+<li>Attach <em>mouseenter</em> and <em>mouseleave</em> event handler to the tooltip. In the
+event handler, set the variable <em>isCursorInTooltip</em> accordingly. Also close
+the tooltip if the cursor leaves the tooltip.</li>
+<li>Define <em>mouseenter</em> and <em>mouseleave</em> event handler to texts wrapped in the
+element with <em>data-descr</em> attribute. In <em>mouseenter</em> handler we show the
+description of the text in the tooltip, and in <em>mouseleave</em> handler we make
+the tooltip invisible if the cursor is not in the tooltip after 250ms.</li>
+<li>Use <a class="reference external" href="https://www.google.com/search?q=dartlang+querySelectorAll">querySelectorAll</a> to find all elements with <em>data-descr</em> attribute, and
+attach corresponding <a class="reference external" href="https://developer.mozilla.org/en/docs/Web/Events/mouseenter">mouseenter</a>/<a class="reference external" href="https://developer.mozilla.org/en/docs/Web/Events/mouseleave">mouseleave</a> event handlder to show/hide
+description of texts.</li>
+</ol>
+
+<p>This post is actually the Dart translation of JavaScript implememtation <a class="footnote-reference" href="#id3" id="id2">[1]</a>.</p>
+<hr class="docutils" />
+<p>Tested on: <a class="reference external" href="https://dartpad.dartlang.org/">DartPad</a>.</p>
+<hr class="docutils" />
+<p><strong>References</strong>:</p>
+<table class="docutils footnote" frame="void" id="id3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[1]</a></td><td><a class="reference external" href="/2018/01/08/javascript-tooltip-with-close-delay/">[JavaScript] Tooltip with Close Delay</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[2]</a></td><td><a class="reference external" href="/2017/04/01/dartlang-tooltip/">[Dart] Tooltip</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id5" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[3]</td><td><a class="reference external" href="https://stackoverflow.com/questions/27063312/how-do-i-do-the-equivalent-of-settimeout-cleartimeout-in-dart">How do I do the equivalent of setTimeout + clearTimeout in Dart? - Stack Overflow</a></td></tr>
+</tbody>
+</table>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/dart.html">Dart</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/dart.html">Dart</a>
+,       <a href="/tag/tooltip.html">Tooltip</a>
+,       <a href="/tag/mouseenter.html">mouseenter</a>
+,       <a href="/tag/mouseleave.html">mouseleave</a>
+,       <a href="/tag/element-offset.html">element offset</a>
+,       <a href="/tag/dom.html">DOM</a>
+,       <a href="/tag/css-element-position.html">CSS
+element position</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

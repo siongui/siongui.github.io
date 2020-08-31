@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>Enable Cross Domain XMLHttpRequest Request in Go Server</title>
+  <meta name="keywords" content="Go,Golang,Go net/http,CORS"/>
+  <meta name="description" content="Enable cross-domain XHR requests in Go server via Go standard net/http package."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="Enable Cross Domain XMLHttpRequest Request in Go Server" /><meta property="og:image" content="https://i.ytimg.com/vi/z74PQXHnzjk/hqdefault.jpg" />
+<meta property="og:description" content="Enable cross-domain XHR requests in Go server via Go standard net/http package." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2017/03/20/enable-cors-xhr-request-in-golang-server/"
+           rel="bookmark"
+           title="Permalink to Enable Cross Domain XMLHttpRequest Request in Go Server">
+          Enable Cross Domain XMLHttpRequest Request in Go Server
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2017-03-20T22:51:00+08:00">
+    March 20, 2017
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2017/03/20/enable-cors-xhr-request-in-golang-server%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><div class="section" id="howto">
+<h2>Howto</h2>
+<p>To enable cross-domain XHR requests in servers, we need to set the following
+header in request response:</p>
+<div class="highlight"><pre><span></span>Access-Control-Allow-Origin: *
+</pre></div>
+<p>The above header says all requests from any other domain are allowed.</p>
+<p>To set the <tt class="docutils literal"><span class="pre">Access-Control-Allow-Origin</span></tt> header in Go server via standard
+<a class="reference external" href="https://golang.org/pkg/net/http/">net/http</a> package, we can use the following code in request handler:</p>
+<div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">myHandler</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">{</span>
+      <span class="c1">// allow all XHR requests from other domains</span>
+      <span class="nx">w</span><span class="p">.</span><span class="nx">Header</span><span class="p">().</span><span class="nx">Set</span><span class="p">(</span><span class="s">&quot;Access-Control-Allow-Origin&quot;</span><span class="p">,</span> <span class="s">&quot;*&quot;</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+<p>Just one line of code to make your Go server enable
+<em>Cross-Origin Resource Sharing (CORS)</em>.</p>
+
+</div>
+<div class="section" id="complete-example">
+<h2>Complete Example</h2>
+<p>The following is complete sample code for servers supporting CORS and running on
+<a class="reference external" href="https://cloud.google.com/appengine/docs/standard/go/">Google App Engine Go Standard Environment</a></p>
+<figure class="github-file">
+            <figcaption>
+              <a href="https://github.com/siongui/userpages/blob/master/content/code/go/cors-server/serverjson.go">serverjson.go</a> |
+              <a href="https://github.com/siongui/userpages">repository</a> |
+              <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/code/go/cors-server/serverjson.go">view raw</a>
+            </figcaption><div class="code-file">
+            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">servejson</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+	<span class="s">&quot;fmt&quot;</span>
+	<span class="s">&quot;net/http&quot;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nx">init</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nx">http</span><span class="p">.</span><span class="nx">HandleFunc</span><span class="p">(</span><span class="s">&quot;/&quot;</span><span class="p">,</span> <span class="nx">servejson</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nx">servejson</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">w</span><span class="p">.</span><span class="nx">Header</span><span class="p">().</span><span class="nx">Set</span><span class="p">(</span><span class="s">&quot;Access-Control-Allow-Origin&quot;</span><span class="p">,</span> <span class="s">&quot;*&quot;</span><span class="p">)</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Fprint</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="s">`{&quot;a&quot;:&quot;b&quot;,&quot;c&quot;:&quot;d&quot;}`</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div></figure><figure class="github-file">
+            <figcaption>
+              <a href="https://github.com/siongui/userpages/blob/master/content/code/go/cors-server/app.yaml">app.yaml</a> |
+              <a href="https://github.com/siongui/userpages">repository</a> |
+              <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/code/go/cors-server/app.yaml">view raw</a>
+            </figcaption><div class="code-file">
+            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="nt">runtime</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">go</span>
+<span class="nt">api_version</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">go1</span>
+
+<span class="nt">handlers</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="nt">url</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/.*</span>
+    <span class="nt">script</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">_go_app</span>
+</pre></div>
+</td></tr></table></div></figure><figure class="github-file">
+            <figcaption>
+              <a href="https://github.com/siongui/userpages/blob/master/content/code/go/cors-server/Makefile">Makefile</a> |
+              <a href="https://github.com/siongui/userpages">repository</a> |
+              <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/code/go/cors-server/Makefile">view raw</a>
+            </figcaption><div class="code-file">
+            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">export </span><span class="nv">PATH</span> <span class="o">:=</span> <span class="k">$(</span>PATH<span class="k">)</span>:<span class="k">$(</span>realpath ../../../../../go_appengine/<span class="k">)</span>
+<span class="nv">PROJECT_DIR</span><span class="o">=</span><span class="k">$(</span>CURDIR<span class="k">)</span>
+<span class="nv">PROJECT_ID</span><span class="o">=</span>golden-operator-130720
+<span class="nv">PROJECT_VERSION</span><span class="o">=</span>blogexample
+
+<span class="nf">default</span><span class="o">:</span>
+	@echo <span class="s2">&quot;\033[92mRun development web server ...\033[0m&quot;</span>
+	@goapp serve
+
+<span class="nf">fmt</span><span class="o">:</span>
+	@echo <span class="s2">&quot;\033[92mGo fmt source code ...\033[0m&quot;</span>
+	@goapp fmt *.go
+
+<span class="nf">deploy</span><span class="o">:</span>
+	goapp deploy -application <span class="si">${</span><span class="nv">PROJECT_ID</span><span class="si">}</span> -version <span class="si">${</span><span class="nv">PROJECT_VERSION</span><span class="si">}</span> <span class="si">${</span><span class="nv">PROJECT_DIR</span><span class="si">}</span>
+	@echo <span class="s2">&quot;\033[92mDeployed URL: http://</span><span class="si">${</span><span class="nv">PROJECT_VERSION</span><span class="si">}</span><span class="s2">.</span><span class="si">${</span><span class="nv">PROJECT_ID</span><span class="si">}</span><span class="s2">.appspot.com/\033[0m&quot;</span>
+</pre></div>
+</td></tr></table></div></figure><hr class="docutils" />
+<p>Tested on:</p>
+<ul class="simple">
+<li><tt class="docutils literal">Google App Engine Go 1.6</tt></li>
+</ul>
+<hr class="docutils" />
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id1" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td><div class="first last line-block">
+<div class="line"><a class="reference external" href="https://www.google.com/search?q=go+net/http+set+response+header">go net/http set response header - Google search</a></div>
+<div class="line"><a class="reference external" href="https://duckduckgo.com/?q=go+net/http+set+response+header">go net/http set response header - DuckDuckGo search</a></div>
+<div class="line"><a class="reference external" href="https://www.ecosia.org/search?q=go+net/http+set+response+header">go net/http set response header - Ecosia search</a></div>
+<div class="line"><a class="reference external" href="https://www.qwant.com/?q=go+net/http+set+response+header">go net/http set response header - Qwant search</a></div>
+<div class="line"><a class="reference external" href="https://www.bing.com/search?q=go+net/http+set+response+header">go net/http set response header - Bing search</a></div>
+<div class="line"><a class="reference external" href="https://search.yahoo.com/search?p=go+net/http+set+response+header">go net/http set response header - Yahoo search</a></div>
+<div class="line"><a class="reference external" href="https://www.baidu.com/s?wd=go+net/http+set+response+header">go net/http set response header - Baidu search</a></div>
+<div class="line"><a class="reference external" href="https://www.yandex.com/search/?text=go+net/http+set+response+header">go net/http set response header - Yandex search</a></div>
+</div>
+</td></tr>
+</tbody>
+</table>
+
+<table class="docutils footnote" frame="void" id="id2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[2]</td><td><a class="reference external" href="http://stackoverflow.com/questions/12830095/setting-http-headers-in-golang">Setting HTTP headers in Golang - Stack Overflow</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[3]</td><td><a class="reference external" href="https://old.reddit.com/r/golang/comments/a38an4/load_balancer_at_your_fingertips_lets_build_one_go/">Load balancer at your fingertips, let's build one (Go) : golang</a></td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/go.html">Go</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/go.html">Go</a>
+,       <a href="/tag/golang.html">Golang</a>
+,       <a href="/tag/go-nethttp.html">Go net/http</a>
+,       <a href="/tag/cors.html">CORS</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

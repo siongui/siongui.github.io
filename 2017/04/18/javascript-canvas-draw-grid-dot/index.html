@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>[JavaScript] Draw Grid of Dots using Canvas</title>
+  <meta name="keywords" content="html,JavaScript,DOM,Canvas"/>
+  <meta name="description" content="Exercise to draw 3x3 grid of dots via Canvas."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="[JavaScript] Draw Grid of Dots using Canvas" /><meta property="og:image" content="https://i.stack.imgur.com/H1Qsz.png" />
+<meta property="og:description" content="Exercise to draw 3x3 grid of dots via Canvas." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2017/04/18/javascript-canvas-draw-grid-dot/"
+           rel="bookmark"
+           title="Permalink to [JavaScript] Draw Grid of Dots using Canvas">
+          [JavaScript] Draw Grid of Dots using Canvas
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2017-04-18T22:53:00+08:00">
+    April 18, 2017
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2017/04/18/javascript-canvas-draw-grid-dot%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p>Exercise to draw 3x3 grid of dots via HTML <a class="reference external" href="https://www.google.com/search?q=html+canvas">Canvas</a>.</p>
+<div style="padding: 2em; background-color: Azure; padding: 5px;">
+
+<canvas id="gridDots" width="300" height="300"></canvas>
+
+</div>
+<script>
+
+var c = document.getElementById("gridDots");
+var ctx = c.getContext("2d");
+
+var n = 3; // 3x3 grid of dots
+
+for (var i=0; i<n; i++) {
+  for (var j=0; j<n; j++) {
+    var gridXSideLength = c.width/n;
+    var gridYSideLength = c.height/n;
+    var x = (gridXSideLength/2) * (i+1);
+    var y = (gridYSideLength/2) * (j+1);
+    var r = Math.min(gridXSideLength, gridYSideLength) / (n*2);
+    var sAngle = 0;
+    var eAngle = 2*Math.PI;
+
+    ctx.beginPath();
+    ctx.arc(x, y, r, sAngle, eAngle);
+    ctx.closePath();
+    ctx.stroke();
+  }
+}
+
+</script><p><strong>HTML</strong>:</p>
+<div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">canvas</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;gridDots&quot;</span> <span class="na">width</span><span class="o">=</span><span class="s">&quot;300&quot;</span> <span class="na">height</span><span class="o">=</span><span class="s">&quot;300&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">canvas</span><span class="p">&gt;</span>
+</pre></div>
+<p><strong>JavaScript</strong>:</p>
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">c</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;gridDots&quot;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">ctx</span> <span class="o">=</span> <span class="nx">c</span><span class="p">.</span><span class="nx">getContext</span><span class="p">(</span><span class="s2">&quot;2d&quot;</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">n</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span> <span class="c1">// 3x3 grid of dots</span>
+
+<span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="o">&lt;</span><span class="nx">n</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">j</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">j</span><span class="o">&lt;</span><span class="nx">n</span><span class="p">;</span> <span class="nx">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">gridXSideLength</span> <span class="o">=</span> <span class="nx">c</span><span class="p">.</span><span class="nx">width</span><span class="o">/</span><span class="nx">n</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">gridYSideLength</span> <span class="o">=</span> <span class="nx">c</span><span class="p">.</span><span class="nx">height</span><span class="o">/</span><span class="nx">n</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="p">(</span><span class="nx">gridXSideLength</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="nx">i</span><span class="o">+</span><span class="mi">1</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">y</span> <span class="o">=</span> <span class="p">(</span><span class="nx">gridYSideLength</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="nx">j</span><span class="o">+</span><span class="mi">1</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">r</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">min</span><span class="p">(</span><span class="nx">gridXSideLength</span><span class="p">,</span> <span class="nx">gridYSideLength</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="nx">n</span><span class="o">*</span><span class="mi">2</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">sAngle</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">eAngle</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="nb">Math</span><span class="p">.</span><span class="nx">PI</span><span class="p">;</span>
+
+    <span class="nx">ctx</span><span class="p">.</span><span class="nx">beginPath</span><span class="p">();</span>
+    <span class="nx">ctx</span><span class="p">.</span><span class="nx">arc</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">,</span> <span class="nx">r</span><span class="p">,</span> <span class="nx">sAngle</span><span class="p">,</span> <span class="nx">eAngle</span><span class="p">);</span>
+    <span class="nx">ctx</span><span class="p">.</span><span class="nx">closePath</span><span class="p">();</span>
+    <span class="nx">ctx</span><span class="p">.</span><span class="nx">stroke</span><span class="p">();</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+<hr class="docutils" />
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id1" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td><div class="first last line-block">
+<div class="line"><a class="reference external" href="https://segmentfault.com/a/1190000008923731">用 canvas 实现 Web 手势解锁 - 渔人 - SegmentFault</a></div>
+<div class="line"><a class="reference external" href="http://web.jobbole.com/90970/">用 canvas 实现 Web 手势解锁 - WEB前端 - 伯乐在线</a></div>
+<div class="line"><a class="reference external" href="https://github.com/songjinzhong/H5HandLock">GitHub - songjinzhong/H5HandLock: H5 手势密码，炫酷！！https://songjinzhong.github.io/H5HandLock/</a></div>
+<div class="line"><a class="reference external" href="https://github.com/lvming6816077/H5lock">GitHub - lvming6816077/H5lock: H5手势解锁</a></div>
+</div>
+</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[2]</td><td><div class="first last line-block">
+<div class="line"><a class="reference external" href="https://www.google.com/search?q=gesture+unlock+screen+grid+dots">gesture unlock screen grid dots - Google search</a></div>
+<div class="line"><a class="reference external" href="https://duckduckgo.com/?q=gesture+unlock+screen+grid+dots">gesture unlock screen grid dots - DuckDuckGo search</a></div>
+<div class="line"><a class="reference external" href="https://www.ecosia.org/search?q=gesture+unlock+screen+grid+dots">gesture unlock screen grid dots - Ecosia search</a></div>
+<div class="line"><a class="reference external" href="https://www.qwant.com/?q=gesture+unlock+screen+grid+dots">gesture unlock screen grid dots - Qwant search</a></div>
+<div class="line"><a class="reference external" href="https://www.bing.com/search?q=gesture+unlock+screen+grid+dots">gesture unlock screen grid dots - Bing search</a></div>
+<div class="line"><a class="reference external" href="https://search.yahoo.com/search?p=gesture+unlock+screen+grid+dots">gesture unlock screen grid dots - Yahoo search</a></div>
+<div class="line"><a class="reference external" href="https://www.baidu.com/s?wd=gesture+unlock+screen+grid+dots">gesture unlock screen grid dots - Baidu search</a></div>
+<div class="line"><a class="reference external" href="https://www.yandex.com/search/?text=gesture+unlock+screen+grid+dots">gesture unlock screen grid dots - Yandex search</a></div>
+</div>
+</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[3]</td><td><div class="first last line-block">
+<div class="line"><a class="reference external" href="https://www.w3schools.com/html/html5_canvas.asp">HTML5 Canvas</a></div>
+<div class="line"><a class="reference external" href="https://www.w3schools.com/tags/canvas_arc.asp">HTML canvas arc() Method</a></div>
+<div class="line"><a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/min">Math.min() - JavaScript | MDN</a></div>
+</div>
+</td></tr>
+</tbody>
+</table>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/javascript.html">JavaScript</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/html.html">html</a>
+,       <a href="/tag/javascript.html">JavaScript</a>
+,       <a href="/tag/dom.html">DOM</a>
+,       <a href="/tag/canvas.html">Canvas</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

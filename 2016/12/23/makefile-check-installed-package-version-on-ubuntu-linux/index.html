@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>[Makefile] Check Installed Package Version on Ubuntu Linux</title>
+  <meta name="keywords" content="Bash,Makefile,Commandline,String Manipulation,Ubuntu Linux,grep command,cut command,apt command"/>
+  <meta name="description" content="Given an installed package name on Ubuntu Linux, find its version in Makefile."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="[Makefile] Check Installed Package Version on Ubuntu Linux" />    <meta property="og:image" content="/./extra/Dharma_wheel.svg" /><meta property="og:description" content="Given an installed package name on Ubuntu Linux, find its version in Makefile." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2016/12/23/makefile-check-installed-package-version-on-ubuntu-linux/"
+           rel="bookmark"
+           title="Permalink to [Makefile] Check Installed Package Version on Ubuntu Linux">
+          [Makefile] Check Installed Package Version on Ubuntu Linux
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2016-12-23T21:33:00+08:00">
+    December 23, 2016
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2016/12/23/makefile-check-installed-package-version-on-ubuntu-linux%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p>Given an installed package name on Ubuntu Linux, find its version in <a class="reference external" href="https://www.google.com/search?q=Makefile">Makefile</a>.</p>
+<p>Source code:</p>
+<figure class="github-file">
+            <figcaption>
+              <a href="https://github.com/siongui/userpages/blob/master/content/code/make/ubuntu-package-version/Makefile">Makefile</a> |
+              <a href="https://github.com/siongui/userpages">repository</a> |
+              <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/code/make/ubuntu-package-version/Makefile">view raw</a>
+            </figcaption><div class="code-file">
+            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="nv">PACKAGE_NAME</span><span class="o">=</span>python
+<span class="nv">PACKAGE_VERSION</span><span class="o">=</span><span class="k">$(</span>strip <span class="k">$(</span>shell apt-cache policy <span class="k">$(</span>PACKAGE_NAME<span class="k">)</span> <span class="p">|</span> grep Installed: <span class="p">|</span> cut -d: -f2<span class="k">))</span>
+
+<span class="nf">default</span><span class="o">:</span>
+	@echo <span class="s2">&quot;package name: \033[92m</span><span class="k">$(</span>PACKAGE_NAME<span class="k">)</span><span class="s2">\033[0m&quot;</span>
+	@echo <span class="s2">&quot;package version: \033[92m</span><span class="k">$(</span>PACKAGE_VERSION<span class="k">)</span><span class="s2">\033[0m&quot;</span>
+</pre></div>
+</td></tr></table></div></figure><p>Note that <a class="reference external" href="https://www.gnu.org/software/make/manual/html_node/Text-Functions.html">strip text function</a> is used to remove spaces of the string.</p>
+
+<p>Output:</p>
+<div class="highlight"><pre><span></span>package name: python
+package version: 2.7.11-2
+</pre></div>
+<hr class="docutils" />
+<p>Tested on <a class="reference external" href="http://releases.ubuntu.com/16.10/">Ubuntu Linux 16.10</a>, <a class="reference external" href="https://www.gnu.org/software/make/">GNU make 4.1-9</a>.</p>
+<hr class="docutils" />
+
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id1" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td><div class="first last line-block">
+<div class="line"><a class="reference external" href="https://www.google.com/search?q=ubuntu+package+version+command+line">ubuntu package version command line - Google search</a></div>
+<div class="line"><a class="reference external" href="https://www.google.com/search?q=ubuntu+check+package+version+command+line">ubuntu check package version command line - Google search</a></div>
+<div class="line"><a class="reference external" href="http://askubuntu.com/a/441005">package management - How do I get the version of an application from the command line? - Ask Ubuntu</a></div>
+</div>
+</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[2]</td><td><div class="first last line-block">
+<div class="line"><a class="reference external" href="https://www.google.com/search?q=makefile+run+command">makefile run command - Google search</a></div>
+<div class="line"><a class="reference external" href="http://stackoverflow.com/questions/10024279/how-to-use-shell-commands-in-makefile">osx - How to use shell commands in Makefile - Stack Overflow</a></div>
+<div class="line"><a class="reference external" href="http://superuser.com/questions/945148/how-to-use-echo-in-shell-command-from-makefile">linux - How to use echo in shell command from Makefile? - Super User</a></div>
+</div>
+</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[3]</td><td><div class="first last line-block">
+<div class="line"><a class="reference external" href="https://www.google.com/search?q=makefile+strip+spaces">makefile strip spaces - Google search</a></div>
+<div class="line"><a class="reference external" href="https://www.gnu.org/software/make/manual/html_node/Text-Functions.html">GNU make: Text Functions</a></div>
+</div>
+</td></tr>
+</tbody>
+</table>
+
+<table class="docutils footnote" frame="void" id="id4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[4]</td><td><div class="first last line-block">
+<div class="line"><a class="reference external" href="https://www.google.com/search?q=makefile+ubuntu+version">makefile ubuntu version - Google search</a></div>
+<div class="line"><a class="reference external" href="https://duckduckgo.com/?q=makefile+ubuntu+version">makefile ubuntu version - DuckDuckGo search</a></div>
+<div class="line"><a class="reference external" href="https://www.ecosia.org/search?q=makefile+ubuntu+version">makefile ubuntu version - Ecosia search</a></div>
+<div class="line"><a class="reference external" href="https://www.bing.com/search?q=makefile+ubuntu+version">makefile ubuntu version - Bing search</a></div>
+<div class="line"><a class="reference external" href="https://search.yahoo.com/search?p=makefile+ubuntu+version">makefile ubuntu version - Yahoo search</a></div>
+<div class="line"><a class="reference external" href="https://www.baidu.com/s?wd=makefile+ubuntu+version">makefile ubuntu version - Baidu search</a></div>
+<div class="line"><a class="reference external" href="https://www.yandex.com/search/?text=makefile+ubuntu+version">makefile ubuntu version - Yandex search</a></div>
+<div class="line"><a class="reference external" href="http://askubuntu.com/questions/279168/detect-if-its-ubuntu-linux-os-in-makefile">Detect if its Ubuntu Linux OS in Makefile - Ask Ubuntu</a></div>
+</div>
+</td></tr>
+</tbody>
+</table>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/bash.html">Bash</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/bash.html">Bash</a>
+,       <a href="/tag/makefile.html">Makefile</a>
+,       <a href="/tag/commandline.html">Commandline</a>
+,       <a href="/tag/string-manipulation.html">String Manipulation</a>
+,       <a href="/tag/ubuntu-linux.html">Ubuntu Linux</a>
+,       <a href="/tag/grep-command.html">grep command</a>
+,       <a href="/tag/cut-command.html">cut command</a>
+,       <a href="/tag/apt-command.html">apt command</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

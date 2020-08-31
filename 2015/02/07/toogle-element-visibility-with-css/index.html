@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>Toggle Element (Dropdown/Menu) Visibility with CSS</title>
+  <meta name="keywords" content="html,CSS,toggle,toggleable,SASS,SCSS,Pure CSS Toggle"/>
+  <meta name="description" content="Toggle element (usually div) with pure CSS only (no JavaScript). Suitable for dropdown/menu application."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="Toggle Element (Dropdown/Menu) Visibility with CSS" />    <meta property="og:image" content="/./extra/Dharma_wheel.svg" /><meta property="og:description" content="Toggle element (usually div) with pure CSS only (no JavaScript). Suitable for dropdown/menu application." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2015/02/07/toogle-element-visibility-with-css/"
+           rel="bookmark"
+           title="Permalink to Toggle Element (Dropdown/Menu) Visibility with CSS">
+          Toggle Element (Dropdown/Menu) Visibility with CSS
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2015-02-07T00:00:00+08:00">
+    February 07, 2015
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2015/02/07/toogle-element-visibility-with-css%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p>Toggling element without the hassle of <a class="reference external" href="https://www.google.com/search?q=JavaScript">JavaScript</a> is a good design choice for
+the application of <em>dropdown/menu</em> on a fast, responsive, mobile-friendly
+website. After <a class="reference external" href="https://www.google.com/search?q=CSS+toggle+element">consulting Google</a>, the posts <a class="footnote-reference" href="#id3" id="id1">[1]</a> and <a class="footnote-reference" href="#id4" id="id2">[2]</a> are good tutorials
+for me. The following is my result.</p>
+<p>Please first check:</p>
+<p class="align-center rubric"><a class="reference external" href="/code/css/toggle-element-visibility/toogle-element-visibility-with-css.html">Demo</a></p>
+<p>Source Code for Demo (<em>html</em>):</p>
+<figure class="github-file">
+            <figcaption>
+              <a href="https://github.com/siongui/userpages/blob/master/content/code/css/toggle-element-visibility/toogle-element-visibility-with-css.html">toogle-element-visibility-with-css.html</a> |
+              <a href="https://github.com/siongui/userpages">repository</a> |
+              <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/code/css/toggle-element-visibility/toogle-element-visibility-with-css.html">view raw</a>
+            </figcaption><div class="code-file">
+            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&quot;utf-8&quot;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>Toggle Element Visibilty with CSS<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/css&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;style.css&quot;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;viewport&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;width=device-width, initial-scale=1&quot;</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;container&quot;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;toggleable-window&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">input</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;toggle&quot;</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;checkbox&quot;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;punch&quot;</span> <span class="na">checked</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">label</span> <span class="na">for</span><span class="o">=</span><span class="s">&quot;punch&quot;</span><span class="p">&gt;</span><span class="ni">&amp;equiv;</span><span class="p">&lt;/</span><span class="nt">label</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;content&quot;</span><span class="p">&gt;</span>content<span class="p">&lt;</span><span class="nt">br</span><span class="p">&gt;</span>content<span class="p">&lt;</span><span class="nt">br</span><span class="p">&gt;</span>content<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+
+<span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</pre></div>
+</td></tr></table></div></figure>
+<p>Source Code for Demo (<em>css</em>):</p>
+<figure class="github-file">
+            <figcaption>
+              <a href="https://github.com/siongui/userpages/blob/master/content/code/css/toggle-element-visibility/style.css">style.css</a> |
+              <a href="https://github.com/siongui/userpages">repository</a> |
+              <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/code/css/toggle-element-visibility/style.css">view raw</a>
+            </figcaption><div class="code-file">
+            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c">/* pure css toggle-able window */</span>
+<span class="p">.</span><span class="nc">toggleable-window</span> <span class="nt">input</span><span class="p">.</span><span class="nc">toggle</span> <span class="p">{</span>
+  <span class="k">display</span><span class="p">:</span> <span class="kc">none</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="p">.</span><span class="nc">toggleable-window</span> <span class="nt">label</span> <span class="p">{</span>
+  <span class="k">font-size</span><span class="p">:</span> <span class="mi">3</span><span class="kt">em</span><span class="p">;</span>
+  <span class="k">font-weight</span><span class="p">:</span><span class="kc">bold</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="p">.</span><span class="nc">toggleable-window</span> <span class="nt">label</span><span class="p">:</span><span class="nd">hover</span><span class="o">,</span>
+<span class="p">.</span><span class="nc">toggleable-window</span> <span class="nt">label</span><span class="p">:</span><span class="nd">focus</span> <span class="p">{</span>
+  <span class="k">cursor</span><span class="p">:</span> <span class="kc">pointer</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="p">.</span><span class="nc">toggleable-window</span> <span class="nt">input</span><span class="p">.</span><span class="nc">toggle</span><span class="p">:</span><span class="nd">checked</span> <span class="o">~</span> <span class="nt">label</span> <span class="p">{</span>
+  <span class="k">font-weight</span><span class="p">:</span><span class="kc">normal</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="p">.</span><span class="nc">toggleable-window</span> <span class="nt">input</span><span class="p">.</span><span class="nc">toggle</span><span class="p">:</span><span class="nd">checked</span> <span class="o">~</span> <span class="nt">div</span> <span class="p">{</span>
+  <span class="k">display</span><span class="p">:</span> <span class="kc">none</span><span class="p">;</span>
+<span class="p">}</span>
+
+
+<span class="p">.</span><span class="nc">toggleable-window</span> <span class="nt">div</span> <span class="p">{</span>
+  <span class="k">position</span><span class="p">:</span> <span class="kc">absolute</span><span class="p">;</span>
+  <span class="k">width</span><span class="p">:</span> <span class="mi">100</span><span class="kt">%</span><span class="p">;</span>
+  <span class="k">background</span><span class="p">:</span> <span class="kc">yellow</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="p">.</span><span class="nc">container</span> <span class="p">{</span>
+  <span class="k">position</span><span class="p">:</span> <span class="kc">relative</span><span class="p">;</span>
+  <span class="k">width</span><span class="p">:</span> <span class="mi">10</span><span class="kt">em</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div></figure>
+<p>If you prefer to use <a class="reference external" href="http://sass-lang.com/">SASS</a> for your <a class="reference external" href="https://www.google.com/search?q=CSS">CSS</a> writing, here is the <a class="reference external" href="http://sass-lang.com/documentation/file.SCSS_FOR_SASS_USERS.html">SCSS</a> equivalent
+of above CSS:</p>
+<figure class="github-file">
+            <figcaption>
+              <a href="https://github.com/siongui/userpages/blob/master/content/code/css/toggle-element-visibility/style.scss">style.scss</a> |
+              <a href="https://github.com/siongui/userpages">repository</a> |
+              <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/code/css/toggle-element-visibility/style.scss">view raw</a>
+            </figcaption><div class="code-file">
+            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cm">/* pure css toggle-able window */</span>
+<span class="nc">.toggleable-window</span> <span class="p">{</span>
+  <span class="nt">input</span><span class="nc">.toggle</span> <span class="p">{</span><span class="nt">display</span><span class="nd">:</span> <span class="nt">none</span><span class="o">;</span><span class="p">}</span>
+  <span class="nt">label</span> <span class="p">{</span>
+    <span class="nt">font-size</span><span class="nd">:</span> <span class="nt">3em</span><span class="o">;</span>
+    <span class="nt">font-weight</span><span class="nd">:bold</span><span class="o">;</span>
+    <span class="k">&amp;</span><span class="nd">:hover</span><span class="o">,</span> <span class="k">&amp;</span><span class="nd">:focus</span> <span class="p">{</span>
+      <span class="nt">cursor</span><span class="nd">:</span> <span class="nt">pointer</span><span class="o">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+  <span class="nt">input</span><span class="nc">.toggle</span><span class="nd">:checked</span> <span class="o">~</span> <span class="nt">label</span> <span class="p">{</span><span class="nt">font-weight</span><span class="nd">:normal</span><span class="o">;</span><span class="p">}</span>
+  <span class="nt">input</span><span class="nc">.toggle</span><span class="nd">:checked</span> <span class="o">~</span> <span class="nt">div</span> <span class="p">{</span><span class="nt">display</span><span class="nd">:</span> <span class="nt">none</span><span class="o">;</span><span class="p">}</span>
+  <span class="nt">div</span> <span class="p">{</span>
+    <span class="nt">position</span><span class="nd">:</span> <span class="nt">absolute</span><span class="o">;</span>
+    <span class="nt">width</span><span class="nd">:</span> <span class="nt">100</span><span class="err">%</span><span class="o">;</span>
+    <span class="nt">background</span><span class="nd">:</span> <span class="nt">yellow</span><span class="o">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nc">.container</span> <span class="p">{</span>
+  <span class="nt">position</span><span class="nd">:</span> <span class="nt">relative</span><span class="o">;</span>
+  <span class="nt">width</span><span class="nd">:</span> <span class="nt">10em</span><span class="o">;</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div></figure><hr class="docutils" />
+<!-- TODO : add links to my previous post of toggling elment using vanilla JavaScript. -->
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td><a class="reference external" href="http://www.reddit.com/r/css/comments/1f1nmm/is_it_possible_to_toggle_div_visibility_with_css/">Is it possible to toggle div visibility with CSS?</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[2]</a></td><td><a class="reference external" href="http://demosthenes.info/blog/506/HTML5-Window-Toggle-Events-In-Pure-CSS3">HTML5 Window Toggle Events In Pure CSS3</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id5" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[3]</td><td><a class="reference external" href="/2013/06/22/angularjs-toggle-element-without-javascript/">[AngularJS] Toggle Element without JavaScript</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id6" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[4]</td><td><a class="reference external" href="/2015/02/04/angularjs-dropdown-menu-using-directive/">[AngularJS] Dropdown Menu Using Directive</a></td></tr>
+</tbody>
+</table>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/web-development.html">Web Development</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/html.html">html</a>
+,       <a href="/tag/css.html">CSS</a>
+,       <a href="/tag/toggle.html">toggle</a>
+,       <a href="/tag/toggleable.html">toggleable</a>
+,       <a href="/tag/sass.html">SASS</a>
+,       <a href="/tag/scss.html">SCSS</a>
+,       <a href="/tag/pure-css-toggle.html">Pure CSS Toggle</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>[Go WebAssembly] First Wasm Program - Hello World</title>
+  <meta name="keywords" content="Go,Golang,Go WebAssembly,Frontend Programming in Go"/>
+  <meta name="description" content="First try of Go WebAssembly - Say Hello World via alert method."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="[Go WebAssembly] First Wasm Program - Hello World" /><meta property="og:image" content="https://golang.org/doc/gopher/gophercolor.png" />
+<meta property="og:description" content="First try of Go WebAssembly - Say Hello World via alert method." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2018/07/30/golang-wasm-hello-world/"
+           rel="bookmark"
+           title="Permalink to [Go WebAssembly] First Wasm Program - Hello World">
+          [Go WebAssembly] First Wasm Program - Hello World
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2018-10-04T23:13:00+08:00">
+    Updated: October 04, 2018
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2018/07/30/golang-wasm-hello-world%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p>It is really exciting moment to be able to use Go to do frontend programming.
+Start from Go 1.11, <a class="reference external" href="https://duckduckgo.com/?q=webassembly">WebAssembly</a> is <a class="reference external" href="https://tip.golang.org/doc/go1.11#wasm">supported officially in Go</a>. At the time
+of this writing, Go 1.11 is not released yet. You can try with <a class="reference external" href="https://groups.google.com/forum/#!msg/golang-announce/RVR0FzIKBsU/PAxl4-ZVCAAJ">go1.11beta2</a>.</p>
+<p>As usual, we will say <em>Hello World</em> in our first Go wasm program. Go 1.11
+provides <a class="reference external" href="https://tip.golang.org/pkg/syscall/js/">syscall/js</a> package to call into JavaScript. Since the author of Go
+wasm and <a class="reference external" href="https://github.com/gopherjs/gopherjs">GopherJS</a> is the same person, it is no surprise that the way to call
+into JavaScript in Go wasm is similar to that in GopherJS. If you have
+experiences about GopherJS, you can turn your Go/GopherJS code into Go wasm code
+just by a few replacement of words in the code. If you want to learn more about
+GopherJS, search <em>GopherJS</em> in this site.</p>
+<p>Because of readability, I am not going to use <a class="reference external" href="https://tip.golang.org/pkg/syscall/js/">syscall/js</a> package directly in
+my code. I update my <a class="reference external" href="https://github.com/siongui/godom">godom</a> package, a wrapper package for both GopherJS/Go
+WebAssembly, which make code of DOM manipulation look more like JavaScript. You
+can install the wrapper for Go wasm by:</p>
+<div class="highlight"><pre><span></span><span class="err">$</span> <span class="nx">GOARCH</span><span class="p">=</span><span class="nx">wasm</span> <span class="nx">GOOS</span><span class="p">=</span><span class="nx">js</span> <span class="k">go</span> <span class="nx">get</span> <span class="o">-</span><span class="nx">u</span> <span class="nx">github</span><span class="p">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">siongui</span><span class="o">/</span><span class="nx">godom</span><span class="o">/</span><span class="nx">wasm</span>
+</pre></div>
+<p>Next, we use <a class="reference external" href="https://www.w3schools.com/jsref/met_win_alert.asp">alert</a> method to display an alert box which says <em>Hello World</em>. It
+is easy -</p>
+<div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+      <span class="p">.</span> <span class="s">&quot;github.com/siongui/godom/wasm&quot;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+      <span class="nx">Window</span><span class="p">.</span><span class="nx">Alert</span><span class="p">(</span><span class="s">&quot;hello world!&quot;</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+<p>We will compile the above code into wasm module. Save above code as <em>alert.go</em>
+and then run the following command:</p>
+<div class="highlight"><pre><span></span><span class="err">$</span> <span class="nx">GOARCH</span><span class="p">=</span><span class="nx">wasm</span> <span class="nx">GOOS</span><span class="p">=</span><span class="nx">js</span> <span class="k">go</span> <span class="nx">build</span> <span class="o">-</span><span class="nx">o</span> <span class="nx">alert</span><span class="p">.</span><span class="nx">wasm</span> <span class="nx">alert</span><span class="p">.</span><span class="k">go</span>
+</pre></div>
+<p>So far so good, we have our wasm module ready, but how to load the module via
+JavaScript? This is the most tricky part in my opinion. You need to download the
+official <a class="reference external" href="https://github.com/golang/go/blob/master/misc/wasm/wasm_exec.js">wasm_exec.js</a>, which loads Go wasm module for you. The following
+HTML/JavaScript show you how to use the loader:</p>
+<div class="highlight"><pre><span></span><span class="cp">&lt;!doctype html&gt;</span>
+<span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&quot;utf-8&quot;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>Go wasm - Hello World<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;wasm_exec.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+      <span class="kr">const</span> <span class="nx">go</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Go</span><span class="p">();</span>
+      <span class="kd">let</span> <span class="nx">mod</span><span class="p">,</span> <span class="nx">inst</span><span class="p">;</span>
+      <span class="nx">WebAssembly</span><span class="p">.</span><span class="nx">instantiateStreaming</span><span class="p">(</span>
+              <span class="nx">fetch</span><span class="p">(</span><span class="s2">&quot;alert.wasm&quot;</span><span class="p">,</span> <span class="p">{</span><span class="nx">cache</span><span class="o">:</span> <span class="s1">&#39;no-cache&#39;</span><span class="p">}),</span> <span class="nx">go</span><span class="p">.</span><span class="nx">importObject</span><span class="p">).</span><span class="nx">then</span><span class="p">((</span><span class="nx">result</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+              <span class="nx">mod</span> <span class="o">=</span> <span class="nx">result</span><span class="p">.</span><span class="nx">module</span><span class="p">;</span>
+              <span class="nx">inst</span> <span class="o">=</span> <span class="nx">result</span><span class="p">.</span><span class="nx">instance</span><span class="p">;</span>
+              <span class="nx">run</span><span class="p">();</span>
+      <span class="p">});</span>
+      <span class="nx">async</span> <span class="kd">function</span> <span class="nx">run</span><span class="p">()</span> <span class="p">{</span>
+              <span class="nx">await</span> <span class="nx">go</span><span class="p">.</span><span class="nx">run</span><span class="p">(</span><span class="nx">inst</span><span class="p">);</span>
+      <span class="p">};</span>
+  <span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</pre></div>
+<p>Put <em>alert.wasm</em>, <em>wasm_exec.js</em> and above HTML together, open the HTML file
+with your browser. Visit the following demo to see the final result -</p>
+<p class="align-center rubric"><a class="reference external" href="https://siongui.github.io/frontend-programming-in-go/wasm/001-hello-world/demo/">Go Wasm Hello World Demo</a></p>
+<p>The full source code is also available <a class="reference external" href="https://github.com/siongui/frontend-programming-in-go/tree/master/wasm/001-hello-world">in my GitHub repo</a>.</p>
+
+<hr class="docutils" />
+<p>Tested on:</p>
+<ul class="simple">
+<li><tt class="docutils literal">Ubuntu Linux 18.04</tt></li>
+<li><tt class="docutils literal">Go 1.11 beta2</tt></li>
+<li><tt class="docutils literal">Chromium Version 67.0.3396.99 on Ubuntu 18.04 <span class="pre">(64-bit)</span></tt>/
+<tt class="docutils literal">Firefox Quantum 61.0.1 <span class="pre">(64-bit)</span> on Ubuntu 18.04</tt></li>
+</ul>
+<hr class="docutils" />
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id1" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td><div class="first last line-block">
+<div class="line"><a class="reference external" href="https://github.com/golang/go/issues/18892">meta: WebAssembly (&quot;wasm&quot;) support · Issue #18892 · golang/go · GitHub</a></div>
+<div class="line"><a class="reference external" href="https://www.reddit.com/r/golang/comments/5yl984/is_there_a_webassembly_compiler_for_go_in_the/">Is there a webassembly compiler for Go in the works? : golang</a></div>
+<div class="line"><br /></div>
+<div class="line"><a class="reference external" href="https://www.reddit.com/r/golang/comments/7ke47z/go_and_wasm_advent_day_17/">Go and wasm: Advent Day 17 : golang</a></div>
+<div class="line"><a class="reference external" href="https://blog.gopheracademy.com/advent-2017/go-wasm/">Go and wasm: generating and executing wasm with Go GopherAcademy</a></div>
+<div class="line"><br /></div>
+<div class="line"><a class="reference external" href="https://docs.google.com/document/d/131vjr4DH6JFnb-blm_uRdaC0_Nv3OUwjEY5qVCxCup4/edit">WebAssembly architecture for Go</a></div>
+<div class="line"><a class="reference external" href="https://www.reddit.com/r/golang/comments/81dt49/webassembly_architecture_for_go/">WebAssembly architecture for Go : golang</a></div>
+<div class="line"><br /></div>
+<div class="line"><a class="reference external" href="https://react-etc.net/entry/webassembly-support-lands-in-go-language-golang-wasm-js">WebAssembly support lands in Go language: golang wasm/js</a></div>
+<div class="line"><a class="reference external" href="https://www.reddit.com/r/golang/comments/8c64ix/webassembly_support_lands_in_go_language_golang/">WebAssembly support lands in Go language: golang wasm/js : golang</a></div>
+<div class="line"><br /></div>
+<div class="line"><a class="reference external" href="https://www.reddit.com/r/golang/comments/8q04c8/notes_on_wasm_in_go_111/">Notes on WASM in Go 1.11 : golang</a></div>
+<div class="line"><a class="reference external" href="https://blog.owulveryck.info/2018/06/08/some-notes-about-the-upcoming-webassembly-support-in-go.html">Some notes about the upcoming WebAssembly support in Go - Unladen swallow</a></div>
+<div class="line"><br /></div>
+<div class="line"><a class="reference external" href="https://www.reddit.com/r/golang/comments/8q71ed/early_experimentation_with_gos_webassembly/">Early experimentation with Go's WebAssembly : golang</a></div>
+<div class="line"><a class="reference external" href="https://blog.lazyhacker.com/2018/06/go-with-webassembly-early-examples.html">Lazy Hacker Babble: Go with WebAssembly Early Examples</a></div>
+<div class="line"><br /></div>
+<div class="line"><a class="reference external" href="https://www.reddit.com/r/golang/comments/8rdtxi/gopherjs_vs_webassembly_for_go/">GopherJS vs WebAssembly for Go : golang</a></div>
+<div class="line"><a class="reference external" href="https://dev.to/hajimehoshi/gopherjs-vs-webassembly-for-go-148m">GopherJS vs WebAssembly for Go</a></div>
+<div class="line"><br /></div>
+<div class="line"><a class="reference external" href="https://www.reddit.com/r/golang/comments/8s07p5/experiments_with_image_manipulation_in_wasm_using/">Experiments with image manipulation in WASM using Go : golang</a></div>
+<div class="line"><a class="reference external" href="http://agniva.me/wasm/2018/06/18/shimmer-wasm.html">Experiments with image manipulation in WASM using Go</a></div>
+<div class="line"><br /></div>
+<div class="line"><a class="reference external" href="https://www.reddit.com/r/golang/comments/8t2q1h/web_assembly_and_go_a_look_to_the_future/">Web Assembly and Go: A look to the future : golang</a></div>
+<div class="line"><a class="reference external" href="https://brianketelsen.com/web-assembly-and-go-a-look-to-the-future/">Web Assembly and Go: A look to the future</a></div>
+<div class="line"><a class="reference external" href="https://news.ycombinator.com/item?id=17381816">Web Assembly and Go: A look to the future | Hacker News</a></div>
+<div class="line"><a class="reference external" href="https://matthewphillips.info/programming/wasm-golang-ce.html">Creating Web Component in Go + wasm</a></div>
+<div class="line"><br /></div>
+<div class="line"><a class="reference external" href="https://www.reddit.com/r/golang/comments/8tjtc1/gopherwasm_a_wrapper_for_gopherjs_gopherjsjs_and/">GopherWasm - A wrapper for GopherJS (`gopherjs/js`) and Wasm (`syscall/js`) : golang</a></div>
+<div class="line"><a class="reference external" href="https://github.com/gopherjs/gopherwasm">GitHub - gopherjs/gopherwasm: A wrapper for GopherJS (`gopherjs/js`) and Wasm (`syscall/js`)</a></div>
+<div class="line"><br /></div>
+<div class="line"><a class="reference external" href="https://www.reddit.com/r/golang/comments/8usnpe/go_and_goto_in_webassembly/">Go and Goto in WebAssembly : golang</a></div>
+<div class="line"><a class="reference external" href="https://github.com/WebAssembly/design/issues/796#issuecomment-401310366">Please Support Arbitrary Labels and Gotos. · Issue #796 · WebAssembly/design · GitHub</a></div>
+<div class="line"><br /></div>
+<div class="line"><a class="reference external" href="https://www.reddit.com/r/golang/comments/8vrhld/go111_webassembly_experiments/">go1.11 webassembly experiments : golang</a></div>
+<div class="line"><a class="reference external" href="https://github.com/stdiopt/gowasm-experiments">GitHub - stdiopt/gowasm-experiments: go1.11 webassembly experiments</a></div>
+<div class="line"><br /></div>
+<div class="line"><a class="reference external" href="https://www.reddit.com/r/golang/comments/8vgmpj/go_111_webassembly_for_the_gophers/">Go 1.11: WebAssembly for the gophers : golang</a></div>
+<div class="line"><a class="reference external" href="https://medium.zenika.com/go-1-11-webassembly-for-the-gophers-ae4bb8b1ee03">Go 1.11: WebAssembly for the gophers – Zenika</a></div>
+<div class="line"><br /></div>
+<div class="line"><a class="reference external" href="https://www.reddit.com/r/golang/comments/8wi14y/using_go_for_webassembly_applications/">Using Go for WebAssembly Applications : golang</a></div>
+<div class="line"><a class="reference external" href="https://sebastian-holstein.de/post/2018-07-05-go-wasm-application/">Using Go (Golang) for WebAssembly Applications · Sebastian Holstein</a></div>
+<div class="line"><br /></div>
+<div class="line"><a class="reference external" href="https://www.reddit.com/r/golang/comments/8wkd5r/go_webassembly_binding_structures_to_js_references/">Go WebAssembly: Binding structures to JS references : golang</a></div>
+<div class="line"><a class="reference external" href="https://medium.com/&#64;nlepage/go-webassembly-binding-structures-to-js-references-4eddd6fd4d23">Go WebAssembly: Binding structures to JS references</a></div>
+</div>
+</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[2]</td><td><div class="first last line-block">
+<div class="line"><a class="reference external" href="https://mp.weixin.qq.com/s/jqISsdQ9tDzy9Zg6g6u5xw">Go1.11和WebAssembly</a></div>
+<div class="line"><a class="reference external" href="https://github.com/chai2010/awesome-wasm-zh">GitHub - chai2010/awesome-wasm-zh: WebAssembly(wasm)资源精选</a></div>
+<div class="line"><a class="reference external" href="https://github.com/golang/go/wiki/WebAssembly">WebAssembly · golang/go Wiki · GitHub</a></div>
+</div>
+</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[3]</td><td><a class="reference external" href="https://old.reddit.com/r/golang/comments/9gtg2h/webassembly_writing_js_in_go/">WebAssembly = Writing JS in Go? • r/golang</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[4]</td><td><a class="reference external" href="https://old.reddit.com/r/golang/comments/9hsaui/a_web_go_repl_via_webassembly/">A web Go REPL via WebAssembly : golang</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id5" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[5]</td><td><a class="reference external" href="https://old.reddit.com/r/golang/comments/9tuuep/writing_a_frontend_web_framework_with_webassembly/">Writing a Frontend Web Framework with WebAssembly And Go : golang</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id6" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[6]</td><td><a class="reference external" href="https://old.reddit.com/r/golang/comments/9velz5/run_javascript_using_otto_in_go_in_wasm_in_the/">Run JavaScript using Otto in Go in WASM in the Browser : golang</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id7" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[7]</td><td><a class="reference external" href="https://old.reddit.com/r/golang/comments/9w4nk5/this_is_a_wasmbased_vuejs_wrapper_written_in_go/">This is a WASM-based Vue.js wrapper written in Go : golang</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id8" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[8]</td><td><a class="reference external" href="https://old.reddit.com/r/golang/comments/9tuuep/writing_a_frontend_web_framework_with_webassembly/">Writing a Frontend Web Framework with WebAssembly And Go : golang</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id10" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[9]</td><td><a class="reference external" href="https://old.reddit.com/r/golang/comments/9yi0nw/write_qt_for_webassembly_applications_entirely_in/">Write Qt for WebAssembly applications entirely in Go and/or JavaScript : golang</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id11" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[10]</td><td><a class="reference external" href="https://old.reddit.com/r/golang/comments/a406x3/advent_2018_go_and_webassembly_running_go/">Advent 2018: Go and WebAssembly: running Go programs in your browser : golang</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id12" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[11]</td><td><a class="reference external" href="https://old.reddit.com/r/golang/comments/a41dsy/starlight_run_python_natively_inside_your_go/">Starlight - run python natively inside your Go application : golang</a></td></tr>
+</tbody>
+</table>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/frontend-programming-in-go.html">Frontend Programming in Go</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/go.html">Go</a>
+,       <a href="/tag/golang.html">Golang</a>
+,       <a href="/tag/go-webassembly.html">Go WebAssembly</a>
+,       <a href="/tag/frontend-programming-in-go.html">Frontend Programming in Go</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

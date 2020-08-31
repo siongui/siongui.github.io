@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>JSONP on Google App Engine Python</title>
+  <meta name="keywords" content="JavaScript,CORS,JSONP,Google App Engine,Python,JSON"/>
+  <meta name="description" content="Cross-domain requests by JSONP on Google App Engine for Python."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="JSONP on Google App Engine Python" /><meta property="og:image" content="http://www.zackgrossbart.com/hackito/wp-content/uploads/2009/04/jsonp_flow.jpg" />
+<meta property="og:description" content="Cross-domain requests by JSONP on Google App Engine for Python." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2015/02/20/jsonp-on-google-app-engine-python/"
+           rel="bookmark"
+           title="Permalink to JSONP on Google App Engine Python">
+          JSONP on Google App Engine Python
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2015-02-20T21:49:00+08:00">
+    Updated: February 20, 2015
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2015/02/20/jsonp-on-google-app-engine-python%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p>There are many explanations about <a class="reference external" href="http://en.wikipedia.org/wiki/JSONP">JSONP</a> on internet, but a complete sample code
+for <a class="reference external" href="http://en.wikipedia.org/wiki/JSONP">JSONP</a> on <a class="reference external" href="https://cloud.google.com/appengine/docs/python/">Google App Engine for Python</a> is very rare. After trial and
+error, I finally made it work on <a class="reference external" href="https://cloud.google.com/appengine/docs/python/">Google App Engine for Python</a>. To put JSONP
+in short, it is a mechanism to make a cross-domain request, which is usually
+denied by browsers because of security concerns. The technique behind <a class="reference external" href="http://en.wikipedia.org/wiki/JSONP">JSONP</a> is
+simple: use HTML <em>script</em> tag to make HTTP GET request, as if the client is
+requesting an external JavaScript file. A callback function must be provided to
+handle the response data from server. For more information, please refer to <a class="footnote-reference" href="#id5" id="id1">[1]</a>
+and <a class="footnote-reference" href="#id6" id="id2">[2]</a>.</p>
+<p>The following is complete sample code.</p>
+<p><em>index.html</em> (run on client side, i.e., browser):</p>
+<figure class="github-file">
+            <figcaption>
+              <a href="https://github.com/siongui/userpages/blob/master/content/code/jsonp-gae-python/index.html">index.html</a> |
+              <a href="https://github.com/siongui/userpages">repository</a> |
+              <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/code/jsonp-gae-python/index.html">view raw</a>
+            </figcaption><div class="code-file">
+            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cp">&lt;!doctype html&gt;</span>
+<span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&quot;utf-8&quot;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>JSONP on Google App Engine Python example<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">br</span> <span class="na">style</span><span class="o">=</span><span class="s">&quot;line-height: 3em;&quot;</span> <span class="p">/&gt;</span>
+<span class="p">&lt;</span><span class="nt">form</span> <span class="na">style</span><span class="o">=</span><span class="s">&quot;text-align: center;&quot;</span> <span class="na">action</span><span class="o">=</span><span class="s">&quot;javascript:jsonp();&quot;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">input</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;input1&quot;</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text&quot;</span> <span class="na">value</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">&gt;&lt;</span><span class="nt">br</span> <span class="p">/&gt;</span>
+  <span class="p">&lt;</span><span class="nt">input</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;input2&quot;</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text&quot;</span> <span class="na">value</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">&gt;&lt;</span><span class="nt">br</span> <span class="p">/&gt;</span>
+  <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;submit&quot;</span> <span class="na">value</span><span class="o">=</span><span class="s">&quot;Submit&quot;</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">br</span> <span class="na">style</span><span class="o">=</span><span class="s">&quot;line-height: 3em;&quot;</span> <span class="p">/&gt;</span>
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;info&quot;</span> <span class="na">style</span><span class="o">=</span><span class="s">&quot;text-align: center;&quot;</span><span class="p">&gt;</span>
+   try to input something and then submit.
+   a JSONP request will be sent to Google App Engine Python server
+   and then response will be sent back.
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;jsonp.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</pre></div>
+</td></tr></table></div></figure>
+<p><em>jsonp.js</em> (run on client side, i.e., browser):</p>
+<figure class="github-file">
+            <figcaption>
+              <a href="https://github.com/siongui/userpages/blob/master/content/code/jsonp-gae-python/jsonp.js">jsonp.js</a> |
+              <a href="https://github.com/siongui/userpages">repository</a> |
+              <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/code/jsonp-gae-python/jsonp.js">view raw</a>
+            </figcaption><div class="code-file">
+            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cm">/* send data to GAE Python server */</span>
+<span class="kd">function</span> <span class="nx">jsonp</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">input1value</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;input1&#39;</span><span class="p">).</span><span class="nx">value</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">input2value</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;input2&#39;</span><span class="p">).</span><span class="nx">value</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">url</span> <span class="o">=</span> <span class="s1">&#39;/jsonp?callback=mycallback&#39;</span> <span class="o">+</span>
+           <span class="s1">&#39;&amp;input1=&#39;</span> <span class="o">+</span> <span class="nb">encodeURIComponent</span><span class="p">(</span><span class="nx">input1value</span><span class="p">)</span> <span class="o">+</span>
+           <span class="s1">&#39;&amp;input2=&#39;</span> <span class="o">+</span> <span class="nb">encodeURIComponent</span><span class="p">(</span><span class="nx">input2value</span><span class="p">);</span>
+  <span class="kd">var</span> <span class="nx">ext</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;script&#39;</span><span class="p">);</span>
+  <span class="nx">ext</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s1">&#39;src&#39;</span><span class="p">,</span> <span class="nx">url</span><span class="p">);</span>
+  <span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="s2">&quot;head&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">].</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">ext</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="cm">/* receive JSON data from GAE Python server */</span>
+<span class="kd">function</span> <span class="nx">mycallback</span><span class="p">(</span><span class="nx">JSONdata</span><span class="p">)</span> <span class="p">{</span>
+  <span class="cm">/* In order to parse data, we have to know the structure of data from server in advance */</span>
+
+  <span class="cm">/* show returned data */</span>
+  <span class="kd">var</span> <span class="nx">infoElm</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;info&#39;</span><span class="p">);</span>
+  <span class="nx">infoElm</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="s1">&#39;input1: &#39;</span> <span class="o">+</span> <span class="nx">JSONdata</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;input1&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;&lt;br /&gt;&#39;</span><span class="p">;</span>
+  <span class="nx">infoElm</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">+=</span> <span class="s1">&#39;input2: &#39;</span> <span class="o">+</span> <span class="nx">JSONdata</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;input2&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;&lt;br /&gt;&#39;</span><span class="p">;</span>
+  <span class="nx">infoElm</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">+=</span> <span class="nx">JSONdata</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;&lt;br /&gt;&#39;</span><span class="p">;</span>
+  <span class="nx">infoElm</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">+=</span> <span class="nx">JSONdata</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;&lt;br /&gt;&#39;</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div></figure>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The name of callback function, <em>mycallback</em> in this case, must be consistent.
+To process the response data from server in the callback function, web
+application designer must know the structure of the response JSON data in
+advance.</p>
+</div>
+<p><em>jsonp.py</em> (run on server side, i.e., GAE Python):</p>
+<figure class="github-file">
+            <figcaption>
+              <a href="https://github.com/siongui/userpages/blob/master/content/code/jsonp-gae-python/jsonp.py">jsonp.py</a> |
+              <a href="https://github.com/siongui/userpages">repository</a> |
+              <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/code/jsonp-gae-python/jsonp.py">view raw</a>
+            </figcaption><div class="code-file">
+            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
+<span class="c1"># -*- coding:utf-8 -*-</span>
+
+<span class="kn">import</span> <span class="nn">webapp2</span>
+<span class="kn">import</span> <span class="nn">urllib2</span>
+<span class="kn">import</span> <span class="nn">json</span>
+
+
+<span class="k">class</span> <span class="nc">JSONPPage</span><span class="p">(</span><span class="n">webapp2</span><span class="o">.</span><span class="n">RequestHandler</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="n">input1</span> <span class="o">=</span> <span class="n">urllib2</span><span class="o">.</span><span class="n">unquote</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;input1&#39;</span><span class="p">))</span>
+    <span class="n">input2</span> <span class="o">=</span> <span class="n">urllib2</span><span class="o">.</span><span class="n">unquote</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;input2&#39;</span><span class="p">))</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="p">[{</span> <span class="s1">&#39;input1&#39;</span><span class="p">:</span> <span class="n">input1</span> <span class="p">},</span>
+              <span class="p">{</span> <span class="s1">&#39;input2&#39;</span><span class="p">:</span> <span class="n">input2</span> <span class="p">},</span>
+              <span class="p">(</span><span class="s1">&#39;message #1&#39;</span><span class="p">,</span> <span class="s1">&#39;from&#39;</span><span class="p">,</span> <span class="s1">&#39;server&#39;</span><span class="p">),</span>
+              <span class="p">(</span><span class="s1">&#39;message #2&#39;</span><span class="p">,</span> <span class="s1">&#39;from&#39;</span><span class="p">,</span> <span class="s1">&#39;server&#39;</span><span class="p">)]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">response</span><span class="o">.</span><span class="n">headers</span><span class="p">[</span><span class="s1">&#39;Content-Type&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;application/javascript&#39;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">response</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
+        <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">(</span><span class="si">%s</span><span class="s2">)&quot;</span> <span class="o">%</span>
+        <span class="p">(</span><span class="n">urllib2</span><span class="o">.</span><span class="n">unquote</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;callback&#39;</span><span class="p">)),</span>
+        <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">result</span><span class="p">))</span>
+    <span class="p">)</span>
+
+
+<span class="n">application</span> <span class="o">=</span> <span class="n">webapp2</span><span class="o">.</span><span class="n">WSGIApplication</span><span class="p">([</span>
+    <span class="p">(</span><span class="s1">&#39;/jsonp&#39;</span><span class="p">,</span> <span class="n">JSONPPage</span><span class="p">),</span>
+<span class="p">],</span> <span class="n">debug</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</td></tr></table></div></figure><div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>The following code in <em>JSONPPage</em> class:</p>
+<div class="highlight"><pre><span></span><span class="bp">self</span><span class="o">.</span><span class="n">response</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
+    <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">(</span><span class="si">%s</span><span class="s2">)&quot;</span> <span class="o">%</span>
+    <span class="p">(</span><span class="n">urllib2</span><span class="o">.</span><span class="n">unquote</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;callback&#39;</span><span class="p">)),</span>
+    <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">result</span><span class="p">))</span>
+<span class="p">)</span>
+</pre></div>
+<p class="last">The JSON data is inside parentheses after the name of callback function.</p>
+</div>
+<p><em>app.yaml</em> (on server side, GAE Python config file):</p>
+<figure class="github-file">
+            <figcaption>
+              <a href="https://github.com/siongui/userpages/blob/master/content/code/jsonp-gae-python/app.yaml">app.yaml</a> |
+              <a href="https://github.com/siongui/userpages">repository</a> |
+              <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/code/jsonp-gae-python/app.yaml">view raw</a>
+            </figcaption><div class="code-file">
+            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="nt">application</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">jsonp-gae-python</span>
+<span class="nt">version</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="nt">runtime</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">python27</span>
+<span class="nt">api_version</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="nt">threadsafe</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+
+<span class="nt">handlers</span><span class="p">:</span>
+<span class="p p-Indicator">-</span> <span class="nt">url</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/</span>
+  <span class="nt">static_files</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">index.html</span>
+  <span class="nt">upload</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">index.html</span>
+
+<span class="p p-Indicator">-</span> <span class="nt">url</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/jsonp.js</span>
+  <span class="nt">static_files</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">jsonp.js</span>
+  <span class="nt">upload</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">jsonp.js</span>
+
+<span class="p p-Indicator">-</span> <span class="nt">url</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/jsonp</span>
+  <span class="nt">script</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">jsonp.application</span>
+</pre></div>
+</td></tr></table></div></figure><p>If you want to use JSONP with anonymous callback function, see <a class="footnote-reference" href="#id8" id="id3">[4]</a>.</p>
+<p>If you want to use JSONP with object instance function as callback function,
+see <a class="footnote-reference" href="#id9" id="id4">[5]</a>.</p>
+<p>Tested on: <tt class="docutils literal">Ubuntu Linux 14.10</tt>, <tt class="docutils literal">Google App Engine Python SDK 1.9.18</tt></p>
+<hr class="docutils" />
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id5" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td><a class="reference external" href="http://www.osd.net/blog/web-development/javascript/jsonp-example/">JSONP Example | Online Solutions Development</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id6" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[2]</a></td><td><a class="reference external" href="http://www.slideshare.net/andymckay/cross-domain-webmashups-with-jquery-and-google-app-engine">Cross Domain Web Mashups with JQuery and Google App Engine</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id7" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[3]</td><td><a class="reference external" href="https://cloud.google.com/appengine/docs/python/">Google App Engine for Python</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id8" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id3">[4]</a></td><td><a class="reference external" href="/2015/02/20/jsonp-anonymous-callback-function/">JSONP with Anonymous Callback Function</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id9" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id4">[5]</a></td><td><a class="reference external" href="/2015/02/20/jsonp-object-instance-callback/">Use Object Instance Function as JSONP Callback Function</a></td></tr>
+</tbody>
+</table>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/javascript.html">JavaScript</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/javascript.html">JavaScript</a>
+,       <a href="/tag/cors.html">CORS</a>
+,       <a href="/tag/jsonp.html">JSONP</a>
+,       <a href="/tag/google-app-engine.html">Google App Engine</a>
+,       <a href="/tag/python.html">Python</a>
+,       <a href="/tag/json.html">JSON</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

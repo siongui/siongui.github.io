@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>[Go語言] 移動檔案到別的目錄</title>
+  <meta name="keywords" content="Go語言"/>
+  <meta name="description" content="透過 Go os.Rename 方法將檔案移動到另一個目錄。"/>
+  <meta name="author" content="戴上為"/><meta property="og:title" content="[Go語言] 移動檔案到別的目錄" /><meta property="og:image" content="https://cdn2.hubspot.net/hubfs/3917309/old-assets/old-theme/Images/golang-gopher-laptop.png" />
+<meta property="og:description" content="透過 Go os.Rename 方法將檔案移動到另一個目錄。" /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/zh/../extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/zh/../theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/zh/">理論與實作</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/zh/pages/about.html">關於</a>
+    <a class="nav-item" href="/zh/archives.html">歸檔</a>
+    <a class="nav-item" href="/zh/categories.html">分類</a>
+    <a class="nav-item" href="/zh/tags.html">標籤</a>
+    <a class="nav-item" href="/zh/authors.html">作者</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/">English</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/zh/2018/09/27/go-mv-file-to-another-folder/"
+           rel="bookmark"
+           title="Permalink to [Go語言] 移動檔案到別的目錄">
+          [Go語言] 移動檔案到別的目錄
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2018-09-27T01:49:00+08:00">
+    九月 27, 2018
+  </time></aside>
+    <aside><div class="available-translations">
+      <span>翻譯</span>:&nbsp;<a href="/zh/../2018/03/26/go-mv-file-to-another-folder/">English</a>&nbsp;</div><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2018/03/26/go-mv-file-to-another-folder%25zh.rst">在Github上編輯</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p><a class="reference external" href="https://linux.die.net/man/1/mv">mv</a> 這個shell指令在Linux系統裡用來移動檔案。我想要在Go語言程式碼裡直接移動檔案，
+所以我搜尋了 <em>golang os.Move</em> <a class="footnote-reference" href="#id2" id="id1">[1]</a> 然後發現 <a class="reference external" href="https://golang.org/pkg/os/#Rename">os.Rename</a> 是我所需要的方法。
+讓我們試看看它是如何運作的。</p>
+<p>如下，有一個檔案跟一個目錄：</p>
+<div class="highlight"><pre><span></span>.
+├── hello.txt
+└── testdir/
+</pre></div>
+<p>我想要移動 <em>hello.txt</em> 到 <em>testdir/</em> 目錄下，我寫了下面的程式碼：</p>
+<div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+      <span class="s">&quot;os&quot;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+      <span class="nx">err</span> <span class="o">:=</span> <span class="nx">os</span><span class="p">.</span><span class="nx">Rename</span><span class="p">(</span><span class="s">&quot;hello.txt&quot;</span><span class="p">,</span> <span class="s">&quot;testdir/&quot;</span><span class="p">)</span>
+      <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+              <span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+      <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<p>看起來很合理，因為這是我們在Linux shell利用 <a class="reference external" href="https://linux.die.net/man/1/mv">mv</a> 指令的方式。當我運行Go程式碼時，
+發生了panic：</p>
+<div class="highlight"><pre><span></span>panic: rename hello.txt testdir/: file exists
+</pre></div>
+<p>所以我們不能只是把 <em>testdir/</em> 放在 <a class="reference external" href="https://golang.org/pkg/os/#Rename">os.Rename</a> 的新路徑參數。
+我們必須指定完整的新路徑，包含檔名：</p>
+<div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+      <span class="s">&quot;os&quot;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+      <span class="nx">err</span> <span class="o">:=</span> <span class="nx">os</span><span class="p">.</span><span class="nx">Rename</span><span class="p">(</span><span class="s">&quot;hello.txt&quot;</span><span class="p">,</span> <span class="s">&quot;testdir/hello.txt&quot;</span><span class="p">)</span>
+      <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+              <span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+      <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<p>然後我們就能得到我們想要的結果：</p>
+<div class="highlight"><pre><span></span>.
+└── testdir/
+    └── hello.txt
+</pre></div>
+
+<hr class="docutils" />
+<p>Tested on: <tt class="docutils literal">Ubuntu Linux 17.10</tt>, <tt class="docutils literal">Go 1.10</tt></p>
+<hr class="docutils" />
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td><div class="first last line-block">
+<div class="line"><a class="reference external" href="https://www.google.com/search?q=golang+os.move">golang os.move - Google search</a></div>
+<div class="line"><a class="reference external" href="https://duckduckgo.com/?q=golang+os.move">golang os.move - DuckDuckGo search</a></div>
+<div class="line"><a class="reference external" href="https://www.ecosia.org/search?q=golang+os.move">golang os.move - Ecosia search</a></div>
+<div class="line"><a class="reference external" href="https://www.qwant.com/?q=golang+os.move">golang os.move - Qwant search</a></div>
+<div class="line"><a class="reference external" href="https://www.bing.com/search?q=golang+os.move">golang os.move - Bing search</a></div>
+<div class="line"><a class="reference external" href="https://search.yahoo.com/search?p=golang+os.move">golang os.move - Yahoo search</a></div>
+<div class="line"><a class="reference external" href="https://www.baidu.com/s?wd=golang+os.move">golang os.move - Baidu search</a></div>
+<div class="line"><a class="reference external" href="https://www.yandex.com/search/?text=golang+os.move">golang os.move - Yandex search</a></div>
+</div>
+</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[2]</td><td><a class="reference external" href="https://golang.org/pkg/os/#Rename">func Rename - os - The Go Programming Language</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[3]</td><td><div class="first last line-block">
+<div class="line"><a class="reference external" href="https://www.google.com/search?q=ubuntu+tree+command">ubuntu tree command - Google search</a></div>
+<div class="line"><a class="reference external" href="https://duckduckgo.com/?q=ubuntu+tree+command">ubuntu tree command - DuckDuckGo search</a></div>
+<div class="line"><a class="reference external" href="https://www.ecosia.org/search?q=ubuntu+tree+command">ubuntu tree command - Ecosia search</a></div>
+<div class="line"><a class="reference external" href="https://www.qwant.com/?q=ubuntu+tree+command">ubuntu tree command - Qwant search</a></div>
+<div class="line"><a class="reference external" href="https://www.bing.com/search?q=ubuntu+tree+command">ubuntu tree command - Bing search</a></div>
+<div class="line"><a class="reference external" href="https://search.yahoo.com/search?p=ubuntu+tree+command">ubuntu tree command - Yahoo search</a></div>
+<div class="line"><a class="reference external" href="https://www.baidu.com/s?wd=ubuntu+tree+command">ubuntu tree command - Baidu search</a></div>
+<div class="line"><a class="reference external" href="https://www.yandex.com/search/?text=ubuntu+tree+command">ubuntu tree command - Yandex search</a></div>
+</div>
+</td></tr>
+</tbody>
+</table>
+</div>
+
+    <footer><hr><address><b>作者</b>:
+    <a rel="author"
+       href="/zh/author/dai-shang-wei.html">戴上為</a>
+  </address><aside>
+    <i>&isin;</i> <b>分類</b>:
+    <a href="/zh/category/goyu-yan.html">Go語言</a>
+  </aside><aside>
+    <i>&sum;</i> <b>標籤</b>:
+      <a href="/zh/tag/goyu-yan.html">Go語言</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

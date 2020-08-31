@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>Online Sieve of Eratosthenes Demo via Go and Vue.js</title>
+  <meta name="keywords" content="Go,Golang,GopherJS,Go to JavaScript,Frontend Programming in Go,Vue.js,gopherjs-vue,Algorithm,Prime Number,Math"/>
+  <meta name="description" content="Online demo of sieve of eratosthenes via Go/GopherJS/gopherjs-vue."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="Online Sieve of Eratosthenes Demo via Go and Vue.js" /><meta property="og:image" content="https://www.cut-the-knot.org/Curriculum/Arithmetic/Eratosthenes.jpg" />
+<meta property="og:description" content="Online demo of sieve of eratosthenes via Go/GopherJS/gopherjs-vue." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2018/05/01/sieve-of-eratosthenes-via-gopherjs-vue/"
+           rel="bookmark"
+           title="Permalink to Online Sieve of Eratosthenes Demo via Go and Vue.js">
+          Online Sieve of Eratosthenes Demo via Go and Vue.js
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2018-05-01T23:51:00+08:00">
+    May 01, 2018
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2017/12/04/sieve-of-eratosthenes-via-gopherjs-vue%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p>Online <a class="reference external" href="https://www.google.com/search?q=Sieve+of+Eratosthenes">Sieve of Eratosthenes</a> demo via Go/GopherJS/<a class="reference external" href="https://github.com/oskca/gopherjs-vue">gopherjs-vue</a> (Go binding
+for <a class="reference external" href="https://vuejs.org/">Vue.js</a>). <a class="reference external" href="https://www.google.com/search?q=Sieve+of+Eratosthenes">Sieve of Eratosthenes</a> is a method to find prime numbers up to a
+given limit. The algorithm comes from GeeksforGeeks <a class="footnote-reference" href="#id3" id="id1">[1]</a> and implemented in Go.
+<a class="reference external" href="https://github.com/oskca/gopherjs-vue">gopherjs-vue</a> is used to build to UI interaction.</p>
+<p>Although the following demo is written in JavaScript/Vue.js, the effect is the
+same as that written in Go.</p>
+<p class="align-center rubric"><a class="reference external" href="/2018/05/02/vuejs-online-sieve-of-eratosthenes-demo/">Demo</a></p>
+<p>The link of full source code is available <a class="reference external" href="https://github.com/siongui/frontend-programming-in-go/tree/master/030-sieve-of-eratosthenes-gopherjs-vue">on my GitHub repo</a>.</p>
+<p><strong>HTML</strong></p>
+<div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;vueapp&quot;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">input</span> <span class="na">v-model</span><span class="o">=</span><span class="s">&quot;intn&quot;</span> <span class="na">placeholder</span><span class="o">=</span><span class="s">&quot;Input even integer &gt; 2&quot;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>{{ result }}<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</pre></div>
+<p><strong>Go</strong>: <em>go get</em> <em>github.com/gopherjs/gopherjs</em> and
+<em>github.com/oskca/gopherjs-vue</em> before compiling the Go code.</p>
+<div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+      <span class="s">&quot;strconv&quot;</span>
+
+      <span class="s">&quot;github.com/gopherjs/gopherjs/js&quot;</span>
+      <span class="s">&quot;github.com/oskca/gopherjs-vue&quot;</span>
+<span class="p">)</span>
+
+<span class="kd">type</span> <span class="nx">Model</span> <span class="kd">struct</span> <span class="p">{</span>
+      <span class="o">*</span><span class="nx">js</span><span class="p">.</span><span class="nx">Object</span>        <span class="c1">// this is needed for bidirectional data bindings</span>
+      <span class="nx">Intn</span>       <span class="kt">string</span> <span class="s">`js:&quot;intn&quot;`</span>
+      <span class="nx">Result</span>     <span class="kt">string</span> <span class="s">`js:&quot;result&quot;`</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nx">SieveOfEratosthenes</span><span class="p">(</span><span class="nx">n</span> <span class="kt">int</span><span class="p">)</span> <span class="p">[]</span><span class="kt">int</span> <span class="p">{</span>
+      <span class="c1">// Create a boolean array &quot;prime[0..n]&quot; and initialize</span>
+      <span class="c1">// all entries it as true. A value in prime[i] will</span>
+      <span class="c1">// finally be false if i is Not a prime, else true.</span>
+      <span class="nx">integers</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">bool</span><span class="p">,</span> <span class="nx">n</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+      <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">2</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nx">n</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+              <span class="nx">integers</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="kc">true</span>
+      <span class="p">}</span>
+
+      <span class="k">for</span> <span class="nx">p</span> <span class="o">:=</span> <span class="mi">2</span><span class="p">;</span> <span class="nx">p</span><span class="o">*</span><span class="nx">p</span> <span class="o">&lt;=</span> <span class="nx">n</span><span class="p">;</span> <span class="nx">p</span><span class="o">++</span> <span class="p">{</span>
+              <span class="c1">// If integers[p] is not changed, then it is a prime</span>
+              <span class="k">if</span> <span class="nx">integers</span><span class="p">[</span><span class="nx">p</span><span class="p">]</span> <span class="o">==</span> <span class="kc">true</span> <span class="p">{</span>
+                      <span class="c1">// Update all multiples of p</span>
+                      <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="nx">p</span> <span class="o">*</span> <span class="mi">2</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;=</span> <span class="nx">n</span><span class="p">;</span> <span class="nx">i</span> <span class="o">+=</span> <span class="nx">p</span> <span class="p">{</span>
+                              <span class="nx">integers</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="kc">false</span>
+                      <span class="p">}</span>
+              <span class="p">}</span>
+      <span class="p">}</span>
+
+      <span class="c1">// return all prime numbers &lt;= n</span>
+      <span class="kd">var</span> <span class="nx">primes</span> <span class="p">[]</span><span class="kt">int</span>
+      <span class="k">for</span> <span class="nx">p</span> <span class="o">:=</span> <span class="mi">2</span><span class="p">;</span> <span class="nx">p</span> <span class="o">&lt;=</span> <span class="nx">n</span><span class="p">;</span> <span class="nx">p</span><span class="o">++</span> <span class="p">{</span>
+              <span class="k">if</span> <span class="nx">integers</span><span class="p">[</span><span class="nx">p</span><span class="p">]</span> <span class="o">==</span> <span class="kc">true</span> <span class="p">{</span>
+                      <span class="nx">primes</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">primes</span><span class="p">,</span> <span class="nx">p</span><span class="p">)</span>
+              <span class="p">}</span>
+      <span class="p">}</span>
+
+      <span class="k">return</span> <span class="nx">primes</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+      <span class="nx">m</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">Model</span><span class="p">{</span>
+              <span class="nx">Object</span><span class="p">:</span> <span class="nx">js</span><span class="p">.</span><span class="nx">Global</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;Object&quot;</span><span class="p">).</span><span class="nx">New</span><span class="p">(),</span>
+      <span class="p">}</span>
+      <span class="c1">// field assignment is required in this way to make data passing works</span>
+      <span class="nx">m</span><span class="p">.</span><span class="nx">Intn</span> <span class="p">=</span> <span class="s">&quot;4&quot;</span>
+      <span class="nx">m</span><span class="p">.</span><span class="nx">Result</span> <span class="p">=</span> <span class="s">&quot;&quot;</span>
+
+      <span class="c1">// create the VueJS viewModel using a struct pointer</span>
+      <span class="nx">app</span> <span class="o">:=</span> <span class="nx">vue</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="s">&quot;#vueapp&quot;</span><span class="p">,</span> <span class="nx">m</span><span class="p">)</span>
+
+      <span class="nx">opt</span> <span class="o">:=</span> <span class="nx">js</span><span class="p">.</span><span class="nx">Global</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;Object&quot;</span><span class="p">).</span><span class="nx">New</span><span class="p">()</span>
+      <span class="nx">opt</span><span class="p">.</span><span class="nx">Set</span><span class="p">(</span><span class="s">&quot;immediate&quot;</span><span class="p">,</span> <span class="kc">true</span><span class="p">)</span>
+      <span class="nx">app</span><span class="p">.</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;$watch&quot;</span><span class="p">,</span> <span class="s">&quot;intn&quot;</span><span class="p">,</span> <span class="kd">func</span><span class="p">(</span><span class="nx">newVal</span><span class="p">,</span> <span class="nx">oldVal</span> <span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
+              <span class="nx">n</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">strconv</span><span class="p">.</span><span class="nx">Atoi</span><span class="p">(</span><span class="nx">newVal</span><span class="p">)</span>
+              <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+                      <span class="nx">m</span><span class="p">.</span><span class="nx">Result</span> <span class="p">=</span> <span class="s">&quot;input must be integer&quot;</span>
+                      <span class="k">return</span>
+              <span class="p">}</span>
+              <span class="nx">m</span><span class="p">.</span><span class="nx">Result</span> <span class="p">=</span> <span class="s">&quot;&quot;</span>
+
+              <span class="nx">primes</span> <span class="o">:=</span> <span class="nx">SieveOfEratosthenes</span><span class="p">(</span><span class="nx">n</span><span class="p">)</span>
+              <span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">prime</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">primes</span> <span class="p">{</span>
+                      <span class="nx">m</span><span class="p">.</span><span class="nx">Result</span> <span class="o">+=</span> <span class="p">(</span><span class="nx">strconv</span><span class="p">.</span><span class="nx">Itoa</span><span class="p">(</span><span class="nx">prime</span><span class="p">)</span> <span class="o">+</span> <span class="s">&quot; &quot;</span><span class="p">)</span>
+              <span class="p">}</span>
+      <span class="p">},</span> <span class="nx">opt</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+<p>The JavaScript equivalent is available on my previous post <a class="footnote-reference" href="#id4" id="id2">[2]</a>.</p>
+
+<p>Tested on:</p>
+<ul class="simple">
+<li><tt class="docutils literal">Chromium 65.0.3325.181 on Ubuntu 17.10 <span class="pre">(64-bit)</span></tt></li>
+<li><tt class="docutils literal">Go 1.10.1</tt></li>
+<li><tt class="docutils literal">GopherJS <span class="pre">1.10-3</span></tt></li>
+</ul>
+<hr class="docutils" />
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td><a class="reference external" href="https://www.geeksforgeeks.org/sieve-of-eratosthenes/">Sieve of Eratosthenes - GeeksforGeeks</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[2]</a></td><td><a class="reference external" href="/2018/04/28/javascript-sieve-of-eratosthenes/">[JavaScript] Sieve of Eratosthenes</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id5" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[3]</td><td><a class="reference external" href="/2017/04/17/go-sieve-of-eratosthenes/">[Golang] Sieve of Eratosthenes</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id6" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[4]</td><td><a class="reference external" href="/2018/04/29/vuejs-online-goldbach-conjecture-demo/">[Vue.js] Online Goldbach's Conjecture Demo</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id7" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[5]</td><td><a class="reference external" href="https://godoc.org/github.com/oskca/gopherjs-vue#ViewModel.Watch">vue - GoDoc</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id8" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[6]</td><td><a class="reference external" href="https://github.com/lifeng1335/gopherjs-vue-examples">GitHub - lifeng1335/gopherjs-vue-examples: Vue.js official examples written in go language with gopherjs</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id9" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[7]</td><td><a class="reference external" href="https://vuejs.org/v2/api/#vm-watch">vm.$watch( expOrFn, callback, [options] ) - API — Vue.js</a></td></tr>
+</tbody>
+</table>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/frontend-programming-in-go.html">Frontend Programming in Go</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/go.html">Go</a>
+,       <a href="/tag/golang.html">Golang</a>
+,       <a href="/tag/gopherjs.html">GopherJS</a>
+,       <a href="/tag/go-to-javascript.html">Go to JavaScript</a>
+,       <a href="/tag/frontend-programming-in-go.html">Frontend Programming in Go</a>
+,       <a href="/tag/vuejs.html">Vue.js</a>
+,       <a href="/tag/gopherjs-vue.html">gopherjs-vue</a>
+,       <a href="/tag/algorithm.html">Algorithm</a>
+,       <a href="/tag/prime-number.html">Prime Number</a>
+,       <a href="/tag/math.html">Math</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

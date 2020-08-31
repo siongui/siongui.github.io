@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>[Golang] Hacker News Link to reStructuredText</title>
+  <meta name="keywords" content="Go,Golang,Golang template,goquery,Web Scrape,reStructuredText,Copy to Clipboard,Go net/http"/>
+  <meta name="description" content="Extract title and URL from Hacker News comment via goquery, and then output the info to reStructuredText footnote."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="[Golang] Hacker News Link to reStructuredText" />    <meta property="og:image" content="/./extra/Dharma_wheel.svg" /><meta property="og:description" content="Extract title and URL from Hacker News comment via goquery, and then output the info to reStructuredText footnote." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2016/04/04/go-hacker-news-link-to-rst/"
+           rel="bookmark"
+           title="Permalink to [Golang] Hacker News Link to reStructuredText">
+          [Golang] Hacker News Link to reStructuredText
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2016-04-04T22:04:00+08:00">
+    April 04, 2016
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2016/04/04/go-hacker-news-link-to-rst%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p>Extract title and URL from <a class="reference external" href="https://news.ycombinator.com/item?id=11410894">Hacker News comment</a> via <a class="reference external" href="https://github.com/PuerkitoBio/goquery">goquery</a>, and then output
+the info to <a class="reference external" href="http://docutils.sourceforge.net/docs/user/rst/quickref.html#footnotes">reStructuredText footnote</a>.</p>
+<p>Install <a class="reference external" href="https://golang.org/">Go</a> and <a class="reference external" href="https://github.com/PuerkitoBio/goquery">goquery</a> package first. Then <tt class="docutils literal">go run</tt> the following code:</p>
+<div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+      <span class="s">&quot;bytes&quot;</span>
+      <span class="s">&quot;github.com/PuerkitoBio/goquery&quot;</span>
+      <span class="s">&quot;html/template&quot;</span>
+      <span class="s">&quot;net/http&quot;</span>
+<span class="p">)</span>
+
+<span class="kd">type</span> <span class="nx">HNews</span> <span class="kd">struct</span> <span class="p">{</span>
+      <span class="nx">Title</span>       <span class="kt">string</span>
+      <span class="nx">URL</span>         <span class="kt">string</span>
+      <span class="nx">CommentsURL</span> <span class="kt">string</span>
+<span class="p">}</span>
+
+<span class="kd">type</span> <span class="nx">Index</span> <span class="kd">struct</span> <span class="p">{</span>
+      <span class="nx">Textarea</span> <span class="nx">template</span><span class="p">.</span><span class="nx">HTML</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">htmlTmpl</span> <span class="p">=</span> <span class="s">`&lt;!doctype html&gt;&lt;html&gt;</span>
+<span class="s">&lt;head&gt;&lt;title&gt;Link to Rst Image&lt;/title&gt;&lt;/head&gt;</span>
+<span class="s">&lt;body&gt;</span>
+<span class="s">&lt;form action=&quot;/&quot; method=&quot;post&quot;&gt;</span>
+<span class="s">  &lt;input size=&quot;100&quot; name=&quot;url&quot; placeholder=&quot;HN comments URL&quot;&gt;</span>
+<span class="s">  &lt;button&gt;Send&lt;/button&gt;&lt;br&gt;&lt;br&gt;</span>
+<span class="s">  &lt;textarea id=&quot;ta&quot; rows=&quot;5&quot; cols=&quot;80&quot;&gt;{{.Textarea}}&lt;/textarea&gt;&lt;br&gt;</span>
+<span class="s">  &lt;button type=&quot;button&quot; id=&quot;copy&quot;&gt;Copy textarea to clipboard&lt;/button&gt;</span>
+<span class="s">&lt;/form&gt;</span>
+<span class="s">&lt;script&gt;</span>
+<span class="s">  var textareaElm = document.getElementById(&quot;ta&quot;);</span>
+<span class="s">  var copyElm = document.getElementById(&quot;copy&quot;);</span>
+<span class="s">  copyElm.onclick = function(event) {</span>
+<span class="s">    textareaElm.select();</span>
+<span class="s">    var isSuccessful = document.execCommand(&#39;copy&#39;);</span>
+<span class="s">    if (isSuccessful) {</span>
+<span class="s">      textareaElm.value = &quot;Copy OK&quot;;</span>
+<span class="s">    } else {</span>
+<span class="s">      textareaElm.value = &quot;Copy Fail&quot;;</span>
+<span class="s">    }</span>
+<span class="s">  }</span>
+<span class="s">&lt;/script&gt;</span>
+<span class="s">&lt;/body&gt;&lt;/html&gt;`</span>
+
+<span class="kd">var</span> <span class="nx">rstTmpl</span> <span class="p">=</span> <span class="s">&quot;.. [1] `{{.Title}} &lt;{{.URL}}&gt;`_\n&quot;</span> <span class="o">+</span>
+      <span class="s">&quot;       (`HN comments &lt;{{.CommentsURL}}&gt;`__)\n&quot;</span>
+
+<span class="kd">func</span> <span class="nx">processHNURL</span><span class="p">(</span><span class="nx">url</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">string</span> <span class="p">{</span>
+      <span class="nx">doc</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">goquery</span><span class="p">.</span><span class="nx">NewDocument</span><span class="p">(</span><span class="nx">url</span><span class="p">)</span>
+      <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+              <span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+      <span class="p">}</span>
+
+      <span class="nx">news</span> <span class="o">:=</span> <span class="nx">HNews</span><span class="p">{</span><span class="nx">CommentsURL</span><span class="p">:</span> <span class="nx">url</span><span class="p">}</span>
+      <span class="nx">newsElm</span> <span class="o">:=</span> <span class="nx">doc</span><span class="p">.</span><span class="nx">Find</span><span class="p">(</span><span class="s">&quot;td.title &gt; a&quot;</span><span class="p">)</span>
+      <span class="nx">news</span><span class="p">.</span><span class="nx">Title</span> <span class="p">=</span> <span class="nx">newsElm</span><span class="p">.</span><span class="nx">Text</span><span class="p">()</span>
+      <span class="nx">news</span><span class="p">.</span><span class="nx">URL</span><span class="p">,</span> <span class="nx">_</span> <span class="p">=</span> <span class="nx">newsElm</span><span class="p">.</span><span class="nx">Attr</span><span class="p">(</span><span class="s">&quot;href&quot;</span><span class="p">)</span>
+
+      <span class="nx">tmpl</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">template</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="s">&quot;hn&quot;</span><span class="p">).</span><span class="nx">Parse</span><span class="p">(</span><span class="nx">rstTmpl</span><span class="p">)</span>
+      <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+              <span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+      <span class="p">}</span>
+
+      <span class="kd">var</span> <span class="nx">rst</span> <span class="nx">bytes</span><span class="p">.</span><span class="nx">Buffer</span>
+      <span class="nx">err</span> <span class="p">=</span> <span class="nx">tmpl</span><span class="p">.</span><span class="nx">Execute</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">rst</span><span class="p">,</span> <span class="nx">news</span><span class="p">)</span>
+      <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+              <span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+      <span class="p">}</span>
+
+      <span class="k">return</span> <span class="nx">rst</span><span class="p">.</span><span class="nx">String</span><span class="p">()</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nx">handler</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">idx</span> <span class="o">:=</span> <span class="nx">Index</span><span class="p">{}</span>
+      <span class="k">if</span> <span class="nx">r</span><span class="p">.</span><span class="nx">Method</span> <span class="o">==</span> <span class="s">&quot;POST&quot;</span> <span class="p">{</span>
+              <span class="nx">hnurl</span> <span class="o">:=</span> <span class="nx">r</span><span class="p">.</span><span class="nx">PostFormValue</span><span class="p">(</span><span class="s">&quot;url&quot;</span><span class="p">)</span>
+              <span class="nx">idx</span><span class="p">.</span><span class="nx">Textarea</span> <span class="p">=</span> <span class="nx">template</span><span class="p">.</span><span class="nx">HTML</span><span class="p">(</span><span class="nx">processHNURL</span><span class="p">(</span><span class="nx">hnurl</span><span class="p">))</span>
+      <span class="p">}</span>
+      <span class="nx">tmpl</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">template</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="s">&quot;index&quot;</span><span class="p">).</span><span class="nx">Parse</span><span class="p">(</span><span class="nx">htmlTmpl</span><span class="p">)</span>
+      <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+              <span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+      <span class="p">}</span>
+      <span class="nx">tmpl</span><span class="p">.</span><span class="nx">Execute</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="nx">idx</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+      <span class="nx">http</span><span class="p">.</span><span class="nx">HandleFunc</span><span class="p">(</span><span class="s">&quot;/&quot;</span><span class="p">,</span> <span class="nx">handler</span><span class="p">)</span>
+      <span class="nx">http</span><span class="p">.</span><span class="nx">ListenAndServe</span><span class="p">(</span><span class="s">&quot;:8000&quot;</span><span class="p">,</span> <span class="kc">nil</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+
+<hr class="docutils" />
+<p>Tested on: <tt class="docutils literal">Ubuntu Linux 15.10</tt>, <tt class="docutils literal">Go 1.6</tt>.</p>
+<hr class="docutils" />
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id1" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td><p class="first"><a class="reference external" href="https://www.google.com/search?q=jquery+find+direct+child">jquery find direct child - Google search</a></p>
+<p><a class="reference external" href="https://duckduckgo.com/?q=jquery+find+direct+child">jquery find direct child - DuckDuckGo search</a></p>
+<p><a class="reference external" href="https://www.bing.com/search?q=jquery+find+direct+child">jquery find direct child - Bing search</a></p>
+<p><a class="reference external" href="https://search.yahoo.com/search?p=jquery+find+direct+child">jquery find direct child - Yahoo search</a></p>
+<p><a class="reference external" href="https://www.baidu.com/s?wd=jquery+find+direct+child">jquery find direct child - Baidu search</a></p>
+<p><a class="reference external" href="https://www.yandex.com/search/?text=jquery+find+direct+child">jquery find direct child - Yandex search</a></p>
+<p class="last"><a class="reference external" href="http://stackoverflow.com/questions/3687637/how-to-get-only-direct-child-elements-by-jquery-function">How to get only direct child elements by jQuery function - Stack Overflow</a></p>
+</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[2]</td><td><p class="first"><a class="reference external" href="https://www.google.com/search?q=golang+backtick">golang backtick - Google search</a></p>
+<p><a class="reference external" href="https://duckduckgo.com/?q=golang+backtick">golang backtick - DuckDuckGo search</a></p>
+<p><a class="reference external" href="https://www.bing.com/search?q=golang+backtick">golang backtick - Bing search</a></p>
+<p><a class="reference external" href="https://search.yahoo.com/search?p=golang+backtick">golang backtick - Yahoo search</a></p>
+<p><a class="reference external" href="http://stackoverflow.com/questions/21198980/golang-how-to-escape-back-ticks">go - Golang how to escape back ticks - Stack Overflow</a></p>
+<p class="last"><a class="reference external" href="http://stackoverflow.com/questions/7933460/how-do-you-write-multiline-strings-in-go">How do you write multiline strings in Go? - Stack Overflow</a></p>
+</td></tr>
+</tbody>
+</table>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/go.html">Go</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/go.html">Go</a>
+,       <a href="/tag/golang.html">Golang</a>
+,       <a href="/tag/golang-template.html">Golang template</a>
+,       <a href="/tag/goquery.html">goquery</a>
+,       <a href="/tag/web-scrape.html">Web Scrape</a>
+,       <a href="/tag/restructuredtext.html">reStructuredText</a>
+,       <a href="/tag/copy-to-clipboard.html">Copy to Clipboard</a>
+,       <a href="/tag/go-nethttp.html">Go net/http</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

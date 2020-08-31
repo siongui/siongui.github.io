@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>Ubuntu Linux 18.04 Run Out of Disk Space</title>
+  <meta name="keywords" content="Bash,Commandline,Ubuntu Linux"/>
+  <meta name="description" content="Upgrade from Ubuntu Linux 17.10 to 18.04 and disk space runs out quickly. And how I fix this issue."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="Ubuntu Linux 18.04 Run Out of Disk Space" />    <meta property="og:image" content="/./extra/Dharma_wheel.svg" /><meta property="og:description" content="Upgrade from Ubuntu Linux 17.10 to 18.04 and disk space runs out quickly. And how I fix this issue." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2018/05/11/ubuntu-linux-18.04-run-out-of-disk-space/"
+           rel="bookmark"
+           title="Permalink to Ubuntu Linux 18.04 Run Out of Disk Space">
+          Ubuntu Linux 18.04 Run Out of Disk Space
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2018-05-11T23:44:00+08:00">
+    May 11, 2018
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2018/05/11/ubuntu-linux-18.04-run-out-of-disk-space%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p>Yesterday I upgraded my Ubuntu Linux from 17.10 to 18.04. I found a strange
+phenomena. My free disk space (about 60GB) runs out quickly after several hours,
+but I did not download anything that has such a big size.</p>
+<p>I thought that maybe someone had the same problem as me, so I tried googling to
+see if anyone had the same issue. But I found nothing. Maybe my search keywords
+is not correct. So I tried searches again to find some ways to check where goes
+wrong. I use <tt class="docutils literal">sudo du <span class="pre">-hs</span> *</tt> starting from <em>/</em>. And I found that a single log
+file <cite>/var/lib/gdm3/.local/share/xorg/Xorg.0.log</cite> occupy all the free disk space
+and are still growing until the system told me I have no disk space.</p>
+<p>I used the keyword <tt class="docutils literal">Xorg.0.log</tt> to search again to see if there is any
+noticable issue with it. But I found nothing meaningful again. Then I tried to
+use <tt class="docutils literal">head <span class="pre">-n</span> 1000</tt> to print first 1000 lines of the log, and found that an
+error message <tt class="docutils literal">Touchpad: Read error 9</tt> keeps added to the log and finally used
+up all my disk space.</p>
+<p>I again use the error message to search again <a class="footnote-reference" href="#id3" id="id1">[1]</a> and found that someone had
+the same problem as me <a class="footnote-reference" href="#id4" id="id2">[2]</a>. Bingo! I got the root cause of the issue now. It
+seems that Xorg replaces <em>input-synaptics</em> with <em>libinput</em>. The Ubuntu upgrader
+did not remove <em>xserver-xorg-input-synaptics</em> package after upgrade and confuses
+xorg package, so that the error message keeps added to the log.</p>
+<p>The final solution is simple. Run</p>
+<div class="highlight"><pre><span></span>$ sudo apt-get remove xserver-xorg-input-synaptics
+</pre></div>
+<p>After removing the package, reboot the system. And everything works fine now.</p>
+
+<hr class="docutils" />
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td><div class="first last line-block">
+<div class="line"><a class="reference external" href="https://www.google.com/search?q=Elantech+Touchpad:+Read+error+9">Elantech Touchpad: Read error 9 - Google search</a></div>
+<div class="line"><a class="reference external" href="https://duckduckgo.com/?q=Elantech+Touchpad:+Read+error+9">Elantech Touchpad: Read error 9 - DuckDuckGo search</a></div>
+<div class="line"><a class="reference external" href="https://www.ecosia.org/search?q=Elantech+Touchpad:+Read+error+9">Elantech Touchpad: Read error 9 - Ecosia search</a></div>
+<div class="line"><a class="reference external" href="https://www.qwant.com/?q=Elantech+Touchpad:+Read+error+9">Elantech Touchpad: Read error 9 - Qwant search</a></div>
+<div class="line"><a class="reference external" href="https://www.bing.com/search?q=Elantech+Touchpad:+Read+error+9">Elantech Touchpad: Read error 9 - Bing search</a></div>
+<div class="line"><a class="reference external" href="https://search.yahoo.com/search?p=Elantech+Touchpad:+Read+error+9">Elantech Touchpad: Read error 9 - Yahoo search</a></div>
+<div class="line"><a class="reference external" href="https://www.baidu.com/s?wd=Elantech+Touchpad:+Read+error+9">Elantech Touchpad: Read error 9 - Baidu search</a></div>
+<div class="line"><a class="reference external" href="https://www.yandex.com/search/?text=Elantech+Touchpad:+Read+error+9">Elantech Touchpad: Read error 9 - Yandex search</a></div>
+</div>
+</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[2]</a></td><td><a class="reference external" href="https://bbs.archlinux.org/viewtopic.php?id=222031">[Resolved] Synaptics TouchPad: Read error 9 / Newbie Corner / Arch Linux Forums</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id5" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[3]</td><td><a class="reference external" href="https://community.ubuntu.com/t/ubuntu-to-remove-xserver-xorg-input-synaptics-on-upgrade/3938">Ubuntu to remove xserver-xorg-input-synaptics on upgrade - Desktop - Ubuntu Community Hub</a></td></tr>
+</tbody>
+</table>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/ubuntu-linux.html">Ubuntu Linux</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/bash.html">Bash</a>
+,       <a href="/tag/commandline.html">Commandline</a>
+,       <a href="/tag/ubuntu-linux.html">Ubuntu Linux</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

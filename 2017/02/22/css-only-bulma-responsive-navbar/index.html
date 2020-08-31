@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>Pure CSS Bulma Responsive Nav Bar (Navigation Bar)</title>
+  <meta name="keywords" content="CSS,Responsive Web Design,toggle,toggleable,html,Pure CSS Toggle,Bulma,navbar"/>
+  <meta name="description" content="CSS only responsive Bulma nav bar (navigation bar) without JavaScript. Toggle mobile menu with CSS only. No JavaScript required."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="Pure CSS Bulma Responsive Nav Bar (Navigation Bar)" /><meta property="og:image" content="http://d2d3qesrx8xj6s.cloudfront.net/img/screenshots/2f2ed1bad34204c06ea518ba1625e4f6bf023bc7.jpeg" />
+<meta property="og:description" content="CSS only responsive Bulma nav bar (navigation bar) without JavaScript. Toggle mobile menu with CSS only. No JavaScript required." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2017/02/22/css-only-bulma-responsive-navbar/"
+           rel="bookmark"
+           title="Permalink to Pure CSS Bulma Responsive Nav Bar (Navigation Bar)">
+          Pure CSS Bulma Responsive Nav Bar (Navigation Bar)
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2020-07-14T07:25:00+08:00">
+    Updated: July 14, 2020
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2017/02/22/css-only-bulma-responsive-navbar%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p><em>[Update]</em> This post is for earlier version of Bulma such as 0.3.1 or 0.4.0.
+Please see new post <a class="footnote-reference" href="#id7" id="id1">[5]</a> for new Bulma 0.9.0.</p>
+<p><a class="reference external" href="https://www.google.com/search?q=CSS">CSS</a> only responsive <a class="reference external" href="http://bulma.io/">Bulma</a> <a class="reference external" href="http://bulma.io/documentation/components/nav/">nav bar</a> (<a class="reference external" href="https://www.google.com/search?q=navigation+bar">navigation bar</a>) without <a class="reference external" href="https://www.google.com/search?q=JavaScript">JavaScript</a>.
+Toggle mobile menu with CSS only. No JavaScript required.</p>
+<p class="align-center rubric"><a class="reference external" href="/code/css/bulma-responsive-navbar/index.html">Demo</a></p>
+<p>I apply the technique of <a class="reference external" href="http://www.outofscope.com/css-only-menu-toggle-no-javascript-required/">CSS only menu toggle</a> to the responsive <a class="reference external" href="http://bulma.io/documentation/components/nav/">nav bar</a>
+code in <a class="reference external" href="http://bulma.io/">Bulma</a>, and create this responsive navigation bar.</p>
+<dl class="docutils">
+<dt>The key points of the technique <a class="footnote-reference" href="#id4" id="id2">[2]</a>:</dt>
+<dd><ul class="first last simple">
+<li>A visible HTML <a class="reference external" href="https://www.w3schools.com/TAGs/tag_label.asp">label</a> element (only visible on small screen &lt; 768px).</li>
+<li>A invisible HTML <a class="reference external" href="https://www.w3schools.com/TAGs/tag_input.asp">input</a> checkbox element, referenced by the <a class="reference external" href="https://www.w3schools.com/TAGs/tag_label.asp">label</a> element.</li>
+<li>The menu to be toggled</li>
+<li>A CSS rule to hide/show the menu according to whether the checkbox is
+checked.</li>
+</ul>
+</dd>
+</dl>
+<p>When users click or touch on the visible <a class="reference external" href="https://www.w3schools.com/TAGs/tag_label.asp">label</a> element, it will make the
+invisible <a class="reference external" href="https://www.w3schools.com/TAGs/tag_input.asp">input</a> checkbox checked/unchecked. And the CSS rule will show the menu
+if the checkbox is checked, or hide the menu if the checkbox is unchecked.</p>
+
+<p>Full source code is as follows:</p>
+<figure class="github-file">
+            <figcaption>
+              <a href="https://github.com/siongui/userpages/blob/master/content/code/css/bulma-responsive-navbar/index.html">index.html</a> |
+              <a href="https://github.com/siongui/userpages">repository</a> |
+              <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/code/css/bulma-responsive-navbar/index.html">view raw</a>
+            </figcaption><div class="code-file">
+            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cp">&lt;!doctype html&gt;</span>
+<span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&quot;utf-8&quot;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>CSS only Bulma nav bar<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;viewport&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;width=device-width, initial-scale=1&quot;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;https://cdnjs.cloudflare.com/ajax/libs/bulma/0.4.0/css/bulma.css&quot;</span> <span class="p">/&gt;</span>
+  <span class="p">&lt;</span><span class="nt">style</span><span class="p">&gt;</span>
+    <span class="p">@</span><span class="k">media</span> <span class="nt">screen</span> <span class="nt">and</span> <span class="o">(</span><span class="nt">max-width</span><span class="o">:</span> <span class="nt">768px</span><span class="o">)</span> <span class="p">{</span>
+      <span class="p">#</span><span class="nn">menu-toggle</span><span class="p">:</span><span class="nd">checked</span> <span class="o">+</span> <span class="p">.</span><span class="nc">nav-menu</span> <span class="p">{</span>
+        <span class="k">display</span><span class="p">:</span> <span class="kc">block</span><span class="p">;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">nav</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;nav&quot;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;container&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;nav-left&quot;</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;nav-item&quot;</span><span class="p">&gt;</span>
+        Theory and Practice
+      <span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+
+    <span class="p">&lt;</span><span class="nt">label</span> <span class="na">for</span><span class="o">=</span><span class="s">&quot;menu-toggle&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;nav-toggle&quot;</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">span</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">span</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">span</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">label</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;checkbox&quot;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;menu-toggle&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;is-hidden&quot;</span><span class="p">/&gt;</span>
+
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;nav-right nav-menu&quot;</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;nav-item&quot;</span><span class="p">&gt;</span>
+        About
+      <span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;nav-item&quot;</span><span class="p">&gt;</span>
+        Archives
+      <span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;nav-item&quot;</span><span class="p">&gt;</span>
+        Tags
+      <span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">nav</span><span class="p">&gt;</span>
+
+<span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</pre></div>
+</td></tr></table></div></figure>
+<p>Note: If you use <tt class="docutils literal">Bulma 0.4.0</tt> and the screen width is between 769px and
+999px, the <tt class="docutils literal"><span class="pre">div.nav-right</span></tt> element will be shifted to left. If you want to
+keep it to the right, you can remove the <tt class="docutils literal">div.container</tt>.</p>
+<hr class="docutils" />
+<p>Tested on:</p>
+<blockquote>
+<ul class="simple">
+<li><tt class="docutils literal">Chromium Version 55.0.2883.87 Built on Ubuntu , running on Ubuntu 16.10 <span class="pre">(64-bit)</span></tt>, <tt class="docutils literal">Bulma 0.3.1</tt></li>
+<li><tt class="docutils literal">Chromium Version 57.0.2987.98 Built on Ubuntu , running on Ubuntu 16.10 <span class="pre">(64-bit)</span></tt>, <tt class="docutils literal">Bulma 0.4.0</tt></li>
+</ul>
+</blockquote>
+<hr class="docutils" />
+<div class="section" id="references">
+<h2>References</h2>
+<table class="docutils footnote" frame="void" id="id3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td><div class="first last line-block">
+<div class="line"><a class="reference external" href="https://www.google.com/search?q=css+only+nav+toggle">css only nav toggle - Google search</a></div>
+<div class="line"><a class="reference external" href="https://duckduckgo.com/?q=css+only+nav+toggle">css only nav toggle - DuckDuckGo search</a></div>
+<div class="line"><a class="reference external" href="https://www.ecosia.org/search?q=css+only+nav+toggle">css only nav toggle - Ecosia search</a></div>
+<div class="line"><a class="reference external" href="https://www.bing.com/search?q=css+only+nav+toggle">css only nav toggle - Bing search</a></div>
+<div class="line"><a class="reference external" href="https://search.yahoo.com/search?p=css+only+nav+toggle">css only nav toggle - Yahoo search</a></div>
+<div class="line"><a class="reference external" href="https://www.baidu.com/s?wd=css+only+nav+toggle">css only nav toggle - Baidu search</a></div>
+<div class="line"><a class="reference external" href="https://www.yandex.com/search/?text=css+only+nav+toggle">css only nav toggle - Yandex search</a></div>
+</div>
+</td></tr>
+</tbody>
+</table>
+
+<table class="docutils footnote" frame="void" id="id4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[2]</a></td><td><a class="reference external" href="http://www.outofscope.com/css-only-menu-toggle-no-javascript-required/">CSS only menu toggle - no JavaScript required</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id5" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[3]</td><td><a class="reference external" href="https://github.com/siongui/wat-pah-photiyan/commit/7d3176ce8e9754b4e4b556c19e9c96e30775f319">basic theme by Bulma · siongui/wat-pah-photiyan&#64;7d3176c · GitHub</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id6" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[4]</td><td><div class="first last line-block">
+<div class="line"><a class="reference external" href="https://www.google.com/search?q=CSS+%E7%BD%91%E6%A0%BC%E5%B8%83%E5%B1%80">CSS 网格布局 - Google search</a></div>
+<div class="line"><a class="reference external" href="https://duckduckgo.com/?q=CSS+%E7%BD%91%E6%A0%BC%E5%B8%83%E5%B1%80">CSS 网格布局 - DuckDuckGo search</a></div>
+<div class="line"><a class="reference external" href="https://www.ecosia.org/search?q=CSS+%E7%BD%91%E6%A0%BC%E5%B8%83%E5%B1%80">CSS 网格布局 - Ecosia search</a></div>
+<div class="line"><a class="reference external" href="https://www.bing.com/search?q=CSS+%E7%BD%91%E6%A0%BC%E5%B8%83%E5%B1%80">CSS 网格布局 - Bing search</a></div>
+<div class="line"><a class="reference external" href="https://search.yahoo.com/search?p=CSS+%E7%BD%91%E6%A0%BC%E5%B8%83%E5%B1%80">CSS 网格布局 - Yahoo search</a></div>
+<div class="line"><a class="reference external" href="https://www.baidu.com/s?wd=CSS+%E7%BD%91%E6%A0%BC%E5%B8%83%E5%B1%80">CSS 网格布局 - Baidu search</a></div>
+<div class="line"><a class="reference external" href="https://www.yandex.com/search/?text=CSS+%E7%BD%91%E6%A0%BC%E5%B8%83%E5%B1%80">CSS 网格布局 - Yandex search</a></div>
+</div>
+</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id7" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[5]</a></td><td><a class="reference external" href="/2020/07/14/css-only-toggle-bulma-responsive-navbar/">Pure CSS Toggle Bulma Responsive Navbar</a></td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/css.html">CSS</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/css.html">CSS</a>
+,       <a href="/tag/responsive-web-design.html">Responsive Web Design</a>
+,       <a href="/tag/toggle.html">toggle</a>
+,       <a href="/tag/toggleable.html">toggleable</a>
+,       <a href="/tag/html.html">html</a>
+,       <a href="/tag/pure-css-toggle.html">Pure CSS Toggle</a>
+,       <a href="/tag/bulma.html">Bulma</a>
+,       <a href="/tag/navbar.html">navbar</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

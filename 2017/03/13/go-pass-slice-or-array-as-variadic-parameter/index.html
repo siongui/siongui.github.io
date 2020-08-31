@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>[Golang] Pass Slice or Array to Variadic Function</title>
+  <meta name="keywords" content="Go,Golang,Variadic Function"/>
+  <meta name="description" content="Pass slice or array as variadic (...) parameter in Go programming language."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="[Golang] Pass Slice or Array to Variadic Function" />    <meta property="og:image" content="/./extra/Dharma_wheel.svg" /><meta property="og:description" content="Pass slice or array as variadic (...) parameter in Go programming language." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2017/03/13/go-pass-slice-or-array-as-variadic-parameter/"
+           rel="bookmark"
+           title="Permalink to [Golang] Pass Slice or Array to Variadic Function">
+          [Golang] Pass Slice or Array to Variadic Function
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2017-03-13T05:16:00+08:00">
+    March 13, 2017
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2017/03/13/go-pass-slice-or-array-as-variadic-parameter%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><div class="contents topic" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#what-is-in-go-function-parameter-2" id="id11">What is ... in Go Function Parameter? </a></li>
+<li><a class="reference internal" href="#pass-slice-or-array-as-variadic-parameter-1" id="id12">Pass Slice or Array as Variadic Parameter </a></li>
+</ul>
+</div>
+<div class="section" id="what-is-in-go-function-parameter-2">
+<h2><a class="toc-backref" href="#id11">What is ... in Go Function Parameter? <a class="footnote-reference" href="#id4" id="id1">[2]</a></a></h2>
+<p>dot dot dot (...) in final parameter of Go function means you can pass zero,
+one, or more arguments for that parameter according to
+<a class="reference external" href="https://golang.org/ref/spec#Function_types">Function types in Go spec</a>, and the function of such kind is usually called
+<a class="reference external" href="https://www.google.com/search?q=variadic+function">variadic function</a>.</p>
+<p>For example, assume we have the following function:</p>
+<div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">giveMeString</span><span class="p">(</span><span class="nx">s</span> <span class="o">...</span><span class="kt">string</span><span class="p">)</span>
+</pre></div>
+<p>We can invoke the function by:</p>
+<div class="highlight"><pre><span></span><span class="nx">giveMeString</span><span class="p">()</span>
+<span class="nx">giveMeString</span><span class="p">(</span><span class="s">&quot;hello&quot;</span><span class="p">)</span>
+<span class="nx">giveMeString</span><span class="p">(</span><span class="s">&quot;hello&quot;</span><span class="p">,</span> <span class="s">&quot;world&quot;</span><span class="p">)</span>
+</pre></div>
+<p>The function can be invoked with more <em>string</em> arguments as you like. You can
+<a class="reference external" href="https://play.golang.org/p/Qk2A6LbZfQ">run above example in Go Playground</a> to fiddle the code by yourself.</p>
+<p>One more well-known example is <a class="reference external" href="https://golang.org/pkg/fmt/#Println">fmt.Println</a> in Go Standard library. You can also
+try it in <a class="reference external" href="https://play.golang.org/">Go Playground</a>.</p>
+
+</div>
+<div class="section" id="pass-slice-or-array-as-variadic-parameter-1">
+<h2><a class="toc-backref" href="#id12">Pass Slice or Array as Variadic Parameter <a class="footnote-reference" href="#id3" id="id2">[1]</a></a></h2>
+<p>Continue the above example. Assune we have a slice of <em>[]string</em> as follows:</p>
+<div class="highlight"><pre><span></span><span class="nx">myStrSlice</span> <span class="o">:=</span> <span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&quot;hello&quot;</span><span class="p">,</span> <span class="s">&quot;world&quot;</span><span class="p">}</span>
+</pre></div>
+<p>How to pass the slice to the following function?</p>
+<div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">giveMeString</span><span class="p">(</span><span class="nx">s</span> <span class="o">...</span><span class="kt">string</span><span class="p">)</span>
+</pre></div>
+<p>Answer: append ... after the name of the slice.</p>
+<div class="highlight"><pre><span></span><span class="nx">giveMeString</span><span class="p">(</span><span class="nx">myStrSlice</span><span class="o">...</span><span class="p">)</span>
+</pre></div>
+<p>The same if we have the following array:</p>
+<div class="highlight"><pre><span></span><span class="nx">myStrArray</span> <span class="o">:=</span> <span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="kt">string</span><span class="p">{</span><span class="s">&quot;hello&quot;</span><span class="p">,</span> <span class="s">&quot;world&quot;</span><span class="p">}</span>
+</pre></div>
+<p>Pass it to the above variadic function via:</p>
+<div class="highlight"><pre><span></span><span class="nx">giveMeString</span><span class="p">(</span><span class="nx">myStrArray</span><span class="p">[:]</span><span class="o">...</span><span class="p">)</span>
+</pre></div>
+<p>You can try to <a class="reference external" href="https://play.golang.org/p/UkXlDi0Lou">pass slice or array of above example on Go Playground</a>.</p>
+
+<hr class="docutils" />
+<p>Tested on: The <a class="reference external" href="https://play.golang.org/">Go Playground</a></p>
+<hr class="docutils" />
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[1]</a></td><td><div class="first last line-block">
+<div class="line"><a class="reference external" href="https://golang.org/ref/spec#Passing_arguments_to_..._parameters">Passing arguments to ... parameters - The Go Programming Language Specification - The Go Programming Language</a></div>
+<div class="line"><a class="reference external" href="http://stackoverflow.com/a/23724092">go - How can I pass a slice as a variadic input? - Stack Overflow</a></div>
+</div>
+</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[2]</a></td><td><div class="first last line-block">
+<div class="line"><a class="reference external" href="https://golang.org/ref/spec#Function_types">Function types - The Go Programming Language Specification - The Go Programming Language</a></div>
+<div class="line"><a class="reference external" href="http://stackoverflow.com/a/23669857">go - dot dot dot in Golang. interface with empty braces - Stack Overflow</a></div>
+</div>
+</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id5" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[3]</td><td><a class="reference external" href="https://blog.golang.org/go-slices-usage-and-internals">Go Slices: usage and internals - The Go Blog</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id6" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[4]</td><td><a class="reference external" href="/2017/03/12/go-variadic-function-example-addEventListener/">[Golang] Variadic Function Example - addEventListener</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id7" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[5]</td><td><a class="reference external" href="/zh/2017/02/07/go-function-argument-dot-dot-dot/">Go語言 函數參數點點點(...)意義</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id8" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[6]</td><td><a class="reference external" href="https://old.reddit.com/r/golang/comments/a6dvwt/the_go_variadic_function_comparing_errors_in/">The Go variadic function, comparing errors in Golang, solving triangles &amp; more : golang</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id9" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[7]</td><td><a class="reference external" href="https://old.reddit.com/r/golang/comments/a9htda/standard_library_variadic_functions_accepting_an/">Standard Library Variadic Functions accepting an arbitrary number of arbitrary objects : golang</a></td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/go.html">Go</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/go.html">Go</a>
+,       <a href="/tag/golang.html">Golang</a>
+,       <a href="/tag/variadic-function.html">Variadic Function</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>[Bash] Encoding Conversion, Newline Manipulation, String Replacement of File</title>
+  <meta name="keywords" content="Commandline,String Manipulation,Bash,iconv command,sed,tr command,remove trailing newline,remove carriage return"/>
+  <meta name="description" content="Convert encoding of file from Big5 to UTF-8, remove DOS newline in file, replace string big5 with UTF-8, and append UNIX newline to end of file."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="[Bash] Encoding Conversion, Newline Manipulation, String Replacement of File" />    <meta property="og:image" content="/./extra/Dharma_wheel.svg" /><meta property="og:description" content="Convert encoding of file from Big5 to UTF-8, remove DOS newline in file, replace string big5 with UTF-8, and append UNIX newline to end of file." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2016/04/20/bash-file-encoding-conversion-newline-manipulation-string-replacement/"
+           rel="bookmark"
+           title="Permalink to [Bash] Encoding Conversion, Newline Manipulation, String Replacement of File">
+          [Bash] Encoding Conversion, Newline Manipulation, String Replacement of File
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2016-04-20T04:45:00+08:00">
+    April 20, 2016
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2016/04/20/bash-file-encoding-conversion-newline-manipulation-string-replacement%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p>Convert encoding of file from <a class="reference external" href="https://en.wikipedia.org/wiki/Big5">Big5</a> to <a class="reference external" href="https://en.wikipedia.org/wiki/UTF-8">UTF-8</a> <a class="footnote-reference" href="#id7" id="id1">[4]</a>,  remove <a class="reference external" href="https://en.wikipedia.org/wiki/Newline">DOS newline</a> in
+file <a class="footnote-reference" href="#id5" id="id2">[2]</a>, replace string <cite>big5</cite> with <cite>UTF-8</cite> via <a class="reference external" href="http://www.grymoire.com/Unix/Sed.html">sed</a> command, and append
+<a class="reference external" href="https://en.wikipedia.org/wiki/Newline">UNIX newline</a> to end of file. <a class="footnote-reference" href="#id6" id="id3">[3]</a></p>
+<div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">: big5 to utf-8&quot;</span>
+iconv -f big5 -t utf-8 <span class="nv">$1</span> &gt; tmp.html
+mv tmp.html <span class="nv">$1</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">: remove dos newline&quot;</span>
+tr -d <span class="s1">&#39;\015&#39;</span> &lt;<span class="nv">$1</span> &gt; tmp.html
+mv tmp.html <span class="nv">$1</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">: html meta big5 to UTF-8&quot;</span>
+sed <span class="s1">&#39;s/big5/UTF-8/&#39;</span> -i <span class="nv">$1</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">: append newline to end of file&quot;</span>
+sed -i -e <span class="s1">&#39;$a\&#39;</span> <span class="nv">$1</span>
+</pre></div>
+
+<hr class="docutils" />
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td><a class="reference external" href="https://www.google.com/search?q=bash+read+arguments">bash read arguments - Google search</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id5" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[2]</a></td><td><div class="first last line-block">
+<div class="line"><a class="reference external" href="https://www.google.com/search?q=bash+dos+to+unix">bash dos to unix - Google search</a></div>
+<div class="line"><a class="reference external" href="http://stackoverflow.com/questions/2613800/how-to-convert-dos-windows-newline-crlf-to-unix-newline-n-in-bash-script">linux - How to convert DOS/Windows newline (CRLF) to Unix newline (n) in bash script? - Stack Overflow</a></div>
+</div>
+</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id6" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id3">[3]</a></td><td><div class="first last line-block">
+<div class="line"><a class="reference external" href="https://www.google.com/search?q=bash+append+newline+to+end+of+file">bash append newline to end of file - Google search</a></div>
+<div class="line"><a class="reference external" href="http://unix.stackexchange.com/questions/31947/how-to-add-a-newline-to-the-end-of-a-file">bash - How to add a newline to the end of a file? - Unix &amp; Linux Stack Exchange</a></div>
+</div>
+</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id7" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[4]</a></td><td><a class="reference external" href="/2016/03/18/bash-convert-files-in-directory-from-big5-to-utf8/">[Bash] Convert Files in Directory From Big5 to UTF-8</a></td></tr>
+</tbody>
+</table>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/bash.html">Bash</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/commandline.html">Commandline</a>
+,       <a href="/tag/string-manipulation.html">String Manipulation</a>
+,       <a href="/tag/bash.html">Bash</a>
+,       <a href="/tag/iconv-command.html">iconv command</a>
+,       <a href="/tag/sed.html">sed</a>
+,       <a href="/tag/tr-command.html">tr command</a>
+,       <a href="/tag/remove-trailing-newline.html">remove trailing newline</a>
+,       <a href="/tag/remove-carriage-return.html">remove carriage return</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

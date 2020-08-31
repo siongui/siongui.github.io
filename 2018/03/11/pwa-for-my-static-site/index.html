@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>Progressive Web App (PWA) For My Static Website</title>
+  <meta name="keywords" content="web,Web application,Progressive Web App (PWA)"/>
+  <meta name="description" content="Make my static website become like a mobile app via Progressive Web App (PWA)."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="Progressive Web App (PWA) For My Static Website" /><meta property="og:image" content="https://speckyboy.com/wp-content/uploads/2016/10/progressive-web-applications-01.jpg" />
+<meta property="og:description" content="Make my static website become like a mobile app via Progressive Web App (PWA)." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2018/03/11/pwa-for-my-static-site/"
+           rel="bookmark"
+           title="Permalink to Progressive Web App (PWA) For My Static Website">
+          Progressive Web App (PWA) For My Static Website
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2018-03-11T23:18:00+08:00">
+    March 11, 2018
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2018/03/11/pwa-for-my-static-site%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p><a class="reference external" href="https://www.google.com/search?q=Progressive+Web+App">Progressive Web App</a> is more and more popular recently <a class="footnote-reference" href="#id6" id="id1">[2]</a>. According to my
+understanding, it is a way to turn your website into a mobile app, or at least
+make users feel your website is a mobile app on their smartphones.</p>
+<p>So, how to turn my static website, which is the website you are visiting now, to
+a PWA? My requirement is very basic. I do not want to use any push notification
+or cache, and I just want users to have my website icon on their smartphones and
+click the icon to visit my website like a mobile app. After some investigations
+<a class="footnote-reference" href="#id5" id="id2">[1]</a>, it seems easy to achieve. The following are steps:</p>
+<ol class="arabic">
+<li><p class="first">Add <em>meta</em> tag to specify <em>viewport</em>: already done, since my website is
+responsive and this is added to the head of webpages long time ago.</p>
+</li>
+<li><p class="first"><a class="reference external" href="https://www.google.com/search?q=web+app+manifest">Web App Manifest</a>: Modify the example provided in <a class="footnote-reference" href="#id5" id="id3">[1]</a></p>
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Theory and Practice&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;short_name&quot;</span><span class="p">:</span> <span class="s2">&quot;T&amp;P&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;display&quot;</span><span class="p">:</span> <span class="s2">&quot;minimal-ui&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;start_url&quot;</span><span class="p">:</span> <span class="s2">&quot;/&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;theme_color&quot;</span><span class="p">:</span> <span class="s2">&quot;#673ab6&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;background_color&quot;</span><span class="p">:</span> <span class="s2">&quot;#111111&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;icons&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="nt">&quot;src&quot;</span><span class="p">:</span> <span class="s2">&quot;/extra/Dharma_wheel.png&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;sizes&quot;</span><span class="p">:</span> <span class="s2">&quot;538x538&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;image/png&quot;</span>
+    <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</li>
+<li><p class="first">Register a empty service worker: Also follow the example in <a class="footnote-reference" href="#id5" id="id4">[1]</a>, but note
+that put the <em>sw.js</em> (serviceWorker script) in the root path of your website,
+if you want to make your whole website in the app.</p>
+<p>The empty service worker code (saved as sw.js and put in the root path):</p>
+<div class="highlight"><pre><span></span><span class="cm">/** An empty service worker! */</span>
+<span class="nx">self</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;fetch&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+  <span class="cm">/** An empty fetch handler! */</span>
+<span class="p">});</span>
+</pre></div>
+<p>Load service worker in your webpage:</p>
+<div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="nx">navigator</span><span class="p">.</span><span class="nx">serviceWorker</span> <span class="o">&amp;&amp;</span> <span class="nx">navigator</span><span class="p">.</span><span class="nx">serviceWorker</span><span class="p">.</span><span class="nx">register</span><span class="p">(</span><span class="s1">&#39;/sw.js&#39;</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">registration</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Excellent, registered with scope: &#39;</span><span class="p">,</span> <span class="nx">registration</span><span class="p">.</span><span class="nx">scope</span><span class="p">);</span>
+<span class="p">});</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</pre></div>
+</li>
+</ol>
+<p>The above steps is just enough to make my website behave like a app on
+smartphones. If you have similar requirement, follow the steps and make your
+website users more engaged!</p>
+
+<hr class="docutils" />
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id5" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td><em>(<a class="fn-backref" href="#id2">1</a>, <a class="fn-backref" href="#id3">2</a>, <a class="fn-backref" href="#id4">3</a>)</em> <a class="reference external" href="https://codelabs.developers.google.com/codelabs/migrate-to-progressive-web-apps/index.html">🎉 Migrate your site to a Progressive Web App 🐲</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id6" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[2]</a></td><td><a class="reference external" href="https://www.oschina.net/news/93871/pwa-expected-major-explosion-2018">三巨头力捧的 PWA 有望在 2018 年迎来大爆发 - 开源中国社区</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id7" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[3]</td><td><a class="reference external" href="https://flaviocopes.com/service-workers/">Service Workers explained</a></td></tr>
+</tbody>
+</table>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/web-development.html">Web Development</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/web.html">web</a>
+,       <a href="/tag/web-application.html">Web application</a>
+,       <a href="/tag/progressive-web-app-pwa.html">Progressive Web App (PWA)</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

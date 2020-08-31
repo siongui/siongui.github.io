@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>[Golang] Get Filename Without Extension</title>
+  <meta name="keywords" content="Go,Golang,String Manipulation,Go strings Package"/>
+  <meta name="description" content="Get file name without extension in Go programming language."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="[Golang] Get Filename Without Extension" /><meta property="og:image" content="https://d2d42mpnbqmzj3.cloudfront.net/images/stories/doc-excel/extract-file-extension/doc-extract-file-extensions-4.png" />
+<meta property="og:description" content="Get file name without extension in Go programming language." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2018/02/25/go-get-file-name-without-extension/"
+           rel="bookmark"
+           title="Permalink to [Golang] Get Filename Without Extension">
+          [Golang] Get Filename Without Extension
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2018-02-25T10:06:00+08:00">
+    February 25, 2018
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2018/02/25/go-get-file-name-without-extension%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p>Use Go standard library to get file name without extension.</p>
+<ul class="simple">
+<li><a class="reference external" href="https://golang.org/pkg/path/#Ext">path.Ext</a> method to get filename extension</li>
+<li><a class="reference external" href="https://golang.org/pkg/strings/#TrimSuffix">strings.TrimSuffix</a> method to remove the extension from the filename.</li>
+</ul>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="p">(</span>
+      <span class="s">&quot;path&quot;</span>
+      <span class="s">&quot;strings&quot;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nx">FilenameWithoutExtension</span><span class="p">(</span><span class="nx">fn</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">string</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="nx">strings</span><span class="p">.</span><span class="nx">TrimSuffix</span><span class="p">(</span><span class="nx">fn</span><span class="p">,</span> <span class="nx">path</span><span class="p">.</span><span class="nx">Ext</span><span class="p">(</span><span class="nx">fn</span><span class="p">))</span>
+<span class="p">}</span>
+</pre></div>
+<p class="align-center rubric"><a class="reference external" href="https://play.golang.org/p/-eLu5l2T2dA">Run Code on Go Playground</a></p>
+
+<hr class="docutils" />
+<p>Tested on:</p>
+<ul class="simple">
+<li><tt class="docutils literal">Ubuntu Linux 17.10</tt>, <tt class="docutils literal">Go 1.10</tt>.</li>
+<li><a class="reference external" href="https://play.golang.org/">The Go Playground</a></li>
+</ul>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/go.html">Go</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/go.html">Go</a>
+,       <a href="/tag/golang.html">Golang</a>
+,       <a href="/tag/string-manipulation.html">String Manipulation</a>
+,       <a href="/tag/go-strings-package.html">Go strings Package</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

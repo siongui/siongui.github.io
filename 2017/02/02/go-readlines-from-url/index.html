@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>[Golang] Read Lines From URL</title>
+  <meta name="keywords" content="Go,Golang,String Manipulation,Read Lines"/>
+  <meta name="description" content="Read lines from web URL via Go programming language."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="[Golang] Read Lines From URL" /><meta property="og:image" content="http://www.unixstickers.com/image/cache/data/stickers/golang/Go-brown-side.sh-600x600.png" />
+<meta property="og:description" content="Read lines from web URL via Go programming language." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2017/02/02/go-readlines-from-url/"
+           rel="bookmark"
+           title="Permalink to [Golang] Read Lines From URL">
+          [Golang] Read Lines From URL
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2017-02-02T04:18:00+08:00">
+    February 02, 2017
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2017/02/02/go-readlines-from-url%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><div class="contents topic" id="first-show-how-to-readlines-from-url-and-then-extend-to-read-lines-from-file-and-string">
+<p class="topic-title">First show how to <a class="reference external" href="https://www.google.com/search?q=Readlines">readlines</a> from <a class="reference external" href="https://www.google.com/search?q=URL">URL</a>, and then extend to read
+lines from <a class="reference external" href="https://www.google.com/search?q=golang+file">file</a> and <a class="reference external" href="https://www.google.com/search?q=golang+string">string</a>.</p>
+<ul class="simple">
+<li><a class="reference internal" href="#readlines-from-url" id="id5">readlines from URL</a></li>
+<li><a class="reference internal" href="#readlines-from-file" id="id6">readlines from file</a></li>
+<li><a class="reference internal" href="#readlines-from-string" id="id7">readlines from string</a></li>
+</ul>
+</div>
+<div class="section" id="readlines-from-url">
+<h2><a class="reference external" href="https://www.google.com/search?q=Readlines">readlines</a> from <a class="reference external" href="https://www.google.com/search?q=URL">URL</a></h2>
+<figure class="github-file">
+            <figcaption>
+              <a href="https://github.com/siongui/userpages/blob/master/content/code/go/readlines-from/url.go">url.go</a> |
+              <a href="https://github.com/siongui/userpages">repository</a> |
+              <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/code/go/readlines-from/url.go">view raw</a>
+            </figcaption><div class="code-file">
+            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">lines</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+	<span class="s">&quot;bufio&quot;</span>
+	<span class="s">&quot;io&quot;</span>
+	<span class="s">&quot;net/http&quot;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nx">UrlToLines</span><span class="p">(</span><span class="nx">url</span> <span class="kt">string</span><span class="p">)</span> <span class="p">([]</span><span class="kt">string</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">resp</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">http</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="nx">url</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="kc">nil</span><span class="p">,</span> <span class="nx">err</span>
+	<span class="p">}</span>
+	<span class="k">defer</span> <span class="nx">resp</span><span class="p">.</span><span class="nx">Body</span><span class="p">.</span><span class="nx">Close</span><span class="p">()</span>
+	<span class="k">return</span> <span class="nx">LinesFromReader</span><span class="p">(</span><span class="nx">resp</span><span class="p">.</span><span class="nx">Body</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nx">LinesFromReader</span><span class="p">(</span><span class="nx">r</span> <span class="nx">io</span><span class="p">.</span><span class="nx">Reader</span><span class="p">)</span> <span class="p">([]</span><span class="kt">string</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+	<span class="kd">var</span> <span class="nx">lines</span> <span class="p">[]</span><span class="kt">string</span>
+	<span class="nx">scanner</span> <span class="o">:=</span> <span class="nx">bufio</span><span class="p">.</span><span class="nx">NewScanner</span><span class="p">(</span><span class="nx">r</span><span class="p">)</span>
+	<span class="k">for</span> <span class="nx">scanner</span><span class="p">.</span><span class="nx">Scan</span><span class="p">()</span> <span class="p">{</span>
+		<span class="nx">lines</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">lines</span><span class="p">,</span> <span class="nx">scanner</span><span class="p">.</span><span class="nx">Text</span><span class="p">())</span>
+	<span class="p">}</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">scanner</span><span class="p">.</span><span class="nx">Err</span><span class="p">();</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="kc">nil</span><span class="p">,</span> <span class="nx">err</span>
+	<span class="p">}</span>
+
+	<span class="k">return</span> <span class="nx">lines</span><span class="p">,</span> <span class="kc">nil</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div></figure><p>Note that <em>LinesFromReader</em> <a class="reference external" href="https://www.google.com/search?q=golang+function">func</a> accepts argument of <a class="reference external" href="https://golang.org/pkg/io/#Reader">io.Reader</a>, which is an
+<a class="reference external" href="https://www.google.com/search?q=golang+interface">interface</a>. Later this function will be re-used to read lines from file/string.</p>
+
+<p><strong>Usage of UrlToLines</strong>:</p>
+<figure class="github-file">
+            <figcaption>
+              <a href="https://github.com/siongui/userpages/blob/master/content/code/go/readlines-from/url_test.go">url_test.go</a> |
+              <a href="https://github.com/siongui/userpages">repository</a> |
+              <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/code/go/readlines-from/url_test.go">view raw</a>
+            </figcaption><div class="code-file">
+            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">lines</span>
+
+<span class="kn">import</span> <span class="s">&quot;testing&quot;</span>
+
+<span class="kd">func</span> <span class="nx">TestUrlToLines</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">lines</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">UrlToLines</span><span class="p">(</span><span class="s">&quot;https://raw.githubusercontent.com/siongui/userpages/master/README.rst&quot;</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nx">t</span><span class="p">.</span><span class="nx">Error</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+	<span class="p">}</span>
+
+	<span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">line</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">lines</span> <span class="p">{</span>
+		<span class="nb">println</span><span class="p">(</span><span class="nx">line</span><span class="p">)</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div></figure></div>
+<hr class="docutils" />
+<div class="section" id="readlines-from-file">
+<h2><a class="reference external" href="https://www.google.com/search?q=Readlines">readlines</a> from <a class="reference external" href="https://www.google.com/search?q=golang+file">file</a></h2>
+<p>Use the following code with the <em>LinesFromReader</em> <a class="reference external" href="https://www.google.com/search?q=golang+function">func</a> in the previous section,
+we can read a file line by line:</p>
+<figure class="github-file">
+            <figcaption>
+              <a href="https://github.com/siongui/userpages/blob/master/content/code/go/readlines-from/file.go">file.go</a> |
+              <a href="https://github.com/siongui/userpages">repository</a> |
+              <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/code/go/readlines-from/file.go">view raw</a>
+            </figcaption><div class="code-file">
+            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">lines</span>
+
+<span class="kn">import</span> <span class="s">&quot;os&quot;</span>
+
+<span class="kd">func</span> <span class="nx">FileToLines</span><span class="p">(</span><span class="nx">filePath</span> <span class="kt">string</span><span class="p">)</span> <span class="p">([]</span><span class="kt">string</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">f</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">os</span><span class="p">.</span><span class="nx">Open</span><span class="p">(</span><span class="nx">filePath</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="kc">nil</span><span class="p">,</span> <span class="nx">err</span>
+	<span class="p">}</span>
+	<span class="k">defer</span> <span class="nx">f</span><span class="p">.</span><span class="nx">Close</span><span class="p">()</span>
+	<span class="k">return</span> <span class="nx">LinesFromReader</span><span class="p">(</span><span class="nx">f</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div></figure>
+<p><strong>Usage of FileToLines</strong>:</p>
+<figure class="github-file">
+            <figcaption>
+              <a href="https://github.com/siongui/userpages/blob/master/content/code/go/readlines-from/file_test.go">file_test.go</a> |
+              <a href="https://github.com/siongui/userpages">repository</a> |
+              <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/code/go/readlines-from/file_test.go">view raw</a>
+            </figcaption><div class="code-file">
+            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">lines</span>
+
+<span class="kn">import</span> <span class="s">&quot;testing&quot;</span>
+
+<span class="kd">func</span> <span class="nx">TestFileToLines</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">lines</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">FileToLines</span><span class="p">(</span><span class="s">&quot;file.go&quot;</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nx">t</span><span class="p">.</span><span class="nx">Error</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+	<span class="p">}</span>
+
+	<span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">line</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">lines</span> <span class="p">{</span>
+		<span class="nb">println</span><span class="p">(</span><span class="nx">line</span><span class="p">)</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div></figure></div>
+<hr class="docutils" />
+<div class="section" id="readlines-from-string">
+<h2><a class="reference external" href="https://www.google.com/search?q=Readlines">readlines</a> from <a class="reference external" href="https://www.google.com/search?q=golang+string">string</a></h2>
+<p>Use the following code with the <em>LinesFromReader</em> <a class="reference external" href="https://www.google.com/search?q=golang+function">func</a> in the previous section,
+we can read a string line by line:</p>
+<figure class="github-file">
+            <figcaption>
+              <a href="https://github.com/siongui/userpages/blob/master/content/code/go/readlines-from/string.go">string.go</a> |
+              <a href="https://github.com/siongui/userpages">repository</a> |
+              <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/code/go/readlines-from/string.go">view raw</a>
+            </figcaption><div class="code-file">
+            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">lines</span>
+
+<span class="kn">import</span> <span class="s">&quot;strings&quot;</span>
+
+<span class="kd">func</span> <span class="nx">StringToLines</span><span class="p">(</span><span class="nx">s</span> <span class="kt">string</span><span class="p">)</span> <span class="p">([]</span><span class="kt">string</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">r</span> <span class="o">:=</span> <span class="nx">strings</span><span class="p">.</span><span class="nx">NewReader</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span>
+	<span class="k">return</span> <span class="nx">LinesFromReader</span><span class="p">(</span><span class="nx">r</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div></figure>
+<p><strong>Usage of StringToLines</strong>:</p>
+<figure class="github-file">
+            <figcaption>
+              <a href="https://github.com/siongui/userpages/blob/master/content/code/go/readlines-from/string_test.go">string_test.go</a> |
+              <a href="https://github.com/siongui/userpages">repository</a> |
+              <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/code/go/readlines-from/string_test.go">view raw</a>
+            </figcaption><div class="code-file">
+            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">lines</span>
+
+<span class="kn">import</span> <span class="s">&quot;testing&quot;</span>
+
+<span class="kd">func</span> <span class="nx">TestStringToLines</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">str</span> <span class="o">:=</span> <span class="s">&quot;hello\nworld\n&quot;</span>
+	<span class="nx">lines</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">StringToLines</span><span class="p">(</span><span class="nx">str</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nx">t</span><span class="p">.</span><span class="nx">Error</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+	<span class="p">}</span>
+
+	<span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">line</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">lines</span> <span class="p">{</span>
+		<span class="nb">println</span><span class="p">(</span><span class="nx">line</span><span class="p">)</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div></figure><hr class="docutils" />
+<p>Tested on:</p>
+<ul class="simple">
+<li><tt class="docutils literal">Ubuntu Linux 16.10</tt></li>
+<li><tt class="docutils literal">Go 1.7.5</tt></li>
+</ul>
+<hr class="docutils" />
+
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id1" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td><a class="reference external" href="/2016/04/06/go-readlines-from-file-or-string/">[Golang] Read Lines From File or String</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[2]</td><td><a class="reference external" href="https://github.com/siongui/go-rst/commit/f0cc55bf0d878811956cd70d2ec99d4ee58bec15">read lines from file or url · siongui/go-rst&#64;f0cc55b · GitHub</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[3]</td><td><a class="reference external" href="https://old.reddit.com/r/golang/comments/9rk1rw/processing_of_huge_text_files/">Processing of huge text files : golang</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[4]</td><td><a class="reference external" href="https://old.reddit.com/r/golang/comments/9wo7bd/tips_to_working_with_large_csv_files/">Tips to working with large CSV files? : golang</a></td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/go.html">Go</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/go.html">Go</a>
+,       <a href="/tag/golang.html">Golang</a>
+,       <a href="/tag/string-manipulation.html">String Manipulation</a>
+,       <a href="/tag/read-lines.html">Read Lines</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

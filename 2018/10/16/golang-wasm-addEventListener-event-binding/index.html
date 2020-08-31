@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>[Go WebAssembly] Event Binding - addEventListener Example</title>
+  <meta name="keywords" content="Go,Golang,Go WebAssembly,Frontend Programming in Go"/>
+  <meta name="description" content="Go WebAssembly Event Binding - addEventListener example."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="[Go WebAssembly] Event Binding - addEventListener Example" /><meta property="og:image" content="https://golang.org/doc/gopher/gophercolor.png" />
+<meta property="og:description" content="Go WebAssembly Event Binding - addEventListener example." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2018/10/16/golang-wasm-addEventListener-event-binding/"
+           rel="bookmark"
+           title="Permalink to [Go WebAssembly] Event Binding - addEventListener Example">
+          [Go WebAssembly] Event Binding - addEventListener Example
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2018-10-16T23:21:00+08:00">
+    October 16, 2018
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2018/07/30/golang-wasm-addEventListener-event-binding%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p>In this post, we will show you how to use <a class="reference external" href="https://duckduckgo.com/?q=addEventListener">addEventListener</a> method in Go wasm.</p>
+<p>First install <a class="reference external" href="https://github.com/siongui/godom">godom</a> to help DOM manipulation:</p>
+<div class="highlight"><pre><span></span><span class="err">$</span> <span class="nx">GOARCH</span><span class="p">=</span><span class="nx">wasm</span> <span class="nx">GOOS</span><span class="p">=</span><span class="nx">js</span> <span class="k">go</span> <span class="nx">get</span> <span class="o">-</span><span class="nx">u</span> <span class="nx">github</span><span class="p">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">siongui</span><span class="o">/</span><span class="nx">godom</span><span class="o">/</span><span class="nx">wasm</span>
+</pre></div>
+<p>Click the text in the following demo several times to see what happens.</p>
+<p class="align-center rubric"><a class="reference external" href="https://siongui.github.io/frontend-programming-in-go/wasm/004-addEventListener/demo/">Go Wasm addEventListener Demo</a></p>
+<p>The following is source code of demo:</p>
+<p><strong>Go</strong>:</p>
+<div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+      <span class="s">&quot;fmt&quot;</span>
+      <span class="s">&quot;syscall/js&quot;</span>
+
+      <span class="p">.</span> <span class="s">&quot;github.com/siongui/godom/wasm&quot;</span>
+<span class="p">)</span>
+
+<span class="kd">var</span> <span class="nx">signal</span> <span class="p">=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kt">int</span><span class="p">)</span>
+
+<span class="kd">func</span> <span class="nx">keepAlive</span><span class="p">()</span> <span class="p">{</span>
+      <span class="k">for</span> <span class="p">{</span>
+              <span class="o">&lt;-</span><span class="nx">signal</span>
+      <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+      <span class="nx">foo</span> <span class="o">:=</span> <span class="nx">Document</span><span class="p">.</span><span class="nx">GetElementById</span><span class="p">(</span><span class="s">&quot;foo&quot;</span><span class="p">)</span>
+      <span class="nx">count</span> <span class="o">:=</span> <span class="mi">0</span>
+
+      <span class="nx">cb</span> <span class="o">:=</span> <span class="nx">js</span><span class="p">.</span><span class="nx">NewCallback</span><span class="p">(</span><span class="kd">func</span><span class="p">(</span><span class="nx">args</span> <span class="p">[]</span><span class="nx">js</span><span class="p">.</span><span class="nx">Value</span><span class="p">)</span> <span class="p">{</span>
+              <span class="nx">count</span><span class="o">++</span>
+              <span class="nx">foo</span><span class="p">.</span><span class="nx">Set</span><span class="p">(</span><span class="s">&quot;textContent&quot;</span><span class="p">,</span> <span class="nx">fmt</span><span class="p">.</span><span class="nx">Sprintf</span><span class="p">(</span><span class="s">&quot;I am clicked %d time&quot;</span><span class="p">,</span> <span class="nx">count</span><span class="p">))</span>
+      <span class="p">})</span>
+      <span class="nx">foo</span><span class="p">.</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;addEventListener&quot;</span><span class="p">,</span> <span class="s">&quot;click&quot;</span><span class="p">,</span> <span class="nx">cb</span><span class="p">)</span>
+
+      <span class="nx">keepAlive</span><span class="p">()</span>
+<span class="p">}</span>
+</pre></div>
+<p>We use <a class="reference external" href="https://godoc.org/syscall/js#NewCallback">NewCallback</a> method in <a class="reference external" href="https://tip.golang.org/pkg/syscall/js/">syscall/js</a> package to create the callback for
+the click event of the <em>div</em> element. The most tricky and strange part of the
+above code is the use of <em>keepAlive</em> func to prevent <em>main</em> func from exiting.
+If you do not do this, you will see the following error message in the developer
+console when clicking on the text in the demo:</p>
+<div class="highlight"><pre><span></span>bad callback: Go program has already exited
+</pre></div>
+<p>In the beginning I did not use <em>keepAlive</em> func and always saw the above error
+message when clicking on the text. After some searches, I found the answer in
+<a class="footnote-reference" href="#id4" id="id1">[2]</a>, which uses <em>keepAlive</em> func to prevent <em>main</em> from exiting.</p>
+<p><strong>HTML</strong>:</p>
+<div class="highlight"><pre><span></span><span class="cp">&lt;!doctype html&gt;</span>
+<span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&quot;utf-8&quot;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>Go wasm - addEventListener<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;foo&quot;</span><span class="p">&gt;</span>Click Here<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+
+  <span class="c">&lt;!-- https://github.com/golang/go/blob/master/misc/wasm/wasm_exec.js --&gt;</span>
+  <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;wasm_exec.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+      <span class="kr">const</span> <span class="nx">go</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Go</span><span class="p">();</span>
+      <span class="kd">let</span> <span class="nx">mod</span><span class="p">,</span> <span class="nx">inst</span><span class="p">;</span>
+      <span class="nx">WebAssembly</span><span class="p">.</span><span class="nx">instantiateStreaming</span><span class="p">(</span>
+              <span class="nx">fetch</span><span class="p">(</span><span class="s2">&quot;click.wasm&quot;</span><span class="p">,</span> <span class="p">{</span><span class="nx">cache</span><span class="o">:</span> <span class="s1">&#39;no-cache&#39;</span><span class="p">}),</span> <span class="nx">go</span><span class="p">.</span><span class="nx">importObject</span><span class="p">).</span><span class="nx">then</span><span class="p">((</span><span class="nx">result</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+              <span class="nx">mod</span> <span class="o">=</span> <span class="nx">result</span><span class="p">.</span><span class="nx">module</span><span class="p">;</span>
+              <span class="nx">inst</span> <span class="o">=</span> <span class="nx">result</span><span class="p">.</span><span class="nx">instance</span><span class="p">;</span>
+              <span class="nx">run</span><span class="p">();</span>
+      <span class="p">});</span>
+      <span class="nx">async</span> <span class="kd">function</span> <span class="nx">run</span><span class="p">()</span> <span class="p">{</span>
+              <span class="nx">await</span> <span class="nx">go</span><span class="p">.</span><span class="nx">run</span><span class="p">(</span><span class="nx">inst</span><span class="p">);</span>
+      <span class="p">};</span>
+  <span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</pre></div>
+<p>Nothing special in above HTML code.
+Most of the HTML code is to load compiled wasm module. If you have no idea what
+it means, see <a class="footnote-reference" href="#id3" id="id2">[1]</a>.</p>
+
+<p>The full source code is also available <a class="reference external" href="https://github.com/siongui/frontend-programming-in-go/tree/master/wasm/004-addEventListener">in my GitHub repo</a>.</p>
+<hr class="docutils" />
+<p>Tested on:</p>
+<ul class="simple">
+<li><tt class="docutils literal">Ubuntu Linux 18.04</tt></li>
+<li><tt class="docutils literal">Go 1.11.1</tt></li>
+<li><tt class="docutils literal">Chromium Version 69.0.3497.81 on Ubuntu 18.04 <span class="pre">(64-bit)</span></tt></li>
+</ul>
+<hr class="docutils" />
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[1]</a></td><td><a class="reference external" href="/2018/07/30/golang-wasm-hello-world/">[Go WebAssembly] First Wasm Program - Hello World</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[2]</a></td><td><div class="first last line-block">
+<div class="line"><a class="reference external" href="https://blog.lazyhacker.com/2018/06/go-with-webassembly-early-examples.html">Lazy Hacker Babble: Go with WebAssembly Early Examples</a></div>
+<div class="line"><a class="reference external" href="https://duckduckgo.com/?q=go+wasm+event+binding">go wasm event binding at DuckDuckGo</a></div>
+</div>
+</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id5" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[3]</td><td><a class="reference external" href="/2017/12/11/addEventListener-event-binding-in-go/">Event Binding - addEventListener in Go</a> (GopherJS)</td></tr>
+</tbody>
+</table>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/frontend-programming-in-go.html">Frontend Programming in Go</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/go.html">Go</a>
+,       <a href="/tag/golang.html">Golang</a>
+,       <a href="/tag/go-webassembly.html">Go WebAssembly</a>
+,       <a href="/tag/frontend-programming-in-go.html">Frontend Programming in Go</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

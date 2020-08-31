@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>XMLHttpRequest (XHR) in Go</title>
+  <meta name="keywords" content="Go,Golang,GopherJS,Go to JavaScript,Frontend Programming in Go,XMLHttpRequest,Go net/http,Goroutine,CORS,HTTP GET"/>
+  <meta name="description" content="Send data to servers or retrieve data from servers on browsers - Use XMLHttpRequest method in Go/GopherJS."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="XMLHttpRequest (XHR) in Go" /><meta property="og:image" content="https://www.codeproject.com/KB/ajax/BackboneOfAjax/flow.jpg" />
+<meta property="og:description" content="Send data to servers or retrieve data from servers on browsers - Use XMLHttpRequest method in Go/GopherJS." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2017/12/14/xmlhttprequest-xhr-in-go/"
+           rel="bookmark"
+           title="Permalink to XMLHttpRequest (XHR) in Go">
+          XMLHttpRequest (XHR) in Go
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2017-12-14T23:28:00+08:00">
+    December 14, 2017
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2017/12/04/xmlhttprequest-xhr-in-go%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p>This post shows how to interact with servers from browsers. Send data to URL or
+retrieve data from URL from your browser via <a class="reference external" href="https://www.google.com/search?q=XMLHttpRequest">XMLHttpRequest</a> method in
+Go/GopherJS.
+The full code example of this post is <a class="reference external" href="https://github.com/siongui/frontend-programming-in-go/tree/master/008-xmlhttprequest-xhr">on my GitHub</a>.</p>
+<div class="contents topic" id="table-of-content">
+<p class="topic-title"><strong>Table of Content</strong></p>
+<ul class="simple">
+<li><a class="reference internal" href="#retrieve-data-from-url" id="id8">Retrieve Data From URL</a><ul>
+<li><a class="reference internal" href="#javascript" id="id9">JavaScript</a></li>
+<li><a class="reference internal" href="#gopherjs" id="id10">GopherJS</a></li>
+<li><a class="reference internal" href="#idomatic-go-without-import-gopherjs" id="id11">Idomatic Go without import GopherJS</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="retrieve-data-from-url">
+<h2><a class="toc-backref" href="#id8">Retrieve Data From URL</a></h2>
+<p>In this example, we will show you how to get data from URL. We will get JSON
+data from a URL and print the JSON data on the browser console.</p>
+<div class="section" id="javascript">
+<h3><a class="toc-backref" href="#id9">JavaScript</a></h3>
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">URL</span> <span class="o">=</span> <span class="s2">&quot;https://siongui.github.io/xemaauj9k5qn34x88m4h/sacca.json&quot;</span><span class="p">;</span>
+
+<span class="kd">function</span> <span class="nx">GetJSON</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">responseText</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">req</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">XMLHttpRequest</span><span class="p">();</span>
+<span class="nx">req</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;load&quot;</span><span class="p">,</span> <span class="nx">GetJSON</span><span class="p">);</span>
+<span class="nx">req</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="nx">URL</span><span class="p">);</span>
+<span class="nx">req</span><span class="p">.</span><span class="nx">send</span><span class="p">();</span>
+</pre></div>
+<p>This example is modified from <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/Using_XMLHttpRequest">example on MDN</a>. We get JSON file from the URL
+and print the data on the console.</p>
+
+</div>
+<div class="section" id="gopherjs">
+<h3><a class="toc-backref" href="#id10">GopherJS</a></h3>
+<p>The above code in Go/GopherJS is as follows:</p>
+<div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+      <span class="s">&quot;github.com/gopherjs/gopherjs/js&quot;</span>
+<span class="p">)</span>
+
+<span class="kd">var</span> <span class="nx">URL</span> <span class="p">=</span> <span class="s">&quot;https://siongui.github.io/xemaauj9k5qn34x88m4h/sacca.json&quot;</span>
+
+<span class="kd">func</span> <span class="nx">GetJSON</span><span class="p">(</span><span class="nx">url</span> <span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">req</span> <span class="o">:=</span> <span class="nx">js</span><span class="p">.</span><span class="nx">Global</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;XMLHttpRequest&quot;</span><span class="p">).</span><span class="nx">New</span><span class="p">()</span>
+      <span class="nx">req</span><span class="p">.</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;addEventListener&quot;</span><span class="p">,</span> <span class="s">&quot;load&quot;</span><span class="p">,</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+              <span class="nb">println</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;responseText&quot;</span><span class="p">).</span><span class="nx">String</span><span class="p">())</span>
+      <span class="p">})</span>
+      <span class="nx">req</span><span class="p">.</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;open&quot;</span><span class="p">,</span> <span class="s">&quot;GET&quot;</span><span class="p">,</span> <span class="nx">url</span><span class="p">,</span> <span class="kc">true</span><span class="p">)</span>
+      <span class="nx">req</span><span class="p">.</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;send&quot;</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+      <span class="nx">GetJSON</span><span class="p">(</span><span class="nx">URL</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+<p class="align-center rubric"><a class="reference external" href="https://gopherjs.github.io/playground/#/Q_zZMcJVK7">Run Code on GopherJS Playground</a></p>
+
+</div>
+<div class="section" id="idomatic-go-without-import-gopherjs">
+<h3><a class="toc-backref" href="#id11">Idomatic Go without import GopherJS</a></h3>
+<p>Thanks to the great jobs done by GopherJS guys, you can use methods from
+<em>net/http</em> package in Go standard library to retrieve data from a URL, just like
+you are writing a local Go program. GopherJS will compile the code and translate
+the Go code to the corresponding JavaScript XMLHttpRequest for you! You do not
+even have to know about XMLHttpRequest!</p>
+<div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+      <span class="s">&quot;bytes&quot;</span>
+      <span class="s">&quot;net/http&quot;</span>
+<span class="p">)</span>
+
+<span class="kd">var</span> <span class="nx">URL</span> <span class="p">=</span> <span class="s">&quot;https://siongui.github.io/xemaauj9k5qn34x88m4h/sacca.json&quot;</span>
+
+<span class="kd">func</span> <span class="nx">GetJSON</span><span class="p">(</span><span class="nx">url</span> <span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">resp</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">http</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="nx">url</span><span class="p">)</span>
+      <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+              <span class="k">return</span>
+      <span class="p">}</span>
+      <span class="k">defer</span> <span class="nx">resp</span><span class="p">.</span><span class="nx">Body</span><span class="p">.</span><span class="nx">Close</span><span class="p">()</span>
+      <span class="k">if</span> <span class="nx">resp</span><span class="p">.</span><span class="nx">StatusCode</span> <span class="o">!=</span> <span class="mi">200</span> <span class="p">{</span>
+              <span class="k">return</span>
+      <span class="p">}</span>
+
+      <span class="nx">buf</span> <span class="o">:=</span> <span class="nb">new</span><span class="p">(</span><span class="nx">bytes</span><span class="p">.</span><span class="nx">Buffer</span><span class="p">)</span>
+      <span class="nx">buf</span><span class="p">.</span><span class="nx">ReadFrom</span><span class="p">(</span><span class="nx">resp</span><span class="p">.</span><span class="nx">Body</span><span class="p">)</span>
+      <span class="nb">println</span><span class="p">(</span><span class="nx">buf</span><span class="p">.</span><span class="nx">String</span><span class="p">())</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+      <span class="nx">GetJSON</span><span class="p">(</span><span class="nx">URL</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+<p class="align-center rubric"><a class="reference external" href="https://gopherjs.github.io/playground/#/iC-_yZM_iJ">Run Code on GopherJS Playground</a></p>
+<p>The result of above code is the same as the Go code in previous section. Just
+compile the code with GopherJS, and the JavaScript code output from GopherJS
+will run with the same result! Amazing!</p>
+
+<hr class="docutils" />
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id1" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td><a class="reference external" href="/2016/02/18/gopherjs-XMLHttpRequest-XHR-and-MakeFunc-example/">GopherJS XMLHttpRequest (XHR) and MakeFunc Example</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[2]</td><td><a class="reference external" href="/2016/01/21/go-xhr-http-post-json-by-gopherjs/">[Golang] XMLHttpRequest (XHR) HTTP POST JSON Data by GopherJS</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[3]</td><td><a class="reference external" href="/2016/01/20/go-xhr-http-get-json-by-gopherjs/">[Golang] XMLHttpRequest (XHR) HTTP GET JSON Data by GopherJS</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[4]</td><td><a class="reference external" href="/2016/01/25/go-http-request-header-by-xhr-getAllResponseHeaders/">[Golang] Access HTTP Request Header by XHR getAllResponseHeaders()</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id5" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[5]</td><td><a class="reference external" href="/2016/02/07/go-caveat-of-gopherjs-development/">[Golang] Caveats of GopherJS Development</a></td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/frontend-programming-in-go.html">Frontend Programming in Go</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/go.html">Go</a>
+,       <a href="/tag/golang.html">Golang</a>
+,       <a href="/tag/gopherjs.html">GopherJS</a>
+,       <a href="/tag/go-to-javascript.html">Go to JavaScript</a>
+,       <a href="/tag/frontend-programming-in-go.html">Frontend Programming in Go</a>
+,       <a href="/tag/xmlhttprequest.html">XMLHttpRequest</a>
+,       <a href="/tag/go-nethttp.html">Go net/http</a>
+,       <a href="/tag/goroutine.html">Goroutine</a>
+,       <a href="/tag/cors.html">CORS</a>
+,       <a href="/tag/http-get.html">HTTP GET</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

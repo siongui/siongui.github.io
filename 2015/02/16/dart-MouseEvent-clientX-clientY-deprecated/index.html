@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>[Dart] MouseEvent ClientX and ClientY Deprecated</title>
+  <meta name="keywords" content="Dart"/>
+  <meta name="description" content="e.clientX => e.client.x & e.clientY => e.client.y"/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="[Dart] MouseEvent ClientX and ClientY Deprecated" />    <meta property="og:image" content="/./extra/Dharma_wheel.svg" /><meta property="og:description" content="e.clientX => e.client.x & e.clientY => e.client.y" /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2015/02/16/dart-MouseEvent-clientX-clientY-deprecated/"
+           rel="bookmark"
+           title="Permalink to [Dart] MouseEvent ClientX and ClientY Deprecated">
+          [Dart] MouseEvent ClientX and ClientY Deprecated
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2015-02-16T23:00:00+08:00">
+    February 16, 2015
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2015/02/16/dart-MouseEvent-clientX-clientY-deprecated%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p>Recently I am porting JavaScript code to Dart. When I write the following code:</p>
+<div class="highlight"><pre><span></span><span class="kt">int</span> <span class="n">dx</span> <span class="o">=</span> <span class="n">e</span><span class="p">.</span><span class="n">clientX</span> <span class="o">-</span> <span class="n">initialMouseX</span><span class="p">;</span>
+</pre></div>
+<p>It works on <a class="reference external" href="https://www.dartlang.org/tools/dartium/">Dartium</a>. Then I compiled the code to JavaScript by <a class="reference external" href="https://www.dartlang.org/tools/dart2js/">dart2js</a>. The
+compiled JavaScript code failed to run on <a class="reference external" href="http://www.chromium.org/">Chromium</a>. After some Googling, I
+found <em>Dart MouseEvent clientX and clientY</em> <strong>deprecated</strong> (<a class="footnote-reference" href="#id5" id="id1">[1]</a>, <a class="footnote-reference" href="#id6" id="id2">[2]</a>, <a class="footnote-reference" href="#id8" id="id3">[4]</a>).
+And I also found someone got the same problem as me (<a class="footnote-reference" href="#id7" id="id4">[3]</a>). The correct way to
+get <em>clientX</em> and <em>clientY</em> in Dart should be:</p>
+<div class="highlight"><pre><span></span><span class="kt">int</span> <span class="n">dx</span> <span class="o">=</span> <span class="n">e</span><span class="p">.</span><span class="n">client</span><span class="p">.</span><span class="n">x</span> <span class="o">-</span> <span class="n">initialMouseX</span><span class="p">;</span>
+</pre></div>
+<p>Then the compiled JavaScript code runs on <a class="reference external" href="http://www.chromium.org/">Chromium</a> without trouble.</p>
+<p>PS: Tested on <tt class="docutils literal">Dart 1.8</tt></p>
+
+<hr class="docutils" />
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id5" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td><a class="reference external" href="https://github.com/threeDart/three.dart/issues/109">MouseEvent ClientX and ClientY deprecated</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id6" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[2]</a></td><td><a class="reference external" href="https://groups.google.com/a/dartlang.org/d/topic/misc/DNgsK6Qbd6I">Breaking Change: dart:html Point &amp; Rect</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id7" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id4">[3]</a></td><td><a class="reference external" href="https://code.google.com/p/dart/issues/detail?id=15216">JS MouseEvent unexpectedly converted to Dart MouseEvent in interop</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id8" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id3">[4]</a></td><td><a class="reference external" href="https://chromium.googlesource.com/external/dart/+/f0d085ba55f544c9338232f1ef0bbe1e08675310/dart/tools/dom/templates/html/dart2js/impl_MouseEvent.darttemplate">dart/tools/dom/templates/html/dart2js/impl_MouseEvent.darttemplate - external/dart - Git at Google</a></td></tr>
+</tbody>
+</table>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/dart.html">Dart</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/dart.html">Dart</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

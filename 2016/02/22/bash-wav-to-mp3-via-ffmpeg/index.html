@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>[Bash] Convert wav to mp3 via ffmpeg</title>
+  <meta name="keywords" content="Bash,Commandline,Ubuntu Linux,apt command,ffmpeg"/>
+  <meta name="description" content="Write a bash script to convert wav to mp3 via ffmpeg on Ubuntu Linux 15.10."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="[Bash] Convert wav to mp3 via ffmpeg" />    <meta property="og:image" content="/./extra/Dharma_wheel.svg" /><meta property="og:description" content="Write a bash script to convert wav to mp3 via ffmpeg on Ubuntu Linux 15.10." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2016/02/22/bash-wav-to-mp3-via-ffmpeg/"
+           rel="bookmark"
+           title="Permalink to [Bash] Convert wav to mp3 via ffmpeg">
+          [Bash] Convert wav to mp3 via ffmpeg
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2016-02-22T07:07:00+08:00">
+    February 22, 2016
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2016/02/22/bash-wav-to-mp3-via-ffmpeg%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><div class="section" id="question">
+<h2>Question</h2>
+<blockquote>
+Convert <tt class="docutils literal">9dt/9dtXXX.wav</tt> to <tt class="docutils literal">output/9dtXXX.mp3</tt>, where XXX are numbers
+from 000 to 094.</blockquote>
+</div>
+<div class="section" id="answer">
+<h2>Answer</h2>
+<p>Install <a class="reference external" href="https://www.google.com/search?q=ffmpeg">ffmpeg</a>:</p>
+<div class="highlight"><pre><span></span><span class="c1"># install ffmpeg on Ubuntu Linux 15.10</span>
+$ sudo apt-get install ffmpeg
+</pre></div>
+<p>The <a class="reference external" href="https://www.google.com/search?q=bash">bash</a> script to convert wav to mp3 via <a class="reference external" href="https://www.google.com/search?q=ffmpeg">ffmpeg</a>:</p>
+<div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+
+<span class="nv">OUTPUTDIR</span><span class="o">=</span><span class="s2">&quot;output&quot;</span>
+
+mkdir -p <span class="nv">$OUTPUTDIR</span>
+<span class="k">for</span> i in <span class="o">{</span><span class="m">000</span>..094<span class="o">}</span>
+<span class="k">do</span>
+  ffmpeg -i 9dt/9dt<span class="nv">$i</span>.wav <span class="nv">$OUTPUTDIR</span>/9dt<span class="nv">$i</span>.mp3
+<span class="k">done</span>
+</pre></div>
+
+<p>Save the above <a class="reference external" href="https://www.google.com/search?q=bash">bash</a> script as <em>wav2mp3.sh</em></p>
+<p>Run the script by:</p>
+<div class="highlight"><pre><span></span>$ bash wav2mp3.sh
+</pre></div>
+<hr class="docutils" />
+<p>Tested on <tt class="docutils literal">Ubuntu Linux 15.10</tt></p>
+<hr class="docutils" />
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id1" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td>Google search: <a class="reference external" href="https://www.google.com/search?q=linux+convert+wav+to+mp3">linux convert wav to mp3</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[2]</td><td><a class="reference external" href="http://stackoverflow.com/questions/11216445/converting-wav-files-to-high-quality-mp3-using-linux-terminal">Converting WAV Files to High Quality MP3 Using Linux terminal - Stack Overflow</a></td></tr>
+</tbody>
+</table>
+
+<table class="docutils footnote" frame="void" id="id3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[3]</td><td><a class="reference external" href="http://superuser.com/questions/507386/why-would-i-choose-libav-over-ffmpeg-or-is-there-even-a-difference">Why would I choose Libav over FFmpeg, or is there even a difference? - Super User</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[4]</td><td><a class="reference external" href="http://askubuntu.com/questions/432542/is-ffmpeg-missing-from-the-official-repositories-in-14-04">software installation - Is FFmpeg missing from the official repositories in 14.04? - Ask Ubuntu</a></td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/bash.html">Bash</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/bash.html">Bash</a>
+,       <a href="/tag/commandline.html">Commandline</a>
+,       <a href="/tag/ubuntu-linux.html">Ubuntu Linux</a>
+,       <a href="/tag/apt-command.html">apt command</a>
+,       <a href="/tag/ffmpeg.html">ffmpeg</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

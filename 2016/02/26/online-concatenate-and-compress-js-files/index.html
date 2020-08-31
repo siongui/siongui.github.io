@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>[Python] Online Concatenate and Compress JavaScript Files</title>
+  <meta name="keywords" content="Python,JavaScript,Commandline,HTTP POST,Google Closure,Minify HTML/CSS/JavaScript"/>
+  <meta name="description" content="Online concatenate and compress JavaScript files via Python script."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="[Python] Online Concatenate and Compress JavaScript Files" />    <meta property="og:image" content="/./extra/Dharma_wheel.svg" /><meta property="og:description" content="Online concatenate and compress JavaScript files via Python script." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2016/02/26/online-concatenate-and-compress-js-files/"
+           rel="bookmark"
+           title="Permalink to [Python] Online Concatenate and Compress JavaScript Files">
+          [Python] Online Concatenate and Compress JavaScript Files
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2016-02-26T15:05:00+08:00">
+    February 26, 2016
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2016/02/26/online-concatenate-and-compress-js-files%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p>Online concatenate and compress <a class="reference external" href="https://www.google.com/search?q=javascript">JavaScript</a> files via <a class="reference external" href="https://www.python.org/">Python</a> script.</p>
+<p>Assume we want to concatenate and compress the following js files into a single
+js file.</p>
+<div class="highlight"><pre><span></span>tongwen_core.js
+tongwen_table_ps2t.js
+tongwen_table_pt2s.js
+tongwen_table_s2t.js
+tongwen_table_t2s.js
+nanda.js
+</pre></div>
+<p>The <tt class="docutils literal"><span class="pre">tongwen_*.js</span></tt> are libraries and unchanged during our development. The
+only js file that we code with is <tt class="docutils literal">nanda.js</tt>. We commit the above js files to
+<a class="reference external" href="https://github.com/">GitHub</a>, and write the following <a class="reference external" href="https://www.python.org/">Python</a> script to concatenate and compile the
+js files via <strong>online Closure Compiler</strong> <a class="footnote-reference" href="#id5" id="id1">[1]</a> <a class="footnote-reference" href="#id6" id="id2">[2]</a> <a class="footnote-reference" href="#id7" id="id3">[3]</a> <a class="footnote-reference" href="#id8" id="id4">[4]</a>.
+(put this py script in the same directory as js files)</p>
+
+<div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
+<span class="c1"># -*- coding: utf-8 -*- #</span>
+
+<span class="kn">import</span> <span class="nn">httplib</span><span class="o">,</span> <span class="nn">urllib</span>
+
+<span class="n">allJS</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;nanda.js&quot;</span><span class="p">]</span>
+
+<span class="k">def</span> <span class="nf">combineJS</span><span class="p">():</span>
+    <span class="n">js_code</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">allJS</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">js_code</span> <span class="o">+=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">js_code</span>
+
+
+<span class="k">def</span> <span class="nf">online_compile</span><span class="p">(</span><span class="n">js_code</span><span class="p">):</span>
+    <span class="c1"># Define the parameters for the POST request and encode them in</span>
+    <span class="c1"># a URL-safe format.</span>
+
+    <span class="n">params</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">urlencode</span><span class="p">([</span>
+        <span class="p">(</span><span class="s1">&#39;code_url&#39;</span><span class="p">,</span> <span class="s1">&#39;https://github.com/twnanda/twnanda/raw/master/theme/javascript/tongwen_core.js&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;code_url&#39;</span><span class="p">,</span> <span class="s1">&#39;https://github.com/twnanda/twnanda/raw/master/theme/javascript/tongwen_table_ps2t.js&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;code_url&#39;</span><span class="p">,</span> <span class="s1">&#39;https://github.com/twnanda/twnanda/raw/master/theme/javascript/tongwen_table_pt2s.js&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;code_url&#39;</span><span class="p">,</span> <span class="s1">&#39;https://github.com/twnanda/twnanda/raw/master/theme/javascript/tongwen_table_s2t.js&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;code_url&#39;</span><span class="p">,</span> <span class="s1">&#39;https://github.com/twnanda/twnanda/raw/master/theme/javascript/tongwen_table_t2s.js&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;js_code&#39;</span><span class="p">,</span> <span class="n">js_code</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;compilation_level&#39;</span><span class="p">,</span> <span class="s1">&#39;SIMPLE_OPTIMIZATIONS&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;language&#39;</span><span class="p">,</span> <span class="s1">&#39;ECMASCRIPT5&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;output_format&#39;</span><span class="p">,</span> <span class="s1">&#39;text&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;output_info&#39;</span><span class="p">,</span> <span class="s1">&#39;compiled_code&#39;</span><span class="p">),</span>
+    <span class="p">])</span>
+
+    <span class="c1"># Always use the following value for the Content-type header.</span>
+    <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">&quot;Content-type&quot;</span><span class="p">:</span> <span class="s2">&quot;application/x-www-form-urlencoded&quot;</span> <span class="p">}</span>
+    <span class="n">conn</span> <span class="o">=</span> <span class="n">httplib</span><span class="o">.</span><span class="n">HTTPConnection</span><span class="p">(</span><span class="s1">&#39;closure-compiler.appspot.com&#39;</span><span class="p">)</span>
+    <span class="n">conn</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s1">&#39;POST&#39;</span><span class="p">,</span> <span class="s1">&#39;/compile&#39;</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">getresponse</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+    <span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">online_compile</span><span class="p">(</span><span class="n">combineJS</span><span class="p">())</span>
+</pre></div>
+
+<p>Note that <em>code_url</em> is the URL of our raw files on GitHub, which tells the
+Closure Compiler to fetch files on GitHub instead of uploading them locally. The
+only file we <em>POST</em> to Closure Compiler service API is <tt class="docutils literal">nanda.js</tt>, which we
+code with in our development.</p>
+<p>Save above py script as <em>compile.py</em> and put in the same directory as js files.
+Run the script and save concatenated and compressed js as <tt class="docutils literal">all.js</tt> by:</p>
+<div class="highlight"><pre><span></span>$ python compile &gt; all.js
+</pre></div>
+<hr class="docutils" />
+<p>Tested on: <tt class="docutils literal">Ubuntu Linux 15.10</tt>, <tt class="docutils literal">Python 2.7.10</tt>.</p>
+<hr class="docutils" />
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id5" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td><a class="reference external" href="https://www.google.com/search?q=Closure+Compiler+service+API">Closure Compiler service API</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id6" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[2]</a></td><td><a class="reference external" href="https://developers.google.com/closure/compiler/docs/gettingstarted_api">Getting Started with the API  |  Closure Compiler  |  Google Developers</a></td></tr>
+</tbody>
+</table>
+
+<table class="docutils footnote" frame="void" id="id7" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id3">[3]</a></td><td><a class="reference external" href="https://developers.google.com/closure/compiler/docs/api-tutorial1">Communicating with the Closure Compiler Service API  |  Closure Compiler  |  Google Developers</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id8" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id4">[4]</a></td><td><a class="reference external" href="https://developers.google.com/closure/compiler/docs/api-tutorial2">Compressing Files with the Closure Compiler Service API  |  Closure Compiler  |  Google Developers</a></td></tr>
+</tbody>
+</table>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/python.html">Python</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/python.html">Python</a>
+,       <a href="/tag/javascript.html">JavaScript</a>
+,       <a href="/tag/commandline.html">Commandline</a>
+,       <a href="/tag/http-post.html">HTTP POST</a>
+,       <a href="/tag/google-closure.html">Google Closure</a>
+,       <a href="/tag/minify-htmlcssjavascript.html">Minify HTML/CSS/JavaScript</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

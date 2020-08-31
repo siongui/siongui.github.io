@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>[Bash] HTML to PDF via wkhtmltopdf</title>
+  <meta name="keywords" content="Bash,Commandline,find command,List Files in Directory,wkhtmltopdf"/>
+  <meta name="description" content="Convert HTML files in directory to PDF recursively via wkhtmltopdf and Bash script."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="[Bash] HTML to PDF via wkhtmltopdf" />    <meta property="og:image" content="/./extra/Dharma_wheel.svg" /><meta property="og:description" content="Convert HTML files in directory to PDF recursively via wkhtmltopdf and Bash script." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2016/05/17/bash-html-to-pdf-via-wkhtmltopdf/"
+           rel="bookmark"
+           title="Permalink to [Bash] HTML to PDF via wkhtmltopdf">
+          [Bash] HTML to PDF via wkhtmltopdf
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2016-05-17T23:12:00+08:00">
+    May 17, 2016
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2016/05/17/bash-html-to-pdf-via-wkhtmltopdf%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p>Convert HTML files in directory to PDF recursively via <a class="reference external" href="http://wkhtmltopdf.org/">wkhtmltopdf</a> and <a class="reference external" href="https://www.google.com/search?q=Bash">Bash</a>
+script. Please <a class="reference external" href="https://www.google.com/search?q=install+wkhtmltopdf">install wkhtmltopdf</a> first.</p>
+<div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+
+<span class="c1"># $1 is the directory in which files to be processed</span>
+<span class="c1"># $2 is the css file</span>
+<span class="k">for</span> path in <span class="k">$(</span>find <span class="nv">$1</span> -name <span class="s2">&quot;*.html&quot;</span><span class="k">)</span>
+<span class="k">do</span>
+  <span class="nb">echo</span> -e <span class="s2">&quot;\033[92mProcessing </span><span class="si">${</span><span class="nv">path</span><span class="si">}</span><span class="s2">\033[0m&quot;</span>
+  wkhtmltopdf <span class="si">${</span><span class="nv">path</span><span class="si">}</span> --disable-javascript --user-style-sheet <span class="nv">$2</span> <span class="s2">&quot;</span><span class="si">${</span><span class="nv">path</span><span class="p">%.html</span><span class="si">}</span><span class="s2">.pdf&quot;</span>
+<span class="k">done</span>
+</pre></div>
+<p>If you get error message <tt class="docutils literal">wkhtmltopdf: cannot connect to X server</tt>, see
+<a class="reference external" href="http://stackoverflow.com/questions/9604625/wkhtmltopdf-cannot-connect-to-x-server">this question on Stack Overflow</a> <a class="footnote-reference" href="#id4" id="id1">[3]</a> for solution.</p>
+
+<hr class="docutils" />
+<p>Tested on: <tt class="docutils literal">Ubuntu Linux 16.04</tt>, <tt class="docutils literal">wkhtmltopdf 0.12.2.4</tt></p>
+<hr class="docutils" />
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td><div class="first last line-block">
+<div class="line"><a class="reference external" href="https://www.google.com/search?q=html+to+pdf+command+line+linux">html to pdf command line linux - Google search</a></div>
+<div class="line"><a class="reference external" href="http://askubuntu.com/questions/320195/how-to-convert-a-html-file-to-pdf-with-colors">How to convert a HTML file to PDF (with colors) - Ask Ubuntu</a></div>
+</div>
+</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[2]</td><td><div class="first last line-block">
+<div class="line"><a class="reference external" href="https://www.google.com/search?q=bash+file+extension+change">bash file extension change - Google search</a></div>
+<div class="line"><a class="reference external" href="http://stackoverflow.com/questions/1224766/how-do-i-rename-the-extension-for-a-batch-of-files">bash - How do I rename the extension for a batch of files? - Stack Overflow</a></div>
+</div>
+</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[3]</a></td><td><a class="reference external" href="http://stackoverflow.com/questions/9604625/wkhtmltopdf-cannot-connect-to-x-server">xserver - wkhtmltopdf: cannot connect to X server - Stack Overflow</a></td></tr>
+</tbody>
+</table>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/bash.html">Bash</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/bash.html">Bash</a>
+,       <a href="/tag/commandline.html">Commandline</a>
+,       <a href="/tag/find-command.html">find command</a>
+,       <a href="/tag/list-files-in-directory.html">List Files in Directory</a>
+,       <a href="/tag/wkhtmltopdf.html">wkhtmltopdf</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

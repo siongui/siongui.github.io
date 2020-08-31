@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>[JavaScript] Generate Random String From [a-z0-9]</title>
+  <meta name="keywords" content="JavaScript,String Manipulation,Random Number"/>
+  <meta name="description" content="Generate a random string from [a-z0-9] in JavaScript."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="[JavaScript] Generate Random String From [a-z0-9]" /><meta property="og:image" content="http://www.javatpoint.com/images/javascript/javascript_logo.png" />
+<meta property="og:description" content="Generate a random string from [a-z0-9] in JavaScript." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2017/01/14/javascript-generate-random-string/"
+           rel="bookmark"
+           title="Permalink to [JavaScript] Generate Random String From [a-z0-9]">
+          [JavaScript] Generate Random String From [a-z0-9]
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2017-01-14T07:36:00+08:00">
+    January 14, 2017
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2017/01/14/javascript-generate-random-string%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><div class="highlight"><pre><span></span><span class="cm">/**</span>
+<span class="cm"> * Returns a random integer between min (inclusive) and max (inclusive)</span>
+<span class="cm"> * Using Math.round() will give you a non-uniform distribution!</span>
+<span class="cm"> * Code from http://stackoverflow.com/a/1527820</span>
+<span class="cm"> */</span>
+<span class="kd">function</span> <span class="nx">getRandomInt</span><span class="p">(</span><span class="nx">min</span><span class="p">,</span> <span class="nx">max</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span> <span class="o">*</span> <span class="p">(</span><span class="nx">max</span> <span class="o">-</span> <span class="nx">min</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span> <span class="o">+</span> <span class="nx">min</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * Input: the length of random string</span>
+<span class="cm"> * Output: a random string from [a-z0-9]</span>
+<span class="cm"> */</span>
+<span class="kd">function</span> <span class="nx">RandomString</span><span class="p">(</span><span class="nx">strlen</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kr">const</span> <span class="nx">chars</span> <span class="o">=</span> <span class="s2">&quot;abcdefghijklmnopqrstuvwxyz0123456789&quot;</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="o">&lt;</span><span class="nx">strlen</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">result</span> <span class="o">+=</span> <span class="nx">chars</span><span class="p">[</span><span class="nx">getRandomInt</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">35</span><span class="p">)];</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">result</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// function call to generate a random string of length 10</span>
+<span class="nx">RandomString</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+</pre></div>
+
+<p>Run <a class="reference external" href="https://repl.it/FJIx/0">code</a> online:</p>
+<script src="//repl.it/embed/FJIx/0.js"></script>
+<hr class="docutils" />
+<p>Tested on: <tt class="docutils literal">Chromium Version 55.0.2883.87 Built on Ubuntu , running on Ubuntu 16.10 <span class="pre">(64-bit)</span></tt>.</p>
+<hr class="docutils" />
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id1" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td><p class="first"><a class="reference external" href="https://www.google.com/search?q=javascript+random+integer">javascript random integer - Google search</a></p>
+<p><a class="reference external" href="https://duckduckgo.com/?q=javascript+random+integer">javascript random integer - DuckDuckGo search</a></p>
+<p><a class="reference external" href="https://www.bing.com/search?q=javascript+random+integer">javascript random integer - Bing search</a></p>
+<p><a class="reference external" href="https://search.yahoo.com/search?p=javascript+random+integer">javascript random integer - Yahoo search</a></p>
+<p><a class="reference external" href="https://www.baidu.com/s?wd=javascript+random+integer">javascript random integer - Baidu search</a></p>
+<p class="last"><a class="reference external" href="https://www.yandex.com/search/?text=javascript+random+integer">javascript random integer - Yandex search</a></p>
+</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[2]</td><td><a class="reference external" href="http://stackoverflow.com/a/1527820">Generating random whole numbers in JavaScript in a specific range? - Stack Overflow</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[3]</td><td><p class="first"><a class="reference external" href="https://www.google.com/search?q=javascript+constants">javascript constants - Google search</a></p>
+<p><a class="reference external" href="https://duckduckgo.com/?q=javascript+constants">javascript constants - DuckDuckGo search</a></p>
+<p><a class="reference external" href="https://www.bing.com/search?q=javascript+constants">javascript constants - Bing search</a></p>
+<p><a class="reference external" href="https://search.yahoo.com/search?p=javascript+constants">javascript constants - Yahoo search</a></p>
+<p><a class="reference external" href="https://www.baidu.com/s?wd=javascript+constants">javascript constants - Baidu search</a></p>
+<p class="last"><a class="reference external" href="https://www.yandex.com/search/?text=javascript+constants">javascript constants - Yandex search</a></p>
+</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[4]</td><td><a class="reference external" href="http://stackoverflow.com/questions/5786054/how-to-declare-string-constants-in-javascript">How to declare string constants in JavaScript? - Stack Overflow</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id5" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[5]</td><td><a class="reference external" href="/2015/04/13/go-generate-random-string/">[Golang] Generate Random String From [a-z0-9]</a></td></tr>
+</tbody>
+</table>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/javascript.html">JavaScript</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/javascript.html">JavaScript</a>
+,       <a href="/tag/string-manipulation.html">String Manipulation</a>
+,       <a href="/tag/random-number.html">Random Number</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

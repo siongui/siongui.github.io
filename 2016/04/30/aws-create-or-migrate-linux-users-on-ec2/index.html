@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>[AWS] Create/Migrate Linux Users on Amazon EC2</title>
+  <meta name="keywords" content="Amazon Web Services (AWS),Bash,Ubuntu Linux,Commandline,cat command"/>
+  <meta name="description" content="Create or migrate user account with SSH login only (no password login) on AWS EC2 t2.nano with Ubuntu 14.04 LTS."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="[AWS] Create/Migrate Linux Users on Amazon EC2" /><meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/1/1d/AmazonWebservices_Logo.svg" />
+<meta property="og:description" content="Create or migrate user account with SSH login only (no password login) on AWS EC2 t2.nano with Ubuntu 14.04 LTS." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2016/04/30/aws-create-or-migrate-linux-users-on-ec2/"
+           rel="bookmark"
+           title="Permalink to [AWS] Create/Migrate Linux Users on Amazon EC2">
+          [AWS] Create/Migrate Linux Users on Amazon EC2
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2016-04-30T22:50:00+08:00">
+    April 30, 2016
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2016/04/30/aws-create-or-migrate-linux-users-on-ec2%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p>Create or migrate user account with <a class="reference external" href="https://www.google.com/search?q=SSH">SSH</a> login only (no password login) on <a class="reference external" href="https://aws.amazon.com/">AWS</a>
+<a class="reference external" href="https://aws.amazon.com/ec2/">EC2</a> <a class="reference external" href="https://aws.amazon.com/blogs/aws/ec2-update-t2-nano-instances-now-available/">t2.nano</a> with <a class="reference external" href="https://aws.amazon.com/marketplace/pp/B00JV9TBA6/">Ubuntu 14.04 LTS</a>.</p>
+<div class="section" id="create-user-account">
+<h2>Create User Account</h2>
+<div class="highlight"><pre><span></span><span class="c1"># login to EC2 running *Ubuntu 14.04*</span>
+$ ssh -i my_key.pem ubuntu@my_EC2_IP
+<span class="c1"># assume the name of the user account is *foo*</span>
+$ sudo adduser foo --disabled-password
+<span class="c1"># su to *foo*</span>
+$ sudo su - foo
+<span class="c1"># Create a *.ssh* directory for the *authorized_keys* file</span>
+$ mkdir .ssh
+$ chmod <span class="m">700</span> .ssh
+<span class="c1"># Create the public and private keys for ssh login</span>
+<span class="c1"># Don&#39;t use a paraphrase -- just hit enter</span>
+$ ssh-keygen -b <span class="m">1024</span> -f fookey -t dsa
+<span class="c1"># After keygen finished,</span>
+<span class="c1"># two files named *fookey* and *fookey.pub* will be generated.</span>
+<span class="c1"># *fookey* is private key and *fookey.pub* is public key</span>
+$ cat fookey.pub &gt; .ssh/authorized_keys
+$ chmod <span class="m">600</span> .ssh/authorized_keys
+</pre></div>
+<p>Download <em>fookey</em> to your local machine. Now you can SSH login as <em>foo</em>:</p>
+<div class="highlight"><pre><span></span>$ ssh -i fookey foo@my_EC2_IP
+</pre></div>
+<p>For more details, see <a class="footnote-reference" href="#id7" id="id1">[2]</a>, <a class="footnote-reference" href="#id9" id="id2">[4]</a>, and <a class="footnote-reference" href="#id10" id="id3">[5]</a>.</p>
+
+</div>
+<div class="section" id="migrate-user-account">
+<h2>Migrate User Account</h2>
+<p>My case is simple. Every user has his own block device as home directory. So
+create user account as described above, <a class="reference external" href="http://linux.die.net/man/8/mount">mount</a> the user's block device back to
+his home directory. Then</p>
+<div class="highlight"><pre><span></span>$ sudo chown foo:foo /home/foo -R
+</pre></div>
+<p>For more details or more sophisticated case, see <a class="footnote-reference" href="#id11" id="id4">[6]</a> and <a class="footnote-reference" href="#id12" id="id5">[7]</a>.</p>
+<hr class="docutils" />
+
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id6" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td><a class="reference external" href="http://stackoverflow.com/questions/26676933/migrate-from-t1-micro-to-t2-micro-amazon-aws">Migrate from t1.micro to t2.micro Amazon AWS - Stack Overflow</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id7" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[2]</a></td><td><a class="reference external" href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/managing-users.html">Managing User Accounts on Your Linux Instance - Amazon Elastic Compute Cloud</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id8" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[3]</td><td><a class="reference external" href="https://github.com/siongui/pali/blob/master/docs/AWS.md">Run Dictionary and Tipitaka Websites on Amazon Web Services</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id9" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[4]</a></td><td><a class="reference external" href="http://utkarshsengar.com/2011/01/manage-multiple-accounts-on-1-amazon-ec2-instance/">Manage multiple Linux Users on 1 Amazon EC2 Instance | the lost logbook</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id10" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id3">[5]</a></td><td><a class="reference external" href="http://www.ampedupdesigns.com/blog/show?bid=44">How to add new users to EC2 and give SSH Key access</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id11" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id4">[6]</a></td><td><a class="reference external" href="http://askubuntu.com/questions/502110/chown-recursively-changed-permissions">chown recursively changed permissions - Ask Ubuntu</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id12" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id5">[7]</a></td><td><a class="reference external" href="https://muffinresearch.co.uk/linux-changing-uids-and-gids-for-user/">Linux: Changing UIDs and GIDs for a user by Stuart Colville</a></td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/amazon-web-services-aws.html">Amazon Web Services (AWS)</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/amazon-web-services-aws.html">Amazon Web Services (AWS)</a>
+,       <a href="/tag/bash.html">Bash</a>
+,       <a href="/tag/ubuntu-linux.html">Ubuntu Linux</a>
+,       <a href="/tag/commandline.html">Commandline</a>
+,       <a href="/tag/cat-command.html">cat command</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

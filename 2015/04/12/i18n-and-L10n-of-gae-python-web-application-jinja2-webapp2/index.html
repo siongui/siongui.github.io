@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>Internationalization and Localization of Google App Engine Python Webapp Using webapp2 and Jinja2</title>
+  <meta name="keywords" content="Python,Web application,web,Google App Engine,Locale,Jinja2,i18n,gettext"/>
+  <meta name="description" content="i18n and L10n of Google App Engine Python web application, with webapp2, Jinja2, Babel, and pytz."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="Internationalization and Localization of Google App Engine Python Webapp Using webapp2 and Jinja2" />    <meta property="og:image" content="/./extra/Dharma_wheel.svg" /><meta property="og:description" content="i18n and L10n of Google App Engine Python web application, with webapp2, Jinja2, Babel, and pytz." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2015/04/12/i18n-and-L10n-of-gae-python-web-application-jinja2-webapp2/"
+           rel="bookmark"
+           title="Permalink to Internationalization and Localization of Google App Engine Python Webapp Using webapp2 and Jinja2">
+          Internationalization and Localization of Google App Engine Python Webapp Using webapp2 and Jinja2
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2015-04-12T05:30:00+08:00">
+    April 12, 2015
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2015/04/12/i18n-and-L10n-of-gae-python-web-application-jinja2-webapp2%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p>This post shows how to use <a class="reference external" href="https://webapp-improved.appspot.com/">webapp2</a> web framework and <a class="reference external" href="http://jinja.pocoo.org/docs/dev/">Jinja2</a> templating system
+to achieve i18n of <a class="reference external" href="https://cloud.google.com/appengine/docs/python/">Google App Engine Python</a> webapp with <a class="reference external" href="http://babel.pocoo.org/">Babel</a> and <a class="reference external" href="http://pytz.sourceforge.net/">pytz</a> (or
+<a class="reference external" href="https://github.com/brianmhunt/pytz-appengine">pytz-appengine</a>, <a class="reference external" href="https://code.google.com/p/gae-pytz/">gae-pytz</a>).</p>
+<div class="section" id="install-babel">
+<h2>Install <a class="reference external" href="http://babel.pocoo.org/">Babel</a></h2>
+<div class="highlight"><pre><span></span><span class="c1"># install babel</span>
+$ sudo pip install babel
+
+<span class="c1"># download babel 1.3</span>
+$ wget https://github.com/mitsuhiko/babel/archive/1.3.zip
+
+<span class="c1"># unzip and enter babel source directory</span>
+$ unzip <span class="m">1</span>.3.zip
+$ <span class="nb">cd</span> babel-1.3/
+
+<span class="c1"># create babel.zip for zipimport</span>
+$ zip -r babel.zip babel/*
+
+<span class="c1"># move babel.zip to your project root directory</span>
+</pre></div>
+</div>
+<div class="section" id="install-pytz-use-gae-pytz-in-this-example">
+<h2>Install <a class="reference external" href="http://pytz.sourceforge.net/">pytz</a> (use <a class="reference external" href="https://code.google.com/p/gae-pytz/">gae-pytz</a> in this example)</h2>
+<div class="highlight"><pre><span></span><span class="c1"># download gaepytz 2011h</span>
+$ wget https://pypi.python.org/packages/source/g/gaepytz/gaepytz-2011h.tar.gz#md5<span class="o">=</span>b7abe173cd98b417fab3e91c1498cdd2
+
+<span class="c1"># unzip and enter gaepytz source directory</span>
+$ tar xvzf gaepytz-2011h.tar.gz
+$ <span class="nb">cd</span> gaepytz-2011h/
+
+<span class="c1"># create pytz.zip for zipimport</span>
+$ zip -r pytz.zip pytz/*
+
+<span class="c1"># move pytz.zip to your project root directory</span>
+</pre></div>
+
+</div>
+<div class="section" id="sample-gae-project">
+<h2>Sample GAE project</h2>
+<p>Download the following files to your project root directory:</p>
+<p><em>i18n.py</em> (GAE Python webapp): The webapp determine the <a class="reference external" href="http://en.wikipedia.org/wiki/Locale">locale</a> by the
+<a class="reference external" href="http://en.wikipedia.org/wiki/Query_string">query string</a> in URL.</p>
+<figure class="github-file">
+            <figcaption>
+              <a href="https://github.com/siongui/userpages/blob/master/content/code/i18n-gae-python/i18n.py">i18n.py</a> |
+              <a href="https://github.com/siongui/userpages">repository</a> |
+              <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/code/i18n-gae-python/i18n.py">view raw</a>
+            </figcaption><div class="code-file">
+            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
+<span class="c1"># -*- coding:utf-8 -*-</span>
+
+<span class="c1"># for webapp2 to import babel and pytz</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">),</span> <span class="s1">&#39;babel.zip&#39;</span><span class="p">))</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">),</span> <span class="s1">&#39;pytz.zip&#39;</span><span class="p">))</span>
+
+<span class="kn">import</span> <span class="nn">webapp2</span>
+<span class="kn">import</span> <span class="nn">jinja2</span>
+<span class="kn">from</span> <span class="nn">webapp2_extras</span> <span class="kn">import</span> <span class="n">i18n</span>
+
+
+<span class="n">JINJA_ENVIRONMENT</span> <span class="o">=</span> <span class="n">jinja2</span><span class="o">.</span><span class="n">Environment</span><span class="p">(</span>
+    <span class="n">loader</span><span class="o">=</span><span class="n">jinja2</span><span class="o">.</span><span class="n">FileSystemLoader</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)),</span>
+    <span class="n">extensions</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;jinja2.ext.i18n&#39;</span><span class="p">,</span> <span class="s1">&#39;jinja2.ext.autoescape&#39;</span><span class="p">],</span>
+    <span class="n">autoescape</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">JINJA_ENVIRONMENT</span><span class="o">.</span><span class="n">install_gettext_translations</span><span class="p">(</span><span class="n">i18n</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">MainPage</span><span class="p">(</span><span class="n">webapp2</span><span class="o">.</span><span class="n">RequestHandler</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">locale</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;locale&#39;</span><span class="p">,</span> <span class="s1">&#39;en_US&#39;</span><span class="p">)</span>
+        <span class="n">i18n</span><span class="o">.</span><span class="n">get_i18n</span><span class="p">()</span><span class="o">.</span><span class="n">set_locale</span><span class="p">(</span><span class="n">locale</span><span class="p">)</span>
+
+        <span class="n">template_values</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">template</span> <span class="o">=</span> <span class="n">JINJA_ENVIRONMENT</span><span class="o">.</span><span class="n">get_template</span><span class="p">(</span><span class="s1">&#39;index.html&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">response</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">template</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">template_values</span><span class="p">))</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">webapp2</span><span class="o">.</span><span class="n">WSGIApplication</span><span class="p">([</span>
+    <span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="n">MainPage</span><span class="p">),</span>
+<span class="p">],</span> <span class="n">debug</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</td></tr></table></div></figure>
+<p><em>index.html</em> (HTML template): Wrap the <em>string</em> you want to tranlsate in
+<em>{{ _(&quot;string&quot;) }}</em>. See <a class="footnote-reference" href="#id22" id="id1">[18]</a> for more syntax you can use.</p>
+<figure class="github-file">
+            <figcaption>
+              <a href="https://github.com/siongui/userpages/blob/master/content/code/i18n-gae-python/index.html">index.html</a> |
+              <a href="https://github.com/siongui/userpages">repository</a> |
+              <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/code/i18n-gae-python/index.html">view raw</a>
+            </figcaption><div class="code-file">
+            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cp">&lt;!doctype html&gt;</span>
+<span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&quot;utf-8&quot;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>i18n of GAE Webapp<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+  <span class="cp">{{</span> <span class="kp">_</span><span class="o">(</span><span class="s2">&quot;home&quot;</span><span class="o">)</span> <span class="cp">}}</span>
+  <span class="p">&lt;</span><span class="nt">br</span> <span class="p">/&gt;</span>
+  <span class="cp">{{</span> <span class="kp">_</span><span class="o">(</span><span class="s2">&quot;about&quot;</span><span class="o">)</span> <span class="cp">}}</span>
+  <span class="p">&lt;</span><span class="nt">br</span> <span class="p">/&gt;</span>
+  <span class="cp">{{</span> <span class="kp">_</span><span class="o">(</span><span class="s2">&quot;&#39;link&#39;&quot;</span><span class="o">)|</span><span class="nf">safe</span> <span class="cp">}}</span>
+  <span class="p">&lt;</span><span class="nt">br</span> <span class="p">/&gt;</span>
+<span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</pre></div>
+</td></tr></table></div></figure><p><em>app.yaml</em> (GAE Python config)</p>
+<figure class="github-file">
+            <figcaption>
+              <a href="https://github.com/siongui/userpages/blob/master/content/code/i18n-gae-python/app.yaml">app.yaml</a> |
+              <a href="https://github.com/siongui/userpages">repository</a> |
+              <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/code/i18n-gae-python/app.yaml">view raw</a>
+            </figcaption><div class="code-file">
+            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="nt">application</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">i18n-gae-python</span>
+<span class="nt">version</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="nt">runtime</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">python27</span>
+<span class="nt">api_version</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="nt">threadsafe</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+
+<span class="nt">handlers</span><span class="p">:</span>
+<span class="p p-Indicator">-</span> <span class="nt">url</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/.*</span>
+  <span class="nt">script</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">i18n.app</span>
+
+<span class="nt">libraries</span><span class="p">:</span>
+<span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">webapp2</span>
+  <span class="nt">version</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">latest</span>
+<span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">jinja2</span>
+  <span class="nt">version</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">latest</span>
+</pre></div>
+</td></tr></table></div></figure><p><em>babel.cfg</em> (config for <a class="reference external" href="http://babel.pocoo.org/">Babel</a> extraction): This <em>babel.cfg</em> tells babel to
+extract all translations from all HTML files in your webapp and the encoding of
+HTML files are <em>utf-8</em>. For more information of the config file, refer to <a class="footnote-reference" href="#id20" id="id2">[16]</a>
+and <a class="footnote-reference" href="#id21" id="id3">[17]</a>.</p>
+<figure class="github-file">
+            <figcaption>
+              <a href="https://github.com/siongui/userpages/blob/master/content/code/i18n-gae-python/babel.cfg">babel.cfg</a> |
+              <a href="https://github.com/siongui/userpages">repository</a> |
+              <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/code/i18n-gae-python/babel.cfg">view raw</a>
+            </figcaption><div class="code-file">
+            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">[javascript: **.html]</span>
+<span class="na">encoding</span> <span class="o">=</span> <span class="s">utf-8</span>
+</pre></div>
+</td></tr></table></div></figure></div>
+<div class="section" id="extract-and-compile-translations">
+<h2>Extract and compile translations</h2>
+<p>By default, <a class="reference external" href="https://webapp-improved.appspot.com/">webapp2</a> looks for <em>pot</em> and <em>po</em> files in <em>locale</em> directory under
+your project root directory, so first create a directory named <em>locale</em>:</p>
+<div class="highlight"><pre><span></span><span class="c1"># in your project root directory:</span>
+$ mkdir locale
+</pre></div>
+<p>Then extract all translations (create <em>pot</em> file).</p>
+<div class="highlight"><pre><span></span><span class="c1"># in your project root directory:</span>
+$ pybabel extract -F ./babel.cfg -o ./locale/messages.pot ./
+</pre></div>
+<p>The <em>pot</em> file looks like:</p>
+<div class="highlight"><pre><span></span># Translations template for PROJECT.
+# Copyright (C) 2015 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR &lt;EMAIL@ADDRESS&gt;, 2015.
+#
+#, fuzzy
+msgid &quot;&quot;
+msgstr &quot;&quot;
+&quot;Project-Id-Version: PROJECT VERSION\n&quot;
+&quot;Report-Msgid-Bugs-To: EMAIL@ADDRESS\n&quot;
+&quot;POT-Creation-Date: 2015-04-12 03:32+0800\n&quot;
+&quot;PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n&quot;
+&quot;Last-Translator: FULL NAME &lt;EMAIL@ADDRESS&gt;\n&quot;
+&quot;Language-Team: LANGUAGE &lt;LL@li.org&gt;\n&quot;
+&quot;MIME-Version: 1.0\n&quot;
+&quot;Content-Type: text/plain; charset=utf-8\n&quot;
+&quot;Content-Transfer-Encoding: 8bit\n&quot;
+&quot;Generated-By: Babel 1.3\n&quot;
+
+#: index.html:8
+msgid &quot;home&quot;
+msgstr &quot;&quot;
+
+#: index.html:10
+msgid &quot;about&quot;
+msgstr &quot;&quot;
+
+#: index.html:12
+msgid &quot;&#39;link&#39;&quot;
+msgstr &quot;&quot;
+</pre></div>
+<p>Then initialize the directory for each <a class="reference external" href="http://en.wikipedia.org/wiki/Locale">locale</a> that your webapp will support.
+<em>en_US</em> and <em>zh_TW</em> are supported in our example. See <a class="footnote-reference" href="#id23" id="id4">[19]</a> for table of
+locales.</p>
+<div class="highlight"><pre><span></span><span class="c1"># in your project root directory:</span>
+$ pybabel init -l en_US -d ./locale -i ./locale/messages.pot
+$ pybabel init -l zh_TW -d ./locale -i ./locale/messages.pot
+</pre></div>
+<p>Two <em>po</em> files (<tt class="docutils literal">locale/en_US/LC_MESSAGES/messages.po</tt> and
+<tt class="docutils literal">locale/zh_TW/LC_MESSAGES/messages.po</tt>) are created. You do not need to do
+anything with the <em>en_US</em> po file because English is default language.
+Translate only non-default-language <em>po</em> files. In our exmaple, the <em>zh_TW</em> <em>po</em>
+file after translation looks like:</p>
+<div class="highlight"><pre><span></span># Chinese (Traditional, Taiwan) translations for PROJECT.
+# Copyright (C) 2015 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR &lt;EMAIL@ADDRESS&gt;, 2015.
+#
+#, fuzzy
+msgid &quot;&quot;
+msgstr &quot;&quot;
+&quot;Project-Id-Version: PROJECT VERSION\n&quot;
+&quot;Report-Msgid-Bugs-To: EMAIL@ADDRESS\n&quot;
+&quot;POT-Creation-Date: 2015-04-12 03:32+0800\n&quot;
+&quot;PO-Revision-Date: 2015-04-12 03:35+0800\n&quot;
+&quot;Last-Translator: FULL NAME &lt;EMAIL@ADDRESS&gt;\n&quot;
+&quot;Language-Team: zh_Hant_TW &lt;LL@li.org&gt;\n&quot;
+&quot;Plural-Forms: nplurals=2; plural=(n != 1)\n&quot;
+&quot;MIME-Version: 1.0\n&quot;
+&quot;Content-Type: text/plain; charset=utf-8\n&quot;
+&quot;Content-Transfer-Encoding: 8bit\n&quot;
+&quot;Generated-By: Babel 1.3\n&quot;
+
+#: index.html:8
+msgid &quot;home&quot;
+msgstr &quot;首頁&quot;
+
+#: index.html:10
+msgid &quot;about&quot;
+msgstr &quot;關於&quot;
+
+#: index.html:12
+msgid &quot;&#39;link&#39;&quot;
+msgstr &quot;&#39;連結&#39;&quot;
+</pre></div>
+<p>After all translations done, compile <em>po</em> file with the following command:</p>
+<div class="highlight"><pre><span></span><span class="c1"># in your project root directory:</span>
+$ pybabel compile -f -d ./locale
+</pre></div>
+<p>Now we can run this GAE Python webapp, and then open the browser with URL:</p>
+<blockquote>
+<a class="reference external" href="http://localhost:8080/">http://localhost:8080/</a></blockquote>
+<p>You will see the webpage in default language. Then open the browser with URL:</p>
+<blockquote>
+<a class="reference external" href="http://localhost:8080/?locale=zh_TW">http://localhost:8080/?locale=zh_TW</a></blockquote>
+<p>You will see the webpage in Traditional Chinese.</p>
+</div>
+<div class="section" id="update-translations">
+<h2>Update translations</h2>
+<p>When the strings to be translated change, re-create <em>pot</em> file:</p>
+<div class="highlight"><pre><span></span><span class="c1"># in your project root directory:</span>
+$ pybabel extract -F ./babel.cfg -o ./locale/messages.pot ./
+</pre></div>
+<p>Then update each <em>locale</em>:</p>
+<div class="highlight"><pre><span></span><span class="c1"># in your project root directory:</span>
+$ pybabel update -l en_US -d ./locale/ -i ./locale/messages.pot
+$ pybabel update -l zh_TW -d ./locale/ -i ./locale/messages.pot
+</pre></div>
+<p>Again, translate the strings in each <em>po</em> file, and then compile again:</p>
+<div class="highlight"><pre><span></span><span class="c1"># in your project root directory:</span>
+$ pybabel compile -f -d ./locale
+</pre></div>
+<hr class="docutils" />
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id5" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td><a class="reference external" href="http://webapp-improved.appspot.com/tutorials/i18n.html">Internationalization and localization with webapp2</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id6" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[2]</td><td><a class="reference external" href="http://stackoverflow.com/questions/8471455/how-to-enable-trans-tag-for-jinja-templates">python - How to enable {% trans %} tag for jinja templates? - Stack Overflow</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id7" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[3]</td><td><a class="reference external" href="https://github.com/getpelican/pelican/issues/92">I18N support · Issue #92 · getpelican/pelican · GitHub</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id8" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[4]</td><td><a class="reference external" href="http://stackoverflow.com/questions/7961800/i18n-with-jinja2-gae">python - i18n with jinja2 + GAE - Stack Overflow</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id9" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[5]</td><td><a class="reference external" href="http://mikhail.io/2012/07/26/enable-jinja2-and-i18n-translations-on-google-appengine/">Enable jinja2 and i18n translations on Google AppEngine | Mikhail Shilkov</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id10" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[6]</td><td><a class="reference external" href="https://groups.google.com/d/topic/google-appengine-python/RhXxIOfnfm0">How to use i18n from webapp2_extras? - Google Groups</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id11" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[7]</td><td><a class="reference external" href="http://stackoverflow.com/questions/14414960/internationalization-with-python-gae-babel-and-i18n-cant-output-the-correct-s">google app engine - Internationalization with python gae, babel and i18n. Can't output the correct string - Stack Overflow</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id12" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[8]</td><td><a class="reference external" href="http://en.wikipedia.org/wiki/Internationalization_and_localization">Internationalization and localization - Wikipedia, the free encyclopedia</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id13" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[9]</td><td><a class="reference external" href="http://stackoverflow.com/questions/2710861/how-to-import-modules-in-google-app-engine">python - How to import modules in Google App Engine? - Stack Overflow</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id14" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[10]</td><td><a class="reference external" href="https://code.google.com/p/googleappengine/issues/detail?id=161">Max number of files and blobs is 1000 - Google Code</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id15" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[11]</td><td><a class="reference external" href="http://takashi-matsuo.blogspot.com/2008/07/using-zipped-pytz-on-gae.html">Moon blue diary: Using zipped pytz on GAE</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id16" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[12]</td><td><a class="reference external" href="http://takashi-matsuo.blogspot.com/2008/07/using-newest-zipped-pytz-on-gae.html">Moon blue diary: Using the newest zipped pytz on GAE</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id17" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[13]</td><td><a class="reference external" href="https://github.com/brianmhunt/pytz-appengine">brianmhunt/pytz-appengine · GitHub</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id18" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[14]</td><td><a class="reference external" href="http://babel.edgewall.org/">Babel (old site)</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id19" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[15]</td><td><a class="reference external" href="https://pypi.python.org/pypi/gaepytz">gaepytz on Python Package Index</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id20" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[16]</a></td><td><a class="reference external" href="http://jinja.pocoo.org/docs/dev/integration/#babel-integration">Babel Integration - Jinja2 Documentation</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id21" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id3">[17]</a></td><td><a class="reference external" href="http://babel.pocoo.org/docs/messages/#extraction-method-mapping-and-configuration">Extraction Method Mapping and Configuration - Working with Message Catalogs - Babel 1.0 documentation</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id22" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[18]</a></td><td><a class="reference external" href="http://jinja.pocoo.org/docs/dev/templates/#i18n">i18n - Template Designer Documentation - Jinja2 Documentation</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id23" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id4">[19]</a></td><td><a class="reference external" href="https://docs.moodle.org/dev/Table_of_locales">Table of locales - MoodleDocs</a></td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/python.html">Python</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/python.html">Python</a>
+,       <a href="/tag/web-application.html">Web application</a>
+,       <a href="/tag/web.html">web</a>
+,       <a href="/tag/google-app-engine.html">Google App Engine</a>
+,       <a href="/tag/locale.html">Locale</a>
+,       <a href="/tag/jinja2.html">Jinja2</a>
+,       <a href="/tag/i18n.html">i18n</a>
+,       <a href="/tag/gettext.html">gettext</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

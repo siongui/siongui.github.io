@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>Get Facebook Stories Image URL via Chrome Extension</title>
+  <meta name="keywords" content="JavaScript,Chrome Extension,Web Scrape"/>
+  <meta name="description" content="A naive Chrome extension to help you get URL of images of Facebook Stories."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="Get Facebook Stories Image URL via Chrome Extension" /><meta property="og:image" content="https://blog.bufferapp.com/wp-content/uploads/2017/01/facebook-stories-24-hours.png" />
+<meta property="og:description" content="A naive Chrome extension to help you get URL of images of Facebook Stories." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2018/02/19/get-fb-story-image-url-chrome-extension/"
+           rel="bookmark"
+           title="Permalink to Get Facebook Stories Image URL via Chrome Extension">
+          Get Facebook Stories Image URL via Chrome Extension
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2018-02-19T07:38:00+08:00">
+    February 19, 2018
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2018/02/19/get-fb-story-image-url-chrome-extension%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p>A naive <a class="reference external" href="https://www.google.com/search?q=Chrome+Extension">Chrome extension</a> to help you get URL of images of Facebook Stories,
+so you don't have to right-click and open Chrome DevTools to check the URL.</p>
+<p>You can <a class="reference external" href="https://developer.chrome.com/extensions/getstarted#unpacked">load extension</a> in developer mode. When the image of stories is
+playing, click the icon of this extension and the URL of the image will be
+logged in the console of Chrome DevTools.</p>
+<p><a class="reference external" href="https://developer.chrome.com/extensions/manifest">manifest json</a>:</p>
+<figure class="github-file">
+            <figcaption>
+              <a href="https://github.com/siongui/userpages/blob/master/content/code/javascript/fb-story-img-url/manifest.json">manifest.json</a> |
+              <a href="https://github.com/siongui/userpages">repository</a> |
+              <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/code/javascript/fb-story-img-url/manifest.json">view raw</a>
+            </figcaption><div class="code-file">
+            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;manifest_version&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+
+  <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;FBStoryImg&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;description&quot;</span> <span class="p">:</span> <span class="s2">&quot;Get URL of Facebook Story Image&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;0.1&quot;</span><span class="p">,</span>
+
+  <span class="nt">&quot;browser_action&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;default_title&quot;</span><span class="p">:</span> <span class="s2">&quot;Click to get story image URL&quot;</span>
+  <span class="p">},</span>
+
+  <span class="nt">&quot;background&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;scripts&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;background.js&quot;</span><span class="p">],</span>
+    <span class="nt">&quot;persistent&quot;</span><span class="p">:</span> <span class="kc">false</span>
+  <span class="p">},</span>
+
+  <span class="nt">&quot;permissions&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="s2">&quot;activeTab&quot;</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div></figure><p><strong>background.js</strong>:</p>
+<figure class="github-file">
+            <figcaption>
+              <a href="https://github.com/siongui/userpages/blob/master/content/code/javascript/fb-story-img-url/background.js">background.js</a> |
+              <a href="https://github.com/siongui/userpages">repository</a> |
+              <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/code/javascript/fb-story-img-url/background.js">view raw</a>
+            </figcaption><div class="code-file">
+            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="nx">chrome</span><span class="p">.</span><span class="nx">browserAction</span><span class="p">.</span><span class="nx">onClicked</span><span class="p">.</span><span class="nx">addListener</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">tab</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">chrome</span><span class="p">.</span><span class="nx">tabs</span><span class="p">.</span><span class="nx">executeScript</span><span class="p">(</span><span class="nx">tab</span><span class="p">.</span><span class="nx">id</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nx">file</span><span class="o">:</span> <span class="s1">&#39;inject.js&#39;</span>
+  <span class="p">});</span>
+<span class="p">});</span>
+</pre></div>
+</td></tr></table></div></figure><p><strong>inject.js</strong>:</p>
+<figure class="github-file">
+            <figcaption>
+              <a href="https://github.com/siongui/userpages/blob/master/content/code/javascript/fb-story-img-url/inject.js">inject.js</a> |
+              <a href="https://github.com/siongui/userpages">repository</a> |
+              <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/code/javascript/fb-story-img-url/inject.js">view raw</a>
+            </figcaption><div class="code-file">
+            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">img</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&quot;img._5i4g._5sjv.img&quot;</span><span class="p">);</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">img</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">img</span><span class="p">.</span><span class="nx">src</span><span class="p">);</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;cannot find image URL!&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div></figure><hr class="docutils" />
+
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id1" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td><div class="first last line-block">
+<div class="line"><a class="reference external" href="https://www.google.com/search?q=chrome+extension+execute+script+on+click">chrome extension execute script on click - Google search</a></div>
+<div class="line"><a class="reference external" href="https://duckduckgo.com/?q=chrome+extension+execute+script+on+click">chrome extension execute script on click - DuckDuckGo search</a></div>
+<div class="line"><a class="reference external" href="https://www.ecosia.org/search?q=chrome+extension+execute+script+on+click">chrome extension execute script on click - Ecosia search</a></div>
+<div class="line"><a class="reference external" href="https://www.qwant.com/?q=chrome+extension+execute+script+on+click">chrome extension execute script on click - Qwant search</a></div>
+<div class="line"><a class="reference external" href="https://www.bing.com/search?q=chrome+extension+execute+script+on+click">chrome extension execute script on click - Bing search</a></div>
+<div class="line"><a class="reference external" href="https://search.yahoo.com/search?p=chrome+extension+execute+script+on+click">chrome extension execute script on click - Yahoo search</a></div>
+<div class="line"><a class="reference external" href="https://www.baidu.com/s?wd=chrome+extension+execute+script+on+click">chrome extension execute script on click - Baidu search</a></div>
+<div class="line"><a class="reference external" href="https://www.yandex.com/search/?text=chrome+extension+execute+script+on+click">chrome extension execute script on click - Yandex search</a></div>
+</div>
+</td></tr>
+</tbody>
+</table>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/chrome-extension.html">Chrome Extension</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/javascript.html">JavaScript</a>
+,       <a href="/tag/chrome-extension.html">Chrome Extension</a>
+,       <a href="/tag/web-scrape.html">Web Scrape</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

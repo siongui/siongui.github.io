@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>[Golang] Calculate String Length</title>
+  <meta name="keywords" content="Go,Golang,String Manipulation,Locale,i18n"/>
+  <meta name="description" content="Calculate the length of string (UTF-8) in Go. Iterate over the UTF-8 string by for or range keyword."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="[Golang] Calculate String Length" /><meta property="og:image" content="https://i.ytimg.com/vi/CRGLPCH18-E/maxresdefault.jpg" />
+<meta property="og:description" content="Calculate the length of string (UTF-8) in Go. Iterate over the UTF-8 string by for or range keyword." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2018/01/24/go-calculate-string-length/"
+           rel="bookmark"
+           title="Permalink to [Golang] Calculate String Length">
+          [Golang] Calculate String Length
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2018-01-24T08:49:00+08:00">
+    January 24, 2018
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2018/01/24/go-calculate-string-length%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p>Calculate the length of string (UTF-8) in <em>Go</em> programming language.
+Iterate over the UTF-8 string by <a class="reference external" href="https://tour.golang.org/flowcontrol/1">for</a> or <a class="reference external" href="https://github.com/golang/go/wiki/Range">range</a> keyword
+to calculate string length.</p>
+<div class="section" id="range-iteration">
+<h2><a class="reference external" href="https://github.com/golang/go/wiki/Range">range</a> iteration</h2>
+<p><a class="reference external" href="https://play.golang.org/p/j1zLFIODXzu">Run Code on Go Playground</a></p>
+<div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">StringLength</span><span class="p">(</span><span class="nx">s</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+      <span class="nx">l</span> <span class="o">:=</span> <span class="mi">0</span>
+      <span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">runeValue</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">s</span> <span class="p">{</span>
+              <span class="nx">runeValue</span> <span class="p">=</span> <span class="nx">runeValue</span>
+              <span class="nx">l</span><span class="o">++</span>
+      <span class="p">}</span>
+      <span class="k">return</span> <span class="nx">l</span>
+<span class="p">}</span>
+</pre></div>
+
+</div>
+<div class="section" id="for-loop-iteration">
+<h2><a class="reference external" href="https://tour.golang.org/flowcontrol/1">for</a> loop iteration</h2>
+<p><a class="reference external" href="https://play.golang.org/p/lydOnJ-izrR">Run Code on Go Playground</a></p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="s">&quot;unicode/utf8&quot;</span>
+
+<span class="kd">func</span> <span class="nx">StringLength</span><span class="p">(</span><span class="nx">s</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+      <span class="nx">l</span> <span class="o">:=</span> <span class="mi">0</span>
+      <span class="k">for</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">w</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="nx">s</span><span class="p">);</span> <span class="nx">i</span> <span class="o">+=</span> <span class="nx">w</span> <span class="p">{</span>
+              <span class="nx">_</span><span class="p">,</span> <span class="nx">width</span> <span class="o">:=</span> <span class="nx">utf8</span><span class="p">.</span><span class="nx">DecodeRuneInString</span><span class="p">(</span><span class="nx">s</span><span class="p">[</span><span class="nx">i</span><span class="p">:])</span>
+              <span class="nx">w</span> <span class="p">=</span> <span class="nx">width</span>
+              <span class="nx">l</span><span class="o">++</span>
+      <span class="p">}</span>
+      <span class="k">return</span> <span class="nx">l</span>
+<span class="p">}</span>
+</pre></div>
+<hr class="docutils" />
+<p>Tested on: <a class="reference external" href="https://play.golang.org/">The Go Playground</a></p>
+<hr class="docutils" />
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id1" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td><div class="first last line-block">
+<div class="line"><a class="reference external" href="https://www.google.com/search?q=calculate+string+length">calculate string length - Google search</a></div>
+<div class="line"><a class="reference external" href="https://duckduckgo.com/?q=calculate+string+length">calculate string length - DuckDuckGo search</a></div>
+<div class="line"><a class="reference external" href="https://www.ecosia.org/search?q=calculate+string+length">calculate string length - Ecosia search</a></div>
+<div class="line"><a class="reference external" href="https://www.qwant.com/?q=calculate+string+length">calculate string length - Qwant search</a></div>
+<div class="line"><a class="reference external" href="https://www.bing.com/search?q=calculate+string+length">calculate string length - Bing search</a></div>
+<div class="line"><a class="reference external" href="https://search.yahoo.com/search?p=calculate+string+length">calculate string length - Yahoo search</a></div>
+<div class="line"><a class="reference external" href="https://www.baidu.com/s?wd=calculate+string+length">calculate string length - Baidu search</a></div>
+<div class="line"><a class="reference external" href="https://www.yandex.com/search/?text=calculate+string+length">calculate string length - Yandex search</a></div>
+</div>
+</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[2]</td><td><a class="reference external" href="http://string-functions.com/length.aspx">Calculate String Length Online</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[3]</td><td><div class="first last line-block">
+<div class="line"><a class="reference external" href="https://www.google.com/search?q=golang+detect+thai+script">golang detect thai script - Google search</a></div>
+<div class="line"><a class="reference external" href="https://duckduckgo.com/?q=golang+detect+thai+script">golang detect thai script - DuckDuckGo search</a></div>
+<div class="line"><a class="reference external" href="https://www.ecosia.org/search?q=golang+detect+thai+script">golang detect thai script - Ecosia search</a></div>
+<div class="line"><a class="reference external" href="https://www.qwant.com/?q=golang+detect+thai+script">golang detect thai script - Qwant search</a></div>
+<div class="line"><a class="reference external" href="https://www.bing.com/search?q=golang+detect+thai+script">golang detect thai script - Bing search</a></div>
+<div class="line"><a class="reference external" href="https://search.yahoo.com/search?p=golang+detect+thai+script">golang detect thai script - Yahoo search</a></div>
+<div class="line"><a class="reference external" href="https://www.baidu.com/s?wd=golang+detect+thai+script">golang detect thai script - Baidu search</a></div>
+<div class="line"><a class="reference external" href="https://www.yandex.com/search/?text=golang+detect+thai+script">golang detect thai script - Yandex search</a></div>
+</div>
+</td></tr>
+</tbody>
+</table>
+
+<table class="docutils footnote" frame="void" id="id4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[4]</td><td><a class="reference external" href="https://golang.org/pkg/unicode/">unicode - The Go Programming Language</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id5" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[5]</td><td><a class="reference external" href="https://stackoverflow.com/questions/24576659/how-do-i-count-japanese-words-in-go-lang">unicode - How do I count Japanese words in Go-lang - Stack Overflow</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id6" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[6]</td><td><a class="reference external" href="https://github.com/veer66/mapkha">GitHub - veer66/mapkha: Thai word segmentation program in Go</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id7" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[7]</td><td><a class="reference external" href="https://github.com/blevesearch/segment">GitHub - blevesearch/segment: A Go library for performing Unicode Text Segmentation as described in Unicode Standard Annex #29</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id8" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[8]</td><td><a class="reference external" href="/2016/02/03/go-iterate-over-utf8-non-ascii-string/">[Golang] Iterate Over UTF-8 Strings (non-ASCII strings)</a></td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/go.html">Go</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/go.html">Go</a>
+,       <a href="/tag/golang.html">Golang</a>
+,       <a href="/tag/string-manipulation.html">String Manipulation</a>
+,       <a href="/tag/locale.html">Locale</a>
+,       <a href="/tag/i18n.html">i18n</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

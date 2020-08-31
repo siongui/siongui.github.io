@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>JavaScript Prefix Match (Dictionary Application)</title>
+  <meta name="keywords" content="JavaScript,String Manipulation"/>
+  <meta name="description" content="Given a set of strings (words), and an user input string, output a set of strings with prefix the same as the user input string"/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="JavaScript Prefix Match (Dictionary Application)" /><meta property="og:image" content="http://www.javatpoint.com/images/javascript/javascript_logo.png" />
+<meta property="og:description" content="Given a set of strings (words), and an user input string, output a set of strings with prefix the same as the user input string" /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2012/06/14/javascript-dictionary-prefix-match/"
+           rel="bookmark"
+           title="Permalink to JavaScript Prefix Match (Dictionary Application)">
+          JavaScript Prefix Match (Dictionary Application)
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2015-02-24T12:15:00+08:00">
+    Updated: February 24, 2015
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2012/06/14/javascript-dictionary-prefix-match%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p>Recently I have a dictionary web application which needs to find prefix-matched
+words in an array of strings. Here is the specification of my problem:</p>
+<blockquote>
+<p>Input: <em>Given a set of strings (words), and an user input string</em></p>
+<p>Output: <em>a set of strings with prefix the same as the user input string</em></p>
+</blockquote>
+<p>My naive solution is as follows:
+Because the set of given strings are huge, we first group them by the first
+letter of the string. For example, string with prefix <em>a</em> goes to first group,
+and strings with prefix <em>b</em> goes to second group, etc. Then we use the user
+input sting to match the prefix of strings in the group by
+<a class="reference external" href="http://www.w3schools.com/jsref/jsref_indexof.asp">JavaScript String indexOf() Method</a>. We don't need to search the entire given
+strings. We just need to search the corresponding group which has the same
+prefix as the user input string. This can save a lot of time, at the cost of
+some additional space and code. If more efficient solution is needed, try
+<a class="reference external" href="http://en.wikipedia.org/wiki/Radix_tree">Radix tree</a> to make your search faster <a class="footnote-reference" href="#id5" id="id1">[4]</a>.</p>
+<p>The following is the demo and sample code of the naive solution I just mention.
+Type some word that starts with <em>a</em>, <em>b</em>, or <em>c</em> in the demo, and you will see
+the result.</p>
+<p class="align-center rubric"><a class="reference external" href="/code/javascript-dictionary-prefix-match/naive.html">Demo</a></p>
+
+<p>Source Code for Demo (<em>HTML</em>):</p>
+<figure class="github-file">
+            <figcaption>
+              <a href="https://github.com/siongui/userpages/blob/master/content/code/javascript-dictionary-prefix-match/naive.html">naive.html</a> |
+              <a href="https://github.com/siongui/userpages">repository</a> |
+              <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/code/javascript-dictionary-prefix-match/naive.html">view raw</a>
+            </figcaption><div class="code-file">
+            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cp">&lt;!doctype html&gt;</span>
+<span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&quot;utf-8&quot;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>JavaScript Dictionary Prefix Match - Naive Solution<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+  <span class="c">&lt;!-- This example shows how to find prefix matched words in a set of words --&gt;</span>
+<span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">body</span> <span class="na">onload</span><span class="o">=</span><span class="s">&quot;document.getElementById(&#39;Text1&#39;).focus();&quot;</span><span class="p">&gt;</span>
+
+ <span class="p">&lt;</span><span class="nt">div</span> <span class="na">style</span><span class="o">=</span><span class="s">&quot;text-align: center&quot;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">input</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;Text1&quot;</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text&quot;</span> <span class="na">style</span><span class="o">=</span><span class="s">&quot;font-family: arial;&quot;</span>
+         <span class="na">onpropertychange</span><span class="o">=</span><span class="s">&quot;javascript:strMatch();&quot;</span> <span class="na">oninput</span><span class="o">=</span><span class="s">&quot;javascript:strMatch();&quot;</span><span class="p">/&gt;</span>
+  <span class="p">&lt;</span><span class="nt">input</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;Button1&quot;</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;button&quot;</span> <span class="na">value</span><span class="o">=</span><span class="s">&quot;look up&quot;</span> <span class="p">/&gt;</span>
+ <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+ <span class="p">&lt;</span><span class="nt">br</span> <span class="p">/&gt;&lt;</span><span class="nt">br</span> <span class="p">/&gt;</span>
+ <span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;userInput&quot;</span> <span class="na">style</span><span class="o">=</span><span class="s">&quot;text-align: center;&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;&lt;</span><span class="nt">br</span> <span class="p">/&gt;</span>
+ <span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;result&quot;</span> <span class="na">style</span><span class="o">=</span><span class="s">&quot;text-align: center;&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;naive.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</pre></div>
+</td></tr></table></div></figure>
+<p>Source Code for Demo (<em>JavaScript</em>):</p>
+<figure class="github-file">
+            <figcaption>
+              <a href="https://github.com/siongui/userpages/blob/master/content/code/javascript-dictionary-prefix-match/naive.js">naive.js</a> |
+              <a href="https://github.com/siongui/userpages">repository</a> |
+              <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/code/javascript-dictionary-prefix-match/naive.js">view raw</a>
+            </figcaption><div class="code-file">
+            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="nx">words_prefix_a</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;adwihjd&quot;</span><span class="p">,</span> <span class="s2">&quot;aruwdn&quot;</span><span class="p">,</span> <span class="s2">&quot;aeiuiwond&quot;</span><span class="p">,</span> <span class="s2">&quot;aehuwgd&quot;</span><span class="p">,</span> <span class="s2">&quot;aowqmgfv&quot;</span><span class="p">,</span> <span class="s2">&quot;awqnmfwxsa&quot;</span><span class="p">,</span> <span class="s2">&quot;aqgwqvsa&quot;</span><span class="p">,</span> <span class="s2">&quot;aansqnsoq&quot;</span><span class="p">,</span> <span class="s2">&quot;awqgwqenjio&quot;</span><span class="p">];</span>
+<span class="nx">words_prefix_b</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;bsaiuhw&quot;</span><span class="p">,</span> <span class="s2">&quot;baww&quot;</span><span class="p">,</span> <span class="s2">&quot;bahxnbzd&quot;</span><span class="p">,</span> <span class="s2">&quot;bsqomzxb&quot;</span><span class="p">,</span> <span class="s2">&quot;bbsjqbsoq&quot;</span><span class="p">,</span> <span class="s2">&quot;bcsihwio&quot;</span><span class="p">,</span> <span class="s2">&quot;bjaskdka&quot;</span><span class="p">,</span> <span class="s2">&quot;baoshdsji&quot;</span><span class="p">,</span> <span class="s2">&quot;bdaiohwi&quot;</span><span class="p">];</span>
+<span class="nx">words_prefix_c</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;csjioqjs&quot;</span><span class="p">,</span> <span class="s2">&quot;ccwjiow&quot;</span><span class="p">,</span> <span class="s2">&quot;csjqios&quot;</span><span class="p">,</span> <span class="s2">&quot;cakopwd&quot;</span><span class="p">,</span> <span class="s2">&quot;cdjiowhj&quot;</span><span class="p">,</span> <span class="s2">&quot;ctjioend&quot;</span><span class="p">,</span> <span class="s2">&quot;ckihsiow&quot;</span><span class="p">];</span>
+
+<span class="kd">function</span> <span class="nx">strMatch</span><span class="p">()</span> <span class="p">{</span>
+  <span class="cm">/* remove whitespace in the beginning and end of the string */</span>
+  <span class="kd">var</span> <span class="nx">userInputStr</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;Text1&quot;</span><span class="p">).</span><span class="nx">value</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/(^\s+)|(\s+$)/g</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">);</span>
+
+  <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;userInput&quot;</span><span class="p">).</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="nx">userInputStr</span><span class="p">;</span>
+
+  <span class="cm">/* Here we give simple implementation for prefix matching */</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">userInputStr</span><span class="p">.</span><span class="nx">length</span> <span class="o">==</span> <span class="mi">0</span><span class="p">){</span>
+    <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;result&quot;</span><span class="p">).</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+    <span class="k">return</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="kd">var</span> <span class="nx">arrayName</span> <span class="o">=</span> <span class="s2">&quot;words_prefix_&quot;</span> <span class="o">+</span> <span class="nx">userInputStr</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+
+  <span class="kd">var</span> <span class="nx">matched_count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">matched_array</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Array</span><span class="p">();</span>
+  <span class="cm">/* Start to search the matched prefix,</span>
+<span class="cm"> *      about the use of eval(), try Google Search keyword: javascript evaluate string as variable */</span>
+  <span class="k">for</span> <span class="p">(</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nb">eval</span><span class="p">(</span><span class="nx">arrayName</span><span class="p">).</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nb">eval</span><span class="p">(</span><span class="nx">arrayName</span><span class="p">)[</span><span class="nx">i</span><span class="p">].</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">userInputStr</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span><span class="c1">// If the word starts with the string that users input</span>
+      <span class="nx">matched_array</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nb">eval</span><span class="p">(</span><span class="nx">arrayName</span><span class="p">)[</span><span class="nx">i</span><span class="p">]);</span>
+      <span class="nx">matched_count</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">matched_count</span> <span class="o">==</span> <span class="mi">25</span><span class="p">)</span> <span class="p">{</span><span class="k">break</span><span class="p">;}</span><span class="c1">//show no more than 25 words in prefix match</span>
+  <span class="p">}</span>
+  <span class="cm">/* compile matched result into HTML code */</span>
+  <span class="kd">var</span> <span class="nx">matched_result</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">String</span><span class="p">();</span>
+  <span class="k">for</span> <span class="p">(</span><span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="o">&lt;</span><span class="nx">matched_array</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">matched_result</span> <span class="o">=</span> <span class="nx">matched_result</span> <span class="o">+</span> <span class="nx">matched_array</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;&lt;br /&gt;&quot;</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;result&quot;</span><span class="p">).</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="nx">matched_result</span><span class="p">;</span><span class="c1">// show matched result</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div></figure><hr class="docutils" />
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td>Google Search Keyword: <a class="reference external" href="https://www.google.com/search?q=javascript+string+prefix+match">javascript string prefix match</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[2]</td><td><a class="reference external" href="http://rickyrosario.com/blog/javascript-startswith-and-endswith-implementation-for-strings/">JavaScript startsWith and endsWith Implementation for Strings</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[3]</td><td><a class="reference external" href="http://www.w3schools.com/jsref/jsref_match.asp">JavaScript String match() Method</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id5" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[4]</a></td><td><a class="reference external" href="http://stackoverflow.com/questions/457160/the-most-efficient-algorithm-to-find-first-prefix-match-from-a-sorted-string-arr">The Most Efficient Algorithm to Find First Prefix-Match From a Sorted String Array? - Stack Overflow</a></td></tr>
+</tbody>
+</table>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/javascript.html">JavaScript</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/javascript.html">JavaScript</a>
+,       <a href="/tag/string-manipulation.html">String Manipulation</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

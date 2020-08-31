@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>Pure CSS Foundation Accordion Container</title>
+  <meta name="keywords" content="Pure CSS Toggle,toggle,toggleable,html,CSS,Foundation Front-end Framework,Accordion (Collapsible Content)"/>
+  <meta name="description" content="CSS only toggle Foundation accordion (collapsible content). No JavaScript required."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="Pure CSS Foundation Accordion Container" /><meta property="og:image" content="https://foundationstacks.com/depot/images/accordion.svg" />
+<meta property="og:description" content="CSS only toggle Foundation accordion (collapsible content). No JavaScript required." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2018/10/18/css-only-toggle-foundation-accordion-container/"
+           rel="bookmark"
+           title="Permalink to Pure CSS Foundation Accordion Container">
+          Pure CSS Foundation Accordion Container
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2018-10-18T03:20:00+08:00">
+    October 18, 2018
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2018/10/18/css-only-toggle-foundation-accordion-container%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p>CSS only toggle <a class="reference external" href="https://github.com/zurb/foundation-sites">Foundation</a> <a class="reference external" href="https://foundation.zurb.com/sites/docs/accordion.html">accordion</a> container. No <em>JavaScript</em> required.
+Click the following texts of items to see demo.</p>
+<style>
+input[name="accordion-select"], .panel-block {
+  display: none;
+}
+
+/* the magic */
+#panel-1:checked ~ .accordion > .accordion-item > .content-1,
+#panel-2:checked ~ .accordion > .accordion-item > .content-2,
+#panel-3:checked ~ .accordion > .accordion-item > .content-3 {
+  display: block;
+}
+</style>
+
+<!-- you can put the following line in your html head -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.5.0-rc.4/dist/css/foundation.min.css" integrity="sha256-VEEaOnBKVRoYPn4AID/tY/XKVxKEqXstoo/xZ6nemak= sha384-D46t32f421/hB30qwnim2pIcisNN5GU9+6m2Mfnd3dKpTSFidZLa08/1StEiCFId sha512-WkgzH8VKemDfwrp18r+wgbx+oHXOkfd2kJs7ocAXdGDgonXDXh88E90IRtRZRXtO0IHprxYHYlY14h+wyTsUDA==" crossorigin="anonymous">
+
+<input type="radio" id="panel-1" name="accordion-select">
+<input type="radio" id="panel-2" name="accordion-select">
+<input type="radio" id="panel-3" name="accordion-select">
+
+<ul class="accordion" data-accordion>
+  <li class="accordion-item" data-accordion-item>
+    <a class="accordion-title"><label for="panel-1">Accordion 1</label></a>
+    <div class="accordion-content content-1" data-tab-content>
+      <p>Panel 1. Lorem ipsum dolor</p>
+      <a href="#">Nowhere to Go</a>
+    </div>
+  </li>
+  <li class="accordion-item" data-accordion-item>
+    <a class="accordion-title"><label for="panel-2">Accordion 2</label></a>
+    <div class="accordion-content content-2" data-tab-content>
+      <textarea></textarea>
+      <button class="button">I do nothing!</button>
+    </div>
+  </li>
+  <li class="accordion-item" data-accordion-item>
+    <a class="accordion-title"><label for="panel-3">Accordion 3</label></a>
+    <div class="accordion-content content-3" data-tab-content>
+      Type your name!
+      <input type="text"></input>
+    </div>
+  </li>
+</ul><p>The basic technique is the same as <em>Pure CSS Tab Panel</em> <a class="footnote-reference" href="#id4" id="id1">[3]</a>. We need:</p>
+<p>1 - Visible HTML <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/label">label</a> elements, which is the item title of accordion tab.</p>
+<p>2 - Invisible HTML <em>input</em> <em>radio</em> elements, referenced by the <em>label</em> elements.
+The value of <em>name</em> attribute of these elements must be the same.</p>
+<p>3 - Content of accordion tab, invisible in the beginning.</p>
+<p>When users click on the visible label elements, which are accordion tab title,
+the corresponding input radio element is checked. We use CSS3 <strong>:checked</strong>
+selector to select corresponding accordion tab content, and make the selected
+content visible.</p>
+
+<p>The complete source code is as follows:</p>
+<p><strong>HTML</strong>:</p>
+<div class="highlight"><pre><span></span><span class="c">&lt;!-- you can put the following line in your html head --&gt;</span>
+<span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;https://cdn.jsdelivr.net/npm/foundation-sites@6.5.0-rc.4/dist/css/foundation.min.css&quot;</span> <span class="na">integrity</span><span class="o">=</span><span class="s">&quot;sha256-VEEaOnBKVRoYPn4AID/tY/XKVxKEqXstoo/xZ6nemak= sha384-D46t32f421/hB30qwnim2pIcisNN5GU9+6m2Mfnd3dKpTSFidZLa08/1StEiCFId sha512-WkgzH8VKemDfwrp18r+wgbx+oHXOkfd2kJs7ocAXdGDgonXDXh88E90IRtRZRXtO0IHprxYHYlY14h+wyTsUDA==&quot;</span> <span class="na">crossorigin</span><span class="o">=</span><span class="s">&quot;anonymous&quot;</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;radio&quot;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;panel-1&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;accordion-select&quot;</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;radio&quot;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;panel-2&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;accordion-select&quot;</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;radio&quot;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;panel-3&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;accordion-select&quot;</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">ul</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;accordion&quot;</span> <span class="na">data-accordion</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">li</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;accordion-item&quot;</span> <span class="na">data-accordion-item</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;accordion-title&quot;</span><span class="p">&gt;&lt;</span><span class="nt">label</span> <span class="na">for</span><span class="o">=</span><span class="s">&quot;panel-1&quot;</span><span class="p">&gt;</span>Accordion 1<span class="p">&lt;/</span><span class="nt">label</span><span class="p">&gt;&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;accordion-content content-1&quot;</span> <span class="na">data-tab-content</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Panel 1. Lorem ipsum dolor<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;#&quot;</span><span class="p">&gt;</span>Nowhere to Go<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">li</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;accordion-item&quot;</span> <span class="na">data-accordion-item</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;accordion-title&quot;</span><span class="p">&gt;&lt;</span><span class="nt">label</span> <span class="na">for</span><span class="o">=</span><span class="s">&quot;panel-2&quot;</span><span class="p">&gt;</span>Accordion 2<span class="p">&lt;/</span><span class="nt">label</span><span class="p">&gt;&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;accordion-content content-2&quot;</span> <span class="na">data-tab-content</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">textarea</span><span class="p">&gt;&lt;/</span><span class="nt">textarea</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">button</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;button&quot;</span><span class="p">&gt;</span>I do nothing!<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">li</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;accordion-item&quot;</span> <span class="na">data-accordion-item</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;accordion-title&quot;</span><span class="p">&gt;&lt;</span><span class="nt">label</span> <span class="na">for</span><span class="o">=</span><span class="s">&quot;panel-3&quot;</span><span class="p">&gt;</span>Accordion 3<span class="p">&lt;/</span><span class="nt">label</span><span class="p">&gt;&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;accordion-content content-3&quot;</span> <span class="na">data-tab-content</span><span class="p">&gt;</span>
+      Type your name!
+      <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">input</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+</pre></div>
+
+<p><strong>CSS</strong>:</p>
+<div class="highlight"><pre><span></span><span class="nt">input</span><span class="o">[</span><span class="nt">name</span><span class="o">=</span><span class="s2">&quot;accordion-select&quot;</span><span class="o">],</span> <span class="p">.</span><span class="nc">panel-block</span> <span class="p">{</span>
+  <span class="k">display</span><span class="p">:</span> <span class="kc">none</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c">/* the magic */</span>
+<span class="p">#</span><span class="nn">panel-1</span><span class="p">:</span><span class="nd">checked</span> <span class="o">~</span> <span class="p">.</span><span class="nc">accordion</span> <span class="o">&gt;</span> <span class="p">.</span><span class="nc">accordion-item</span> <span class="o">&gt;</span> <span class="p">.</span><span class="nc">content-1</span><span class="o">,</span>
+<span class="p">#</span><span class="nn">panel-2</span><span class="p">:</span><span class="nd">checked</span> <span class="o">~</span> <span class="p">.</span><span class="nc">accordion</span> <span class="o">&gt;</span> <span class="p">.</span><span class="nc">accordion-item</span> <span class="o">&gt;</span> <span class="p">.</span><span class="nc">content-2</span><span class="o">,</span>
+<span class="p">#</span><span class="nn">panel-3</span><span class="p">:</span><span class="nd">checked</span> <span class="o">~</span> <span class="p">.</span><span class="nc">accordion</span> <span class="o">&gt;</span> <span class="p">.</span><span class="nc">accordion-item</span> <span class="o">&gt;</span> <span class="p">.</span><span class="nc">content-3</span> <span class="p">{</span>
+  <span class="k">display</span><span class="p">:</span> <span class="kc">block</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>The magic is in last rule. We use <strong>:checked</strong> and general sibling selector (~)
+to make the user-selected accordion tab content visible.</p>
+<hr class="docutils" />
+<p>Tested on:</p>
+<ul class="simple">
+<li><tt class="docutils literal">Chromium 69.0.3497.81 on Ubuntu 18.04 <span class="pre">(64-bit)</span></tt></li>
+<li><tt class="docutils literal">Foundation for Sites <span class="pre">6.5.0-rc.4</span></tt></li>
+</ul>
+<hr class="docutils" />
+
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td><a class="reference external" href="/2017/02/27/css-only-toggle-dom-element/">Pure CSS Toggle (Show/Hide) HTML Element</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[2]</td><td><a class="reference external" href="/2018/09/25/css-only-toggle-bootstrap-modal/">Pure CSS Bootstrap Modal</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[3]</a></td><td><a class="reference external" href="/2017/05/21/css-only-tab-panel/">Pure CSS Tab Panel</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id5" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[4]</td><td><a class="reference external" href="/2017/05/23/css-only-accordion-collapsible-content/">Pure CSS Accordion (Collapsible Content)</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id6" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[5]</td><td><a class="reference external" href="/2018/01/28/vuejs-bulma-accordion-collapsible-content/">[Vue.js] Bulma Accordion (Collapsible Content)</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id7" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[6]</td><td><a class="reference external" href="/2018/01/29/css-only-bulma-accordion-collapsible-content/">Pure CSS Bulma Accordion (Collapsible Content)</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id8" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[7]</td><td><a class="reference external" href="/2018/02/07/css-only-semantic-ui-standard-accordion/">Pure CSS Semantic UI Standard Accordion</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id9" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[8]</td><td><a class="reference external" href="/2018/09/29/css-only-toggle-bootstrap-accordion/">Pure CSS Bootstrap Accordion</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id10" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[9]</td><td><a class="reference external" href="https://codeburst.io/evaluating-css-frameworks-bulma-vs-foundation-vs-milligram-vs-pure-vs-semantic-vs-uikit-503883bd25a3">Evaluating CSS Frameworks — Bootstrap vs Bulma vs Foundation vs Milligram vs Pure vs Semantic vs UIKit</a></td></tr>
+</tbody>
+</table>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/css.html">CSS</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/pure-css-toggle.html">Pure CSS Toggle</a>
+,       <a href="/tag/toggle.html">toggle</a>
+,       <a href="/tag/toggleable.html">toggleable</a>
+,       <a href="/tag/html.html">html</a>
+,       <a href="/tag/css.html">CSS</a>
+,       <a href="/tag/foundation-front-end-framework.html">Foundation Front-end Framework</a>
+,       <a href="/tag/accordion-collapsible-content.html">Accordion (Collapsible Content)</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

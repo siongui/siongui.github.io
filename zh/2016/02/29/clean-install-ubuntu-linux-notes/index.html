@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>全新安裝Ubuntu Linux注意事項</title>
+  <meta name="keywords" content="Linux,apt command,Ubuntu Linux"/>
+  <meta name="description" content="全新安裝Ubuntu Linux注意事項"/>
+  <meta name="author" content="戴上為"/><meta property="og:title" content="全新安裝Ubuntu Linux注意事項" /><meta property="og:image" content="http://design.ubuntu.com/wp-content/uploads/logo-ubuntu_st_no%C2%AE-black_orange-hex.jpg" />
+<meta property="og:description" content="全新安裝Ubuntu Linux注意事項" /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/zh/../extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/zh/../theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/zh/">理論與實作</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/zh/pages/about.html">關於</a>
+    <a class="nav-item" href="/zh/archives.html">歸檔</a>
+    <a class="nav-item" href="/zh/categories.html">分類</a>
+    <a class="nav-item" href="/zh/tags.html">標籤</a>
+    <a class="nav-item" href="/zh/authors.html">作者</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/">English</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/zh/2016/02/29/clean-install-ubuntu-linux-notes/"
+           rel="bookmark"
+           title="Permalink to 全新安裝Ubuntu Linux注意事項">
+          全新安裝Ubuntu Linux注意事項
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2020-08-31T07:01:00+08:00">
+    Updated: 八月 31, 2020
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2016/02/29/clean-install-ubuntu-linux-notes%25zh.rst">在Github上編輯</a></div></aside>
+    <hr>
+
+    <div class="main-content"><ul>
+<li><p class="first">下載 <a class="reference external" href="https://releases.ubuntu.com/20.04/">Ubuntu 20.04.1 LTS (Focal Fossa)</a></p>
+</li>
+<li><p class="first">檢查ISO檔
+(<a class="reference external" href="https://help.ubuntu.com/community/HowToMD5SUM">HowToMD5SUM - Community Help Wiki</a>):</p>
+<div class="highlight"><pre><span></span>$ md5sum -c MD5SUMS
+</pre></div>
+</li>
+<li><p class="first">開啟 Startup Disk Creator燒錄
+(<a class="reference external" href="https://www.ubuntu.com/download/desktop/create-a-usb-stick-on-ubuntu">How to create a bootable USB stick on Ubuntu</a>).</p>
+<ul>
+<li><p class="first">會毀掉整個USB裝置裡的資料，並佔用2GB多的空間(佔用sdb1, sdb2)</p>
+<div class="highlight"><pre><span></span>$ sudo fdisk /dev/sdb
+$ sudo mkfs.ext4 /dev/sdb3
+</pre></div>
+</li>
+</ul>
+</li>
+<li><p class="first"><a class="reference external" href="https://www.google.com/search?q=ubuntu+fail+to+install+grub+lenovo">ubuntu fail to install grub lenovo - Google search</a>,
+<a class="reference external" href="https://www.google.com/search?q=ubuntu+fail+to+install+grub">ubuntu fail to install grub - Google search</a></p>
+<ul class="simple">
+<li>BIOS裡選legacy,不選UEFI</li>
+<li>安裝時問是否使用UEFI,選擇Go back(不要用UEFI)</li>
+</ul>
+</li>
+</ul>
+
+<ul>
+<li><p class="first">更新系統 <a class="footnote-reference" href="#id3" id="id1">[1]</a></p>
+<div class="highlight"><pre><span></span>$ sudo apt-get update <span class="o">&amp;&amp;</span> sudo apt-get upgrade <span class="o">&amp;&amp;</span> sudo apt-get dist-upgrade
+</pre></div>
+</li>
+<li><p class="first"><a class="reference external" href="https://www.google.com/search?q=git+autocomplete">git autocomplete</a></p>
+<div class="highlight"><pre><span></span>$ sudo apt-get install git bash-completion
+</pre></div>
+</li>
+<li><p class="first">傳統中文 language pack</p>
+<div class="highlight"><pre><span></span>$ sudo apt-get install language-pack-zh-hant
+</pre></div>
+</li>
+<li><p class="first">工具(<a class="reference external" href="http://www.vim.org/">Vim</a>, <a class="reference external" href="https://www.chromium.org/">Chromium</a>)</p>
+<div class="highlight"><pre><span></span>$ sudo apt-get install vim
+$ sudo apt-get install chromium-browser
+</pre></div>
+</li>
+</ul>
+
+<ul>
+<li><p class="first">Chromium extension and app</p>
+<ul class="simple">
+<li><a class="reference external" href="https://chrome.google.com/webstore/detail/ublock-origin/cjpalhdlnbpafiamejdnhcphjbkeiagm?hl=en">uBlock Origin</a></li>
+<li><a class="reference external" href="https://chrome.google.com/webstore/detail/google-translate/aapbdbdomjkkjkaonfhkkikfgjllcleb?hl=en">Google Translate</a></li>
+<li><a class="reference external" href="https://chrome.google.com/webstore/detail/new-tong-wen-tang/ldmgbgaoglmaiblpnphffibpbfchjaeg?hl=zh-TW">新同文堂</a></li>
+<li><a class="reference external" href="https://chrome.google.com/webstore/detail/line/menkifleemblimdogmoihpfopnplikde?hl=en">LINE</a></li>
+</ul>
+</li>
+<li><p class="first"><a class="reference external" href="https://www.google.com/search?q=ubuntu+chinese+input">ubuntu chinese input - Google search</a>,
+<a class="reference external" href="https://medium.com/&#64;racktar7743/ubuntu-%E5%9C%A8-ubuntu-18-04-%E4%B8%AD%E6%96%B0%E5%A2%9E%E6%96%B0%E9%85%B7%E9%9F%B3%E8%BC%B8%E5%85%A5%E6%B3%95-4aa85782f656">[Ubuntu] 在 Ubuntu 18.04 中新增新酷音輸入法 | by MuLong PuYang | Medium</a></p>
+</li>
+<li><p class="first">Lenovo筆電使用rtl8821ae無線網路斷線:
+請看 <a class="reference external" href="/zh/2016/02/26/best-cp-no-os-notebook-in-taiwan/">台灣最佳CP值無作業系統(OS)筆記型電腦</a></p>
+</li>
+<li><p class="first">複製檔案數量多時，請看
+<a class="reference external" href="/2016/12/20/bash-copy-large-number-of-files-on-linux/">[Bash] Copy Large Number of Files on Linux</a></p>
+</li>
+<li><p class="first">複製檔案時，注意權限問題:</p>
+<div class="highlight"><pre><span></span>$ sudo cp -r src dst
+$ sudo chown -R usr:grp *
+</pre></div>
+</li>
+</ul>
+<hr class="docutils" />
+
+<p>參考：</p>
+<table class="docutils footnote" frame="void" id="id3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td><p class="first"><a class="reference external" href="https://www.google.com/search?q=update+ubuntu+system+command+line">update ubuntu system command line - Google search</a></p>
+<p><a class="reference external" href="https://duckduckgo.com/?q=update+ubuntu+system+command+line">update ubuntu system command line - DuckDuckGo search</a></p>
+<p><a class="reference external" href="https://www.bing.com/search?q=update+ubuntu+system+command+line">update ubuntu system command line - Bing search</a></p>
+<p><a class="reference external" href="https://search.yahoo.com/search?p=update+ubuntu+system+command+line">update ubuntu system command line - Yahoo search</a></p>
+<p><a class="reference external" href="https://www.baidu.com/s?wd=update+ubuntu+system+command+line">update ubuntu system command line - Baidu search</a></p>
+<p><a class="reference external" href="https://www.yandex.com/search/?text=update+ubuntu+system+command+line">update ubuntu system command line - Yandex search</a></p>
+<p class="last"><a class="reference external" href="http://askubuntu.com/questions/462449/update-the-system-from-terminal">command line - Update the system from terminal - Ask Ubuntu</a></p>
+</td></tr>
+</tbody>
+</table>
+</div>
+
+    <footer><hr><address><b>作者</b>:
+    <a rel="author"
+       href="/zh/author/dai-shang-wei.html">戴上為</a>
+  </address><aside>
+    <i>&isin;</i> <b>分類</b>:
+    <a href="/zh/category/linux.html">Linux</a>
+  </aside><aside>
+    <i>&sum;</i> <b>標籤</b>:
+      <a href="/zh/tag/linux.html">Linux</a>
+,       <a href="/zh/tag/apt-command.html">apt command</a>
+,       <a href="/zh/tag/ubuntu-linux.html">Ubuntu Linux</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

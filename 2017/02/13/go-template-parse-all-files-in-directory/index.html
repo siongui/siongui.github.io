@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>Golang Template Parse Directory</title>
+  <meta name="keywords" content="Go,Golang,Golang template,List Files in Directory"/>
+  <meta name="description" content="Complement to Go text/template and html/template package - Parse all files in directory (including sub-directories)."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="Golang Template Parse Directory" /><meta property="og:image" content="http://www.unixstickers.com/image/cache/data/stickers/golang/Go-brown-side.sh-600x600.png" />
+<meta property="og:description" content="Complement to Go text/template and html/template package - Parse all files in directory (including sub-directories)." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2017/02/13/go-template-parse-all-files-in-directory/"
+           rel="bookmark"
+           title="Permalink to Golang Template Parse Directory">
+          Golang Template Parse Directory
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2017-02-13T21:15:00+08:00">
+    February 13, 2017
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2017/02/13/go-template-parse-all-files-in-directory%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p>There are <a class="reference external" href="https://golang.org/pkg/text/template/#ParseFiles">ParseFiles</a> and <a class="reference external" href="https://golang.org/pkg/text/template/#ParseGlob">ParseGlob</a> in <a class="reference external" href="https://golang.org/">Go</a> <a class="reference external" href="https://golang.org/pkg/text/template/">text/template</a> and
+<a class="reference external" href="https://golang.org/pkg/html/template/">html/template</a> package, but sometimes we want to parse all files in a
+directory tree, so I write a <em>ParseDirectory</em> function to do this.</p>
+<p>The code consists of two part:</p>
+<ol class="arabic simple">
+<li>Use <a class="reference external" href="https://golang.org/pkg/path/filepath/#Walk">filepath.Walk</a> to walk the file tree in the directory, and return
+all file paths in the directory.</li>
+</ol>
+<div class="highlight"><pre><span></span><span class="c1">// Recursively get all file paths in directory, including sub-directories.</span>
+<span class="kd">func</span> <span class="nx">GetAllFilePathsInDirectory</span><span class="p">(</span><span class="nx">dirpath</span> <span class="kt">string</span><span class="p">)</span> <span class="p">([]</span><span class="kt">string</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">paths</span> <span class="p">[]</span><span class="kt">string</span>
+      <span class="nx">err</span> <span class="o">:=</span> <span class="nx">filepath</span><span class="p">.</span><span class="nx">Walk</span><span class="p">(</span><span class="nx">dirpath</span><span class="p">,</span> <span class="kd">func</span><span class="p">(</span><span class="nx">path</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">info</span> <span class="nx">os</span><span class="p">.</span><span class="nx">FileInfo</span><span class="p">,</span> <span class="nx">err</span> <span class="kt">error</span><span class="p">)</span> <span class="kt">error</span> <span class="p">{</span>
+              <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+                      <span class="k">return</span> <span class="nx">err</span>
+              <span class="p">}</span>
+              <span class="k">if</span> <span class="p">!</span><span class="nx">info</span><span class="p">.</span><span class="nx">IsDir</span><span class="p">()</span> <span class="p">{</span>
+                      <span class="nx">paths</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">paths</span><span class="p">,</span> <span class="nx">path</span><span class="p">)</span>
+              <span class="p">}</span>
+              <span class="k">return</span> <span class="kc">nil</span>
+      <span class="p">})</span>
+      <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+              <span class="k">return</span> <span class="kc">nil</span><span class="p">,</span> <span class="nx">err</span>
+      <span class="p">}</span>
+
+      <span class="k">return</span> <span class="nx">paths</span><span class="p">,</span> <span class="kc">nil</span>
+<span class="p">}</span>
+</pre></div>
+
+<ol class="arabic simple" start="2">
+<li>Pass the file paths to <a class="reference external" href="https://golang.org/pkg/text/template/#ParseFiles">ParseFiles</a> function in template package, and the
+parsed template will be returned.</li>
+</ol>
+<div class="highlight"><pre><span></span><span class="c1">// Recursively parse all files in directory, including sub-directories.</span>
+<span class="kd">func</span> <span class="nx">ParseDirectory</span><span class="p">(</span><span class="nx">dirpath</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="o">*</span><span class="nx">template</span><span class="p">.</span><span class="nx">Template</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">paths</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">GetAllFilePathsInDirectory</span><span class="p">(</span><span class="nx">dirpath</span><span class="p">)</span>
+      <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+              <span class="k">return</span> <span class="kc">nil</span><span class="p">,</span> <span class="nx">err</span>
+      <span class="p">}</span>
+      <span class="k">return</span> <span class="nx">template</span><span class="p">.</span><span class="nx">ParseFiles</span><span class="p">(</span><span class="nx">paths</span><span class="o">...</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>Combine the above code, now we have <em>ParseDirectory</em> function, which takes
+directory path as argument and returns the parsed template.</p>
+<hr class="docutils" />
+<p>Tested on:</p>
+<ul class="simple">
+<li><tt class="docutils literal">Ubuntu Linux 16.10</tt></li>
+<li><tt class="docutils literal">Go 1.7.5</tt></li>
+</ul>
+<hr class="docutils" />
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id1" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td><a class="reference external" href="/2016/02/04/go-walk-all-files-in-directory/">[Golang] Walk All Files in Directory</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[2]</td><td><div class="first last line-block">
+<div class="line"><a class="reference external" href="https://www.google.com/search?q=golang+arguments+dot">golang arguments dot - Google search</a></div>
+<div class="line"><a class="reference external" href="https://duckduckgo.com/?q=golang+arguments+dot">golang arguments dot - DuckDuckGo search</a></div>
+<div class="line"><a class="reference external" href="https://www.ecosia.org/search?q=golang+arguments+dot">golang arguments dot - Ecosia search</a></div>
+<div class="line"><a class="reference external" href="https://www.bing.com/search?q=golang+arguments+dot">golang arguments dot - Bing search</a></div>
+<div class="line"><a class="reference external" href="https://search.yahoo.com/search?p=golang+arguments+dot">golang arguments dot - Yahoo search</a></div>
+<div class="line"><a class="reference external" href="https://www.baidu.com/s?wd=golang+arguments+dot">golang arguments dot - Baidu search</a></div>
+<div class="line"><a class="reference external" href="https://www.yandex.com/search/?text=golang+arguments+dot">golang arguments dot - Yandex search</a></div>
+</div>
+</td></tr>
+</tbody>
+</table>
+
+<table class="docutils footnote" frame="void" id="id3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[3]</td><td><a class="reference external" href="https://github.com/siongui/gotemplateutil">GitHub - siongui/gotemplateutil: utility for Go template</a></td></tr>
+</tbody>
+</table>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/go.html">Go</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/go.html">Go</a>
+,       <a href="/tag/golang.html">Golang</a>
+,       <a href="/tag/golang-template.html">Golang template</a>
+,       <a href="/tag/list-files-in-directory.html">List Files in Directory</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

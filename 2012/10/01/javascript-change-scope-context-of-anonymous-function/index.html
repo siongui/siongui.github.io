@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>[JavaScript] Change Scope (Context) of Anonymous Function</title>
+  <meta name="keywords" content="JavaScript,Function.prototype.bind()"/>
+  <meta name="description" content="Change the scope (context) of anonymous function - change what this keyword refers to in anonymous function."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="[JavaScript] Change Scope (Context) of Anonymous Function" /><meta property="og:image" content="http://www.javatpoint.com/images/javascript/javascript_logo.png" />
+<meta property="og:description" content="Change the scope (context) of anonymous function - change what this keyword refers to in anonymous function." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2012/10/01/javascript-change-scope-context-of-anonymous-function/"
+           rel="bookmark"
+           title="Permalink to [JavaScript] Change Scope (Context) of Anonymous Function">
+          [JavaScript] Change Scope (Context) of Anonymous Function
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2015-03-07T02:01:00+08:00">
+    Updated: March 07, 2015
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2012/10/01/javascript-change-scope-context-of-anonymous-function%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p>This post is an extension of previous post &quot;<em>[JavaScript] Scope (Context) of
+Event Handler Function</em> <a class="footnote-reference" href="#id4" id="id1">[2]</a>&quot;. In this post, we will discuss how to change the
+scope (context) of a JavaScript <a class="reference external" href="http://helephant.com/2008/08/23/javascript-anonymous-functions/">anonymous function</a>. The anonymous function in
+JavaScript has wide uses, for example, as an event handler function. See the
+following code snippet:</p>
+<div class="highlight"><pre><span></span><span class="nx">element</span><span class="p">.</span><span class="nx">onclick</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+<span class="p">};</span>
+</pre></div>
+<p>We use an anonymous function as the <a class="reference external" href="http://www.w3schools.com/jsref/event_onclick.asp">onclick</a> event handler of
+<a class="reference external" href="http://www.w3schools.com/jsref/dom_obj_all.asp">HTML DOM element</a>. If you register the event handler as above, <em>this</em> keyword
+in the anonymous event handler function <a class="reference external" href="http://www.quirksmode.org/js/events_tradmod.html">refers to the DOM element itself</a>.
+What if we want to change the scope (context) of the anonymous event handler
+function to global scope (i.e., <em>window</em>) or other scope?</p>
+
+<p>The answer is <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind">Function.prototype.bind()</a> introduced in recent browsers. For
+example:</p>
+<div class="highlight"><pre><span></span><span class="nx">element</span><span class="p">.</span><span class="nx">onclick</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+<span class="p">}.</span><span class="nx">bind</span><span class="p">(</span><span class="nb">window</span><span class="p">);</span>
+</pre></div>
+<p>The above code changes the scope (context) of the anonymous function to global
+scope. Another example:</p>
+<div class="highlight"><pre><span></span><span class="nx">element</span><span class="p">.</span><span class="nx">onclick</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+<span class="p">}.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+</pre></div>
+<p>Will bind the scope of the anonymous function to the scope when <a class="reference external" href="http://www.w3schools.com/jsref/event_onclick.asp">onclick</a> event
+of the element is registered.</p>
+<p>The <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind">Function.prototype.bind()</a> is great, but for older browsers (for example,
+IE8) which do not support <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind">Function.prototype.bind()</a>, we need to implement
+<a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind#Polyfill">custom Function.prototype.bind()</a> in JavaScript code. For more details of
+<a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind">Function.prototype.bind()</a>, please refer to reference <a class="footnote-reference" href="#id3" id="id2">[1]</a>.</p>
+
+<hr class="docutils" />
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[1]</a></td><td><a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind">Function.prototype.bind() - JavaScript | MDN</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[2]</a></td><td><a class="reference external" href="/2012/10/01/javascript-scope-context-of-event-handler/">[JavaScript] Scope (Context) of Event Handler Function</a></td></tr>
+</tbody>
+</table>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/javascript.html">JavaScript</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/javascript.html">JavaScript</a>
+,       <a href="/tag/functionprototypebind.html">Function.prototype.bind()</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

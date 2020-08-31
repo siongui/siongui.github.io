@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>[Vue.js] Play Audio Sound on Click Event of DOM Element</title>
+  <meta name="keywords" content="Vue.js,JavaScript,DOM,HTML5 audio,html"/>
+  <meta name="description" content="Play audio sound if users click on DOM Element in Vue.js."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="[Vue.js] Play Audio Sound on Click Event of DOM Element" /><meta property="og:image" content="https://vuejs.org/images/logo.png" />
+<meta property="og:description" content="Play audio sound if users click on DOM Element in Vue.js." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2017/02/23/vuejs-play-audio-sound-onclick-event/"
+           rel="bookmark"
+           title="Permalink to [Vue.js] Play Audio Sound on Click Event of DOM Element">
+          [Vue.js] Play Audio Sound on Click Event of DOM Element
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2017-02-23T02:51:00+08:00">
+    February 23, 2017
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2017/02/23/vuejs-play-audio-sound-onclick-event%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p>Play audio sound if uers click on <a class="reference external" href="https://www.google.com/search?q=DOM+element">DOM Element</a> in <a class="reference external" href="https://vuejs.org/">Vue.js</a>/<a class="reference external" href="https://www.google.com/search?q=JavaScript">JavaScript</a>.</p>
+<p class="align-center rubric"><a class="reference external" href="/code/vuejs/play-sound/index.html">Demo</a></p>
+<dl class="docutils">
+<dt>The key points of the following source code:</dt>
+<dd><ul class="first last simple">
+<li>Use <a class="reference external" href="https://vuejs.org/v2/api/#v-on">v-on</a> directive to attach event listener of <a class="reference external" href="https://www.w3schools.com/tags/tag_button.asp">button</a> <a class="reference external" href="https://www.w3schools.com/jsref/event_onclick.asp">onClick</a> event.</li>
+<li>Use <a class="reference external" href="https://vuejs.org/v2/api/#ref">ref</a> attribute to register a reference to <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/audio">audio</a> element. We will later
+access the <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/audio">audio</a> element by the unique reference name <em>audioElm</em> in the
+event listener.</li>
+<li>If users click on the button, call <a class="reference external" href="https://www.w3schools.com/tags/av_met_play.asp">play()</a> method of the audio element to
+play the sound.</li>
+</ul>
+</dd>
+</dl>
+
+<figure class="github-file">
+            <figcaption>
+              <a href="https://github.com/siongui/userpages/blob/master/content/code/vuejs/play-sound/index.html">index.html</a> |
+              <a href="https://github.com/siongui/userpages">repository</a> |
+              <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/code/vuejs/play-sound/index.html">view raw</a>
+            </figcaption><div class="code-file">
+            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cp">&lt;!doctype html&gt;</span>
+<span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&quot;utf-8&quot;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>Vue.js Play Audio Sound Onclick Demo<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;viewport&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;width=device-width, initial-scale=1&quot;</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;app&quot;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">button</span> <span class="na">v-on:click</span><span class="o">=</span><span class="s">&quot;play&quot;</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;button&quot;</span><span class="p">&gt;</span>Click Me to Play Sound<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">audio</span> <span class="na">ref</span><span class="o">=</span><span class="s">&quot;audioElm&quot;</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;../../javascript/play-toggle-sound/Wat_Metta_Buddha_Qualities.mp3&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">audio</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://unpkg.com/vue@2.1.10/dist/vue.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;app.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</pre></div>
+</td></tr></table></div></figure>
+<figure class="github-file">
+            <figcaption>
+              <a href="https://github.com/siongui/userpages/blob/master/content/code/vuejs/play-sound/app.js">app.js</a> |
+              <a href="https://github.com/siongui/userpages">repository</a> |
+              <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/code/vuejs/play-sound/app.js">view raw</a>
+            </figcaption><div class="code-file">
+            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="s1">&#39;use strict&#39;</span><span class="p">;</span>
+
+<span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span>
+  <span class="nx">el</span><span class="o">:</span> <span class="s1">&#39;#app&#39;</span><span class="p">,</span>
+  <span class="nx">methods</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">play</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">$refs</span><span class="p">.</span><span class="nx">audioElm</span><span class="p">.</span><span class="nx">play</span><span class="p">();</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">})</span>
+</pre></div>
+</td></tr></table></div></figure>
+<hr class="docutils" />
+<dl class="docutils">
+<dt>Tested on:</dt>
+<dd><ul class="first last simple">
+<li><tt class="docutils literal">Chromium Version 55.0.2883.87 Built on Ubuntu , running on Ubuntu 16.10 <span class="pre">(64-bit)</span></tt></li>
+<li><tt class="docutils literal">Vue.js 2.1.10</tt>.</li>
+</ul>
+</dd>
+</dl>
+<hr class="docutils" />
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id1" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td><div class="first last line-block">
+<div class="line"><a class="reference external" href="https://www.google.com/search?q=vuejs+reference+element">vuejs reference element - Google search</a></div>
+<div class="line"><a class="reference external" href="https://vuejs.org/v2/api/#ref">Special Attributes - ref - Vue.js</a></div>
+</div>
+</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[2]</td><td><a class="reference external" href="https://vuejs.org/v2/guide/events.html">Event Handling — Vue.js</a></td></tr>
+</tbody>
+</table>
+
+<table class="docutils footnote" frame="void" id="id3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[3]</td><td><div class="first last line-block">
+<div class="line"><a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/audio">&lt;audio&gt; - HTML | MDN</a></div>
+<div class="line"><a class="reference external" href="https://www.w3schools.com/TAGs/ref_av_dom.asp">HTML Audio/Video DOM Reference</a></div>
+</div>
+</td></tr>
+</tbody>
+</table>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/vuejs.html">Vue.js</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/vuejs.html">Vue.js</a>
+,       <a href="/tag/javascript.html">JavaScript</a>
+,       <a href="/tag/dom.html">DOM</a>
+,       <a href="/tag/html5-audio.html">HTML5 audio</a>
+,       <a href="/tag/html.html">html</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

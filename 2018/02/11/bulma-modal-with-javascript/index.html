@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>JavaScript for Bulma Modal</title>
+  <meta name="keywords" content="CSS,html,JavaScript,Bulma,Modal (Popup)"/>
+  <meta name="description" content="JavaScript code for Bulma modal component. The code is extracted from Bulma official website."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="JavaScript for Bulma Modal" /><meta property="og:image" content="https://www.designil.com/wp-content/uploads/2016/10/modal-box-bulma.png" />
+<meta property="og:description" content="JavaScript code for Bulma modal component. The code is extracted from Bulma official website." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2018/02/11/bulma-modal-with-javascript/"
+           rel="bookmark"
+           title="Permalink to JavaScript for Bulma Modal">
+          JavaScript for Bulma Modal
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2018-02-11T08:53:00+08:00">
+    February 11, 2018
+  </time></aside>
+    <aside><div class="available-translations">
+      <span>Translation(s)</span>:&nbsp;<a href="/zh/2018/10/15/bulma-modal-with-javascript/">中文</a>&nbsp;</div><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2018/01/17/bulma-modal-with-javascript%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p>This post is for those who do not want to write their own JavaScript code, and
+just want to use the same code as that in <a class="reference external" href="https://bulma.io/">Bulma</a> official website <a class="footnote-reference" href="#id3" id="id1">[1]</a>.</p>
+<p>The JavaScript code comes from <em>main.js</em> used in the official site <a class="footnote-reference" href="#id4" id="id2">[2]</a>.
+I put the code here in the post  for easy search by Google or other search
+engines.</p>
+<div class="highlight"><pre><span></span><span class="s1">&#39;use strict&#39;</span><span class="p">;</span>
+
+<span class="nb">document</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;DOMContentLoaded&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+
+  <span class="c1">// Modals</span>
+
+  <span class="kd">var</span> <span class="nx">rootEl</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">documentElement</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">$modals</span> <span class="o">=</span> <span class="nx">getAll</span><span class="p">(</span><span class="s1">&#39;.modal&#39;</span><span class="p">);</span>
+  <span class="kd">var</span> <span class="nx">$modalButtons</span> <span class="o">=</span> <span class="nx">getAll</span><span class="p">(</span><span class="s1">&#39;.modal-button&#39;</span><span class="p">);</span>
+  <span class="kd">var</span> <span class="nx">$modalCloses</span> <span class="o">=</span> <span class="nx">getAll</span><span class="p">(</span><span class="s1">&#39;.modal-background, .modal-close, .modal-card-head .delete, .modal-card-foot .button&#39;</span><span class="p">);</span>
+
+  <span class="k">if</span> <span class="p">(</span><span class="nx">$modalButtons</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">$modalButtons</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">$el</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">$el</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">target</span> <span class="o">=</span> <span class="nx">$el</span><span class="p">.</span><span class="nx">dataset</span><span class="p">.</span><span class="nx">target</span><span class="p">;</span>
+        <span class="kd">var</span> <span class="nx">$target</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="nx">target</span><span class="p">);</span>
+        <span class="nx">rootEl</span><span class="p">.</span><span class="nx">classList</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="s1">&#39;is-clipped&#39;</span><span class="p">);</span>
+        <span class="nx">$target</span><span class="p">.</span><span class="nx">classList</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="s1">&#39;is-active&#39;</span><span class="p">);</span>
+      <span class="p">});</span>
+    <span class="p">});</span>
+  <span class="p">}</span>
+
+  <span class="k">if</span> <span class="p">(</span><span class="nx">$modalCloses</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">$modalCloses</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">$el</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">$el</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="nx">closeModals</span><span class="p">();</span>
+      <span class="p">});</span>
+    <span class="p">});</span>
+  <span class="p">}</span>
+
+  <span class="nb">document</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;keydown&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">e</span> <span class="o">=</span> <span class="nx">event</span> <span class="o">||</span> <span class="nb">window</span><span class="p">.</span><span class="nx">event</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">keyCode</span> <span class="o">===</span> <span class="mi">27</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">closeModals</span><span class="p">();</span>
+    <span class="p">}</span>
+  <span class="p">});</span>
+
+  <span class="kd">function</span> <span class="nx">closeModals</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">rootEl</span><span class="p">.</span><span class="nx">classList</span><span class="p">.</span><span class="nx">remove</span><span class="p">(</span><span class="s1">&#39;is-clipped&#39;</span><span class="p">);</span>
+    <span class="nx">$modals</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">$el</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">$el</span><span class="p">.</span><span class="nx">classList</span><span class="p">.</span><span class="nx">remove</span><span class="p">(</span><span class="s1">&#39;is-active&#39;</span><span class="p">);</span>
+    <span class="p">});</span>
+  <span class="p">}</span>
+
+  <span class="c1">// Functions</span>
+
+  <span class="kd">function</span> <span class="nx">getAll</span><span class="p">(</span><span class="nx">selector</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">slice</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">querySelectorAll</span><span class="p">(</span><span class="nx">selector</span><span class="p">),</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="p">}</span>
+
+<span class="p">});</span>
+</pre></div>
+<p><strong>Demo</strong>:</p>
+<br>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+<a class="button is-primary is-large modal-button" data-target="modal-bis">Launch image modal</a>
+
+<div id="modal-bis" class="modal">
+  <div class="modal-background"></div>
+  <div class="modal-content">
+    <p class="image is-4by3">
+      <img src="https://bulma.io/images/placeholders/1280x960.png">
+    </p>
+  </div>
+  <button class="modal-close is-large" aria-label="close"></button>
+</div>
+
+<br><br>
+
+<script>
+'use strict';
+
+document.addEventListener('DOMContentLoaded', function () {
+
+  // Modals
+
+  var rootEl = document.documentElement;
+  var $modals = getAll('.modal');
+  var $modalButtons = getAll('.modal-button');
+  var $modalCloses = getAll('.modal-background, .modal-close, .modal-card-head .delete, .modal-card-foot .button');
+
+  if ($modalButtons.length > 0) {
+    $modalButtons.forEach(function ($el) {
+      $el.addEventListener('click', function () {
+        var target = $el.dataset.target;
+        var $target = document.getElementById(target);
+        rootEl.classList.add('is-clipped');
+        $target.classList.add('is-active');
+      });
+    });
+  }
+
+  if ($modalCloses.length > 0) {
+    $modalCloses.forEach(function ($el) {
+      $el.addEventListener('click', function () {
+        closeModals();
+      });
+    });
+  }
+
+  document.addEventListener('keydown', function (event) {
+    var e = event || window.event;
+    if (e.keyCode === 27) {
+      closeModals();
+    }
+  });
+
+  function closeModals() {
+    rootEl.classList.remove('is-clipped');
+    $modals.forEach(function ($el) {
+      $el.classList.remove('is-active');
+    });
+  }
+
+  // Functions
+
+  function getAll(selector) {
+    return Array.prototype.slice.call(document.querySelectorAll(selector), 0);
+  }
+
+});
+</script><hr class="docutils" />
+<p><strong>You might be interested in ...</strong></p>
+<ul class="simple">
+<li><a class="reference external" href="/2018/09/27/vuejs-bulma-modal/">[Vue.js] Bulma Modal</a></li>
+<li><a class="reference external" href="/2018/01/27/css-only-toggle-bulma-modal/">Bulma Modal with Pure CSS Toggle</a></li>
+<li><a class="reference external" href="/2018/02/10/bulma-modal-with-go-toggle/">Bulma Modal with Go Toggle</a></li>
+</ul>
+<hr class="docutils" />
+<p>Tested on:</p>
+<ul class="simple">
+<li><tt class="docutils literal">Chromium 64.0.3282.140 on Ubuntu 17.10 <span class="pre">(64-bit)</span></tt></li>
+<li><tt class="docutils literal">Bulma 0.6.2</tt></li>
+</ul>
+<hr class="docutils" />
+
+<p><strong>References</strong>:</p>
+<table class="docutils footnote" frame="void" id="id3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td><a class="reference external" href="https://bulma.io/documentation/components/modal/">Modal | Bulma: a modern CSS framework based on Flexbox</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[2]</a></td><td><a class="reference external" href="https://bulma.io/lib/main.js?v=201802091742">https://bulma.io/lib/main.js?v=201802091742</a></td></tr>
+</tbody>
+</table>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/css.html">CSS</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/css.html">CSS</a>
+,       <a href="/tag/html.html">html</a>
+,       <a href="/tag/javascript.html">JavaScript</a>
+,       <a href="/tag/bulma.html">Bulma</a>
+,       <a href="/tag/modal-popup.html">Modal (Popup)</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

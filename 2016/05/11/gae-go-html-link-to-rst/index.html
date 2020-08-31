@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>Google App Engine Go - HTML Link to reStructuredText</title>
+  <meta name="keywords" content="Go,Golang,Golang template,Go net/http,Web Scrape,reStructuredText,Copy to Clipboard,Go net/html,Google App Engine,Online Toolkit"/>
+  <meta name="description" content="Given a webpage URL. Fetch the title of the webpage and output reStructuredText link on Google App Engine Go."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="Google App Engine Go - HTML Link to reStructuredText" />    <meta property="og:image" content="/./extra/Dharma_wheel.svg" /><meta property="og:description" content="Given a webpage URL. Fetch the title of the webpage and output reStructuredText link on Google App Engine Go." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2016/05/11/gae-go-html-link-to-rst/"
+           rel="bookmark"
+           title="Permalink to Google App Engine Go - HTML Link to reStructuredText">
+          Google App Engine Go - HTML Link to reStructuredText
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2016-05-11T22:31:00+08:00">
+    May 11, 2016
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2016/05/11/gae-go-html-link-to-rst%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p>Given a webpage URL. Fetch the title of the webpage and output
+<a class="reference external" href="http://docutils.sourceforge.net/docs/user/rst/quickref.html#hyperlink-targets">reStructuredText link</a> on <a class="reference external" href="https://cloud.google.com/appengine/docs/go/">Google App Engine Go</a>.</p>
+<p class="align-center rubric"><a class="reference external" href="http://v1.golden-operator-130720.appspot.com/">Demo</a></p>
+<p><em>Makefile</em>: Edit the variable in Makefile according to your development
+environment.</p>
+<figure class="github-file">
+            <figcaption>
+              <a href="https://github.com/siongui/userpages/blob/master/content/code/go/gae/link2rst/Makefile">Makefile</a> |
+              <a href="https://github.com/siongui/userpages">repository</a> |
+              <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/code/go/gae/link2rst/Makefile">view raw</a>
+            </figcaption><div class="code-file">
+            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">export </span><span class="nv">PATH</span> <span class="o">:=</span> <span class="k">$(</span>PATH<span class="k">)</span>:<span class="k">$(</span>realpath ../../../../go_appengine/<span class="k">)</span>
+<span class="nv">PROJECT_DIR</span><span class="o">=</span><span class="k">$(</span>CURDIR<span class="k">)</span>
+<span class="nv">PROJECT_ID</span><span class="o">=</span>golden-operator-130720
+<span class="nv">PROJECT_VERSION</span><span class="o">=</span>v1
+
+<span class="nf">default</span><span class="o">:</span>
+	@echo <span class="s2">&quot;\033[92mRun development web server ...\033[0m&quot;</span>
+	@cd ../<span class="p">;</span> goapp serve <span class="si">${</span><span class="nv">PROJECT_DIR</span><span class="si">}</span>
+
+<span class="nf">fmt</span><span class="o">:</span>
+	@echo <span class="s2">&quot;\033[92mGo fmt source code ...\033[0m&quot;</span>
+	@goapp fmt *.go
+
+<span class="nf">deploy</span><span class="o">:</span>
+	<span class="nb">cd</span> ../<span class="p">;</span> appcfg.py -A <span class="si">${</span><span class="nv">PROJECT_ID</span><span class="si">}</span> -V <span class="si">${</span><span class="nv">PROJECT_VERSION</span><span class="si">}</span> update <span class="si">${</span><span class="nv">PROJECT_DIR</span><span class="si">}</span>
+	@echo <span class="s2">&quot;\033[92mDeployed URL: http://</span><span class="si">${</span><span class="nv">PROJECT_VERSION</span><span class="si">}</span><span class="s2">.</span><span class="si">${</span><span class="nv">PROJECT_ID</span><span class="si">}</span><span class="s2">.appspot.com/\033[0m&quot;</span>
+
+<span class="nf">install</span><span class="o">:</span>
+	@echo <span class="s2">&quot;\033[92mInstall golang.org/x/net/html ...\033[0m&quot;</span>
+	@goapp get -u golang.org/x/net/html
+	@echo <span class="s2">&quot;\033[92mInstall google.golang.org/appengine ...\033[0m&quot;</span>
+	@goapp get -u google.golang.org/appengine
+</pre></div>
+</td></tr></table></div></figure>
+<p><em>GAE Go Environment Setting</em>:</p>
+<figure class="github-file">
+            <figcaption>
+              <a href="https://github.com/siongui/userpages/blob/master/content/code/go/gae/link2rst/app.yaml">app.yaml</a> |
+              <a href="https://github.com/siongui/userpages">repository</a> |
+              <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/code/go/gae/link2rst/app.yaml">view raw</a>
+            </figcaption><div class="code-file">
+            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="nt">runtime</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">go</span>
+<span class="nt">api_version</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">go1</span>
+
+<span class="nt">handlers</span><span class="p">:</span>
+<span class="p p-Indicator">-</span> <span class="nt">url</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/.*</span>
+  <span class="nt">script</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">_go_app</span>
+</pre></div>
+</td></tr></table></div></figure>
+<p>Source code:</p>
+<figure class="github-file">
+            <figcaption>
+              <a href="https://github.com/siongui/userpages/blob/master/content/code/go/gae/link2rst/link2rst.go">link2rst.go</a> |
+              <a href="https://github.com/siongui/userpages">repository</a> |
+              <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/code/go/gae/link2rst/link2rst.go">view raw</a>
+            </figcaption><div class="code-file">
+            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">link2rst</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+	<span class="s">&quot;html/template&quot;</span>
+	<span class="s">&quot;net/http&quot;</span>
+<span class="p">)</span>
+
+<span class="kd">type</span> <span class="nx">TemplateValue</span> <span class="kd">struct</span> <span class="p">{</span>
+	<span class="nx">Textarea</span> <span class="kt">string</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">index</span> <span class="p">=</span> <span class="s">`&lt;!doctype html&gt;</span>
+<span class="s">&lt;html&gt;</span>
+<span class="s">&lt;head&gt;</span>
+<span class="s">  &lt;title&gt;HTML Link to Rst&lt;/title&gt;</span>
+<span class="s">&lt;/head&gt;</span>
+<span class="s">&lt;body&gt;</span>
+<span class="s">  &lt;form action=&quot;/&quot; method=&quot;post&quot;&gt;</span>
+<span class="s">    URL: &lt;input name=&quot;url&quot; size=&quot;80&quot;&gt;</span>
+<span class="s">    &lt;button&gt;Send&lt;/button&gt;</span>
+<span class="s">  &lt;/form&gt;&lt;br&gt;</span>
+<span class="s">  &lt;textarea id=&quot;ta&quot; rows=&quot;5&quot; cols=&quot;80&quot;&gt;{{.Textarea}}&lt;/textarea&gt;&lt;br&gt;</span>
+<span class="s">  &lt;button type=&quot;button&quot; id=&quot;copy&quot;&gt;Copy textarea to clipboard&lt;/button&gt;</span>
+<span class="s">&lt;script&gt;</span>
+<span class="s">  var textareaElm = document.getElementById(&quot;ta&quot;);</span>
+<span class="s">  var copyElm = document.getElementById(&quot;copy&quot;);</span>
+<span class="s">  copyElm.onclick = function(event) {</span>
+<span class="s">    textareaElm.select();</span>
+<span class="s">    var isSuccessful = document.execCommand(&#39;copy&#39;);</span>
+<span class="s">    if (isSuccessful) {</span>
+<span class="s">      textareaElm.value = &quot;Copy OK&quot;;</span>
+<span class="s">    } else {</span>
+<span class="s">      textareaElm.value = &quot;Copy Fail&quot;;</span>
+<span class="s">    }</span>
+<span class="s">  }</span>
+<span class="s">&lt;/script&gt;</span>
+
+<span class="s">&lt;/body&gt;</span>
+<span class="s">&lt;/html&gt;`</span>
+
+<span class="kd">var</span> <span class="nx">tmpl</span> <span class="p">=</span> <span class="nx">template</span><span class="p">.</span><span class="nx">Must</span><span class="p">(</span><span class="nx">template</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="s">&quot;link2rst&quot;</span><span class="p">).</span><span class="nx">Parse</span><span class="p">(</span><span class="nx">index</span><span class="p">))</span>
+
+<span class="kd">func</span> <span class="nx">init</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nx">http</span><span class="p">.</span><span class="nx">HandleFunc</span><span class="p">(</span><span class="s">&quot;/&quot;</span><span class="p">,</span> <span class="nx">handler</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nx">handler</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">val</span> <span class="o">:=</span> <span class="nx">TemplateValue</span><span class="p">{}</span>
+	<span class="k">if</span> <span class="nx">r</span><span class="p">.</span><span class="nx">Method</span> <span class="o">==</span> <span class="s">&quot;POST&quot;</span> <span class="p">{</span>
+		<span class="nx">val</span><span class="p">.</span><span class="nx">Textarea</span> <span class="p">=</span> <span class="nx">getLinkRst</span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">PostFormValue</span><span class="p">(</span><span class="s">&quot;url&quot;</span><span class="p">),</span> <span class="nx">r</span><span class="p">)</span>
+	<span class="p">}</span>
+
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">tmpl</span><span class="p">.</span><span class="nx">Execute</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">val</span><span class="p">);</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div></figure>
+<figure class="github-file">
+            <figcaption>
+              <a href="https://github.com/siongui/userpages/blob/master/content/code/go/gae/link2rst/title.go">title.go</a> |
+              <a href="https://github.com/siongui/userpages">repository</a> |
+              <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/code/go/gae/link2rst/title.go">view raw</a>
+            </figcaption><div class="code-file">
+            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">link2rst</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+	<span class="s">&quot;golang.org/x/net/html&quot;</span>
+	<span class="s">&quot;io&quot;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nx">isTitleElement</span><span class="p">(</span><span class="nx">n</span> <span class="o">*</span><span class="nx">html</span><span class="p">.</span><span class="nx">Node</span><span class="p">)</span> <span class="kt">bool</span> <span class="p">{</span>
+	<span class="k">return</span> <span class="nx">n</span><span class="p">.</span><span class="nx">Type</span> <span class="o">==</span> <span class="nx">html</span><span class="p">.</span><span class="nx">ElementNode</span> <span class="o">&amp;&amp;</span> <span class="nx">n</span><span class="p">.</span><span class="nx">Data</span> <span class="o">==</span> <span class="s">&quot;title&quot;</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nx">traverse</span><span class="p">(</span><span class="nx">n</span> <span class="o">*</span><span class="nx">html</span><span class="p">.</span><span class="nx">Node</span><span class="p">)</span> <span class="p">(</span><span class="kt">string</span><span class="p">,</span> <span class="kt">bool</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">if</span> <span class="nx">isTitleElement</span><span class="p">(</span><span class="nx">n</span><span class="p">)</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="nx">n</span><span class="p">.</span><span class="nx">FirstChild</span><span class="p">.</span><span class="nx">Data</span><span class="p">,</span> <span class="kc">true</span>
+	<span class="p">}</span>
+
+	<span class="k">for</span> <span class="nx">c</span> <span class="o">:=</span> <span class="nx">n</span><span class="p">.</span><span class="nx">FirstChild</span><span class="p">;</span> <span class="nx">c</span> <span class="o">!=</span> <span class="kc">nil</span><span class="p">;</span> <span class="nx">c</span> <span class="p">=</span> <span class="nx">c</span><span class="p">.</span><span class="nx">NextSibling</span> <span class="p">{</span>
+		<span class="nx">result</span><span class="p">,</span> <span class="nx">ok</span> <span class="o">:=</span> <span class="nx">traverse</span><span class="p">(</span><span class="nx">c</span><span class="p">)</span>
+		<span class="k">if</span> <span class="nx">ok</span> <span class="p">{</span>
+			<span class="k">return</span> <span class="nx">result</span><span class="p">,</span> <span class="nx">ok</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+
+	<span class="k">return</span> <span class="s">&quot;&quot;</span><span class="p">,</span> <span class="kc">false</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nx">GetHtmlTitle</span><span class="p">(</span><span class="nx">r</span> <span class="nx">io</span><span class="p">.</span><span class="nx">Reader</span><span class="p">)</span> <span class="p">(</span><span class="kt">string</span><span class="p">,</span> <span class="kt">bool</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">doc</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">html</span><span class="p">.</span><span class="nx">Parse</span><span class="p">(</span><span class="nx">r</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nb">panic</span><span class="p">(</span><span class="s">&quot;Fail to parse html&quot;</span><span class="p">)</span>
+	<span class="p">}</span>
+
+	<span class="k">return</span> <span class="nx">traverse</span><span class="p">(</span><span class="nx">doc</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div></figure>
+<figure class="github-file">
+            <figcaption>
+              <a href="https://github.com/siongui/userpages/blob/master/content/code/go/gae/link2rst/fetch.go">fetch.go</a> |
+              <a href="https://github.com/siongui/userpages">repository</a> |
+              <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/code/go/gae/link2rst/fetch.go">view raw</a>
+            </figcaption><div class="code-file">
+            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">link2rst</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+	<span class="s">&quot;net/http&quot;</span>
+
+	<span class="s">&quot;google.golang.org/appengine&quot;</span>
+	<span class="s">&quot;google.golang.org/appengine/urlfetch&quot;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nx">getLinkRst</span><span class="p">(</span><span class="nx">url</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="kt">string</span> <span class="p">{</span>
+	<span class="nx">ctx</span> <span class="o">:=</span> <span class="nx">appengine</span><span class="p">.</span><span class="nx">NewContext</span><span class="p">(</span><span class="nx">r</span><span class="p">)</span>
+	<span class="nx">client</span> <span class="o">:=</span> <span class="nx">urlfetch</span><span class="p">.</span><span class="nx">Client</span><span class="p">(</span><span class="nx">ctx</span><span class="p">)</span>
+	<span class="nx">resp</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">client</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="nx">url</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+	<span class="p">}</span>
+	<span class="k">defer</span> <span class="nx">resp</span><span class="p">.</span><span class="nx">Body</span><span class="p">.</span><span class="nx">Close</span><span class="p">()</span>
+
+	<span class="k">if</span> <span class="nx">title</span><span class="p">,</span> <span class="nx">ok</span> <span class="o">:=</span> <span class="nx">GetHtmlTitle</span><span class="p">(</span><span class="nx">resp</span><span class="p">.</span><span class="nx">Body</span><span class="p">);</span> <span class="nx">ok</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="s">&quot;`&quot;</span> <span class="o">+</span> <span class="nx">title</span> <span class="o">+</span> <span class="s">&quot; &lt;&quot;</span> <span class="o">+</span> <span class="nx">url</span> <span class="o">+</span> <span class="s">&quot;&gt;`_&quot;</span>
+	<span class="p">}</span>
+	<span class="k">return</span> <span class="s">&quot;&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div></figure>
+<hr class="docutils" />
+<p>Tested on: <tt class="docutils literal">Ubuntu Linux 16.04</tt>, <tt class="docutils literal">Google App Engine SDK for Go 1.9.37</tt>.</p>
+<hr class="docutils" />
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id1" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td><a class="reference external" href="/2016/03/27/go-server-get-form-post-value/">[Golang] Server Get Form POST Value</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[2]</td><td><a class="reference external" href="/2016/05/10/go-get-html-title-via-net-html/">[Golang] Get HTML Title via net/html Package</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[3]</td><td><a class="reference external" href="/2016/04/04/go-hacker-news-link-to-rst/">[Golang] Hacker News Link to reStructuredText</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[4]</td><td><a class="reference external" href="https://cloud.google.com/appengine/docs/go/issue-requests">Issuing HTTP(S) Requests - Go — Google Cloud Platform</a></td></tr>
+</tbody>
+</table>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/google-app-engine.html">Google App Engine</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/go.html">Go</a>
+,       <a href="/tag/golang.html">Golang</a>
+,       <a href="/tag/golang-template.html">Golang template</a>
+,       <a href="/tag/go-nethttp.html">Go net/http</a>
+,       <a href="/tag/web-scrape.html">Web Scrape</a>
+,       <a href="/tag/restructuredtext.html">reStructuredText</a>
+,       <a href="/tag/copy-to-clipboard.html">Copy to Clipboard</a>
+,       <a href="/tag/go-nethtml.html">Go net/html</a>
+,       <a href="/tag/google-app-engine.html">Google App Engine</a>
+,       <a href="/tag/online-toolkit.html">Online Toolkit</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

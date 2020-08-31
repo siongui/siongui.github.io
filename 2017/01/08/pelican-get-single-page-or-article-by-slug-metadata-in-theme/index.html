@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>[Pelican] Get Single Page or Article by slug Metadata in Theme</title>
+  <meta name="keywords" content="Python,Pelican,Jinja2,i18n"/>
+  <meta name="description" content="Pelican static site generator - Get a single page or article by slug metadata in theme."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="[Pelican] Get Single Page or Article by slug Metadata in Theme" />    <meta property="og:image" content="/./extra/Dharma_wheel.svg" /><meta property="og:description" content="Pelican static site generator - Get a single page or article by slug metadata in theme." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2017/01/08/pelican-get-single-page-or-article-by-slug-metadata-in-theme/"
+           rel="bookmark"
+           title="Permalink to [Pelican] Get Single Page or Article by slug Metadata in Theme">
+          [Pelican] Get Single Page or Article by slug Metadata in Theme
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2017-01-08T21:49:00+08:00">
+    January 08, 2017
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2017/01/08/pelican-get-single-page-or-article-by-slug-metadata-in-theme%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p>Sometimes we want to get a single <a class="reference external" href="http://docs.getpelican.com/en/latest/content.html#articles-and-pages">page</a> or <a class="reference external" href="http://docs.getpelican.com/en/latest/content.html#articles-and-pages">article</a> by some <a class="reference external" href="http://docs.getpelican.com/en/latest/content.html#file-metadata">metadata</a> in <a class="reference external" href="http://docs.getpelican.com/en/latest/themes.html">theme</a>.
+This post shows how to use a <a class="reference external" href="http://jinja.pocoo.org/docs/latest/api/#custom-filters">custom Jinja2 filter</a> to get a single <a class="reference external" href="http://docs.getpelican.com/en/latest/content.html#articles-and-pages">page</a> or
+<a class="reference external" href="http://docs.getpelican.com/en/latest/content.html#articles-and-pages">article</a> by <em>slug</em> <a class="reference external" href="http://docs.getpelican.com/en/latest/content.html#file-metadata">metadata</a> in the <a class="reference external" href="http://docs.getpelican.com/en/latest/themes.html">theme</a>.</p>
+<p>First, add the following filter code in your <a class="reference external" href="http://docs.getpelican.com/en/latest/settings.html">pelicanconf.py</a>:</p>
+<div class="highlight"><pre><span></span><span class="c1"># custom Jinja2 filter</span>
+<span class="k">def</span> <span class="nf">get_by_slug</span><span class="p">(</span><span class="n">objs</span><span class="p">,</span> <span class="n">slug</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">objs</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">obj</span><span class="o">.</span><span class="n">slug</span> <span class="o">==</span> <span class="n">slug</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">obj</span>
+
+<span class="n">JINJA_FILTERS</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;get_by_slug&quot;</span><span class="p">:</span> <span class="n">get_by_slug</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>Then you can use the custom filter to select the page or article you need in the
+<a class="reference external" href="http://docs.getpelican.com/en/latest/themes.html">theme</a>. For example, you can use as follows in <tt class="docutils literal">index.html</tt>:</p>
+<div class="highlight"><pre><span></span>{% set intro = (pages|get_by_slug(&quot;introduction&quot;)) %}
+{% set hello = (articles|get_by_slug(&quot;hello-world&quot;)) %}
+
+<span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>Title of page: {{ intro.title }}<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>Title of article: {{ hello.title }}<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</pre></div>
+<hr class="docutils" />
+<p>Tested on: <tt class="docutils literal">Ubuntu Linux 16.10</tt>, <tt class="docutils literal">Python 2.7.12+</tt>, <a class="reference external" href="http://docs.getpelican.com/en/3.7.0/">Pelican 3.7.0</a>.</p>
+<hr class="docutils" />
+
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id1" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td><a class="reference external" href="https://github.com/siongui/shenfang/commit/33b993216b41b86f2083f6c4cf7b23ae47ba858b">new arch: FIXME: URL issue · siongui/shenfang&#64;33b9932 · GitHub</a></td></tr>
+</tbody>
+</table>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/python.html">Python</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/python.html">Python</a>
+,       <a href="/tag/pelican.html">Pelican</a>
+,       <a href="/tag/jinja2.html">Jinja2</a>
+,       <a href="/tag/i18n.html">i18n</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>Google App Engine Datastore Example : Dictionary Application</title>
+  <meta name="keywords" content="Python,Web application,web,Google App Engine,XML"/>
+  <meta name="description" content="Simple usage example of Google App Engine Python Datastore."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="Google App Engine Datastore Example : Dictionary Application" />    <meta property="og:image" content="/./extra/Dharma_wheel.svg" /><meta property="og:description" content="Simple usage example of Google App Engine Python Datastore." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2012/06/07/gae-python-datastore-example-dictionary-app/"
+           rel="bookmark"
+           title="Permalink to Google App Engine Datastore Example : Dictionary Application">
+          Google App Engine Datastore Example : Dictionary Application
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2015-04-07T22:00:00+08:00">
+    Updated: April 07, 2015
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2012/06/07/gae-python-datastore-example-dictionary-app%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p>I have a dictionary website which needs to store over 50,000+ xml files of words
+in the datastore. The following is the snapshot of part of the xml fils.</p>
+<div class="highlight"><pre><span></span>$ ls
+ebhi.xml             ekaṃsena.xml          ekunasattati.xml  esaṃ.xml
+edhati.xml           ekamsikata.xml        ekūnasattati.xml  esanam.xml
+edha.xml             ekaṁsikatā.xml        ekunasatthi.xml   esānaṃ.xml
+edhi.xml             ekamsika.xml          ekūnasaṭṭhi.xml   esana.xml
+edh.xml              ekaṃsika.xml          ekunasiti.xml     esāna.xml
+edisaka.xml          ekanika.xml           ekūnāsīti.xml     esanā.xml
+edisa.xml            ekānika.xml           ekunatimsati.xml  esani.xml
+ehi-bhikkhu.xml      ekantam.xml           ekūnatiṃsati.xml  esanī.xml
+ehibhikkhu.xml       ekantaṃ.xml           ekunavisati.xml   esanta.xml
+...
+</pre></div>
+<p>I use <a class="reference external" href="https://cloud.google.com/appengine/">Google App Engine</a> to host my website, and it takes me a while to figure
+out how to put 50,000+ xml on <a class="reference external" href="https://cloud.google.com/appengine/">GAE</a> <a class="reference external" href="https://cloud.google.com/appengine/docs/python/datastore/">datastore</a> and retrieve them efficiently. The
+following is how I do it.</p>
+<p>Before we start, we first need to define some terminology, which comes from GAE.
+Objects in the GAE datastore are known as <em>entities</em>. Each entity in the
+<a class="reference external" href="https://cloud.google.com/appengine/docs/python/datastore/">Datastore</a> has a <em>key</em> that uniquely identifies it. The key consists of the
+following components:</p>
+<blockquote>
+<ul class="simple">
+<li>The <a class="reference external" href="https://cloud.google.com/appengine/docs/python/datastore/entities#Python_Kinds_and_identifiers">kind</a> of the entity, which categorizes it for the purpose of Datastore
+queries</li>
+<li>An <a class="reference external" href="https://cloud.google.com/appengine/docs/python/datastore/entities#Python_Kinds_and_identifiers">identifier</a> for the individual entity</li>
+</ul>
+</blockquote>
+<p>So now we define four terms: <em>entity</em>, <em>key</em>, <em>kind</em>, <em>id (identifier)</em>. Refer
+to <a class="reference external" href="https://cloud.google.com/appengine/docs/python/datastore/entities">Entities, Properties, and Keys - Python — Google Cloud Platform</a> for more
+details.</p>
+
+<p>In my application, I defile a <em>kind</em> called <em>PaliWord</em> for storing xml files in
+the datastore.</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">google.appengine.ext</span> <span class="kn">import</span> <span class="n">ndb</span>
+
+<span class="o">...</span>
+
+<span class="k">class</span> <span class="nc">PaliWord</span><span class="p">(</span><span class="n">ndb</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+  <span class="n">xmlfilename</span> <span class="o">=</span> <span class="n">ndb</span><span class="o">.</span><span class="n">StringProperty</span><span class="p">()</span>
+  <span class="n">xmlfiledata</span> <span class="o">=</span> <span class="n">ndb</span><span class="o">.</span><span class="n">TextProperty</span><span class="p">()</span>
+</pre></div>
+<p>To store one xml file in the datastore, I use file name of the xml file without
+<cite>.xml</cite> extension as <em>id</em> for manipulating the <em>entity</em>. The name and data of the
+file is store in the <em>entity</em>.</p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">storeToNDB</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">filedata</span><span class="p">):</span>
+  <span class="c1"># id = filename without .xml extension</span>
+  <span class="n">paliword</span> <span class="o">=</span> <span class="n">PaliWord</span><span class="p">(</span><span class="nb">id</span> <span class="o">=</span> <span class="n">filename</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">4</span><span class="p">],</span>
+                      <span class="n">xmlfilename</span> <span class="o">=</span> <span class="n">filename</span><span class="p">,</span>
+                      <span class="n">xmlfiledata</span> <span class="o">=</span> <span class="n">filedata</span><span class="p">)</span>
+  <span class="n">paliword</span><span class="o">.</span><span class="n">put</span><span class="p">()</span>
+  <span class="k">return</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1"> : ok&#39;</span> <span class="o">%</span> <span class="n">filename</span>
+</pre></div>
+
+<p>To retrieve specific <em>entity</em>, we simply supply <em>id</em>, i.e., the file name
+without <cite>.xml</cite> extension, to the <a class="reference external" href="https://cloud.google.com/appengine/docs/python/datastore/modelclass#Model_get_by_id">get_by_id()</a> of <em>PaliWord</em> <em>kind</em>. The
+<em>entity</em> will be returned by this call if exists. Then we can further process
+the <em>entity</em> the way we want.</p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">lookup</span><span class="p">(</span><span class="n">word</span><span class="p">):</span>
+  <span class="n">paliword</span> <span class="o">=</span> <span class="n">PaliWord</span><span class="o">.</span><span class="n">get_by_id</span><span class="p">(</span><span class="n">word</span><span class="p">)</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">paliword</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">decodeXML</span><span class="p">(</span><span class="n">paliword</span><span class="o">.</span><span class="n">xmlfilename</span><span class="p">,</span> <span class="n">paliword</span><span class="o">.</span><span class="n">xmlfiledata</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf8&#39;</span><span class="p">))</span>
+  <span class="k">else</span><span class="p">:</span>
+    <span class="k">return</span> <span class="sa">u</span><span class="s1">&#39;查無此字(No Such Word)&#39;</span>
+</pre></div>
+<p>In my dictionary application, the use of App Engine Datastore is very simple and
+straight forward because of the characteristics of my data. If you have a
+similar application and want to know how to use GAE Datastore, I hope this would
+be helpful.</p>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/google-app-engine.html">Google App Engine</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/python.html">Python</a>
+,       <a href="/tag/web-application.html">Web application</a>
+,       <a href="/tag/web.html">web</a>
+,       <a href="/tag/google-app-engine.html">Google App Engine</a>
+,       <a href="/tag/xml.html">XML</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

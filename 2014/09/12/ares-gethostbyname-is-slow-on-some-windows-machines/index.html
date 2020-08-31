@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8">
+  <title>ares_gethostbyname() is slow on some Windows machines</title>
+  <meta name="keywords" content="tech"/>
+  <meta name="description" content="The function ares_gethostbyname()  in  c-ares  library, as of version 1.10.0, is slow on some Windows machines. ..."/>
+  <meta name="author" content="Ruey-Shi Rau (timrau)"/><meta property="og:title" content="ares_gethostbyname() is slow on some Windows machines" /><meta property="og:image" content="https://scontent.fkhh1-2.fna.fbcdn.net/v/t1.0-9/16864052_10154594252128318_1036650617995059131_n.jpg?oh=8e888e99ca174d1daaa5cda10f426779&oe=5AFCB2D4" />
+<meta property="og:description" content="The function ares_gethostbyname()  in  c-ares  library, as of version 1.10.0, is slow on some Windows machines. ..." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2014/09/12/ares-gethostbyname-is-slow-on-some-windows-machines/"
+           rel="bookmark"
+           title="Permalink to ares_gethostbyname() is slow on some Windows machines">
+          ares_gethostbyname() is slow on some Windows machines
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2014-09-12T23:08:00+08:00">
+    September 12, 2014
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2014/09/12/ares-gethostbyname-is-slow-on-some-windows-machines%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content">The function <a href="http://linux.die.net/man/3/ares_gethostbyname" target="_blank">ares_gethostbyname()</a> in <a href="http://c-ares.haxx.se/" target="_blank">c-ares</a> library, as of version 1.10.0, is slow on some Windows machines.<br/>
+The more unconnected network interface the machine has, the slower the DNS lookup may be.<br/>
+This <a href="https://github.com/bagder/c-ares/pull/12" target="_blank">pull request</a> intended to solve this issue, although it is not merged into code base yet.<br/>
+<br/>
+Per Microsoft&#39;s document on <a href="http://msdn.microsoft.com/en-us/library/windows/desktop/aa365915(v=vs.85).aspx" target="_blank">GetAdaptersAddresses function</a>, GetAdaptersAddresses(), called by get_DNS_AdaptersAddresses() in c-ares library,<br/>
+<blockquote>
+is implemented only as a synchronous function. The GetAdaptersAddresses function requires a significant amount of network resources and time to complete since all of the low-level network interface tables must be traversed.
+</blockquote>
+Thus it makes sense to postpone calls to get_DNS_AdaptersAddresses() later. The only concern is that I&#39;m not sure whether the functionality is still correct or not.
+<div style="clear: both;"></div><hr class="docutils" />
+<p><a class="reference external" href="https://timrau.blogspot.com/2014/09/c-ares-is-slow-on-windows.html">post</a>
+by
+<a class="reference external" href="/pages/timrau.html">timrau</a></p>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/ruey-shi-rau-timrau.html">Ruey-Shi Rau (timrau)</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/timraus-sandbox.html">timrau's sandbox</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/tech.html">tech</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

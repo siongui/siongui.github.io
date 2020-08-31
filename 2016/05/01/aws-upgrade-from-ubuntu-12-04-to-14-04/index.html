@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>[AWS] Upgrade from Ubuntu 12.04 to 14.04</title>
+  <meta name="keywords" content="Amazon Web Services (AWS),Bash,Ubuntu Linux,Commandline"/>
+  <meta name="description" content="Upgrade from AWS EC2 t1.micro running Ubuntu 12.04 LTS with Apache-2.2 to t2.nano running Ubuntu 14.04 LTS with Apache-2.4."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="[AWS] Upgrade from Ubuntu 12.04 to 14.04" /><meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/1/1d/AmazonWebservices_Logo.svg" />
+<meta property="og:description" content="Upgrade from AWS EC2 t1.micro running Ubuntu 12.04 LTS with Apache-2.2 to t2.nano running Ubuntu 14.04 LTS with Apache-2.4." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2016/05/01/aws-upgrade-from-ubuntu-12-04-to-14-04/"
+           rel="bookmark"
+           title="Permalink to [AWS] Upgrade from Ubuntu 12.04 to 14.04">
+          [AWS] Upgrade from Ubuntu 12.04 to 14.04
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2016-05-01T12:25:00+08:00">
+    May 01, 2016
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2016/05/01/aws-upgrade-from-ubuntu-12-04-to-14-04%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p>Upgrade from <a class="reference external" href="https://aws.amazon.com/">AWS</a> <a class="reference external" href="https://aws.amazon.com/ec2/">EC2</a> <a class="reference external" href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/concepts_micro_instances.html">t1.micro</a> running <a class="reference external" href="https://aws.amazon.com/marketplace/pp/B007Z5YWX4/">Ubuntu 12.04 LTS</a> with Apache-2.2 to
+<a class="reference external" href="https://aws.amazon.com/blogs/aws/ec2-update-t2-nano-instances-now-available/">t2.nano</a> running <a class="reference external" href="https://aws.amazon.com/marketplace/pp/B00JV9TBA6/">Ubuntu 14.04 LTS</a> with Apache-2.4. The following is the
+problems I have.</p>
+<div class="section" id="access-on-this-server">
+<h2>access / on this server</h2>
+<p>Upgrade to Apache-2.4 from 2.2. Got the following message:</p>
+<div class="highlight"><pre><span></span>You don&#39;t have permission to access / on this server
+</pre></div>
+<p><a class="reference external" href="http://stackoverflow.com/a/14671738">Solution</a>:</p>
+<p>Add</p>
+<div class="highlight"><pre><span></span>&lt;Directory /&gt;
+        Require all granted
+&lt;/Directory&gt;
+</pre></div>
+<p>to <cite>/etc/apache2/sites-available/000-default.conf</cite></p>
+<div class="highlight"><pre><span></span>&lt;VirtualHost *:80&gt;
+
+      ...
+
+      &lt;Directory /&gt;
+              Require all granted
+      &lt;/Directory&gt;
+&lt;/VirtualHost&gt;
+</pre></div>
+
+</div>
+<div class="section" id="enable-apache-file-and-directory-indexing">
+<h2>enable apache file and directory indexing</h2>
+<p>Solution <a class="footnote-reference" href="#id8" id="id1">[6]</a>: Edit <cite>/etc/apache2/apache2.conf</cite>. Find:</p>
+<div class="highlight"><pre><span></span>&lt;Directory /&gt;
+      Options FollowSymLinks
+      AllowOverride None
+      Require all denied
+&lt;/Directory&gt;
+</pre></div>
+<p>Change to:</p>
+<div class="highlight"><pre><span></span>&lt;Directory /&gt;
+      Options Indexes FollowSymLinks
+      AllowOverride None
+      Require all denied
+&lt;/Directory&gt;
+</pre></div>
+<p>Then restart apache2:</p>
+<div class="highlight"><pre><span></span>$ sudo service apache2 restart
+<span class="c1"># or</span>
+$ sudo /etc/init.d/apache2 restart
+</pre></div>
+
+</div>
+<div class="section" id="unable-to-resolve-host">
+<h2>unable to resolve host</h2>
+<p>Upgrade from Ubuntu 12.04 to 14.04. Got the following message:</p>
+<div class="highlight"><pre><span></span>unable to resolve host ip-172-30-0-19
+</pre></div>
+<p>Sulution <a class="footnote-reference" href="#id6" id="id2">[4]</a>: add the following line to <cite>/etc/hosts</cite></p>
+<div class="highlight"><pre><span></span>127.0.1.1 ip-172-30-0-19
+</pre></div>
+<hr class="docutils" />
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td><a class="reference external" href="http://stackoverflow.com/questions/26676933/migrate-from-t1-micro-to-t2-micro-amazon-aws">Migrate from t1.micro to t2.micro Amazon AWS - Stack Overflow</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[2]</td><td><a class="reference external" href="/2016/04/30/aws-create-or-migrate-linux-users-on-ec2/">[AWS] Create/Migrate Linux Users on Amazon EC2</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id5" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[3]</td><td><a class="reference external" href="http://serverfault.com/questions/576939/namevirtualhost-has-no-effect">apache 2.2 - NameVirtualHost has no effect - Server Fault</a></td></tr>
+</tbody>
+</table>
+
+<table class="docutils footnote" frame="void" id="id6" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[4]</a></td><td><a class="reference external" href="https://forums.aws.amazon.com/message.jspa?messageID=495274">AWS Developer Forums: sudo: unable to resolve host ...</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id7" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[5]</td><td><a class="reference external" href="http://stackoverflow.com/questions/10873295/error-message-forbidden-you-dont-have-permission-to-access-on-this-server">apache - Error message “Forbidden You don't have permission to access / on this server”</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id8" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[6]</a></td><td><div class="first last line-block">
+<div class="line"><a class="reference external" href="https://www.google.com/search?q=apache+list+files+in+directory">apache list files in directory - Google search</a></div>
+<div class="line"><a class="reference external" href="http://www.cyberciti.biz/faq/enabling-apache-file-directory-indexing/">How do I enable apache file and directory indexing under Linux or UNIX?</a></div>
+</div>
+</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/amazon-web-services-aws.html">Amazon Web Services (AWS)</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/amazon-web-services-aws.html">Amazon Web Services (AWS)</a>
+,       <a href="/tag/bash.html">Bash</a>
+,       <a href="/tag/ubuntu-linux.html">Ubuntu Linux</a>
+,       <a href="/tag/commandline.html">Commandline</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

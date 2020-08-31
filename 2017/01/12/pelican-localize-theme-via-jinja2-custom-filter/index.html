@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>[Pelican] Localize Theme via Jinja2 Custom Filter</title>
+  <meta name="keywords" content="Python,Pelican,Jinja2,i18n,gettext,html"/>
+  <meta name="description" content="Pelican static site generator - Localize theme with i18n_subsites plugin via custom Jinja2 filter. Implementation of gettext-like filter."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="[Pelican] Localize Theme via Jinja2 Custom Filter" />    <meta property="og:image" content="/./extra/Dharma_wheel.svg" /><meta property="og:description" content="Pelican static site generator - Localize theme with i18n_subsites plugin via custom Jinja2 filter. Implementation of gettext-like filter." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2017/01/12/pelican-localize-theme-via-jinja2-custom-filter/"
+           rel="bookmark"
+           title="Permalink to [Pelican] Localize Theme via Jinja2 Custom Filter">
+          [Pelican] Localize Theme via Jinja2 Custom Filter
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2017-01-12T22:06:00+08:00">
+    January 12, 2017
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2017/01/12/pelican-localize-theme-via-jinja2-custom-filter%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><div class="section" id="introduction">
+<h2>Introduction</h2>
+<p><a class="reference external" href="http://blog.getpelican.com/">Pelican</a> static site generator and <a class="reference external" href="https://github.com/getpelican/pelican-plugins/tree/master/i18n_subsites">i18n_subsites</a> plugin can help you build
+website or blog which supports multiple languages. When generating websites for
+each supported language, some strings in the <a class="reference external" href="http://docs.getpelican.com/en/latest/themes.html">theme</a> need to be translated
+according to <a class="reference external" href="http://docs.getpelican.com/en/latest/settings.html#translations">default language</a> while <a class="reference external" href="https://github.com/getpelican/pelican-plugins/tree/master/i18n_subsites">i18n_subsites</a> plugin generates sub-site
+for each supported language. There are several ways to localize <a class="reference external" href="http://docs.getpelican.com/en/latest/themes.html">theme</a>:</p>
+<ol class="arabic">
+<li><p class="first">Use <a class="reference external" href="https://www.google.com/search?q=jinja2">Jinja2</a> i18n extension in GNU <a class="reference external" href="https://www.google.com/search?q=gettext">gettext</a> way as <a class="footnote-reference" href="#id5" id="id1">[2]</a>:</p>
+<p>This way is good for big projects, but for small projects it is too tedious.</p>
+</li>
+<li><p class="first">Implement a <a class="reference external" href="https://www.google.com/search?q=gettext">gettext</a> <a class="reference external" href="http://jinja.pocoo.org/docs/dev/templates/#macros">macro</a> in <a class="reference external" href="http://docs.getpelican.com/en/latest/themes.html">theme</a> as <a class="footnote-reference" href="#id6" id="id2">[3]</a>:</p>
+<p>This way needs to put the code in the HTML <a class="reference external" href="http://docs.getpelican.com/en/latest/themes.html">theme</a>, which is not good in terms
+of overall architecture.</p>
+</li>
+</ol>
+<p>Instead, this post shows another way to implement <a class="reference external" href="https://www.google.com/search?q=gettext">gettext</a>-like filter in
+<tt class="docutils literal">pelicanconf.py</tt> and ust it to localize <a class="reference external" href="http://docs.getpelican.com/en/latest/themes.html">theme</a> (translate strings in the
+<a class="reference external" href="http://docs.getpelican.com/en/latest/themes.html">theme</a>).</p>
+
+</div>
+<div class="section" id="solution">
+<h2>Solution</h2>
+<p>First implement a custom filter named <em>gettext</em> in <tt class="docutils literal">pelicanconf.py</tt> as
+follows. Note that strings to be translated and translations are included in
+this filter, in this case <tt class="docutils literal">en</tt> is default locale, <tt class="docutils literal">zh</tt> and <tt class="docutils literal">th</tt> are
+supported locales except <tt class="docutils literal">en</tt>.</p>
+<div class="highlight"><pre><span></span><span class="c1"># custom Jinja2 filter for localizing theme</span>
+<span class="k">def</span> <span class="nf">gettext</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="n">lang</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">lang</span> <span class="o">==</span> <span class="s2">&quot;en&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">string</span>
+    <span class="k">elif</span> <span class="n">lang</span> <span class="o">==</span> <span class="s2">&quot;zh&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">string</span> <span class="o">==</span> <span class="s2">&quot;Archives&quot;</span><span class="p">:</span> <span class="k">return</span> <span class="s2">&quot;歸檔&quot;</span>
+        <span class="k">elif</span> <span class="n">string</span> <span class="o">==</span> <span class="s2">&quot;Categories&quot;</span><span class="p">:</span> <span class="k">return</span> <span class="s2">&quot;分類&quot;</span>
+        <span class="k">elif</span> <span class="n">string</span> <span class="o">==</span> <span class="s2">&quot;Category&quot;</span><span class="p">:</span> <span class="k">return</span> <span class="s2">&quot;分類&quot;</span>
+        <span class="k">elif</span> <span class="n">string</span> <span class="o">==</span> <span class="s2">&quot;Authors&quot;</span><span class="p">:</span> <span class="k">return</span> <span class="s2">&quot;作者&quot;</span>
+        <span class="k">elif</span> <span class="n">string</span> <span class="o">==</span> <span class="s2">&quot;Author&quot;</span><span class="p">:</span> <span class="k">return</span> <span class="s2">&quot;作者&quot;</span>
+        <span class="k">elif</span> <span class="n">string</span> <span class="o">==</span> <span class="s2">&quot;Tags&quot;</span><span class="p">:</span> <span class="k">return</span> <span class="s2">&quot;標籤&quot;</span>
+        <span class="k">elif</span> <span class="n">string</span> <span class="o">==</span> <span class="s2">&quot;Updated&quot;</span><span class="p">:</span> <span class="k">return</span> <span class="s2">&quot;更新&quot;</span>
+        <span class="k">elif</span> <span class="n">string</span> <span class="o">==</span> <span class="s2">&quot;Translation(s)&quot;</span><span class="p">:</span> <span class="k">return</span> <span class="s2">&quot;翻譯&quot;</span>
+        <span class="k">elif</span> <span class="n">string</span> <span class="o">==</span> <span class="s2">&quot;Edit on Github&quot;</span><span class="p">:</span> <span class="k">return</span> <span class="s2">&quot;在Github上編輯&quot;</span>
+        <span class="k">else</span><span class="p">:</span> <span class="k">return</span> <span class="n">string</span>
+    <span class="k">elif</span> <span class="n">lang</span> <span class="o">==</span> <span class="s2">&quot;th&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">string</span> <span class="o">==</span> <span class="s2">&quot;Archives&quot;</span><span class="p">:</span> <span class="k">return</span> <span class="s2">&quot;สารบรรณ&quot;</span>
+        <span class="k">elif</span> <span class="n">string</span> <span class="o">==</span> <span class="s2">&quot;Categories&quot;</span><span class="p">:</span> <span class="k">return</span> <span class="s2">&quot;ประเภท&quot;</span>
+        <span class="k">elif</span> <span class="n">string</span> <span class="o">==</span> <span class="s2">&quot;Category&quot;</span><span class="p">:</span> <span class="k">return</span> <span class="s2">&quot;ประเภท&quot;</span>
+        <span class="k">elif</span> <span class="n">string</span> <span class="o">==</span> <span class="s2">&quot;Authors&quot;</span><span class="p">:</span> <span class="k">return</span> <span class="s2">&quot;ผู้เขียน&quot;</span>
+        <span class="k">elif</span> <span class="n">string</span> <span class="o">==</span> <span class="s2">&quot;Author&quot;</span><span class="p">:</span> <span class="k">return</span> <span class="s2">&quot;ผู้เขียน&quot;</span>
+        <span class="k">elif</span> <span class="n">string</span> <span class="o">==</span> <span class="s2">&quot;Tags&quot;</span><span class="p">:</span> <span class="k">return</span> <span class="s2">&quot;แท็ก&quot;</span>
+        <span class="k">elif</span> <span class="n">string</span> <span class="o">==</span> <span class="s2">&quot;Updated&quot;</span><span class="p">:</span> <span class="k">return</span> <span class="s2">&quot;การปรับปรุง&quot;</span>
+        <span class="k">elif</span> <span class="n">string</span> <span class="o">==</span> <span class="s2">&quot;Translation(s)&quot;</span><span class="p">:</span> <span class="k">return</span> <span class="s2">&quot;การแปล&quot;</span>
+        <span class="k">elif</span> <span class="n">string</span> <span class="o">==</span> <span class="s2">&quot;Edit on Github&quot;</span><span class="p">:</span> <span class="k">return</span> <span class="s2">&quot;แก้ไขที่ Github&quot;</span>
+        <span class="k">else</span><span class="p">:</span> <span class="k">return</span> <span class="n">string</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">string</span>
+
+<span class="n">JINJA_FILTERS</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;gettext&quot;</span><span class="p">:</span> <span class="n">gettext</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+<p>Strings to be localized in the <a class="reference external" href="http://docs.getpelican.com/en/latest/themes.html">theme</a> are marked as follows, and <a class="reference external" href="https://github.com/getpelican/pelican-plugins/tree/master/i18n_subsites">i18n_subsites</a>
+plugin will replace strings according to <a class="reference external" href="http://docs.getpelican.com/en/latest/settings.html#translations">DEFAULT_LANG setting</a> while
+generating subsites of each language.</p>
+<div class="highlight"><pre><span></span><span class="c">&lt;!-- mark all the strings to be localized ... --&gt;</span>
+<span class="p">&lt;</span><span class="nt">span</span><span class="p">&gt;</span>{{ &#39;Archives&#39;|gettext(DEFAULT_LANG) }}<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">span</span><span class="p">&gt;</span>{{ &#39;Updated&#39;|gettext(DEFAULT_LANG) }}<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">span</span><span class="p">&gt;</span>{{ &#39;Author&#39;|gettext(DEFAULT_LANG) }}<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+<span class="c">&lt;!-- ... --&gt;</span>
+</pre></div>
+
+<p>For full working example, see <a class="footnote-reference" href="#id4" id="id3">[1]</a>.</p>
+<hr class="docutils" />
+<p>Tested on: <tt class="docutils literal">Ubuntu Linux 16.10</tt>, <tt class="docutils literal">Python 2.7.12+</tt>, <a class="reference external" href="http://docs.getpelican.com/en/3.7.0/">Pelican 3.7.0</a>.</p>
+<hr class="docutils" />
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id3">[1]</a></td><td><a class="reference external" href="https://github.com/siongui/pelican-template/commit/b7dcda254f4b1b6a8856679b24a4bdaed7de97e5">use Jinja2 custom filter to localize theme · siongui/pelican-template&#64;b7dcda2 · GitHub</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id5" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[2]</a></td><td><a class="reference external" href="https://github.com/getpelican/pelican-plugins/blob/master/i18n_subsites/localizing_using_jinja2.rst">Localizing themes with Jinja2 - i18n_subsites - pelican-plugins</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id6" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[3]</a></td><td><a class="reference external" href="/2017/01/07/pelican-translate-string-according-to-default-language-in-theme/">[Pelican] Translate String According to Default Language in Theme</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id7" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[4]</td><td><a class="reference external" href="/2017/01/08/pelican-get-single-page-or-article-by-slug-metadata-in-theme/">[Pelican] Get Single Page or Article by slug Metadata in Theme</a></td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/python.html">Python</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/python.html">Python</a>
+,       <a href="/tag/pelican.html">Pelican</a>
+,       <a href="/tag/jinja2.html">Jinja2</a>
+,       <a href="/tag/i18n.html">i18n</a>
+,       <a href="/tag/gettext.html">gettext</a>
+,       <a href="/tag/html.html">html</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

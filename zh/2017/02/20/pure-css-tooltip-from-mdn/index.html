@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>純CSS提示框(tooltip, 工具提示) - MDN網頁範例</title>
+  <meta name="keywords" content="CSS,Web開發"/>
+  <meta name="description" content="純 CSS tooltip (提示框，工具提示)，截取自MDN的範例。"/>
+  <meta name="author" content="戴上為"/><meta property="og:title" content="純CSS提示框(tooltip, 工具提示) - MDN網頁範例" /><meta property="og:image" content="http://www.cssportal.com/blog/wp-content/uploads/2013/05/tooltip.png" />
+<meta property="og:description" content="純 CSS tooltip (提示框，工具提示)，截取自MDN的範例。" /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/zh/../extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/zh/../theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/zh/">理論與實作</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/zh/pages/about.html">關於</a>
+    <a class="nav-item" href="/zh/archives.html">歸檔</a>
+    <a class="nav-item" href="/zh/categories.html">分類</a>
+    <a class="nav-item" href="/zh/tags.html">標籤</a>
+    <a class="nav-item" href="/zh/authors.html">作者</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/">English</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/zh/2017/02/20/pure-css-tooltip-from-mdn/"
+           rel="bookmark"
+           title="Permalink to 純CSS提示框(tooltip, 工具提示) - MDN網頁範例">
+          純CSS提示框(tooltip, 工具提示) - MDN網頁範例
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2017-02-20T23:35:00+08:00">
+    二月 20, 2017
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2017/02/20/pure-css-tooltip-from-mdn%25zh.rst">在Github上編輯</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p>不囉唆，先看範例demo，把滑鼠移到藍色底線字上：</p>
+<style>
+  span[data-descr] {
+    position: relative;
+    text-decoration: underline;
+    color: blue;
+    cursor: help;
+  }
+  span[data-descr]:hover::after {
+    content: attr(data-descr);
+    position: absolute;
+    left: 0;
+    top: 1.25em;
+    background-color: yellow;
+    border: 1px gray solid;
+    border-radius: 3px;
+    padding: 3px;
+  }
+</style>
+<div style="text-align: center; padding: 2em;">
+這是一個<span data-descr="大家好，我是提示">tooltip提示框</span>範例
+</div><p>我把MDN網頁範例 <a class="footnote-reference" href="#id2" id="id1">[1]</a> 改寫的更簡單一點。
+程式原始碼如下：</p>
+<p><strong>HTML程式碼</strong> ：</p>
+<div class="highlight"><pre><span></span>這是一個<span class="p">&lt;</span><span class="nt">span</span> <span class="na">data-descr</span><span class="o">=</span><span class="s">&quot;大家好，我是提示&quot;</span><span class="p">&gt;</span>tooltip提示框<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>範例
+</pre></div>
+
+<p><strong>CSS程式碼</strong> ：</p>
+<div class="highlight"><pre><span></span><span class="nt">span</span><span class="o">[</span><span class="nt">data-descr</span><span class="o">]</span> <span class="p">{</span>
+    <span class="k">position</span><span class="p">:</span> <span class="kc">relative</span><span class="p">;</span>
+    <span class="k">text-decoration</span><span class="p">:</span> <span class="kc">underline</span><span class="p">;</span>
+    <span class="k">color</span><span class="p">:</span> <span class="kc">blue</span><span class="p">;</span>
+    <span class="k">cursor</span><span class="p">:</span> <span class="kc">help</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">span</span><span class="o">[</span><span class="nt">data-descr</span><span class="o">]</span><span class="p">:</span><span class="nd">hover</span><span class="p">::</span><span class="nd">after</span> <span class="p">{</span>
+    <span class="k">content</span><span class="p">:</span> <span class="nb">attr</span><span class="p">(</span><span class="n">data</span><span class="o">-</span><span class="n">descr</span><span class="p">);</span>
+    <span class="k">position</span><span class="p">:</span> <span class="kc">absolute</span><span class="p">;</span>
+    <span class="k">left</span><span class="p">:</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">top</span><span class="p">:</span> <span class="mf">1.25</span><span class="kt">em</span><span class="p">;</span>
+    <span class="k">background-color</span><span class="p">:</span> <span class="kc">yellow</span><span class="p">;</span>
+    <span class="k">border</span><span class="p">:</span> <span class="mi">1</span><span class="kt">px</span> <span class="kc">gray</span> <span class="kc">solid</span><span class="p">;</span>
+    <span class="k">border-radius</span><span class="p">:</span> <span class="mi">3</span><span class="kt">px</span><span class="p">;</span>
+    <span class="k">padding</span><span class="p">:</span> <span class="mi">3</span><span class="kt">px</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>簡單解釋，就是利用 <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/CSS/::after">::after</a> 偽元素(<a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-elements">pseudo-element</a>) 結合CSS的 <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/CSS/attr">attr()</a> 表達式
+來製造一個tooltip提示框。
+有興趣的話，順著我提供的連結(英文)往下看，不然就把程式碼拿去照著改一改就好！
+希望對大家有幫助！</p>
+<hr class="docutils" />
+<p>參考：</p>
+<table class="docutils footnote" frame="void" id="id2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td><a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/CSS/::after#Tooltips">::after (:after) - CSS | MDN</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[2]</td><td><div class="first last line-block">
+<div class="line"><a class="reference external" href="https://www.google.com/search?q=tooltip+%E4%B8%AD%E6%96%87">tooltip 中文 - Google search</a></div>
+<div class="line"><a class="reference external" href="https://duckduckgo.com/?q=tooltip+%E4%B8%AD%E6%96%87">tooltip 中文 - DuckDuckGo search</a></div>
+<div class="line"><a class="reference external" href="https://www.ecosia.org/search?q=tooltip+%E4%B8%AD%E6%96%87">tooltip 中文 - Ecosia search</a></div>
+<div class="line"><a class="reference external" href="https://www.bing.com/search?q=tooltip+%E4%B8%AD%E6%96%87">tooltip 中文 - Bing search</a></div>
+<div class="line"><a class="reference external" href="https://search.yahoo.com/search?p=tooltip+%E4%B8%AD%E6%96%87">tooltip 中文 - Yahoo search</a></div>
+<div class="line"><a class="reference external" href="https://www.baidu.com/s?wd=tooltip+%E4%B8%AD%E6%96%87">tooltip 中文 - Baidu search</a></div>
+<div class="line"><a class="reference external" href="https://www.yandex.com/search/?text=tooltip+%E4%B8%AD%E6%96%87">tooltip 中文 - Yandex search</a></div>
+</div>
+</td></tr>
+</tbody>
+</table>
+
+<table class="docutils footnote" frame="void" id="id4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[3]</td><td><div class="first last line-block">
+<div class="line"><a class="reference external" href="https://www.google.com/search?q=pure+css+tooltip">pure css tooltip - Google search</a></div>
+<div class="line"><a class="reference external" href="https://duckduckgo.com/?q=pure+css+tooltip">pure css tooltip - DuckDuckGo search</a></div>
+<div class="line"><a class="reference external" href="https://www.ecosia.org/search?q=pure+css+tooltip">pure css tooltip - Ecosia search</a></div>
+<div class="line"><a class="reference external" href="https://www.bing.com/search?q=pure+css+tooltip">pure css tooltip - Bing search</a></div>
+<div class="line"><a class="reference external" href="https://search.yahoo.com/search?p=pure+css+tooltip">pure css tooltip - Yahoo search</a></div>
+<div class="line"><a class="reference external" href="https://www.baidu.com/s?wd=pure+css+tooltip">pure css tooltip - Baidu search</a></div>
+<div class="line"><a class="reference external" href="https://www.yandex.com/search/?text=pure+css+tooltip">pure css tooltip - Yandex search</a></div>
+</div>
+</td></tr>
+</tbody>
+</table>
+</div>
+
+    <footer><hr><address><b>作者</b>:
+    <a rel="author"
+       href="/zh/author/dai-shang-wei.html">戴上為</a>
+  </address><aside>
+    <i>&isin;</i> <b>分類</b>:
+    <a href="/zh/category/css.html">CSS</a>
+  </aside><aside>
+    <i>&sum;</i> <b>標籤</b>:
+      <a href="/zh/tag/css.html">CSS</a>
+,       <a href="/zh/tag/webkai-fa.html">Web開發</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>[Makefile] Check if Run on Travis CI</title>
+  <meta name="keywords" content="Bash,Makefile,Commandline"/>
+  <meta name="description" content="Check if Makefile runs on Travis CI or not."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="[Makefile] Check if Run on Travis CI" />    <meta property="og:image" content="/./extra/Dharma_wheel.svg" /><meta property="og:description" content="Check if Makefile runs on Travis CI or not." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2017/06/13/makefile-check-if-run-on-travis-ci/"
+           rel="bookmark"
+           title="Permalink to [Makefile] Check if Run on Travis CI">
+          [Makefile] Check if Run on Travis CI
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2017-06-13T23:06:00+08:00">
+    June 13, 2017
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2017/06/13/makefile-check-if-run-on-travis-ci%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p>I want my <a class="reference external" href="https://www.google.com/search?q=Makefile">Makefile</a> to be used both on local development and Travis CI build.
+The programming language is Go, and I need to export <em>GOROOT</em>, <em>GOPATH</em>, and
+<em>PATH</em> during local devlopement. The build environment on Travis CI has these
+environment variables already set, so I want to check if the running environment
+is Travis CI or not. If it is, do not export these variables.</p>
+<p>I searched the Travis CI environment variables <a class="footnote-reference" href="#id2" id="id1">[1]</a>, and found that <em>TRAVIS</em> env
+is set to <em>true</em> in Travis CI build. We can export variables only on Travis CI
+build as follows:</p>
+<div class="highlight"><pre><span></span><span class="cp">ifndef TRAVIS</span>
+      <span class="nb">export</span> <span class="nv">GOROOT</span><span class="o">=</span><span class="k">$(</span>realpath ../go<span class="k">)</span>
+      <span class="nb">export</span> <span class="nv">GOPATH</span><span class="o">=</span><span class="k">$(</span>realpath .<span class="k">)</span>
+      <span class="nb">export</span> PATH :<span class="o">=</span> <span class="k">$(</span>GOROOT<span class="k">)</span>/bin:<span class="k">$(</span>GOPATH<span class="k">)</span>/bin:<span class="k">$(</span>PATH<span class="k">)</span>
+<span class="cp">endif</span>
+</pre></div>
+<p><em>ifndef</em> means <em>if not defined</em>, so if <em>TRAVIS</em> is not defined, which means it's
+local development environment, we will export <em>GOROOT</em>, <em>GOPATH</em>, and <em>PATH</em>.</p>
+<hr class="docutils" />
+<p>Tested on <cite>Travis CI</cite>, <a class="reference external" href="http://releases.ubuntu.com/17.04/">Ubuntu Linux 17.04</a></p>
+<hr class="docutils" />
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td><a class="reference external" href="https://docs.travis-ci.com/user/environment-variables/">Environment Variables - Travis CI</a></td></tr>
+</tbody>
+</table>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/bash.html">Bash</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/bash.html">Bash</a>
+,       <a href="/tag/makefile.html">Makefile</a>
+,       <a href="/tag/commandline.html">Commandline</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>[Vim] Replace Footnote by Regular Expression</title>
+  <meta name="keywords" content="Bash,String Manipulation,Regular Expression,Vim,reStructuredText"/>
+  <meta name="description" content="Replace footnote in reStructuredText format via regular expression in Vim editor."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="[Vim] Replace Footnote by Regular Expression" />    <meta property="og:image" content="/./extra/Dharma_wheel.svg" /><meta property="og:description" content="Replace footnote in reStructuredText format via regular expression in Vim editor." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2016/03/28/vim-replace-footnote-via-regular-expression/"
+           rel="bookmark"
+           title="Permalink to [Vim] Replace Footnote by Regular Expression">
+          [Vim] Replace Footnote by Regular Expression
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2016-03-28T06:30:00+08:00">
+    March 28, 2016
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2016/03/28/vim-replace-footnote-via-regular-expression%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p>Replace footnote in <a class="reference external" href="https://www.google.com.tw/search?q=reStructuredText">reStructuredText</a> format via <a class="reference external" href="https://www.google.com.tw/search?q=regular+expression">regular expression</a> in <a class="reference external" href="http://www.vim.org/">Vim</a>
+editor.</p>
+<p><tt class="docutils literal"><span class="pre">(註1-1)</span></tt> =&gt; `` [1]_ ``</p>
+<div class="highlight"><pre><span></span><span class="p">:</span>%s<span class="sr">/(註1-\(\d\{1}\))/</span> [\<span class="m">1</span>]_ /gc
+</pre></div>
+<p><tt class="docutils literal"><span class="pre">〔註1-1〕：</span></tt> =&gt; `` .. [1] ``</p>
+<div class="highlight"><pre><span></span><span class="p">:</span>%s<span class="sr">/^〔註1-\(\d\{1}\)〕：/</span>.. [\<span class="m">1</span>] /gc
+</pre></div>
+<p><tt class="docutils literal">[001]</tt> =&gt; <tt class="docutils literal">[001]_</tt></p>
+<div class="highlight"><pre><span></span><span class="p">:</span>%s<span class="sr">/\[\(\d\{3}\)\]/</span>\[\<span class="m">1</span>\]_/gc
+</pre></div>
+<p><tt class="docutils literal">001</tt> =&gt; <tt class="docutils literal">[001]_</tt></p>
+<div class="highlight"><pre><span></span><span class="p">:</span>%s<span class="sr">/\(\d\{3}\)/</span>\[\<span class="m">1</span>\]_/gc
+<span class="p">:</span>%s<span class="sr">/\(0\d\{2}\)/</span>\[\<span class="m">1</span>\]_/gc
+</pre></div>
+<p><tt class="docutils literal">)[001]_</tt> =&gt; <tt class="docutils literal">) [001]_</tt></p>
+<div class="highlight"><pre><span></span><span class="p">:</span>%s<span class="sr">/)\(\[\d\{3}]_\)/</span><span class="p">)</span> \<span class="m">1</span>/gc
+</pre></div>
+<p><tt class="docutils literal">〔註001〕</tt> =&gt; `` .. [001] ``</p>
+<div class="highlight"><pre><span></span><span class="p">:</span>%s<span class="sr">/^〔註\(0\d\{2}\)〕/</span>.. [\<span class="m">1</span>] /gc
+</pre></div>
+
+<hr class="docutils" />
+<p>Tested on <tt class="docutils literal">Ubuntu Linux 15.10</tt>, <tt class="docutils literal">vim <span class="pre">2:7.4.712-2ubuntu4</span></tt>.</p>
+<hr class="docutils" />
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id1" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td><div class="first last line-block">
+<div class="line"><a class="reference external" href="https://www.google.com/search?q=vim+regex+replace">vim regex replace</a></div>
+<div class="line"><a class="reference external" href="http://stackoverflow.com/questions/11850033/vim-regex-replace">Vim Regex Replace - Stack Overflow</a></div>
+</div>
+</td></tr>
+</tbody>
+</table>
+<!-- ``(註1-1)`` => `` [1]_ ``
+:%s/(註1-\(\d\{1}\))/ [\1]_ /gc -->
+<!-- ``〔註1-1〕：`` => `` .. [1] ``
+:%s/^〔註1-\(\d\{1}\)〕：/.. [\1] /gc -->
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/bash.html">Bash</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/bash.html">Bash</a>
+,       <a href="/tag/string-manipulation.html">String Manipulation</a>
+,       <a href="/tag/regular-expression.html">Regular Expression</a>
+,       <a href="/tag/vim.html">Vim</a>
+,       <a href="/tag/restructuredtext.html">reStructuredText</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

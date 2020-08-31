@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>[Golang] Get Url of All Posts of Instagram User</title>
+  <meta name="keywords" content="Go,Golang,Web Scrape,Go net/http,Instagram,HTTP cookie"/>
+  <meta name="description" content="Get URL of all posts of a specific Instagram user via Go programming language. Use only Go standard library and no third-party packages needed."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="[Golang] Get Url of All Posts of Instagram User" /><meta property="og:image" content="http://media.idownloadblog.com/wp-content/uploads/2017/06/Instagram-for-iOS-how-to-archive-post-iPhone-screenshot-001.jpg" />
+<meta property="og:description" content="Get URL of all posts of a specific Instagram user via Go programming language. Use only Go standard library and no third-party packages needed." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2018/02/13/go-get-all-post-url-of-instagram-user/"
+           rel="bookmark"
+           title="Permalink to [Golang] Get Url of All Posts of Instagram User">
+          [Golang] Get Url of All Posts of Instagram User
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2018-05-09T23:51:00+08:00">
+    Updated: May 09, 2018
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2018/02/13/go-get-all-post-url-of-instagram-user%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p><strong>[Update]</strong>: Due to Instagram API change, the method in this post is invalid
+now. But we can still apply the same idea of the method in the post to get all
+post urls from new GraphQL API. See my <a class="reference external" href="https://github.com/siongui/instago">instago</a> repo for more details.</p>
+<p>Interesting small program to get URL of all posts of a specific <a class="reference external" href="https://www.instagram.com/">Instagram</a> user.</p>
+<p>In this program only Go standard library is used, no third-party packages.</p>
+<p>To access the Instagram API via local Go program, you need to login <a class="reference external" href="https://www.instagram.com/">Instagram</a>
+and get the following information from your browser:</p>
+<ul class="simple">
+<li><tt class="docutils literal">ds_user_id</tt></li>
+<li><tt class="docutils literal">sessionid</tt></li>
+<li><tt class="docutils literal">csrftoken</tt></li>
+</ul>
+<img alt="ds_user_id sessionid csrftoken" class="align-center" src="https://i.stack.imgur.com/psJLZ.png" />
+<p>Please see this <a class="reference external" href="https://stackoverflow.com/a/44773079">SO answer</a> to get above values on Chrome browser.</p>
+<p>In each HTTP request, Instagram API returns only one page (12 posts), and also a
+token (<em>end_cursor</em> in this case) to get next page. The token is embedded in the
+query string of next HTTP request, and the name is <em>max_id</em>. Please read the
+code for more details.</p>
+<figure class="github-file">
+            <figcaption>
+              <a href="https://github.com/siongui/userpages/blob/master/content/code/go/ig-all-posts/userinfo.go">userinfo.go</a> |
+              <a href="https://github.com/siongui/userpages">repository</a> |
+              <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/code/go/ig-all-posts/userinfo.go">view raw</a>
+            </figcaption><div class="code-file">
+            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>  1
+  2
+  3
+  4
+  5
+  6
+  7
+  8
+  9
+ 10
+ 11
+ 12
+ 13
+ 14
+ 15
+ 16
+ 17
+ 18
+ 19
+ 20
+ 21
+ 22
+ 23
+ 24
+ 25
+ 26
+ 27
+ 28
+ 29
+ 30
+ 31
+ 32
+ 33
+ 34
+ 35
+ 36
+ 37
+ 38
+ 39
+ 40
+ 41
+ 42
+ 43
+ 44
+ 45
+ 46
+ 47
+ 48
+ 49
+ 50
+ 51
+ 52
+ 53
+ 54
+ 55
+ 56
+ 57
+ 58
+ 59
+ 60
+ 61
+ 62
+ 63
+ 64
+ 65
+ 66
+ 67
+ 68
+ 69
+ 70
+ 71
+ 72
+ 73
+ 74
+ 75
+ 76
+ 77
+ 78
+ 79
+ 80
+ 81
+ 82
+ 83
+ 84
+ 85
+ 86
+ 87
+ 88
+ 89
+ 90
+ 91
+ 92
+ 93
+ 94
+ 95
+ 96
+ 97
+ 98
+ 99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">igpost</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+	<span class="s">&quot;encoding/json&quot;</span>
+	<span class="s">&quot;errors&quot;</span>
+	<span class="s">&quot;fmt&quot;</span>
+	<span class="s">&quot;io/ioutil&quot;</span>
+	<span class="s">&quot;net/http&quot;</span>
+	<span class="s">&quot;strconv&quot;</span>
+	<span class="s">&quot;strings&quot;</span>
+<span class="p">)</span>
+
+<span class="c1">// no need to login or cookie to access this URL. But if login to Instagram,</span>
+<span class="c1">// private account will return private data if you are allowed to view the</span>
+<span class="c1">// private account.</span>
+<span class="kd">const</span> <span class="nx">urlUserInfo</span> <span class="p">=</span> <span class="s">`https://www.instagram.com/{{USERNAME}}/?__a=1`</span>
+
+<span class="kd">const</span> <span class="nx">userAgent</span> <span class="p">=</span> <span class="s">&quot;Instagram 10.3.2 (iPhone7,2; iPhone OS 9_3_3; en_US; en-US; scale=2.00; 750x1334) AppleWebKit/420+&quot;</span>
+
+<span class="c1">// used to decode the JSON data</span>
+<span class="kd">type</span> <span class="nx">RawUserResp</span> <span class="kd">struct</span> <span class="p">{</span>
+	<span class="nx">User</span> <span class="nx">UserInfo</span> <span class="s">`json:&quot;user&quot;`</span>
+<span class="p">}</span>
+
+<span class="c1">// You can add more fields in the struct to get more information</span>
+<span class="c1">// See response/types.go in github.com/ahmdrz/goinsta</span>
+<span class="kd">type</span> <span class="nx">UserInfo</span> <span class="kd">struct</span> <span class="p">{</span>
+	<span class="nx">Biography</span>       <span class="kt">string</span> <span class="s">`json:&quot;biography&quot;`</span>
+	<span class="nx">ExternalUrl</span>     <span class="kt">string</span> <span class="s">`json:&quot;external_url&quot;`</span>
+	<span class="nx">FullName</span>        <span class="kt">string</span> <span class="s">`json:&quot;full_name&quot;`</span>
+	<span class="nx">Id</span>              <span class="kt">string</span> <span class="s">`json:&quot;id&quot;`</span>
+	<span class="nx">IsPrivate</span>       <span class="kt">bool</span>   <span class="s">`json:&quot;is_private&quot;`</span>
+	<span class="nx">ProfilePicUrlHd</span> <span class="kt">string</span> <span class="s">`json:&quot;profile_pic_url_hd&quot;`</span>
+	<span class="nx">Username</span>        <span class="kt">string</span> <span class="s">`json:&quot;username&quot;`</span>
+	<span class="nx">Media</span>           <span class="kd">struct</span> <span class="p">{</span>
+		<span class="nx">Nodes</span>    <span class="p">[]</span><span class="nx">MediaNode</span> <span class="s">`json:&quot;nodes&quot;`</span>
+		<span class="nx">Count</span>    <span class="kt">int64</span>       <span class="s">`json:&quot;count&quot;`</span>
+		<span class="nx">PageInfo</span> <span class="kd">struct</span> <span class="p">{</span>
+			<span class="nx">HasNextPage</span> <span class="kt">bool</span>   <span class="s">`json:&quot;has_next_page&quot;`</span>
+			<span class="nx">EndCursor</span>   <span class="kt">string</span> <span class="s">`json:&quot;end_cursor&quot;`</span>
+		<span class="p">}</span> <span class="s">`json:&quot;page_info&quot;`</span>
+	<span class="p">}</span> <span class="s">`json:&quot;media&quot;`</span>
+<span class="p">}</span>
+
+<span class="kd">type</span> <span class="nx">MediaNode</span> <span class="kd">struct</span> <span class="p">{</span>
+	<span class="nx">Code</span>    <span class="kt">string</span> <span class="s">`json:&quot;code&quot;`</span> <span class="c1">// url of the post</span>
+	<span class="nx">Date</span>    <span class="kt">int64</span>  <span class="s">`json:&quot;date&quot;`</span>
+	<span class="nx">Caption</span> <span class="kt">string</span> <span class="s">`json:&quot;caption&quot;`</span>
+<span class="p">}</span>
+
+<span class="c1">// Send HTTP request and get http response on behalf of a specific Instagram</span>
+<span class="c1">// user. After login to Instagram, you can get the cookies of *ds_user_id*,</span>
+<span class="c1">// *sessionid*, *csrftoken* in Chrome Developer Tools.</span>
+<span class="c1">// See https://stackoverflow.com/a/44773079</span>
+<span class="c1">// or</span>
+<span class="c1">// https://github.com/hoschiCZ/instastories-backup#obtain-cookies</span>
+<span class="kd">func</span> <span class="nx">getHTTPResponse</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span> <span class="nx">ds_user_id</span><span class="p">,</span> <span class="nx">sessionid</span><span class="p">,</span> <span class="nx">csrftoken</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="nx">b</span> <span class="p">[]</span><span class="kt">byte</span><span class="p">,</span> <span class="nx">err</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">req</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">http</span><span class="p">.</span><span class="nx">NewRequest</span><span class="p">(</span><span class="s">&quot;GET&quot;</span><span class="p">,</span> <span class="nx">url</span><span class="p">,</span> <span class="kc">nil</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="k">return</span>
+	<span class="p">}</span>
+
+	<span class="nx">req</span><span class="p">.</span><span class="nx">AddCookie</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">http</span><span class="p">.</span><span class="nx">Cookie</span><span class="p">{</span><span class="nx">Name</span><span class="p">:</span> <span class="s">&quot;ds_user_id&quot;</span><span class="p">,</span> <span class="nx">Value</span><span class="p">:</span> <span class="nx">ds_user_id</span><span class="p">})</span>
+	<span class="nx">req</span><span class="p">.</span><span class="nx">AddCookie</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">http</span><span class="p">.</span><span class="nx">Cookie</span><span class="p">{</span><span class="nx">Name</span><span class="p">:</span> <span class="s">&quot;sessionid&quot;</span><span class="p">,</span> <span class="nx">Value</span><span class="p">:</span> <span class="nx">sessionid</span><span class="p">})</span>
+	<span class="nx">req</span><span class="p">.</span><span class="nx">AddCookie</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">http</span><span class="p">.</span><span class="nx">Cookie</span><span class="p">{</span><span class="nx">Name</span><span class="p">:</span> <span class="s">&quot;csrftoken&quot;</span><span class="p">,</span> <span class="nx">Value</span><span class="p">:</span> <span class="nx">csrftoken</span><span class="p">})</span>
+
+	<span class="nx">req</span><span class="p">.</span><span class="nx">Header</span><span class="p">.</span><span class="nx">Set</span><span class="p">(</span><span class="s">&quot;User-Agent&quot;</span><span class="p">,</span> <span class="nx">userAgent</span><span class="p">)</span>
+
+	<span class="nx">client</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">http</span><span class="p">.</span><span class="nx">Client</span><span class="p">{}</span>
+	<span class="nx">resp</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">client</span><span class="p">.</span><span class="nx">Do</span><span class="p">(</span><span class="nx">req</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="k">return</span>
+	<span class="p">}</span>
+	<span class="k">defer</span> <span class="nx">resp</span><span class="p">.</span><span class="nx">Body</span><span class="p">.</span><span class="nx">Close</span><span class="p">()</span>
+
+	<span class="k">if</span> <span class="nx">resp</span><span class="p">.</span><span class="nx">StatusCode</span> <span class="o">!=</span> <span class="mi">200</span> <span class="p">{</span>
+		<span class="nx">err</span> <span class="p">=</span> <span class="nx">errors</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span>
+			<span class="s">&quot;resp.StatusCode: &quot;</span> <span class="o">+</span>
+				<span class="nx">strconv</span><span class="p">.</span><span class="nx">Itoa</span><span class="p">(</span><span class="nx">resp</span><span class="p">.</span><span class="nx">StatusCode</span><span class="p">))</span>
+		<span class="k">return</span>
+	<span class="p">}</span>
+
+	<span class="k">return</span> <span class="nx">ioutil</span><span class="p">.</span><span class="nx">ReadAll</span><span class="p">(</span><span class="nx">resp</span><span class="p">.</span><span class="nx">Body</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="c1">// Given user name, return codes of all posts of the user.</span>
+<span class="kd">func</span> <span class="nx">GetAllPostCode</span><span class="p">(</span><span class="nx">username</span><span class="p">,</span> <span class="nx">ds_user_id</span><span class="p">,</span> <span class="nx">sessionid</span><span class="p">,</span> <span class="nx">csrftoken</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="nx">codes</span> <span class="p">[]</span><span class="kt">string</span><span class="p">,</span> <span class="nx">err</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">r</span> <span class="o">:=</span> <span class="nx">RawUserResp</span><span class="p">{}</span>
+	<span class="nx">r</span><span class="p">.</span><span class="nx">User</span><span class="p">.</span><span class="nx">Media</span><span class="p">.</span><span class="nx">PageInfo</span><span class="p">.</span><span class="nx">HasNextPage</span> <span class="p">=</span> <span class="kc">true</span>
+	<span class="k">for</span> <span class="nx">r</span><span class="p">.</span><span class="nx">User</span><span class="p">.</span><span class="nx">Media</span><span class="p">.</span><span class="nx">PageInfo</span><span class="p">.</span><span class="nx">HasNextPage</span> <span class="o">==</span> <span class="kc">true</span> <span class="p">{</span>
+		<span class="nx">url</span> <span class="o">:=</span> <span class="nx">strings</span><span class="p">.</span><span class="nx">Replace</span><span class="p">(</span><span class="nx">urlUserInfo</span><span class="p">,</span> <span class="s">&quot;{{USERNAME}}&quot;</span><span class="p">,</span> <span class="nx">username</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+		<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nx">codes</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span> <span class="p">{</span>
+			<span class="nx">url</span> <span class="p">=</span> <span class="nx">url</span> <span class="o">+</span> <span class="s">&quot;&amp;max_id=&quot;</span> <span class="o">+</span> <span class="nx">r</span><span class="p">.</span><span class="nx">User</span><span class="p">.</span><span class="nx">Media</span><span class="p">.</span><span class="nx">PageInfo</span><span class="p">.</span><span class="nx">EndCursor</span>
+		<span class="p">}</span>
+
+		<span class="nx">b</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">getHTTPResponse</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span> <span class="nx">ds_user_id</span><span class="p">,</span> <span class="nx">sessionid</span><span class="p">,</span> <span class="nx">csrftoken</span><span class="p">)</span>
+		<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+			<span class="k">return</span> <span class="nx">codes</span><span class="p">,</span> <span class="nx">err</span>
+		<span class="p">}</span>
+
+		<span class="k">if</span> <span class="nx">err</span> <span class="p">=</span> <span class="nx">json</span><span class="p">.</span><span class="nx">Unmarshal</span><span class="p">(</span><span class="nx">b</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">r</span><span class="p">);</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+			<span class="k">return</span> <span class="nx">codes</span><span class="p">,</span> <span class="nx">err</span>
+		<span class="p">}</span>
+
+		<span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">node</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">r</span><span class="p">.</span><span class="nx">User</span><span class="p">.</span><span class="nx">Media</span><span class="p">.</span><span class="nx">Nodes</span> <span class="p">{</span>
+			<span class="nx">codes</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">codes</span><span class="p">,</span> <span class="nx">node</span><span class="p">.</span><span class="nx">Code</span><span class="p">)</span>
+		<span class="p">}</span>
+		<span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&quot;Getting %d from %s ...\n&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="nx">codes</span><span class="p">),</span> <span class="nx">url</span><span class="p">)</span>
+	<span class="p">}</span>
+	<span class="k">return</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div></figure>
+<p><strong>Example</strong>:</p>
+<figure class="github-file">
+            <figcaption>
+              <a href="https://github.com/siongui/userpages/blob/master/content/code/go/ig-all-posts/userinfo_test.go">userinfo_test.go</a> |
+              <a href="https://github.com/siongui/userpages">repository</a> |
+              <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/code/go/ig-all-posts/userinfo_test.go">view raw</a>
+            </figcaption><div class="code-file">
+            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">igpost</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+	<span class="s">&quot;fmt&quot;</span>
+	<span class="s">&quot;os&quot;</span>
+	<span class="s">&quot;testing&quot;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nx">ExampleGetAllPostCode</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">codes</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">GetAllPostCode</span><span class="p">(</span>
+		<span class="nx">os</span><span class="p">.</span><span class="nx">Getenv</span><span class="p">(</span><span class="s">&quot;IG_TEST_USERNAME&quot;</span><span class="p">),</span>
+		<span class="nx">os</span><span class="p">.</span><span class="nx">Getenv</span><span class="p">(</span><span class="s">&quot;IG_DS_USER_ID&quot;</span><span class="p">),</span>
+		<span class="nx">os</span><span class="p">.</span><span class="nx">Getenv</span><span class="p">(</span><span class="s">&quot;IG_SESSIONID&quot;</span><span class="p">),</span>
+		<span class="nx">os</span><span class="p">.</span><span class="nx">Getenv</span><span class="p">(</span><span class="s">&quot;IG_CSRFTOKEN&quot;</span><span class="p">))</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nx">t</span><span class="p">.</span><span class="nx">Error</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+		<span class="k">return</span>
+	<span class="p">}</span>
+	<span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">code</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">codes</span> <span class="p">{</span>
+		<span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&quot;URL: https://www.instagram.com/p/%s/\n&quot;</span><span class="p">,</span> <span class="nx">code</span><span class="p">)</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div></figure>
+<p>The full code is also available on my GitHub repo <a class="footnote-reference" href="#id2" id="id1">[1]</a>.</p>
+<hr class="docutils" />
+<p>Tested on: <tt class="docutils literal">Ubuntu Linux 17.10</tt>, <tt class="docutils literal">Go 1.9.4</tt>.</p>
+<hr class="docutils" />
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td><a class="reference external" href="https://github.com/siongui/goigmedia">GitHub - siongui/goigmedia: Get links of Instagram user media (photos and videos) in Go.</a></td></tr>
+</tbody>
+</table>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/go.html">Go</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/go.html">Go</a>
+,       <a href="/tag/golang.html">Golang</a>
+,       <a href="/tag/web-scrape.html">Web Scrape</a>
+,       <a href="/tag/go-nethttp.html">Go net/http</a>
+,       <a href="/tag/instagram.html">Instagram</a>
+,       <a href="/tag/http-cookie.html">HTTP cookie</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

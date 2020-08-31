@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>Vue.js Component for Semantic UI Basic Tabs</title>
+  <meta name="keywords" content="Vue.js,JavaScript,html,CSS,Tab Panel,Semantic UI"/>
+  <meta name="description" content="Reusable Vue.js component for Semantic UI basic tabs example."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="Vue.js Component for Semantic UI Basic Tabs" /><meta property="og:image" content="https://webdesignledger.com/wp-content/uploads/2015/04/08-semantic-ui-tabs-design.jpg" />
+<meta property="og:description" content="Reusable Vue.js component for Semantic UI basic tabs example." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2018/10/14/vuejs-component-for-semantic-ui-basic-tab/"
+           rel="bookmark"
+           title="Permalink to Vue.js Component for Semantic UI Basic Tabs">
+          Vue.js Component for Semantic UI Basic Tabs
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2018-10-14T22:28:00+08:00">
+    October 14, 2018
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2018/10/14/vuejs-component-for-semantic-ui-basic-tab%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p>Reusable <a class="reference external" href="https://vuejs.org/">Vue.js</a> <a class="reference external" href="https://vuejs.org/v2/guide/components.html">component</a> for <a class="reference external" href="https://semantic-ui.com/">Semantic UI</a> basic <a class="reference external" href="https://semantic-ui.com/modules/tab.html">tab</a>.
+Click the following tabs to see the demo.</p>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<!-- you can put the following line in your html head -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.1/dist/semantic.min.css">
+
+<div id="vueapp">
+  <semantic-ui-basic-tab :tabpanes="mytabpanes"></semantic-ui-basic-tab>
+</div>
+
+<!-- you can put the following line at the end of html body -->
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script><script>
+'use strict';
+
+Vue.component("semantic-ui-basic-tab", {
+    template: `
+<div>
+  <!-- Nav tabs -->
+  <div class="ui top attached tabular menu">
+    <a class="item"
+       v-for="(tabpane, index) in tabpanes"
+       v-bind:class="{ 'active': tabsel == index }"
+       @click="tabsel = index">
+      {{tabpane.nav}}
+    </a>
+  </div>
+  <!-- Tab panes -->
+  <div class="ui bottom attached tab segment"
+       v-for="(tabpane, index) in tabpanes"
+       v-bind:class="{ 'active': tabsel == index }">
+     {{tabpane.pane}}
+  </div>
+</div>
+`,
+    props: ["tabpanes"],
+    data: function() {
+      return {
+        tabsel: 0
+      }
+    }
+});
+
+var app = new Vue({
+  el: '#vueapp',
+  data: {
+    mytabpanes: [
+      {nav: "tab1", pane:"tab1 content"},
+      {nav: "tab2", pane:"tab2 content"},
+      {nav: "tab3", pane:"tab3 content"},
+      {nav: "tab4", pane:"tab4 content"},
+    ]
+  }
+});
+</script><div class="line-block">
+<div class="line"><br /></div>
+<div class="line"><br /></div>
+</div>
+<p>The following is the source code for above demo.</p>
+<p><strong>HTML</strong>:</p>
+<div class="highlight"><pre><span></span><span class="c">&lt;!-- you can put the following line in your html head --&gt;</span>
+<span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;https://cdn.jsdelivr.net/npm/semantic-ui@2.4.1/dist/semantic.min.css&quot;</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;vueapp&quot;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">semantic-ui-basic-tab</span> <span class="na">:tabpanes</span><span class="o">=</span><span class="s">&quot;mytabpanes&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">semantic-ui-basic-tab</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+
+<span class="c">&lt;!-- you can put the following line at the end of html body --&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</pre></div>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>We define a Vue.js component whose name is <em>semantic-ui-basic-tab</em>, and we pass
+data of tabs and panes to it.</p>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+
+<p><strong>JavaScript</strong>:</p>
+<div class="highlight"><pre><span></span><span class="s1">&#39;use strict&#39;</span><span class="p">;</span>
+
+<span class="nx">Vue</span><span class="p">.</span><span class="nx">component</span><span class="p">(</span><span class="s2">&quot;semantic-ui-basic-tab&quot;</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nx">template</span><span class="o">:</span> <span class="sb">`</span>
+<span class="sb">&lt;div&gt;</span>
+<span class="sb">  &lt;!-- Nav tabs --&gt;</span>
+<span class="sb">  &lt;div class=&quot;ui top attached tabular menu&quot;&gt;</span>
+<span class="sb">    &lt;a class=&quot;item&quot;</span>
+<span class="sb">       v-for=&quot;(tabpane, index) in tabpanes&quot;</span>
+<span class="sb">       v-bind:class=&quot;{ &#39;active&#39;: tabsel == index }&quot;</span>
+<span class="sb">       @click=&quot;tabsel = index&quot;&gt;</span>
+<span class="sb">      {{tabpane.nav}}</span>
+<span class="sb">    &lt;/a&gt;</span>
+<span class="sb">  &lt;/div&gt;</span>
+<span class="sb">  &lt;!-- Tab panes --&gt;</span>
+<span class="sb">  &lt;div class=&quot;ui bottom attached tab segment&quot;</span>
+<span class="sb">       v-for=&quot;(tabpane, index) in tabpanes&quot;</span>
+<span class="sb">       v-bind:class=&quot;{ &#39;active&#39;: tabsel == index }&quot;&gt;</span>
+<span class="sb">     {{tabpane.pane}}</span>
+<span class="sb">  &lt;/div&gt;</span>
+<span class="sb">&lt;/div&gt;</span>
+<span class="sb">`</span><span class="p">,</span>
+    <span class="nx">props</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;tabpanes&quot;</span><span class="p">],</span>
+    <span class="nx">data</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="p">{</span>
+        <span class="nx">tabsel</span><span class="o">:</span> <span class="mi">0</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+
+<span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span>
+  <span class="nx">el</span><span class="o">:</span> <span class="s1">&#39;#vueapp&#39;</span><span class="p">,</span>
+  <span class="nx">data</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">mytabpanes</span><span class="o">:</span> <span class="p">[</span>
+      <span class="p">{</span><span class="nx">nav</span><span class="o">:</span> <span class="s2">&quot;tab1&quot;</span><span class="p">,</span> <span class="nx">pane</span><span class="o">:</span><span class="s2">&quot;tab1 content&quot;</span><span class="p">},</span>
+      <span class="p">{</span><span class="nx">nav</span><span class="o">:</span> <span class="s2">&quot;tab2&quot;</span><span class="p">,</span> <span class="nx">pane</span><span class="o">:</span><span class="s2">&quot;tab2 content&quot;</span><span class="p">},</span>
+      <span class="p">{</span><span class="nx">nav</span><span class="o">:</span> <span class="s2">&quot;tab3&quot;</span><span class="p">,</span> <span class="nx">pane</span><span class="o">:</span><span class="s2">&quot;tab3 content&quot;</span><span class="p">},</span>
+      <span class="p">{</span><span class="nx">nav</span><span class="o">:</span> <span class="s2">&quot;tab4&quot;</span><span class="p">,</span> <span class="nx">pane</span><span class="o">:</span><span class="s2">&quot;tab4 content&quot;</span><span class="p">},</span>
+    <span class="p">]</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</pre></div>
+<p>The data passed to the component is an array consisting of nav and content of
+the tabs. we use <em>v-for</em> to create the actual HTML of the tabs in the component.</p>
+<p>We use the variable <em>tabsel</em> to indicate current selected tab.
+When users click on the tab, update <em>tabsel</em> according to the tab index and
+hence show the selected tab pane according to the value of <em>tabsel</em>.</p>
+<p>The <em>active</em> class of tabs will also be updated according to <em>tabsel</em>.
+Set <em>tabsel</em> to <tt class="docutils literal">0</tt> in the initialization phase to make first tab as default
+tab.</p>
+<p>If you do not want to use Vue.js or any JavaScript code, see <a class="footnote-reference" href="#id3" id="id1">[2]</a> for pure CSS
+Semantic UI Basic tabs.</p>
+<hr class="docutils" />
+<p>Tested on:</p>
+<ul class="simple">
+<li><tt class="docutils literal">Semantic UI 2.4.1</tt></li>
+<li><tt class="docutils literal">Vue.js 2.5.17</tt></li>
+<li><tt class="docutils literal">Chromium 69.0.3497.81 on Ubuntu 18.04 <span class="pre">(64-bit)</span></tt></li>
+</ul>
+<hr class="docutils" />
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td><a class="reference external" href="/2018/10/12/vuejs-component-for-bootstrap-tab-panel/">Vue.js Component for Bootstrap Tab Panel</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[2]</a></td><td><a class="reference external" href="/2018/09/30/css-only-semantic-ui-basic-tab/">Pure CSS Semantic UI Basic Tabs</a></td></tr>
+</tbody>
+</table>
+
+<table class="docutils footnote" frame="void" id="id4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[3]</td><td><a class="reference external" href="https://vuejs.org/v2/guide/components.html">Components Basics — Vue.js</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id5" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[4]</td><td><a class="reference external" href="https://vuejs.org/v2/guide/list.html">List Rendering — Vue.js</a></td></tr>
+</tbody>
+</table>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/vuejs.html">Vue.js</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/vuejs.html">Vue.js</a>
+,       <a href="/tag/javascript.html">JavaScript</a>
+,       <a href="/tag/html.html">html</a>
+,       <a href="/tag/css.html">CSS</a>
+,       <a href="/tag/tab-panel.html">Tab Panel</a>
+,       <a href="/tag/semantic-ui.html">Semantic UI</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

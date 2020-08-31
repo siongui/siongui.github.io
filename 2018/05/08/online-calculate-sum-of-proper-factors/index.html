@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>Online Calculate Sum of Proper Divisors</title>
+  <meta name="keywords" content="Vue.js,JavaScript,Algorithm,Prime Number,Math"/>
+  <meta name="description" content="Online tool for prime factorization and calculating sum of proper divisors. The algorithm is implemented in JavaScript and UI in Vue.js."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="Online Calculate Sum of Proper Divisors" /><meta property="og:image" content="https://thinklikecomputerscientist.files.wordpress.com/2014/04/12.jpg" />
+<meta property="og:description" content="Online tool for prime factorization and calculating sum of proper divisors. The algorithm is implemented in JavaScript and UI in Vue.js." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2018/05/08/online-calculate-sum-of-proper-factors/"
+           rel="bookmark"
+           title="Permalink to Online Calculate Sum of Proper Divisors">
+          Online Calculate Sum of Proper Divisors
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2018-05-08T23:34:00+08:00">
+    May 08, 2018
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2018/05/08/online-calculate-sum-of-proper-factors%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><div id="vueapp" style="margin: 2rem;">
+
+<div id="vueapp">
+  positive integer: <input v-model="intn" placeholder="Input positive integer">
+  <p>Prime Factors: {{ primes }}</p>
+  <p>Sum of Proper Divisors: {{ sum }}</p>
+</div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script><script>
+'use strict';
+
+// Get all prime factors of a given number n
+function PrimeFactors(n) {
+  if (n==1) {return [1];}
+
+  var pfs = [];
+  // Get the number of 2s that divide n
+  while (n%2 == 0) {
+    pfs.push(2);
+    n /= 2;
+  }
+
+  // n must be odd at this point. so we can skip one element
+  // (note i = i + 2)
+  for (var i=3; i*i <= n; i += 2) {
+    // while i divides n, append i and divide n
+    while (n%i == 0) {
+      pfs.push(i);
+      n /= i;
+    }
+  }
+
+  // This condition is to handle the case when n is a prime number
+  // greater than 2
+  if ( n>2 ) {
+    pfs.push(n);
+  }
+
+  return pfs;
+}
+
+function SumOfDivisors(pfs) {
+  var m = {};
+  for (var i = 0; i < pfs.length; i++) {
+    var prime = pfs[i];
+    if (m.hasOwnProperty(prime)) {
+      m[prime] += 1;
+    } else {
+      m[prime] = 1;
+    }
+  }
+
+  var sum = 1;
+  for (var prime in m) {
+    var exponents = m[prime];
+    sum *= (Math.pow(prime, exponents+1)-1) / (prime-1);
+  }
+  return sum;
+}
+
+new Vue({
+  el: '#vueapp',
+  data: {
+    intn: 284,
+    primes: "",
+    sum: ""
+  },
+  watch: {
+    intn: {
+      immediate: true,
+      handler(val, oldVal) {
+        var n = parseInt(val);
+        if (isNaN(n) || n<1) {
+          this.primes = "please input positive integer";
+          return;
+        }
+
+        var pfs = PrimeFactors(n);
+        this.primes = pfs;
+        this.sum = (SumOfDivisors(pfs) - n);
+      }
+    }
+  }
+});
+</script><p>Online tool for <a class="reference external" href="https://www.google.com/search?q=prime+factorization">prime factorization</a> and calculating sum of proper divisors.
+The following is source code of the tool.
+For more details of the algorithm, see <a class="footnote-reference" href="#id2" id="id1">[1]</a>.</p>
+<p><strong>HTML</strong>:</p>
+<div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;vueapp&quot;</span><span class="p">&gt;</span>
+  positive integer: <span class="p">&lt;</span><span class="nt">input</span> <span class="na">v-model</span><span class="o">=</span><span class="s">&quot;intn&quot;</span> <span class="na">placeholder</span><span class="o">=</span><span class="s">&quot;Input positive integer&quot;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Prime Factors: {{ primes }}<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Sum of Proper Divisors: {{ sum }}<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</pre></div>
+<p><strong>JavaScript</strong>:</p>
+<div class="highlight"><pre><span></span><span class="s1">&#39;use strict&#39;</span><span class="p">;</span>
+
+<span class="c1">// Get all prime factors of a given number n</span>
+<span class="kd">function</span> <span class="nx">PrimeFactors</span><span class="p">(</span><span class="nx">n</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">n</span><span class="o">==</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span><span class="k">return</span> <span class="p">[</span><span class="mi">1</span><span class="p">];}</span>
+
+  <span class="kd">var</span> <span class="nx">pfs</span> <span class="o">=</span> <span class="p">[];</span>
+  <span class="c1">// Get the number of 2s that divide n</span>
+  <span class="k">while</span> <span class="p">(</span><span class="nx">n</span><span class="o">%</span><span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">pfs</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+    <span class="nx">n</span> <span class="o">/=</span> <span class="mi">2</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="c1">// n must be odd at this point. so we can skip one element</span>
+  <span class="c1">// (note i = i + 2)</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mi">3</span><span class="p">;</span> <span class="nx">i</span><span class="o">*</span><span class="nx">i</span> <span class="o">&lt;=</span> <span class="nx">n</span><span class="p">;</span> <span class="nx">i</span> <span class="o">+=</span> <span class="mi">2</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// while i divides n, append i and divide n</span>
+    <span class="k">while</span> <span class="p">(</span><span class="nx">n</span><span class="o">%</span><span class="nx">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">pfs</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">i</span><span class="p">);</span>
+      <span class="nx">n</span> <span class="o">/=</span> <span class="nx">i</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="c1">// This condition is to handle the case when n is a prime number</span>
+  <span class="c1">// greater than 2</span>
+  <span class="k">if</span> <span class="p">(</span> <span class="nx">n</span><span class="o">&gt;</span><span class="mi">2</span> <span class="p">)</span> <span class="p">{</span>
+    <span class="nx">pfs</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">n</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="k">return</span> <span class="nx">pfs</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">SumOfDivisors</span><span class="p">(</span><span class="nx">pfs</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">m</span> <span class="o">=</span> <span class="p">{};</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">pfs</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">prime</span> <span class="o">=</span> <span class="nx">pfs</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">m</span><span class="p">.</span><span class="nx">hasOwnProperty</span><span class="p">(</span><span class="nx">prime</span><span class="p">))</span> <span class="p">{</span>
+      <span class="nx">m</span><span class="p">[</span><span class="nx">prime</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="nx">m</span><span class="p">[</span><span class="nx">prime</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="kd">var</span> <span class="nx">sum</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">prime</span> <span class="k">in</span> <span class="nx">m</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">exponents</span> <span class="o">=</span> <span class="nx">m</span><span class="p">[</span><span class="nx">prime</span><span class="p">];</span>
+    <span class="nx">sum</span> <span class="o">*=</span> <span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">pow</span><span class="p">(</span><span class="nx">prime</span><span class="p">,</span> <span class="nx">exponents</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="nx">prime</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="nx">sum</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span>
+  <span class="nx">el</span><span class="o">:</span> <span class="s1">&#39;#vueapp&#39;</span><span class="p">,</span>
+  <span class="nx">data</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">intn</span><span class="o">:</span> <span class="mi">284</span><span class="p">,</span>
+    <span class="nx">primes</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+    <span class="nx">sum</span><span class="o">:</span> <span class="s2">&quot;&quot;</span>
+  <span class="p">},</span>
+  <span class="nx">watch</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">intn</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">immediate</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+      <span class="nx">handler</span><span class="p">(</span><span class="nx">val</span><span class="p">,</span> <span class="nx">oldVal</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">n</span> <span class="o">=</span> <span class="nb">parseInt</span><span class="p">(</span><span class="nx">val</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">isNaN</span><span class="p">(</span><span class="nx">n</span><span class="p">)</span> <span class="o">||</span> <span class="nx">n</span><span class="o">&lt;</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+          <span class="k">this</span><span class="p">.</span><span class="nx">primes</span> <span class="o">=</span> <span class="s2">&quot;please input positive integer&quot;</span><span class="p">;</span>
+          <span class="k">return</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="kd">var</span> <span class="nx">pfs</span> <span class="o">=</span> <span class="nx">PrimeFactors</span><span class="p">(</span><span class="nx">n</span><span class="p">);</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">primes</span> <span class="o">=</span> <span class="nx">pfs</span><span class="p">;</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">sum</span> <span class="o">=</span> <span class="p">(</span><span class="nx">SumOfDivisors</span><span class="p">(</span><span class="nx">pfs</span><span class="p">)</span> <span class="o">-</span> <span class="nx">n</span><span class="p">);</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</pre></div>
+
+<hr class="docutils" />
+<p>Tested on:</p>
+<ul class="simple">
+<li><tt class="docutils literal">Chromium 65.0.3325.181 on Ubuntu 17.10 <span class="pre">(64-bit)</span></tt></li>
+<li><tt class="docutils literal">Vue.js 2.5.16</tt></li>
+</ul>
+<hr class="docutils" />
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td><a class="reference external" href="/2017/05/19/go-sum-of-proper-factors/">[Golang] Sum of the Proper Divisors (Factors)</a></td></tr>
+</tbody>
+</table>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/math.html">Math</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/vuejs.html">Vue.js</a>
+,       <a href="/tag/javascript.html">JavaScript</a>
+,       <a href="/tag/algorithm.html">Algorithm</a>
+,       <a href="/tag/prime-number.html">Prime Number</a>
+,       <a href="/tag/math.html">Math</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

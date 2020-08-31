@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>Pure CSS Toggle (Show/Hide) HTML Element</title>
+  <meta name="keywords" content="Pure CSS Toggle,toggle,toggleable,html,CSS"/>
+  <meta name="description" content="CSS only toggle (show/hide) HTML DOM element without JavaScript."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="Pure CSS Toggle (Show/Hide) HTML Element" /><meta property="og:image" content="https://www.sololearn.com/Icons/Courses/1023.png" />
+<meta property="og:description" content="CSS only toggle (show/hide) HTML DOM element without JavaScript." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2017/02/27/css-only-toggle-dom-element/"
+           rel="bookmark"
+           title="Permalink to Pure CSS Toggle (Show/Hide) HTML Element">
+          Pure CSS Toggle (Show/Hide) HTML Element
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2017-02-27T02:23:00+08:00">
+    February 27, 2017
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2017/02/27/css-only-toggle-dom-element%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p><a class="reference external" href="https://www.google.com/search?q=CSS">CSS</a> only toggle (show/hide) <a class="reference external" href="https://www.google.com/search?q=HTML">HTML</a> <a class="reference external" href="https://www.google.com/search?q=DOM+element">DOM element</a> without <a class="reference external" href="https://www.google.com/search?q=JavaScript">JavaScript</a>.
+See demo first. Please click the following <span class="raw-html">&#8803;</span> to toggle:</p>
+<style>
+label[for=element-toggle] {
+  cursor: pointer;
+}
+#element-toggle {
+  display: none;
+}
+#element-toggle:not(:checked) ~ #toggled-element {
+  display: none;
+}
+</style>
+
+<div style="padding: 2em;">
+<label for="element-toggle">&#8803;</label>
+<input id="element-toggle" type="checkbox" />
+<ul id="toggled-element">
+  <li><a href="https://www.google.com/">Google</a></li>
+  <li><a href="https://duckduckgo.com/">DuckDuckGo</a></li>
+  <li><a href="https://www.ecosia.org/">Ecosia</a></li>
+</ul>
+</div><p>There are three HTML elements in the demo:</p>
+<div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">label</span> <span class="na">for</span><span class="o">=</span><span class="s">&quot;element-toggle&quot;</span><span class="p">&gt;</span><span class="ni">&amp;#8803;</span><span class="p">&lt;/</span><span class="nt">label</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">input</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;element-toggle&quot;</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;checkbox&quot;</span> <span class="p">/&gt;</span>
+<span class="p">&lt;</span><span class="nt">ul</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;toggled-element&quot;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;https://www.google.com/&quot;</span><span class="p">&gt;</span>Google<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;https://duckduckgo.com/&quot;</span><span class="p">&gt;</span>DuckDuckGo<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;https://www.ecosia.org/&quot;</span><span class="p">&gt;</span>Ecosia<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+</pre></div>
+<ol class="arabic simple">
+<li>A visible HTML <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/label">label</a> element</li>
+<li>A invisible HTML <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/checkbox">input</a> checkbox element, referenced by the above <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/label">label</a>
+element via <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/label#Using_the_for_attribute">for</a> attribute.</li>
+<li>The element to be toggled. This could be any element, such as <em>div</em> or
+<em>span</em>, and it is <em>ul</em> element in this demo.</li>
+</ol>
+
+<p>When users click on the visible label element, the invisible input checkbox
+element becomes checked/unchecked by the click. Then the following CSS rules are
+used to show or hide the element to be toggled according to whether the checkbox
+is checked or not.</p>
+<div class="highlight"><pre><span></span><span class="nt">label</span><span class="o">[</span><span class="nt">for</span><span class="o">=</span><span class="nt">element-toggle</span><span class="o">]</span> <span class="p">{</span>
+  <span class="k">cursor</span><span class="p">:</span> <span class="kc">pointer</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="p">#</span><span class="nn">element-toggle</span> <span class="p">{</span>
+  <span class="k">display</span><span class="p">:</span> <span class="kc">none</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="p">#</span><span class="nn">element-toggle</span><span class="p">:</span><span class="nd">not</span><span class="o">(</span><span class="p">:</span><span class="nd">checked</span><span class="o">)</span> <span class="o">~</span> <span class="p">#</span><span class="nn">toggled-element</span> <span class="p">{</span>
+  <span class="k">display</span><span class="p">:</span> <span class="kc">none</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>There are three rules in above <a class="reference external" href="https://www.google.com/search?q=CSS">CSS</a> code. The last rule is the most important
+part in this trick. It says if the element with <em>id=element-toggle</em> (i.e., the
+input checkbox) is not checked, the adjacent element with <em>id=toggled-element</em>
+(<em>ul</em> element in this case) is hidden. If the input checkbox is checked, this
+rule is not applied to the <em>ul</em> element, which makes the <em>ul</em> element visible.
+The last CSS rule shows or hides the element to be toggled according to whether
+the checkbox is checked or not.</p>
+
+<p>This technique can be used to toggle nav menu in mobile screen <a class="footnote-reference" href="#id8" id="id1">[7]</a>, and there
+is no <a class="reference external" href="https://www.google.com/search?q=JavaScript">JavaScript</a> code to slow down the speed of the website.</p>
+<hr class="docutils" />
+<p>Tested on:</p>
+<ul class="simple">
+<li><tt class="docutils literal">Chromium Version 55.0.2883.87 Built on Ubuntu , running on Ubuntu 16.10 <span class="pre">(64-bit)</span></tt></li>
+</ul>
+<hr class="docutils" />
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td><div class="first last line-block">
+<div class="line"><a class="reference external" href="https://www.google.com/search?q=css+only+nav+toggle">css only nav toggle - Google search</a></div>
+<div class="line"><a class="reference external" href="https://duckduckgo.com/?q=css+only+nav+toggle">css only nav toggle - DuckDuckGo search</a></div>
+<div class="line"><a class="reference external" href="https://www.ecosia.org/search?q=css+only+nav+toggle">css only nav toggle - Ecosia search</a></div>
+<div class="line"><a class="reference external" href="https://www.qwant.com/?q=css+only+nav+toggle">css only nav toggle - Qwant search</a></div>
+<div class="line"><a class="reference external" href="https://www.bing.com/search?q=css+only+nav+toggle">css only nav toggle - Bing search</a></div>
+<div class="line"><a class="reference external" href="https://search.yahoo.com/search?p=css+only+nav+toggle">css only nav toggle - Yahoo search</a></div>
+<div class="line"><a class="reference external" href="https://www.baidu.com/s?wd=css+only+nav+toggle">css only nav toggle - Baidu search</a></div>
+<div class="line"><a class="reference external" href="https://www.yandex.com/search/?text=css+only+nav+toggle">css only nav toggle - Yandex search</a></div>
+</div>
+</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[2]</td><td><a class="reference external" href="http://www.outofscope.com/css-only-menu-toggle-no-javascript-required/">CSS only menu toggle - no JavaScript required</a></td></tr>
+</tbody>
+</table>
+
+<table class="docutils footnote" frame="void" id="id4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[3]</td><td><div class="first last line-block">
+<div class="line"><a class="reference external" href="https://www.google.com/search?q=css+only+toggle+element">css only toggle element - Google search</a></div>
+<div class="line"><a class="reference external" href="https://duckduckgo.com/?q=css+only+toggle+element">css only toggle element - DuckDuckGo search</a></div>
+<div class="line"><a class="reference external" href="https://www.ecosia.org/search?q=css+only+toggle+element">css only toggle element - Ecosia search</a></div>
+<div class="line"><a class="reference external" href="https://www.qwant.com/?q=css+only+toggle+element">css only toggle element - Qwant search</a></div>
+<div class="line"><a class="reference external" href="https://www.bing.com/search?q=css+only+toggle+element">css only toggle element - Bing search</a></div>
+<div class="line"><a class="reference external" href="https://search.yahoo.com/search?p=css+only+toggle+element">css only toggle element - Yahoo search</a></div>
+<div class="line"><a class="reference external" href="https://www.baidu.com/s?wd=css+only+toggle+element">css only toggle element - Baidu search</a></div>
+<div class="line"><a class="reference external" href="https://www.yandex.com/search/?text=css+only+toggle+element">css only toggle element - Yandex search</a></div>
+</div>
+</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id5" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[4]</td><td><div class="first last line-block">
+<div class="line"><a class="reference external" href="http://clearleft.com/thinks/creatingatogglefeatureusingcheckedpseudoclass/">Creating a toggle feature using :checked pseudo class. | Clearleft</a></div>
+<div class="line"><a class="reference external" href="https://css-tricks.com/almanac/selectors/c/checked/">:checked | CSS-Tricks</a></div>
+</div>
+</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id6" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[5]</td><td><div class="first last line-block">
+<div class="line"><a class="reference external" href="https://www.google.com/search?q=HTML+label">HTML label - Google search</a></div>
+<div class="line"><a class="reference external" href="https://duckduckgo.com/?q=HTML+label">HTML label - DuckDuckGo search</a></div>
+<div class="line"><a class="reference external" href="https://www.ecosia.org/search?q=HTML+label">HTML label - Ecosia search</a></div>
+<div class="line"><a class="reference external" href="https://www.qwant.com/?q=HTML+label">HTML label - Qwant search</a></div>
+<div class="line"><a class="reference external" href="https://www.bing.com/search?q=HTML+label">HTML label - Bing search</a></div>
+<div class="line"><a class="reference external" href="https://search.yahoo.com/search?p=HTML+label">HTML label - Yahoo search</a></div>
+<div class="line"><a class="reference external" href="https://www.baidu.com/s?wd=HTML+label">HTML label - Baidu search</a></div>
+<div class="line"><a class="reference external" href="https://www.yandex.com/search/?text=HTML+label">HTML label - Yandex search</a></div>
+</div>
+</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id7" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[6]</td><td><div class="first last line-block">
+<div class="line"><a class="reference external" href="https://www.google.com/search?q=html+special+characters">html special characters - Google search</a></div>
+<div class="line"><a class="reference external" href="http://www.quackit.com/html/html_special_characters.cfm">HTML Special Characters - Quackit Tutorials</a></div>
+<div class="line"><a class="reference external" href="http://www.quackit.com/character_sets/unicode/">List of Unicode Characters - Quackit Tutorials</a></div>
+<div class="line"><a class="reference external" href="http://www.quackit.com/character_sets/unicode/versions/unicode_9.0.0/mathematical_operators_unicode_character_codes.cfm">Unicode 9.0 Characters: Mathematical Operators - Quackit Tutorials</a></div>
+<div class="line"><a class="reference external" href="http://www.quackit.com/html/html_editors/scratchpad/?app=charset_ref&amp;hexadecimal=02263&amp;decimal=8803&amp;unicodeName=STRICTLY_EQUIVALENT_TO">Unicode Name: STRICTLY EQUIVALENT TO - Quackit Tutorials</a></div>
+</div>
+</td></tr>
+</tbody>
+</table>
+
+<table class="docutils footnote" frame="void" id="id8" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[7]</a></td><td><a class="reference external" href="/2017/02/22/css-only-bulma-responsive-navbar/">CSS Only Bulma Responsive Nav Bar (Navigation Bar)</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id9" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[8]</td><td><div class="first last line-block">
+<div class="line"><a class="reference external" href="https://news.ycombinator.com/item?id=18160224">Show HN: Pure CSS toggle Web component | Hacker News</a></div>
+<div class="line"><a class="reference external" href="https://github.com/rajasegar/css-toggle-component">GitHub - rajasegar/css-toggle-component: Pure CSS Toggle Buttons as a Web component</a></div>
+</div>
+</td></tr>
+</tbody>
+</table>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/css.html">CSS</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/pure-css-toggle.html">Pure CSS Toggle</a>
+,       <a href="/tag/toggle.html">toggle</a>
+,       <a href="/tag/toggleable.html">toggleable</a>
+,       <a href="/tag/html.html">html</a>
+,       <a href="/tag/css.html">CSS</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

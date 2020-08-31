@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>JavaScript new Keyword in Go</title>
+  <meta name="keywords" content="Go,Golang,GopherJS,Go to JavaScript,Frontend Programming in Go"/>
+  <meta name="description" content="Show how to use JavaScript new keyword in Go/GopherJS."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="JavaScript new Keyword in Go" /><meta property="og:image" content="https://image.slidesharecdn.com/objectorientedjavascript-140127141053-phpapp01-140622173638-phpapp01/95/object-oriented-javascript-part2-8-638.jpg?cb=1412221263" />
+<meta property="og:description" content="Show how to use JavaScript new keyword in Go/GopherJS." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2017/12/08/js-new-keyword-in-go/"
+           rel="bookmark"
+           title="Permalink to JavaScript new Keyword in Go">
+          JavaScript new Keyword in Go
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2017-12-09T00:41:00+08:00">
+    Updated: December 09, 2017
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2017/12/04/js-new-keyword-in-go%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p>JavaScript <em>new</em> keyword are used very often. For example, <a class="reference external" href="https://www.google.com/search?q=date+javascript">Date()</a>,
+<a class="reference external" href="https://www.google.com/search?q=XMLHttpRequest+javascript">XMLHttpRequest()</a>, or <a class="reference external" href="https://www.google.com/search?q=WebSocket+javascript">WebSocket()</a> need to be <em>newed</em> before being used.
+We will use <em>Date()</em> as example and show you how to write equivalent code in
+Go/GopherJS.</p>
+<div class="section" id="javascript">
+<h2>JavaScript</h2>
+<p>To print the date info in JavaScript, you can do the following with <em>new</em>
+keyword:</p>
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">d</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">();</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">d</span><span class="p">);</span>
+</pre></div>
+<p>You can try the <a class="reference external" href="https://www.w3schools.com/js/tryit.asp?filename=tryjs_date_current">code online in w3schools</a>. <a class="footnote-reference" href="#id5" id="id1">[1]</a></p>
+</div>
+<div class="section" id="gopherjs">
+<h2>GopherJS</h2>
+<p>The above code in Go/GopherJS is as follows:</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="p">(</span>
+      <span class="s">&quot;github.com/gopherjs/gopherjs/js&quot;</span>
+<span class="p">)</span>
+
+<span class="nx">d</span> <span class="o">:=</span> <span class="nx">js</span><span class="p">.</span><span class="nx">Global</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;Date&quot;</span><span class="p">).</span><span class="nx">New</span><span class="p">()</span>
+<span class="nb">println</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span>
+</pre></div>
+<p>You can try the code online:</p>
+<p class="align-center rubric"><a class="reference external" href="https://gopherjs.github.io/playground/#/svZwXAls_H">Run Code on GopherJS Playground</a></p>
+
+</div>
+<div class="section" id="gopherjs-godom">
+<h2>GopherJS + godom</h2>
+<p>To make your code more readable, we can prettify the above code with <a class="reference external" href="https://github.com/siongui/godom">godom</a>:</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="p">(</span>
+      <span class="p">.</span> <span class="s">&quot;github.com/siongui/godom&quot;</span>
+<span class="p">)</span>
+
+<span class="nx">d</span> <span class="o">:=</span> <span class="nx">Window</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;Date&quot;</span><span class="p">).</span><span class="nx">New</span><span class="p">()</span>
+<span class="nb">println</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span>
+</pre></div>
+<p>For more exaples for JavaScript <em>new</em> keyword in Go, see <a class="footnote-reference" href="#id6" id="id2">[2]</a>, <a class="footnote-reference" href="#id7" id="id3">[3]</a>, <a class="footnote-reference" href="#id8" id="id4">[4]</a>.</p>
+</div>
+<div class="section" id="chain-dots">
+<h2>Chain Dots</h2>
+<p>From <a class="reference external" href="https://github.com/siongui/userpages/issues/4#issuecomment-350292186">the comment</a> of <a class="reference external" href="https://github.com/pbrown12303">&#64;pbrown12303</a>, if you have to <em>new</em> the following chain
+dots in JavaScript:</p>
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">joint</span><span class="p">.</span><span class="nx">dia</span><span class="p">.</span><span class="nx">Graph</span><span class="p">;</span>
+</pre></div>
+<p>The following code in Go/GopherJS will not work:</p>
+<div class="highlight"><pre><span></span><span class="nx">x</span> <span class="o">:=</span> <span class="nx">js</span><span class="p">.</span><span class="nx">Global</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;joint.dia.Graph&quot;</span><span class="p">).</span><span class="nx">New</span><span class="p">()</span>
+</pre></div>
+<p>The correct syntax in Go/GopherJS is:</p>
+<div class="highlight"><pre><span></span><span class="nx">x</span> <span class="o">:=</span> <span class="nx">js</span><span class="p">.</span><span class="nx">Global</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;joint&quot;</span><span class="p">).</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;dia&quot;</span><span class="p">).</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;Graph&quot;</span><span class="p">).</span><span class="nx">New</span><span class="p">()</span>
+</pre></div>
+
+<hr class="docutils" />
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id5" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td><a class="reference external" href="https://www.w3schools.com/js/js_dates.asp">JavaScript Dates</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id6" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[2]</a></td><td><a class="reference external" href="/2016/02/18/gopherjs-XMLHttpRequest-XHR-and-MakeFunc-example/">GopherJS XMLHttpRequest (XHR) and MakeFunc Example</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id7" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id3">[3]</a></td><td><a class="reference external" href="/2017/05/18/go-websocket-client-example-with-echo-server/">[GopherJS] WebSocket Client Example With Echo Server</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id8" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id4">[4]</a></td><td><a class="reference external" href="/2016/01/25/go-http-request-header-by-xhr-getAllResponseHeaders/">[Golang] Access HTTP Request Header by XHR getAllResponseHeaders()</a></td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/frontend-programming-in-go.html">Frontend Programming in Go</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/go.html">Go</a>
+,       <a href="/tag/golang.html">Golang</a>
+,       <a href="/tag/gopherjs.html">GopherJS</a>
+,       <a href="/tag/go-to-javascript.html">Go to JavaScript</a>
+,       <a href="/tag/frontend-programming-in-go.html">Frontend Programming in Go</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

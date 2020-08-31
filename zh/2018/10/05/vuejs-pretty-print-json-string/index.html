@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>[Vue.js] 優美列印JSON字串</title>
+  <meta name="keywords" content="Vue.js,JavaScript,JSON,優美列印"/>
+  <meta name="description" content="用 Vue.js 優美列印 JSON 字串。"/>
+  <meta name="author" content="戴上為"/><meta property="og:title" content="[Vue.js] 優美列印JSON字串" /><meta property="og:image" content="https://avatars1.githubusercontent.com/u/6128107?v=3&s=200" />
+<meta property="og:description" content="用 Vue.js 優美列印 JSON 字串。" /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/zh/../extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/zh/../theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/zh/">理論與實作</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/zh/pages/about.html">關於</a>
+    <a class="nav-item" href="/zh/archives.html">歸檔</a>
+    <a class="nav-item" href="/zh/categories.html">分類</a>
+    <a class="nav-item" href="/zh/tags.html">標籤</a>
+    <a class="nav-item" href="/zh/authors.html">作者</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/">English</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/zh/2018/10/05/vuejs-pretty-print-json-string/"
+           rel="bookmark"
+           title="Permalink to [Vue.js] 優美列印JSON字串">
+          [Vue.js] 優美列印JSON字串
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2018-10-05T23:44:00+08:00">
+    十月 05, 2018
+  </time></aside>
+    <aside><div class="available-translations">
+      <span>翻譯</span>:&nbsp;<a href="/zh/../2017/03/15/vuejs-pretty-print-json-string/">English</a>&nbsp;</div><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2017/03/15/vuejs-pretty-print-json-string%25zh.rst">在Github上編輯</a></div></aside>
+    <hr>
+
+    <div class="main-content"><div class="section" id="demo">
+<h2>展示(demo)</h2>
+<p>在下方的 textarea 貼上任何有效的 <a class="reference external" href="https://www.google.com/search?q=JSON">JSON</a> 字串。你會立即看到優美列印的結果。</p>
+<div id="vueapp" style="background-color: Azure; padding: 5px;">
+  <textarea v-model="jsonstr" rows="8" cols="40"></textarea>
+  <pre>{{ jsonstr | pretty }}</pre>
+</div>
+
+<script src="https://unpkg.com/vue@2.2.4/dist/vue.js"></script><script>
+'use strict';
+
+new Vue({
+  el: '#vueapp',
+  data: {
+    jsonstr: '{"id":1,"name":"A green door","price":12.50,"tags":["home","green"]}'
+  },
+  filters: {
+    pretty: function(value) {
+      return JSON.stringify(JSON.parse(value), null, 2);
+    }
+  }
+})
+</script>
+</div>
+<div class="section" id="id1">
+<h2>程式原始碼及解釋</h2>
+<p><strong>HTML</strong>:</p>
+<div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;vueapp&quot;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">textarea</span> <span class="na">v-model</span><span class="o">=</span><span class="s">&quot;jsonstr&quot;</span> <span class="na">rows</span><span class="o">=</span><span class="s">&quot;8&quot;</span> <span class="na">cols</span><span class="o">=</span><span class="s">&quot;40&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">textarea</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">pre</span><span class="p">&gt;</span>{{ jsonstr | pretty }}<span class="p">&lt;/</span><span class="nt">pre</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://unpkg.com/vue@2.2.4/dist/vue.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</pre></div>
+<p>想法很簡單。我們實作一個 <a class="reference external" href="https://vuejs.org/">Vue.js</a> <a class="reference external" href="https://vuejs.org/v2/guide/syntax.html#Filters">filter</a> 來優美列印 textarea 裡的字串。
+根據 <a class="footnote-reference" href="#id4" id="id2">[2]</a> 裡面的答案， JavaScript 內建的 <em>JSON.stringify</em>
+方法可以幫我們優美列印 JSON 字串，所以在 filter 裡頭，先用 <em>JSON.parse</em> 該字串，
+然後再 <em>JSON.stringify</em> 它。</p>
+<p><strong>JavaScript</strong>:</p>
+<div class="highlight"><pre><span></span><span class="s1">&#39;use strict&#39;</span><span class="p">;</span>
+
+<span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span>
+  <span class="nx">el</span><span class="o">:</span> <span class="s1">&#39;#vueapp&#39;</span><span class="p">,</span>
+  <span class="nx">data</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">jsonstr</span><span class="o">:</span> <span class="s1">&#39;{&quot;id&quot;:1,&quot;name&quot;:&quot;A green door&quot;,&quot;price&quot;:12.50,&quot;tags&quot;:[&quot;home&quot;,&quot;green&quot;]}&#39;</span>
+  <span class="p">},</span>
+  <span class="nx">filters</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">pretty</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">value</span><span class="p">),</span> <span class="kc">null</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">})</span>
+</pre></div>
+
+<hr class="docutils" />
+<p>測試環境：</p>
+<ul class="simple">
+<li><tt class="docutils literal">Chromium Version 69.0.3497.81 on Ubuntu 18.04 <span class="pre">(64-bit)</span></tt></li>
+<li><tt class="docutils literal">Vue.js 2.2.4</tt></li>
+</ul>
+<hr class="docutils" />
+<p>參考：</p>
+<table class="docutils footnote" frame="void" id="id3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td><div class="first last line-block">
+<div class="line"><a class="reference external" href="https://www.google.com/search?q=javascript+pretty+print">javascript pretty print - Google search</a></div>
+<div class="line"><a class="reference external" href="https://duckduckgo.com/?q=javascript+pretty+print">javascript pretty print - DuckDuckGo search</a></div>
+<div class="line"><a class="reference external" href="https://www.ecosia.org/search?q=javascript+pretty+print">javascript pretty print - Ecosia search</a></div>
+<div class="line"><a class="reference external" href="https://www.qwant.com/?q=javascript+pretty+print">javascript pretty print - Qwant search</a></div>
+<div class="line"><a class="reference external" href="https://www.bing.com/search?q=javascript+pretty+print">javascript pretty print - Bing search</a></div>
+<div class="line"><a class="reference external" href="https://search.yahoo.com/search?p=javascript+pretty+print">javascript pretty print - Yahoo search</a></div>
+<div class="line"><a class="reference external" href="https://www.baidu.com/s?wd=javascript+pretty+print">javascript pretty print - Baidu search</a></div>
+<div class="line"><a class="reference external" href="https://www.yandex.com/search/?text=javascript+pretty+print">javascript pretty print - Yandex search</a></div>
+</div>
+</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[2]</a></td><td><a class="reference external" href="http://stackoverflow.com/a/7220510">How can I pretty-print JSON using JavaScript? - Stack Overflow</a></td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+    <footer><hr><address><b>作者</b>:
+    <a rel="author"
+       href="/zh/author/dai-shang-wei.html">戴上為</a>
+  </address><aside>
+    <i>&isin;</i> <b>分類</b>:
+    <a href="/zh/category/vuejs.html">Vue.js</a>
+  </aside><aside>
+    <i>&sum;</i> <b>標籤</b>:
+      <a href="/zh/tag/vuejs.html">Vue.js</a>
+,       <a href="/zh/tag/javascript.html">JavaScript</a>
+,       <a href="/zh/tag/json.html">JSON</a>
+,       <a href="/zh/tag/you-mei-lie-yin.html">優美列印</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

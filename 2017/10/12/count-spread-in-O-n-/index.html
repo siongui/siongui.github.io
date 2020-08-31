@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8">
+  <title>Count spread in O(n)</title>
+  <meta name="keywords" content="Math,Algorithm"/>
+  <meta name="description" content="This is not hard but still interesting. A spread of an array of numbers is the difference between its maximum and minimum. Given an array..."/>
+  <meta name="author" content="Shen-Fu Tsai"/><meta property="og:title" content="Count spread in O(n)" /><meta property="og:image" content="https://lh4.googleusercontent.com/-aNB-12LGE20/AAAAAAAAAAI/AAAAAAAAZN0/9DWnaMSkb_M/photo.jpg" />
+<meta property="og:description" content="This is not hard but still interesting. A spread of an array of numbers is the difference between its maximum and minimum. Given an array..." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2017/10/12/count-spread-in-O-n-/"
+           rel="bookmark"
+           title="Permalink to Count spread in O(n)">
+          Count spread in O(n)
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2017-10-12T18:25:00-07:00">
+    October 12, 2017
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2015/04/01/count-spread-in-O-n-%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><br/>
+This is not hard but still interesting.<br/>
+<br/>
+A spread of an array of numbers is the difference between its maximum and minimum. Given an array of numbers \(x_1,\ldots,x_n\), compute the sum of spreads of all of its continuous subarrays in \(O(n)\) time.<br/>
+<br/>
+Solution:<br/>
+If we could compute the sum of maximum of all continuous subarrays then it&#39;s easy. To do this, suppose we know this sum for \(x_1,\ldots,x_{n-1}\). When \(x_n\) comes in, we want to add to this sum the sum of maximums of \((x_1,\ldots,x_n),(x_2,\ldots,x_n),\ldots,(x_{n-1},x_n),(x_n)\), or \(y_1+y_2+\ldots+y_n\), where \(y_k\) is the maximum between \(x_k\) and the last number. Clearly \(y\) never goes up, so we could use a stack of triple \((value, right, area)\) to store info we need. \((value, right, area)\) is such that for \(right_{k-1} + 1\leq i\leq right_k\), \(y_i=value_k\), and the cumulative area of \(y\) curve from the beginning to \(right_k\) is \(area_k\).<br/>
+<br/>
+After \(x_n\) comes in, \((value, right, area)\) is updated as this. Pop out all entries where \(value\lt x_n\). Now if the top of the stack has \(value=x_n\), update its \(area\) and \(right\) accordingly. Otherwise push a new entry with \(value=x_n\) and \(right=n\). Its \(area\) should be the preceding \(area\) plus \(x_n\times\delta\) where \(\delta\) is \(n\) minus the preceding \(right\).<br/>
+<br/>
+After \((value, right, area)\) is updated, add the last \(area\) to the sum. The \(pop\) takes amortized \(O(1)\) per element, and the rest takes a fixed \(O(1)\).<br/>
+<div>
+<br/></div>
+
+<script src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script><hr class="docutils" />
+<p><a class="reference external" href="https://oathbystyx.blogspot.com/2017/10/count-spread-in-on.html">post</a>
+by
+<a class="reference external" href="/pages/shen-fu-tsai.html">Shen-Fu Tsai</a></p>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/shen-fu-tsai.html">Shen-Fu Tsai</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/algorithm.html">Algorithm</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/math.html">Math</a>
+,       <a href="/tag/algorithm.html">Algorithm</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

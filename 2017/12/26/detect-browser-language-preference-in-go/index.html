@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>Detect Browser Language Preference in Go</title>
+  <meta name="keywords" content="Go,Golang,GopherJS,Go to JavaScript,Frontend Programming in Go,i18n,Locale"/>
+  <meta name="description" content="Know which language(s) users prefer on browsers in Go/GopherJS."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="Detect Browser Language Preference in Go" /><meta property="og:image" content="https://zzz.buzz/content/2016/01/navigator-languages-chrome.png" />
+<meta property="og:description" content="Know which language(s) users prefer on browsers in Go/GopherJS." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2017/12/26/detect-browser-language-preference-in-go/"
+           rel="bookmark"
+           title="Permalink to Detect Browser Language Preference in Go">
+          Detect Browser Language Preference in Go
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2017-12-26T23:09:00+08:00">
+    December 26, 2017
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2017/12/04/detect-browser-language-preference-in-go%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p>To build a multilingual website, it is important to know language preferences
+of users. There are two ways for frontend programmers to detect browser language
+preference:</p>
+<ul class="simple">
+<li>Via <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/API/NavigatorLanguage">NavigatorLanguage</a> API: This API contains properties (<em>language</em> and
+<em>languages</em>) to indicate the preferred language of the browser user. This post
+will mainly focus on how to use this API.</li>
+<li>Via <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept-Language">Accept-Language</a> header in HTTP request: There is no way to directly
+access this header in your code. You can, however, run a server which returns
+the headers to client browser via JSONP. See <a class="footnote-reference" href="#id4" id="id1">[3]</a> for more details.</li>
+</ul>
+<div class="contents topic" id="table-of-content">
+<p class="topic-title"><strong>Table of Content</strong></p>
+<ul class="simple">
+<li><a class="reference internal" href="#access-navigatorlanguage-api" id="id7">Access NavigatorLanguage API</a><ul>
+<li><a class="reference internal" href="#javascript" id="id8">JavaScript</a></li>
+<li><a class="reference internal" href="#gopherjs" id="id9">GopherJS</a></li>
+<li><a class="reference internal" href="#gopherjs-godom" id="id10">GopherJS + godom</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="access-navigatorlanguage-api">
+<h2><a class="toc-backref" href="#id7">Access NavigatorLanguage API</a></h2>
+<p><a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/API/NavigatorLanguage/language">navigator.language</a> returns the preferred language of the user, while
+<a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/API/NavigatorLanguage/languages">navigator.languages</a> returns languages known to the user.</p>
+<div class="section" id="javascript">
+<h3><a class="toc-backref" href="#id8">JavaScript</a></h3>
+<div class="highlight"><pre><span></span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">navigator</span><span class="p">.</span><span class="nx">language</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">navigator</span><span class="p">.</span><span class="nx">languages</span><span class="p">);</span>
+</pre></div>
+<p>The return value of <em>navigator.language</em> is string, and the return value of
+<em>navigator.languages</em> is an array.</p>
+</div>
+<div class="section" id="gopherjs">
+<h3><a class="toc-backref" href="#id9">GopherJS</a></h3>
+<p>The above code in Go/GopherJS is as follows:</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="p">(</span>
+      <span class="s">&quot;github.com/gopherjs/gopherjs/js&quot;</span>
+<span class="p">)</span>
+
+<span class="nb">println</span><span class="p">(</span><span class="nx">js</span><span class="p">.</span><span class="nx">Global</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;navigator&quot;</span><span class="p">).</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;language&quot;</span><span class="p">).</span><span class="nx">String</span><span class="p">())</span>
+<span class="nb">println</span><span class="p">(</span><span class="nx">js</span><span class="p">.</span><span class="nx">Global</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;navigator&quot;</span><span class="p">).</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;languages&quot;</span><span class="p">).</span><span class="nx">String</span><span class="p">())</span>
+</pre></div>
+<p class="align-center rubric"><a class="reference external" href="https://gopherjs.github.io/playground/#/jPwHSssUd6">Run Code on GopherJS Playground</a></p>
+<p>Note that the return value of both are strings because of the constraint of
+GopherJS compiler.</p>
+
+</div>
+<div class="section" id="gopherjs-godom">
+<h3><a class="toc-backref" href="#id10">GopherJS + godom</a></h3>
+<p>To make your code more readable, we can prettify the above code with <a class="reference external" href="https://github.com/siongui/godom">godom</a>:</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="p">(</span>
+      <span class="p">.</span> <span class="s">&quot;github.com/siongui/godom&quot;</span>
+<span class="p">)</span>
+
+<span class="nb">println</span><span class="p">(</span><span class="nx">Window</span><span class="p">.</span><span class="nx">Navigator</span><span class="p">().</span><span class="nx">Language</span><span class="p">())</span>
+<span class="nb">println</span><span class="p">(</span><span class="nx">Window</span><span class="p">.</span><span class="nx">Navigator</span><span class="p">().</span><span class="nx">Languages</span><span class="p">())</span>
+</pre></div>
+<p>The full code example of this post is <a class="reference external" href="https://github.com/siongui/frontend-programming-in-go/tree/master/013-navigator-language">on my GitHub</a>.</p>
+<hr class="docutils" />
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td><a class="reference external" href="/2016/01/24/go-detect-browser-language-preference/">[Golang] Detect Browser Language Preference by window.navigator.language</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[2]</td><td><a class="reference external" href="/2016/01/29/go-gopherjs-synonyms-with-javascript/">[Golang] GopherJS Synonyms with JavaScript</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[3]</a></td><td><a class="reference external" href="/2016/01/24/go-http-request-header-by-jsonp-gopherjs/">[Golang] Access HTTP Request Header (Accept-Language) by JSONP</a></td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/frontend-programming-in-go.html">Frontend Programming in Go</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/go.html">Go</a>
+,       <a href="/tag/golang.html">Golang</a>
+,       <a href="/tag/gopherjs.html">GopherJS</a>
+,       <a href="/tag/go-to-javascript.html">Go to JavaScript</a>
+,       <a href="/tag/frontend-programming-in-go.html">Frontend Programming in Go</a>
+,       <a href="/tag/i18n.html">i18n</a>
+,       <a href="/tag/locale.html">Locale</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

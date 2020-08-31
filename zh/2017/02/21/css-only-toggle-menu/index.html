@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>純CSS可切換選單</title>
+  <meta name="keywords" content="CSS,Web開發"/>
+  <meta name="description" content="純 CSS 可切換(toggle)選單(menu)，不需要任何 JavaScript"/>
+  <meta name="author" content="戴上為"/><meta property="og:title" content="純CSS可切換選單" /><meta property="og:image" content="http://cssmenumaker.com/sites/default/files/styles/new_menu_thumb/public/menu/90/css_menu_thumb.png" />
+<meta property="og:description" content="純 CSS 可切換(toggle)選單(menu)，不需要任何 JavaScript" /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/zh/../extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/zh/../theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/zh/">理論與實作</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/zh/pages/about.html">關於</a>
+    <a class="nav-item" href="/zh/archives.html">歸檔</a>
+    <a class="nav-item" href="/zh/categories.html">分類</a>
+    <a class="nav-item" href="/zh/tags.html">標籤</a>
+    <a class="nav-item" href="/zh/authors.html">作者</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/">English</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/zh/2017/02/21/css-only-toggle-menu/"
+           rel="bookmark"
+           title="Permalink to 純CSS可切換選單">
+          純CSS可切換選單
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2017-02-21T23:52:00+08:00">
+    二月 21, 2017
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2017/02/21/css-only-toggle-menu%25zh.rst">在Github上編輯</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p>不囉唆，先看範例demo，請點擊下方的 <span class="raw-html">&#8803;</span></p>
+<style>
+  label {
+    cursor: pointer;
+  }
+  #menu-toggle-demo {
+    display: none;
+  }
+  #menu {
+    display: none;
+  }
+  #menu-toggle-demo:checked + #menu {
+    display: block;
+  }
+</style>
+
+<div style="padding: 2em;">
+<label for="menu-toggle-demo">&#8803;</label>
+<input type="checkbox" id="menu-toggle-demo"/>
+<ul id="menu">
+  <li><a href="https://www.google.com/">Google</a></li>
+  <li><a href="https://duckduckgo.com/">DuckDuckGo</a></li>
+  <li><a href="https://www.ecosia.org/">Ecosia</a></li>
+</ul>
+</div><p>點擊一次會顯示選單，再點擊一次會隱藏選單，反覆點擊就會反覆地顯示隱藏。
+此技巧來自 <a class="footnote-reference" href="#id3" id="id1">[2]</a> ，我稍微修改使之感覺更順眼。
+這個技巧神奇就在於它是純 <a class="reference external" href="https://www.google.com/search?q=CSS">CSS</a> 實現，不需要任何的 <a class="reference external" href="https://www.google.com/search?q=JavaScript">JavaScript</a>
+程式碼來控制，可以讓網頁載入速度更快，減低網站複雜度，
+整個實作的程式碼不超過20行（程式碼請見下方）
+如果選單設計不複雜的話，這是一個很不錯的實作方式，
+我很喜歡這樣的技巧。</p>
+
+<p><strong>HTML</strong> 程式碼：</p>
+<div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">label</span> <span class="na">for</span><span class="o">=</span><span class="s">&quot;menu-toggle&quot;</span><span class="p">&gt;</span><span class="ni">&amp;#8803;</span><span class="p">&lt;/</span><span class="nt">label</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;checkbox&quot;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;menu-toggle&quot;</span><span class="p">/&gt;</span>
+<span class="p">&lt;</span><span class="nt">ul</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;menu&quot;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;https://www.google.com/&quot;</span><span class="p">&gt;</span>Google<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;https://duckduckgo.com/&quot;</span><span class="p">&gt;</span>DuckDuckGo<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;https://www.ecosia.org/&quot;</span><span class="p">&gt;</span>Ecosia<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+</pre></div>
+<p><strong>CSS</strong> 程式碼：</p>
+<div class="highlight"><pre><span></span><span class="nt">label</span> <span class="p">{</span>
+  <span class="k">cursor</span><span class="p">:</span> <span class="kc">pointer</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="p">#</span><span class="nn">menu-toggle</span> <span class="p">{</span>
+  <span class="k">display</span><span class="p">:</span> <span class="kc">none</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="p">#</span><span class="nn">menu</span> <span class="p">{</span>
+  <span class="k">display</span><span class="p">:</span> <span class="kc">none</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="p">#</span><span class="nn">menu-toggle</span><span class="p">:</span><span class="nd">checked</span> <span class="o">+</span> <span class="p">#</span><span class="nn">menu</span> <span class="p">{</span>
+  <span class="k">display</span><span class="p">:</span> <span class="kc">block</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>程式不多做解釋了，有興趣了解細節請自行參閱下方的參考。</p>
+<hr class="docutils" />
+<p>參考：</p>
+<table class="docutils footnote" frame="void" id="id2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td><div class="first last line-block">
+<div class="line"><a class="reference external" href="https://www.google.com/search?q=css+only+nav+toggle">css only nav toggle - Google search</a></div>
+<div class="line"><a class="reference external" href="https://duckduckgo.com/?q=css+only+nav+toggle">css only nav toggle - DuckDuckGo search</a></div>
+<div class="line"><a class="reference external" href="https://www.ecosia.org/search?q=css+only+nav+toggle">css only nav toggle - Ecosia search</a></div>
+<div class="line"><a class="reference external" href="https://www.bing.com/search?q=css+only+nav+toggle">css only nav toggle - Bing search</a></div>
+<div class="line"><a class="reference external" href="https://search.yahoo.com/search?p=css+only+nav+toggle">css only nav toggle - Yahoo search</a></div>
+<div class="line"><a class="reference external" href="https://www.baidu.com/s?wd=css+only+nav+toggle">css only nav toggle - Baidu search</a></div>
+<div class="line"><a class="reference external" href="https://www.yandex.com/search/?text=css+only+nav+toggle">css only nav toggle - Yandex search</a></div>
+</div>
+</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[2]</a></td><td><a class="reference external" href="http://www.outofscope.com/css-only-menu-toggle-no-javascript-required/">CSS only menu toggle - no JavaScript required</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[3]</td><td><div class="first last line-block">
+<div class="line"><a class="reference external" href="https://www.google.com/search?q=toggle+menu+%E4%B8%AD%E6%96%87">toggle menu 中文 - Google search</a></div>
+<div class="line"><a class="reference external" href="https://duckduckgo.com/?q=toggle+menu+%E4%B8%AD%E6%96%87">toggle menu 中文 - DuckDuckGo search</a></div>
+<div class="line"><a class="reference external" href="https://www.ecosia.org/search?q=toggle+menu+%E4%B8%AD%E6%96%87">toggle menu 中文 - Ecosia search</a></div>
+<div class="line"><a class="reference external" href="https://www.bing.com/search?q=toggle+menu+%E4%B8%AD%E6%96%87">toggle menu 中文 - Bing search</a></div>
+<div class="line"><a class="reference external" href="https://search.yahoo.com/search?p=toggle+menu+%E4%B8%AD%E6%96%87">toggle menu 中文 - Yahoo search</a></div>
+<div class="line"><a class="reference external" href="https://www.baidu.com/s?wd=toggle+menu+%E4%B8%AD%E6%96%87">toggle menu 中文 - Baidu search</a></div>
+<div class="line"><a class="reference external" href="https://www.yandex.com/search/?text=toggle+menu+%E4%B8%AD%E6%96%87">toggle menu 中文 - Yandex search</a></div>
+</div>
+</td></tr>
+</tbody>
+</table>
+
+<table class="docutils footnote" frame="void" id="id5" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[4]</td><td><div class="first last line-block">
+<div class="line"><a class="reference external" href="https://www.google.com/search?q=html+special+characters">html special characters - Google search</a></div>
+<div class="line"><a class="reference external" href="http://www.quackit.com/html/html_special_characters.cfm">HTML Special Characters - Quackit Tutorials</a></div>
+<div class="line"><a class="reference external" href="http://www.quackit.com/character_sets/unicode/">List of Unicode Characters - Quackit Tutorials</a></div>
+<div class="line"><a class="reference external" href="http://www.quackit.com/character_sets/unicode/versions/unicode_9.0.0/mathematical_operators_unicode_character_codes.cfm">Unicode 9.0 Characters: Mathematical Operators - Quackit Tutorials</a></div>
+<div class="line"><a class="reference external" href="http://www.quackit.com/html/html_editors/scratchpad/?app=charset_ref&amp;hexadecimal=02263&amp;decimal=8803&amp;unicodeName=STRICTLY_EQUIVALENT_TO">Unicode Name: STRICTLY EQUIVALENT TO - Quackit Tutorials</a></div>
+</div>
+</td></tr>
+</tbody>
+</table>
+</div>
+
+    <footer><hr><address><b>作者</b>:
+    <a rel="author"
+       href="/zh/author/dai-shang-wei.html">戴上為</a>
+  </address><aside>
+    <i>&isin;</i> <b>分類</b>:
+    <a href="/zh/category/css.html">CSS</a>
+  </aside><aside>
+    <i>&sum;</i> <b>標籤</b>:
+      <a href="/zh/tag/css.html">CSS</a>
+,       <a href="/zh/tag/webkai-fa.html">Web開發</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

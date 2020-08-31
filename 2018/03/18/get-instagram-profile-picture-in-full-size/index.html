@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>Get Instagram Profile Picture in Full Size</title>
+  <meta name="keywords" content="JavaScript,String Manipulation,Instagram,Regular Expression"/>
+  <meta name="description" content="Given the url of Instagram profile picture, return the url of profile picture in full size."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="Get Instagram Profile Picture in Full Size" /><meta property="og:image" content="https://images.vexels.com/media/users/3/147102/isolated/preview/082213cb0f9eabb7e6715f59ef7d322a-instagram-profile-icon-by-vexels.png" />
+<meta property="og:description" content="Given the url of Instagram profile picture, return the url of profile picture in full size." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2018/03/18/get-instagram-profile-picture-in-full-size/"
+           rel="bookmark"
+           title="Permalink to Get Instagram Profile Picture in Full Size">
+          Get Instagram Profile Picture in Full Size
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2018-03-23T21:54:00+08:00">
+    Updated: March 23, 2018
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2018/03/18/get-instagram-profile-picture-in-full-size%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p><em>[Update]: Looks like Instagram banned access to the URL of full size profile
+picture. This post becomes useless.</em></p>
+<p>Paste URL of <a class="reference external" href="https://www.instagram.com/">Instagram</a> profile picture and get full-size URL of it.
+For example, you can try to paste the following URL:</p>
+<blockquote>
+<em>https://instagram.fkhh1-2.fna.fbcdn.net/vp/dd4c00ec38e64a8cc8340771e555ea62/5B3BD6AB/t51.2885-19/s320x320/14719833_310540259320655_1605122788543168512_a.jpg</em></blockquote>
+<button id="get" type="button">Get Full-Size URL</button>
+<input id="oriUrl" type="text" name="profile_pic_url"><br>
+<div id="result"></div>
+
+<style>
+#result {
+  margin-top: .5rem;
+  margin-bottom: .5rem;
+}
+</style>
+<script>
+function getFullSizeProfilePicUrl(picurl) {
+  var fullsizeurl = picurl.replace("/vp/", "/");
+  fullsizeurl = fullsizeurl.replace("t51.2885-19", "t51.2885-15");
+  fullsizeurl = fullsizeurl.replace(/\/s\d+x\d+\//, "/sh0.08/e35/");
+  return fullsizeurl;
+}
+
+var btn = document.querySelector("#get");
+var result = document.querySelector("#result");
+
+btn.addEventListener("click", function(e) {
+  var fullUrl = getFullSizeProfilePicUrl(document.querySelector("#oriUrl").value);
+
+  var link = document.createElement("a");
+  link.setAttribute("href", fullUrl);
+  link.setAttribute("target", "_blank");
+  link.appendChild(document.createTextNode("View Full Size Profile Pic"));
+
+  result.innerHTML = "";
+  result.appendChild(link);
+});
+</script><p>The trick comes from <a class="reference external" href="https://stackoverflow.com/questions/48468144/how-to-view-instagram-profile-picture-in-full-size#comment85451994_48468144">the comment of SO question</a> <a class="footnote-reference" href="#id5" id="id1">[3]</a>. The following is the
+implementation of the trick in JavaScript:</p>
+<div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">getFullSizeProfilePicUrl</span><span class="p">(</span><span class="nx">picurl</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">fullsizeurl</span> <span class="o">=</span> <span class="nx">picurl</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="s2">&quot;/vp/&quot;</span><span class="p">,</span> <span class="s2">&quot;/&quot;</span><span class="p">);</span>
+  <span class="nx">fullsizeurl</span> <span class="o">=</span> <span class="nx">fullsizeurl</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="s2">&quot;t51.2885-19&quot;</span><span class="p">,</span> <span class="s2">&quot;t51.2885-15&quot;</span><span class="p">);</span>
+  <span class="nx">fullsizeurl</span> <span class="o">=</span> <span class="nx">fullsizeurl</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/\/s\d+x\d+\//</span><span class="p">,</span> <span class="s2">&quot;/sh0.08/e35/&quot;</span><span class="p">);</span>
+  <span class="k">return</span> <span class="nx">fullsizeurl</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>I also write a Chrome extension to help you download full size picture,
+see <a class="footnote-reference" href="#id6" id="id2">[4]</a>.</p>
+<hr class="docutils" />
+
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td><a class="reference external" href="https://www.google.com/search?q=download+instagram+profile+picture">download instagram profile picture - Google search</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[2]</td><td><a class="reference external" href="https://www.quora.com/How-can-I-download-my-Instagram-profile-picture">How to download my Instagram profile picture - Quora</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id5" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[3]</a></td><td><a class="reference external" href="https://stackoverflow.com/questions/48468144/how-to-view-instagram-profile-picture-in-full-size">How to view instagram profile picture in full-size? - Stack Overflow</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id6" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[4]</a></td><td><a class="reference external" href="/2018/03/19/crx-download-instagram-profile-picture-in-full-size/">[Chrome Extension] Download Instagram Profile Picture in Full Size</a></td></tr>
+</tbody>
+</table>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/javascript.html">JavaScript</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/javascript.html">JavaScript</a>
+,       <a href="/tag/string-manipulation.html">String Manipulation</a>
+,       <a href="/tag/instagram.html">Instagram</a>
+,       <a href="/tag/regular-expression.html">Regular Expression</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

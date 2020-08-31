@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8">
+  <title>[Algorithm] Robot</title>
+  <meta name="keywords" content="Algorithm"/>
+  <meta name="description" content="Robot"/>
+  <meta name="author" content="Shen-Fu Tsai"/><meta property="og:title" content="[Algorithm] Robot" />    <meta property="og:image" content="/./extra/Dharma_wheel.svg" /><meta property="og:description" content="Robot" /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2014/09/23/robot/"
+           rel="bookmark"
+           title="Permalink to [Algorithm] Robot">
+          [Algorithm] Robot
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2014-09-23T18:34:00-08:00">
+    September 23, 2014
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2014/09/23/robot%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p>In this post we present a coding problem and our solution which is different
+from the author's. Our solution doesn't involve tree, and only a stack is used.</p>
+<p><a class="reference external" href="https://www.hackerrank.com/contests/w10/challenges/robot">https://www.hackerrank.com/contests/w10/challenges/robot</a></p>
+<p>The original problem was phrased in psuedo code. In my wording it becomes:</p>
+<p>A robot is to travel from station 0 to station 1, then to station 2, station 3,
+and so on, to station N - 1. It enters station 0 with energy 0 and no money. At
+each station i, the robot has two options: either it resets its energy to
+<span class="formula"><i>P</i><sub><i>i</i></sub> ≥ 0</span>, or it takes money <span class="formula"><i>V</i><sub><i>i</i></sub> ≥ 0</span>. As it enters next
+station, its energy deceases by 1. The only restriction is that its energy
+should never becomes negative. The goal is to maximize the total amount of money
+gathered. <span class="formula">1 ≤ <i>N</i> ≤ 500000</span>, <span class="formula">0 ≤ <i>V</i><sub><i>i</i></sub> ≤ 10<sup>9</sup></span>,
+<span class="formula">0 ≤ <i>P</i><sub><i>i</i></sub> ≤ 100000</span>. It is guaranteed there's a way that energy is
+always non-negative.</p>
+<p>A standard DP with state (station, energy) takes O[N <span class="formula"> × </span> max_energy].
+Let D(i, e)
+be the maximum amount of money to be gained when entering station i with energy
+e. Clearly</p>
+<blockquote>
+<p>D(i, e)</p>
+<p>= max{</p>
+<blockquote>
+<p>max money gained if reset energy at station i,</p>
+<p>max money gained if take <span class="formula"><i>V</i><sub><i>i</i></sub></span> at station i</p>
+</blockquote>
+<p>}</p>
+<p>= max{</p>
+<blockquote>
+<p><span class="formula"><i>P</i><sub><i>i</i></sub></span> == 0 ? -1 : D(i + 1, <span class="formula"><i>P</i><sub><i>i</i></sub></span> - 1),</p>
+<p>e == 0 ? -1 : <span class="formula"><i>V</i><sub><i>i</i></sub></span> + D(i + 1, e - 1)</p>
+</blockquote>
+<p>}</p>
+</blockquote>
+<p>As the complexity is too high, we have to try reducing it. Let's observe an
+example and see what we got.</p>
+<p>N = 5</p>
+<p>P: 3 0 1 3 1
+V: 2 1 3 6 9</p>
+<hr class="docutils" />
+<p>Our DP starts from i = 4. Because there's no concern of energy after entering
+the last station, D(4, e) are</p>
+<p>9 9 9 9 9 9 9....</p>
+<hr class="docutils" />
+<p>For i = 3, either we take energy 3 and enter i = 4 with energy 2 which will end
+up with 9 dollars, or we take 6 dollars if we enter with positive energy and end
+up with 6 + 9 = 15 dollars. So we're comparing these two rows:</p>
+<blockquote>
+<p>9  9  9  9  9  9  9 ....</p>
+<blockquote>
+15 15 15 15 15 15 ....</blockquote>
+</blockquote>
+<p>which becomes</p>
+<blockquote>
+9 15 15 15 15 15 15 ...</blockquote>
+<hr class="docutils" />
+<p>For i = 2, either we take energy 1 and enter i = 3 with energy 0 which will end
+up with 9 dollars, or we take 3 dollars if we enter with positive energy and end
+up with 3 more dollars than i=3. So we're comparing these two rows:</p>
+<blockquote>
+<p>9  9  9  9  9  9  9 ...</p>
+<blockquote>
+12 18 18 18 18 18 ...</blockquote>
+</blockquote>
+<p>which becomes</p>
+<blockquote>
+9 12 18 18 18 18 18 ...</blockquote>
+<hr class="docutils" />
+<p>As we see now, the pattern of update is to compare 2 rows. The first is obtained
+by expanding D(i + 1, <span class="formula"><i>P</i><sub><i>i</i></sub></span> - 1) to a row. The second is by right shifting
+the row of D(i + 1, e) by 1 and add <span class="formula"><i>V</i><sub><i>i</i></sub></span>. Adding <span class="formula"><i>V</i><sub><i>i</i></sub></span> is expensive
+because the row can be long, so why not store
+<span class="formula"><i>V</i><sub><i>i</i></sub> + <i>V</i><sub><i>i</i> + 1</sub> + ... + <i>V</i><sub><i>N</i> − 1</sub></span> - earning in the table? This is exactly
+the amount of money we don't manage to get from station i to the end. This is
+the first observation.</p>
+<p>The second observation is that the number of distinct values increases by at
+most 1, and is bounded by <span class="formula"><i>N</i> − <i>i</i></span>. So what if we just store a vector or
+stack of segments with size no more than <span class="formula"><i>O</i>(<i>N</i>)</span>? One issue follows
+immediately: because of the right shift we have to update the end points of
+these segment in <span class="formula"><i>O</i>(<i>N</i>)</span> for each i. But since the right shift always
+occurs, what about storing end point - <span class="formula">(<i>N</i> − <i>i</i>)</span> as the coordinate of the
+segment? If a segment is not &quot;interrupted&quot;, this value remains constant across
+stations and needs no update. In this way no <span class="formula"><i>O</i>(<i>N</i>)</span> update is necessary.
+In each iteration, the main task is to find the value of
+D(i + 1, <span class="formula"><i>P</i><sub><i>i</i></sub></span> - 1) because it's not immediately available -- we have to
+perform <span class="formula"><i>O</i>(<i>log</i>(<i>N</i>))</span> binary search of <span class="formula"><i>P</i><sub><i>i</i></sub> − 1</span> on the end points of
+the segment. Once found, updating the stack takes amortized cost of
+<span class="formula"><i>O</i>(1)</span>.</p>
+<p>In brief, with these two coordinate transformations this problem is solved in
+<span class="formula"><i>O</i>(<i>N</i> × <i>log</i>(<i>N</i>))</span> time and <span class="formula"><i>O</i>(<i>N</i>)</span> memory without tree structure. The
+code is available at
+<a class="reference external" href="https://github.com/paritystsai8/coding_problem/blob/master/robot.cpp">https://github.com/paritystsai8/coding_problem/blob/master/robot.cpp</a></p>
+<hr class="docutils" />
+<p><a class="reference external" href="http://oathbystyx.blogspot.com/2014/09/robot.html">post</a>
+by
+<a class="reference external" href="/pages/shen-fu-tsai.html">Shen-Fu Tsai</a></p>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/shen-fu-tsai.html">Shen-Fu Tsai</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/algorithm.html">Algorithm</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/algorithm.html">Algorithm</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

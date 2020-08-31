@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head><meta charset="utf-8">
+  <title>關於 Go 即將支持的 WebAssembly 的一些注意事項</title>
+  <meta name="keywords" content="Go語言,Go語言中文網,WebAssembly,轉錄"/>
+  <meta name="description" content="這是一篇關於 webassembly 的即時記錄，它的目的是給我做個備忘而不僅僅是如何使用它的教程。"/>
+  <meta name="author" content="themoonbear(譯者)"/><meta property="og:title" content="關於 Go 即將支持的 WebAssembly 的一些注意事項" /><meta property="og:image" content="https://static.oschina.net/uploads/space/2018/0415/083556_gBeH_2720166.png" />
+<meta property="og:description" content="這是一篇關於 webassembly 的即時記錄，它的目的是給我做個備忘而不僅僅是如何使用它的教程。" /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/zh/../extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/zh/../theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/zh/">理論與實作</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/zh/pages/about.html">關於</a>
+    <a class="nav-item" href="/zh/archives.html">歸檔</a>
+    <a class="nav-item" href="/zh/categories.html">分類</a>
+    <a class="nav-item" href="/zh/tags.html">標籤</a>
+    <a class="nav-item" href="/zh/authors.html">作者</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/">English</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/zh/2018/07/14/some-notes-about-the-upcoming-webassembly-support-in-go-studygolang-gctt/"
+           rel="bookmark"
+           title="Permalink to 關於 Go 即將支持的 WebAssembly 的一些注意事項">
+          關於 Go 即將支持的 WebAssembly 的一些注意事項
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2018-07-14T12:06:09+08:00">
+    七月 14, 2018
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2018/07/30/some-notes-about-the-upcoming-webassembly-support-in-go-studygolang-gctt%25zh.rst">在Github上編輯</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p>這是一篇關於 webassembly 的即時記錄，它的目的是給我做個備忘而不僅僅是如何使用它的教程。</p>
+<p>即將發佈的 Go 1.11 版本將支持 Wasm。&#64;neelance 做了大部分的實施工作。對 wasm 的支持已經可以通過他在 github 上的工作分支進行測試。</p>
+<p>看 <a class="reference external" href="https://blog.gopheracademy.com/advent-2017/go-wasm/">這篇文章</a> 瞭解更多信息</p>
+<div class="section" id="id1">
+<h2>工具鏈設置</h2>
+<p>要從 go 源碼生產一個 wasm 文件，您需要從源碼獲取並為 go 工具集打補丁：</p>
+<div class="highlight"><pre><span></span>~ mkdir ~/gowasm
+~ git clone https://go.googlesource.com/go ~/gowasm
+~ <span class="nb">cd</span> ~/gowasm
+~ git remote add neelance https://github.com/neelance/go
+~ git fetch --all
+~ git checkout wasm-wip
+~ <span class="nb">cd</span> src
+~ ./make.bash
+</pre></div>
+<p>然後使用這個版本的 Go，把 <tt class="docutils literal">GOROOT</tt> 指到 <tt class="docutils literal">~/gowasm</tt> 並使用 <tt class="docutils literal">~/gowasm/bin/go</tt> 這個二進制文件。</p>
+</div>
+<div class="section" id="id2">
+<h2>第一個例子</h2>
+<p>按照慣例，讓我們先來寫個 “hello world”：</p>
+<div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="s">&quot;fmt&quot;</span>
+
+<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+      <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;Hello World!&quot;</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+<p>然後編譯出文件並命名 <tt class="docutils literal">example.wasm</tt>:</p>
+<div class="highlight"><pre><span></span><span class="nv">GOROOT</span><span class="o">=</span>~/gowasm <span class="nv">GOARCH</span><span class="o">=</span>wasm <span class="nv">GOOS</span><span class="o">=</span>js ~/gowasm/bin/go build -o example.wasm main.go
+</pre></div>
+</div>
+<div class="section" id="id3">
+<h2>運行這個例子</h2>
+<p>這是 <a class="reference external" href="https://webassembly.org/getting-started/js-api/">官方文檔</a> 的節選：</p>
+<blockquote>
+<p>雖然有計畫允許 WebAssembly 模塊像 ES6 模塊(...)那樣加載，但目前 WebAssembly 必須由 JavaScript 加載並編譯，對於基本的加載，有如下三個步驟：</p>
+<ul class="simple">
+<li>將 .wasm 字節轉化為數組或 ArrayBuffer</li>
+<li>將字節編譯為 WebAssemly.Module</li>
+<li>使用導入實例化的 WebAssembly.Module 以獲取可調用的導出</li>
+</ul>
+</blockquote>
+<p>幸運的是，Go 的作者已經提供了一個 Javascript 加載器 <tt class="docutils literal">~/gowasm/misc/wasm/wasm_exec.js</tt> 來簡化這個過程。它附帶一個 HTML 文件，負責粘貼瀏覽器中所有的內容。</p>
+<p>要實際運行我們的文件，需要將以下文件複製到一個目錄中並作為 Web 服務啟動：</p>
+<div class="highlight"><pre><span></span>~ mkdir ~/wasmtest
+~ cp ~/gowasm/misc/wasm/wasm_exec.js ~/wasmtest
+~ cp ~/gowasm/misc/wasm/wasm_exec.html ~/wasmtest/index.html
+~ cp example.wasm ~/wasmtest
+</pre></div>
+<p>然後編輯這個 <tt class="docutils literal">index.html</tt> 文件去運行正確的例子：</p>
+<div class="highlight"><pre><span></span><span class="c1">// ...</span>
+<span class="nx">WebAssembly</span><span class="p">.</span><span class="nx">instantiateStreaming</span><span class="p">(</span><span class="nx">fetch</span><span class="p">(</span><span class="s2">&quot;example.wasm&quot;</span><span class="p">),</span> <span class="nx">go</span><span class="p">.</span><span class="nx">importObject</span><span class="p">).</span><span class="nx">then</span><span class="p">((</span><span class="nx">result</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+      <span class="nx">mod</span> <span class="o">=</span> <span class="nx">result</span><span class="p">.</span><span class="nx">module</span><span class="p">;</span>
+      <span class="nx">inst</span> <span class="o">=</span> <span class="nx">result</span><span class="p">.</span><span class="nx">instance</span><span class="p">;</span>
+      <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;runButton&quot;</span><span class="p">).</span><span class="nx">disabled</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+<span class="p">});</span>
+<span class="c1">// ...</span>
+</pre></div>
+<p>理論上，任何 web 服務都可以運行它，但是當我們試著用 <tt class="docutils literal">caddy</tt> 運行它時遇到一個問題。這個 javascript 加載器需要服務發送這個 wasm 文件的正確 mime 類型給它。</p>
+<p>這有一個快速的破解方法來運行我們的測試：為我們的 wasm 文件寫個帶有特殊處理的 Go 服務。</p>
+<div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+      <span class="s">&quot;log&quot;</span>
+      <span class="s">&quot;net/http&quot;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nx">wasmHandler</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">w</span><span class="p">.</span><span class="nx">Header</span><span class="p">().</span><span class="nx">Set</span><span class="p">(</span><span class="s">&quot;Content-Type&quot;</span><span class="p">,</span> <span class="s">&quot;application/wasm&quot;</span><span class="p">)</span>
+      <span class="nx">http</span><span class="p">.</span><span class="nx">ServeFile</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="nx">r</span><span class="p">,</span> <span class="s">&quot;example.wasm&quot;</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+      <span class="nx">mux</span> <span class="o">:=</span> <span class="nx">http</span><span class="p">.</span><span class="nx">NewServeMux</span><span class="p">()</span>
+      <span class="nx">mux</span><span class="p">.</span><span class="nx">Handle</span><span class="p">(</span><span class="s">&quot;/&quot;</span><span class="p">,</span> <span class="nx">http</span><span class="p">.</span><span class="nx">FileServer</span><span class="p">(</span><span class="nx">http</span><span class="p">.</span><span class="nx">Dir</span><span class="p">(</span><span class="s">&quot;.&quot;</span><span class="p">)))</span>
+      <span class="nx">mux</span><span class="p">.</span><span class="nx">HandleFunc</span><span class="p">(</span><span class="s">&quot;/example.wasm&quot;</span><span class="p">,</span> <span class="nx">wasmHandler</span><span class="p">)</span>
+      <span class="nx">log</span><span class="p">.</span><span class="nx">Fatal</span><span class="p">(</span><span class="nx">http</span><span class="p">.</span><span class="nx">ListenAndServe</span><span class="p">(</span><span class="s">&quot;:3000&quot;</span><span class="p">,</span> <span class="nx">mux</span><span class="p">))</span>
+<span class="p">}</span>
+</pre></div>
+<p><em>注意</em> 設置一個特殊的路由器來處理所有的 wasm 文件沒什麼大不了，如我所說，這是一個 POC，這篇文章只是關於它的附註。</p>
+<p>然後使用 <tt class="docutils literal">go run server.go</tt> 來啟動服務，並打開瀏覽器訪問 <tt class="docutils literal"><span class="pre">http://localhost:3000</span></tt> 。</p>
+<p>打開控制台看看！</p>
+</div>
+<div class="section" id="id4">
+<h2>和瀏覽器交互</h2>
+<p>讓我們和世界互動。</p>
+<div class="section" id="dom">
+<h3>解決 DOM 問題</h3>
+<p><tt class="docutils literal">syscall/js</tt> 包中包含允許通過 javascript API 與 DOM 交互的函數。要獲取此包的文檔，只需運行：</p>
+<div class="highlight"><pre><span></span><span class="nv">GOROOT</span><span class="o">=</span>~/gowasm godoc -http<span class="o">=</span>:6060
+</pre></div>
+<p>然後用瀏覽器訪問 <tt class="docutils literal"><span class="pre">http://localhost:6060/pkg/syscall/js/</span></tt> 。</p>
+<p>讓我們寫個簡單的 HTML 文件來顯示一個輸入框。然後從 webassembly，我們給這個元素綁定一個事件，並在監聽到事件時觸發一個動作。</p>
+<p>編輯 <tt class="docutils literal">index.html</tt> 並把代碼放在 <tt class="docutils literal">run</tt> 按鈕下面：</p>
+<div class="highlight"><pre><span></span>      <span class="p">&lt;</span><span class="nt">button</span> <span class="na">onClick</span><span class="o">=</span><span class="s">&quot;run();&quot;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;runButton&quot;</span> <span class="na">disabled</span><span class="p">&gt;</span>Run<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;number&quot;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;myText&quot;</span> <span class="na">value</span><span class="o">=</span><span class="s">&quot;&quot;</span> <span class="p">/&gt;</span>
+<span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+</pre></div>
+<p>然後修改 Go 文件：</p>
+<div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="s">&quot;fmt&quot;</span>
+
+<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+      <span class="nx">c</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kd">struct</span><span class="p">{},</span> <span class="mi">0</span><span class="p">)</span>
+      <span class="nx">cb</span> <span class="p">=</span> <span class="nx">js</span><span class="p">.</span><span class="nx">NewCallback</span><span class="p">(</span><span class="kd">func</span><span class="p">(</span><span class="nx">args</span> <span class="p">[]</span><span class="nx">js</span><span class="p">.</span><span class="nx">Value</span><span class="p">)</span> <span class="p">{</span>
+              <span class="nx">move</span> <span class="o">:=</span> <span class="nx">js</span><span class="p">.</span><span class="nx">Global</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;document&quot;</span><span class="p">).</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;getElementById&quot;</span><span class="p">,</span> <span class="s">&quot;myText&quot;</span><span class="p">).</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;value&quot;</span><span class="p">).</span><span class="nx">Int</span><span class="p">()</span>
+              <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">move</span><span class="p">)</span>
+      <span class="p">})</span>
+      <span class="nx">js</span><span class="p">.</span><span class="nx">Global</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;document&quot;</span><span class="p">).</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;getElementById&quot;</span><span class="p">,</span> <span class="s">&quot;myText&quot;</span><span class="p">).</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;addEventListener&quot;</span><span class="p">,</span> <span class="s">&quot;input&quot;</span><span class="p">,</span> <span class="nx">cb</span><span class="p">)</span>
+      <span class="c1">// The goal of the channel is to wait indefinitly</span>
+      <span class="c1">// Otherwise, the main function ends and the wasm modules stops</span>
+      <span class="o">&lt;-</span><span class="nx">c</span>
+<span class="p">}</span>
+</pre></div>
+<p>像以前一樣編譯文件並刷新瀏覽器……打開控制台然後輸入一個數字……瞧瞧</p>
+</div>
+</div>
+<div class="section" id="id5">
+<h2>暴露函數</h2>
+<p>這有點辣手……我沒有找到任何簡單的方法將一個 Go 函數暴露給 Javascript 生態系統。我們需要做的是在 Go 文件中創建一個 <tt class="docutils literal">Callback</tt> 對象並指定到一個 Javascript 對象。</p>
+<p>為得到返回結果，我們不能返回一個值給 callback 而是使用 Javascript 對象代替。</p>
+<p>這是新的 Go 代碼：</p>
+<div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+      <span class="s">&quot;syscall/js&quot;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+      <span class="nx">c</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kd">struct</span><span class="p">{},</span> <span class="mi">0</span><span class="p">)</span>
+      <span class="nx">add</span> <span class="o">:=</span> <span class="kd">func</span><span class="p">(</span><span class="nx">i</span> <span class="p">[]</span><span class="nx">js</span><span class="p">.</span><span class="nx">Value</span><span class="p">)</span> <span class="p">{</span>
+              <span class="nx">js</span><span class="p">.</span><span class="nx">Global</span><span class="p">.</span><span class="nx">Set</span><span class="p">(</span><span class="s">&quot;output&quot;</span><span class="p">,</span> <span class="nx">js</span><span class="p">.</span><span class="nx">ValueOf</span><span class="p">(</span><span class="nx">i</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">Int</span><span class="p">()</span><span class="o">+</span><span class="nx">i</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="nx">Int</span><span class="p">()))</span>
+      <span class="p">}</span>
+      <span class="nx">js</span><span class="p">.</span><span class="nx">Global</span><span class="p">.</span><span class="nx">Set</span><span class="p">(</span><span class="s">&quot;add&quot;</span><span class="p">,</span> <span class="nx">js</span><span class="p">.</span><span class="nx">NewCallback</span><span class="p">(</span><span class="nx">add</span><span class="p">))</span>
+      <span class="o">&lt;-</span><span class="nx">c</span>
+<span class="p">}</span>
+</pre></div>
+<p>現在編譯並運行代碼。打開瀏覽器和控制台。</p>
+<p>如果你輸入 <tt class="docutils literal">output</tt> 將返回 <tt class="docutils literal">Object not found</tt> 。現在您輸入 <tt class="docutils literal">add(2,3)</tt> 和 <tt class="docutils literal">output</tt> ...應該得到 <tt class="docutils literal">5</tt> 。</p>
+<p>這不是很優雅的交互方式，但它按預期運行。</p>
+</div>
+<div class="section" id="id6">
+<h2>結論</h2>
+<p>Go 對 wasm 的支持剛剛開始，但正大力發展。許多功能現在都可運行。我甚至可以在瀏覽器運行一個完整的遞歸神經網絡，這歸功於 Gorgonia。我將稍後講解這些。</p>
+<hr class="docutils" />
+<p>via: <a class="reference external" href="https://blog.owulveryck.info/2018/06/08/some-notes-about-the-upcoming-webassembly-support-in-go.html">Some notes about the upcoming WebAssembly support in Go</a></p>
+<p>作者： <a class="reference external" href="https://medium.com/&#64;parikshit">Parikshit Agnihotry</a>  譯者： <a class="reference external" href="https://github.com/themoonbear">themoonbear</a>  校對： <a class="reference external" href="https://github.com/polaris1119">polaris1119</a></p>
+<p>本文由 <a class="reference external" href="https://github.com/studygolang/GCTT">GCTT</a> 原創編譯， <a class="reference external" href="https://studygolang.com/articles/13611">Go語言中文網</a> 榮譽推出</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<div class="last line-block">
+<div class="line">本文由 GCTT 原創翻譯， <a class="reference external" href="https://studygolang.com/articles/13611">Go語言中文網</a> 首發。也想加入譯者行列，為開源做一些自己的貢獻麼？歡迎加入 <a class="reference external" href="https://github.com/studygolang/GCTT">GCTT</a> ！</div>
+<div class="line">翻譯工作和譯文發表僅用於學習和交流目的，翻譯工作遵照 <a class="reference external" href="http://creativecommons.org/licenses/by-nc-sa/3.0/deed.zh">CC-BY-NC-SA 協議規定</a> ，如果我們的工作有侵犯到您的權益，請及時聯繫我們。</div>
+<div class="line">歡迎遵照 <a class="reference external" href="http://creativecommons.org/licenses/by-nc-sa/3.0/deed.zh">CC-BY-NC-SA 協議規定</a> 轉載，敬請在正文中標注並保留原文/譯文鏈接和作者/譯者等信息。</div>
+</div>
+</div>
+<hr class="docutils" />
+<ul class="simple">
+<li><a class="reference external" href="https://studygolang.com/articles/13611">关于 Go 即将支持的 WebAssembly 的一些注意事项  - Go语言中文网 - Golang中文社区</a></li>
+<li><a class="reference external" href="https://tw.saowen.com/a/f57e05ac77d1c7ab38d937ac951af71a229fdecddfe3054a87932ed47b562518">關於 Go 即將支援的 WebAssembly 的一些注意事項 - 掃文資訊</a></li>
+<li><a class="reference external" href="https://blog.longwin.com.tw/2018/09/how-to-compile-golang-webassembly-wasm-2018/">如何將 Go 程式編譯成 WebAssembly | Tsung's Blog</a></li>
+</ul>
+</div>
+</div>
+
+    <footer><hr><address><b>作者</b>:
+    <a rel="author"
+       href="/zh/author/themoonbearyi-zhe.html">themoonbear(譯者)</a>
+  </address><aside>
+    <i>&isin;</i> <b>分類</b>:
+    <a href="/zh/category/goyu-yan.html">Go語言</a>
+  </aside><aside>
+    <i>&sum;</i> <b>標籤</b>:
+      <a href="/zh/tag/goyu-yan.html">Go語言</a>
+,       <a href="/zh/tag/goyu-yan-zhong-wen-wang.html">Go語言中文網</a>
+,       <a href="/zh/tag/webassembly.html">WebAssembly</a>
+,       <a href="/zh/tag/zhuan-lu.html">轉錄</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

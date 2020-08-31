@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>[Golang] File Server With Custom 404 Not Found</title>
+  <meta name="keywords" content="Go,Golang,Go net/http,HTTP 404 Not Found"/>
+  <meta name="description" content="Implement static file server with custom HTTP 404 Not Found handler via Go standard net/http package."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="[Golang] File Server With Custom 404 Not Found" /><meta property="og:image" content="https://i.ytimg.com/vi/z74PQXHnzjk/hqdefault.jpg" />
+<meta property="og:description" content="Implement static file server with custom HTTP 404 Not Found handler via Go standard net/http package." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2017/03/19/go-file-server-with-custom-404-not-found/"
+           rel="bookmark"
+           title="Permalink to [Golang] File Server With Custom 404 Not Found">
+          [Golang] File Server With Custom 404 Not Found
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2017-03-19T04:21:00+08:00">
+    March 19, 2017
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2017/03/19/go-file-server-with-custom-404-not-found%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p>Implementation of static file server with custom <a class="reference external" href="https://www.google.com/search?q=HTTP+404+not+found">HTTP 404 Not Found</a> handler
+via Go standard <a class="reference external" href="https://golang.org/pkg/net/http/">net/http</a> package.</p>
+<p>The built-in <a class="reference external" href="https://golang.org/pkg/net/http/#FileServer">FileServer</a> method in standard <em>net/http</em> package can serve staic
+files in the file syatem, but does not allow custom 404 Not Found handler, so I
+implement my own FileServer method with custom 404 handler.</p>
+<p>The idea of implementation of FileServer with custom 404 handler comes from the
+implementation of <a class="reference external" href="https://golang.org/pkg/net/http/#StripPrefix">StripPrefix</a> method in the same <em>net/http</em> package. You can
+read the code of <em>StripPrefix</em> method for more details.</p>
+<p>The key idea of my implementation:</p>
+<ul class="simple">
+<li>Accept the same parameters (<a class="reference external" href="https://golang.org/pkg/net/http/#FileSystem">FileSystem</a>) as <em>FileServer</em> method, which is
+return value of <em>http.Dir</em> in normal case.</li>
+<li>Use the <em>FileSystem.Open</em> and <em>os.IsNotExist</em> methods to check if the file
+exists. If not, call custom 404 handler. Otherwise serve the file with normal
+<em>FileServer</em> handler.</li>
+</ul>
+
+<p><strong>Source Code</strong>:</p>
+<figure class="github-file">
+            <figcaption>
+              <a href="https://github.com/siongui/userpages/blob/master/content/code/go/custom-404/server.go">server.go</a> |
+              <a href="https://github.com/siongui/userpages">repository</a> |
+              <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/code/go/custom-404/server.go">view raw</a>
+            </figcaption><div class="code-file">
+            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+	<span class="s">&quot;fmt&quot;</span>
+	<span class="s">&quot;net/http&quot;</span>
+	<span class="s">&quot;os&quot;</span>
+	<span class="s">&quot;path&quot;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nx">NotFound</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Fprintf</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="s">&quot;my 404 page!&quot;</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nx">FileServerWithCustom404</span><span class="p">(</span><span class="nx">fs</span> <span class="nx">http</span><span class="p">.</span><span class="nx">FileSystem</span><span class="p">)</span> <span class="nx">http</span><span class="p">.</span><span class="nx">Handler</span> <span class="p">{</span>
+	<span class="nx">fsh</span> <span class="o">:=</span> <span class="nx">http</span><span class="p">.</span><span class="nx">FileServer</span><span class="p">(</span><span class="nx">fs</span><span class="p">)</span>
+	<span class="k">return</span> <span class="nx">http</span><span class="p">.</span><span class="nx">HandlerFunc</span><span class="p">(</span><span class="kd">func</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">{</span>
+		<span class="nx">_</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">Open</span><span class="p">(</span><span class="nx">path</span><span class="p">.</span><span class="nx">Clean</span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span><span class="p">))</span>
+		<span class="k">if</span> <span class="nx">os</span><span class="p">.</span><span class="nx">IsNotExist</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+			<span class="nx">NotFound</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="nx">r</span><span class="p">)</span>
+			<span class="k">return</span>
+		<span class="p">}</span>
+		<span class="nx">fsh</span><span class="p">.</span><span class="nx">ServeHTTP</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="nx">r</span><span class="p">)</span>
+	<span class="p">})</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nx">http</span><span class="p">.</span><span class="nx">ListenAndServe</span><span class="p">(</span><span class="s">&quot;:8080&quot;</span><span class="p">,</span> <span class="nx">FileServerWithCustom404</span><span class="p">(</span><span class="nx">http</span><span class="p">.</span><span class="nx">Dir</span><span class="p">(</span><span class="s">&quot;/usr/share/doc&quot;</span><span class="p">)))</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div></figure>
+<p>Not sure whether this implementation is robust or not, but it works well in my
+application.</p>
+<hr class="docutils" />
+<p>Tested on:</p>
+<ul class="simple">
+<li><tt class="docutils literal">Ubuntu Linux 16.10</tt></li>
+<li><tt class="docutils literal">Go 1.8</tt></li>
+</ul>
+<hr class="docutils" />
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id1" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td><div class="first last line-block">
+<div class="line"><a class="reference external" href="https://www.google.com/search?q=golang+custom+404">golang custom 404 - Google search</a></div>
+<div class="line"><a class="reference external" href="https://duckduckgo.com/?q=golang+custom+404">golang custom 404 - DuckDuckGo search</a></div>
+<div class="line"><a class="reference external" href="https://www.ecosia.org/search?q=golang+custom+404">golang custom 404 - Ecosia search</a></div>
+<div class="line"><a class="reference external" href="https://www.qwant.com/?q=golang+custom+404">golang custom 404 - Qwant search</a></div>
+<div class="line"><a class="reference external" href="https://www.bing.com/search?q=golang+custom+404">golang custom 404 - Bing search</a></div>
+<div class="line"><a class="reference external" href="https://search.yahoo.com/search?p=golang+custom+404">golang custom 404 - Yahoo search</a></div>
+<div class="line"><a class="reference external" href="https://www.baidu.com/s?wd=golang+custom+404">golang custom 404 - Baidu search</a></div>
+<div class="line"><a class="reference external" href="https://www.yandex.com/search/?text=golang+custom+404">golang custom 404 - Yandex search</a></div>
+</div>
+</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[2]</td><td><div class="first last line-block">
+<div class="line"><a class="reference external" href="https://www.google.com/search?q=golang+file+server+404">golang file server 404 - Google search</a></div>
+<div class="line"><a class="reference external" href="https://duckduckgo.com/?q=golang+file+server+404">golang file server 404 - DuckDuckGo search</a></div>
+<div class="line"><a class="reference external" href="https://www.ecosia.org/search?q=golang+file+server+404">golang file server 404 - Ecosia search</a></div>
+<div class="line"><a class="reference external" href="https://www.qwant.com/?q=golang+file+server+404">golang file server 404 - Qwant search</a></div>
+<div class="line"><a class="reference external" href="https://www.bing.com/search?q=golang+file+server+404">golang file server 404 - Bing search</a></div>
+<div class="line"><a class="reference external" href="https://search.yahoo.com/search?p=golang+file+server+404">golang file server 404 - Yahoo search</a></div>
+<div class="line"><a class="reference external" href="https://www.baidu.com/s?wd=golang+file+server+404">golang file server 404 - Baidu search</a></div>
+<div class="line"><a class="reference external" href="https://www.yandex.com/search/?text=golang+file+server+404">golang file server 404 - Yandex search</a></div>
+</div>
+</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[3]</td><td><a class="reference external" href="https://golang.org/pkg/net/http/#StripPrefix">func StripPrefix - net/http - The Go Programming Language</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[4]</td><td><a class="reference external" href="https://github.com/siongui/pali/commit/e872a787647a3e0d7294c75d4ce28d6f9988b6ce">file server with custom 404 · siongui/pali&#64;e872a78 · GitHub</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id5" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[5]</td><td><a class="reference external" href="https://www.reddit.com/r/golang/comments/64230v/how_to_serve_static_files_with_custom_notfound/">How to serve static files with custom NotFound handler : golang</a>
+<a class="reference external" href="http://kefblog.com/2017-04-07/How-to-serve-static-files-with-custom-not-found-handler">How to serve static files with custom NotFound handler - Blog from kefaise.com</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id6" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[6]</td><td><a class="reference external" href="https://old.reddit.com/r/golang/comments/a061gv/send_big_file_with_minimal_memory_over_http/">Send big file with minimal memory over HTTP : golang</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id7" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[7]</td><td><a class="reference external" href="https://old.reddit.com/r/golang/comments/a8pu9o/why_does_this_not_work/">Why does this not work? : golang</a></td></tr>
+</tbody>
+</table>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/go.html">Go</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/go.html">Go</a>
+,       <a href="/tag/golang.html">Golang</a>
+,       <a href="/tag/go-nethttp.html">Go net/http</a>
+,       <a href="/tag/http-404-not-found.html">HTTP 404 Not Found</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

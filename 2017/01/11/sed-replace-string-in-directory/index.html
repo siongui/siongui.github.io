@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>[sed] Replace String in Directory</title>
+  <meta name="keywords" content="sed,find command,Bash,Commandline,String Manipulation,List Files in Directory,Regular Expression"/>
+  <meta name="description" content="Replace specific pattern of strings in HTML files under directory via sed."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="[sed] Replace String in Directory" />    <meta property="og:image" content="/./extra/Dharma_wheel.svg" /><meta property="og:description" content="Replace specific pattern of strings in HTML files under directory via sed." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2017/01/11/sed-replace-string-in-directory/"
+           rel="bookmark"
+           title="Permalink to [sed] Replace String in Directory">
+          [sed] Replace String in Directory
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2017-01-11T23:47:00+08:00">
+    January 11, 2017
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2017/01/11/sed-replace-string-in-directory%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p>Question:</p>
+<blockquote>
+Replace strings of the pattern <tt class="docutils literal"><span class="pre">gettext('Archives',</span> DEFAULT_LANG)</tt> with
+<tt class="docutils literal"><span class="pre">'Archives'|gettext(DEFAULT_LANG)</span></tt> in HTML files under <tt class="docutils literal">template/</tt>
+directory.</blockquote>
+<p>Answer(inspired by <a class="footnote-reference" href="#id5" id="id1">[2]</a>, <a class="footnote-reference" href="#id7" id="id2">[4]</a>, and <a class="footnote-reference" href="#id8" id="id3">[5]</a>):</p>
+<blockquote>
+<div class="highlight"><pre><span></span>$ <span class="nb">cd</span> template/
+$ find -type f -name <span class="s1">&#39;*.html&#39;</span> <span class="p">|</span> xargs sed -i <span class="s2">&quot;s/gettext(&#39;\(.*\)&#39;, /&#39;\1&#39;|gettext(/g&quot;</span>
+</pre></div>
+</blockquote>
+
+<hr class="docutils" />
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td><p class="first"><a class="reference external" href="https://www.google.com/search?q=sed+process+multiple+files">sed process multiple files - Google search</a></p>
+<p><a class="reference external" href="https://duckduckgo.com/?q=sed+process+multiple+files">sed process multiple files - DuckDuckGo search</a></p>
+<p><a class="reference external" href="https://www.bing.com/search?q=sed+process+multiple+files">sed process multiple files - Bing search</a></p>
+<p><a class="reference external" href="https://search.yahoo.com/search?p=sed+process+multiple+files">sed process multiple files - Yahoo search</a></p>
+<p><a class="reference external" href="https://www.baidu.com/s?wd=sed+process+multiple+files">sed process multiple files - Baidu search</a></p>
+<p class="last"><a class="reference external" href="https://www.yandex.com/search/?text=sed+process+multiple+files">sed process multiple files - Yandex search</a></p>
+</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id5" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[2]</a></td><td><a class="reference external" href="http://stackoverflow.com/a/30717770">sed - Change multiple files - Stack Overflow</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id6" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[3]</td><td><p class="first"><a class="reference external" href="https://www.google.com/search?q=sed+single+quote">sed single quote - Google search</a></p>
+<p><a class="reference external" href="https://duckduckgo.com/?q=sed+single+quote">sed single quote - DuckDuckGo search</a></p>
+<p><a class="reference external" href="https://www.bing.com/search?q=sed+single+quote">sed single quote - Bing search</a></p>
+<p><a class="reference external" href="https://search.yahoo.com/search?p=sed+single+quote">sed single quote - Yahoo search</a></p>
+<p><a class="reference external" href="https://www.baidu.com/s?wd=sed+single+quote">sed single quote - Baidu search</a></p>
+<p class="last"><a class="reference external" href="https://www.yandex.com/search/?text=sed+single+quote">sed single quote - Yandex search</a></p>
+</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id7" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[4]</a></td><td><a class="reference external" href="http://stackoverflow.com/a/24509931">escaping - How to escape single quote in sed? - Stack Overflow</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id8" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id3">[5]</a></td><td><a class="reference external" href="/2016/01/19/xgettext-extract-translatable-string-from-go-html-template/">xgettext Extract Translatable Strings From Golang html/template</a></td></tr>
+</tbody>
+</table>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/bash.html">Bash</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/sed.html">sed</a>
+,       <a href="/tag/find-command.html">find command</a>
+,       <a href="/tag/bash.html">Bash</a>
+,       <a href="/tag/commandline.html">Commandline</a>
+,       <a href="/tag/string-manipulation.html">String Manipulation</a>
+,       <a href="/tag/list-files-in-directory.html">List Files in Directory</a>
+,       <a href="/tag/regular-expression.html">Regular Expression</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

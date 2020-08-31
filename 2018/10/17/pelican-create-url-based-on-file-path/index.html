@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>[Pelican] Create URL Based on File Path</title>
+  <meta name="keywords" content="Python,Pelican"/>
+  <meta name="description" content="Pelican static site generator - Create URL of page or article based on the full path relative to the content source directory."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="[Pelican] Create URL Based on File Path" /><meta property="og:image" content="https://lazybatman.com/wp-content/uploads/2017/07/pelican.png" />
+<meta property="og:description" content="Pelican static site generator - Create URL of page or article based on the full path relative to the content source directory." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2018/10/17/pelican-create-url-based-on-file-path/"
+           rel="bookmark"
+           title="Permalink to [Pelican] Create URL Based on File Path">
+          [Pelican] Create URL Based on File Path
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2018-10-17T20:14:00+08:00">
+    October 17, 2018
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2018/10/17/pelican-create-url-based-on-file-path%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p><a class="reference external" href="http://blog.getpelican.com/">Pelican</a> static site generator - Create URL of <a class="reference external" href="http://docs.getpelican.com/en/stable/content.html#articles-and-pages">page</a> or <a class="reference external" href="http://docs.getpelican.com/en/stable/content.html#articles-and-pages">article</a> based on the
+full path relative to the content source directory.</p>
+<p><strong>Problem</strong></p>
+<p>for example, the following is the path of a page:</p>
+<div class="highlight"><pre><span></span>content/pages/intro.rst
+</pre></div>
+<p>The URL of the page will be:</p>
+<div class="highlight"><pre><span></span>/intro/
+</pre></div>
+<p>The following is the path of a article:</p>
+<div class="highlight"><pre><span></span>content/articles/category/myproduct.rst
+</pre></div>
+<p>The URL of the article will be:</p>
+<div class="highlight"><pre><span></span>/category/myproduct/
+</pre></div>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p><strong>Solution</strong></p>
+<p>We will create a custom <a class="reference external" href="http://docs.getpelican.com/en/stable/content.html#file-metadata">metadata</a> field called <em>urlpath</em>. The value of <em>urlpath</em>
+is extracted from article/page's path relative to the content source directory.
+Then the value of <em>urlpath</em> will be used to determine the URL of the
+article/page. You do not need to modify the file content of articles/pages.</p>
+<p>The solution is to set <em>PATH_METADATA</em>, <em>PAGE_URL</em>, <em>PAGE_SAVE_AS</em>,
+<em>ARTICLE_URL</em>, <em>ARTICLE_SAVE_AS</em> in <a class="reference external" href="http://docs.getpelican.com/en/stable/settings.html">pelicanconf.py</a> as follows:</p>
+<div class="highlight"><pre><span></span><span class="n">PATH_METADATA</span> <span class="o">=</span> <span class="s1">&#39;(articles|pages)/(?P&lt;urlpath&gt;[-a-zA-Z0-9/]*)\.rst&#39;</span>
+
+<span class="n">ARTICLE_URL</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{urlpath}</span><span class="s1">/&#39;</span>
+<span class="n">ARTICLE_SAVE_AS</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{urlpath}</span><span class="s1">/index.html&#39;</span>
+
+<span class="n">PAGE_URL</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{urlpath}</span><span class="s1">/&#39;</span>
+<span class="n">PAGE_SAVE_AS</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{urlpath}</span><span class="s1">/index.html&#39;</span>
+</pre></div>
+<hr class="docutils" />
+<p>Tested on: <tt class="docutils literal">Ubuntu Linux 18.04</tt>, <tt class="docutils literal">Python 2.7.15rc1</tt>, <a class="reference external" href="http://docs.getpelican.com/en/3.7.1/">Pelican 3.7.1</a>.</p>
+<hr class="docutils" />
+
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id1" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td><a class="reference external" href="http://docs.getpelican.com/en/stable/settings.html">Settings — Pelican 3.7.1 documentation</a></td></tr>
+</tbody>
+</table>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/python.html">Python</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/python.html">Python</a>
+,       <a href="/tag/pelican.html">Pelican</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

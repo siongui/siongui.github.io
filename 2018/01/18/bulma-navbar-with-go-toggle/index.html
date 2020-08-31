@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>Bulma Navbar with Go Toggle</title>
+  <meta name="keywords" content="Go,Golang,GopherJS,Go to JavaScript,Frontend Programming in Go,html,CSS,Responsive Web Design,toggle,toggleable,Bulma,navbar"/>
+  <meta name="description" content="Go toggle code for Bulma responsive navbar, dropdown menu included."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="Bulma Navbar with Go Toggle" /><meta property="og:image" content="https://bulma.io/images/blog/dropup.png" />
+<meta property="og:description" content="Go toggle code for Bulma responsive navbar, dropdown menu included." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2018/01/18/bulma-navbar-with-go-toggle/"
+           rel="bookmark"
+           title="Permalink to Bulma Navbar with Go Toggle">
+          Bulma Navbar with Go Toggle
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2018-01-18T09:10:00+08:00">
+    January 18, 2018
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2017/12/04/bulma-navbar-with-go-toggle%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p>Go toggle code for Bulma responsive <a class="reference external" href="https://bulma.io/documentation/components/navbar/">navbar</a> <a class="footnote-reference" href="#id2" id="id1">[1]</a>, dropdown menu included. The
+Go code is compiled to JavaScript via GopherJS.</p>
+<p>The full code example, including JavaScript counterpart, of this post is
+<a class="reference external" href="https://github.com/siongui/frontend-programming-in-go/tree/master/021-bulma-navbar">on my GitHub</a>.</p>
+<p><strong>HTML code for Dropdown</strong>:</p>
+<div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">nav</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;navbar is-transparent&quot;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;navbar-brand&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;navbar-item&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;https://bulma.io&quot;</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">img</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://bulma.io/images/bulma-logo.png&quot;</span> <span class="na">alt</span><span class="o">=</span><span class="s">&quot;Bulma: a modern CSS framework based on Flexbox&quot;</span> <span class="na">width</span><span class="o">=</span><span class="s">&quot;112&quot;</span> <span class="na">height</span><span class="o">=</span><span class="s">&quot;28&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;navbar-burger burger&quot;</span> <span class="na">data-target</span><span class="o">=</span><span class="s">&quot;navbarExampleTransparentExample&quot;</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">span</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">span</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">span</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+
+  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;navbarExampleTransparentExample&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;navbar-menu&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;navbar-start&quot;</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;navbar-item&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;https://bulma.io/&quot;</span><span class="p">&gt;</span>
+        Home
+      <span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;navbar-item has-dropdown is-hoverable&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;navbar-link&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;/documentation/overview/start/&quot;</span><span class="p">&gt;</span>
+          Docs
+        <span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;navbar-dropdown is-boxed&quot;</span><span class="p">&gt;</span>
+          <span class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;navbar-item&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;/documentation/overview/start/&quot;</span><span class="p">&gt;</span>
+            Overview
+          <span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+          <span class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;navbar-item&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;https://bulma.io/documentation/modifiers/syntax/&quot;</span><span class="p">&gt;</span>
+            Modifiers
+          <span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+          <span class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;navbar-item&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;https://bulma.io/documentation/columns/basics/&quot;</span><span class="p">&gt;</span>
+            Columns
+          <span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+          <span class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;navbar-item&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;https://bulma.io/documentation/layout/container/&quot;</span><span class="p">&gt;</span>
+            Layout
+          <span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+          <span class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;navbar-item&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;https://bulma.io/documentation/form/general/&quot;</span><span class="p">&gt;</span>
+            Form
+          <span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+          <span class="p">&lt;</span><span class="nt">hr</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;navbar-divider&quot;</span><span class="p">&gt;</span>
+          <span class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;navbar-item&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;https://bulma.io/documentation/elements/box/&quot;</span><span class="p">&gt;</span>
+            Elements
+          <span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+          <span class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;navbar-item is-active&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;https://bulma.io/documentation/components/breadcrumb/&quot;</span><span class="p">&gt;</span>
+            Components
+          <span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+        <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+      <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;navbar-item has-dropdown&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;navbar-link&quot;</span><span class="p">&gt;</span>
+          Products
+        <span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;navbar-dropdown&quot;</span><span class="p">&gt;</span>
+          <span class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;navbar-item&quot;</span><span class="p">&gt;</span>
+            Product 1
+          <span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+          <span class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;navbar-item&quot;</span><span class="p">&gt;</span>
+            Product 2
+          <span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+          <span class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;navbar-item&quot;</span><span class="p">&gt;</span>
+            Product 3
+          <span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+        <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+      <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;navbar-end&quot;</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;navbar-item&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;field is-grouped&quot;</span><span class="p">&gt;</span>
+          <span class="p">&lt;</span><span class="nt">p</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;control&quot;</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;bd-tw-button button&quot;</span> <span class="na">data-social-network</span><span class="o">=</span><span class="s">&quot;Twitter&quot;</span> <span class="na">data-social-action</span><span class="o">=</span><span class="s">&quot;tweet&quot;</span> <span class="na">data-social-target</span><span class="o">=</span><span class="s">&quot;http://localhost:4000&quot;</span> <span class="na">target</span><span class="o">=</span><span class="s">&quot;_blank&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;https://twitter.com/intent/tweet?text=Bulma: a modern CSS framework based on Flexbox&amp;amp;hashtags=bulmaio&amp;amp;url=http://localhost:4000&amp;amp;via=jgthms&quot;</span><span class="p">&gt;</span>
+              <span class="p">&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;icon&quot;</span><span class="p">&gt;</span>
+                <span class="p">&lt;</span><span class="nt">i</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;fab fa-twitter&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">i</span><span class="p">&gt;</span>
+              <span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+              <span class="p">&lt;</span><span class="nt">span</span><span class="p">&gt;</span>
+                Tweet
+              <span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+            <span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+          <span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+          <span class="p">&lt;</span><span class="nt">p</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;control&quot;</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;button is-primary&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;https://github.com/jgthms/bulma/archive/0.5.1.zip&quot;</span><span class="p">&gt;</span>
+              <span class="p">&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;icon&quot;</span><span class="p">&gt;</span>
+                <span class="p">&lt;</span><span class="nt">i</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;fas fa-download&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">i</span><span class="p">&gt;</span>
+              <span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+              <span class="p">&lt;</span><span class="nt">span</span><span class="p">&gt;</span>Download<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+            <span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+          <span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+        <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+      <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">nav</span><span class="p">&gt;</span>
+</pre></div>
+
+<p><strong>Go toggle code</strong>:</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="p">(</span>
+      <span class="p">.</span> <span class="s">&quot;github.com/siongui/godom&quot;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nx">SetupNavbarBurgers</span><span class="p">()</span> <span class="p">{</span>
+      <span class="nx">nbs</span> <span class="o">:=</span> <span class="nx">Document</span><span class="p">.</span><span class="nx">QuerySelectorAll</span><span class="p">(</span><span class="s">&quot;.navbar-burger&quot;</span><span class="p">)</span>
+
+      <span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">nb</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">nbs</span> <span class="p">{</span>
+              <span class="nx">nb</span><span class="p">.</span><span class="nx">AddEventListener</span><span class="p">(</span><span class="s">&quot;click&quot;</span><span class="p">,</span> <span class="kd">func</span><span class="p">(</span><span class="nx">e</span> <span class="nx">Event</span><span class="p">)</span> <span class="p">{</span>
+                      <span class="nx">targetId</span> <span class="o">:=</span> <span class="nx">nb</span><span class="p">.</span><span class="nx">Dataset</span><span class="p">().</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;target&quot;</span><span class="p">).</span><span class="nx">String</span><span class="p">()</span>
+                      <span class="nx">target</span> <span class="o">:=</span> <span class="nx">Document</span><span class="p">.</span><span class="nx">GetElementById</span><span class="p">(</span><span class="nx">targetId</span><span class="p">)</span>
+
+                      <span class="nx">nb</span><span class="p">.</span><span class="nx">ClassList</span><span class="p">().</span><span class="nx">Toggle</span><span class="p">(</span><span class="s">&quot;is-active&quot;</span><span class="p">)</span>
+                      <span class="nx">target</span><span class="p">.</span><span class="nx">ClassList</span><span class="p">().</span><span class="nx">Toggle</span><span class="p">(</span><span class="s">&quot;is-active&quot;</span><span class="p">)</span>
+              <span class="p">})</span>
+      <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+      <span class="nx">Document</span><span class="p">.</span><span class="nx">AddEventListener</span><span class="p">(</span><span class="s">&quot;DOMContentLoaded&quot;</span><span class="p">,</span> <span class="kd">func</span><span class="p">(</span><span class="nx">e</span> <span class="nx">Event</span><span class="p">)</span> <span class="p">{</span>
+
+              <span class="c1">// Dropdowns in navbar</span>
+              <span class="nx">dds</span> <span class="o">:=</span> <span class="nx">Document</span><span class="p">.</span><span class="nx">QuerySelectorAll</span><span class="p">(</span><span class="s">&quot;.navbar-item.has-dropdown:not(.is-hoverable)&quot;</span><span class="p">)</span>
+
+              <span class="nx">closeDropdowns</span> <span class="o">:=</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+                      <span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">dd</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">dds</span> <span class="p">{</span>
+                              <span class="nx">dd</span><span class="p">.</span><span class="nx">ClassList</span><span class="p">().</span><span class="nx">Remove</span><span class="p">(</span><span class="s">&quot;is-active&quot;</span><span class="p">)</span>
+                      <span class="p">}</span>
+              <span class="p">}</span>
+
+              <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nx">dds</span><span class="p">)</span> <span class="p">&gt;</span> <span class="mi">0</span> <span class="p">{</span>
+                      <span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">dd</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">dds</span> <span class="p">{</span>
+                              <span class="nx">dd</span><span class="p">.</span><span class="nx">AddEventListener</span><span class="p">(</span><span class="s">&quot;click&quot;</span><span class="p">,</span> <span class="kd">func</span><span class="p">(</span><span class="nx">e</span> <span class="nx">Event</span><span class="p">)</span> <span class="p">{</span>
+                                      <span class="nx">e</span><span class="p">.</span><span class="nx">StopPropagation</span><span class="p">()</span>
+                                      <span class="nx">dd</span><span class="p">.</span><span class="nx">ClassList</span><span class="p">().</span><span class="nx">Toggle</span><span class="p">(</span><span class="s">&quot;is-active&quot;</span><span class="p">)</span>
+                              <span class="p">})</span>
+                      <span class="p">}</span>
+
+                      <span class="nx">Document</span><span class="p">.</span><span class="nx">AddEventListener</span><span class="p">(</span><span class="s">&quot;click&quot;</span><span class="p">,</span> <span class="kd">func</span><span class="p">(</span><span class="nx">e</span> <span class="nx">Event</span><span class="p">)</span> <span class="p">{</span>
+                              <span class="nx">closeDropdowns</span><span class="p">()</span>
+                      <span class="p">})</span>
+              <span class="p">}</span>
+
+              <span class="c1">// Close dropdowns if ESC pressed</span>
+              <span class="nx">Document</span><span class="p">.</span><span class="nx">AddEventListener</span><span class="p">(</span><span class="s">&quot;keydown&quot;</span><span class="p">,</span> <span class="kd">func</span><span class="p">(</span><span class="nx">e</span> <span class="nx">Event</span><span class="p">)</span> <span class="p">{</span>
+                      <span class="k">if</span> <span class="nx">e</span><span class="p">.</span><span class="nx">KeyCode</span><span class="p">()</span> <span class="o">==</span> <span class="mi">27</span> <span class="p">{</span>
+                              <span class="nx">closeDropdowns</span><span class="p">()</span>
+                      <span class="p">}</span>
+              <span class="p">})</span>
+
+              <span class="c1">// Toggles</span>
+              <span class="nx">SetupNavbarBurgers</span><span class="p">()</span>
+      <span class="p">})</span>
+<span class="p">}</span>
+</pre></div>
+<p>The above code use <a class="reference external" href="https://github.com/siongui/godom">godom</a> package to make the code more readable.</p>
+
+<p>The following JavaScript code is equivalent to above Go code:</p>
+<div class="highlight"><pre><span></span><span class="s1">&#39;use strict&#39;</span><span class="p">;</span>
+
+<span class="nb">document</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;DOMContentLoaded&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+
+  <span class="c1">// Dropdowns in navbar</span>
+
+  <span class="kd">var</span> <span class="nx">$dropdowns</span> <span class="o">=</span> <span class="nx">getAll</span><span class="p">(</span><span class="s1">&#39;.navbar-item.has-dropdown:not(.is-hoverable)&#39;</span><span class="p">);</span>
+
+  <span class="k">if</span> <span class="p">(</span><span class="nx">$dropdowns</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">$dropdowns</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">$el</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">$el</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">event</span><span class="p">.</span><span class="nx">stopPropagation</span><span class="p">();</span>
+        <span class="nx">$el</span><span class="p">.</span><span class="nx">classList</span><span class="p">.</span><span class="nx">toggle</span><span class="p">(</span><span class="s1">&#39;is-active&#39;</span><span class="p">);</span>
+      <span class="p">});</span>
+    <span class="p">});</span>
+
+    <span class="nb">document</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">closeDropdowns</span><span class="p">();</span>
+    <span class="p">});</span>
+  <span class="p">}</span>
+
+  <span class="kd">function</span> <span class="nx">closeDropdowns</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">$dropdowns</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">$el</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">$el</span><span class="p">.</span><span class="nx">classList</span><span class="p">.</span><span class="nx">remove</span><span class="p">(</span><span class="s1">&#39;is-active&#39;</span><span class="p">);</span>
+    <span class="p">});</span>
+  <span class="p">}</span>
+
+  <span class="c1">// Close dropdowns if ESC pressed</span>
+  <span class="nb">document</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;keydown&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">e</span> <span class="o">=</span> <span class="nx">event</span> <span class="o">||</span> <span class="nb">window</span><span class="p">.</span><span class="nx">event</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">keyCode</span> <span class="o">===</span> <span class="mi">27</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">closeDropdowns</span><span class="p">();</span>
+    <span class="p">}</span>
+  <span class="p">});</span>
+
+  <span class="c1">// Toggles</span>
+
+  <span class="kd">var</span> <span class="nx">$burgers</span> <span class="o">=</span> <span class="nx">getAll</span><span class="p">(</span><span class="s1">&#39;.burger&#39;</span><span class="p">);</span>
+
+  <span class="k">if</span> <span class="p">(</span><span class="nx">$burgers</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">$burgers</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">$el</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">$el</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">target</span> <span class="o">=</span> <span class="nx">$el</span><span class="p">.</span><span class="nx">dataset</span><span class="p">.</span><span class="nx">target</span><span class="p">;</span>
+        <span class="kd">var</span> <span class="nx">$target</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="nx">target</span><span class="p">);</span>
+        <span class="nx">$el</span><span class="p">.</span><span class="nx">classList</span><span class="p">.</span><span class="nx">toggle</span><span class="p">(</span><span class="s1">&#39;is-active&#39;</span><span class="p">);</span>
+        <span class="nx">$target</span><span class="p">.</span><span class="nx">classList</span><span class="p">.</span><span class="nx">toggle</span><span class="p">(</span><span class="s1">&#39;is-active&#39;</span><span class="p">);</span>
+      <span class="p">});</span>
+    <span class="p">});</span>
+  <span class="p">}</span>
+
+  <span class="c1">// Functions</span>
+
+  <span class="kd">function</span> <span class="nx">getAll</span><span class="p">(</span><span class="nx">selector</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">slice</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">querySelectorAll</span><span class="p">(</span><span class="nx">selector</span><span class="p">),</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</pre></div>
+
+<hr class="docutils" />
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td><a class="reference external" href="https://bulma.io/documentation/components/navbar/">Navbar | Bulma: a modern CSS framework based on Flexbox</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[2]</td><td><a class="reference external" href="https://bulma.io/lib/main.js?v=201801161752">https://bulma.io/lib/main.js?v=201801161752</a></td></tr>
+</tbody>
+</table>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/frontend-programming-in-go.html">Frontend Programming in Go</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/go.html">Go</a>
+,       <a href="/tag/golang.html">Golang</a>
+,       <a href="/tag/gopherjs.html">GopherJS</a>
+,       <a href="/tag/go-to-javascript.html">Go to JavaScript</a>
+,       <a href="/tag/frontend-programming-in-go.html">Frontend Programming in Go</a>
+,       <a href="/tag/html.html">html</a>
+,       <a href="/tag/css.html">CSS</a>
+,       <a href="/tag/responsive-web-design.html">Responsive Web Design</a>
+,       <a href="/tag/toggle.html">toggle</a>
+,       <a href="/tag/toggleable.html">toggleable</a>
+,       <a href="/tag/bulma.html">Bulma</a>
+,       <a href="/tag/navbar.html">navbar</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>[Bash] Find Redundant Files Saved by Chrome</title>
+  <meta name="keywords" content="Bash,Regular Expression,Commandline,List Files in Directory,find command"/>
+  <meta name="description" content="Find redundant files saved by Chrome browser via Bash script."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="[Bash] Find Redundant Files Saved by Chrome" />    <meta property="og:image" content="/./extra/Dharma_wheel.svg" /><meta property="og:description" content="Find redundant files saved by Chrome browser via Bash script." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2016/05/23/bash-find-redundant-files-saved-by-chrome/"
+           rel="bookmark"
+           title="Permalink to [Bash] Find Redundant Files Saved by Chrome">
+          [Bash] Find Redundant Files Saved by Chrome
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2016-05-23T03:52:00+08:00">
+    May 23, 2016
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2016/05/23/bash-find-redundant-files-saved-by-chrome%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p>Find redundant files saved by <a class="reference external" href="https://www.google.com/chrome/">Chrome</a> browser via <a class="reference external" href="https://www.google.com/search?q=Bash">Bash</a> script.</p>
+<figure class="github-file">
+            <figcaption>
+              <a href="https://github.com/siongui/userpages/blob/master/content/code/bash/redundant-file/chrome.sh">chrome.sh</a> |
+              <a href="https://github.com/siongui/userpages">repository</a> |
+              <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/code/bash/redundant-file/chrome.sh">view raw</a>
+            </figcaption><div class="code-file">
+            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+
+<span class="c1"># $1 is the directory in which files to be processed</span>
+<span class="nv">IFS</span><span class="o">=</span><span class="s1">$&#39;\n&#39;</span>
+<span class="k">for</span> path in <span class="k">$(</span>find <span class="nv">$1</span> -type f<span class="k">)</span>
+<span class="k">do</span>
+  <span class="nv">filename</span><span class="o">=</span><span class="k">$(</span>basename <span class="s2">&quot;</span><span class="nv">$path</span><span class="s2">&quot;</span><span class="k">)</span>
+  <span class="nv">filenameWithoutExt</span><span class="o">=</span><span class="si">${</span><span class="nv">filename</span><span class="p">%.*</span><span class="si">}</span>
+  <span class="k">if</span> <span class="o">[[</span> <span class="si">${</span><span class="nv">filenameWithoutExt</span><span class="si">}</span> <span class="o">=</span>~ <span class="se">\ \(</span><span class="o">[</span><span class="m">0</span>-9<span class="o">]</span>+<span class="se">\)</span>$ <span class="o">]]</span><span class="p">;</span> <span class="k">then</span>
+    <span class="nb">echo</span> <span class="si">${</span><span class="nv">path</span><span class="si">}</span>
+    <span class="c1">#rm ${path}</span>
+  <span class="k">fi</span>
+<span class="k">done</span>
+</pre></div>
+</td></tr></table></div></figure>
+<hr class="docutils" />
+<p>Tested on: <tt class="docutils literal">Ubuntu Linux 16.04</tt>, <tt class="docutils literal">bash <span class="pre">4.3-14ubuntu1</span></tt>.</p>
+<hr class="docutils" />
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id1" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td><a class="reference external" href="/2016/03/03/python-find-redundant-files-saved-by-chrome/">[Python] Find Redundant Files Saved by Chrome</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[2]</td><td><a class="reference external" href="/2016/05/22/go-find-redundant-files-saved-by-chrome/">[Golang] Find Redundant Files Saved by Chrome</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[3]</td><td><div class="first last line-block">
+<div class="line"><a class="reference external" href="https://www.google.com/search?q=bash+file+extension">bash file extension - Google search</a></div>
+<div class="line"><a class="reference external" href="http://stackoverflow.com/questions/965053/extract-filename-and-extension-in-bash">string - Extract filename and extension in Bash - Stack Overflow</a></div>
+</div>
+</td></tr>
+</tbody>
+</table>
+
+<table class="docutils footnote" frame="void" id="id4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[4]</td><td><div class="first last line-block">
+<div class="line"><a class="reference external" href="https://www.google.com/search?q=bash+find+spaces+in+path">bash find spaces in path - Google search</a></div>
+<div class="line"><a class="reference external" href="http://stackoverflow.com/questions/3898560/spaces-in-path-names-giving-trouble-with-find-in-bash-any-simple-work-around">Spaces in path names giving trouble with Find in Bash. Any *simple* work-around? - Stack Overflow</a></div>
+</div>
+</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id5" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[5]</td><td><a class="reference external" href="https://www.google.com/search?q=bash+regex+match">bash regex match - Google search</a></td></tr>
+</tbody>
+</table>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/bash.html">Bash</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/bash.html">Bash</a>
+,       <a href="/tag/regular-expression.html">Regular Expression</a>
+,       <a href="/tag/commandline.html">Commandline</a>
+,       <a href="/tag/list-files-in-directory.html">List Files in Directory</a>
+,       <a href="/tag/find-command.html">find command</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

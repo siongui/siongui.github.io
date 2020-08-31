@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head><meta charset="utf-8">
+  <title>使用 BeautifulSoup 和 Selenium 進行網頁爬取</title>
+  <meta name="keywords" content="Python,轉錄,開源中國,Linux"/>
+  <meta name="description" content="在本教程中，您將瞭解在瀏覽器中看到的內容是如何實際呈現的，以及如何在必要時進行抓取。特別是，您將學習如何計算Disqus評論。我們的工具是Python和這門語言的很棒的包，比如request、BeautifulSoup和Selenium。"/>
+  <meta name="author" content="開源中國翻譯"/><meta property="og:title" content="使用 BeautifulSoup 和 Selenium 進行網頁爬取" /><meta property="og:image" content="https://oscimg.oschina.net/oscnet/879d4b68295e6c808b4a1417e1abdf062a1.jpg" />
+<meta property="og:description" content="在本教程中，您將瞭解在瀏覽器中看到的內容是如何實際呈現的，以及如何在必要時進行抓取。特別是，您將學習如何計算Disqus評論。我們的工具是Python和這門語言的很棒的包，比如request、BeautifulSoup和Selenium。" /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/zh/../extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/zh/../theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/zh/">理論與實作</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/zh/pages/about.html">關於</a>
+    <a class="nav-item" href="/zh/archives.html">歸檔</a>
+    <a class="nav-item" href="/zh/categories.html">分類</a>
+    <a class="nav-item" href="/zh/tags.html">標籤</a>
+    <a class="nav-item" href="/zh/authors.html">作者</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/">English</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/zh/2018/09/21/modern-web-scraping-with-beautifulsoup-and-selenium-oschina-translate/"
+           rel="bookmark"
+           title="Permalink to 使用 BeautifulSoup 和 Selenium 進行網頁爬取">
+          使用 BeautifulSoup 和 Selenium 進行網頁爬取
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2018-09-21T18:33:00+08:00">
+    九月 21, 2018
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2018/10/01/modern-web-scraping-with-beautifulsoup-and-selenium-oschina-translate%25zh.rst">在Github上編輯</a></div></aside>
+    <hr>
+
+    <div class="main-content"><blockquote class="highlights">
+<div class="line-block">
+<div class="line">英文原文： <a class="reference external" href="https://code.tutsplus.com/tutorials/modern-web-scraping-with-beautifulsoup-and-selenium--cms-30486">Modern Web Scraping With BeautifulSoup and Selenium</a></div>
+<div class="line">轉錄來源： <a class="reference external" href="https://www.oschina.net/translate/modern-web-scraping-with-beautifulsoup-and-selenium--cms">使用 BeautifulSoup 和 Selenium 进行网页爬取 - 开源中国</a></div>
+<div class="line">參與翻譯 (3人) : <a class="reference external" href="https://my.oschina.net/u/658291">ZICK_ZEON</a>, <a class="reference external" href="https://my.oschina.net/xiaoaiwhc">xiaoaiwhc1</a>, <a class="reference external" href="https://my.oschina.net/jamesfancy">边城</a></div>
+</div>
+</blockquote>
+<hr class="docutils" />
+<div class="section" id="id1">
+<h2>概述</h2>
+<p>HTML幾乎是平鋪直敘的。CSS是一個偉大的進步，它清晰地區分了頁面的結構和外觀。JavaScript添加一些魅力。道理上講是這樣的。現實世界還是有點不一樣。</p>
+<p>在本教程中，您將瞭解在瀏覽器中看到的內容是如何實際呈現的，以及如何在必要時進行抓取。特別是，您將學習如何計算Disqus評論。我們的工具是Python和這門語言的很棒的包，比如request、BeautifulSoup和Selenium。</p>
+</div>
+<div class="section" id="id2">
+<h2>什麼時候應該使用網頁爬取?</h2>
+<p>網頁爬取是一種自動獲取被設計於實現人工用戶交互式網頁的內容、解析它們並提取一些信息(可能是導航到其他頁面的鏈接)的實踐。如果沒有其他方法來提取必要的網頁信息時，網頁爬取是很必要有效的技術方法。理想情況下，應用程序依靠提供好的專用API來編程自動獲得網頁的數據。可在下面幾種場所景之下你最好就別用網頁抓取技術了:</p>
+<ul class="simple">
+<li>被爬取的網頁是脆弱的(您正在爬取的網頁可能會被頻繁更改)。</li>
+<li>爬取被禁止(一些web應用程序有禁止爬取的策略)。</li>
+<li>爬取速度可能會很慢和爬取內容過於繁雜的(如果你需要在很多無用信息中尋找和涉獵你想要的東東)。</li>
+</ul>
+</div>
+<hr class="docutils" />
+<div class="section" id="id3">
+<h2>瞭解真實的網頁</h2>
+<p>讓我們通過查看一些常見web應用程序代碼的實現情況，來瞭解我們面臨的問題。例如在“ <a class="reference external" href="https://code.tutsplus.com/tutorials/introduction-to-vagrant--cms-25917">Vagrant技術入門</a> ”這篇帖子的頁面底部有一些Disqus的評論:</p>
+<img alt="使用 BeautifulSoup 和 Selenium 進行網頁爬取" class="align-center" src="https://oscimg.oschina.net/oscnet/879d4b68295e6c808b4a1417e1abdf062a1.jpg" />
+<p>為了爬取這些評論，我們需要首先在頁面上找到它們。</p>
+</div>
+<div class="section" id="id4">
+<h2>查看頁面代碼</h2>
+<p>自20世紀90年代以來，每個瀏覽器都支持查看當前頁面的HTML代碼。下面是在源碼視圖下觀看到的是“ <a class="reference external" href="https://code.tutsplus.com/tutorials/introduction-to-vagrant--cms-25917">Vagrant技術入門</a> ”這篇帖子對應的源碼內容的一個片段，這篇源碼以大量與本文本身內容無關的被壓縮過的和醜陋的JavaScript代碼開始。下面是其中的一”小“部分:</p>
+<img alt="使用 BeautifulSoup 和 Selenium 進行網頁爬取" class="align-center" src="https://oscimg.oschina.net/oscnet/f90d94b626069bb9009fc6f3c62f5ce7000.jpg" />
+<p>這是頁面中的一些實際HTML代碼:</p>
+<img alt="使用 BeautifulSoup 和 Selenium 進行網頁爬取" class="align-center" src="https://oscimg.oschina.net/oscnet/444c92812cde124c1d3414d4381f855e2e9.jpg" />
+<p>代碼看起來亂糟糟，你竟然在頁面的源代碼中找不到Disqus評論，這讓你有些吃驚。</p>
+</div>
+<hr class="docutils" />
+<div class="section" id="id5">
+<h2>強大的內聯框架</h2>
+<p>原來頁面是一個”混搭“, Disqus評論被嵌入到iframe(內聯框架)元素中。你可以通過右鍵點擊評論區域找到它，你會看到那裡有框架信息和源碼:</p>
+<img alt="使用 BeautifulSoup 和 Selenium 進行網頁爬取" class="align-center" src="https://oscimg.oschina.net/oscnet/3bd0f23073a40cb98a2948c448f981479ce.jpg" />
+<p>這是有意義的。將第三方內容嵌入iframe是使用iframe的主要應用場景之一。讓我們在主頁源中找到iframe標記。完蛋了!主頁源中沒有iframe標記。</p>
+</div>
+<div class="section" id="javascript-generated">
+<h2>JavaScript-Generated標記</h2>
+<p>這個遺漏的原因是view page source顯示了從服務器獲取的內容。但是，由瀏覽器呈現的最終DOM(文檔對象模型)可能非常不同。JavaScript開始工作，可以隨意操縱DOM。無法找到iframe，因為從服務器檢索頁面時，它就是不存在。</p>
+<hr class="docutils" />
+<div class="section" id="vs">
+<h3>靜態抓取 vs. 動態抓取</h3>
+<p>靜態抓取會忽略 JavaScript, 它可以不依靠瀏覽器而直接從服務器端獲取網頁代碼. 這就是你通過&quot;查看源碼&quot;所看到的東西, 然後你就可以進行信息提取了. 如果你要查找的內容已經存在於源碼中, 那就不需要進一步的動作了. 可是, 如果你要查找的內容像上文的 Disqus 評論一樣被嵌入iframe 中, 你就必須使用動態爬取來獲取內容.</p>
+<p>動態爬取使用一個真實的瀏覽器(或無界面瀏覽器), 它先讓頁面內的 JavaScript 運行起來, 完成動態內容處理加載. 之後, 它再通過查詢 DOM 來獲取所要尋找的內容. 有時候, 你還需要讓瀏覽器自動模擬人的操作來得到你所需要的內容.</p>
+</div>
+<div class="section" id="requests-beautifulsoup">
+<h3>使用 Requests 和 BeautifulSoup 進行靜態抓取</h3>
+<p>讓我們來看看如何使用 Python 的兩個經典包來進行靜態抓取: requests 用來抓取網頁內容. BeautifulSoup用來解析 HTML.</p>
+</div>
+<div class="section" id="id6">
+<h3>安裝 Requests 和 BeautifulSoup</h3>
+<p>首先安裝 pipenv, 然後運行命令: pipenv install requests beautifulsoup4</p>
+<p>它首先為你創建一個虛擬環境, 然後安裝這兩個包在虛擬環境裡. 如果你的代碼在gitlab上, 你可以使用命令 pipenv install 來安裝.</p>
+</div>
+<hr class="docutils" />
+<div class="section" id="id7">
+<h3>獲取網頁內容</h3>
+<p>用 requests 抓取網頁內容只需要一行代碼: r = requests.get(url).</p>
+<p>代碼返回一個 response 對象, 它包含大量有用的屬性. 其中最重要的屬性是 ok 和 content. 如果請求失敗, r.ok 為 False 並且 r.content 包含該錯誤信息. content 代表一個字節流, 做文本處理時, 你最好將它解碼成 utf-8.</p>
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; <span class="nv">r</span> <span class="o">=</span> requests.get<span class="o">(</span><span class="s1">&#39;http://www.c2.com/no-such-page&#39;</span><span class="o">)</span>
+&gt;&gt;&gt; r.ok
+False
+&gt;&gt;&gt; print<span class="o">(</span>r.content.decode<span class="o">(</span><span class="s1">&#39;utf-8&#39;</span><span class="o">))</span>
+&lt;!DOCTYPE HTML PUBLIC <span class="s2">&quot;-//IETF//DTD HTML 2.0//EN&quot;</span>&gt;
+&lt;html&gt;&lt;head&gt;
+&lt;title&gt;404 Not Found&lt;/title&gt;
+&lt;/head&gt;&lt;body&gt;
+&lt;h1&gt;Not Found&lt;/h1&gt;
+&lt;p&gt;The requested URL /ggg was not found on this server.&lt;/p&gt;
+&lt;hr&gt;
+&lt;address&gt;
+Apache/2.0.52 <span class="o">(</span>CentOS<span class="o">)</span> Server at www.c2.com Port <span class="m">80</span>
+&lt;/address&gt;
+&lt;/body&gt;&lt;/html&gt;
+</pre></div>
+<p>如果代碼正常返回沒有報錯, 那 r.content 會包含請求的網頁源碼(就是&quot;查看源碼&quot;所看到的內容).</p>
+</div>
+<div class="section" id="beautifulsoup">
+<h3>用 BeautifulSoup 查找元素</h3>
+<p>下面的 get_page() 函數會獲取給定 URL 的網頁源碼, 然後解碼成 utf-8, 最後再將 content 傳遞給 BeautifulSoup 對象並返回, BeautifulSoup 使用 HTML 解析器進行解析.</p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_page</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+    <span class="n">content</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">content</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">content</span><span class="p">,</span> <span class="s1">&#39;html.parser&#39;</span><span class="p">)</span>
+</pre></div>
+<p>我們獲取到 BeautifulSoup 對象後, 就可以開始解析所需要的信息了.</p>
+<p>BeautifulSoup 提供了很多查找方法來定位網頁中的元素, 並可以深入挖掘出嵌套的元素.</p>
+<p>Tuts+ 網站包含了很多培訓教程, <a class="reference external" href="https://tutsplus.com/authors/gigi-sayfan">這裡</a> 是我的主頁. 在每一個頁面包含最多12篇教程, 如果你已經獲取了12篇的教程, 你就可以進入下一頁面了. 每一篇文章都被 &lt;article&gt; 標籤包圍著. 下面的函數就是發現頁面裡的所有 article 元素, 然後找到對應的鏈接, 最後提取出教程的 URL.</p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_page_articles</span><span class="p">(</span><span class="n">page</span><span class="p">):</span>
+    <span class="n">elements</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">findAll</span><span class="p">(</span><span class="s1">&#39;article&#39;</span><span class="p">)</span>
+    <span class="n">articles</span> <span class="o">=</span> <span class="p">[</span><span class="n">e</span><span class="o">.</span><span class="n">a</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;href&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">elements</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">articles</span>
+</pre></div>
+<p>The following code gets all the articles from my page and prints them (without the common prefix):</p>
+<div class="highlight"><pre><span></span><span class="nv">page</span> <span class="o">=</span> get_page<span class="o">(</span><span class="s1">&#39;https://tutsplus.com/authors/gigi-sayfan&#39;</span><span class="o">)</span>
+<span class="nv">articles</span> <span class="o">=</span> get_page_articles<span class="o">(</span>page<span class="o">)</span>
+<span class="nv">prefix</span> <span class="o">=</span> <span class="s1">&#39;https://code.tutsplus.com/tutorials&#39;</span>
+<span class="k">for</span> a in articles:
+    print<span class="o">(</span>a<span class="o">[</span>len<span class="o">(</span>prefix<span class="o">)</span>:<span class="o">])</span>
+
+Output:
+
+building-games-with-python-3-and-pygame-part-5--cms-30085
+building-games-with-python-3-and-pygame-part-4--cms-30084
+building-games-with-python-3-and-pygame-part-3--cms-30083
+building-games-with-python-3-and-pygame-part-2--cms-30082
+building-games-with-python-3-and-pygame-part-1--cms-30081
+mastering-the-react-lifecycle-methods--cms-29849
+testing-data-intensive-code-with-go-part-5--cms-29852
+testing-data-intensive-code-with-go-part-4--cms-29851
+testing-data-intensive-code-with-go-part-3--cms-29850
+testing-data-intensive-code-with-go-part-2--cms-29848
+testing-data-intensive-code-with-go-part-1--cms-29847
+make-your-go-programs-lightning-fast-with-profiling--cms-29809
+</pre></div>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="selenium">
+<h2>使用 Selenium 動態爬取</h2>
+<div class="section" id="id8">
+<h3>安裝 Selenium</h3>
+<p>用這個命令安裝 Selenium：pipenv install selenium</p>
+</div>
+<div class="section" id="web">
+<h3>選擇你的 Web 驅動</h3>
+<p>Selenium 需要一個 Web 驅動（自動化用的瀏覽器）。對於網頁爬取來說，一般不需要在意選用哪個驅動。我建議使用 Chrome 驅動。 <a class="reference external" href="http://selenium-python.readthedocs.io/installation.html#drivers">Selenium 手冊</a> 中有相關的介紹。</p>
+</div>
+<div class="section" id="chrome-phantomjs">
+<h3>對比 Chrome 和 PhantomJS</h3>
+<p>某些情況下你可能想用沒有用戶界面的（headless）瀏覽器。理論上來說，PhantomJS 正好就是那款 Web 驅動。但是實際上有人報告一些只會在 PhantomJS 中出現的問題，這些問題在 Selenium 使用 Chrome 或 Firefox 時並不會出現。我喜歡從等式中刪除這一變量，使用實際的 Web 瀏覽器驅動。</p>
+</div>
+<hr class="docutils" />
+<div class="section" id="disqus">
+<h3>統計 Disqus 評論數量</h3>
+<p>我們來搞點動態抓取，使用 Selenium 統計 Tuts+ 手機的 Disqus 評論數量。下面需要導入的內容。</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">selenium</span> <span class="kn">import</span> <span class="n">webdriver</span>
+<span class="kn">from</span> <span class="nn">selenium.webdriver.common.by</span> <span class="kn">import</span> <span class="n">By</span>
+<span class="kn">from</span> <span class="nn">selenium.webdriver.support.expected_conditions</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">presence_of_element_located</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">selenium.webdriver.support.wait</span> <span class="kn">import</span> <span class="n">WebDriverWait</span>
+</pre></div>
+<p>get_comment_count() 函數需要傳入 Selenium 驅動和 URL 作為參數。它使用驅動的 get() 方法從 URL 獲取內容。這和requests.get()相似，其不同之處在於使用驅動對象管理 DOM 的實時呈現。</p>
+<p>然後，它獲取教程的標題，並使用 iframe 的父級 id，disqus_thread，和 iframe 標籤來定位 iframe：</p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_comment_count</span><span class="p">(</span><span class="n">driver</span><span class="p">,</span> <span class="n">url</span><span class="p">):</span>
+    <span class="n">driver</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+    <span class="n">class_name</span> <span class="o">=</span> <span class="s1">&#39;content-banner__title&#39;</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_class_name</span><span class="p">(</span><span class="n">class_name</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
+    <span class="n">e</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_id</span><span class="p">(</span><span class="s1">&#39;disqus_thread&#39;</span><span class="p">)</span>
+    <span class="n">disqus_iframe</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="n">find_element_by_tag_name</span><span class="p">(</span><span class="s1">&#39;iframe&#39;</span><span class="p">)</span>
+    <span class="n">iframe_url</span> <span class="o">=</span> <span class="n">disqus_iframe</span><span class="o">.</span><span class="n">get_attribute</span><span class="p">(</span><span class="s1">&#39;src&#39;</span><span class="p">)</span>
+</pre></div>
+<p>接下來獲取 iframe 的內容。注意我們要等到 comment-count 元素出現，因為評論是動態加載的，不一定可用。</p>
+<div class="highlight"><pre><span></span><span class="n">driver</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">iframe_url</span><span class="p">)</span>
+<span class="n">wait</span> <span class="o">=</span> <span class="n">WebDriverWait</span><span class="p">(</span><span class="n">driver</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="n">commentCountPresent</span> <span class="o">=</span> <span class="n">presence_of_element_located</span><span class="p">(</span>
+    <span class="p">(</span><span class="n">By</span><span class="o">.</span><span class="n">CLASS_NAME</span><span class="p">,</span> <span class="s1">&#39;comment-count&#39;</span><span class="p">))</span>
+<span class="n">wait</span><span class="o">.</span><span class="n">until</span><span class="p">(</span><span class="n">commentCountPresent</span><span class="p">)</span>
+
+<span class="n">comment_count_span</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_class_name</span><span class="p">(</span>
+    <span class="s1">&#39;comment-count&#39;</span><span class="p">)</span>
+<span class="n">comment_count</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">comment_count_span</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+<p>最後部分是返回最新的評論, 當然不包括我自己的評論. 方法是檢查我還沒有回覆的評論.</p>
+<div class="highlight"><pre><span></span><span class="n">last_comment</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">if</span> <span class="n">comment_count</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="n">e</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">find_elements_by_class_name</span><span class="p">(</span><span class="s1">&#39;author&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">last_author</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="n">find_element_by_tag_name</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)</span>
+    <span class="n">last_author</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="n">get_attribute</span><span class="p">(</span><span class="s1">&#39;data-username&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">last_author</span> <span class="o">!=</span> <span class="s1">&#39;the_gigi&#39;</span><span class="p">:</span>
+        <span class="n">e</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">find_elements_by_class_name</span><span class="p">(</span><span class="s1">&#39;post-meta&#39;</span><span class="p">)</span>
+        <span class="n">meta</span> <span class="o">=</span> <span class="n">e</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">find_element_by_tag_name</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)</span>
+        <span class="n">last_comment</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+            <span class="n">author</span><span class="o">=</span><span class="n">last_author</span><span class="p">,</span>
+            <span class="n">title</span><span class="o">=</span><span class="n">meta</span><span class="o">.</span><span class="n">get_attribute</span><span class="p">(</span><span class="s1">&#39;title&#39;</span><span class="p">),</span>
+            <span class="n">when</span><span class="o">=</span><span class="n">meta</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+<span class="k">return</span> <span class="n">name</span><span class="p">,</span> <span class="n">comment_count</span><span class="p">,</span> <span class="n">last_comment</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id9">
+<h2>結論</h2>
+<p>網頁爬取是一個非常實用的技術, 尤其當你需要處理的信息瀏覽器並不提供有用的API支持的時候. 它通常需要一些技巧來從現代web應用中提取信息, 不過一些成熟的、設計良好的工具, 比如: requests、BeautifulSoup、Selenium 都會減輕你的工作並提高效率.</p>
+<p>最後, 你可以試一下我寫的一些工具, 它們在 <a class="reference external" href="https://codecanyon.net/search/python">Envato Market</a> 有售, 歡迎提問和反饋.</p>
+<hr class="docutils" />
+<blockquote class="highlights">
+<div class="line-block">
+<div class="line">本文中的所有譯文僅用於學習和交流目的，轉載請務必註明文章譯者、出處、和本文鏈接。</div>
+<div class="line">我們的翻譯工作遵照 <a class="reference external" href="https://zh.wikipedia.org/wiki/Wikipedia:CC">CC 協議</a> ，如果我們的工作有侵犯到您的權益，請及時聯繫我們。</div>
+</div>
+</blockquote>
+</div>
+</div>
+
+    <footer><hr><address><b>作者</b>:
+    <a rel="author"
+       href="/zh/author/kai-yuan-zhong-guo-fan-yi.html">開源中國翻譯</a>
+  </address><aside>
+    <i>&isin;</i> <b>分類</b>:
+    <a href="/zh/category/python.html">Python</a>
+  </aside><aside>
+    <i>&sum;</i> <b>標籤</b>:
+      <a href="/zh/tag/python.html">Python</a>
+,       <a href="/zh/tag/zhuan-lu.html">轉錄</a>
+,       <a href="/zh/tag/kai-yuan-zhong-guo.html">開源中國</a>
+,       <a href="/zh/tag/linux.html">Linux</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

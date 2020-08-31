@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>[Python] Use Regular Expression to Find Strings Marked For Internationalization (i18n)</title>
+  <meta name="keywords" content="Python,Regular Expression,String Manipulation,Locale,i18n,gettext,find command,File Input/Output"/>
+  <meta name="description" content="Use regular expression in Python to search and find strings marked for i18n (Internationalization)"/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="[Python] Use Regular Expression to Find Strings Marked For Internationalization (i18n)" />    <meta property="og:image" content="/./extra/Dharma_wheel.svg" /><meta property="og:description" content="Use regular expression in Python to search and find strings marked for i18n (Internationalization)" /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2016/01/01/python-regular-expression-to-find-i18n-strings/"
+           rel="bookmark"
+           title="Permalink to [Python] Use Regular Expression to Find Strings Marked For Internationalization (i18n)">
+          [Python] Use Regular Expression to Find Strings Marked For Internationalization (i18n)
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2016-01-01T19:12:00+08:00">
+    January 01, 2016
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2016/01/01/python-regular-expression-to-find-i18n-strings%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><div class="section" id="python-regular-expression">
+<h2>Python Regular Expression</h2>
+<p>An i18n (web) application usually mark strings to be translated as
+<tt class="docutils literal"><span class="pre">_(&quot;string&quot;)</span></tt>. You can use <a class="reference external" href="https://www.gnu.org/software/gettext/manual/html_node/xgettext-Invocation.html">xgettext</a> in <a class="reference external" href="http://www.gnu.org/software/gettext/manual/gettext.html">GNU gettext utilities</a> to extract
+translatable strings from given input files. This post, however, will use
+<a class="reference external" href="https://www.google.com/search?q=Regular+Expression">regular expression</a> in Python to do the work.</p>
+<p>The basic pattern to search <tt class="docutils literal"><span class="pre">_(&quot;string&quot;)</span></tt> is:</p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">searchI18n</span><span class="p">(</span><span class="n">string</span><span class="p">):</span>
+  <span class="c1"># only first match and longest match</span>
+  <span class="c1"># i.e., the string {{_(&quot;ddd&quot;)}}12345{{_(&quot;sss&quot;)}} will return</span>
+  <span class="c1"># {{_(&quot;ddd&quot;)}}12345{{_(&quot;sss&quot;)}}, not return {{_(&quot;ddd&quot;)}}</span>
+  <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;{{\s*_\(\s*(.+)\s*\)\s*}}&#39;</span><span class="p">,</span> <span class="n">string</span><span class="p">)</span>
+</pre></div>
+<p>A more advanced pattern is:</p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">getAllMatchesInFile</span><span class="p">(</span><span class="n">filepath</span><span class="p">):</span>
+  <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="c1"># [^)] to prevent {{_(&quot;ddd&quot;)}}12345{{_(&quot;sss&quot;)}}</span>
+    <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;{{\s*_\(\s*([^)]+)\s*\)\s*}}&#39;</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+</pre></div>
+<p>The above function will return all matched strings in a file.</p>
+
+</div>
+<div class="section" id="alternative-use-xgettext">
+<h2>Alternative (Use <a class="reference external" href="https://www.gnu.org/software/gettext/manual/html_node/xgettext-Invocation.html">xgettext</a>)</h2>
+<p>You can also use the following command line in Linux console to extract strings:
+(assume your strings are in HTML files in <tt class="docutils literal">.</tt> directory)</p>
+<div class="highlight"><pre><span></span>xgettext --no-wrap --from-code<span class="o">=</span>UTF-8 --keyword<span class="o">=</span>_ --output<span class="o">=</span>messages.pot <span class="sb">`</span>find . -name *.html<span class="sb">`</span>
+</pre></div>
+<p><a class="reference external" href="https://www.gnu.org/software/gettext/manual/html_node/xgettext-Invocation.html">xgettext</a> will save the strings in the file named <em>messages.pot</em>.</p>
+
+<hr class="docutils" />
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id1" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td><a class="reference external" href="https://developers.google.com/edu/python/regular-expressions">Python Regular Expressions  |  Google for Education  |  Google Developers</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[2]</td><td><a class="reference external" href="http://stackoverflow.com/questions/490597/regex-replace-in-python-a-simpler-way">Regex replace (in Python) - a simpler way? - Stack Overflow</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[3]</td><td><a class="reference external" href="http://stackoverflow.com/questions/279237/import-a-module-from-a-relative-path">python - Import a module from a relative path - Stack Overflow</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[4]</td><td><a class="reference external" href="http://wiki.maemo.org/Internationalize_a_Python_application">Internationalize a Python application - maemo.org wiki</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id5" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[5]</td><td><a class="reference external" href="http://www.supernifty.org/blog/2011/09/16/python-localization-made-easy/">Python localization made easy «  Supernifty – nifty stuff</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id6" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[6]</td><td><a class="reference external" href="http://www.gnu.org/software/gettext/manual/gettext.html">GNU gettext utilities</a></td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/python.html">Python</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/python.html">Python</a>
+,       <a href="/tag/regular-expression.html">Regular Expression</a>
+,       <a href="/tag/string-manipulation.html">String Manipulation</a>
+,       <a href="/tag/locale.html">Locale</a>
+,       <a href="/tag/i18n.html">i18n</a>
+,       <a href="/tag/gettext.html">gettext</a>
+,       <a href="/tag/find-command.html">find command</a>
+,       <a href="/tag/file-inputoutput.html">File Input/Output</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head><meta charset="utf-8">
+  <title>Facebook 開源 NLP 建模框架 PyText，從研究到生產變得更容易</title>
+  <meta name="keywords" content="轉錄,開源中國,機器學習"/>
+  <meta name="description" content="Facebook AI Research（FAIR）開源了 NLP 建模框架 PyText。"/>
+  <meta name="author" content="h4cd(開源中國)"/><meta property="og:title" content="Facebook 開源 NLP 建模框架 PyText，從研究到生產變得更容易" /><meta property="og:image" content="https://oscimg.oschina.net/oscnet/8dcc8a28d530e211f3b47b4ff4afe3f738a.jpg" />
+<meta property="og:description" content="Facebook AI Research（FAIR）開源了 NLP 建模框架 PyText。" /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/zh/../extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/zh/../theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/zh/">理論與實作</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/zh/pages/about.html">關於</a>
+    <a class="nav-item" href="/zh/archives.html">歸檔</a>
+    <a class="nav-item" href="/zh/categories.html">分類</a>
+    <a class="nav-item" href="/zh/tags.html">標籤</a>
+    <a class="nav-item" href="/zh/authors.html">作者</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/">English</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/zh/2018/12/16/facebook-opensource-pytext-oschina/"
+           rel="bookmark"
+           title="Permalink to Facebook 開源 NLP 建模框架 PyText，從研究到生產變得更容易">
+          Facebook 開源 NLP 建模框架 PyText，從研究到生產變得更容易
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2018-12-16T15:29:00+08:00">
+    十二月 16, 2018
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2018/10/01/facebook-opensource-pytext-oschina%25zh.rst">在Github上編輯</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p>Facebook AI Research（FAIR） <a class="reference external" href="https://code.fb.com/ai-research/pytext-open-source-nlp-framework/">開源了 NLP 建模框架 PyText</a> 。</p>
+<img alt="Facebook 開源 NLP 建模框架 PyText，從研究到生產變得更容易" class="align-center" src="https://oscimg.oschina.net/oscnet/8dcc8a28d530e211f3b47b4ff4afe3f738a.jpg" />
+<p>PyText 是一個基於 PyTorch 構建的深度學習 NLP 建模框架。PyText 通過為模型組件提供簡單且可擴展的接口和抽象，以及使用 PyTorch 的 Caffe2 執行引擎導出模型進行推理的功能，模糊了實驗與大規模部署之間的界限。其預訓練模型包括文本分類、序列標註等。</p>
+<p>PyTorch 是一個統一的框架，縮短了從研究到生產的路徑，而基於 PyTorch 的 PyText 則著眼於滿足 NLP 建模的特定需求。</p>
+<div class="section" id="id1">
+<h2>核心特性：</h2>
+<p>適用於各種 NLP/NLU 任務的生產就緒模型</p>
+<ul class="simple">
+<li>文本分類<ul>
+<li><a class="reference external" href="https://arxiv.org/abs/1408.5882">Yoon Kim (2014): Convolutional Neural Networks for Sentence Classification</a></li>
+<li><a class="reference external" href="https://arxiv.org/abs/1703.03130">Lin et al. (2017): A Structured Self-attentive Sentence Embedding</a></li>
+</ul>
+</li>
+<li>序列標註<ul>
+<li><a class="reference external" href="https://www.aclweb.org/anthology/N16-1030">Lample et al. (2016): Neural Architectures for Named Entity Recognition</a></li>
+</ul>
+</li>
+<li>聯合意圖時隙模型（Joint intent-slot model）<ul>
+<li><a class="reference external" href="https://www.ijcai.org/Proceedings/16/Papers/425.pdf">Zhang et al. (2016): A Joint Model of Intent Determination and Slot Filling for Spoken Language Understanding</a></li>
+</ul>
+</li>
+<li>上下文意圖-時隙模型（Contextual intent-slot models）</li>
+</ul>
+<p>支持在 PyTorch 1.0 中基於新 C10d 後端構建的分佈式訓練</p>
+<p>可擴展組件，可輕鬆創建新模型和任務</p>
+<p>參考實現和預訓練模型論文： <a class="reference external" href="http://aclweb.org/anthology/D18-1300">Gupta et al. (2018): Semantic Parsing for Task Oriented Dialog using Hierarchical Representations</a></p>
+<p>支持聯合訓練</p>
+<p>項目地址：<a class="reference external" href="https://github.com/facebookresearch/pytext">https://github.com/facebookresearch/pytext</a></p>
+<p>瞭解更多：<a class="reference external" href="https://code.fb.com/ai-research/pytext-open-source-nlp-framework/">https://code.fb.com/ai-research/pytext-open-source-nlp-framework/</a></p>
+<blockquote class="highlights">
+<div class="line-block">
+<div class="line">本站文章除註明轉載外，均為本站原創或編譯。歡迎任何形式的轉載，但請務必註明出處，尊重他人勞動共創開源社區。</div>
+<div class="line">轉載請註明：文章轉載自 開源中國社區 [<a class="reference external" href="https://www.oschina.net">https://www.oschina.net</a>]</div>
+<div class="line">本文標題：Facebook 開源 NLP 建模框架 PyText，從研究到生產變得更容易</div>
+<div class="line">本文地址：<a class="reference external" href="https://www.oschina.net/news/102736/facebook-opensource-pytext">https://www.oschina.net/news/102736/facebook-opensource-pytext</a></div>
+</div>
+</blockquote>
+</div>
+</div>
+
+    <footer><hr><address><b>作者</b>:
+    <a rel="author"
+       href="/zh/author/h4cdkai-yuan-zhong-guo.html">h4cd(開源中國)</a>
+  </address><aside>
+    <i>&isin;</i> <b>分類</b>:
+    <a href="/zh/category/zhuan-lu.html">轉錄</a>
+  </aside><aside>
+    <i>&sum;</i> <b>標籤</b>:
+      <a href="/zh/tag/zhuan-lu.html">轉錄</a>
+,       <a href="/zh/tag/kai-yuan-zhong-guo.html">開源中國</a>
+,       <a href="/zh/tag/ji-qi-xue-xi.html">機器學習</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

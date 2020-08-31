@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>[Golang] Tiny Embedding Example of reStructuredText StringList Implementation</title>
+  <meta name="keywords" content="Go,Golang,Data Structure"/>
+  <meta name="description" content="Tiny Go embedding code example of analogy to StringList implementation of reStructuredText."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="[Golang] Tiny Embedding Example of reStructuredText StringList Implementation" />    <meta property="og:image" content="/./extra/Dharma_wheel.svg" /><meta property="og:description" content="Tiny Go embedding code example of analogy to StringList implementation of reStructuredText." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2016/02/13/go-tiny-embedding-example-of-rst-StringList-implementation/"
+           rel="bookmark"
+           title="Permalink to [Golang] Tiny Embedding Example of reStructuredText StringList Implementation">
+          [Golang] Tiny Embedding Example of reStructuredText StringList Implementation
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2016-02-13T02:34:00+08:00">
+    February 13, 2016
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2016/02/13/go-tiny-embedding-example-of-rst-StringList-implementation%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p>Tiny <a class="reference external" href="https://golang.org/">Golang</a> <a class="reference external" href="https://www.google.com/search?q=golang+embedding">embedding</a> code example of analogy to <a class="reference external" href="https://www.google.com/search?q=StringList+rst">StringList</a> implementation
+of <a class="reference external" href="http://docutils.sourceforge.net/rst.html">reStructuredText</a>.</p>
+<p><a class="reference external" href="https://play.golang.org/p/5JaL_prBtA">Run Code on Go Playground</a></p>
+<div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="s">&quot;fmt&quot;</span>
+
+<span class="kd">type</span> <span class="nx">ParentList</span> <span class="kd">struct</span> <span class="p">{</span>
+        <span class="nx">data</span>   <span class="p">[]</span><span class="kt">int</span>
+        <span class="nx">parent</span> <span class="o">*</span><span class="nx">ParentList</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nx">NewParentList</span><span class="p">(</span><span class="nx">data</span> <span class="p">[]</span><span class="kt">int</span><span class="p">,</span> <span class="nx">parent</span> <span class="o">*</span><span class="nx">ParentList</span><span class="p">)</span> <span class="nx">ParentList</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">ParentList</span><span class="p">{</span>
+                <span class="nx">data</span><span class="p">:</span>   <span class="nx">data</span><span class="p">,</span>
+                <span class="nx">parent</span><span class="p">:</span> <span class="nx">parent</span><span class="p">,</span>
+        <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="p">(</span><span class="nx">p</span> <span class="o">*</span><span class="nx">ParentList</span><span class="p">)</span> <span class="nx">GetSlice</span><span class="p">(</span><span class="nx">start</span><span class="p">,</span> <span class="nx">stop</span> <span class="kt">int</span><span class="p">)</span> <span class="nx">ParentList</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">NewParentList</span><span class="p">(</span><span class="nx">p</span><span class="p">.</span><span class="nx">data</span><span class="p">[</span><span class="nx">start</span><span class="p">:</span><span class="nx">stop</span><span class="p">],</span> <span class="nx">p</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">type</span> <span class="nx">ChildList</span> <span class="kd">struct</span> <span class="p">{</span>
+        <span class="nx">ParentList</span>
+        <span class="nx">parent</span> <span class="o">*</span><span class="nx">ChildList</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nx">NewChildList</span><span class="p">(</span><span class="nx">data</span> <span class="p">[]</span><span class="kt">int</span><span class="p">,</span> <span class="nx">parent</span> <span class="o">*</span><span class="nx">ChildList</span><span class="p">)</span> <span class="nx">ChildList</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">ChildList</span><span class="p">{</span>
+                <span class="nx">ParentList</span><span class="p">:</span> <span class="nx">NewParentList</span><span class="p">(</span><span class="nx">data</span><span class="p">,</span> <span class="kc">nil</span><span class="p">),</span>
+                <span class="nx">parent</span><span class="p">:</span>     <span class="nx">parent</span><span class="p">,</span>
+        <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">ChildList</span><span class="p">)</span> <span class="nx">GetSlice</span><span class="p">(</span><span class="nx">start</span><span class="p">,</span> <span class="nx">stop</span> <span class="kt">int</span><span class="p">)</span> <span class="nx">ChildList</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">NewChildList</span><span class="p">(</span><span class="nx">c</span><span class="p">.</span><span class="nx">data</span><span class="p">[</span><span class="nx">start</span><span class="p">:</span><span class="nx">stop</span><span class="p">],</span> <span class="nx">c</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+        <span class="c1">// Parent List</span>
+        <span class="nx">b</span> <span class="o">:=</span> <span class="nx">NewParentList</span><span class="p">([]</span><span class="kt">int</span><span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">},</span> <span class="kc">nil</span><span class="p">)</span>
+        <span class="nx">bs</span> <span class="o">:=</span> <span class="nx">b</span><span class="p">.</span><span class="nx">GetSlice</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+        <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">bs</span><span class="p">)</span>
+        <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">bs</span><span class="p">.</span><span class="nx">parent</span><span class="p">)</span>
+
+        <span class="c1">// Child List</span>
+        <span class="nx">c</span> <span class="o">:=</span> <span class="nx">NewParentList</span><span class="p">([]</span><span class="kt">int</span><span class="p">{</span><span class="mi">7</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">},</span> <span class="kc">nil</span><span class="p">)</span>
+        <span class="nx">cs</span> <span class="o">:=</span> <span class="nx">c</span><span class="p">.</span><span class="nx">GetSlice</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+        <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">cs</span><span class="p">)</span>
+        <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">cs</span><span class="p">.</span><span class="nx">parent</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+
+<hr class="docutils" />
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id1" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td><a class="reference external" href="https://www.google.com/search?q=golang+class+inheritance">golang class inheritance</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[2]</td><td><a class="reference external" href="https://github.com/luciotato/golang-notes/blob/master/OOP.md">Golang concepts from an OOP point of view - GitHub</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[3]</td><td><a class="reference external" href="https://www.google.com/search?q=golang+oop">golang oop</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[4]</td><td><a class="reference external" href="https://www.google.com/search?q=golang+subclass">golang subclass</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id5" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[5]</td><td><a class="reference external" href="https://www.google.com/search?q=golang+inheritance+override">golang inheritance override</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id6" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[6]</td><td><a class="reference external" href="https://www.google.com/search?q=golang+embedding">golang embedding</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id7" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[7]</td><td><a class="reference external" href="https://www.google.com/search?q=golang+interface+inheritance">golang interface inheritance</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id8" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[8]</td><td><a class="reference external" href="https://www.google.com/search?q=golang+method+overloading">golang method overloading</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id9" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[9]</td><td><a class="reference external" href="http://www.programcreek.com/python/example/59097/docutils.statemachine.StringList">Python docutils.statemachine.StringList Examples</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id10" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[10]</td><td><a class="reference external" href="http://nullege.com/codes/search/docutils.statemachine.StringList">docutils.statemachine.StringList - Nullege Python Samples</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id11" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[11]</td><td><a class="reference external" href="https://play.golang.org/p/Z4rbNGff_d">another tiny (bad) example on Go Playground</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id12" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[12]</td><td><a class="reference external" href="https://nathany.com/good/">Go Object Oriented Design</a>
+(<a class="reference external" href="https://www.reddit.com/r/golang/comments/4bn34e/go_object_oriented_design/">reddit</a>)</td></tr>
+</tbody>
+</table>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/go.html">Go</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/go.html">Go</a>
+,       <a href="/tag/golang.html">Golang</a>
+,       <a href="/tag/data-structure.html">Data Structure</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

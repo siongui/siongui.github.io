@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head><meta charset="utf-8">
+  <title>普通反爬蟲機制的應對策略</title>
+  <meta name="keywords" content="Python,Web開發,轉錄"/>
+  <meta name="description" content="這篇文章主要討論使用Scrapy框架時，如何應對普通的反爬機制。"/>
+  <meta name="author" content="Melwood"/><meta property="og:title" content="普通反爬蟲機制的應對策略" /><meta property="og:image" content="http://www.treselle.com/wp-content/uploads/freshizer/1baed853c082fe88880a8215d4cd0bb2_phython-with-Scarpy-863-430-c.jpg" />
+<meta property="og:description" content="這篇文章主要討論使用Scrapy框架時，如何應對普通的反爬機制。" /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/zh/../extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/zh/../theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/zh/">理論與實作</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/zh/pages/about.html">關於</a>
+    <a class="nav-item" href="/zh/archives.html">歸檔</a>
+    <a class="nav-item" href="/zh/categories.html">分類</a>
+    <a class="nav-item" href="/zh/tags.html">標籤</a>
+    <a class="nav-item" href="/zh/authors.html">作者</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/">English</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/zh/2017/02/19/strategy-to-handle-anti-crawler-mechanism/"
+           rel="bookmark"
+           title="Permalink to 普通反爬蟲機制的應對策略">
+          普通反爬蟲機制的應對策略
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2017-02-19T18:50:00+08:00">
+    二月 19, 2017
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2017/02/19/strategy-to-handle-anti-crawler-mechanism%25zh.rst">在Github上編輯</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p>轉載自： <a class="reference external" href="http://jiayi.space/post/fan-pa-chong-de-ying-dui-ce-lue">普通反爬虫机制的应对策略 - Melwood</a></p>
+<p>爬蟲與反爬蟲，這相愛相殺的一對，簡直可以寫出一部壯觀的鬥爭史。而在大數據時代，數據就是金錢，很多企業都為自己的網站運用了反爬蟲機制，防止網頁上的數據被爬蟲爬走。然而，如果反爬機制過於嚴格，可能會誤傷到真正的用戶請求；如果既要和爬蟲死磕，又要保證很低的誤傷率，那麼又會加大研發的成本。</p>
+<p>簡單低級的爬蟲速度快，偽裝度低，如果沒有反爬機制，它們可以很快的抓取大量數據，甚至因為請求過多，造成服務器不能正常工作。而偽裝度高的爬蟲爬取速度慢，對服務器造成的負擔也相對較小。所以，網站反爬的重點也是那種簡單粗暴的爬蟲，反爬機制也會允許偽裝度高的爬蟲，獲得數據。畢竟偽裝度很高的爬蟲與真實用戶也就沒有太大差別了。</p>
+<p>這篇文章主要討論使用Scrapy框架時，如何應對普通的反爬機制。</p>
+<div class="section" id="header">
+<h2>header檢驗</h2>
+<p>最簡單的反爬機制，就是檢查HTTP請求的Headers信息，包括User-Agent, Referer、Cookies等。</p>
+<div class="section" id="user-agent">
+<h3>User-Agent</h3>
+<p>User-Agent是檢查用戶所用客戶端的種類和版本，在Scrapy中，通常是在下載器中間件中進行處理。比如在setting.py中建立一個包含很多瀏覽器User-Agent的列表，然後新建一個random_user_agent文件：</p>
+<div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">RandomUserAgentMiddleware</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">process_request</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">spider</span><span class="p">):</span>
+        <span class="n">ua</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">spider</span><span class="o">.</span><span class="n">settings</span><span class="p">[</span><span class="s1">&#39;USER_AGENT_LIST&#39;</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">ua</span><span class="p">:</span>
+            <span class="n">request</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;User-Agent&#39;</span><span class="p">,</span> <span class="n">ua</span><span class="p">)</span>
+</pre></div>
+<p>這樣就可以在每次請求中，隨機選取一個真實瀏覽器的User-Agent。</p>
+</div>
+<div class="section" id="referer">
+<h3>Referer</h3>
+<p>Referer是檢查此請求由哪裡來，通常可以做圖片的盜鏈判斷。在Scrapy中，如果某個頁面url是通過之前爬取的頁面提取到，Scrapy會自動把之前爬取的頁面url作為Referfer。也可以通過上面的方式自己定義Referfer字段。</p>
+</div>
+<div class="section" id="cookies">
+<h3>Cookies</h3>
+<p>網站可能會檢測Cookie中session_id的使用次數，如果超過限制，就觸發反爬策略。所以可以在Scrapy中設置`COOKIES_ENABLED = False`讓請求不帶Cookies。</p>
+<p>也有網站強制開啟Cookis，這時就要麻煩一點了。可以另寫一個簡單的爬蟲，定時向目標網站發送不帶Cookies的請求，提取響應中Set-cookie字段信息並保存。爬取網頁時，把存儲起來的Cookies帶入Headers中。</p>
+</div>
+<div class="section" id="x-forwarded-for">
+<h3>X-Forwarded-For</h3>
+<p>在請求頭中添加X-Forwarded-For字段，將自己申明為一個透明的代理服務器，一些網站對代理服務器會手軟一些。</p>
+<p>X-Forwarded-For頭一般格式如下</p>
+<div class="highlight"><pre><span></span>X-Forwarded-For: client1, proxy1, proxy2
+</pre></div>
+<p>這裡將client1，proxy1設置為隨機IP地址，把自己的請求偽裝成代理的隨機IP產生的請求。然而由於X-Forwarded-For可以隨意篡改，很多網站並不會信任這個值。</p>
+</div>
+</div>
+<div class="section" id="ip">
+<h2>限制IP的請求數量</h2>
+<p>如果某一IP的請求速度過快，就觸發反爬機制。當然可以通過放慢爬取速度繞過，這要以爬取時間大大增長為代價。另一種方法就是添加代理。</p>
+<p>很簡單，在下載器中間件中添加:</p>
+<div class="highlight"><pre><span></span><span class="n">request</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;proxy&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;http://&#39;</span> <span class="o">+</span> <span class="s1">&#39;proxy_host&#39;</span> <span class="o">+</span>  <span class="s1">&#39;:&#39;</span> <span class="o">+</span> <span class="n">proxy_port</span>
+</pre></div>
+<p>然後再每次請求時使用不同的代理IP。然而問題是如何獲取大量的代理IP？</p>
+<p>可以自己寫一個IP代理獲取和維護系統，定時從各種披露免費代理IP的網站爬取免費IP代理，然後定時掃瞄這些IP和端口是否可用，將不可用的代理IP及時清理。這樣就有一個動態的代理庫，每次請求再從庫中隨機選擇一個代理。然而這個方案的缺點也很明顯，開發代理獲取和維護系統本身就很費時費力，並且這種免費代理的數量並不多，而且穩定性都比較差。如果必須要用到代理，也可以去買一些穩定的代理服務。這些服務大多會用到帶認證的代理。</p>
+<p>在requests庫中添加帶認證的代理很簡單，</p>
+<div class="highlight"><pre><span></span><span class="n">proxies</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;http&quot;</span><span class="p">:</span> <span class="s2">&quot;http://user:pass@10.10.1.10:3128/&quot;</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+<p>然而Scrapy不支持這種認證方式，需要將認證信息base64編碼後，加入Headers的Proxy-Authorization字段：</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">base64</span>
+
+<span class="c1"># Set the location of the proxy</span>
+<span class="n">proxy_string</span> <span class="o">=</span> <span class="n">choice</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_proxies_from_file</span><span class="p">(</span><span class="s1">&#39;proxies.txt&#39;</span><span class="p">))</span> <span class="c1"># user:pass@ip:port</span>
+<span class="n">proxy_items</span> <span class="o">=</span> <span class="n">proxy_string</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;@&#39;</span><span class="p">)</span>
+<span class="n">request</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;proxy&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;http://</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">proxy_items</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="c1"># setup basic authentication for the proxy</span>
+<span class="n">user_pass</span><span class="o">=</span><span class="n">base64</span><span class="o">.</span><span class="n">encodestring</span><span class="p">(</span><span class="n">proxy_items</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">request</span><span class="o">.</span><span class="n">headers</span><span class="p">[</span><span class="s1">&#39;Proxy-Authorization&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Basic &#39;</span> <span class="o">+</span> <span class="n">user_pass</span>
+</pre></div>
+</div>
+<div class="section" id="id2">
+<h2>動態加載</h2>
+<p>現在越來越多的網站使用ajax動態加載內容，這時候可以先截取ajax請求分析一下，有可能根據ajax請求構造出相應的API請求的URL就可以直接獲取想要的內容，通常是json格式，反而還不用去解析HTML。</p>
+<p>然而，很多時候ajax請求都會經過後端鑑權，不能直接構造URL獲取。這時就可以通過PhantomJS+Selenium模擬瀏覽器行為，抓取經過js渲染後的頁面。具體可以參考： <a class="reference external" href="http://jiayi.space/post/scrapy-phantomjs-seleniumdong-tai-pa-chong">Scrapy+PhantomJS+Selenium動態爬蟲</a></p>
+<p>需要注意的是，使用Selenium後，請求不再由Scrapy的Downloader執行，所以之前添加的請求頭等信息都會失效，需要在Selenium中重新添加</p>
+<div class="highlight"><pre><span></span><span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="o">...</span><span class="p">}</span>
+<span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">headers</span><span class="o">.</span><span class="n">iteritems</span><span class="p">():</span>
+    <span class="n">webdriver</span><span class="o">.</span><span class="n">DesiredCapabilities</span><span class="o">.</span><span class="n">PHANTOMJS</span><span class="p">[</span><span class="s1">&#39;phantomjs.page.customHeaders.</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">)]</span> <span class="o">=</span> <span class="n">value</span>
+</pre></div>
+<p>另外，調用PhantomJs需要指定PhantomJs的可執行文件路徑，通常是將該路徑添加到系統的path路徑，讓程序執行時自動去path中尋找。我們的爬蟲經常會放到crontab中定時執行，而crontab中的環境變量和系統的環境變量不同，所以就加載不到PhamtonJs需要的路徑，所以最好是在申明時指定路徑：</p>
+<div class="highlight"><pre><span></span><span class="n">driver</span> <span class="o">=</span> <span class="n">webdriver</span><span class="o">.</span><span class="n">PhantomJS</span><span class="p">(</span><span class="n">executable_path</span><span class="o">=</span><span class="s1">&#39;/usr/local/bin/phantomjs&#39;</span><span class="p">)</span>
+</pre></div>
+<hr class="docutils" />
+<ul class="simple">
+<li><a class="reference external" href="http://python.jobbole.com/87669/">普通反爬虫机制的应对策略 - Python - 伯乐在线</a></li>
+</ul>
+</div>
+</div>
+
+    <footer><hr><address><b>作者</b>:
+    <a rel="author"
+       href="/zh/author/melwood.html">Melwood</a>
+  </address><aside>
+    <i>&isin;</i> <b>分類</b>:
+    <a href="/zh/category/python.html">Python</a>
+  </aside><aside>
+    <i>&sum;</i> <b>標籤</b>:
+      <a href="/zh/tag/python.html">Python</a>
+,       <a href="/zh/tag/webkai-fa.html">Web開發</a>
+,       <a href="/zh/tag/zhuan-lu.html">轉錄</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>[Golang] Check If A Program (Command) Exists</title>
+  <meta name="keywords" content="Go,Golang,Bash,Commandline"/>
+  <meta name="description" content="Check if a program (or command), such as wget or ffmpeg, is available in Go."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="[Golang] Check If A Program (Command) Exists" /><meta property="og:image" content="https://i.stack.imgur.com/qN5s4.png" />
+<meta property="og:description" content="Check if a program (or command), such as wget or ffmpeg, is available in Go." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2018/03/16/go-check-if-command-exists/"
+           rel="bookmark"
+           title="Permalink to [Golang] Check If A Program (Command) Exists">
+          [Golang] Check If A Program (Command) Exists
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2018-03-16T23:30:00+08:00">
+    March 16, 2018
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2018/03/16/go-check-if-command-exists%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p>Check if a program (or command), such as <em>wget</em> or <em>ffmpeg</em>, is available in Go.</p>
+<p>This looks like a easy task. I made some Google searches and found <a class="footnote-reference" href="#id4" id="id1">[2]</a> you can
+check if a command exists in shell as follows:</p>
+<div class="highlight"><pre><span></span>$ <span class="nb">command</span> -v &lt;the_command&gt;
+</pre></div>
+<p>Now we use standard <a class="reference external" href="https://golang.org/pkg/os/exec/">os.exec</a> package to run the command for us:</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="p">(</span>
+      <span class="s">&quot;os/exec&quot;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nx">isCommandAvailable</span><span class="p">(</span><span class="nx">name</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">bool</span> <span class="p">{</span>
+      <span class="nx">cmd</span> <span class="o">:=</span> <span class="nx">exec</span><span class="p">.</span><span class="nx">Command</span><span class="p">(</span><span class="s">&quot;command&quot;</span><span class="p">,</span> <span class="s">&quot;-v&quot;</span><span class="p">,</span> <span class="nx">name</span><span class="p">)</span>
+      <span class="k">if</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">cmd</span><span class="p">.</span><span class="nx">Run</span><span class="p">();</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+              <span class="k">return</span> <span class="kc">false</span>
+      <span class="p">}</span>
+      <span class="k">return</span> <span class="kc">true</span>
+<span class="p">}</span>
+</pre></div>
+<p>Looks very easy. To be more confident, we write a test to see if it works:</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="p">(</span>
+      <span class="s">&quot;testing&quot;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nx">TestIsCommandAvailable</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="nx">isCommandAvailable</span><span class="p">(</span><span class="s">&quot;ls&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="kc">false</span> <span class="p">{</span>
+              <span class="nx">t</span><span class="p">.</span><span class="nx">Error</span><span class="p">(</span><span class="s">&quot;ls command does not exist!&quot;</span><span class="p">)</span>
+      <span class="p">}</span>
+      <span class="k">if</span> <span class="nx">isCommandAvailable</span><span class="p">(</span><span class="s">&quot;ls111&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="kc">true</span> <span class="p">{</span>
+              <span class="nx">t</span><span class="p">.</span><span class="nx">Error</span><span class="p">(</span><span class="s">&quot;ls111 command should not exist!&quot;</span><span class="p">)</span>
+      <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<p>And the test failed!!!</p>
+<div class="highlight"><pre><span></span><span class="o">===</span> RUN   TestIsCommandAvailable
+--- FAIL: TestIsCommandAvailable <span class="o">(</span><span class="m">0</span>.00s<span class="o">)</span>
+      util_test.go:9: ls <span class="nb">command</span> does not exist!
+</pre></div>
+<p>I print the error message and got:</p>
+<div class="highlight"><pre><span></span>exec: <span class="s2">&quot;command&quot;</span>: executable file not found in <span class="nv">$PATH</span>
+</pre></div>
+<p>This is really strange, and I googled again and found <a class="footnote-reference" href="#id6" id="id2">[4]</a> that you cannot run
+built-in command directly via <a class="reference external" href="https://golang.org/pkg/os/exec/#Command">exec.Command</a>, so the following way of running
+built-in command will not work:</p>
+<div class="highlight"><pre><span></span><span class="nx">cmd</span> <span class="o">:=</span> <span class="nx">exec</span><span class="p">.</span><span class="nx">Command</span><span class="p">(</span><span class="s">&quot;command&quot;</span><span class="p">,</span> <span class="s">&quot;-v&quot;</span><span class="p">,</span> <span class="nx">name</span><span class="p">)</span>
+</pre></div>
+<p>Instead, you should run the built-in command as follows:</p>
+<div class="highlight"><pre><span></span><span class="nx">cmd</span> <span class="o">:=</span> <span class="nx">exec</span><span class="p">.</span><span class="nx">Command</span><span class="p">(</span><span class="s">&quot;/bin/sh&quot;</span><span class="p">,</span> <span class="s">&quot;-c&quot;</span><span class="p">,</span> <span class="s">&quot;command -v &quot;</span><span class="o">+</span><span class="nx">name</span><span class="p">)</span>
+</pre></div>
+<p>And finally it works as expected and the test passed! The correct way to check
+if a program exists in Go is:</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="p">(</span>
+      <span class="s">&quot;os/exec&quot;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nx">isCommandAvailable</span><span class="p">(</span><span class="nx">name</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">bool</span> <span class="p">{</span>
+      <span class="nx">cmd</span> <span class="o">:=</span> <span class="nx">exec</span><span class="p">.</span><span class="nx">Command</span><span class="p">(</span><span class="s">&quot;/bin/sh&quot;</span><span class="p">,</span> <span class="s">&quot;-c&quot;</span><span class="p">,</span> <span class="s">&quot;command -v &quot;</span><span class="o">+</span><span class="nx">name</span><span class="p">)</span>
+      <span class="k">if</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">cmd</span><span class="p">.</span><span class="nx">Run</span><span class="p">();</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+              <span class="k">return</span> <span class="kc">false</span>
+      <span class="p">}</span>
+      <span class="k">return</span> <span class="kc">true</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>Tested on: <cite>Ubuntu 17.10</cite>, <cite>Go 1.10</cite></p>
+<hr class="docutils" />
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td><div class="first last line-block">
+<div class="line"><a class="reference external" href="https://www.google.com/search?q=bash+check+command+exists">bash check command exists - Google search</a></div>
+<div class="line"><a class="reference external" href="https://duckduckgo.com/?q=bash+check+command+exists">bash check command exists - DuckDuckGo search</a></div>
+<div class="line"><a class="reference external" href="https://www.ecosia.org/search?q=bash+check+command+exists">bash check command exists - Ecosia search</a></div>
+<div class="line"><a class="reference external" href="https://www.qwant.com/?q=bash+check+command+exists">bash check command exists - Qwant search</a></div>
+<div class="line"><a class="reference external" href="https://www.bing.com/search?q=bash+check+command+exists">bash check command exists - Bing search</a></div>
+<div class="line"><a class="reference external" href="https://search.yahoo.com/search?p=bash+check+command+exists">bash check command exists - Yahoo search</a></div>
+<div class="line"><a class="reference external" href="https://www.baidu.com/s?wd=bash+check+command+exists">bash check command exists - Baidu search</a></div>
+<div class="line"><a class="reference external" href="https://www.yandex.com/search/?text=bash+check+command+exists">bash check command exists - Yandex search</a></div>
+</div>
+</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[2]</a></td><td><a class="reference external" href="https://stackoverflow.com/a/677212">shell - Check if a program exists from a Bash script - Stack Overflow</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id5" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[3]</td><td><div class="first last line-block">
+<div class="line"><a class="reference external" href="https://www.google.com/search?q=golang+exec+command+path">golang exec command path - Google search</a></div>
+<div class="line"><a class="reference external" href="https://duckduckgo.com/?q=golang+exec+command+path">golang exec command path - DuckDuckGo search</a></div>
+<div class="line"><a class="reference external" href="https://www.ecosia.org/search?q=golang+exec+command+path">golang exec command path - Ecosia search</a></div>
+<div class="line"><a class="reference external" href="https://www.qwant.com/?q=golang+exec+command+path">golang exec command path - Qwant search</a></div>
+<div class="line"><a class="reference external" href="https://www.bing.com/search?q=golang+exec+command+path">golang exec command path - Bing search</a></div>
+<div class="line"><a class="reference external" href="https://search.yahoo.com/search?p=golang+exec+command+path">golang exec command path - Yahoo search</a></div>
+<div class="line"><a class="reference external" href="https://www.baidu.com/s?wd=golang+exec+command+path">golang exec command path - Baidu search</a></div>
+<div class="line"><a class="reference external" href="https://www.yandex.com/search/?text=golang+exec+command+path">golang exec command path - Yandex search</a></div>
+</div>
+</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id6" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[4]</a></td><td><a class="reference external" href="https://stackoverflow.com/a/34229542">go - How to execute a linux built in command in golang - Stack Overflow</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id7" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[5]</td><td><div class="first last line-block">
+<div class="line"><a class="reference external" href="https://www.google.com/search?q=golang+exec+builtin+command">golang exec builtin command - Google search</a></div>
+<div class="line"><a class="reference external" href="https://duckduckgo.com/?q=golang+exec+builtin+command">golang exec builtin command - DuckDuckGo search</a></div>
+<div class="line"><a class="reference external" href="https://www.ecosia.org/search?q=golang+exec+builtin+command">golang exec builtin command - Ecosia search</a></div>
+<div class="line"><a class="reference external" href="https://www.qwant.com/?q=golang+exec+builtin+command">golang exec builtin command - Qwant search</a></div>
+<div class="line"><a class="reference external" href="https://www.bing.com/search?q=golang+exec+builtin+command">golang exec builtin command - Bing search</a></div>
+<div class="line"><a class="reference external" href="https://search.yahoo.com/search?p=golang+exec+builtin+command">golang exec builtin command - Yahoo search</a></div>
+<div class="line"><a class="reference external" href="https://www.baidu.com/s?wd=golang+exec+builtin+command">golang exec builtin command - Baidu search</a></div>
+<div class="line"><a class="reference external" href="https://www.yandex.com/search/?text=golang+exec+builtin+command">golang exec builtin command - Yandex search</a></div>
+</div>
+</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id8" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[6]</td><td><a class="reference external" href="https://old.reddit.com/r/golang/comments/9zsipj/help_osexec_output_on_nonenglish_windows_cmd/">Help! os/exec Output() on Non-English Windows cmd! : golang</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id9" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[7]</td><td><a class="reference external" href="https://old.reddit.com/r/golang/comments/a2pmuc/a_netstat_implementation_written_in_go/">A netstat implementation written in Go : golang</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id10" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[8]</td><td><a class="reference external" href="https://old.reddit.com/r/golang/comments/a9k4ok/shell_scripter_here_i_cant_get_go_to_click/">Shell scripter here, I can't get Go to click : golang</a></td></tr>
+</tbody>
+</table>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/go.html">Go</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/go.html">Go</a>
+,       <a href="/tag/golang.html">Golang</a>
+,       <a href="/tag/bash.html">Bash</a>
+,       <a href="/tag/commandline.html">Commandline</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

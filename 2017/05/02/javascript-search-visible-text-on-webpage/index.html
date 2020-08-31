@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>[JavaScript] Find All Visible Texts on Web Page</title>
+  <meta name="keywords" content="JavaScript,DOM,Traverse DOM Tree"/>
+  <meta name="description" content="Traverse DOM tree to grab visible texts on webpage via JavaScript."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="[JavaScript] Find All Visible Texts on Web Page" />    <meta property="og:image" content="/./extra/Dharma_wheel.svg" /><meta property="og:description" content="Traverse DOM tree to grab visible texts on webpage via JavaScript." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2017/05/02/javascript-search-visible-text-on-webpage/"
+           rel="bookmark"
+           title="Permalink to [JavaScript] Find All Visible Texts on Web Page">
+          [JavaScript] Find All Visible Texts on Web Page
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2017-05-02T22:23:00+08:00">
+    May 02, 2017
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2017/05/02/javascript-search-visible-text-on-webpage%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p>Show how to grab all visible texts on webpage via JavaScript.</p>
+<p>This post is actually part of <strong>[JavaScript] Traverse DOM Tree</strong> <a class="footnote-reference" href="#id3" id="id1">[1]</a>. I extract
+the code and make it an independent post for search engine friendliness.</p>
+<p>The motivation to search for visible texts on the webpage is to find out all
+visible texts on Simplified Chinese website and convert them to Traditional
+Chinese. I write a Chrome extension in Go to do this job <a class="footnote-reference" href="#id4" id="id2">[2]</a>.</p>
+<p>The following is the JavaScript code for finding out visible texts on web page:</p>
+<div class="highlight"><pre><span></span><span class="s2">&quot;use strict&quot;</span><span class="p">;</span>
+
+<span class="kd">function</span> <span class="nx">isExcluded</span><span class="p">(</span><span class="nx">elm</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">elm</span><span class="p">.</span><span class="nx">tagName</span> <span class="o">==</span> <span class="s2">&quot;STYLE&quot;</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">elm</span><span class="p">.</span><span class="nx">tagName</span> <span class="o">==</span> <span class="s2">&quot;SCRIPT&quot;</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">elm</span><span class="p">.</span><span class="nx">tagName</span> <span class="o">==</span> <span class="s2">&quot;NOSCRIPT&quot;</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">elm</span><span class="p">.</span><span class="nx">tagName</span> <span class="o">==</span> <span class="s2">&quot;IFRAME&quot;</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">elm</span><span class="p">.</span><span class="nx">tagName</span> <span class="o">==</span> <span class="s2">&quot;OBJECT&quot;</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="kc">false</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">traverse</span><span class="p">(</span><span class="nx">elm</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">elm</span><span class="p">.</span><span class="nx">nodeType</span> <span class="o">==</span> <span class="nx">Node</span><span class="p">.</span><span class="nx">ELEMENT_NODE</span> <span class="o">||</span> <span class="nx">elm</span><span class="p">.</span><span class="nx">nodeType</span> <span class="o">==</span> <span class="nx">Node</span><span class="p">.</span><span class="nx">DOCUMENT_NODE</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="c1">// exclude elements with invisible text nodes</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">isExcluded</span><span class="p">(</span><span class="nx">elm</span><span class="p">))</span> <span class="p">{</span>
+      <span class="k">return</span>
+    <span class="p">}</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">elm</span><span class="p">.</span><span class="nx">childNodes</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+      <span class="c1">// recursively call to traverse</span>
+      <span class="nx">traverse</span><span class="p">(</span><span class="nx">elm</span><span class="p">.</span><span class="nx">childNodes</span><span class="p">[</span><span class="nx">i</span><span class="p">]);</span>
+    <span class="p">}</span>
+
+  <span class="p">}</span>
+
+  <span class="k">if</span> <span class="p">(</span><span class="nx">elm</span><span class="p">.</span><span class="nx">nodeType</span> <span class="o">==</span> <span class="nx">Node</span><span class="p">.</span><span class="nx">TEXT_NODE</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="c1">// exclude text node consisting of only spaces</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">elm</span><span class="p">.</span><span class="nx">nodeValue</span><span class="p">.</span><span class="nx">trim</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span>
+    <span class="p">}</span>
+
+    <span class="c1">// elm.nodeValue here is visible text we need.</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">elm</span><span class="p">.</span><span class="nx">nodeValue</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nx">traverse</span><span class="p">(</span><span class="nb">document</span><span class="p">);</span>
+</pre></div>
+<p><a class="reference external" href="https://www.google.com/search?q=Traverse+DOM+Tree">Traverse DOM tree</a> to find out all text nodes. Recursive call to <em>traverse</em>
+function to visit all nodes in the DOM tree. In <em>traverse</em> function, we check
+the node type of the element. If it is <strong>ELEMENT_NODE</strong> or <strong>DOCUMENT_NODE</strong>,
+recursively call self with child nodes of current element as the argument. If it
+is <strong>TEXT_NODE</strong>, then we are done.</p>
+<p>To search for only text nodes with visible texts, we need some checks in the
+code. First check the tag name of the element node, If the tag name is <em>STYLE</em>,
+<em>SCRIPT</em>, <em>NOSCRIPT</em>, <em>IFRAME</em>, or <em>OBJECT</em>, rule out such elements. Also texts
+consisting of only spaces are not needed either. We can check this by <em>trim()</em>
+method.</p>
+
+<p>Tested on: <tt class="docutils literal">Chromium Version 58.0.3029.81 Built on Ubuntu , running on Ubuntu 17.04 <span class="pre">(64-bit)</span></tt></p>
+<hr class="docutils" />
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td><a class="reference external" href="/2017/05/01/javascript-traverse-dom-tree/">[JavaScript] Traverse DOM Tree</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[2]</a></td><td><a class="reference external" href="/2017/04/30/go-gopherjs-chrome-extension-for-chinese-translation/">[Golang/GopherJS] Chrome Extension for Chinese Conversion</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id5" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[3]</td><td><div class="first last line-block">
+<div class="line"><a class="reference external" href="https://www.google.com/search?q=visible+texts+in+web+page">visible texts in web page - Google search</a></div>
+<div class="line"><a class="reference external" href="https://duckduckgo.com/?q=visible+texts+in+web+page">visible texts in web page - DuckDuckGo search</a></div>
+<div class="line"><a class="reference external" href="https://www.ecosia.org/search?q=visible+texts+in+web+page">visible texts in web page - Ecosia search</a></div>
+<div class="line"><a class="reference external" href="https://www.qwant.com/?q=visible+texts+in+web+page">visible texts in web page - Qwant search</a></div>
+<div class="line"><a class="reference external" href="https://www.bing.com/search?q=visible+texts+in+web+page">visible texts in web page - Bing search</a></div>
+<div class="line"><a class="reference external" href="https://search.yahoo.com/search?p=visible+texts+in+web+page">visible texts in web page - Yahoo search</a></div>
+<div class="line"><a class="reference external" href="https://www.baidu.com/s?wd=visible+texts+in+web+page">visible texts in web page - Baidu search</a></div>
+<div class="line"><a class="reference external" href="https://www.yandex.com/search/?text=visible+texts+in+web+page">visible texts in web page - Yandex search</a></div>
+</div>
+</td></tr>
+</tbody>
+</table>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/javascript.html">JavaScript</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/javascript.html">JavaScript</a>
+,       <a href="/tag/dom.html">DOM</a>
+,       <a href="/tag/traverse-dom-tree.html">Traverse DOM Tree</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

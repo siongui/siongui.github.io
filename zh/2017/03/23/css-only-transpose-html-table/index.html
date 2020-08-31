@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>純CSS將HTML的Table的行列互換</title>
+  <meta name="keywords" content="CSS,Web開發"/>
+  <meta name="description" content="純 CSS 解決方案：將HTML Table的行(row)以及列(column)對調 ，不需要任何 JavaScript 程式碼。"/>
+  <meta name="author" content="戴上為"/><meta property="og:title" content="純CSS將HTML的Table的行列互換" /><meta property="og:image" content="https://www.webcodegeeks.com/wp-content/uploads/2015/03/css-table11.jpg" />
+<meta property="og:description" content="純 CSS 解決方案：將HTML Table的行(row)以及列(column)對調 ，不需要任何 JavaScript 程式碼。" /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/zh/../extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/zh/../theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/zh/">理論與實作</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/zh/pages/about.html">關於</a>
+    <a class="nav-item" href="/zh/archives.html">歸檔</a>
+    <a class="nav-item" href="/zh/categories.html">分類</a>
+    <a class="nav-item" href="/zh/tags.html">標籤</a>
+    <a class="nav-item" href="/zh/authors.html">作者</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/">English</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/zh/2017/03/23/css-only-transpose-html-table/"
+           rel="bookmark"
+           title="Permalink to 純CSS將HTML的Table的行列互換">
+          純CSS將HTML的Table的行列互換
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2018-10-03T00:55:00+08:00">
+    Updated: 十月 03, 2018
+  </time></aside>
+    <aside><div class="available-translations">
+      <span>翻譯</span>:&nbsp;<a href="/zh/../2017/04/16/css-only-transpose-html-table/">English</a>&nbsp;</div><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2017/03/23/css-only-transpose-html-table%25zh.rst">在Github上編輯</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p>純 <a class="reference external" href="https://www.google.com/search?q=CSS">CSS</a> 解決方案：將HTML Table的行(row)以及列(column)對調，不需要任何
+<a class="reference external" href="https://www.google.com/search?q=JavaScript">JavaScript</a> 程式碼。</p>
+<p>先看demo，原本的Table是：</p>
+<style>
+th, td { border: 1px solid black; padding: 5px; }
+
+.table-transposed tr {
+  display: block;
+  float: left;
+}
+.table-transposed th, .table-transposed td {
+  display: block;
+}
+</style>
+
+<div style="padding: 2em; background-color: Azure; padding: 5px;">
+
+<table>
+<tr><th>Type</th><th>For</th></tr>
+<tr><td>aa</td><td>ā</td></tr>
+<tr><td>ii</td><td>ī</td></tr>
+<tr><td>uu</td><td>ū</td></tr>
+<tr><td>"n</td><td>ṅ</td></tr>
+<tr><td>.m</td><td>ṃ</td></tr>
+<tr><td>~n</td><td>ñ</td></tr>
+<tr><td>.t</td><td>ṭ</td></tr>
+<tr><td>.d</td><td>ḍ</td></tr>
+<tr><td>.n</td><td>ṇ</td></tr>
+<tr><td>.l</td><td>ḷ</td></tr>
+</table>
+
+</div><p>利用CSS行列互換後變成：</p>
+<div style="padding: 2em; background-color: Azure; padding: 5px;">
+
+<table class="table-transposed">
+<tr><th>Type</th><th>For</th></tr>
+<tr><td>aa</td><td>ā</td></tr>
+<tr><td>ii</td><td>ī</td></tr>
+<tr><td>uu</td><td>ū</td></tr>
+<tr><td>"n</td><td>ṅ</td></tr>
+<tr><td>.m</td><td>ṃ</td></tr>
+<tr><td>~n</td><td>ñ</td></tr>
+<tr><td>.t</td><td>ṭ</td></tr>
+<tr><td>.d</td><td>ḍ</td></tr>
+<tr><td>.n</td><td>ṇ</td></tr>
+<tr><td>.l</td><td>ḷ</td></tr>
+</table>
+
+</div>
+<p>解法來自 <a class="footnote-reference" href="#id5" id="id1">[3]</a> ， <a class="reference external" href="https://www.google.com/search?q=CSS">CSS</a> 程式碼如下：</p>
+<div class="highlight"><pre><span></span><span class="nt">tr</span> <span class="p">{</span> <span class="k">display</span><span class="p">:</span> <span class="kc">block</span><span class="p">;</span> <span class="k">float</span><span class="p">:</span> <span class="kc">left</span><span class="p">;</span> <span class="p">}</span>
+<span class="nt">th</span><span class="o">,</span> <span class="nt">td</span> <span class="p">{</span> <span class="k">display</span><span class="p">:</span> <span class="kc">block</span><span class="p">;</span> <span class="p">}</span>
+</pre></div>
+<p>我們甚至還可以透過 CSS 來回切換行列，請按下方『行列互換』的文字數次看結果：</p>
+<style>
+label[for=element-toggle] {
+  cursor: pointer;
+  color: red;
+}
+#element-toggle {
+  display: none;
+}
+
+#element-toggle:checked ~ #toggled-element tr {
+  display: block;
+  float: left;
+}
+#element-toggle:checked ~ #toggled-element th,
+#element-toggle:checked ~ #toggled-element td {
+  display: block;
+}
+</style><div style="padding: 2em; background-color: Azure; padding: 5px;">
+
+<label for="element-toggle">行列互換</label>
+<input id="element-toggle" type="checkbox" />
+
+<br><br>
+
+<table id="toggled-element">
+<tr><th>Type</th><th>For</th></tr>
+<tr><td>aa</td><td>ā</td></tr>
+<tr><td>ii</td><td>ī</td></tr>
+<tr><td>uu</td><td>ū</td></tr>
+<tr><td>"n</td><td>ṅ</td></tr>
+<tr><td>.m</td><td>ṃ</td></tr>
+<tr><td>~n</td><td>ñ</td></tr>
+<tr><td>.t</td><td>ṭ</td></tr>
+<tr><td>.d</td><td>ḍ</td></tr>
+<tr><td>.n</td><td>ṇ</td></tr>
+<tr><td>.l</td><td>ḷ</td></tr>
+</table>
+
+</div><p>上面這個來回切換行列的程式碼如下：</p>
+<p><strong>HTML</strong>:</p>
+<div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">label</span> <span class="na">for</span><span class="o">=</span><span class="s">&quot;element-toggle&quot;</span><span class="p">&gt;</span>行列互換<span class="p">&lt;/</span><span class="nt">label</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">input</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;element-toggle&quot;</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;checkbox&quot;</span> <span class="p">/&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">table</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;toggled-element&quot;</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">tr</span><span class="p">&gt;&lt;</span><span class="nt">th</span><span class="p">&gt;</span>Type<span class="p">&lt;/</span><span class="nt">th</span><span class="p">&gt;&lt;</span><span class="nt">th</span><span class="p">&gt;</span>For<span class="p">&lt;/</span><span class="nt">th</span><span class="p">&gt;&lt;/</span><span class="nt">tr</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">tr</span><span class="p">&gt;&lt;</span><span class="nt">td</span><span class="p">&gt;</span>aa<span class="p">&lt;/</span><span class="nt">td</span><span class="p">&gt;&lt;</span><span class="nt">td</span><span class="p">&gt;</span>ā<span class="p">&lt;/</span><span class="nt">td</span><span class="p">&gt;&lt;/</span><span class="nt">tr</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">tr</span><span class="p">&gt;&lt;</span><span class="nt">td</span><span class="p">&gt;</span>ii<span class="p">&lt;/</span><span class="nt">td</span><span class="p">&gt;&lt;</span><span class="nt">td</span><span class="p">&gt;</span>ī<span class="p">&lt;/</span><span class="nt">td</span><span class="p">&gt;&lt;/</span><span class="nt">tr</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">tr</span><span class="p">&gt;&lt;</span><span class="nt">td</span><span class="p">&gt;</span>uu<span class="p">&lt;/</span><span class="nt">td</span><span class="p">&gt;&lt;</span><span class="nt">td</span><span class="p">&gt;</span>ū<span class="p">&lt;/</span><span class="nt">td</span><span class="p">&gt;&lt;/</span><span class="nt">tr</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">tr</span><span class="p">&gt;&lt;</span><span class="nt">td</span><span class="p">&gt;</span>&quot;n<span class="p">&lt;/</span><span class="nt">td</span><span class="p">&gt;&lt;</span><span class="nt">td</span><span class="p">&gt;</span>ṅ<span class="p">&lt;/</span><span class="nt">td</span><span class="p">&gt;&lt;/</span><span class="nt">tr</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">tr</span><span class="p">&gt;&lt;</span><span class="nt">td</span><span class="p">&gt;</span>.m<span class="p">&lt;/</span><span class="nt">td</span><span class="p">&gt;&lt;</span><span class="nt">td</span><span class="p">&gt;</span>ṃ<span class="p">&lt;/</span><span class="nt">td</span><span class="p">&gt;&lt;/</span><span class="nt">tr</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">tr</span><span class="p">&gt;&lt;</span><span class="nt">td</span><span class="p">&gt;</span>~n<span class="p">&lt;/</span><span class="nt">td</span><span class="p">&gt;&lt;</span><span class="nt">td</span><span class="p">&gt;</span>ñ<span class="p">&lt;/</span><span class="nt">td</span><span class="p">&gt;&lt;/</span><span class="nt">tr</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">tr</span><span class="p">&gt;&lt;</span><span class="nt">td</span><span class="p">&gt;</span>.t<span class="p">&lt;/</span><span class="nt">td</span><span class="p">&gt;&lt;</span><span class="nt">td</span><span class="p">&gt;</span>ṭ<span class="p">&lt;/</span><span class="nt">td</span><span class="p">&gt;&lt;/</span><span class="nt">tr</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">tr</span><span class="p">&gt;&lt;</span><span class="nt">td</span><span class="p">&gt;</span>.d<span class="p">&lt;/</span><span class="nt">td</span><span class="p">&gt;&lt;</span><span class="nt">td</span><span class="p">&gt;</span>ḍ<span class="p">&lt;/</span><span class="nt">td</span><span class="p">&gt;&lt;/</span><span class="nt">tr</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">tr</span><span class="p">&gt;&lt;</span><span class="nt">td</span><span class="p">&gt;</span>.n<span class="p">&lt;/</span><span class="nt">td</span><span class="p">&gt;&lt;</span><span class="nt">td</span><span class="p">&gt;</span>ṇ<span class="p">&lt;/</span><span class="nt">td</span><span class="p">&gt;&lt;/</span><span class="nt">tr</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">tr</span><span class="p">&gt;&lt;</span><span class="nt">td</span><span class="p">&gt;</span>.l<span class="p">&lt;/</span><span class="nt">td</span><span class="p">&gt;&lt;</span><span class="nt">td</span><span class="p">&gt;</span>ḷ<span class="p">&lt;/</span><span class="nt">td</span><span class="p">&gt;&lt;/</span><span class="nt">tr</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">table</span><span class="p">&gt;</span>
+</pre></div>
+
+<p><strong>CSS</strong>:</p>
+<div class="highlight"><pre><span></span><span class="nt">label</span><span class="o">[</span><span class="nt">for</span><span class="o">=</span><span class="nt">element-toggle</span><span class="o">]</span> <span class="p">{</span>
+  <span class="k">cursor</span><span class="p">:</span> <span class="kc">pointer</span><span class="p">;</span>
+  <span class="k">color</span><span class="p">:</span> <span class="kc">red</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="p">#</span><span class="nn">element-toggle</span> <span class="p">{</span>
+  <span class="k">display</span><span class="p">:</span> <span class="kc">none</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="p">#</span><span class="nn">element-toggle</span><span class="p">:</span><span class="nd">checked</span> <span class="o">~</span> <span class="p">#</span><span class="nn">toggled-element</span> <span class="nt">tr</span> <span class="p">{</span>
+  <span class="k">display</span><span class="p">:</span> <span class="kc">block</span><span class="p">;</span>
+  <span class="k">float</span><span class="p">:</span> <span class="kc">left</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="p">#</span><span class="nn">element-toggle</span><span class="p">:</span><span class="nd">checked</span> <span class="o">~</span> <span class="p">#</span><span class="nn">toggled-element</span> <span class="nt">th</span><span class="o">,</span>
+<span class="p">#</span><span class="nn">element-toggle</span><span class="p">:</span><span class="nd">checked</span> <span class="o">~</span> <span class="p">#</span><span class="nn">toggled-element</span> <span class="nt">td</span> <span class="p">{</span>
+  <span class="k">display</span><span class="p">:</span> <span class="kc">block</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>來回切換的技巧說明請看 <a class="footnote-reference" href="#id6" id="id2">[4]</a> 。</p>
+<hr class="docutils" />
+<p>參考：</p>
+<table class="docutils footnote" frame="void" id="id3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td><div class="first last line-block">
+<div class="line"><a class="reference external" href="https://www.google.com/search?q=html+table+swap+rows+columns">html table swap rows columns - Google search</a></div>
+<div class="line"><a class="reference external" href="https://duckduckgo.com/?q=html+table+swap+rows+columns">html table swap rows columns - DuckDuckGo search</a></div>
+<div class="line"><a class="reference external" href="https://www.ecosia.org/search?q=html+table+swap+rows+columns">html table swap rows columns - Ecosia search</a></div>
+<div class="line"><a class="reference external" href="https://www.qwant.com/?q=html+table+swap+rows+columns">html table swap rows columns - Qwant search</a></div>
+<div class="line"><a class="reference external" href="https://www.bing.com/search?q=html+table+swap+rows+columns">html table swap rows columns - Bing search</a></div>
+<div class="line"><a class="reference external" href="https://search.yahoo.com/search?p=html+table+swap+rows+columns">html table swap rows columns - Yahoo search</a></div>
+<div class="line"><a class="reference external" href="https://www.baidu.com/s?wd=html+table+swap+rows+columns">html table swap rows columns - Baidu search</a></div>
+<div class="line"><a class="reference external" href="https://www.yandex.com/search/?text=html+table+swap+rows+columns">html table swap rows columns - Yandex search</a></div>
+</div>
+</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[2]</td><td><div class="first last line-block">
+<div class="line"><a class="reference external" href="https://www.google.com/search?q=transpose+html+table+css">transpose html table css - Google search</a></div>
+<div class="line"><a class="reference external" href="https://duckduckgo.com/?q=transpose+html+table+css">transpose html table css - DuckDuckGo search</a></div>
+<div class="line"><a class="reference external" href="https://www.ecosia.org/search?q=transpose+html+table+css">transpose html table css - Ecosia search</a></div>
+<div class="line"><a class="reference external" href="https://www.qwant.com/?q=transpose+html+table+css">transpose html table css - Qwant search</a></div>
+<div class="line"><a class="reference external" href="https://www.bing.com/search?q=transpose+html+table+css">transpose html table css - Bing search</a></div>
+<div class="line"><a class="reference external" href="https://search.yahoo.com/search?p=transpose+html+table+css">transpose html table css - Yahoo search</a></div>
+<div class="line"><a class="reference external" href="https://www.baidu.com/s?wd=transpose+html+table+css">transpose html table css - Baidu search</a></div>
+<div class="line"><a class="reference external" href="https://www.yandex.com/search/?text=transpose+html+table+css">transpose html table css - Yandex search</a></div>
+</div>
+</td></tr>
+</tbody>
+</table>
+
+<table class="docutils footnote" frame="void" id="id5" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[3]</a></td><td><a class="reference external" href="http://stackoverflow.com/a/16919439">javascript - HTML Table with vertical rows - Stack Overflow</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id6" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[4]</a></td><td><a class="reference external" href="/2017/02/27/css-only-toggle-dom-element/">Pure CSS Toggle (Show/Hide) HTML Element</a></td></tr>
+</tbody>
+</table>
+</div>
+
+    <footer><hr><address><b>作者</b>:
+    <a rel="author"
+       href="/zh/author/dai-shang-wei.html">戴上為</a>
+  </address><aside>
+    <i>&isin;</i> <b>分類</b>:
+    <a href="/zh/category/css.html">CSS</a>
+  </aside><aside>
+    <i>&sum;</i> <b>標籤</b>:
+      <a href="/zh/tag/css.html">CSS</a>
+,       <a href="/zh/tag/webkai-fa.html">Web開發</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>[Golang] Largest product in a grid - Problem 11 - Project Euler</title>
+  <meta name="keywords" content="Go,Golang,Algorithm,Math,Project Euler,Type Casting,Type Conversion"/>
+  <meta name="description" content="Go solution to Largest product in a grid - Problem 11 - Project Euler."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="[Golang] Largest product in a grid - Problem 11 - Project Euler" /><meta property="og:image" content="https://i.stack.imgur.com/qbbSk.png" />
+<meta property="og:description" content="Go solution to Largest product in a grid - Problem 11 - Project Euler." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2017/12/22/go-largest-product-in-a-grid-problem-11-project-euler/"
+           rel="bookmark"
+           title="Permalink to [Golang] Largest product in a grid - Problem 11 - Project Euler">
+          [Golang] Largest product in a grid - Problem 11 - Project Euler
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2017-12-23T23:32:00+08:00">
+    Updated: December 23, 2017
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2017/12/22/go-largest-product-in-a-grid-problem-11-project-euler%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p><strong>Problem</strong>: <a class="footnote-reference" href="#id2" id="id1">[1]</a></p>
+<blockquote>
+<p>In the 20×20 grid below, four numbers along a diagonal line have been marked
+in red.</p>
+<div class="line-block">
+<div class="line">08 02 22 97 38 15 00 40 00 75 04 05 07 78 52 12 50 77 91 08</div>
+<div class="line">49 49 99 40 17 81 18 57 60 87 17 40 98 43 69 48 04 56 62 00</div>
+<div class="line">81 49 31 73 55 79 14 29 93 71 40 67 53 88 30 03 49 13 36 65</div>
+<div class="line">52 70 95 23 04 60 11 42 69 24 68 56 01 32 56 71 37 02 36 91</div>
+<div class="line">22 31 16 71 51 67 63 89 41 92 36 54 22 40 40 28 66 33 13 80</div>
+<div class="line">24 47 32 60 99 03 45 02 44 75 33 53 78 36 84 20 35 17 12 50</div>
+<div class="line">32 98 81 28 64 23 67 10 26 38 40 67 59 54 70 66 18 38 64 70</div>
+<div class="line">67 26 20 68 02 62 12 20 95 63 94 39 63 08 40 91 66 49 94 21</div>
+<div class="line">24 55 58 05 66 73 99 26 97 17 78 78 96 83 14 88 34 89 63 72</div>
+<div class="line">21 36 23 09 75 00 76 44 20 45 35 14 00 61 33 97 34 31 33 95</div>
+<div class="line">78 17 53 28 22 75 31 67 15 94 03 80 04 62 16 14 09 53 56 92</div>
+<div class="line">16 39 05 42 96 35 31 47 55 58 88 24 00 17 54 24 36 29 85 57</div>
+<div class="line">86 56 00 48 35 71 89 07 05 44 44 37 44 60 21 58 51 54 17 58</div>
+<div class="line">19 80 81 68 05 94 47 69 28 73 92 13 86 52 17 77 04 89 55 40</div>
+<div class="line">04 52 08 83 97 35 99 16 07 97 57 32 16 26 26 79 33 27 98 66</div>
+<div class="line">88 36 68 87 57 62 20 72 03 46 33 67 46 55 12 32 63 93 53 69</div>
+<div class="line">04 42 16 73 38 25 39 11 24 94 72 18 08 46 29 32 40 62 76 36</div>
+<div class="line">20 69 36 41 72 30 23 88 34 62 99 69 82 67 59 85 74 04 36 16</div>
+<div class="line">20 73 35 29 78 31 90 01 74 31 49 71 48 86 81 16 23 57 05 54</div>
+<div class="line">01 70 54 71 83 51 54 69 16 92 33 48 61 43 52 01 89 19 67 48</div>
+</div>
+<p>The product of these numbers is 26 × 63 × 78 × 14 = 1788696.</p>
+<p>What is the greatest product of four adjacent numbers in the same direction
+(up, down, left, right, or diagonally) in the 20×20 grid?</p>
+</blockquote>
+<p><strong>Solution</strong>:</p>
+<blockquote>
+<p>87 x 97 x 94 x 89 = 70600674</p>
+<p>First number located at (15, 3) (zero based indexing)</p>
+<p>direction: right*up to left*down</p>
+</blockquote>
+<!-- .. rubric:: `Run Code on Go Playground <>`__
+   :class: align-center -->
+<div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+      <span class="s">&quot;fmt&quot;</span>
+      <span class="s">&quot;strconv&quot;</span>
+      <span class="s">&quot;strings&quot;</span>
+<span class="p">)</span>
+
+<span class="kd">const</span> <span class="nx">grid20x20</span> <span class="p">=</span> <span class="s">`</span>
+<span class="s">08 02 22 97 38 15 00 40 00 75 04 05 07 78 52 12 50 77 91 08</span>
+<span class="s">49 49 99 40 17 81 18 57 60 87 17 40 98 43 69 48 04 56 62 00</span>
+<span class="s">81 49 31 73 55 79 14 29 93 71 40 67 53 88 30 03 49 13 36 65</span>
+<span class="s">52 70 95 23 04 60 11 42 69 24 68 56 01 32 56 71 37 02 36 91</span>
+<span class="s">22 31 16 71 51 67 63 89 41 92 36 54 22 40 40 28 66 33 13 80</span>
+<span class="s">24 47 32 60 99 03 45 02 44 75 33 53 78 36 84 20 35 17 12 50</span>
+<span class="s">32 98 81 28 64 23 67 10 26 38 40 67 59 54 70 66 18 38 64 70</span>
+<span class="s">67 26 20 68 02 62 12 20 95 63 94 39 63 08 40 91 66 49 94 21</span>
+<span class="s">24 55 58 05 66 73 99 26 97 17 78 78 96 83 14 88 34 89 63 72</span>
+<span class="s">21 36 23 09 75 00 76 44 20 45 35 14 00 61 33 97 34 31 33 95</span>
+<span class="s">78 17 53 28 22 75 31 67 15 94 03 80 04 62 16 14 09 53 56 92</span>
+<span class="s">16 39 05 42 96 35 31 47 55 58 88 24 00 17 54 24 36 29 85 57</span>
+<span class="s">86 56 00 48 35 71 89 07 05 44 44 37 44 60 21 58 51 54 17 58</span>
+<span class="s">19 80 81 68 05 94 47 69 28 73 92 13 86 52 17 77 04 89 55 40</span>
+<span class="s">04 52 08 83 97 35 99 16 07 97 57 32 16 26 26 79 33 27 98 66</span>
+<span class="s">88 36 68 87 57 62 20 72 03 46 33 67 46 55 12 32 63 93 53 69</span>
+<span class="s">04 42 16 73 38 25 39 11 24 94 72 18 08 46 29 32 40 62 76 36</span>
+<span class="s">20 69 36 41 72 30 23 88 34 62 99 69 82 67 59 85 74 04 36 16</span>
+<span class="s">20 73 35 29 78 31 90 01 74 31 49 71 48 86 81 16 23 57 05 54</span>
+<span class="s">01 70 54 71 83 51 54 69 16 92 33 48 61 43 52 01 89 19 67 48</span>
+<span class="s">`</span>
+
+<span class="kd">func</span> <span class="nx">parseLine</span><span class="p">(</span><span class="nx">l</span> <span class="kt">string</span><span class="p">)</span> <span class="p">[]</span><span class="kt">int64</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">dl</span> <span class="p">[]</span><span class="kt">int64</span>
+
+      <span class="nx">numbers</span> <span class="o">:=</span> <span class="nx">strings</span><span class="p">.</span><span class="nx">Split</span><span class="p">(</span><span class="nx">l</span><span class="p">,</span> <span class="s">&quot; &quot;</span><span class="p">)</span>
+      <span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">number</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">numbers</span> <span class="p">{</span>
+              <span class="nx">n</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">strconv</span><span class="p">.</span><span class="nx">ParseInt</span><span class="p">(</span><span class="nx">number</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+              <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+                      <span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+              <span class="p">}</span>
+              <span class="nx">dl</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">dl</span><span class="p">,</span> <span class="nx">n</span><span class="p">)</span>
+      <span class="p">}</span>
+      <span class="k">return</span> <span class="nx">dl</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nx">parseGrid20x20</span><span class="p">(</span><span class="nx">g</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="nx">grid</span> <span class="p">[][]</span><span class="kt">int64</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">lines</span> <span class="o">:=</span> <span class="nx">strings</span><span class="p">.</span><span class="nx">Split</span><span class="p">(</span><span class="nx">g</span><span class="p">,</span> <span class="s">&quot;\n&quot;</span><span class="p">)</span>
+      <span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">line</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">lines</span><span class="p">[</span><span class="mi">1</span> <span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="nx">lines</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="p">{</span>
+              <span class="nx">dl</span> <span class="o">:=</span> <span class="nx">parseLine</span><span class="p">(</span><span class="nx">line</span><span class="p">)</span>
+              <span class="nx">grid</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">grid</span><span class="p">,</span> <span class="nx">dl</span><span class="p">)</span>
+      <span class="p">}</span>
+      <span class="k">return</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nx">printMaxProductInfo</span><span class="p">(</span><span class="nx">m</span> <span class="kt">int64</span><span class="p">,</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">j</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">,</span> <span class="nx">c</span><span class="p">,</span> <span class="nx">d</span> <span class="kt">int64</span><span class="p">,</span> <span class="nx">dir</span> <span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">m</span><span class="p">)</span>
+      <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span> <span class="nx">j</span><span class="p">)</span>
+      <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;direction: &quot;</span><span class="p">,</span> <span class="nx">dir</span><span class="p">)</span>
+      <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">,</span> <span class="nx">c</span><span class="p">,</span> <span class="nx">d</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nx">findGreatesProduct</span><span class="p">(</span><span class="nx">grid</span> <span class="p">[][]</span><span class="kt">int64</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">max</span> <span class="kt">int64</span>
+      <span class="kd">var</span> <span class="nx">maxi</span><span class="p">,</span> <span class="nx">maxj</span> <span class="kt">int</span>
+      <span class="kd">var</span> <span class="nx">direction</span> <span class="kt">string</span>
+      <span class="kd">var</span> <span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">,</span> <span class="nx">c</span><span class="p">,</span> <span class="nx">d</span> <span class="kt">int64</span>
+
+      <span class="c1">// left-right</span>
+      <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;=</span> <span class="mi">19</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+              <span class="k">for</span> <span class="nx">j</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">j</span> <span class="o">&lt;=</span> <span class="mi">16</span><span class="p">;</span> <span class="nx">j</span><span class="o">++</span> <span class="p">{</span>
+                      <span class="nx">prd</span> <span class="o">:=</span> <span class="nx">grid</span><span class="p">[</span><span class="nx">i</span><span class="p">][</span><span class="nx">j</span><span class="p">]</span> <span class="o">*</span> <span class="nx">grid</span><span class="p">[</span><span class="nx">i</span><span class="p">][</span><span class="nx">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="nx">grid</span><span class="p">[</span><span class="nx">i</span><span class="p">][</span><span class="nx">j</span><span class="o">+</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="nx">grid</span><span class="p">[</span><span class="nx">i</span><span class="p">][</span><span class="nx">j</span><span class="o">+</span><span class="mi">3</span><span class="p">]</span>
+                      <span class="k">if</span> <span class="nx">prd</span> <span class="p">&gt;</span> <span class="nx">max</span> <span class="p">{</span>
+                              <span class="nx">max</span> <span class="p">=</span> <span class="nx">prd</span>
+                              <span class="nx">maxi</span> <span class="p">=</span> <span class="nx">i</span>
+                              <span class="nx">maxj</span> <span class="p">=</span> <span class="nx">j</span>
+                              <span class="nx">direction</span> <span class="p">=</span> <span class="s">&quot;left-right&quot;</span>
+                              <span class="nx">a</span> <span class="p">=</span> <span class="nx">grid</span><span class="p">[</span><span class="nx">i</span><span class="p">][</span><span class="nx">j</span><span class="p">]</span>
+                              <span class="nx">b</span> <span class="p">=</span> <span class="nx">grid</span><span class="p">[</span><span class="nx">i</span><span class="p">][</span><span class="nx">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+                              <span class="nx">c</span> <span class="p">=</span> <span class="nx">grid</span><span class="p">[</span><span class="nx">i</span><span class="p">][</span><span class="nx">j</span><span class="o">+</span><span class="mi">2</span><span class="p">]</span>
+                              <span class="nx">d</span> <span class="p">=</span> <span class="nx">grid</span><span class="p">[</span><span class="nx">i</span><span class="p">][</span><span class="nx">j</span><span class="o">+</span><span class="mi">3</span><span class="p">]</span>
+                      <span class="p">}</span>
+              <span class="p">}</span>
+      <span class="p">}</span>
+
+      <span class="c1">// up-down</span>
+      <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;=</span> <span class="mi">16</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+              <span class="k">for</span> <span class="nx">j</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">j</span> <span class="o">&lt;=</span> <span class="mi">19</span><span class="p">;</span> <span class="nx">j</span><span class="o">++</span> <span class="p">{</span>
+                      <span class="nx">prd</span> <span class="o">:=</span> <span class="nx">grid</span><span class="p">[</span><span class="nx">i</span><span class="p">][</span><span class="nx">j</span><span class="p">]</span> <span class="o">*</span> <span class="nx">grid</span><span class="p">[</span><span class="nx">i</span><span class="o">+</span><span class="mi">1</span><span class="p">][</span><span class="nx">j</span><span class="p">]</span> <span class="o">*</span> <span class="nx">grid</span><span class="p">[</span><span class="nx">i</span><span class="o">+</span><span class="mi">2</span><span class="p">][</span><span class="nx">j</span><span class="p">]</span> <span class="o">*</span> <span class="nx">grid</span><span class="p">[</span><span class="nx">i</span><span class="o">+</span><span class="mi">3</span><span class="p">][</span><span class="nx">j</span><span class="p">]</span>
+                      <span class="k">if</span> <span class="nx">prd</span> <span class="p">&gt;</span> <span class="nx">max</span> <span class="p">{</span>
+                              <span class="nx">max</span> <span class="p">=</span> <span class="nx">prd</span>
+                              <span class="nx">maxi</span> <span class="p">=</span> <span class="nx">i</span>
+                              <span class="nx">maxj</span> <span class="p">=</span> <span class="nx">j</span>
+                              <span class="nx">direction</span> <span class="p">=</span> <span class="s">&quot;up-down&quot;</span>
+                              <span class="nx">a</span> <span class="p">=</span> <span class="nx">grid</span><span class="p">[</span><span class="nx">i</span><span class="p">][</span><span class="nx">j</span><span class="p">]</span>
+                              <span class="nx">b</span> <span class="p">=</span> <span class="nx">grid</span><span class="p">[</span><span class="nx">i</span><span class="o">+</span><span class="mi">1</span><span class="p">][</span><span class="nx">j</span><span class="p">]</span>
+                              <span class="nx">c</span> <span class="p">=</span> <span class="nx">grid</span><span class="p">[</span><span class="nx">i</span><span class="o">+</span><span class="mi">2</span><span class="p">][</span><span class="nx">j</span><span class="p">]</span>
+                              <span class="nx">d</span> <span class="p">=</span> <span class="nx">grid</span><span class="p">[</span><span class="nx">i</span><span class="o">+</span><span class="mi">3</span><span class="p">][</span><span class="nx">j</span><span class="p">]</span>
+                      <span class="p">}</span>
+              <span class="p">}</span>
+      <span class="p">}</span>
+
+      <span class="c1">// diagonal: left*up to right*down</span>
+      <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;=</span> <span class="mi">16</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+              <span class="k">for</span> <span class="nx">j</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">j</span> <span class="o">&lt;=</span> <span class="mi">16</span><span class="p">;</span> <span class="nx">j</span><span class="o">++</span> <span class="p">{</span>
+                      <span class="nx">prd</span> <span class="o">:=</span> <span class="nx">grid</span><span class="p">[</span><span class="nx">i</span><span class="p">][</span><span class="nx">j</span><span class="p">]</span> <span class="o">*</span> <span class="nx">grid</span><span class="p">[</span><span class="nx">i</span><span class="o">+</span><span class="mi">1</span><span class="p">][</span><span class="nx">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="nx">grid</span><span class="p">[</span><span class="nx">i</span><span class="o">+</span><span class="mi">2</span><span class="p">][</span><span class="nx">j</span><span class="o">+</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="nx">grid</span><span class="p">[</span><span class="nx">i</span><span class="o">+</span><span class="mi">3</span><span class="p">][</span><span class="nx">j</span><span class="o">+</span><span class="mi">3</span><span class="p">]</span>
+                      <span class="k">if</span> <span class="nx">prd</span> <span class="p">&gt;</span> <span class="nx">max</span> <span class="p">{</span>
+                              <span class="nx">max</span> <span class="p">=</span> <span class="nx">prd</span>
+                              <span class="nx">maxi</span> <span class="p">=</span> <span class="nx">i</span>
+                              <span class="nx">maxj</span> <span class="p">=</span> <span class="nx">j</span>
+                              <span class="nx">direction</span> <span class="p">=</span> <span class="s">&quot;left*up to right*down&quot;</span>
+                              <span class="nx">a</span> <span class="p">=</span> <span class="nx">grid</span><span class="p">[</span><span class="nx">i</span><span class="p">][</span><span class="nx">j</span><span class="p">]</span>
+                              <span class="nx">b</span> <span class="p">=</span> <span class="nx">grid</span><span class="p">[</span><span class="nx">i</span><span class="o">+</span><span class="mi">1</span><span class="p">][</span><span class="nx">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+                              <span class="nx">c</span> <span class="p">=</span> <span class="nx">grid</span><span class="p">[</span><span class="nx">i</span><span class="o">+</span><span class="mi">2</span><span class="p">][</span><span class="nx">j</span><span class="o">+</span><span class="mi">2</span><span class="p">]</span>
+                              <span class="nx">d</span> <span class="p">=</span> <span class="nx">grid</span><span class="p">[</span><span class="nx">i</span><span class="o">+</span><span class="mi">3</span><span class="p">][</span><span class="nx">j</span><span class="o">+</span><span class="mi">3</span><span class="p">]</span>
+                      <span class="p">}</span>
+              <span class="p">}</span>
+      <span class="p">}</span>
+
+      <span class="c1">// diagonal: right*up to left*down</span>
+      <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">3</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;=</span> <span class="mi">19</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+              <span class="k">for</span> <span class="nx">j</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">j</span> <span class="o">&lt;=</span> <span class="mi">16</span><span class="p">;</span> <span class="nx">j</span><span class="o">++</span> <span class="p">{</span>
+                      <span class="nx">prd</span> <span class="o">:=</span> <span class="nx">grid</span><span class="p">[</span><span class="nx">i</span><span class="p">][</span><span class="nx">j</span><span class="p">]</span> <span class="o">*</span> <span class="nx">grid</span><span class="p">[</span><span class="nx">i</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="nx">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="nx">grid</span><span class="p">[</span><span class="nx">i</span><span class="o">-</span><span class="mi">2</span><span class="p">][</span><span class="nx">j</span><span class="o">+</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="nx">grid</span><span class="p">[</span><span class="nx">i</span><span class="o">-</span><span class="mi">3</span><span class="p">][</span><span class="nx">j</span><span class="o">+</span><span class="mi">3</span><span class="p">]</span>
+                      <span class="k">if</span> <span class="nx">prd</span> <span class="p">&gt;</span> <span class="nx">max</span> <span class="p">{</span>
+                              <span class="nx">max</span> <span class="p">=</span> <span class="nx">prd</span>
+                              <span class="nx">maxi</span> <span class="p">=</span> <span class="nx">i</span>
+                              <span class="nx">maxj</span> <span class="p">=</span> <span class="nx">j</span>
+                              <span class="nx">direction</span> <span class="p">=</span> <span class="s">&quot;right*up to left*down&quot;</span>
+                              <span class="nx">a</span> <span class="p">=</span> <span class="nx">grid</span><span class="p">[</span><span class="nx">i</span><span class="p">][</span><span class="nx">j</span><span class="p">]</span>
+                              <span class="nx">b</span> <span class="p">=</span> <span class="nx">grid</span><span class="p">[</span><span class="nx">i</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="nx">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+                              <span class="nx">c</span> <span class="p">=</span> <span class="nx">grid</span><span class="p">[</span><span class="nx">i</span><span class="o">-</span><span class="mi">2</span><span class="p">][</span><span class="nx">j</span><span class="o">+</span><span class="mi">2</span><span class="p">]</span>
+                              <span class="nx">d</span> <span class="p">=</span> <span class="nx">grid</span><span class="p">[</span><span class="nx">i</span><span class="o">-</span><span class="mi">3</span><span class="p">][</span><span class="nx">j</span><span class="o">+</span><span class="mi">3</span><span class="p">]</span>
+                      <span class="p">}</span>
+              <span class="p">}</span>
+      <span class="p">}</span>
+
+      <span class="nx">printMaxProductInfo</span><span class="p">(</span><span class="nx">max</span><span class="p">,</span> <span class="nx">maxi</span><span class="p">,</span> <span class="nx">maxj</span><span class="p">,</span> <span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">,</span> <span class="nx">c</span><span class="p">,</span> <span class="nx">d</span><span class="p">,</span> <span class="nx">direction</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+      <span class="nx">grid</span> <span class="o">:=</span> <span class="nx">parseGrid20x20</span><span class="p">(</span><span class="nx">grid20x20</span><span class="p">)</span>
+      <span class="nx">findGreatesProduct</span><span class="p">(</span><span class="nx">grid</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>Tested on: <a class="reference external" href="https://play.golang.org/">Go Playground</a></p>
+<hr class="docutils" />
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td><a class="reference external" href="https://projecteuler.net/problem=11">Largest product in a grid - Problem 11 - Project Euler</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[2]</td><td><a class="reference external" href="/2017/12/19/go-convert-matrix-string-to-2d-slice/">[Golang] Convert Grid String to Two Dimensional Slice</a></td></tr>
+</tbody>
+</table>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/go.html">Go</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/go.html">Go</a>
+,       <a href="/tag/golang.html">Golang</a>
+,       <a href="/tag/algorithm.html">Algorithm</a>
+,       <a href="/tag/math.html">Math</a>
+,       <a href="/tag/project-euler.html">Project Euler</a>
+,       <a href="/tag/type-casting.html">Type Casting</a>
+,       <a href="/tag/type-conversion.html">Type Conversion</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>[Golang] All Permutations of Given String With Distinct Characters</title>
+  <meta name="keywords" content="Go,Golang,String Manipulation,Algorithm"/>
+  <meta name="description" content="Find all permutations of a given string containing all distinct characters in Go programming language."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="[Golang] All Permutations of Given String With Distinct Characters" /><meta property="og:image" content="http://www.mathwarehouse.com/probability/images/multiplication-principle4.gif" />
+<meta property="og:description" content="Find all permutations of a given string containing all distinct characters in Go programming language." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2017/03/11/go-all-permutations-of-given-string-with-all-distinct-characters/"
+           rel="bookmark"
+           title="Permalink to [Golang] All Permutations of Given String With Distinct Characters">
+          [Golang] All Permutations of Given String With Distinct Characters
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2017-03-11T01:24:00+08:00">
+    March 11, 2017
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2017/03/11/go-all-permutations-of-given-string-with-all-distinct-characters%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><div class="section" id="question">
+<h2>Question</h2>
+<p>Given a string containing all distinct characters, find all permutations of it.
+<a class="footnote-reference" href="#id4" id="id1">[2]</a></p>
+<p>PS: I came to this question via HN <a class="footnote-reference" href="#id3" id="id2">[1]</a>, and it looks interesting. So I try to
+port the code from <a class="reference external" href="https://www.google.com/search?q=C%2B%2B">C++</a> to Go.</p>
+</div>
+<div class="section" id="answer">
+<h2>Answer</h2>
+<p>Use <a class="reference external" href="https://www.google.com/search?q=backtracking">Backtracking</a> algorithm. See <a class="reference external" href="http://www.techiedelight.com/find-permutations-given-string/">original post</a> for explanation.</p>
+<p class="align-center rubric"><a class="reference external" href="https://play.golang.org/p/TC39OY3euz">Run Code on Go Playground</a></p>
+<div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="c1">// Swap the i-th byte and j-th byte of the string</span>
+<span class="kd">func</span> <span class="nx">swap</span><span class="p">(</span><span class="nx">s</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">j</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">string</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">result</span> <span class="p">[]</span><span class="kt">byte</span>
+      <span class="k">for</span> <span class="nx">k</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">k</span> <span class="p">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="nx">s</span><span class="p">);</span> <span class="nx">k</span><span class="o">++</span> <span class="p">{</span>
+              <span class="k">if</span> <span class="nx">k</span> <span class="o">==</span> <span class="nx">i</span> <span class="p">{</span>
+                      <span class="nx">result</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">result</span><span class="p">,</span> <span class="nx">s</span><span class="p">[</span><span class="nx">j</span><span class="p">])</span>
+              <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="nx">k</span> <span class="o">==</span> <span class="nx">j</span> <span class="p">{</span>
+                      <span class="nx">result</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">result</span><span class="p">,</span> <span class="nx">s</span><span class="p">[</span><span class="nx">i</span><span class="p">])</span>
+              <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                      <span class="nx">result</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">result</span><span class="p">,</span> <span class="nx">s</span><span class="p">[</span><span class="nx">k</span><span class="p">])</span>
+              <span class="p">}</span>
+      <span class="p">}</span>
+      <span class="k">return</span> <span class="nb">string</span><span class="p">(</span><span class="nx">result</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="c1">// Function to find all Permutations of a given string str[i:n]</span>
+<span class="c1">// containing all distinct characters</span>
+<span class="kd">func</span> <span class="nx">permutations</span><span class="p">(</span><span class="nx">str</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">n</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+      <span class="c1">// base condition</span>
+      <span class="k">if</span> <span class="nx">i</span> <span class="o">==</span> <span class="nx">n</span><span class="o">-</span><span class="mi">1</span> <span class="p">{</span>
+              <span class="nb">println</span><span class="p">(</span><span class="nx">str</span><span class="p">)</span>
+              <span class="k">return</span>
+      <span class="p">}</span>
+
+      <span class="c1">// process each character of the remaining string</span>
+      <span class="k">for</span> <span class="nx">j</span> <span class="o">:=</span> <span class="nx">i</span><span class="p">;</span> <span class="nx">j</span> <span class="p">&lt;</span> <span class="nx">n</span><span class="p">;</span> <span class="nx">j</span><span class="o">++</span> <span class="p">{</span>
+              <span class="c1">// swap character at index i with current character</span>
+              <span class="nx">str</span> <span class="p">=</span> <span class="nx">swap</span><span class="p">(</span><span class="nx">str</span><span class="p">,</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">j</span><span class="p">)</span>
+
+              <span class="c1">// recursion for string [i+1:n]</span>
+              <span class="nx">permutations</span><span class="p">(</span><span class="nx">str</span><span class="p">,</span> <span class="nx">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="nx">n</span><span class="p">)</span>
+
+              <span class="c1">// backtrack (restore the string to its original state)</span>
+              <span class="nx">str</span> <span class="p">=</span> <span class="nx">swap</span><span class="p">(</span><span class="nx">str</span><span class="p">,</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">j</span><span class="p">)</span>
+      <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+      <span class="nx">str</span> <span class="o">:=</span> <span class="s">&quot;ABC&quot;</span>
+      <span class="nx">permutations</span><span class="p">(</span><span class="nx">str</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="nx">str</span><span class="p">))</span>
+<span class="p">}</span>
+</pre></div>
+
+<hr class="docutils" />
+<p>Tested on: <a class="reference external" href="https://play.golang.org/">Go Playground</a></p>
+<hr class="docutils" />
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[1]</a></td><td><div class="first last line-block">
+<div class="line"><a class="reference external" href="https://news.ycombinator.com/item?id=13836714">Data structures and algorithms problems in C++ using STL | Hacker News</a></div>
+<div class="line"><a class="reference external" href="http://www.techiedelight.com/data-structures-and-algorithms-interview-questions-stl/">Data structures and algorithms problems in C++ using STL</a></div>
+</div>
+</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[2]</a></td><td><a class="reference external" href="http://www.techiedelight.com/find-permutations-given-string/">Find all Permutations of a given string - Techie Delight</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id5" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[3]</td><td><a class="reference external" href="https://blog.golang.org/strings">Strings, bytes, runes and characters in Go - The Go Blog</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id6" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[4]</td><td><a class="reference external" href="https://news.ycombinator.com/item?id=14043891">Data Structures and Algorithms Problems | Hacker News</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id7" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[5]</td><td><a class="reference external" href="https://news.ycombinator.com/item?id=14064698">Common Algo Problem Solutions | Hacker News</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id8" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[6]</td><td><a class="reference external" href="https://leetcode.com/">LeetCode Online Judge</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id9" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[7]</td><td><div class="first last line-block">
+<div class="line"><a class="reference external" href="https://news.ycombinator.com/item?id=14272847">Generating all permutations, combinations, and power set of a string (2012) | Hacker News</a></div>
+<div class="line"><a class="reference external" href="http://exceptional-code.blogspot.com/2012/09/generating-all-permutations.html">Exceptional Code: Generating all permutations, combinations, and power set of a string (or set of numbers)</a></div>
+</div>
+</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/go.html">Go</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/go.html">Go</a>
+,       <a href="/tag/golang.html">Golang</a>
+,       <a href="/tag/string-manipulation.html">String Manipulation</a>
+,       <a href="/tag/algorithm.html">Algorithm</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

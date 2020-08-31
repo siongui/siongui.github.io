@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>Pelican Add Buddhist Calendar</title>
+  <meta name="keywords" content="Python,Pelican,Jinja2"/>
+  <meta name="description" content="Pelican static site generator - add Buddhist calendar in your theme."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="Pelican Add Buddhist Calendar" />    <meta property="og:image" content="/./extra/Dharma_wheel.svg" /><meta property="og:description" content="Pelican static site generator - add Buddhist calendar in your theme." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2016/02/23/pelican-add-buddhist-calendar/"
+           rel="bookmark"
+           title="Permalink to Pelican Add Buddhist Calendar">
+          Pelican Add Buddhist Calendar
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2016-02-23T14:28:00+08:00">
+    February 23, 2016
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2016/02/23/pelican-add-buddhist-calendar%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p>Use <a class="reference external" href="http://blog.getpelican.com/">Pelican</a> static site generator to add <a class="reference external" href="https://en.wikipedia.org/wiki/Buddhist_calendar">Buddhist calendar</a> in your <a class="reference external" href="http://docs.getpelican.com/en/latest/themes.html">theme</a>.</p>
+<p>Usually the datetime format (<a class="reference external" href="https://en.wikipedia.org/wiki/Gregorian_calendar">Gregorian calendar</a>) in the theme looks like:</p>
+<div class="highlight"><pre><span></span>{{ article.date | strftime(&#39;%B %d, %Y&#39;) }}
+</pre></div>
+<p>Now we will change <a class="reference external" href="https://en.wikipedia.org/wiki/Gregorian_calendar">Gregorian calendar</a> to <a class="reference external" href="https://en.wikipedia.org/wiki/Buddhist_calendar">Buddhist calendar</a>.
+First define a <a class="reference external" href="http://jinja.pocoo.org/docs/dev/">Jinja2</a> <a class="reference external" href="http://jinja.pocoo.org/docs/dev/templates/#macros">macro</a>:</p>
+<div class="highlight"><pre><span></span>{% macro Buddhist_calendar(datetime) -%}
+{{ datetime | strftime(&#39;%B %d&#39;) }}, {{ datetime.year + 543 }}
+{%- endmacro %}
+</pre></div>
+<p>Use the macro in your theme by:</p>
+<div class="highlight"><pre><span></span>{{ Buddhist_calendar(article.date) }}
+</pre></div>
+
+<hr class="docutils" />
+<p>Tested on: <tt class="docutils literal">Ubuntu Linux 15.10</tt>, <tt class="docutils literal">Python 2.7.10</tt>, <a class="reference external" href="http://docs.getpelican.com/en/3.6.3/">Pelican 3.6.3</a>.</p>
+<hr class="docutils" />
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id1" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td><a class="reference external" href="https://github.com/siongui/pelican-template/commit/4616e2945507cd8bab1658ac9e21acdb5120de4d">add Buddhist calendar · siongui/pelican-template&#64;4616e29 · GitHub</a></td></tr>
+</tbody>
+</table>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/python.html">Python</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/python.html">Python</a>
+,       <a href="/tag/pelican.html">Pelican</a>
+,       <a href="/tag/jinja2.html">Jinja2</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

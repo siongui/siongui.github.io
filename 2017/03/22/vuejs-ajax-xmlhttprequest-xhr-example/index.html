@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>[Vue.js] AJAX XMLHttpRequest (XHR) Example</title>
+  <meta name="keywords" content="Vue.js,JavaScript,XMLHttpRequest,CORS,HTTP GET"/>
+  <meta name="description" content="XMLHttpRequest (XHR) example by Vue.js."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="[Vue.js] AJAX XMLHttpRequest (XHR) Example" /><meta property="og:image" content="https://avatars1.githubusercontent.com/u/6128107?v=3&s=200" />
+<meta property="og:description" content="XMLHttpRequest (XHR) example by Vue.js." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2017/03/22/vuejs-ajax-xmlhttprequest-xhr-example/"
+           rel="bookmark"
+           title="Permalink to [Vue.js] AJAX XMLHttpRequest (XHR) Example">
+          [Vue.js] AJAX XMLHttpRequest (XHR) Example
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2017-03-22T16:30:00+08:00">
+    March 22, 2017
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2017/03/22/vuejs-ajax-xmlhttprequest-xhr-example%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><div class="section" id="demo">
+<h2>Demo</h2>
+<p>Example for <a class="reference external" href="https://www.google.com/search?q=XMLHttpRequest">XMLHttpRequest</a> (XHR) by Vue.js, which helps you transfer data
+between a client and a server. This is usually used to retrieve data from a URL,
+and update only part of the webpage without full refresh.</p>
+<p>The following demo make HTTP GET XHR request to the given URL.</p>
+<div id="vueapp" style="background-color: Azure; padding: 5px;">
+  URL: <input type="text" v-model.trim="url" v-on:keyup.enter="xhr">
+  <button v-on:click="xhr">XHR GET</button><br>
+  <pre>{{ info }}</pre>
+</div>
+
+<script src="https://unpkg.com/vue@2.2.4/dist/vue.js"></script><script>
+'use strict';
+
+new Vue({
+  el: '#vueapp',
+  data: {
+    url: "https://siongui.github.io/xemaauj9k5qn34x88m4h/sukhada.json",
+    info: ""
+  },
+  methods: {
+    xhr: function() {
+      this.info = "Requesting ...";
+      var rq = new XMLHttpRequest();
+
+      rq.onreadystatechange = function(vm) {
+        if (this.readyState === XMLHttpRequest.DONE) {
+          if (this.status === 200) {
+            vm.info = this.responseText;
+          } else {
+            vm.info = "Request Failed";
+          }
+        }
+      }.bind(rq, this);
+
+      rq.open("GET", this.url);
+      rq.send();
+    }
+  }
+})
+</script><p>This demo can also make cross-domain requests if the server supports CORS, which
+has the <tt class="docutils literal"><span class="pre">Access-Control-Allow-Origin</span></tt> header set properly. You can try the
+following cross-domain URL in the demo:</p>
+<pre class="literal-block">
+https://golden-operator-130720.appspot.com/sukhada.json
+</pre>
+
+</div>
+<div class="section" id="source-code-and-explanation">
+<h2>Source Code and Explanation</h2>
+<p><strong>HTML</strong>:</p>
+<div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;vueapp&quot;</span><span class="p">&gt;</span>
+  URL: <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text&quot;</span> <span class="na">v-model</span><span class="err">.</span><span class="na">trim</span><span class="o">=</span><span class="s">&quot;url&quot;</span> <span class="na">v-on:keyup</span><span class="err">.</span><span class="na">enter</span><span class="o">=</span><span class="s">&quot;xhr&quot;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">button</span> <span class="na">v-on:click</span><span class="o">=</span><span class="s">&quot;xhr&quot;</span><span class="p">&gt;</span>XHR<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;&lt;</span><span class="nt">br</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">pre</span><span class="p">&gt;</span>{{ info }}<span class="p">&lt;/</span><span class="nt">pre</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://unpkg.com/vue@2.2.4/dist/vue.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</pre></div>
+<p>If the user press the button or enter key in the input element, use the value of
+the input element as URL and make HTTP GET request by <em>xhr</em> method.</p>
+<p><strong>JavaScript</strong>:</p>
+<div class="highlight"><pre><span></span><span class="s1">&#39;use strict&#39;</span><span class="p">;</span>
+
+<span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span>
+  <span class="nx">el</span><span class="o">:</span> <span class="s1">&#39;#vueapp&#39;</span><span class="p">,</span>
+  <span class="nx">data</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">url</span><span class="o">:</span> <span class="s2">&quot;https://siongui.github.io/xemaauj9k5qn34x88m4h/sukhada.json&quot;</span><span class="p">,</span>
+    <span class="nx">info</span><span class="o">:</span> <span class="s2">&quot;&quot;</span>
+  <span class="p">},</span>
+  <span class="nx">methods</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">xhr</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">info</span> <span class="o">=</span> <span class="s2">&quot;Requesting ...&quot;</span><span class="p">;</span>
+      <span class="kd">var</span> <span class="nx">rq</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">XMLHttpRequest</span><span class="p">();</span>
+
+      <span class="nx">rq</span><span class="p">.</span><span class="nx">onreadystatechange</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">vm</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">readyState</span> <span class="o">===</span> <span class="nx">XMLHttpRequest</span><span class="p">.</span><span class="nx">DONE</span><span class="p">)</span> <span class="p">{</span>
+          <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">status</span> <span class="o">===</span> <span class="mi">200</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">vm</span><span class="p">.</span><span class="nx">info</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">responseText</span><span class="p">;</span>
+          <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="nx">vm</span><span class="p">.</span><span class="nx">info</span> <span class="o">=</span> <span class="s2">&quot;Request Failed&quot;</span><span class="p">;</span>
+          <span class="p">}</span>
+        <span class="p">}</span>
+      <span class="p">}.</span><span class="nx">bind</span><span class="p">(</span><span class="nx">rq</span><span class="p">,</span> <span class="k">this</span><span class="p">);</span>
+
+      <span class="nx">rq</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">url</span><span class="p">);</span>
+      <span class="nx">rq</span><span class="p">.</span><span class="nx">send</span><span class="p">();</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">})</span>
+</pre></div>
+<p>The implementation of <em>xhr</em> method is the same as the code in other tutorials,
+except that we use <a class="reference external" href="https://www.google.com/search?q=javascript+bind">bind</a> method to assign the value of <em>this</em> and pass the
+<a class="reference external" href="https://vuejs.org/guide/instance.html">Vue instance</a> to the <em>onreadystatechange</em> event handler.</p>
+
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If you web page is served via HTTPS, the server that returns data also needs
+to serve via HTTPS. Otherwise browsers will block the request and make the
+request fail.</p>
+</div>
+<hr class="docutils" />
+<p>Tested on:</p>
+<ul class="simple">
+<li><tt class="docutils literal">Chromium Version 56.0.2924.76 Built on Ubuntu , running on Ubuntu 16.10 <span class="pre">(64-bit)</span></tt></li>
+<li><tt class="docutils literal">Vue.js 2.2.4</tt></li>
+</ul>
+<hr class="docutils" />
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id1" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td><div class="first last line-block">
+<div class="line"><a class="reference external" href="https://www.google.com/search?q=XMLHttpRequest">XMLHttpRequest - Google search</a></div>
+<div class="line"><a class="reference external" href="https://duckduckgo.com/?q=XMLHttpRequest">XMLHttpRequest - DuckDuckGo search</a></div>
+<div class="line"><a class="reference external" href="https://www.ecosia.org/search?q=XMLHttpRequest">XMLHttpRequest - Ecosia search</a></div>
+<div class="line"><a class="reference external" href="https://www.qwant.com/?q=XMLHttpRequest">XMLHttpRequest - Qwant search</a></div>
+<div class="line"><a class="reference external" href="https://www.bing.com/search?q=XMLHttpRequest">XMLHttpRequest - Bing search</a></div>
+<div class="line"><a class="reference external" href="https://search.yahoo.com/search?p=XMLHttpRequest">XMLHttpRequest - Yahoo search</a></div>
+<div class="line"><a class="reference external" href="https://www.baidu.com/s?wd=XMLHttpRequest">XMLHttpRequest - Baidu search</a></div>
+<div class="line"><a class="reference external" href="https://www.yandex.com/search/?text=XMLHttpRequest">XMLHttpRequest - Yandex search</a></div>
+</div>
+</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/vuejs.html">Vue.js</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/vuejs.html">Vue.js</a>
+,       <a href="/tag/javascript.html">JavaScript</a>
+,       <a href="/tag/xmlhttprequest.html">XMLHttpRequest</a>
+,       <a href="/tag/cors.html">CORS</a>
+,       <a href="/tag/http-get.html">HTTP GET</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

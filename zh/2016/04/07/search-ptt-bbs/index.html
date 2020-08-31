@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>PTT搜尋</title>
+  <meta name="keywords" content="Web開發,字串處理"/>
+  <meta name="description" content="搜尋 PTT BBS."/>
+  <meta name="author" content="戴上為"/><meta property="og:title" content="PTT搜尋" />    <meta property="og:image" content="/zh/../extra/Dharma_wheel.svg" /><meta property="og:description" content="搜尋 PTT BBS." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/zh/../extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/zh/../theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/zh/">理論與實作</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/zh/pages/about.html">關於</a>
+    <a class="nav-item" href="/zh/archives.html">歸檔</a>
+    <a class="nav-item" href="/zh/categories.html">分類</a>
+    <a class="nav-item" href="/zh/tags.html">標籤</a>
+    <a class="nav-item" href="/zh/authors.html">作者</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/">English</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/zh/2016/04/07/search-ptt-bbs/"
+           rel="bookmark"
+           title="Permalink to PTT搜尋">
+          PTT搜尋
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2016-04-07T06:42:00+08:00">
+    四月 07, 2016
+  </time></aside>
+    <aside><div class="available-translations">
+      <span>翻譯</span>:&nbsp;<a href="/zh/../2016/04/07/search-ptt-bbs/">English</a>&nbsp;</div><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2016/04/07/search-ptt-bbs%25zh.rst">在Github上編輯</a></div></aside>
+    <hr>
+
+    <div class="main-content">搜尋 <a href="https://www.ptt.cc/" target="_blank">PTT</a> ：
+<input type="text" id="search" tabindex="1" placeholder="搜尋字串">
+<button type="button" id="getlinks">獲取連結</button><br>
+<hr>
+<div id="searchlinks"></div>
+<hr>
+<textarea id="links" rows="8" cols="80"></textarea><br>
+<button type="button" id="copy" tabindex="2">複製到剪貼簿</button>
+<script>
+  var inputElm = document.getElementById("search");
+  var buttonElm = document.getElementById("getlinks");
+  var divElm = document.getElementById("searchlinks");
+  var textareaElm = document.getElementById("links");
+  var copyElm = document.getElementById("copy");
+  inputElm.onkeyup = function(event) {
+    if (event.keyCode == 13) {
+      processSearchInput();
+    }
+  }
+  buttonElm.onclick = function(event) { processSearchInput(); }
+  copyElm.onclick = function(event) {
+    textareaElm.select();
+    var isSuccessful = document.execCommand('copy');
+    if (isSuccessful) {
+      textareaElm.value = "Copy OK";
+    } else {
+      textareaElm.value = "Copy Fail";
+    }
+  }
+
+  function processSearchInput() {
+    var search_string = inputElm.value.trim().replace(/\s+/g, " ");
+    var qstring = encodeURI(inputElm.value.trim().replace(/\s+/g, "+"));
+
+    textareaElm.value = ".. [1] `TERM - Google 搜尋 <GOOG>`_\n\n       `TERM - DuckDuckGo 搜尋 <DUCK>`_\n\n       `TERM - Bing 搜尋 <BING>`_\n\n       `TERM - Yahoo 搜尋 <YAHOO>`_\n\n       `TERM - Baidu 搜尋 <BAIDU>`_\n\n       `TERM - Yandex 搜尋 <YANDEX>`_\n".replace("GOOG", GoogleURL(qstring)).replace("DUCK", DuckDuckGoURL(qstring)).replace("BING", BingURL(qstring)).replace("YAHOO", YahooURL(qstring)).replace("BAIDU", BaiduURL(qstring)).replace("YANDEX", YandexURL(qstring)).replace(/TERM/g, search_string);
+
+    divElm.innerHTML = '<a target="_blank" href="GOOG">TERM - Google 搜尋</a><br><a target="_blank" href="DUCK">TERM - DuckDuckGo 搜尋</a><br><a target="_blank" href="BING">TERM - Bing 搜尋</a><br><a target="_blank" href="YAHOO">TERM - Yahoo 搜尋</a><br><a target="_blank" href="BAIDU">TERM - Baidu 搜尋</a><br><a target="_blank" href="YANDEX">TERM - Yandex 搜尋</a><br>'.replace("GOOG", GoogleURL(qstring)).replace("DUCK", DuckDuckGoURL(qstring)).replace("BING", BingURL(qstring)).replace("YAHOO", YahooURL(qstring)).replace("BAIDU", BaiduURL(qstring)).replace("YANDEX", YandexURL(qstring)).replace(/TERM/g, search_string);
+  }
+
+  function GoogleURL(qstring) {
+    return "https://www.google.com/search?q=" + qstring + "+site%3Aptt.cc";
+  }
+  function BingURL(qstring) {
+    return "https://www.bing.com/search?q=" + qstring + "+site%3Aptt.cc";
+  }
+  function YahooURL(qstring) {
+    return "https://search.yahoo.com/search?p=" + qstring + "+site%3Aptt.cc";
+  }
+  function DuckDuckGoURL(qstring) {
+    return "https://duckduckgo.com/?q=" + qstring + "+site%3Aptt.cc";
+  }
+  function BaiduURL(qstring) {
+    return "https://www.baidu.com/s?wd=" + qstring + "+site%3Aptt.cc";
+  }
+  function YandexURL(qstring) {
+    return "https://www.yandex.com/search/?text=" + qstring + "+site%3Aptt.cc";
+  }
+</script><hr class="docutils" />
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id1" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td><p class="first"><a class="reference external" href="https://www.google.com/search?q=javascript+open+link+in+new+tab">javascript open link in new tab - Google search</a></p>
+<p><a class="reference external" href="https://duckduckgo.com/?q=javascript+open+link+in+new+tab">javascript open link in new tab - DuckDuckGo search</a></p>
+<p><a class="reference external" href="https://www.bing.com/search?q=javascript+open+link+in+new+tab">javascript open link in new tab - Bing search</a></p>
+<p><a class="reference external" href="https://search.yahoo.com/search?p=javascript+open+link+in+new+tab">javascript open link in new tab - Yahoo search</a></p>
+<p><a class="reference external" href="https://www.baidu.com/s?wd=javascript+open+link+in+new+tab">javascript open link in new tab - Baidu search</a></p>
+<p><a class="reference external" href="https://www.yandex.com/search/?text=javascript+open+link+in+new+tab">javascript open link in new tab - Yandex search</a></p>
+<p class="last"><a class="reference external" href="http://stackoverflow.com/questions/4907843/open-a-url-in-a-new-tab-and-not-a-new-window-using-javascript">Open a URL in a new tab (and not a new window) using JavaScript - Stack Overflow</a></p>
+</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[2]</td><td><a class="reference external" href="/2016/04/03/search-links-of-major-search-engines/">Search Links of Major Search Engines</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[3]</td><td><a class="reference external" href="/zh/2016/05/06/search-taobao-com/">搜尋 淘寶網</a></td></tr>
+</tbody>
+</table>
+</div>
+
+    <footer><hr><address><b>作者</b>:
+    <a rel="author"
+       href="/zh/author/dai-shang-wei.html">戴上為</a>
+  </address><aside>
+    <i>&isin;</i> <b>分類</b>:
+    <a href="/zh/category/wang-ye-xiao-gong-ju.html">網頁小工具</a>
+  </aside><aside>
+    <i>&sum;</i> <b>標籤</b>:
+      <a href="/zh/tag/webkai-fa.html">Web開發</a>
+,       <a href="/zh/tag/zi-chuan-chu-li.html">字串處理</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

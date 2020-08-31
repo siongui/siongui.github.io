@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>[Vue.js] Keyboard Event (Arrow Key Example)</title>
+  <meta name="keywords" content="Vue.js,JavaScript,html,Keyboard Event"/>
+  <meta name="description" content="Detect arrow keys pressed by users via Vue.js."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="[Vue.js] Keyboard Event (Arrow Key Example)" /><meta property="og:image" content="https://image.slidesharecdn.com/introtovue-170720154735/95/intro-to-vuejs-23-638.jpg?cb=1500565888" />
+<meta property="og:description" content="Detect arrow keys pressed by users via Vue.js." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2017/12/06/vuejs-keyboard-event-arrow-key-example/"
+           rel="bookmark"
+           title="Permalink to [Vue.js] Keyboard Event (Arrow Key Example)">
+          [Vue.js] Keyboard Event (Arrow Key Example)
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2017-12-06T22:05:00+08:00">
+    December 06, 2017
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2017/12/06/vuejs-keyboard-event-arrow-key-example%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p>See demo first. <a class="reference external" href="https://www.google.com/search?q=focus+javascript">Focus</a> on the following <em>textarea</em> element and press arrow keys
+on your keyboard. You will see the <a class="reference external" href="https://www.google.com/search?q=keycode+javascript">keyCode</a> of the arrow key pressed by you.</p>
+<div id="vueapp">
+  <textarea @keyup.arrow-keys="show">{{ keypressed }}</textarea>
+</div>
+
+<script src="https://unpkg.com/vue@2.5.9/dist/vue.js"></script><script>
+'use strict';
+
+Vue.config.keyCodes = {
+  "arrow-keys": [37, 38, 39, 40]
+};
+
+var app = new Vue({
+  el: '#vueapp',
+  data: {
+    keypressed: ""
+  },
+  methods: {
+    show: function (event) {
+      this.keypressed += event.keyCode;
+    }
+  }
+});
+</script><p>The following is the source code for above demo.</p>
+<p><strong>HTML</strong>:</p>
+<div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;vueapp&quot;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">textarea</span> <span class="err">@</span><span class="na">keyup</span><span class="err">.</span><span class="na">arrow-keys</span><span class="o">=</span><span class="s">&quot;show&quot;</span><span class="p">&gt;</span>{{ keypressed }}<span class="p">&lt;/</span><span class="nt">textarea</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://unpkg.com/vue@2.5.9/dist/vue.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</pre></div>
+<p>We use <a class="reference external" href="https://vuejs.org/v2/guide/events.html#Key-Modifiers">key modifiers</a> <a class="footnote-reference" href="#id4" id="id1">[3]</a> to listen to the keyup event of textarea element.
+When textarea element is focused and users press any arrow key, the keyCode of
+the arrow key will be shown in the textarea.</p>
+
+<p><strong>JavaScript</strong>:</p>
+<div class="highlight"><pre><span></span><span class="s1">&#39;use strict&#39;</span><span class="p">;</span>
+
+<span class="nx">Vue</span><span class="p">.</span><span class="nx">config</span><span class="p">.</span><span class="nx">keyCodes</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s2">&quot;arrow-keys&quot;</span><span class="o">:</span> <span class="p">[</span><span class="mi">37</span><span class="p">,</span> <span class="mi">38</span><span class="p">,</span> <span class="mi">39</span><span class="p">,</span> <span class="mi">40</span><span class="p">]</span>
+<span class="p">};</span>
+
+<span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span>
+  <span class="nx">el</span><span class="o">:</span> <span class="s1">&#39;#vueapp&#39;</span><span class="p">,</span>
+  <span class="nx">data</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">keypressed</span><span class="o">:</span> <span class="s2">&quot;&quot;</span>
+  <span class="p">},</span>
+  <span class="nx">methods</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">show</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">keypressed</span> <span class="o">+=</span> <span class="nx">event</span><span class="p">.</span><span class="nx">keyCode</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</pre></div>
+<p>There are four arrow keys on the keyboard. We need to define custom key alias
+for the arrow keys in the <a class="reference external" href="https://vuejs.org/v2/api/#keyCodes">keyCodes in Vue.config</a>. The keyCodes of arrow keys
+are from 37~40, so we use array of numbers to define key alias.</p>
+<p>Note that the following syntax in <cite>Vue.config</cite> does not work:</p>
+<div class="highlight"><pre><span></span><span class="nx">arrowKeys</span><span class="o">:</span> <span class="p">[</span><span class="mi">37</span><span class="p">,</span> <span class="mi">38</span><span class="p">,</span> <span class="mi">39</span><span class="p">,</span> <span class="mi">40</span><span class="p">]</span>
+</pre></div>
+<p>The correct syntax is:</p>
+<div class="highlight"><pre><span></span><span class="s2">&quot;arrow-keys&quot;</span><span class="o">:</span> <span class="p">[</span><span class="mi">37</span><span class="p">,</span> <span class="mi">38</span><span class="p">,</span> <span class="mi">39</span><span class="p">,</span> <span class="mi">40</span><span class="p">]</span>
+</pre></div>
+<p>When users press arrow key in textarea element, the <em>show</em> method will be
+executed and the <a class="reference external" href="https://www.google.com/search?q=keycode+javascript">keyCode</a> of the corresponding arrow key will be appended to the
+textarea.</p>
+
+<hr class="docutils" />
+<p>Tested on:</p>
+<ul class="simple">
+<li><tt class="docutils literal">Chromium Version 62.0.3202.94 (Official Build) Built on Ubuntu , running on Ubuntu 17.04 <span class="pre">(64-bit)</span></tt></li>
+<li><tt class="docutils literal">Vue.js 2.5.9</tt></li>
+</ul>
+<hr class="docutils" />
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td><a class="reference external" href="/2012/06/25/javascript-keyboard-event-arrow-key-example/">JavaScript Keyboard Event (Arrow Key Example)</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[2]</td><td><a class="reference external" href="/2017/02/14/javascript-arrow-key-example-via-event-key/">JavaScript Arrow Key Example via event.key in Keyboard Event</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[3]</a></td><td><a class="reference external" href="https://vuejs.org/v2/guide/events.html#Key-Modifiers">Key Modifiers - Event Handling — Vue.js</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id5" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[4]</td><td><a class="reference external" href="https://vuejs.org/v2/api/#keyCodes">keyCodes - Global Config - API - Vue.js</a></td></tr>
+</tbody>
+</table>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/vuejs.html">Vue.js</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/vuejs.html">Vue.js</a>
+,       <a href="/tag/javascript.html">JavaScript</a>
+,       <a href="/tag/html.html">html</a>
+,       <a href="/tag/keyboard-event.html">Keyboard Event</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

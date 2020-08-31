@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>[Pelican] Get Partial Pages or Articles in Theme</title>
+  <meta name="keywords" content="Python,Pelican,Jinja2"/>
+  <meta name="description" content="Pelican static site generator - Get partial pages or articles with specific metadata by Jinja2 built-in selectattr filter in theme."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="[Pelican] Get Partial Pages or Articles in Theme" />    <meta property="og:image" content="/./extra/Dharma_wheel.svg" /><meta property="og:description" content="Pelican static site generator - Get partial pages or articles with specific metadata by Jinja2 built-in selectattr filter in theme." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2017/01/10/pelican-select-partial-pages-or-articles-in-theme/"
+           rel="bookmark"
+           title="Permalink to [Pelican] Get Partial Pages or Articles in Theme">
+          [Pelican] Get Partial Pages or Articles in Theme
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2017-01-10T22:04:00+08:00">
+    January 10, 2017
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2017/01/10/pelican-select-partial-pages-or-articles-in-theme%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p>Inspired by the answer to re-order pages in <a class="footnote-reference" href="#id2" id="id1">[1]</a>, this post shows how to get
+partial <a class="reference external" href="http://docs.getpelican.com/en/latest/content.html#articles-and-pages">pages</a> or <a class="reference external" href="http://docs.getpelican.com/en/latest/content.html#articles-and-pages">articles</a> with specific <a class="reference external" href="http://docs.getpelican.com/en/latest/content.html#file-metadata">metadata</a> by <a class="reference external" href="https://www.google.com/search?q=jinja2">Jinja2</a> built-in
+<a class="reference external" href="http://jinja.pocoo.org/docs/2.9/templates/#selectattr">selectattr</a> in the <a class="reference external" href="http://docs.getpelican.com/en/latest/themes.html">theme</a>.</p>
+<p>Illustrate by example, assume we want to get pages of which <tt class="docutils literal">order</tt> is <tt class="docutils literal">2</tt>
+in <tt class="docutils literal">index.html</tt> in <a class="reference external" href="http://docs.getpelican.com/en/latest/themes.html">theme</a>:</p>
+<p>(<a class="reference external" href="http://docs.getpelican.com/en/latest/content.html#file-metadata">metadata</a> <tt class="docutils literal">order</tt> is <tt class="docutils literal">2</tt> in <a class="reference external" href="https://www.google.com/search?q=reStructuredText">reStructuredText</a>):</p>
+<div class="highlight"><pre><span></span><span class="nc">:order:</span> 2
+</pre></div>
+<p>(<a class="reference external" href="http://docs.getpelican.com/en/latest/content.html#file-metadata">metadata</a> <tt class="docutils literal">order</tt> is <tt class="docutils literal">2</tt> in <a class="reference external" href="https://www.google.com/search?q=Markdown">Markdown</a>):</p>
+<div class="highlight"><pre><span></span>Order: 2
+</pre></div>
+<p>You can select by <a class="reference external" href="https://www.google.com/search?q=jinja2">Jinja2</a> built-in <a class="reference external" href="http://jinja.pocoo.org/docs/2.9/templates/#selectattr">selectattr</a> filter in <a class="reference external" href="http://docs.getpelican.com/en/latest/themes.html#index-html">index.html</a> in
+<a class="reference external" href="http://docs.getpelican.com/en/latest/themes.html">theme</a> as follows:</p>
+<div class="highlight"><pre><span></span>{% for page in pages|selectattr(&quot;order&quot;, &quot;equalto&quot;, &quot;2&quot;) %}
+  <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>Title: {{ page.title }}<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+{% endfor %}
+</pre></div>
+
+<hr class="docutils" />
+<p>Tested on: <tt class="docutils literal">Ubuntu Linux 16.10</tt>, <tt class="docutils literal">Python 2.7.12+</tt>, <a class="reference external" href="http://docs.getpelican.com/en/3.7.0/">Pelican 3.7.0</a>.</p>
+<hr class="docutils" />
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td><p class="first"><a class="reference external" href="https://www.google.com/search?q=pelican+page+order">pelican page order - Google search</a></p>
+<p><a class="reference external" href="http://docs.getpelican.com/en/latest/settings.html#ordering-content">Ordering content - Settings — Pelican latest documentation</a></p>
+<p class="last"><a class="reference external" href="http://stackoverflow.com/questions/18520046/how-can-i-control-the-order-of-pages-from-within-a-pelican-article-category">python - How can I control the order of pages from within a pelican article category? - Stack Overflow</a></p>
+</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[2]</td><td><p class="first"><a class="reference external" href="https://www.google.com/search?q=TemplateRuntimeError:+no+test+named">TemplateRuntimeError: no test named - Google search</a></p>
+<p class="last"><a class="reference external" href="http://stackoverflow.com/questions/34974691/how-do-i-filter-a-collection-in-a-jinja2-template">python - How do I filter a collection in a jinja2 template ? - Stack Overflow</a></p>
+</td></tr>
+</tbody>
+</table>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/python.html">Python</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/python.html">Python</a>
+,       <a href="/tag/pelican.html">Pelican</a>
+,       <a href="/tag/jinja2.html">Jinja2</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

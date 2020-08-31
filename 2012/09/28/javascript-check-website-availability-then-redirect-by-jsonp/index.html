@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>[JavaScript] Check Website Availability and Then Redirect by JSONP</title>
+  <meta name="keywords" content="JavaScript,JSONP,CORS"/>
+  <meta name="description" content="Redirect users to another website if the website is available."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="[JavaScript] Check Website Availability and Then Redirect by JSONP" /><meta property="og:image" content="http://www.javatpoint.com/images/javascript/javascript_logo.png" />
+<meta property="og:description" content="Redirect users to another website if the website is available." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2012/09/28/javascript-check-website-availability-then-redirect-by-jsonp/"
+           rel="bookmark"
+           title="Permalink to [JavaScript] Check Website Availability and Then Redirect by JSONP">
+          [JavaScript] Check Website Availability and Then Redirect by JSONP
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2015-03-25T20:36:00+08:00">
+    Updated: March 25, 2015
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2012/09/28/javascript-check-website-availability-then-redirect-by-jsonp%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p>The problem to be solved:</p>
+<blockquote>
+Assume there are two websites. One of the domain names of the two websites is
+<em>a.com</em>, and the other is <em>b.com</em>. When a visitor visits the website of
+<em>b.com</em>, the browser of the visitor checks (by <a class="reference external" href="https://www.google.com/search?q=JavaScript">JavaScript</a>) if the website of
+<em>a.com</em> is available for the visitor. If the website of <em>a.com</em> is available
+for the visitor, the visitor will be redirected to the website of <em>a.com</em> (by
+JavaScript URL redirect).</blockquote>
+<p>To solve the above problem, we need:</p>
+<ol class="arabic simple">
+<li>Implement <a class="reference external" href="/tag/jsonp.html">JSONP</a> service at the website of <em>a.com</em>.</li>
+<li>Insert JavaScript availability checking and redirection code at the website
+of <em>b.com</em>.</li>
+</ol>
+<p>We will give details one by one.</p>
+
+<div class="section" id="implement-jsonp-service-at-the-website-of-a-com">
+<h2>Implement JSONP service at the website of a.com</h2>
+<p>I wrote three posts on how to implement <a class="reference external" href="/tag/jsonp.html">JSONP</a> service on Google App Engine,
+please refer to following posts:</p>
+<blockquote>
+<ul class="simple">
+<li><a class="reference external" href="/2015/02/20/jsonp-on-google-app-engine-python/">JSONP on Google App Engine Python</a></li>
+<li><a class="reference external" href="/2015/02/20/jsonp-anonymous-callback-function/">JSONP with Anonymous Callback Function</a></li>
+<li><a class="reference external" href="/2015/02/20/jsonp-object-instance-callback/">Use Object Instance Function as JSONP Callback Function</a></li>
+</ul>
+</blockquote>
+</div>
+<div class="section" id="insert-javascript-availability-checking-and-redirection-code-at-the-website-of-b-com">
+<h2>Insert JavaScript availability checking and redirection code at the website of b.com</h2>
+<p>Here comes the tricky part of the solution. We will use
+<a class="reference external" href="/2015/02/20/jsonp-anonymous-callback-function/">JSONP with Anonymous Callback Function</a> to check if the website of <em>a.com</em> is
+available for the visitor, and if available, the visitor will be redirect to
+<em>a.com</em>. To achieve this, insert the following JavaScript to the webpage of the
+website of <em>b.com</em> (Assume the JSONP URL of <em>a.com</em> is <em>/jsonp</em>).</p>
+
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">host</span> <span class="o">==</span> <span class="s1">&#39;b.com&#39;</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">callback</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nb">window</span><span class="p">.</span><span class="nx">location</span> <span class="o">=</span> <span class="s1">&#39;http://a.com&#39;</span> <span class="o">+</span> <span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">pathname</span> <span class="o">+</span> <span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">search</span><span class="p">;</span>
+  <span class="p">};</span>
+  <span class="kd">var</span> <span class="nx">qry</span> <span class="o">=</span> <span class="s1">&#39;?callback=&#39;</span> <span class="o">+</span> <span class="nb">encodeURIComponent</span><span class="p">(</span><span class="s1">&#39;(&#39;</span><span class="o">+</span><span class="nx">callback</span><span class="p">.</span><span class="nx">toString</span><span class="p">()</span><span class="o">+</span><span class="s1">&#39;)&#39;</span><span class="p">);</span>
+  <span class="kd">var</span> <span class="nx">ext</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;script&#39;</span><span class="p">);</span>
+  <span class="nx">ext</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s1">&#39;src&#39;</span><span class="p">,</span> <span class="s1">&#39;http://a.com/jsonp&#39;</span> <span class="o">+</span> <span class="nx">qry</span><span class="p">);</span>
+  <span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="s2">&quot;head&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">].</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">ext</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table><p>In line 2~4 is the JSONP callback function, which does only one thing: redirect
+the user to the website of <em>a.com</em>. If the website of <em>a.com</em> is down or not
+available, the callback function will not be executed and hence the visitor will
+still stay at the website of <em>b.com</em>. If the website of <em>a.com</em> is available,
+the callback function will be executed and hence the visitor will be redirected
+to <em>a.com</em>. This is exactly the solution we need.</p>
+</div>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/javascript.html">JavaScript</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/javascript.html">JavaScript</a>
+,       <a href="/tag/jsonp.html">JSONP</a>
+,       <a href="/tag/cors.html">CORS</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>[Golang] gettext Function on Frontend (Browser) by GopherJS</title>
+  <meta name="keywords" content="Go,Golang,i18n,Locale,JSON,gettext,GopherJS,Go to JavaScript,DOM,html,Web application,web"/>
+  <meta name="description" content="Implement gettext function on front-end (browsers) by GopherJS. The gettext function translates a text string into the user's native language."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="[Golang] gettext Function on Frontend (Browser) by GopherJS" />    <meta property="og:image" content="/./extra/Dharma_wheel.svg" /><meta property="og:description" content="Implement gettext function on front-end (browsers) by GopherJS. The gettext function translates a text string into the user's native language." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2016/01/28/go-gettext-function-frontend-browser-by-gopherjs/"
+           rel="bookmark"
+           title="Permalink to [Golang] gettext Function on Frontend (Browser) by GopherJS">
+          [Golang] gettext Function on Frontend (Browser) by GopherJS
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2016-01-28T08:46:00+08:00">
+    January 28, 2016
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2016/01/28/go-gettext-function-frontend-browser-by-gopherjs%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><div class="section" id="introduction">
+<h2>Introduction</h2>
+<p>Implement <a class="reference external" href="http://linux.die.net/man/3/gettext">gettext function</a> on front-end (browsers) by <a class="reference external" href="https://golang.org/">Go</a> and  <a class="reference external" href="http://www.gopherjs.org/">GopherJS</a>,
+which compiles <a class="reference external" href="https://golang.org/">Golang</a> program to <a class="reference external" href="https://en.wikipedia.org/wiki/JavaScript">JavaScript</a>. The <em>gettext</em> function translates
+a text string into the user's native language. Before you start, you need to
+prepare <a class="reference external" href="https://www.gnu.org/software/gettext/manual/html_node/PO-Files.html">PO</a> files (see <a class="footnote-reference" href="#id8" id="id1">[4]</a>, <a class="footnote-reference" href="#id9" id="id2">[5]</a>, <a class="footnote-reference" href="#id10" id="id3">[6]</a>) and convert the PO files to <a class="reference external" href="https://www.google.com/search?q=JSON">JSON</a>
+format (see <a class="footnote-reference" href="#id11" id="id4">[7]</a>). The translations in <a class="reference external" href="https://www.google.com/search?q=JSON">JSON</a> format will be used by our
+<em>gettext</em> function.</p>
+</div>
+<div class="section" id="install-gopherjs">
+<h2>Install <a class="reference external" href="http://www.gopherjs.org/">GopherJS</a></h2>
+<p>Run the following command to install <a class="reference external" href="http://www.gopherjs.org/">GopherJS</a>:</p>
+<div class="highlight"><pre><span></span>$ go get -u github.com/gopherjs/gopherjs
+</pre></div>
+</div>
+<div class="section" id="source-code">
+<h2>Source Code</h2>
+<p>HTML file for demo:</p>
+<figure class="github-file">
+            <figcaption>
+              <a href="https://github.com/siongui/userpages/blob/master/content/code/gopherjs-dom/src/jsgettext/index.html">index.html</a> |
+              <a href="https://github.com/siongui/userpages">repository</a> |
+              <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/code/gopherjs-dom/src/jsgettext/index.html">view raw</a>
+            </figcaption><div class="code-file">
+            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cp">&lt;!doctype html&gt;</span>
+<span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>Golang gettext on front-end (browser)<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">button</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;button&quot;</span> <span class="na">value</span><span class="o">=</span><span class="s">&quot;vi_VN&quot;</span><span class="p">&gt;</span>Vietnamese<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">button</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;button&quot;</span> <span class="na">value</span><span class="o">=</span><span class="s">&quot;zh_TW&quot;</span><span class="p">&gt;</span>Traditional Chinese<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">button</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;button&quot;</span> <span class="na">value</span><span class="o">=</span><span class="s">&quot;en&quot;</span><span class="p">&gt;</span>English<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-default-string</span><span class="o">=</span><span class="s">&quot;Home&quot;</span><span class="p">&gt;</span>Home<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-default-string</span><span class="o">=</span><span class="s">&quot;Canon&quot;</span><span class="p">&gt;</span>Canon<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-default-string</span><span class="o">=</span><span class="s">&quot;About&quot;</span><span class="p">&gt;</span>About<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-default-string</span><span class="o">=</span><span class="s">&quot;Setting&quot;</span><span class="p">&gt;</span>Setting<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-default-string</span><span class="o">=</span><span class="s">&quot;Translation&quot;</span><span class="p">&gt;</span>Translation<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;demo.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</pre></div>
+</td></tr></table></div></figure>
+<p>In our HTML file, we wrap a text string to be translated in <em>div</em> element, and
+set the <em>data-default-string</em> attribute of <em>div</em> element to the text string. For
+example, <strong>Home</strong> is a text string to be translated, it will be wrapped as:</p>
+<div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-default-string</span><span class="o">=</span><span class="s">&quot;Home&quot;</span><span class="p">&gt;</span>Home<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</pre></div>
+<p>You can also wrap a text string in <em>span</em> element or other elements instead of
+<em>div</em>.</p>
+<figure class="github-file">
+            <figcaption>
+              <a href="https://github.com/siongui/userpages/blob/master/content/code/gopherjs-dom/src/jsgettext/jsgettext-raw.go">jsgettext-raw.go</a> |
+              <a href="https://github.com/siongui/userpages">repository</a> |
+              <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/code/gopherjs-dom/src/jsgettext/jsgettext-raw.go">view raw</a>
+            </figcaption><div class="code-file">
+            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="s">&quot;github.com/gopherjs/gopherjs/js&quot;</span>
+<span class="kn">import</span> <span class="s">&quot;encoding/json&quot;</span>
+<span class="kn">import</span> <span class="s">&quot;strings&quot;</span>
+
+<span class="kd">const</span> <span class="nx">jsondata</span> <span class="p">=</span> <span class="s">`{&quot;vi_VN&quot;:{&quot;About&quot;:&quot;Giới thiệu&quot;,&quot;Canon&quot;:&quot;Kinh điển&quot;,&quot;Home&quot;:&quot;Trang chính&quot;,&quot;Setting&quot;:&quot;Thiết lập&quot;,&quot;Translation&quot;:&quot;Dịch&quot;},&quot;zh_TW&quot;:{&quot;About&quot;:&quot;關於&quot;,&quot;Canon&quot;:&quot;經典&quot;,&quot;Home&quot;:&quot;首頁&quot;,&quot;Setting&quot;:&quot;設定&quot;,&quot;Translation&quot;:&quot;翻譯&quot;}}`</span>
+
+<span class="kd">type</span> <span class="nx">msgIdStrPairs</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span>
+<span class="kd">type</span> <span class="nx">localesMsg</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="nx">msgIdStrPairs</span>
+
+<span class="kd">var</span> <span class="nx">msg</span> <span class="p">=</span> <span class="nx">localesMsg</span><span class="p">{}</span>
+
+<span class="kd">func</span> <span class="nx">setupJSON</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nx">dec</span> <span class="o">:=</span> <span class="nx">json</span><span class="p">.</span><span class="nx">NewDecoder</span><span class="p">(</span><span class="nx">strings</span><span class="p">.</span><span class="nx">NewReader</span><span class="p">(</span><span class="nx">jsondata</span><span class="p">))</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">dec</span><span class="p">.</span><span class="nx">Decode</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">msg</span><span class="p">);</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nx">gettext</span><span class="p">(</span><span class="nx">locale</span><span class="p">,</span> <span class="nx">str</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">string</span> <span class="p">{</span>
+	<span class="k">if</span> <span class="nx">val</span><span class="p">,</span> <span class="nx">ok</span> <span class="o">:=</span> <span class="nx">msg</span><span class="p">[</span><span class="nx">locale</span><span class="p">];</span> <span class="nx">ok</span> <span class="p">{</span>
+		<span class="k">if</span> <span class="nx">val2</span><span class="p">,</span> <span class="nx">ok2</span> <span class="o">:=</span> <span class="nx">val</span><span class="p">[</span><span class="nx">str</span><span class="p">];</span> <span class="nx">ok2</span> <span class="p">{</span>
+			<span class="k">return</span> <span class="nx">val2</span>
+		<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+			<span class="k">return</span> <span class="nx">str</span>
+		<span class="p">}</span>
+	<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="nx">str</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nx">translate</span><span class="p">(</span><span class="nx">locale</span> <span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">d</span> <span class="o">:=</span> <span class="nx">js</span><span class="p">.</span><span class="nx">Global</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;document&quot;</span><span class="p">)</span>
+	<span class="nx">nodeList</span> <span class="o">:=</span> <span class="nx">d</span><span class="p">.</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;querySelectorAll&quot;</span><span class="p">,</span> <span class="s">&quot;[data-default-string]&quot;</span><span class="p">)</span>
+	<span class="nx">length</span> <span class="o">:=</span> <span class="nx">nodeList</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;length&quot;</span><span class="p">).</span><span class="nx">Int</span><span class="p">()</span>
+	<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+		<span class="nx">element</span> <span class="o">:=</span> <span class="nx">nodeList</span><span class="p">.</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;item&quot;</span><span class="p">,</span> <span class="nx">i</span><span class="p">)</span>
+		<span class="nx">str</span> <span class="o">:=</span> <span class="nx">element</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;dataset&quot;</span><span class="p">).</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;defaultString&quot;</span><span class="p">).</span><span class="nx">String</span><span class="p">()</span>
+		<span class="nx">element</span><span class="p">.</span><span class="nx">Set</span><span class="p">(</span><span class="s">&quot;textContent&quot;</span><span class="p">,</span> <span class="nx">gettext</span><span class="p">(</span><span class="nx">locale</span><span class="p">,</span> <span class="nx">str</span><span class="p">))</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nx">setupJSON</span><span class="p">()</span>
+
+	<span class="nx">d</span> <span class="o">:=</span> <span class="nx">js</span><span class="p">.</span><span class="nx">Global</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;document&quot;</span><span class="p">)</span>
+	<span class="nx">nodeList</span> <span class="o">:=</span> <span class="nx">d</span><span class="p">.</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;querySelectorAll&quot;</span><span class="p">,</span> <span class="s">&quot;button&quot;</span><span class="p">)</span>
+	<span class="nx">length</span> <span class="o">:=</span> <span class="nx">nodeList</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;length&quot;</span><span class="p">).</span><span class="nx">Int</span><span class="p">()</span>
+	<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+		<span class="nx">btn</span> <span class="o">:=</span> <span class="nx">nodeList</span><span class="p">.</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;item&quot;</span><span class="p">,</span> <span class="nx">i</span><span class="p">)</span>
+		<span class="nx">btn</span><span class="p">.</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;addEventListener&quot;</span><span class="p">,</span> <span class="s">&quot;click&quot;</span><span class="p">,</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+			<span class="nx">translate</span><span class="p">(</span><span class="nx">btn</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;value&quot;</span><span class="p">).</span><span class="nx">String</span><span class="p">())</span>
+		<span class="p">})</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div></figure>
+<p>We put translations converted from PO files in the source code. The translations
+are used by <em>gettext</em> function to translate a text string.</p>
+<p>When a user clicks the language button, we will select the <em>div</em> elements with
+<em>data-default-string</em> attribute. The string in the attribute will be translated
+by <em>gettext</em> function and replace the original string in the <em>div</em>.</p>
+<p>Compile the <a class="reference external" href="https://golang.org/">Go</a> code to <a class="reference external" href="https://en.wikipedia.org/wiki/JavaScript">JavaScript</a> by:</p>
+<div class="highlight"><pre><span></span>$ gopherjs build jsgettext-raw.go -o demo.js
+</pre></div>
+<p>Put <em>demo.js</em> together with the <em>index.html</em> in the same directory. Open the
+<em>index.html</em> with your browser. Click language buttons to translate strings.</p>
+</div>
+<hr class="docutils" />
+<div class="section" id="appendix">
+<h2>Appendix</h2>
+<p>If you want to use <a class="reference external" href="https://godoc.org/honnef.co/go/js/dom">GopherJS bindings for the JavaScript DOM APIs</a> to write
+idiomatic <a class="reference external" href="https://golang.org/">Go</a> code, install <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model">DOM</a> binding by:</p>
+<div class="highlight"><pre><span></span>$ go get -u honnef.co/go/js/dom
+</pre></div>
+<p>And compile the following code to JavaScript instead of above:</p>
+
+<figure class="github-file">
+            <figcaption>
+              <a href="https://github.com/siongui/userpages/blob/master/content/code/gopherjs-dom/src/jsgettext/jsgettext.go">jsgettext.go</a> |
+              <a href="https://github.com/siongui/userpages">repository</a> |
+              <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/code/gopherjs-dom/src/jsgettext/jsgettext.go">view raw</a>
+            </figcaption><div class="code-file">
+            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="s">&quot;honnef.co/go/js/dom&quot;</span>
+<span class="kn">import</span> <span class="s">&quot;encoding/json&quot;</span>
+<span class="kn">import</span> <span class="s">&quot;strings&quot;</span>
+
+<span class="kd">const</span> <span class="nx">jsondata</span> <span class="p">=</span> <span class="s">`{&quot;vi_VN&quot;:{&quot;About&quot;:&quot;Giới thiệu&quot;,&quot;Canon&quot;:&quot;Kinh điển&quot;,&quot;Home&quot;:&quot;Trang chính&quot;,&quot;Setting&quot;:&quot;Thiết lập&quot;,&quot;Translation&quot;:&quot;Dịch&quot;},&quot;zh_TW&quot;:{&quot;About&quot;:&quot;關於&quot;,&quot;Canon&quot;:&quot;經典&quot;,&quot;Home&quot;:&quot;首頁&quot;,&quot;Setting&quot;:&quot;設定&quot;,&quot;Translation&quot;:&quot;翻譯&quot;}}`</span>
+
+<span class="kd">type</span> <span class="nx">msgIdStrPairs</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span>
+<span class="kd">type</span> <span class="nx">localesMsg</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="nx">msgIdStrPairs</span>
+
+<span class="kd">var</span> <span class="nx">msg</span> <span class="p">=</span> <span class="nx">localesMsg</span><span class="p">{}</span>
+
+<span class="kd">func</span> <span class="nx">setupJSON</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nx">dec</span> <span class="o">:=</span> <span class="nx">json</span><span class="p">.</span><span class="nx">NewDecoder</span><span class="p">(</span><span class="nx">strings</span><span class="p">.</span><span class="nx">NewReader</span><span class="p">(</span><span class="nx">jsondata</span><span class="p">))</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">dec</span><span class="p">.</span><span class="nx">Decode</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">msg</span><span class="p">);</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nx">gettext</span><span class="p">(</span><span class="nx">locale</span><span class="p">,</span> <span class="nx">str</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">string</span> <span class="p">{</span>
+	<span class="k">if</span> <span class="nx">val</span><span class="p">,</span> <span class="nx">ok</span> <span class="o">:=</span> <span class="nx">msg</span><span class="p">[</span><span class="nx">locale</span><span class="p">];</span> <span class="nx">ok</span> <span class="p">{</span>
+		<span class="k">if</span> <span class="nx">val2</span><span class="p">,</span> <span class="nx">ok2</span> <span class="o">:=</span> <span class="nx">val</span><span class="p">[</span><span class="nx">str</span><span class="p">];</span> <span class="nx">ok2</span> <span class="p">{</span>
+			<span class="k">return</span> <span class="nx">val2</span>
+		<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+			<span class="k">return</span> <span class="nx">str</span>
+		<span class="p">}</span>
+	<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="nx">str</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nx">translate</span><span class="p">(</span><span class="nx">value</span> <span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">d</span> <span class="o">:=</span> <span class="nx">dom</span><span class="p">.</span><span class="nx">GetWindow</span><span class="p">().</span><span class="nx">Document</span><span class="p">()</span>
+	<span class="nx">elements</span> <span class="o">:=</span> <span class="nx">d</span><span class="p">.</span><span class="nx">QuerySelectorAll</span><span class="p">(</span><span class="s">&quot;[data-default-string]&quot;</span><span class="p">)</span>
+	<span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">element</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">elements</span> <span class="p">{</span>
+		<span class="nx">elm</span> <span class="o">:=</span> <span class="nx">element</span><span class="p">.(</span><span class="o">*</span><span class="nx">dom</span><span class="p">.</span><span class="nx">HTMLDivElement</span><span class="p">)</span>
+		<span class="nx">elm</span><span class="p">.</span><span class="nx">SetTextContent</span><span class="p">(</span><span class="nx">gettext</span><span class="p">(</span><span class="nx">value</span><span class="p">,</span> <span class="nx">elm</span><span class="p">.</span><span class="nx">Dataset</span><span class="p">()[</span><span class="s">&quot;defaultString&quot;</span><span class="p">]))</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nx">setupJSON</span><span class="p">()</span>
+
+	<span class="nx">d</span> <span class="o">:=</span> <span class="nx">dom</span><span class="p">.</span><span class="nx">GetWindow</span><span class="p">().</span><span class="nx">Document</span><span class="p">()</span>
+	<span class="nx">buttons</span> <span class="o">:=</span> <span class="nx">d</span><span class="p">.</span><span class="nx">QuerySelectorAll</span><span class="p">(</span><span class="s">&quot;button&quot;</span><span class="p">)</span>
+
+	<span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">btn</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">buttons</span> <span class="p">{</span>
+		<span class="nx">elm</span> <span class="o">:=</span> <span class="nx">btn</span><span class="p">.(</span><span class="o">*</span><span class="nx">dom</span><span class="p">.</span><span class="nx">HTMLButtonElement</span><span class="p">)</span>
+		<span class="nx">elm</span><span class="p">.</span><span class="nx">AddEventListener</span><span class="p">(</span><span class="s">&quot;click&quot;</span><span class="p">,</span> <span class="kc">false</span><span class="p">,</span> <span class="kd">func</span><span class="p">(</span><span class="nx">event</span> <span class="nx">dom</span><span class="p">.</span><span class="nx">Event</span><span class="p">)</span> <span class="p">{</span>
+			<span class="nx">translate</span><span class="p">(</span><span class="nx">elm</span><span class="p">.</span><span class="nx">Value</span><span class="p">)</span>
+		<span class="p">})</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div></figure>
+<p>Note that if you wrap strings in <em>span</em> or other elements instead of <em>div</em>,
+remember to modify the above code accordingly.</p>
+<hr class="docutils" />
+<p>Tested on: <tt class="docutils literal">Ubuntu Linux 15.10</tt>, <tt class="docutils literal">Go 1.5.3</tt>,
+<tt class="docutils literal">Chromium Version 48.0.2564.82 Ubuntu 15.10 <span class="pre">(64-bit)</span></tt>.</p>
+<hr class="docutils" />
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id5" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td><a class="reference external" href="http://www.gopherjs.org/">GopherJS - A compiler from Go to JavaScript</a>
+(<a class="reference external" href="https://github.com/gopherjs/gopherjs">GitHub</a>,
+<a class="reference external" href="http://www.gopherjs.org/playground/">GopherJS Playground</a>,
+<a class="reference external" href="https://godoc.org/github.com/gopherjs/gopherjs/js"><img alt="godoc" src="https://godoc.org/github.com/gopherjs/gopherjs/js?status.png" /></a>)</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id6" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[2]</td><td><a class="reference external" href="https://github.com/gopherjs/gopherjs/wiki/bindings">Bindings · gopherjs/gopherjs Wiki · GitHub</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id7" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[3]</td><td><a class="reference external" href="https://godoc.org/honnef.co/go/js/dom">dom - GopherJS bindings for the JavaScript DOM APIs</a>
+(<a class="reference external" href="https://github.com/dominikh/go-js-dom">GitHub</a>)</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id8" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[4]</a></td><td><a class="reference external" href="/2016/01/07/i18n-web-application-by-gnu-gettext-tools/">Internationalization (i18n) of Web Application by GNU gettext Tools</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id9" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[5]</a></td><td><a class="reference external" href="/2016/01/19/i18n-go-web-application-by-gettext-html-template/">i18n Golang Web Application by gettext and html/template</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id10" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id3">[6]</a></td><td><a class="reference external" href="/2016/01/19/xgettext-extract-translatable-string-from-go-html-template/">xgettext Extract Translatable Strings From Golang html/template</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id11" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id4">[7]</a></td><td><a class="reference external" href="/2016/01/27/go-convert-po-file-to-json/">[Golang] Convert PO file to JSON Format</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id12" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[8]</td><td><a class="reference external" href="https://www.google.com/search?q=queryselector">queryselector</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id13" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[9]</td><td><a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector">Document.querySelector() - Web APIs | MDN</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id14" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[10]</td><td><a class="reference external" href="http://www.w3schools.com/jsref/met_document_queryselector.asp">HTML DOM querySelector() Method</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id15" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[11]</td><td><a class="reference external" href="http://www.w3schools.com/cssref/css_selectors.asp">CSS Selectors Reference</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id16" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[12]</td><td><a class="reference external" href="https://www.google.com/search?q=queryselector+attribute+selector">queryselector attribute selector</a></td></tr>
+</tbody>
+</table>
+
+<table class="docutils footnote" frame="void" id="id17" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[13]</td><td><a class="reference external" href="http://stackoverflow.com/questions/10777684/how-to-use-queryselectorall-only-for-elements-that-have-a-specific-attribute-set">javascript - How to use querySelectorAll only for elements that have a specific attribute set? - Stack Overflow</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id18" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[14]</td><td><a class="reference external" href="http://stackoverflow.com/questions/29937768/document-queryselector-multiple-data-attributes-in-one-element">javascript - document.querySelector multiple data-attributes in one element - Stack Overflow</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id19" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[15]</td><td><a class="reference external" href="https://golang.org/pkg/encoding/json/#example_Decoder_Decode_stream">json - The Go Programming Language</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id20" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[16]</td><td><a class="reference external" href="https://www.google.com/search?q=golang+map+key+exists">golang map key exists</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id21" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[17]</td><td><a class="reference external" href="http://stackoverflow.com/questions/2050391/how-to-check-if-a-map-contains-a-key-in-go">dictionary - How to check if a map contains a key in go? - Stack Overflow</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id22" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[18]</td><td><a class="reference external" href="https://www.google.com/search?q=javascript+gettext">javascript gettext</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id23" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[19]</td><td><a class="reference external" href="https://slexaxton.github.io/Jed/">Jed | Gettext Style i18n for Modern JavaScript Apps</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id24" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[20]</td><td><a class="reference external" href="http://stackoverflow.com/questions/8121575/po-files-and-gettext-vs-json-and-custom-i18n-library">javascript - .po files and gettext VS JSON and custom i18n library? - Stack Overflow</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id25" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[21]</td><td><a class="reference external" href="https://www.google.com/search?q=javascript+gettext+frontend">javascript gettext frontend</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id26" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[22]</td><td><a class="reference external" href="http://stackoverflow.com/questions/25365064/how-to-split-frontend-and-backend-translations">gettext - How to split frontend and backend translations? - Stack Overflow</a></td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/gopherjs.html">GopherJS</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/go.html">Go</a>
+,       <a href="/tag/golang.html">Golang</a>
+,       <a href="/tag/i18n.html">i18n</a>
+,       <a href="/tag/locale.html">Locale</a>
+,       <a href="/tag/json.html">JSON</a>
+,       <a href="/tag/gettext.html">gettext</a>
+,       <a href="/tag/gopherjs.html">GopherJS</a>
+,       <a href="/tag/go-to-javascript.html">Go to JavaScript</a>
+,       <a href="/tag/dom.html">DOM</a>
+,       <a href="/tag/html.html">html</a>
+,       <a href="/tag/web-application.html">Web application</a>
+,       <a href="/tag/web.html">web</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

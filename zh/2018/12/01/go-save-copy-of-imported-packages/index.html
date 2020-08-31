@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>[Go語言] 本地儲存被import的套件</title>
+  <meta name="keywords" content="Go語言"/>
+  <meta name="description" content="Go語言：防止網路import的套件被刪除或更改，以致無法使用。"/>
+  <meta name="author" content="戴上為"/><meta property="og:title" content="[Go語言] 本地儲存被import的套件" /><meta property="og:image" content="http://cdn.rottmann.net/wp-content/uploads/2014/02/gopher-410x300.png" />
+<meta property="og:description" content="Go語言：防止網路import的套件被刪除或更改，以致無法使用。" /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/zh/../extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/zh/../theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/zh/">理論與實作</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/zh/pages/about.html">關於</a>
+    <a class="nav-item" href="/zh/archives.html">歸檔</a>
+    <a class="nav-item" href="/zh/categories.html">分類</a>
+    <a class="nav-item" href="/zh/tags.html">標籤</a>
+    <a class="nav-item" href="/zh/authors.html">作者</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/">English</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/zh/2018/12/01/go-save-copy-of-imported-packages/"
+           rel="bookmark"
+           title="Permalink to [Go語言] 本地儲存被import的套件">
+          [Go語言] 本地儲存被import的套件
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2018-12-12T19:18:00+08:00">
+    Updated: 十二月 12, 2018
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2018/12/01/go-save-copy-of-imported-packages%25zh.rst">在Github上編輯</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p>Reddit看到的問題 <a class="footnote-reference" href="#id4" id="id1">[1]</a> ，有人問到：</p>
+<p>問： <em>如果有人刪除了他們的GitHub repository該怎麼辦？</em></p>
+<p>答：利用 <em>go mod -vendor</em> 可以把套件存到本地 <em>/vendor</em> 目錄下。
+然後在最後建構時， <em>go build -vendor</em> 利用本地 <em>/vendor</em> 目錄下的套件來建構，
+而不是透過網路去抓取套件建構。</p>
+<p>問： <em>如果有人更新了他們在GitHub上的程式碼以致無法建構該怎麼辦？</em></p>
+<p>答： <em>go mod</em> 會固定套件版本，除非你告訴它去更改套件版本。</p>
+<hr class="docutils" />
+<p>另外有 Go Modules 的快速上手指南，請看 <a class="footnote-reference" href="#id18" id="id2">[15]</a> <a class="footnote-reference" href="#id24" id="id3">[21]</a></p>
+
+<hr class="docutils" />
+<p>參考：</p>
+<table class="docutils footnote" frame="void" id="id4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td><a class="reference external" href="https://old.reddit.com/r/golang/comments/a1ycyk/dependency_management_in_go/">Dependency management in Go : golang</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id5" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[2]</td><td><a class="reference external" href="https://old.reddit.com/r/golang/comments/a2b7w8/utterly_confused_with_golang_and_its_setup/">Utterly confused with Golang and its setup. : golang</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id6" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[3]</td><td><a class="reference external" href="https://old.reddit.com/r/golang/comments/a2214v/is_this_performance_normal/">Is this performance normal? : golang</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id7" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[4]</td><td><a class="reference external" href="https://old.reddit.com/r/golang/comments/a24saw/oauth_server_library_with_password_credentials/">OAuth server library with Password Credentials Support (like IdentityServer for .NET) : golang</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id8" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[5]</td><td><a class="reference external" href="https://old.reddit.com/r/golang/comments/a2hiu5/emulating_a_nintendo_ds_in_go_video/">Emulating a Nintendo DS in Go (video) : golang</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id9" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[6]</td><td><a class="reference external" href="https://old.reddit.com/r/golang/comments/a2csig/tool_to_show_type_hierarchy_for_go_pkg/">Tool to show type hierarchy for Go pkg : golang</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id10" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[7]</td><td><a class="reference external" href="https://old.reddit.com/r/golang/comments/a2iics/building_web_servers_in_go/">Building Web Servers in Go : golang</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id11" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[8]</td><td><a class="reference external" href="https://old.reddit.com/r/golang/comments/a3il4k/gopath_will_not_set/">GOPATH will not set? : golang</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id12" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[9]</td><td><a class="reference external" href="https://old.reddit.com/r/golang/comments/a35c1a/reimport_a_simple_go_files_import_matchreplace/">Reimport: a simple go files import match/replace tool using go/parser : golang</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id13" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[10]</td><td><a class="reference external" href="https://old.reddit.com/r/golang/comments/a2siv8/examples_of_well_architected_large_webapps/">Examples of well architected, large webapps : golang</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id14" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[11]</td><td><a class="reference external" href="https://old.reddit.com/r/golang/comments/a3lojm/is_mvc_a_good_pattern_in_go/">Is MVC a good pattern in Go? : golang</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id15" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[12]</td><td><a class="reference external" href="https://old.reddit.com/r/golang/comments/a3t4vf/neural_net_in_golang_and_how/">Neural Net in Golang... And how : golang</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id16" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[13]</td><td><a class="reference external" href="https://old.reddit.com/r/golang/comments/a44wpq/is_there_a_central_and_standard_place_where_all/">Is there a central and standard place where all the Go packages can be found? : golang</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id17" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[14]</td><td><a class="reference external" href="https://old.reddit.com/r/golang/comments/a410gl/go_is_passbyvalue_does_that_mean_each_function/">go is pass-by-value, does that mean each function call makes a copy of all params? : golang</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id18" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[15]</a></td><td><a class="reference external" href="https://old.reddit.com/r/golang/comments/a539h6/just_tell_me_how_to_use_go_modules/">Just tell me how to use Go Modules : golang</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id19" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[16]</td><td><a class="reference external" href="https://old.reddit.com/r/golang/comments/a5vc16/advent_2018_bringing_sanity_to_your_dependencies/">Advent 2018: Bringing Sanity to your Dependencies with Go Modules and Athens : golang</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id20" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[17]</td><td><a class="reference external" href="https://old.reddit.com/r/golang/comments/a5mf92/go_and_vim_in_harmony_joe_meli_medium/">Go and vim in harmony – Joe Meli – Medium : golang</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id21" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[18]</td><td><a class="reference external" href="https://old.reddit.com/r/golang/comments/a6hco1/my_first_program_with_go_a_program_that_takes/">My first program with Go - A program that takes snapshots of subreddits and stores them in a database. : golang</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id22" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[19]</td><td><a class="reference external" href="https://old.reddit.com/r/golang/comments/a6hju8/a_smarter_way_of_iterating_a_map/">A smarter way of Iterating a map? : golang</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id23" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[20]</td><td><a class="reference external" href="https://old.reddit.com/r/golang/comments/a6pkcg/vuejs_and_go_example_project/">Vue.js and Go example project : golang</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id24" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id3">[21]</a></td><td><a class="reference external" href="https://old.reddit.com/r/golang/comments/a739dz/migrating_to_go_mod_in_just_3_steps/">Migrating to go mod in just 3 steps : golang</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id25" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[22]</td><td><a class="reference external" href="https://old.reddit.com/r/golang/comments/a7ngj2/go_modules_in_2019/">Go Modules in 2019 : golang</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id26" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[23]</td><td><a class="reference external" href="https://old.reddit.com/r/golang/comments/a7qh85/go_project_file_structure/">Go project file structure? : golang</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id27" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[24]</td><td><a class="reference external" href="https://old.reddit.com/r/golang/comments/a7whrr/is_there_something_like_npm_or_cargo_in_go/">Is there something like NPM or Cargo in Go? : golang</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id28" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[25]</td><td><a class="reference external" href="https://old.reddit.com/r/golang/comments/a7l4bh/tutorial_to_createmanage_properly_a_project_in/">Tutorial to create/manage properly a project in golang, basic informations ? : golang</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id29" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[26]</td><td><a class="reference external" href="https://old.reddit.com/r/golang/comments/a7dn73/nice_to_hear_even_gcc_people_are_starting_to_use/">Nice to hear even GCC people are starting to use Golang instead of Python : golang</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id30" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[27]</td><td><a class="reference external" href="https://old.reddit.com/r/golang/comments/a7k6hf/golang_texttospeech_and_viversa/">GoLang Text-To-Speech and vi-versa : golang</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id31" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[28]</td><td><a class="reference external" href="https://old.reddit.com/r/golang/comments/a7dt07/clean_architecture_sample_code/">Clean Architecture Sample Code : golang</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id32" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[29]</td><td><a class="reference external" href="https://old.reddit.com/r/golang/comments/a7umy5/which_web_development_platform_to_use_in_2018/">Which web development platform to use in 2018? : golang</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id33" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[30]</td><td><a class="reference external" href="https://old.reddit.com/r/golang/comments/a7y7xq/github_shivammgrd_build_recursive_descent_parsers/">GitHub - shivamMg/rd: Build recursive descent parsers : golang</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id34" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[31]</td><td><a class="reference external" href="https://old.reddit.com/r/golang/comments/a855fs/session_management_take_3/">Session management! Take 3! : golang</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id35" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[32]</td><td><a class="reference external" href="https://old.reddit.com/r/golang/comments/a7yf54/advent_2018_introducing_glot_the_plotting_library/">Advent 2018: Introducing Glot the plotting library for Go : golang</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id36" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[33]</td><td><a class="reference external" href="https://old.reddit.com/r/golang/comments/a8pccj/what_kind_of_projects_do_you_implement_with_go_at/">What kind of projects do you implement with Go at work? : golang</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id37" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[34]</td><td><a class="reference external" href="https://old.reddit.com/r/golang/comments/a8s18m/confused_about_channels_and_select_statement/">Confused about channels and select statement. : golang</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id38" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[35]</td><td><a class="reference external" href="https://old.reddit.com/r/golang/comments/a8qkoq/why_arent_unused_func_args_a_compiler_error/">Why aren't unused func args a compiler error? : golang</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id39" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[36]</td><td><a class="reference external" href="https://old.reddit.com/r/golang/comments/a8msnr/when_is_concurrency_helpful_to_me/">When is concurrency helpful to me? : golang</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id40" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[37]</td><td><a class="reference external" href="https://old.reddit.com/r/golang/comments/a8inn7/go_web_server_project_directory_structure_with/">Go web server project directory structure with clear design : golang</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id41" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[38]</td><td><a class="reference external" href="https://old.reddit.com/r/golang/comments/a9boup/please_share_your_emacs_setup/">Please share your Emacs setup ... : golang</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id42" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[39]</td><td><a class="reference external" href="https://old.reddit.com/r/golang/comments/a949pw/versioning_your_api_in_go/">Versioning your API in Go : golang</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id43" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[40]</td><td><a class="reference external" href="https://old.reddit.com/r/golang/comments/a9lt1t/awesome_golang_security_security_related/">Awesome Golang Security - Security related resources for Golang : golang</a></td></tr>
+</tbody>
+</table>
+<ul class="simple">
+<li><a class="reference external" href="https://old.reddit.com/r/golang/comments/a9x4e4/guide_to_code_awesome_go_libraries/">Guide to code awesome Go libraries : golang</a></li>
+<li><a class="reference external" href="https://old.reddit.com/r/golang/comments/a9zts4/personal_photo_management_using_go_and_tensorflow/">Personal Photo Management using Go and TensorFlow : golang</a></li>
+<li><a class="reference external" href="https://old.reddit.com/r/golang/comments/a9u49x/do_you_need_a_web_framework_for_go/">Do you need a web framework for Go? : golang</a></li>
+<li><a class="reference external" href="https://old.reddit.com/r/golang/comments/a9zzjh/confused_with_the_vendor_folder_from_dep_init/">Confused with the vendor folder from &quot;dep init&quot; : golang</a></li>
+<li><a class="reference external" href="https://old.reddit.com/r/golang/comments/a9yasb/top_golang_github_projects_of_december_2018/">Top Golang GitHub Projects of December 2018 : golang</a></li>
+<li><a class="reference external" href="https://old.reddit.com/r/golang/comments/a9qmsu/analysis_of_hacker_news_who_is_hiring_posts_using/">Analysis of Hacker News who is hiring posts using Golang, Python : golang</a></li>
+<li><a class="reference external" href="https://old.reddit.com/r/golang/comments/a9w260/golang_vs_express_js/">Golang vs Express Js : golang</a></li>
+<li><a class="reference external" href="https://old.reddit.com/r/golang/comments/a9ppmy/go_for_devops/">Go for Devops : golang</a></li>
+<li><a class="reference external" href="https://old.reddit.com/r/golang/comments/a9rn6n/why_people_claim_that_go_is_not_object_oriented/">Why people claim that Go is not object oriented, am I misreading something? : golang</a></li>
+</ul>
+</div>
+
+    <footer><hr><address><b>作者</b>:
+    <a rel="author"
+       href="/zh/author/dai-shang-wei.html">戴上為</a>
+  </address><aside>
+    <i>&isin;</i> <b>分類</b>:
+    <a href="/zh/category/goyu-yan.html">Go語言</a>
+  </aside><aside>
+    <i>&sum;</i> <b>標籤</b>:
+      <a href="/zh/tag/goyu-yan.html">Go語言</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

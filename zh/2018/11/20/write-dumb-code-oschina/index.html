@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head><meta charset="utf-8">
+  <title>為開源項目作貢獻最好的方式是為它減少代碼</title>
+  <meta name="keywords" content="轉錄,開源中國,Linux 中國,Linux"/>
+  <meta name="description" content="為開源項目作貢獻最好的方式是為它減少代碼，我們應致力於寫出讓新手程序員無需註釋就容易理解的代碼，讓維護者也無需花費太多精力就能著手維護。"/>
+  <meta name="author" content="Linux 中國翻譯組"/><meta property="og:title" content="為開源項目作貢獻最好的方式是為它減少代碼" /><meta property="og:image" content="https://oscimg.oschina.net/oscnet/ece6e50c1402d1f02a36335cb682b750ac1.jpg" />
+<meta property="og:description" content="為開源項目作貢獻最好的方式是為它減少代碼，我們應致力於寫出讓新手程序員無需註釋就容易理解的代碼，讓維護者也無需花費太多精力就能著手維護。" /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/zh/../extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/zh/../theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/zh/">理論與實作</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/zh/pages/about.html">關於</a>
+    <a class="nav-item" href="/zh/archives.html">歸檔</a>
+    <a class="nav-item" href="/zh/categories.html">分類</a>
+    <a class="nav-item" href="/zh/tags.html">標籤</a>
+    <a class="nav-item" href="/zh/authors.html">作者</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/">English</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/zh/2018/11/20/write-dumb-code-oschina/"
+           rel="bookmark"
+           title="Permalink to 為開源項目作貢獻最好的方式是為它減少代碼">
+          為開源項目作貢獻最好的方式是為它減少代碼
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2018-11-20T00:08:00+08:00">
+    十一月 20, 2018
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2018/10/01/write-dumb-code-oschina%25zh.rst">在Github上編輯</a></div></aside>
+    <hr>
+
+    <div class="main-content"><img alt="為開源項目作貢獻最好的方式是為它減少代碼" class="align-center" src="https://oscimg.oschina.net/oscnet/ece6e50c1402d1f02a36335cb682b750ac1.jpg" />
+<p>為開源項目作貢獻最好的方式是為它減少代碼，我們應致力於寫出讓新手程序員無需註釋就容易理解的代碼，讓維護者也無需花費太多精力就能著手維護。</p>
+<p>在學生時代，我們會更多地用複雜巧妙的技術去挑戰新的難題。首先我們會學習循環，然後是函數啊，類啊，等等。當我們到達一定高的程度，能用更高級的技術寫更長的程序，我們會因此受到稱讚。此刻我們發現老司機們用 monads 而新手們用 loop 作循環。</p>
+<p>之後我們畢業找了工作，或者和他人合作開源項目。我們用在學校裡學到的各種炫技尋求並驕傲地給出解決方案的代碼實現。</p>
+<p>哈哈，我能擴展這個項目，並實現某牛 X 功能啦，我這裡能用繼承啦，我太聰明啦！</p>
+<p>我們實現了某個小的功能，並以充分的理由覺得自己做到了。現實項目中的編程卻不是針對某某部分的功能而言。以我個人的經驗而言，以前我很開心的去寫代碼，並驕傲地向世界展示我所知道的事情。有例為證，作為對某種編程技術的偏愛，這是用另一種元編程語言構建的一個線性代數語言，注意，這麼多年以來一直沒人願意碰它。</p>
+<p>在維護了更多的代碼後，我的觀點發生了變化。</p>
+<ol class="arabic simple">
+<li>我們不應去刻意探求如何構建軟件。軟件是我們為解決問題所付出的代價，那才是我們真實的目的。我們應努力為了解決問題而構建較小的軟件。</li>
+<li>我們應使用儘可能簡單的技術，那麼更多的人就越可能會使用，並且無需理解我們所知的高級技術就能擴展軟件的功能。當然，在我們不知道如何使用簡單技術去實現時，我們也可以使用高級技術。</li>
+</ol>
+<p>所有的這些例子都不是聽來的故事。我遇到的大部分人會認同某些部分，但不知為什麼，當我們向一個新項目貢獻代碼時又會忘掉這個初衷。直覺裡用複雜技術去構建的念頭往往會佔據上風。</p>
+<div class="section" id="id2">
+<h2>軟件是種投入</h2>
+<p>你寫的每行代碼都要花費人力。寫代碼當然是需要時間的，也許你會認為只是你個人在奉獻，然而這些代碼在被審閱的時候也需要花時間理解，對於未來維護和開發人員來說，他們在維護和修改代碼時同樣要花費時間。否則他們完全可以用這時間出去曬曬太陽，或者陪伴家人。</p>
+<p>所以，當你向某個項目貢獻代碼時，請心懷謙恭。就像是，你正和你的家人進餐時，餐桌上卻沒有足夠的食物，你只索取你所需的部分，別人對你的自我約束將肅然起敬。以更少的代碼去解決問題是很難的，你肩負重任的同時自然減輕了別人的重負。</p>
+</div>
+<div class="section" id="id3">
+<h2>技術越複雜越難維護</h2>
+<p>作為學生，逐漸使用高端技術證明了自己的價值。這體現在，首先我們有能力在開源項目中使用函數，接著是類，然後是高階函數，monads 等等。我們向同行顯示自己的解決方案時，常因自己所用技術高低而感到自豪或卑微。</p>
+<p>而在現實中，和團隊去解決問題時，情況發生了逆轉。現在，我們致力於儘可能使用簡單的代碼去解決問題。簡單方式解決問題使新手程序員能夠以此擴展並解決其他問題。簡單的代碼讓別人容易上手，效果立竿見影。我們藉以只用簡單的技術去解決難題，從而展示自己的價值。</p>
+<p>看，我用循環替代了遞歸函數並且一樣達到了我們的需求。當然我明白這是不夠聰明的做法，不過我注意到新手同事在這裡會遇上麻煩，我覺得這種改變將有所幫助吧。</p>
+<p>如果你是個好的程序員，你不需要證明你知道很多炫技。相應的，你可以通過用一個簡單的方法解決一個問題來顯示你的價值，並激發你的團隊在未來的時間裡去完善它。</p>
+</div>
+<div class="section" id="id4">
+<h2>當然，也請保持節制</h2>
+<p>話雖如此，過於遵循 “用簡單的工具去構建” 的教條也會降低生產力。通常用遞歸會比用循環解決問題更簡單，用類或 monad 才是正確的途徑。還有兩種情況另當別論，一是只是只為滿足自我而創建的系統，或者是別人毫無構建經驗的系統。</p>
+<blockquote class="highlights">
+<div class="line-block">
+<div class="line">編譯自：<a class="reference external" href="http://matthewrocklin.com/blog/work/2018/01/27/write-dumb-code">http://matthewrocklin.com/blog/work/2018/01/27/write-dumb-code</a> 作者： Matthew Rocklin</div>
+<div class="line">原創：LCTT <a class="reference external" href="https://linux.cn/article-10254-1.html">https://linux.cn/article-10254-1.html</a> 譯者： Tian, Hua</div>
+<div class="line"><br /></div>
+<div class="line">本文由 LCTT 原創翻譯，Linux中國首發。也想加入譯者行列，為開源做一些自己的貢獻麼？歡迎加入 LCTT！</div>
+<div class="line">翻譯工作和譯文發表僅用於學習和交流目的，翻譯工作遵照 CC-BY-NC-SA 協議規定，如果我們的工作有侵犯到您的權益，請及時聯繫我們。</div>
+<div class="line">歡迎遵照 CC-BY-NC-SA 協議規定轉載，敬請在正文中標註並保留原文/譯文鏈接和作者/譯者等信息。</div>
+</div>
+</blockquote>
+<ul class="simple">
+<li><a class="reference external" href="https://linux.cn/article-10254-1.html">观点|写直白的代码</a></li>
+<li><a class="reference external" href="https://www.oschina.net/news/102003/write-dumb-code">为开源项目作贡献最好的方式是为它减少代码 - 开源中国</a></li>
+<li><a class="reference external" href="https://3g.163.com/dy/article/E1246F6O0511CPOJ.html">为开源项目作贡献最好的方式是为它减少代码_手机网易网</a></li>
+</ul>
+</div>
+</div>
+
+    <footer><hr><address><b>作者</b>:
+    <a rel="author"
+       href="/zh/author/linux-zhong-guo-fan-yi-zu.html">Linux 中國翻譯組</a>
+  </address><aside>
+    <i>&isin;</i> <b>分類</b>:
+    <a href="/zh/category/goyu-yan.html">Go語言</a>
+  </aside><aside>
+    <i>&sum;</i> <b>標籤</b>:
+      <a href="/zh/tag/zhuan-lu.html">轉錄</a>
+,       <a href="/zh/tag/kai-yuan-zhong-guo.html">開源中國</a>
+,       <a href="/zh/tag/linux-zhong-guo.html">Linux 中國</a>
+,       <a href="/zh/tag/linux.html">Linux</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

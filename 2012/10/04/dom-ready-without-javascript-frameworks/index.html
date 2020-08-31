@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>DOM Ready without JavaScript Frameworks</title>
+  <meta name="keywords" content="JavaScript,DOM"/>
+  <meta name="description" content="Check DOM readiness in vanilla JavaScript."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="DOM Ready without JavaScript Frameworks" /><meta property="og:image" content="http://www.javatpoint.com/images/javascript/javascript_logo.png" />
+<meta property="og:description" content="Check DOM readiness in vanilla JavaScript." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2012/10/04/dom-ready-without-javascript-frameworks/"
+           rel="bookmark"
+           title="Permalink to DOM Ready without JavaScript Frameworks">
+          DOM Ready without JavaScript Frameworks
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2012-10-04T23:22:00+08:00">
+    October 04, 2012
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2012/10/04/dom-ready-without-javascript-frameworks%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p>&quot;<a class="reference external" href="https://www.google.com/search?q=what+is+dom+ready">DOM ready</a>&quot; is an important event because HTML elements like <em>div</em> or <em>span</em>
+can be accessed by JavaScript only when DOM is ready enough. Usually we can
+initialize web application at &quot;DOM ready&quot; time. Various JavaScript frameworks
+provide DOM ready event <a class="footnote-reference" href="#id2" id="id1">[1]</a>. Here, I want to discuss how to detect &quot;DOM ready&quot;
+in a cross-browser way without using JavaScript Frameworks.</p>
+<ol class="arabic">
+<li><p class="first"><strong>Put and include JavaScript code right before the end of body tag</strong>:</p>
+<p>This is simplest way to make sure DOM is ready when any JavaScript code is
+run. You do not have to write any code to detect whether DOM is ready, or
+reply on any &quot;DOM ready&quot; event of JavaScript frameworks. And your website
+will make users feels more responsive because users can see something on the
+browser screen before JavaScript code is run.</p>
+</li>
+</ol>
+
+<ol class="arabic" start="2">
+<li><p class="first"><strong>Check the readiness of last DOM element</strong>:</p>
+<p>If for some reason you don't want to put and include your JavaScript code
+before the end of <em>body</em> tag, here is an alternative - <em>Check the readiness
+of last element inside body tag</em>. The following JavaScript code snippet
+demonstrates how (assume the <em>id</em> of last element is <em>lastElement</em>):</p>
+<div class="highlight"><pre><span></span><span class="nx">checkDOMReady</span><span class="p">();</span>
+
+<span class="kd">function</span> <span class="nx">checkDOMReady</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;lastElement&#39;</span><span class="p">))</span> <span class="p">{</span>
+    <span class="c1">// DOM is ready now. Do something here.</span>
+  <span class="p">}</span>
+  <span class="k">else</span> <span class="nx">setTimeout</span><span class="p">(</span><span class="nx">checkDOMReady</span><span class="p">,</span> <span class="mi">50</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+<p>As you can see, a function is setup to access the last element. If the last
+element is not accessible, then the function sleep 50 ms and checks again
+until the last element is accessible. The checking interval (50 ms) could be
+made shorter if you like. In fact, you can check the <em>last element referenced
+in your code</em> instead of <em>last element inside body tag</em> if you want
+JavaScript code runs earlier.</p>
+</li>
+</ol>
+
+<p>Hope the above information is helpful for vanilla JavaScript lovers.</p>
+<hr class="docutils" />
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td><a class="reference external" href="http://davidwalsh.name/javascript-domready">DomReady Event Methods in JavaScript Frameworks</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[2]</td><td><a class="reference external" href="http://stackoverflow.com/questions/2732171/javascript-dom-ready-without-an-entire-framework">Javascript DOM ready without an entire framework</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[3]</td><td><a class="reference external" href="http://www.javascriptkit.com/dhtmltutors/domready.shtml">Relying on DOM readiness to invoke a function (instead of window.onload)</a></td></tr>
+</tbody>
+</table>
+<!-- .. _DOM ready: http://www.mootorial.com/wiki/mootorial/05-utilities/01-domready -->
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/javascript.html">JavaScript</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/javascript.html">JavaScript</a>
+,       <a href="/tag/dom.html">DOM</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

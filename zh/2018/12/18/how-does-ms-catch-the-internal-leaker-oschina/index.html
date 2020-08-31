@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head><meta charset="utf-8">
+  <title>微軟是如何查獲內部洩密者的？這套路防不勝防</title>
+  <meta name="keywords" content="轉錄,開源中國,網路安全"/>
+  <meta name="description" content="在遊戲業界，我們經常能看到廠商進行各種“內部測試”，同時也會經常有相應的“洩露內容”，有時甚至是在已經簽訂保密協議的情況下進行了洩露。話說魔高一尺道高一丈，廠商對於查找這種洩密的源頭都有自己的一套辦法，有時候你明明看不出自己發到網上的畫面有什麼身份信息，但廠商單單還就能鎖定洩密者的身份。"/>
+  <meta name="author" content="h4cd(開源中國)"/><meta property="og:title" content="微軟是如何查獲內部洩密者的？這套路防不勝防" /><meta property="og:image" content="https://oscimg.oschina.net/oscnet/e955852736ec21bd5a1e74274838a01eb19.jpg" />
+<meta property="og:description" content="在遊戲業界，我們經常能看到廠商進行各種“內部測試”，同時也會經常有相應的“洩露內容”，有時甚至是在已經簽訂保密協議的情況下進行了洩露。話說魔高一尺道高一丈，廠商對於查找這種洩密的源頭都有自己的一套辦法，有時候你明明看不出自己發到網上的畫面有什麼身份信息，但廠商單單還就能鎖定洩密者的身份。" /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/zh/../extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/zh/../theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/zh/">理論與實作</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/zh/pages/about.html">關於</a>
+    <a class="nav-item" href="/zh/archives.html">歸檔</a>
+    <a class="nav-item" href="/zh/categories.html">分類</a>
+    <a class="nav-item" href="/zh/tags.html">標籤</a>
+    <a class="nav-item" href="/zh/authors.html">作者</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/">English</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/zh/2018/12/18/how-does-ms-catch-the-internal-leaker-oschina/"
+           rel="bookmark"
+           title="Permalink to 微軟是如何查獲內部洩密者的？這套路防不勝防">
+          微軟是如何查獲內部洩密者的？這套路防不勝防
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2018-12-18T09:11:00+08:00">
+    十二月 18, 2018
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2018/10/01/how-does-ms-catch-the-internal-leaker-oschina%25zh.rst">在Github上編輯</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p>在遊戲業界，我們經常能看到廠商進行各種“內部測試”，同時也會經常有相應的“洩露內容”，有時甚至是在已經簽訂保密協議的情況下進行了洩露。話說魔高一尺道高一丈，廠商對於查找這種洩密的源頭都有自己的一套辦法，有時候你明明看不出自己發到網上的畫面有什麼身份信息，但廠商單單還就能鎖定洩密者的身份。</p>
+<p>業界巨頭微軟在這方面還真有自己的一套辦法，時過境遷，微軟員工如今把當初控制Xbox 360的新Xbox體驗（NXE）UI內部beta測試不被外洩的方式公佈了出來。</p>
+<p>推特用戶&#64;cullend近日發文表示，當初他在微軟最得意的一個項目就是把Xbox 360的序列號與畫面右下角Xbox logo處的水波紋相對應，這樣將UI放上網的人自然就洩露了自己的主機信息……</p>
+<img alt="微軟是如何查獲內部洩密者的？這套路防不勝防" class="align-center" src="https://oscimg.oschina.net/oscnet/e955852736ec21bd5a1e74274838a01eb19.jpg" />
+<p>就是這個地方：</p>
+<img alt="微軟是如何查獲內部洩密者的？這套路防不勝防" class="align-center" src="https://oscimg.oschina.net/oscnet/97d754f903995ae6069dfb4e94ca02be46a.jpg" />
+<p>這也實在太狡猾了點，誰能想到看起來是裝飾的地方實際上隱藏著主機的信息呢。</p>
+<p>更有意思的是，這個套路還真坑了不少人。微軟的Jason Short在下方回覆稱，他肯定“不止一個內部人員被他們用這種方式查獲洩密”。</p>
+<p>不過，在NXE的beta測試成功之後，推出的正式版升級中並不包含這個身份認證。微軟隨後也澄清，這種方式只用來保證內部測試階段不被違反保密協議的人洩露出去。</p>
+<p>能想出這個辦法還是挺厲害的，這也告訴我們，保密協議並不只是說說而已，在查找洩密者的方式上，廠商可是各有神通，如果嚴重的話，搞不好還會被告上法庭。</p>
+<p>來源： <a class="reference external" href="https://hot.cnbeta.com/articles/game/798963">cnbeta</a></p>
+<blockquote class="highlights">
+<div class="line-block">
+<div class="line">本站文章除註明轉載外，均為本站原創或編譯。歡迎任何形式的轉載，但請務必註明出處，尊重他人勞動共創開源社區。</div>
+<div class="line">轉載請註明：文章轉載自 開源中國社區 [<a class="reference external" href="https://www.oschina.net">https://www.oschina.net</a>]</div>
+<div class="line">本文標題：微軟是如何查獲內部洩密者的？這套路防不勝防</div>
+<div class="line">本文地址：<a class="reference external" href="https://www.oschina.net/news/102792/how-does-ms-catch-the-internal-leaker">https://www.oschina.net/news/102792/how-does-ms-catch-the-internal-leaker</a></div>
+</div>
+</blockquote>
+</div>
+
+    <footer><hr><address><b>作者</b>:
+    <a rel="author"
+       href="/zh/author/h4cdkai-yuan-zhong-guo.html">h4cd(開源中國)</a>
+  </address><aside>
+    <i>&isin;</i> <b>分類</b>:
+    <a href="/zh/category/zhuan-lu.html">轉錄</a>
+  </aside><aside>
+    <i>&sum;</i> <b>標籤</b>:
+      <a href="/zh/tag/zhuan-lu.html">轉錄</a>
+,       <a href="/zh/tag/kai-yuan-zhong-guo.html">開源中國</a>
+,       <a href="/zh/tag/wang-lu-an-quan.html">網路安全</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

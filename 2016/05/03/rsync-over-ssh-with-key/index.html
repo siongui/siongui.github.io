@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>rsync over SSH with Key</title>
+  <meta name="keywords" content="Amazon Web Services (AWS),Bash,Ubuntu Linux,Commandline,rsync"/>
+  <meta name="description" content="Example of copy local files to remote machine which allows only SSH key login via rsync command."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="rsync over SSH with Key" /><meta property="og:image" content="https://upload.wikimedia.org/wikipedia/en/thumb/1/11/Newrsynclogo.png/160px-Newrsynclogo.png" />
+<meta property="og:description" content="Example of copy local files to remote machine which allows only SSH key login via rsync command." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2016/05/03/rsync-over-ssh-with-key/"
+           rel="bookmark"
+           title="Permalink to rsync over SSH with Key">
+          rsync over SSH with Key
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2016-05-03T21:44:00+08:00">
+    May 03, 2016
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2016/05/03/rsync-over-ssh-with-key%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p>Assume you have a remote machine which allows <a class="reference external" href="https://www.google.com/search?q=SSH">SSH</a> login with key generated in
+<a class="footnote-reference" href="#id2" id="id1">[1]</a>. The user account is <cite>foo</cite> and the key is stored in the file <cite>~/fookey</cite>.
+The IP of the remote machine is <cite>1.2.3.4</cite>.</p>
+<p>You want to copy the content of local <cite>~/local_dir/</cite> to remote <cite>~/remote_dir</cite> of
+user <cite>foo</cite> via the following <a class="reference external" href="https://www.google.com/search?q=rsync">rsync</a> command:</p>
+<div class="highlight"><pre><span></span>$ rsync -avz ~/local_dir/ foo@1.2.3.4:~/remote_dir/ -e <span class="s1">&#39;ssh -i ~/fookey&#39;</span>
+</pre></div>
+<hr class="docutils" />
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td><a class="reference external" href="/2016/04/30/aws-create-or-migrate-linux-users-on-ec2/">[AWS] Create/Migrate Linux Users on Amazon EC2</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[2]</td><td><div class="first last line-block">
+<div class="line"><a class="reference external" href="https://www.google.com/search?q=rsync+over+ssh">rsync over ssh - Google search</a></div>
+<div class="line"><a class="reference external" href="https://calomel.org/rsync_tips.html">Rsync Examples, SSH, Backup &#64; Calomel.org</a></div>
+</div>
+</td></tr>
+</tbody>
+</table>
+
+<table class="docutils footnote" frame="void" id="id4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[3]</td><td><div class="first last line-block">
+<div class="line"><a class="reference external" href="https://www.google.com/search?q=rsync+over+ssh+with+key">rsync over ssh with key - Google search</a></div>
+<div class="line"><a class="reference external" href="http://unix.stackexchange.com/questions/127352/specify-identity-file-id-rsa-with-rsync">ssh - Specify identity file (id_rsa) with rsync - Unix &amp; Linux Stack Exchange</a></div>
+</div>
+</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id5" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[4]</td><td><a class="reference external" href="https://www.google.com/search?q=rsync+over+ftp">rsync over ftp - Google search</a></td></tr>
+</tbody>
+</table>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/bash.html">Bash</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/amazon-web-services-aws.html">Amazon Web Services (AWS)</a>
+,       <a href="/tag/bash.html">Bash</a>
+,       <a href="/tag/ubuntu-linux.html">Ubuntu Linux</a>
+,       <a href="/tag/commandline.html">Commandline</a>
+,       <a href="/tag/rsync.html">rsync</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

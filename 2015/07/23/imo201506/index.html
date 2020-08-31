@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8">
+  <title>[Math] International Mathematical Olympiad (IMO) 2015 Problem 6</title>
+  <meta name="keywords" content="Math"/>
+  <meta name="description" content="International Mathematical Olympiad (IMO) 2015 Problem 6"/>
+  <meta name="author" content="Shen-Fu Tsai"/><meta property="og:title" content="[Math] International Mathematical Olympiad (IMO) 2015 Problem 6" />    <meta property="og:image" content="/./extra/Dharma_wheel.svg" /><meta property="og:description" content="International Mathematical Olympiad (IMO) 2015 Problem 6" /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2015/07/23/imo201506/"
+           rel="bookmark"
+           title="Permalink to [Math] International Mathematical Olympiad (IMO) 2015 Problem 6">
+          [Math] International Mathematical Olympiad (IMO) 2015 Problem 6
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2015-07-23T19:00:00-08:00">
+    July 23, 2015
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2015/07/23/imo201506%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p>Working on Problem 6 of <a class="reference external" href="https://www.imo-official.org/">IMO</a> 2015 was like playing a game. It is interesting in the sense that not too much advanced skill is required, but the involved visual thinking and the pursuit of the nature of seemingly simple yet complicated things made the experience enjoyable.</p>
+<p>The problem is:</p>
+<p>The sequence <span class="formula"><i>a</i><sub>1</sub>, <i>a</i><sub>2</sub>, …</span> of integers satisfies the following conditions:</p>
+<ol class="lowerroman simple">
+<li><span class="formula">1 ≤ <i>a</i><sub><i>j</i></sub> ≤ 2015</span> for <span class="formula"><i>j</i> ≥ 1</span></li>
+<li><span class="formula"><i>k</i> + <i>a</i><sub><i>k</i></sub> ≠ <i>l</i> + <i>a</i><sub><i>l</i></sub></span> for all <span class="formula">1 ≤ <i>k</i> &lt; <i>l</i></span></li>
+</ol>
+<p>Prove that there exist two positive integers <span class="formula"><i>b</i></span> and <span class="formula"><i>N</i></span> such that</p>
+<p><span class="formula">|<span class="limits"><span class="limit">∑</span></span><span class="scripts"><sup class="script"><i>n</i></sup><sub class="script"><i>j</i> = <i>m</i> + 1</sub></span>(<i>a</i><sub><i>j</i></sub> − <i>b</i>)| ≤ 1007<sup>2</sup></span></p>
+<p>for all integers <span class="formula"><i>m</i></span> and <span class="formula"><i>n</i></span> satisfying <span class="formula"><i>n</i> &gt; <i>m</i> ≥ <i>N</i></span></p>
+<hr class="docutils" />
+<p>Imagine an infinite number of columns numbered <span class="formula">1, 2, …</span> from the left, each divided into <span class="formula"><i>d</i> = 2015</span> cells numbered <span class="formula">1, 2, 3, …<i>d</i></span> from bottom to top. By (1) and (2), starting from column 1 we are to sequentially select and mark one cell in each column with 'o', and then cross out its diagonal cells with 'x' in the columns to the right. For an example with <span class="formula"><i>d</i> = 5</span> where the first 4 columns are finished:</p>
+<p>__o___</p>
+<p>o__x__</p>
+<p>_x__x_</p>
+<p>_oxo_x</p>
+<p>__xxx_</p>
+<p>Intuitively, the statement to be proved essentially says that the sequence, i.e. the heights of &quot;o&quot; marks, will always stabilizes at some point <span class="formula"><i>N</i></span>, meaning that after column <span class="formula"><i>N</i></span> the average height within any window of consecutive columns will not differ too much from a constant <span class="formula"><i>b</i></span>.</p>
+<div class="section" id="proof">
+<h2>Proof</h2>
+<p>I first played with the columns consisting of cells above for some time trying to find useful patterns of selected cells but found nothing. However after a while I was led to something unexpected.  Consider sequence <span class="formula"><i>c</i><sub><i>i</i></sub></span>, the number of cells not crossed out at column <span class="formula"><i>i</i></span> when column <span class="formula"><i>i</i></span> - 1 is finished. Clearly <span class="formula"><i>c</i><sub><i>i</i></sub> ≥ 1</span> because cell <span class="formula"><i>d</i></span> is never crossed out. Note that sequence <span class="formula"><i>c</i><sub><i>i</i></sub></span> never increases, and it decreases if and only if cell 1 is not selected when it's available!</p>
+<p>Because <span class="formula"><i>c</i><sub><i>i</i></sub></span> can only decrease and yet lower bounded, it stays at some constant <span class="formula"><i>d</i> − <i>k</i></span> after some point <span class="formula"><i>N</i></span>, i.e.</p>
+<p><span class="formula"><i>c</i><sub><i>i</i></sub> = <i>d</i> − <i>k</i></span> for all <span class="formula"><i>i</i> ≥ <i>N</i> + 1</span></p>
+<p><span class="formula">1 ≤ <i>k</i> ≤ <i>d</i> − 1</span></p>
+<p>Here <span class="formula"><i>k</i></span> is the number of crossed out cells in each column when it is being considered. <span class="formula"><i>k</i> = 0</span> is the trivial case where all <span class="formula"><i>a</i><sub><i>i</i></sub> = 1</span> from the beginning of the sequence.</p>
+<p>From now on we only consider columns after <span class="formula"><i>N</i></span>. Since sequence <span class="formula"><i>c</i><sub><i>i</i></sub></span> stays constant, if cell 1 is available when we want to select a cell from a column, it must be selected.  Now think about diagonals. A diagonal <span class="formula"><i>D</i></span> is defined as the set of cells such that <span class="formula"><i>i</i> + <i>a</i><sub><i>i</i></sub> = <i>D</i></span>. From (2), there can only be at most one cell marked per diagonal. We say a diagonal is marked if one of its cells is. Now, when we are forced to select cell 1 in column <span class="formula"><i>i</i></span>, this is the last chance that any cell in diagonal <span class="formula"><i>i</i> + 1</span> gets marked. This means that no diagonals starting from diagonal <span class="formula"><i>N</i> + 2</span> will be left unmarked permanently, because if there's any permanently unmarked diagonal <span class="formula"><i>y</i> ≥ <i>N</i> + 2</span>, it should've been marked as we see column <span class="formula"><i>y</i> − 1 ≥ <i>N</i> + 1</span>.</p>
+<p>Consider any consecutive columns from <span class="formula"><i>m</i> + 1</span> to <span class="formula"><i>n</i></span> where <span class="formula"><i>m</i> + 1 ≥ <i>N</i> + 1</span>. At column <span class="formula"><i>m</i> + 1</span>, there are already <span class="formula"><i>k</i></span> cells crossed out. Let's say they're in diagonals <span class="formula"><i>y</i><sub>1</sub>, <i>y</i><sub>2</sub>, …, <i>y</i><sub><i>k</i></sub></span> where all <span class="formula"><i>y</i><sub><i>i</i></sub></span> are between <span class="formula"><i>m</i> + 2</span> and <span class="formula"><i>m</i> + <i>d</i></span> (<span class="formula"><i>m</i> + 1 + <i>d</i></span> can never be marked when column <span class="formula"><i>m</i></span> is finished).  As we finish column <span class="formula"><i>n</i></span>, diagonal <span class="formula"><i>n</i> + 1</span> is already marked, and so is diagonal <span class="formula"><i>n</i>, <i>n</i> − 1…</span> etc. Therefore, all diagonals in <span class="formula">[<i>m</i> + 2, <i>n</i> + 1]</span> are marked at this point, plus <span class="formula"><i>k</i></span> more in <span class="formula">[<i>n</i> + 2, <i>n</i> + <i>d</i>]</span>, which we denote by <span class="formula"><i>z</i><sub>1</sub>, <i>z</i><sub>2</sub>, …, <i>z</i><sub><i>k</i></sub></span>.</p>
+<p>Finally, since <span class="formula"><i>a</i><sub><i>i</i></sub> = <i>D</i><sub><i>i</i></sub> − <i>i</i></span> where <span class="formula"><i>D</i><sub><i>i</i></sub></span> is the diagonal index of the
+selected cell in column <span class="formula"><i>i</i></span>, we can do substitution:</p>
+<p><span class="formula"><span class="limits"><span class="limit">∑</span></span><span class="scripts"><sup class="script"><i>n</i></sup><sub class="script"><i>j</i> = <i>m</i> + 1</sub></span>(<i>a</i><sub><i>j</i></sub> − <i>b</i>)<br/> = <span class="limits"><span class="limit">∑</span></span><span class="scripts"><sup class="script"><i>n</i></sup><sub class="script"><i>j</i> = <i>m</i> + 1</sub></span>(<i>D</i><sub><i>j</i></sub> − <i>j</i> − <i>b</i>)<br/> = <span class="limits"><span class="limit">∑</span></span><span class="scripts"><sup class="script"><i>n</i> + 1</sup><sub class="script"><i>j</i> = <i>m</i> + 2</sub></span><i>j</i> − <span class="limits"><span class="limit">∑</span></span><span class="scripts"><sup class="script"><i>n</i></sup><sub class="script"><i>j</i> = <i>m</i> + 1</sub></span>(<i>j</i> + <i>b</i>) + <i>z</i><sub>1</sub> − <i>y</i><sub>1</sub> + <i>z</i><sub>2</sub> − <i>y</i><sub>2</sub> + … + <i>z</i><sub><i>k</i></sub> − <i>y</i><sub><i>k</i></sub><br/> = (<i>n</i> − <i>m</i>)(1 − <i>b</i>) + <i>z</i><sub>1</sub> − <i>y</i><sub>1</sub> + <i>z</i><sub>2</sub> − <i>y</i><sub>2</sub> + … + <i>z</i><sub><i>k</i></sub> − <i>y</i><sub><i>k</i></sub></span></p>
+<p>Note that</p>
+<p><span class="formula">(<i>m</i> + 2) + … + (<i>m</i> + 1 + <i>k</i>) ≤ <span class="limits"><span class="limit">∑</span></span><span class="scripts"><sup class="script"><i>k</i></sup><sub class="script"><i>i</i> = 1</sub></span><i>y</i><sub><i>i</i></sub> ≤ (<i>m</i> + <i>d</i> − <i>k</i> + 1) + … + (<i>m</i> + <i>d</i>)<br/><br/>(<i>n</i> + 2) + … + (<i>n</i> + 1 + <i>k</i>) ≤ <span class="limits"><span class="limit">∑</span></span><span class="scripts"><sup class="script"><i>k</i></sup><sub class="script"><i>i</i> = 1</sub></span><i>z</i><sub><i>i</i></sub> ≤ (<i>n</i> + <i>d</i> − <i>k</i> + 1) + … + (<i>n</i> + <i>d</i>)</span></p>
+<p>So the quantity of interest lies in <span class="formula">[(<i>n</i> − <i>m</i>)(1 − <i>b</i>) + (<i>n</i> − <i>m</i> − <i>d</i> + <i>k</i> + 1)<i>k</i>, (<i>n</i> − <i>m</i>)(1 − <i>b</i>) + (<i>n</i> − <i>m</i> + <i>d</i> − <i>k</i> − 1)<i>k</i>]</span></p>
+<p>Let <span class="formula"><i>b</i> = <i>k</i> + 1</span>, these bounds become <span class="formula">(<i>k</i> − (<i>d</i> − 1))<i>k</i></span> and <span class="formula">(<i>d</i> − 1 − <i>k</i>)<i>k</i></span>, whose absolute values are bounded by <span class="formula">(<i>d</i> − 1)<sup>2</sup> ⁄ 4</span> for an odd <span class="formula"><i>d</i></span>.</p>
+<p>Q.E.D.</p>
+<p>The result <span class="formula"><i>b</i> = <i>k</i> + 1</span> also aligns well with intuition. For large <span class="formula"><i>k</i></span>, many lower cells tend to be crossed out and we inevitably have to select a high one. With a small <span class="formula"><i>k</i></span>, we could not pick too many high cells because cell 1 has to be marked whenever it's available.</p>
+<hr class="docutils" />
+<p><a class="reference external" href="http://oathbystyx.blogspot.com/2015/07/2015-imo-6.html">post</a>
+by
+<a class="reference external" href="/pages/shen-fu-tsai.html">Shen-Fu Tsai</a></p>
+<hr class="docutils" />
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id1" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td><a class="reference external" href="https://www.imo-official.org/">International Mathematical Olympiad</a></td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/shen-fu-tsai.html">Shen-Fu Tsai</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/math.html">Math</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/math.html">Math</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

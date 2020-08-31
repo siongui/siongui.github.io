@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>[Golang] Web Scrape Facebook Post via goquery</title>
+  <meta name="keywords" content="Go,Golang,goquery,Web Scrape,html,DOM,Go strconv Package,Go strings Package,CSS selectors"/>
+  <meta name="description" content="Fetch and parse a public post on Facebook and extract data via goquery in Go programming language."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="[Golang] Web Scrape Facebook Post via goquery" /><meta property="og:image" content="https://jonathanmh.com/wp-content/uploads/2016/10/web-scraping-web-crawling-golang-go-goquery-825x371.png" />
+<meta property="og:description" content="Fetch and parse a public post on Facebook and extract data via goquery in Go programming language." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2017/02/17/go-parse-facebook-post-via-goquery/"
+           rel="bookmark"
+           title="Permalink to [Golang] Web Scrape Facebook Post via goquery">
+          [Golang] Web Scrape Facebook Post via goquery
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2017-02-17T21:53:00+08:00">
+    February 17, 2017
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2017/02/17/go-parse-facebook-post-via-goquery%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><div class="section" id="introduction">
+<h2>Introduction</h2>
+<p>When it comes to web scraping, people usually thinks of <a class="reference external" href="https://www.python.org/">Python</a>. There are a lot
+of powerful libraries and tools for web scraping and html parsing in <a class="reference external" href="https://www.python.org/">Python</a>
+ecosystem, but <a class="reference external" href="https://golang.org/">Go</a> is catching up too. Here we will show how to extract data
+from a public <a class="reference external" href="https://www.facebook.com/">Facebook</a> post via <a class="reference external" href="https://golang.org/">Golang</a> and <a class="reference external" href="https://github.com/PuerkitoBio/goquery">goquery</a>, which is similar to
+<a class="reference external" href="https://www.google.com/search?q=JavaScript">JavaScript</a> <a class="reference external" href="https://jquery.com/">jQuery</a> for html parsing.</p>
+<p>We will us this <a class="reference external" href="https://www.facebook.com/jayasaro.panyaprateep.org/posts/1095007907274561:0">Facebook post</a> as example and shows how to extract data from
+it. Remember that Facebook serves different HTML contents depending on whether
+users are logged in or not. Here we fetch and parse only public posts, so login
+is not required. If you view source of the <a class="reference external" href="https://www.facebook.com/jayasaro.panyaprateep.org/posts/1095007907274561:0">Facebook post</a>, remember to logout
+all Facebook account, so that you will not be overwhelmed by too much HTML code.</p>
+<p>The following are steps for web scraping:</p>
+<blockquote>
+<ol class="arabic simple">
+<li>Get the part of HTML which contains the <a class="reference external" href="https://www.facebook.com/jayasaro.panyaprateep.org/posts/1095007907274561:0">Facebook post</a>.</li>
+<li>Get timestamp of the post</li>
+<li>Get profile link of the post</li>
+<li>Get image url of the post</li>
+<li>Get content of the post</li>
+</ol>
+</blockquote>
+
+</div>
+<div class="section" id="extract-html-string-of-post">
+<h2>Extract HTML String of Post</h2>
+<p>First we need to get the part of HTML which contains the <a class="reference external" href="https://www.facebook.com/jayasaro.panyaprateep.org/posts/1095007907274561:0">Facebook post</a>. After
+checking the source of the post, I found that the part of HTML containing the
+post looks like the following without login:</p>
+<div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;hidden_elem&quot;</span><span class="p">&gt;&lt;</span><span class="nt">code</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;u_0_f&quot;</span><span class="p">&gt;</span><span class="c">&lt;!-- {{POST_HTML}} --&gt;</span><span class="p">&lt;/</span><span class="nt">code</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</pre></div>
+<p>It's embedded as a comment and used by <a class="reference external" href="https://www.google.com/search?q=JavaScript">JavaScript</a>. The following code can
+extract <em>{{POST_HTML}}</em>:</p>
+<figure class="github-file">
+            <figcaption>
+              <a href="https://github.com/siongui/userpages/blob/master/content/code/go/scrape-facebook-post/fb.go">fb.go</a> |
+              <a href="https://github.com/siongui/userpages">repository</a> |
+              <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/code/go/scrape-facebook-post/fb.go">view raw</a>
+            </figcaption><div class="code-file">
+            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">parsefb</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+	<span class="s">&quot;github.com/PuerkitoBio/goquery&quot;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nx">Parse</span><span class="p">(</span><span class="nx">url</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="kt">string</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">doc</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">goquery</span><span class="p">.</span><span class="nx">NewDocument</span><span class="p">(</span><span class="nx">url</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="s">&quot;&quot;</span><span class="p">,</span> <span class="nx">err</span>
+	<span class="p">}</span>
+
+	<span class="nx">s</span> <span class="o">:=</span> <span class="nx">doc</span><span class="p">.</span><span class="nx">Find</span><span class="p">(</span><span class="s">&quot;div.hidden_elem &gt; code&quot;</span><span class="p">).</span><span class="nx">First</span><span class="p">()</span>
+	<span class="nx">cmt</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">s</span><span class="p">.</span><span class="nx">Html</span><span class="p">()</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="s">&quot;&quot;</span><span class="p">,</span> <span class="nx">err</span>
+	<span class="p">}</span>
+	<span class="nx">postHtml</span> <span class="o">:=</span> <span class="nx">cmt</span><span class="p">[</span><span class="mi">5</span> <span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="nx">cmt</span><span class="p">)</span><span class="o">-</span><span class="mi">4</span><span class="p">]</span>
+	<span class="k">return</span> <span class="nx">postHtml</span><span class="p">,</span> <span class="kc">nil</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div></figure><p>We can use <a class="reference external" href="https://github.com/PuerkitoBio/goquery">goquery</a> <a class="reference external" href="https://godoc.org/github.com/PuerkitoBio/goquery#Selection.Find">Find</a> function with <a class="reference external" href="https://www.google.com/search?q=CSS+selector">CSS selector</a>
+<strong>div.hidden_elem &gt; code</strong>. There will be two elements match the above selector,
+the post is in first matched element, so we use <a class="reference external" href="https://godoc.org/github.com/PuerkitoBio/goquery#Selection.First">First</a> function to get the first
+matched element. Retrieve the <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/API/Element/innerHTML">innerHTML</a> of the first matched element by <a class="reference external" href="https://godoc.org/github.com/PuerkitoBio/goquery#Selection.Html">Html</a>
+function, and remove the leading and trailing arrows of comments, and return the
+HTML string of the post.</p>
+
+</div>
+<div class="section" id="post-timestamp">
+<h2>Post Timestamp</h2>
+<p>Now given the HTML string of post, next step is to get the timestamp of the
+post. Again we look at the HTML string of the post, we find that the time is
+embedded in the following HTML element:</p>
+<div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">abbr</span> <span class="na">title</span><span class="o">=</span><span class="s">&quot;Wednesday, February 15, 2017 at 7:00am&quot;</span> <span class="na">data-utime</span><span class="o">=</span><span class="s">&quot;1487113202&quot;</span> <span class="na">data-shorten</span><span class="o">=</span><span class="s">&quot;1&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;_5ptz&quot;</span><span class="p">&gt;&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;timestampContent&quot;</span><span class="p">&gt;</span>Yesterday at 7:00am<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;/</span><span class="nt">abbr</span><span class="p">&gt;</span>
+</pre></div>
+<p>We can use the following code to extract the utime and convert it to
+human-readable form:</p>
+<figure class="github-file">
+            <figcaption>
+              <a href="https://github.com/siongui/userpages/blob/master/content/code/go/scrape-facebook-post/time.go">time.go</a> |
+              <a href="https://github.com/siongui/userpages">repository</a> |
+              <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/code/go/scrape-facebook-post/time.go">view raw</a>
+            </figcaption><div class="code-file">
+            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">parsefb</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+	<span class="s">&quot;errors&quot;</span>
+	<span class="s">&quot;github.com/PuerkitoBio/goquery&quot;</span>
+	<span class="s">&quot;strconv&quot;</span>
+	<span class="s">&quot;strings&quot;</span>
+	<span class="s">&quot;time&quot;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nx">ParseTimeStamp</span><span class="p">(</span><span class="nx">utime</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="kt">string</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">i</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">strconv</span><span class="p">.</span><span class="nx">ParseInt</span><span class="p">(</span><span class="nx">utime</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">64</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="s">&quot;&quot;</span><span class="p">,</span> <span class="nx">err</span>
+	<span class="p">}</span>
+	<span class="nx">t</span> <span class="o">:=</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Unix</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+	<span class="k">return</span> <span class="nx">t</span><span class="p">.</span><span class="nx">Format</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">RFC3339</span><span class="p">),</span> <span class="kc">nil</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nx">GetTimeStamp</span><span class="p">(</span><span class="nx">postHtml</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="kt">string</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">doc</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">goquery</span><span class="p">.</span><span class="nx">NewDocumentFromReader</span><span class="p">(</span><span class="nx">strings</span><span class="p">.</span><span class="nx">NewReader</span><span class="p">(</span><span class="nx">postHtml</span><span class="p">))</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="s">&quot;&quot;</span><span class="p">,</span> <span class="nx">err</span>
+	<span class="p">}</span>
+
+	<span class="nx">s</span> <span class="o">:=</span> <span class="nx">doc</span><span class="p">.</span><span class="nx">Find</span><span class="p">(</span><span class="s">&quot;abbr._5ptz&quot;</span><span class="p">).</span><span class="nx">First</span><span class="p">()</span>
+	<span class="nx">utime</span><span class="p">,</span> <span class="nx">ok</span> <span class="o">:=</span> <span class="nx">s</span><span class="p">.</span><span class="nx">Attr</span><span class="p">(</span><span class="s">&quot;data-utime&quot;</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">ok</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="nx">ParseTimeStamp</span><span class="p">(</span><span class="nx">utime</span><span class="p">)</span>
+	<span class="p">}</span>
+
+	<span class="k">return</span> <span class="s">&quot;&quot;</span><span class="p">,</span> <span class="nx">errors</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="s">&quot;cannot find timestamp&quot;</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div></figure><p>See <a class="reference external" href="/2017/02/16/go-parse-utime-timestamp/">my post for parsing Unix time</a> <a class="footnote-reference" href="#id5" id="id1">[4]</a> for more details.</p>
+
+</div>
+<div class="section" id="post-profile-link">
+<h2>Post Profile Link</h2>
+<p>Get the name and url of the user of the post.</p>
+<figure class="github-file">
+            <figcaption>
+              <a href="https://github.com/siongui/userpages/blob/master/content/code/go/scrape-facebook-post/profilelink.go">profilelink.go</a> |
+              <a href="https://github.com/siongui/userpages">repository</a> |
+              <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/code/go/scrape-facebook-post/profilelink.go">view raw</a>
+            </figcaption><div class="code-file">
+            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">parsefb</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+	<span class="s">&quot;errors&quot;</span>
+	<span class="s">&quot;github.com/PuerkitoBio/goquery&quot;</span>
+	<span class="s">&quot;strings&quot;</span>
+<span class="p">)</span>
+
+<span class="kd">type</span> <span class="nx">ProfileLink</span> <span class="kd">struct</span> <span class="p">{</span>
+	<span class="nx">Name</span> <span class="kt">string</span>
+	<span class="nx">Url</span>  <span class="kt">string</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nx">GetProfileLink</span><span class="p">(</span><span class="nx">postHtml</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="o">*</span><span class="nx">ProfileLink</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">doc</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">goquery</span><span class="p">.</span><span class="nx">NewDocumentFromReader</span><span class="p">(</span><span class="nx">strings</span><span class="p">.</span><span class="nx">NewReader</span><span class="p">(</span><span class="nx">postHtml</span><span class="p">))</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="kc">nil</span><span class="p">,</span> <span class="nx">err</span>
+	<span class="p">}</span>
+
+	<span class="nx">s</span> <span class="o">:=</span> <span class="nx">doc</span><span class="p">.</span><span class="nx">Find</span><span class="p">(</span><span class="s">&quot;a.profileLink&quot;</span><span class="p">).</span><span class="nx">First</span><span class="p">()</span>
+	<span class="k">if</span> <span class="nx">s</span><span class="p">.</span><span class="nx">Length</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+		<span class="nx">s</span> <span class="p">=</span> <span class="nx">doc</span><span class="p">.</span><span class="nx">Find</span><span class="p">(</span><span class="s">&quot;span.fwb.fcg &gt; a&quot;</span><span class="p">).</span><span class="nx">First</span><span class="p">()</span>
+	<span class="p">}</span>
+
+	<span class="nx">pl</span> <span class="o">:=</span> <span class="nx">ProfileLink</span><span class="p">{}</span>
+
+	<span class="nx">pl</span><span class="p">.</span><span class="nx">Name</span> <span class="p">=</span> <span class="nx">s</span><span class="p">.</span><span class="nx">Text</span><span class="p">()</span>
+	<span class="k">if</span> <span class="nx">pl</span><span class="p">.</span><span class="nx">Name</span> <span class="o">==</span> <span class="s">&quot;&quot;</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="kc">nil</span><span class="p">,</span> <span class="nx">errors</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="s">&quot;cannot find name of profile link&quot;</span><span class="p">)</span>
+	<span class="p">}</span>
+
+	<span class="nx">url</span><span class="p">,</span> <span class="nx">ok</span> <span class="o">:=</span> <span class="nx">s</span><span class="p">.</span><span class="nx">Attr</span><span class="p">(</span><span class="s">&quot;href&quot;</span><span class="p">)</span>
+	<span class="k">if</span> <span class="p">!</span><span class="nx">ok</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="kc">nil</span><span class="p">,</span> <span class="nx">errors</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="s">&quot;cannot find url of profile link&quot;</span><span class="p">)</span>
+	<span class="p">}</span>
+	<span class="nx">pl</span><span class="p">.</span><span class="nx">Url</span> <span class="p">=</span> <span class="nx">url</span>
+
+	<span class="k">return</span> <span class="o">&amp;</span><span class="nx">pl</span><span class="p">,</span> <span class="kc">nil</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div></figure><p>The logic in above code is the same. Just find the element which contains the
+data you are looking for, and use correct <a class="reference external" href="https://www.google.com/search?q=CSS+selector">CSS selector</a> to get the element we
+need.</p>
+
+</div>
+<div class="section" id="post-image">
+<h2>Post Image</h2>
+<p>Retrieve the URL of the image of the post:</p>
+<figure class="github-file">
+            <figcaption>
+              <a href="https://github.com/siongui/userpages/blob/master/content/code/go/scrape-facebook-post/image.go">image.go</a> |
+              <a href="https://github.com/siongui/userpages">repository</a> |
+              <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/code/go/scrape-facebook-post/image.go">view raw</a>
+            </figcaption><div class="code-file">
+            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">parsefb</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+	<span class="s">&quot;errors&quot;</span>
+	<span class="s">&quot;github.com/PuerkitoBio/goquery&quot;</span>
+	<span class="s">&quot;strings&quot;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nx">GetImageUrl</span><span class="p">(</span><span class="nx">postHtml</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="kt">string</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">doc</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">goquery</span><span class="p">.</span><span class="nx">NewDocumentFromReader</span><span class="p">(</span><span class="nx">strings</span><span class="p">.</span><span class="nx">NewReader</span><span class="p">(</span><span class="nx">postHtml</span><span class="p">))</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="s">&quot;&quot;</span><span class="p">,</span> <span class="nx">err</span>
+	<span class="p">}</span>
+
+	<span class="nx">s</span> <span class="o">:=</span> <span class="nx">doc</span><span class="p">.</span><span class="nx">Find</span><span class="p">(</span><span class="s">&quot;img.scaledImageFitHeight&quot;</span><span class="p">).</span><span class="nx">First</span><span class="p">()</span>
+	<span class="k">if</span> <span class="nx">s</span><span class="p">.</span><span class="nx">Length</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+		<span class="nx">s</span> <span class="p">=</span> <span class="nx">doc</span><span class="p">.</span><span class="nx">Find</span><span class="p">(</span><span class="s">&quot;img.scaledImageFitWidth&quot;</span><span class="p">).</span><span class="nx">First</span><span class="p">()</span>
+	<span class="p">}</span>
+
+	<span class="nx">url</span><span class="p">,</span> <span class="nx">ok</span> <span class="o">:=</span> <span class="nx">s</span><span class="p">.</span><span class="nx">Attr</span><span class="p">(</span><span class="s">&quot;src&quot;</span><span class="p">)</span>
+	<span class="k">if</span> <span class="p">!</span><span class="nx">ok</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="s">&quot;&quot;</span><span class="p">,</span> <span class="nx">errors</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="s">&quot;cannot find image url&quot;</span><span class="p">)</span>
+	<span class="p">}</span>
+
+	<span class="k">return</span> <span class="nx">url</span><span class="p">,</span> <span class="kc">nil</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div></figure></div>
+<div class="section" id="post-content">
+<h2>Post Content</h2>
+<p>Get the content of the post:</p>
+<figure class="github-file">
+            <figcaption>
+              <a href="https://github.com/siongui/userpages/blob/master/content/code/go/scrape-facebook-post/content.go">content.go</a> |
+              <a href="https://github.com/siongui/userpages">repository</a> |
+              <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/code/go/scrape-facebook-post/content.go">view raw</a>
+            </figcaption><div class="code-file">
+            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">parsefb</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+	<span class="s">&quot;github.com/PuerkitoBio/goquery&quot;</span>
+	<span class="s">&quot;strings&quot;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nx">GetContent</span><span class="p">(</span><span class="nx">postHtml</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="kt">string</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">doc</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">goquery</span><span class="p">.</span><span class="nx">NewDocumentFromReader</span><span class="p">(</span><span class="nx">strings</span><span class="p">.</span><span class="nx">NewReader</span><span class="p">(</span><span class="nx">postHtml</span><span class="p">))</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="s">&quot;&quot;</span><span class="p">,</span> <span class="nx">err</span>
+	<span class="p">}</span>
+
+	<span class="nx">s</span> <span class="o">:=</span> <span class="nx">doc</span><span class="p">.</span><span class="nx">Find</span><span class="p">(</span><span class="s">&quot;div._5pbx.userContent&quot;</span><span class="p">).</span><span class="nx">First</span><span class="p">()</span>
+	<span class="k">if</span> <span class="nx">s</span><span class="p">.</span><span class="nx">Length</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="s">&quot;no content&quot;</span><span class="p">,</span> <span class="kc">nil</span>
+	<span class="p">}</span>
+
+	<span class="nx">content</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">s</span><span class="p">.</span><span class="nx">Html</span><span class="p">()</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="s">&quot;&quot;</span><span class="p">,</span> <span class="nx">err</span>
+	<span class="p">}</span>
+
+	<span class="k">return</span> <span class="nx">content</span><span class="p">,</span> <span class="kc">nil</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div></figure></div>
+<div class="section" id="summary">
+<h2>Summary</h2>
+<p>Use all the above code to extract data from post:</p>
+<figure class="github-file">
+            <figcaption>
+              <a href="https://github.com/siongui/userpages/blob/master/content/code/go/scrape-facebook-post/fb_test.go">fb_test.go</a> |
+              <a href="https://github.com/siongui/userpages">repository</a> |
+              <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/code/go/scrape-facebook-post/fb_test.go">view raw</a>
+            </figcaption><div class="code-file">
+            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">parsefb</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+	<span class="s">&quot;testing&quot;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nx">TestParse</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">url</span> <span class="o">:=</span> <span class="s">&quot;https://www.facebook.com/jayasaro.panyaprateep.org/posts/1095007907274561:0&quot;</span>
+	<span class="nx">postHtml</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">Parse</span><span class="p">(</span><span class="nx">url</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nx">t</span><span class="p">.</span><span class="nx">Error</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+		<span class="k">return</span>
+	<span class="p">}</span>
+	<span class="nx">t</span><span class="p">.</span><span class="nx">Log</span><span class="p">(</span><span class="nx">postHtml</span><span class="p">)</span>
+
+	<span class="nx">timestamp</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">GetTimeStamp</span><span class="p">(</span><span class="nx">postHtml</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nx">t</span><span class="p">.</span><span class="nx">Error</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+		<span class="k">return</span>
+	<span class="p">}</span>
+	<span class="nx">t</span><span class="p">.</span><span class="nx">Log</span><span class="p">(</span><span class="nx">timestamp</span><span class="p">)</span>
+
+	<span class="nx">pl</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">GetProfileLink</span><span class="p">(</span><span class="nx">postHtml</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nx">t</span><span class="p">.</span><span class="nx">Error</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+		<span class="k">return</span>
+	<span class="p">}</span>
+	<span class="nx">t</span><span class="p">.</span><span class="nx">Log</span><span class="p">(</span><span class="nx">pl</span><span class="p">.</span><span class="nx">Name</span><span class="p">)</span>
+	<span class="nx">t</span><span class="p">.</span><span class="nx">Log</span><span class="p">(</span><span class="nx">pl</span><span class="p">.</span><span class="nx">Url</span><span class="p">)</span>
+
+	<span class="nx">imgurl</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">GetImageUrl</span><span class="p">(</span><span class="nx">postHtml</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nx">t</span><span class="p">.</span><span class="nx">Error</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+		<span class="k">return</span>
+	<span class="p">}</span>
+	<span class="nx">t</span><span class="p">.</span><span class="nx">Log</span><span class="p">(</span><span class="nx">imgurl</span><span class="p">)</span>
+
+	<span class="nx">content</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">GetContent</span><span class="p">(</span><span class="nx">postHtml</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nx">t</span><span class="p">.</span><span class="nx">Error</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+		<span class="k">return</span>
+	<span class="p">}</span>
+	<span class="nx">t</span><span class="p">.</span><span class="nx">Log</span><span class="p">(</span><span class="nx">content</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div></figure><hr class="docutils" />
+<p>Tested on: <tt class="docutils literal">Ubuntu Linux 16.10</tt>, <tt class="docutils literal">Go 1.8</tt>.</p>
+<hr class="docutils" />
+
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td><a class="reference external" href="https://github.com/PuerkitoBio/goquery">GitHub - PuerkitoBio/goquery: A little like that j-thing, only in Go.</a> <a class="reference external" href="https://godoc.org/github.com/PuerkitoBio/goquery"><img alt="godoc" src="https://godoc.org/github.com/PuerkitoBio/goquery?status.png" /></a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[2]</td><td><a class="reference external" href="https://github.com/PuerkitoBio/goquery/wiki/Tips-and-tricks">Tips and tricks · PuerkitoBio/goquery Wiki · GitHub</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[3]</td><td><a class="reference external" href="/2017/02/15/goquery-querySelector-golang/">goquery querySelector</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id5" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[4]</a></td><td><a class="reference external" href="/2017/02/16/go-parse-utime-timestamp/">[Golang] Parse Unix Time (utime) Example</a></td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/go.html">Go</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/go.html">Go</a>
+,       <a href="/tag/golang.html">Golang</a>
+,       <a href="/tag/goquery.html">goquery</a>
+,       <a href="/tag/web-scrape.html">Web Scrape</a>
+,       <a href="/tag/html.html">html</a>
+,       <a href="/tag/dom.html">DOM</a>
+,       <a href="/tag/go-strconv-package.html">Go strconv Package</a>
+,       <a href="/tag/go-strings-package.html">Go strings Package</a>
+,       <a href="/tag/css-selectors.html">CSS selectors</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

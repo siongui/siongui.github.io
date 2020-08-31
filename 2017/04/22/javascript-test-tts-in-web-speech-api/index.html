@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>[JavaScript] Test Text-to-Speech in Web Speech API</title>
+  <meta name="keywords" content="html,JavaScript,Web Speech API"/>
+  <meta name="description" content="Test Text-to-Speech feature in Web Speech API. Not working in Chromium 57, but OK in Firefox 53."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="[JavaScript] Test Text-to-Speech in Web Speech API" /><meta property="og:image" content="https://sfault-image.b0.upaiyun.com/308/919/3089192407-5714f6f1a0abe" />
+<meta property="og:description" content="Test Text-to-Speech feature in Web Speech API. Not working in Chromium 57, but OK in Firefox 53." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2017/04/22/javascript-test-tts-in-web-speech-api/"
+           rel="bookmark"
+           title="Permalink to [JavaScript] Test Text-to-Speech in Web Speech API">
+          [JavaScript] Test Text-to-Speech in Web Speech API
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2017-04-22T10:49:00+08:00">
+    April 22, 2017
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2017/04/22/javascript-test-tts-in-web-speech-api%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p>Test Text-to-Speech (TTS) feature in <a class="reference external" href="https://www.google.com/search?q=Web+Speech+API">Web Speech API</a>. Not working in Chromium
+57, but working in Firefox 53 (both running on Ubuntu Linux 17.04).</p>
+<div style="padding: 2em; background-color: Azure; padding: 5px;">
+
+<input type="text" value="hello world" id="text">
+<button type="button" id="tts">Text to Speech</button>
+
+</div>
+<script>
+
+var input = document.querySelector("#text");
+var tts = document.querySelector("#tts");
+
+tts.addEventListener("click", function(e) {
+  var text = new SpeechSynthesisUtterance(input.value);
+  window.speechSynthesis.speak(text);
+});
+
+</script><p><strong>HTML</strong>:</p>
+<div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text&quot;</span> <span class="na">value</span><span class="o">=</span><span class="s">&quot;hello world&quot;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;text&quot;</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">button</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;button&quot;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;tts&quot;</span><span class="p">&gt;</span>Text to Speech<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+</pre></div>
+<p><strong>JavaScript</strong>:</p>
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">input</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&quot;#text&quot;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">tts</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&quot;#tts&quot;</span><span class="p">);</span>
+
+<span class="nx">tts</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;click&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">text</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">SpeechSynthesisUtterance</span><span class="p">(</span><span class="nx">input</span><span class="p">.</span><span class="nx">value</span><span class="p">);</span>
+  <span class="nb">window</span><span class="p">.</span><span class="nx">speechSynthesis</span><span class="p">.</span><span class="nx">speak</span><span class="p">(</span><span class="nx">text</span><span class="p">);</span>
+<span class="p">});</span>
+</pre></div>
+
+<hr class="docutils" />
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id1" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td><a class="reference external" href="http://stackoverflow.com/questions/15653145/using-google-text-to-speech-in-javascript">Using Google Text-To-Speech in Javascript - Stack Overflow</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[2]</td><td><a class="reference external" href="https://developers.google.com/web/updates/2014/01/Web-apps-that-talk-Introduction-to-the-Speech-Synthesis-API">Web apps that talk - Introduction to the Speech Synthesis API &nbsp;|&nbsp; Web &nbsp;|&nbsp; Google Developers</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[3]</td><td><a class="reference external" href="http://stackoverflow.com/questions/36052774/web-speech-api-not-working-currently-in-chromium-electron-nw-js">javascript - Web speech api not working currently in chromium / electron / nw js? - Stack Overflow</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[4]</td><td><div class="first last line-block">
+<div class="line"><a class="reference external" href="https://segmentfault.com/a/1190000004963610">使用 JavaScript 进行单词发音 Use JavaScript to Speech Your Text  - 静逸秋水の专栏 - SegmentFault</a></div>
+<div class="line"><a class="reference external" href="http://web.jobbole.com/91132/">使用 JavaScript 进行单词发音 - WEB前端 - 伯乐在线</a></div>
+</div>
+</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id5" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[5]</td><td><div class="first last line-block">
+<div class="line"><a class="reference external" href="https://www.google.com/search?q=Web+Speech+API">Web Speech API - Google search</a></div>
+<div class="line"><a class="reference external" href="https://duckduckgo.com/?q=Web+Speech+API">Web Speech API - DuckDuckGo search</a></div>
+<div class="line"><a class="reference external" href="https://www.ecosia.org/search?q=Web+Speech+API">Web Speech API - Ecosia search</a></div>
+<div class="line"><a class="reference external" href="https://www.qwant.com/?q=Web+Speech+API">Web Speech API - Qwant search</a></div>
+<div class="line"><a class="reference external" href="https://www.bing.com/search?q=Web+Speech+API">Web Speech API - Bing search</a></div>
+<div class="line"><a class="reference external" href="https://search.yahoo.com/search?p=Web+Speech+API">Web Speech API - Yahoo search</a></div>
+<div class="line"><a class="reference external" href="https://www.baidu.com/s?wd=Web+Speech+API">Web Speech API - Baidu search</a></div>
+<div class="line"><a class="reference external" href="https://www.yandex.com/search/?text=Web+Speech+API">Web Speech API - Yandex search</a></div>
+</div>
+</td></tr>
+</tbody>
+</table>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/javascript.html">JavaScript</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/html.html">html</a>
+,       <a href="/tag/javascript.html">JavaScript</a>
+,       <a href="/tag/web-speech-api.html">Web Speech API</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>[Golang] XML Parsing Example (1)</title>
+  <meta name="keywords" content="Go,Golang,XML,html"/>
+  <meta name="description" content="How to read XML/HTML files in Go programming language (for newbie) - Read element and its content."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="[Golang] XML Parsing Example (1)" />    <meta property="og:image" content="/./extra/Dharma_wheel.svg" /><meta property="og:description" content="How to read XML/HTML files in Go programming language (for newbie) - Read element and its content." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2015/02/17/go-parse-xml-example-1/"
+           rel="bookmark"
+           title="Permalink to [Golang] XML Parsing Example (1)">
+          [Golang] XML Parsing Example (1)
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2015-02-21T01:24:00+08:00">
+    Updated: February 21, 2015
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2015/02/17/go-parse-xml-example-1%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p>Assume we have a XML file as follows:</p>
+<figure class="github-file">
+            <figcaption>
+              <a href="https://github.com/siongui/userpages/blob/master/content/code/go-xml/example-1.xml">example-1.xml</a> |
+              <a href="https://github.com/siongui/userpages">repository</a> |
+              <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/code/go-xml/example-1.xml">view raw</a>
+            </figcaption><div class="code-file">
+            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><span class="nt">&lt;div&gt;</span>Example<span class="nt">&lt;/div&gt;</span>
+</pre></div>
+</td></tr></table></div></figure><p>We would like to parse the XML file and extract the useful content. Here is how
+we do in <a class="reference external" href="https://golang.org/">Go</a> programming language:</p>
+<p><a class="reference external" href="https://play.golang.org/p/XiukTqZYv2">Run Code on Go Playground</a></p>
+<figure class="github-file">
+            <figcaption>
+              <a href="https://github.com/siongui/userpages/blob/master/content/code/go-xml/parse-1.go">parse-1.go</a> |
+              <a href="https://github.com/siongui/userpages">repository</a> |
+              <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/code/go-xml/parse-1.go">view raw</a>
+            </figcaption><div class="code-file">
+            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1">// http://golang.org/pkg/io/ioutil/</span>
+<span class="c1">// http://golang.org/pkg/encoding/xml/</span>
+<span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+	<span class="s">&quot;io/ioutil&quot;</span>
+	<span class="s">&quot;encoding/xml&quot;</span>
+	<span class="s">&quot;fmt&quot;</span>
+<span class="p">)</span>
+
+<span class="kd">type</span> <span class="nx">div</span> <span class="kd">struct</span> <span class="p">{</span>
+	<span class="nx">XMLName</span>	<span class="nx">xml</span><span class="p">.</span><span class="nx">Name</span>	<span class="s">`xml:&quot;div&quot;`</span>
+	<span class="c1">// First letter must be capital. Cannot use `content`</span>
+	<span class="nx">Content</span>	<span class="kt">string</span>		<span class="s">`xml:&quot;,chardata&quot;`</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nx">d</span> <span class="o">:=</span> <span class="nx">div</span><span class="p">{}</span>
+	<span class="nx">xmlContent</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">ioutil</span><span class="p">.</span><span class="nx">ReadFile</span><span class="p">(</span><span class="s">&quot;example-1.xml&quot;</span><span class="p">)</span>
+	<span class="nx">err</span> <span class="o">:=</span> <span class="nx">xml</span><span class="p">.</span><span class="nx">Unmarshal</span><span class="p">(</span><span class="nx">xmlContent</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">d</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span> <span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">}</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;XMLName:&quot;</span><span class="p">,</span> <span class="nx">d</span><span class="p">.</span><span class="nx">XMLName</span><span class="p">)</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;Content:&quot;</span><span class="p">,</span> <span class="nx">d</span><span class="p">.</span><span class="nx">Content</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div></figure>
+<p>Put the above two files on the same directory and run the code. The ouput will
+be:</p>
+<div class="highlight"><pre><span></span>XMLName: <span class="o">{</span> div<span class="o">}</span>
+Content: Example
+</pre></div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>In the line:</p>
+<div class="highlight"><pre><span></span><span class="nx">XMLName</span>     <span class="nx">xml</span><span class="p">.</span><span class="nx">Name</span>        <span class="s">`xml:&quot;div&quot;`</span>
+</pre></div>
+<p class="last"><code>XMLName</code> and <code>xml.Name</code> are fixed syntax for reading <tt class="docutils literal">div</tt>
+element, you can not change them at will.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Also in the line:</p>
+<div class="highlight"><pre><span></span><span class="nx">Content</span>     <span class="kt">string</span>          <span class="s">`xml:&quot;,chardata&quot;`</span>
+</pre></div>
+<p class="last">The first letter of the variable <code>Content</code> must be capital. If you use
+<code>content</code>, the <a class="reference external" href="https://golang.org/">Go</a> parser will fail to read the content in <em>div</em>
+element. You can use another name for the variable, as long as the first
+letter is capital.</p>
+</div>
+
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>If you replace the line:</p>
+<div class="highlight"><pre><span></span><span class="nx">Content</span>     <span class="kt">string</span>          <span class="s">`xml:&quot;,chardata&quot;`</span>
+</pre></div>
+<p>with</p>
+<div class="highlight"><pre><span></span><span class="nx">Content</span>     <span class="kt">string</span>          <span class="s">`xml:&quot;,innerxml&quot;`</span>
+</pre></div>
+<p class="last">i.e., replace <em>,chardata</em> with <em>,innerxml</em>. The output result will be the same
+because the raw XML nested inside the <em>div</em> element is the same as the
+character data of the <em>div</em> element in this case.</p>
+</div>
+<hr class="docutils" />
+<p>Makefile for automating the development:</p>
+<figure class="github-file">
+            <figcaption>
+              <a href="https://github.com/siongui/userpages/blob/master/content/code/go-xml/Makefile">Makefile</a> |
+              <a href="https://github.com/siongui/userpages">repository</a> |
+              <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/code/go-xml/Makefile">view raw</a>
+            </figcaption><div class="code-file">
+            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c"># cannot use relative path in GOROOT, otherwise 6g not found. For example,</span>
+<span class="c">#   export GOROOT=../go  (=&gt; 6g not found)</span>
+<span class="c"># it is also not allowed to use relative path in GOPATH</span>
+<span class="k">export </span><span class="nv">GOROOT</span><span class="o">=</span><span class="k">$(</span>realpath ../../../../../go<span class="k">)</span>
+<span class="k">export </span><span class="nv">GOPATH</span><span class="o">=</span><span class="k">$(</span>realpath .<span class="k">)</span>
+<span class="k">export </span><span class="nv">PATH</span> <span class="o">:=</span> <span class="k">$(</span>GOROOT<span class="k">)</span>/bin:<span class="k">$(</span>PATH<span class="k">)</span>
+
+<span class="nf">all</span><span class="o">:</span> <span class="n">parseFeed</span>
+
+<span class="nf">example1</span><span class="o">:</span>
+<span class="c">	@# http://stackoverflow.com/questions/9967105/suppress-echo-of-command-invocation-in-makefile</span>
+	@go run parse-1.go
+
+<span class="nf">example2</span><span class="o">:</span>
+	@go run parse-2.go
+
+<span class="nf">example3</span><span class="o">:</span>
+	@go run parse-3.go
+
+<span class="nf">example4</span><span class="o">:</span>
+	@go run parse-4.go
+
+<span class="nf">example5</span><span class="o">:</span>
+	@go run parse-5.go
+
+<span class="nf">example5_2</span><span class="o">:</span>
+	@go run parse-5_2.go
+
+<span class="nf">example6</span><span class="o">:</span>
+	@go run parse-6.go
+
+<span class="nf">example7</span><span class="o">:</span>
+	@go run parse-7.go
+
+<span class="nf">atom2rss</span><span class="o">:</span>
+	@go run atom2rss.go
+
+<span class="nf">parseFeed</span><span class="o">:</span>
+	@go run parseFeed.go
+
+<span class="nf">help</span><span class="o">:</span>
+	go <span class="nb">help</span>
+</pre></div>
+</td></tr></table></div></figure><p>Tested on: <tt class="docutils literal">Ubuntu Linux 14.10</tt>, <tt class="docutils literal">Go 1.4</tt>.</p>
+<hr class="docutils" />
+<p><em>[Golang] XML Parsing Example</em> series:</p>
+<table class="docutils footnote" frame="void" id="id1" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td><a class="reference external" href="/2015/02/17/go-parse-xml-example-1/">[Golang] XML Parsing Example (1)</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[2]</td><td><a class="reference external" href="/2015/02/19/go-parse-xml-example-2/">[Golang] XML Parsing Example (2)</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[3]</td><td><a class="reference external" href="/2015/02/21/go-parse-xml-example-3/">[Golang] XML Parsing Example (3)</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id5" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[4]</td><td><a class="reference external" href="/2015/02/24/go-parse-xml-example-4/">[Golang] XML Parsing Example (4)</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id6" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[5]</td><td><a class="reference external" href="/2015/02/25/go-parse-opml/">[Golang] XML Parsing Example (5) - Parse OPML</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id7" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[6]</td><td><a class="reference external" href="/2015/02/26/go-parse-opml-concisely/">[Golang] XML Parsing Example (6) - Parse OPML Concisely</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id8" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[7]</td><td><a class="reference external" href="/2015/02/27/go-parse-rss2/">[Golang] XML Parsing Example (7) - Parse RSS 2.0</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id9" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[8]</td><td><a class="reference external" href="/2015/02/28/go-parse-atom/">[Golang] XML Parsing Example (8) - Parse Atom 1.0</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id10" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[9]</td><td><a class="reference external" href="/2015/03/02/go-convert-atom-to-rss-feed/">[Golang] Convert Atom to RSS</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id11" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[10]</td><td><a class="reference external" href="/2015/03/03/go-parse-web-feed-rss-atom/">[Golang] Parse Web Feed - RSS and Atom</a></td></tr>
+</tbody>
+</table>
+<hr class="docutils" />
+<p>References:</p>
+<table class="docutils citation" frame="void" id="a" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[a]</td><td><a class="reference external" href="http://golang.org/pkg/encoding/xml/">xml - The Go Programming Language</a></td></tr>
+</tbody>
+</table>
+<table class="docutils citation" frame="void" id="b" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[b]</td><td><a class="reference external" href="https://golang.org/src/encoding/xml/example_test.go">src/encoding/xml/example_test.go - The Go Programming Language</a></td></tr>
+</tbody>
+</table>
+<table class="docutils citation" frame="void" id="c" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[c]</td><td><a class="reference external" href="http://www.goinggo.net/2013/06/reading-xml-documents-in-go.html">Reading XML Documents in Go</a></td></tr>
+</tbody>
+</table>
+<table class="docutils citation" frame="void" id="d" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[d]</td><td><a class="reference external" href="http://golang.rdy.jp/2015/11/08/anyxml/">Goで任意のXMLを処理する - GolangRdyJp</a></td></tr>
+</tbody>
+</table>
+<table class="docutils citation" frame="void" id="e" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[e]</td><td><a class="reference external" href="https://old.reddit.com/r/golang/comments/9r1fgc/xml_to_go_struct/">XML to Go struct : golang</a></td></tr>
+</tbody>
+</table>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/go.html">Go</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/go.html">Go</a>
+,       <a href="/tag/golang.html">Golang</a>
+,       <a href="/tag/xml.html">XML</a>
+,       <a href="/tag/html.html">html</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8">
+  <title>IMO 2007 Problem 3</title>
+  <meta name="keywords" content="Math"/>
+  <meta name="description" content="In a mathematical competition some competitors are friends. Friendship is always mutual. Call a group of competitors a clique if each two of..."/>
+  <meta name="author" content="Shen-Fu Tsai"/><meta property="og:title" content="IMO 2007 Problem 3" /><meta property="og:image" content="https://lh4.googleusercontent.com/-aNB-12LGE20/AAAAAAAAAAI/AAAAAAAAZN0/9DWnaMSkb_M/photo.jpg" />
+<meta property="og:description" content="In a mathematical competition some competitors are friends. Friendship is always mutual. Call a group of competitors a clique if each two of..." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2017/02/08/imo-2007-problem-3/"
+           rel="bookmark"
+           title="Permalink to IMO 2007 Problem 3">
+          IMO 2007 Problem 3
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2017-02-08T15:32:00-08:00">
+    February 08, 2017
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2015/04/01/imo-2007-problem-3%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content">In a mathematical competition some competitors are friends. Friendship is always mutual. Call a group of competitors a clique if each two of them are friends. The number of members of a clique is called its size. Given that, in this competition, the largest size of a clique is even, prove that the competitors can be arranged in two rooms such that the largest size of a clique contained in one room is the same as the largest size of a clique contained in the other room.<br/>
+<br/>
+=========================================<br/>
+<br/>
+Proof:<br/>
+<br/>
+Suppose not. Let graphs A and B be G and an empty graph, respectively. We move vertex one by one from A to B unless a move is invalid, meaning that after the move \(w(A)\)<w is="" left.="" move="" no="" p="" process="" terminates="" the="" there="" valid="" when=""><br/>
+Now we claim that w(A)=w(B)+1=d+1=|V(A)|. The first equalities are obvious. If there are more than d+1 vertices in A, then pick a maximum (d+1)-clique and move a vertex not in it to B.<br/>
+<br/>
+Move a vertex v from A to B. Now w(A)=w(B)-1=d=|V(A)|. How many (d+1)-cliques in B does v belong to?<br/>
+<br/>
+If v is in only one (d+1)-clique C, then by assumption moving every vertex in C back to A creates a (d+1)-clique in A, meaning that C, A, and v together is a clique of size 2d+1. Since the maximum clique in G has even size, it is at least of size 2d+2, a contradiction that the moving process above end up with maximum cliques of size d+1 and d in A and B, respectively.<br/>
+<br/>
+If v is in two (d+1)-cliques C1 and C2, we arbitrarily pick vertices a and b from C1-C2 and C2-C1, respectively. Moving a or b to A does not increase w(A), but moving both does. So a and b are adjacent. Because a and b are arbitrarily chosen, the union of C1 and C2 is a clique bigger than C1 and C2, a contradiction. Notice here we do not need A to be a d-clique, but only has to contain a d-clique.<br/>
+<br/>
+If v is in a set of k&gt;=3 (d+1)-cliques C, we start a process of moving vertex one by one in C to A. A vertex u is moved to A if it does not belong to all cliques in C, and all cliques in C that contain u is removed from the set C right away. By the previous argument C could not be left with two (d+1)-cliques. Nor can moving a vertex not in all cliques in C results in an empty C. The process terminates when moving any remaining vertex from C to A leaves only one clique in C.<br/>
+<br/>
+Now let&#39;s study C with k&gt;1 (d+1)-cliques. Every vertex, except for the vertices common to all cliques in C, belongs to exactly k-1 cliques in C, meaning that any two vertices belong to at least one common clique and are therefore adjacent. So all vertices in C form a larger clique, contradiction. This concludes our proof.<br/>
+<br/>
+Q.E.D.</w>
+
+<script src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script><hr class="docutils" />
+<p><a class="reference external" href="https://oathbystyx.blogspot.com/2017/02/imo-2007-problem-3.html">post</a>
+by
+<a class="reference external" href="/pages/shen-fu-tsai.html">Shen-Fu Tsai</a></p>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/shen-fu-tsai.html">Shen-Fu Tsai</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/math.html">Math</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/math.html">Math</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

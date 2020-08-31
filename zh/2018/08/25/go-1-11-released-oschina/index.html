@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head><meta charset="utf-8">
+  <title>Go 1.11 正式發佈：添加對模塊 &quot;modules&quot; 的初步支持</title>
+  <meta name="keywords" content="Go語言,轉錄,開源中國"/>
+  <meta name="description" content="美國當地時間8月24日，Go 開發團隊 宣佈推出 Go 1.11 正式版 。"/>
+  <meta name="author" content="局長(開源中國)"/><meta property="og:title" content="Go 1.11 正式發佈：添加對模塊 &quot;modules&quot; 的初步支持" /><meta property="og:image" content="https://www.teamwork.com/assets/images/pages/internship/golang-icon.png" />
+<meta property="og:description" content="美國當地時間8月24日，Go 開發團隊 宣佈推出 Go 1.11 正式版 。" /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/zh/../extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/zh/../theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/zh/">理論與實作</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/zh/pages/about.html">關於</a>
+    <a class="nav-item" href="/zh/archives.html">歸檔</a>
+    <a class="nav-item" href="/zh/categories.html">分類</a>
+    <a class="nav-item" href="/zh/tags.html">標籤</a>
+    <a class="nav-item" href="/zh/authors.html">作者</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/">English</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/zh/2018/08/25/go-1-11-released-oschina/"
+           rel="bookmark"
+           title="Permalink to Go 1.11 正式發佈：添加對模塊 "modules" 的初步支持">
+          Go 1.11 正式發佈：添加對模塊 &quot;modules&quot; 的初步支持
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2018-08-25T00:00:00+08:00">
+    八月 25, 2018
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2018/08/25/go-1-11-released-oschina%25zh.rst">在Github上編輯</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p>美國當地時間8月24日，Go 開發團隊 <a class="reference external" href="https://blog.golang.org/go1.11">宣佈推出 Go 1.11 正式版</a> 。</p>
+<p>下載地址 &gt;&gt;&gt; <a class="reference external" href="https://golang.org/dl/">https://golang.org/dl/</a> or <a class="reference external" href="https://golang.google.cn/dl">https://golang.google.cn/dl</a>/（免梯子）</p>
+<p>看看有哪些值得關注的更新 ——</p>
+<p>新版本在工具鏈、運行時和庫都有許多變化和改進。當然，兼容性方面依然會兼容舊版本。此外有兩個最值得關注且激動人心的新特性 —— 對模塊(modules)和 WebAssembly 的支持。</p>
+<div class="section" id="go-modules">
+<h2>Go Modules</h2>
+<p>此版本增加了對被稱作“模塊(Go Modules)”的初步支持，這是 GOPATH 的替代方案，集成了對版本控制和軟件包分發的支持。該功能目前仍處於實驗性階段，並且仍有一些可能會影響使用的問題，因此請隨意使用 <a class="reference external" href="https://golang.org/issue/new">問題跟蹤器</a> 進行反饋或查閱解決方案。</p>
+</div>
+<div class="section" id="webassembly">
+<h2>WebAssembly</h2>
+<p>Go 1.11 還為 WebAssembly (js/wasm) 添加了一個處於實驗性階段的端口。它使得開發者可將 Go 程序編譯為與四個主流 Web 瀏覽器兼容的二進制格式。可以在 <a class="reference external" href="https://webassembly.org/">webassembly.org</a> 上閱讀有關 WebAssembly（縮寫為&quot;WASM&quot;）的更多信息。</p>
+<p>Go 程序現在可被編譯為一個 WebAssembly 模塊，該模塊包括用於 goroutine 調度、垃圾收集、映射等的 Go 運行時。因此，生成的模塊大小約為 2MB，或壓縮後為 500KB 左右。Go 程序也可以使用新的實驗性 <a class="reference external" href="https://golang.org/pkg/syscall/js/">syscall/js</a> 包調用 JavaScript。有關二進制包大小和與其他語言互操作的問題尚未成為優先處理事項，不過會在將來的版本中得到解決。</p>
+<p>有關 Go 1.11 中變更的更多詳細信息，請參閱發行說明 &gt;&gt;&gt; <a class="reference external" href="https://golang.org/doc/go1.11">https://golang.org/doc/go1.11</a></p>
+<div class="line-block">
+<div class="line"><br /></div>
+<div class="line">本站文章除註明轉載外，均為本站原創或編譯。歡迎任何形式的轉載，但請務必註明出處，尊重他人勞動共創開源社區。</div>
+<div class="line">轉載請註明：文章轉載自 開源中國社區 [<a class="reference external" href="http://www.oschina.net">http://www.oschina.net</a>]</div>
+<div class="line">本文標題：Go 1.11 正式發佈：添加對模塊 &quot;modules&quot; 的初步支持</div>
+<div class="line">本文地址：<a class="reference external" href="https://www.oschina.net/news/99309/go-1-11-released">https://www.oschina.net/news/99309/go-1-11-released</a></div>
+<div class="line"><br /></div>
+</div>
+</div>
+</div>
+
+    <footer><hr><address><b>作者</b>:
+    <a rel="author"
+       href="/zh/author/ju-chang-kai-yuan-zhong-guo.html">局長(開源中國)</a>
+  </address><aside>
+    <i>&isin;</i> <b>分類</b>:
+    <a href="/zh/category/goyu-yan.html">Go語言</a>
+  </aside><aside>
+    <i>&sum;</i> <b>標籤</b>:
+      <a href="/zh/tag/goyu-yan.html">Go語言</a>
+,       <a href="/zh/tag/zhuan-lu.html">轉錄</a>
+,       <a href="/zh/tag/kai-yuan-zhong-guo.html">開源中國</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

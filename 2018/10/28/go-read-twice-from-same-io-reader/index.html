@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>[Golang] Read Twice From the Same io.Reader</title>
+  <meta name="keywords" content="Go,Golang"/>
+  <meta name="description" content="Read twice or multiple times from the same io.Reader in Go"/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="[Golang] Read Twice From the Same io.Reader" /><meta property="og:image" content="https://vsoch.github.io/assets/images/posts/learning-go/gophercises_jumping.gif" />
+<meta property="og:description" content="Read twice or multiple times from the same io.Reader in Go" /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2018/10/28/go-read-twice-from-same-io-reader/"
+           rel="bookmark"
+           title="Permalink to [Golang] Read Twice From the Same io.Reader">
+          [Golang] Read Twice From the Same io.Reader
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2018-10-28T01:20:00+08:00">
+    October 28, 2018
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2018/10/28/go-read-twice-from-same-io-reader%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p>This post shows how to solve the problem when you have to read twice or multiple
+times from the same reader (<a class="reference external" href="https://golang.org/pkg/io/#Reader">io.Reader</a>) in <a class="reference external" href="https://golang.org/">Go</a>.</p>
+<p>Yesterday whem I was trying to write the code <a class="footnote-reference" href="#id3" id="id1">[1]</a>, I needed to read twice from
+the <a class="reference external" href="https://golang.org/pkg/net/http/#Response">resp.Body</a> reader (HTTP response body), but I always got empty result after
+function return. Soon I realized that the reader cannot be read more than once.
+Otherwise nothing is read.</p>
+<p>I made some DuckDuckGo search, and found that <a class="reference external" href="https://golang.org/pkg/io/#TeeReader">io.TeeReader</a> may be the solution
+to my problem. I tried to use <a class="reference external" href="https://golang.org/pkg/io/#TeeReader">io.TeeReader</a> in my code, but still did not get
+correct result I wanted.</p>
+<p>After some trial and error, finally I came up with my own solution: First read
+all bytes from the reader using <a class="reference external" href="https://golang.org/pkg/io/ioutil/#ReadAll">ioutil.ReadAll</a>, then use <a class="reference external" href="https://golang.org/pkg/bytes/#NewReader">bytes.NewReader</a> to
+create as many readers as we need.</p>
+<p>The following is the example of the my own solution:</p>
+<p class="align-center rubric"><a class="reference external" href="https://play.golang.org/p/0jd_-DoQJ0f">Run Code on Go Playground</a></p>
+<div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+      <span class="s">&quot;bytes&quot;</span>
+      <span class="s">&quot;fmt&quot;</span>
+      <span class="s">&quot;io/ioutil&quot;</span>
+      <span class="s">&quot;strings&quot;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+      <span class="nx">originalReader</span> <span class="o">:=</span> <span class="nx">strings</span><span class="p">.</span><span class="nx">NewReader</span><span class="p">(</span><span class="s">&quot;test string in test reader&quot;</span><span class="p">)</span>
+
+      <span class="nx">b</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">ioutil</span><span class="p">.</span><span class="nx">ReadAll</span><span class="p">(</span><span class="nx">originalReader</span><span class="p">)</span>
+      <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+              <span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+      <span class="p">}</span>
+
+      <span class="nx">reader1</span> <span class="o">:=</span> <span class="nx">bytes</span><span class="p">.</span><span class="nx">NewReader</span><span class="p">(</span><span class="nx">b</span><span class="p">)</span>
+      <span class="nx">b1</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">ioutil</span><span class="p">.</span><span class="nx">ReadAll</span><span class="p">(</span><span class="nx">reader1</span><span class="p">)</span>
+      <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+              <span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+      <span class="p">}</span>
+      <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nb">string</span><span class="p">(</span><span class="nx">b1</span><span class="p">))</span>
+
+      <span class="nx">reader2</span> <span class="o">:=</span> <span class="nx">bytes</span><span class="p">.</span><span class="nx">NewReader</span><span class="p">(</span><span class="nx">b</span><span class="p">)</span>
+      <span class="nx">b2</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">ioutil</span><span class="p">.</span><span class="nx">ReadAll</span><span class="p">(</span><span class="nx">reader2</span><span class="p">)</span>
+      <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+              <span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+      <span class="p">}</span>
+      <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nb">string</span><span class="p">(</span><span class="nx">b2</span><span class="p">))</span>
+<span class="p">}</span>
+</pre></div>
+<p>For realistic example, see my yesterday's post <a class="footnote-reference" href="#id3" id="id2">[1]</a>.</p>
+<hr class="docutils" />
+<p>Tested on:</p>
+<ul class="simple">
+<li><tt class="docutils literal">Ubuntu 18.04</tt>, <tt class="docutils literal">Go 1.11.1</tt></li>
+<li><a class="reference external" href="https://play.golang.org/">Go Playground</a></li>
+</ul>
+<hr class="docutils" />
+
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td><em>(<a class="fn-backref" href="#id1">1</a>, <a class="fn-backref" href="#id2">2</a>)</em> <a class="reference external" href="/2018/10/27/auto-detect-and-convert-html-encoding-to-utf8-in-go/">[Golang] Auto-Detect and Convert Encoding of HTML to UTF-8</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[2]</td><td><a class="reference external" href="https://duckduckgo.com/?q=golang+io.reader+read+twice">golang io.reader read twice at DuckDuckGo</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id5" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[3]</td><td><a class="reference external" href="https://old.reddit.com/r/golang/comments/a2hofj/how_to_write_a_proper_tar_archive_in_golang/">How to write a proper tar archive in golang? : golang</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id6" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[4]</td><td><a class="reference external" href="https://old.reddit.com/r/golang/comments/a9960c/speeding_up_go_script_to_do_text_search/">Speeding up Go Script to do text search : golang</a></td></tr>
+</tbody>
+</table>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/go.html">Go</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/go.html">Go</a>
+,       <a href="/tag/golang.html">Golang</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

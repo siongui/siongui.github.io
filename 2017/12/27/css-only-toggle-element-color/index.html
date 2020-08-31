@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>Pure CSS Toggle (Change) Color of HTML Element</title>
+  <meta name="keywords" content="Pure CSS Toggle,toggle,toggleable,html,CSS"/>
+  <meta name="description" content="CSS only toggle the color of HTML DOM element. No JavaScript required."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="Pure CSS Toggle (Change) Color of HTML Element" /><meta property="og:image" content="https://www.gavick.com/documentation/wp-content/uploads/2013/09/colors-table.png" />
+<meta property="og:description" content="CSS only toggle the color of HTML DOM element. No JavaScript required." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2017/12/27/css-only-toggle-element-color/"
+           rel="bookmark"
+           title="Permalink to Pure CSS Toggle (Change) Color of HTML Element">
+          Pure CSS Toggle (Change) Color of HTML Element
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2017-12-27T23:09:00+08:00">
+    December 27, 2017
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2017/12/27/css-only-toggle-element-color%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p><a class="reference external" href="https://www.google.com/search?q=CSS">CSS</a> only toggle the color of <a class="reference external" href="https://www.google.com/search?q=HTML">HTML</a> <a class="reference external" href="https://www.google.com/search?q=DOM+element">DOM element</a>. No <a class="reference external" href="https://www.google.com/search?q=JavaScript">JavaScript</a> required.
+See demo first.
+Please click the following text to toggle the color of the div element:</p>
+<style>
+label[for=element-toggle] {
+  cursor: pointer;
+  color: blue;
+}
+#element-toggle {
+  display: none;
+}
+#toggled-element {
+  padding: 1rem;
+}
+#element-toggle:checked ~ #toggled-element {
+  color: red;
+}
+</style>
+
+<div>
+
+<label for="element-toggle">click me to toggle color</label>
+<input id="element-toggle" type="checkbox" />
+<br><br>
+<div id="toggled-element">My color will be toggled</div>
+
+</div><p>The color is black in the beginning, if you click on the text, the color will be
+changed to red. If you click again, the color will be changed back to black, and
+so on.</p>
+<p>This demo uses the technique of CSS toggling in <a class="footnote-reference" href="#id2" id="id1">[1]</a>.
+There are three main HTML elements in the demo:</p>
+<div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">label</span> <span class="na">for</span><span class="o">=</span><span class="s">&quot;element-toggle&quot;</span><span class="p">&gt;</span>click me to toggle color<span class="p">&lt;/</span><span class="nt">label</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">input</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;element-toggle&quot;</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;checkbox&quot;</span> <span class="p">/&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;toggled-element&quot;</span><span class="p">&gt;</span>My color will be toggled<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</pre></div>
+<ol class="arabic simple">
+<li>A visible HTML <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/label">label</a> element</li>
+<li>A invisible HTML <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/checkbox">input</a> checkbox element, referenced by the above <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/label">label</a>
+element via <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/label#Using_the_for_attribute">for</a> attribute.</li>
+<li>The element to be width-toggled. It is a <em>div</em> element in the demo.</li>
+</ol>
+
+<p>When users click on the visible label element, the invisible input checkbox
+element becomes checked/unchecked by the click. Then the following CSS rules are
+used to toggle the width of the element according to whether the checkbox is
+checked or not.</p>
+<div class="highlight"><pre><span></span><span class="nt">label</span><span class="o">[</span><span class="nt">for</span><span class="o">=</span><span class="nt">element-toggle</span><span class="o">]</span> <span class="p">{</span>
+  <span class="k">cursor</span><span class="p">:</span> <span class="kc">pointer</span><span class="p">;</span>
+  <span class="k">color</span><span class="p">:</span> <span class="kc">blue</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="p">#</span><span class="nn">element-toggle</span> <span class="p">{</span>
+  <span class="k">display</span><span class="p">:</span> <span class="kc">none</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="p">#</span><span class="nn">toggled-element</span> <span class="p">{</span>
+  <span class="k">padding</span><span class="p">:</span> <span class="mi">1</span><span class="kt">rem</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="p">#</span><span class="nn">element-toggle</span><span class="p">:</span><span class="nd">checked</span> <span class="o">~</span> <span class="p">#</span><span class="nn">toggled-element</span> <span class="p">{</span>
+  <span class="k">color</span><span class="p">:</span> <span class="kc">red</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>There are four rules in above <a class="reference external" href="https://www.google.com/search?q=CSS">CSS</a> code. The last rule is the most important
+part in this trick. It says if the element with <em>id=element-toggle</em> (i.e., the
+input checkbox) is checked, the color of adjacent element <em>id=toggled-element</em>
+(<em>div</em> element in this case) becomes <em>red</em>. If the input checkbox is not
+checked, this rule is not applied to the <em>div</em> element, which makes the <em>div</em>
+element original color. The last CSS rule toggles the color of <em>div</em> according
+to whether the checkbox is checked or not.</p>
+
+<hr class="docutils" />
+<p>Tested on:</p>
+<ul class="simple">
+<li><tt class="docutils literal">Chromium Version 63.0.3239.84 (Official Build) Built on Ubuntu , running on Ubuntu 17.10 <span class="pre">(64-bit)</span></tt></li>
+</ul>
+<hr class="docutils" />
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td><a class="reference external" href="/2017/02/27/css-only-toggle-dom-element/">Pure CSS Toggle (Show/Hide) HTML Element</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[2]</td><td><a class="reference external" href="/2017/03/29/css-only-toggle-centered-element-width/">Pure CSS Toggle Centered Element Width</a></td></tr>
+</tbody>
+</table>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/css.html">CSS</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/pure-css-toggle.html">Pure CSS Toggle</a>
+,       <a href="/tag/toggle.html">toggle</a>
+,       <a href="/tag/toggleable.html">toggleable</a>
+,       <a href="/tag/html.html">html</a>
+,       <a href="/tag/css.html">CSS</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

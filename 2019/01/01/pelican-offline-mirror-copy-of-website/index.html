@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>[Pelican] Build Offline Copy of Website</title>
+  <meta name="keywords" content="Bash,Pelican,wget,Commandline"/>
+  <meta name="description" content="Build an offline copy of a website made by Pelican static site generator."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="[Pelican] Build Offline Copy of Website" /><meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/6/60/Wget_1.13.4.png" />
+<meta property="og:description" content="Build an offline copy of a website made by Pelican static site generator." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2019/01/01/pelican-offline-mirror-copy-of-website/"
+           rel="bookmark"
+           title="Permalink to [Pelican] Build Offline Copy of Website">
+          [Pelican] Build Offline Copy of Website
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2019-01-01T23:19:00+08:00">
+    January 01, 2019
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2019/01/01/pelican-offline-mirror-copy-of-website%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p>My friend asked me whether it is possible to use <a class="reference external" href="https://github.com/getpelican/pelican">Pelican</a> static site generator
+to build a offline website which can be viewd on local machines without internet
+access. After some searches <a class="footnote-reference" href="#id4" id="id1">[1]</a>, it seems impossible to do it. Suddenly I found
+that we asked the wrong question because the our purpose is totally nothing to
+do with Pelican! The question should be: is it possible to get an offline copy
+of an online website?</p>
+<p>The answer is <em>YES</em>! <a class="reference external" href="https://en.wikipedia.org/wiki/Wget">wget</a> can do this for static sites without any problem.
+After some searches <a class="footnote-reference" href="#id5" id="id2">[2]</a>, I found the solution <a class="footnote-reference" href="#id6" id="id3">[3]</a> is exactly what we need. So
+sometimes asking questions from different ways can lead to unexpected easy
+solution!</p>
+<p>Tested on: <tt class="docutils literal">Ubuntu Linux 18.04</tt>.</p>
+<hr class="docutils" />
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td><div class="first last line-block">
+<div class="line"><a class="reference external" href="https://www.google.com/search?q=pelican+standalone+website">pelican standalone website - Google search</a></div>
+<div class="line"><a class="reference external" href="https://duckduckgo.com/?q=pelican+standalone+website">pelican standalone website - DuckDuckGo search</a></div>
+<div class="line"><a class="reference external" href="https://www.ecosia.org/search?q=pelican+standalone+website">pelican standalone website - Ecosia search</a></div>
+<div class="line"><a class="reference external" href="https://www.qwant.com/?q=pelican+standalone+website">pelican standalone website - Qwant search</a></div>
+<div class="line"><a class="reference external" href="https://www.bing.com/search?q=pelican+standalone+website">pelican standalone website - Bing search</a></div>
+<div class="line"><a class="reference external" href="https://search.yahoo.com/search?p=pelican+standalone+website">pelican standalone website - Yahoo search</a></div>
+<div class="line"><a class="reference external" href="https://www.baidu.com/s?wd=pelican+standalone+website">pelican standalone website - Baidu search</a></div>
+<div class="line"><a class="reference external" href="https://www.yandex.com/search/?text=pelican+standalone+website">pelican standalone website - Yandex search</a></div>
+</div>
+</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id5" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[2]</a></td><td><div class="first last line-block">
+<div class="line"><a class="reference external" href="https://www.google.com/search?q=wget+standalone+website">wget standalone website - Google search</a></div>
+<div class="line"><a class="reference external" href="https://duckduckgo.com/?q=wget+standalone+website">wget standalone website - DuckDuckGo search</a></div>
+<div class="line"><a class="reference external" href="https://www.ecosia.org/search?q=wget+standalone+website">wget standalone website - Ecosia search</a></div>
+<div class="line"><a class="reference external" href="https://www.qwant.com/?q=wget+standalone+website">wget standalone website - Qwant search</a></div>
+<div class="line"><a class="reference external" href="https://www.bing.com/search?q=wget+standalone+website">wget standalone website - Bing search</a></div>
+<div class="line"><a class="reference external" href="https://search.yahoo.com/search?p=wget+standalone+website">wget standalone website - Yahoo search</a></div>
+<div class="line"><a class="reference external" href="https://www.baidu.com/s?wd=wget+standalone+website">wget standalone website - Baidu search</a></div>
+<div class="line"><a class="reference external" href="https://www.yandex.com/search/?text=wget+standalone+website">wget standalone website - Yandex search</a></div>
+</div>
+</td></tr>
+</tbody>
+</table>
+
+<table class="docutils footnote" frame="void" id="id6" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id3">[3]</a></td><td><a class="reference external" href="https://www.guyrutenberg.com/2014/05/02/make-offline-mirror-of-a-site-using-wget/">Make Offline Mirror of a Site using `wget` | Guy Rutenberg</a></td></tr>
+</tbody>
+</table>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/bash.html">Bash</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/bash.html">Bash</a>
+,       <a href="/tag/pelican.html">Pelican</a>
+,       <a href="/tag/wget.html">wget</a>
+,       <a href="/tag/commandline.html">Commandline</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>
