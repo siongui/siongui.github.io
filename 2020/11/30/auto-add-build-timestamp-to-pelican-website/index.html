@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>[Pelican] Add Build Timestamp to Website Automatically</title>
+  <meta name="keywords" content="Pelican,Python"/>
+  <meta name="description" content="Add build timestamp to Pelican site automatically during generating the site."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="[Pelican] Add Build Timestamp to Website Automatically" /><meta property="og:image" content="https://miro.medium.com/max/878/1*MbgGn92JzfkPgz-mPm0ufw.png" />
+<meta property="og:description" content="Add build timestamp to Pelican site automatically during generating the site." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2020/11/30/auto-add-build-timestamp-to-pelican-website/"
+           rel="bookmark"
+           title="Permalink to [Pelican] Add Build Timestamp to Website Automatically">
+          [Pelican] Add Build Timestamp to Website Automatically
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2020-11-30T01:52:00+08:00">
+    November 30, 2020
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2020/11/30/auto-add-build-timestamp-to-pelican-website%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p>When we generate the website using Python Pelican static site generator, we may
+want to add &quot;Last Updated&quot; time to our website at the footer or somewhere else
+automatically. This post will show you how to do it.</p>
+<p>In <tt class="docutils literal">pelicanconf.py</tt>, add following code:</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">import</span> <span class="nn">pytz</span>
+
+<span class="c1"># modify TIMEZONE to your timezone</span>
+<span class="n">TIMEZONE</span> <span class="o">=</span> <span class="s1">&#39;Asia/Taipei&#39;</span>
+<span class="n">BUILD_TIME</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">(</span><span class="n">pytz</span><span class="o">.</span><span class="n">timezone</span><span class="p">(</span><span class="n">TIMEZONE</span><span class="p">))</span>
+</pre></div>
+<p>In the template html, you can use the <em>BUILD_TIME</em> as follows:</p>
+<div class="highlight"><pre><span></span>Last Updated: {{ BUILD_TIME | strftime(&quot;%b %d, %Y, %H:%M:%S&quot;) }} ({{ TIMEZONE }})
+</pre></div>
+<p>If you do not know about Python strftime, check
+<a class="reference external" href="https://www.programiz.com/python-programming/datetime/strftime">this post</a>.</p>
+<p>Tested on: <tt class="docutils literal">Ubuntu Linux 20.04</tt>, <tt class="docutils literal">Python 3.8.5</tt>.</p>
+<hr class="docutils" />
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id1" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td><div class="first last line-block">
+<div class="line"><a class="reference external" href="https://www.google.com/search?q=pelican+jinja2+current+date">pelican jinja2 current date - Google search</a></div>
+<div class="line"><a class="reference external" href="https://duckduckgo.com/?q=pelican+jinja2+current+date">pelican jinja2 current date - DuckDuckGo search</a></div>
+<div class="line"><a class="reference external" href="https://www.ecosia.org/search?q=pelican+jinja2+current+date">pelican jinja2 current date - Ecosia search</a></div>
+<div class="line"><a class="reference external" href="https://www.qwant.com/?q=pelican+jinja2+current+date">pelican jinja2 current date - Qwant search</a></div>
+<div class="line"><a class="reference external" href="https://www.bing.com/search?q=pelican+jinja2+current+date">pelican jinja2 current date - Bing search</a></div>
+<div class="line"><a class="reference external" href="https://search.yahoo.com/search?p=pelican+jinja2+current+date">pelican jinja2 current date - Yahoo search</a></div>
+<div class="line"><a class="reference external" href="https://www.baidu.com/s?wd=pelican+jinja2+current+date">pelican jinja2 current date - Baidu search</a></div>
+<div class="line"><a class="reference external" href="https://www.yandex.com/search/?text=pelican+jinja2+current+date">pelican jinja2 current date - Yandex search</a></div>
+</div>
+</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[2]</td><td><a class="reference external" href="https://bernhard.scheirle.de/posts/2016/February/29/how-to-keep-your-copyright-year-up-to-date-using-jinja-filters/">How to keep your copyright year up-to-date • bernhard.scheirle.de</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[3]</td><td><a class="reference external" href="https://stackoverflow.com/questions/20766692/print-the-last-modification-of-a-jinja2-template-in-pelican">python - Print the last modification of a jinja2 template in pelican - Stack Overflow</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[4]</td><td><a class="reference external" href="https://stackoverflow.com/a/16660476">How do I get a value of datetime.today() in Python that is &quot;timezone aware&quot;? - Stack Overflow</a></td></tr>
+</tbody>
+</table>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/python.html">Python</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/pelican.html">Pelican</a>
+,       <a href="/tag/python.html">Python</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>
