@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>Migrate Pelican Site CI/CD From Travis CI to GitHub Actions</title>
+  <meta name="keywords" content="Continuous Integration,Pelican,GitHub Pages,GitHub Actions,Travis CI"/>
+  <meta name="description" content="Use GitHub Actions for Pelican Site CI/CD instead of Travis CI."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="Migrate Pelican Site CI/CD From Travis CI to GitHub Actions" /><meta property="og:image" content="https://nolanbconaway.github.io/pelican-deploy-gh-actions/images/workflow.png" />
+<meta property="og:description" content="Use GitHub Actions for Pelican Site CI/CD instead of Travis CI." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2020/12/02/migrate-pelican-site-ci-cd-from-travis-ci-to-github-actions/"
+           rel="bookmark"
+           title="Permalink to Migrate Pelican Site CI/CD From Travis CI to GitHub Actions">
+          Migrate Pelican Site CI/CD From Travis CI to GitHub Actions
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2020-12-02T03:41:00+08:00">
+    December 02, 2020
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2020/12/02/migrate-pelican-site-ci-cd-from-travis-ci-to-github-actions%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p>Build and deploy Pelican site using GitHub Actions instead of Travis CI.</p>
+<p>My original CI/CD file on Travis CI is:</p>
+<div class="highlight"><pre><span></span><span class="nt">sudo</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">required</span>
+<span class="nt">dist</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">bionic</span>
+<span class="nt">language</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">python</span>
+<span class="nt">python</span><span class="p">:</span>
+<span class="p p-Indicator">-</span> <span class="s">&#39;3.8&#39;</span>
+<span class="nt">branches</span><span class="p">:</span>
+  <span class="nt">only</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">master</span>
+<span class="nt">addons</span><span class="p">:</span>
+  <span class="nt">apt</span><span class="p">:</span>
+    <span class="nt">packages</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">language-pack-en</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">language-pack-zh-hant</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">language-pack-th</span>
+<span class="nt">install</span><span class="p">:</span>
+<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">pip install -r requirements.txt</span>
+<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">make download</span>
+<span class="nt">script</span><span class="p">:</span>
+<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">make publish</span>
+<span class="nt">deploy</span><span class="p">:</span>
+  <span class="nt">provider</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">pages</span>
+  <span class="nt">repo</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">siongui/siongui.github.io</span>
+  <span class="nt">target_branch</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">master</span>
+  <span class="nt">skip_cleanup</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+  <span class="nt">github_token</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">$GITHUB_TOKEN</span>
+  <span class="nt">local_dir</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">output</span>
+  <span class="nt">on</span><span class="p">:</span>
+    <span class="nt">branch</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">master</span>
+</pre></div>
+<p>Summaries of above YAML config:</p>
+<ul class="simple">
+<li>Ubuntu machine/Python 3.8</li>
+<li>Install Ubuntu en/zh-hant/th language packs</li>
+<li>Install Pelican and Python packages using pip</li>
+<li>Build Pelican site using Makefile</li>
+<li>Deploy to another repo of GitHub Pages using Personal Access Token.</li>
+</ul>
+<p>The following is the corresponding CI/CD file on GitHub Actions:</p>
+<div class="highlight"><pre><span></span><span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Pelican site CI</span>
+
+<span class="nt">on</span><span class="p">:</span>
+  <span class="nt">push</span><span class="p">:</span>
+    <span class="nt">branches</span><span class="p">:</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">master</span>
+
+<span class="nt">jobs</span><span class="p">:</span>
+  <span class="nt">build</span><span class="p">:</span>
+    <span class="nt">runs-on</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ubuntu-latest</span>
+    <span class="nt">steps</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Install language packs</span>
+      <span class="nt">run</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">sudo apt-get install language-pack-en language-pack-zh-hant language-pack-th</span>
+    <span class="p p-Indicator">-</span> <span class="nt">uses</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">actions/checkout@v2.3.1</span>
+      <span class="nt">with</span><span class="p">:</span>
+        <span class="nt">persist-credentials</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
+    <span class="p p-Indicator">-</span> <span class="nt">uses</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">actions/setup-python@v2</span>
+      <span class="nt">with</span><span class="p">:</span>
+        <span class="nt">python-version</span><span class="p">:</span> <span class="s">&#39;3.8&#39;</span>
+    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Install dependencies</span>
+      <span class="nt">run</span><span class="p">:</span> <span class="p p-Indicator">|</span>
+        <span class="no">python -m pip install --upgrade pip</span>
+        <span class="no">pip install -r requirements.txt</span>
+    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Build site</span>
+      <span class="nt">run</span><span class="p">:</span> <span class="p p-Indicator">|</span>
+        <span class="no">make download</span>
+        <span class="no">make publish</span>
+    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Add nojekyll</span>
+      <span class="nt">run</span><span class="p">:</span> <span class="p p-Indicator">|</span>
+        <span class="no">touch ./output/.nojekyll</span>
+    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Deploy</span>
+      <span class="nt">uses</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">JamesIves/github-pages-deploy-action@3.7.1</span>
+      <span class="nt">with</span><span class="p">:</span>
+        <span class="nt">ACCESS_TOKEN</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">${{ secrets.ACCESS_TOKEN }}</span>
+        <span class="nt">REPOSITORY_NAME</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">siongui/siongui.github.io</span>
+        <span class="nt">BRANCH</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">master</span>
+        <span class="nt">FOLDER</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">output</span>
+        <span class="nt">CLEAN</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+</pre></div>
+<p>Tested on: <tt class="docutils literal">Ubuntu Linux 20.04</tt>, <tt class="docutils literal">Python 3.8.5</tt>, <tt class="docutils literal">GitHub Actions</tt>.</p>
+<hr class="docutils" />
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="id1" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td><div class="first last line-block">
+<div class="line"><a class="reference external" href="https://www.google.com/search?q=pelican+github+actions">pelican github actions - Google search</a></div>
+<div class="line"><a class="reference external" href="https://duckduckgo.com/?q=pelican+github+actions">pelican github actions - DuckDuckGo search</a></div>
+<div class="line"><a class="reference external" href="https://www.ecosia.org/search?q=pelican+github+actions">pelican github actions - Ecosia search</a></div>
+<div class="line"><a class="reference external" href="https://www.qwant.com/?q=pelican+github+actions">pelican github actions - Qwant search</a></div>
+<div class="line"><a class="reference external" href="https://www.bing.com/search?q=pelican+github+actions">pelican github actions - Bing search</a></div>
+<div class="line"><a class="reference external" href="https://search.yahoo.com/search?p=pelican+github+actions">pelican github actions - Yahoo search</a></div>
+<div class="line"><a class="reference external" href="https://www.baidu.com/s?wd=pelican+github+actions">pelican github actions - Baidu search</a></div>
+<div class="line"><a class="reference external" href="https://www.yandex.com/search/?text=pelican+github+actions">pelican github actions - Yandex search</a></div>
+</div>
+</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[2]</td><td><a class="reference external" href="https://nimbinatus.com/2019/09/28/pelican-and-ghpages/">Pelican and GitHub Pages</a></td></tr>
+</tbody>
+</table>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/continuous-integrationcontinuous-delivery-cicd.html">Continuous Integration/Continuous Delivery (CI/CD)</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/continuous-integration.html">Continuous Integration</a>
+,       <a href="/tag/pelican.html">Pelican</a>
+,       <a href="/tag/github-pages.html">GitHub Pages</a>
+,       <a href="/tag/github-actions.html">GitHub Actions</a>
+,       <a href="/tag/travis-ci.html">Travis CI</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>
