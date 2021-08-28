@@ -91,7 +91,7 @@ check if a command exists in shell as follows:</p>
       util_test.go:9: ls <span class="nb">command</span> does not exist!
 </pre></div>
 <p>I print the error message and got:</p>
-<div class="highlight"><pre><span></span>exec: <span class="s2">&quot;command&quot;</span>: executable file not found in <span class="nv">$PATH</span>
+<div class="highlight"><pre><span></span>exec: <span class="s2">&quot;command&quot;</span>: executable file not found <span class="k">in</span> <span class="nv">$PATH</span>
 </pre></div>
 <p>This is really strange, and I googled again and found <a class="footnote-reference" href="#id6" id="id2">[4]</a> that you cannot run
 built-in command directly via <a class="reference external" href="https://golang.org/pkg/os/exec/#Command">exec.Command</a>, so the following way of running

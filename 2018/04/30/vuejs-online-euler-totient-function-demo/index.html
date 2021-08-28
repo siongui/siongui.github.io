@@ -143,7 +143,7 @@ to our result.</p>
 
 <span class="c1">// greatest common divisor (GCD) via Euclidean algorithm</span>
 <span class="kd">function</span> <span class="nx">GCD</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">while</span> <span class="p">(</span><span class="nx">b</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">while</span> <span class="p">(</span><span class="nx">b</span> <span class="o">!=</span> <span class="mf">0</span><span class="p">)</span> <span class="p">{</span>
             <span class="kd">var</span> <span class="nx">t</span> <span class="o">=</span> <span class="nx">b</span><span class="p">;</span>
             <span class="nx">b</span> <span class="o">=</span> <span class="nx">a</span> <span class="o">%</span> <span class="nx">b</span><span class="p">;</span>
             <span class="nx">a</span> <span class="o">=</span> <span class="nx">t</span><span class="p">;</span>
@@ -153,20 +153,20 @@ to our result.</p>
 
 <span class="c1">// Euler’s Totient Function</span>
 <span class="kd">function</span> <span class="nx">Phi</span><span class="p">(</span><span class="nx">n</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="p">{</span><span class="nx">phi</span><span class="o">:</span><span class="mi">1</span><span class="p">,</span> <span class="nx">coprimes</span><span class="o">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">]};</span>
-    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">n</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-            <span class="k">if</span> <span class="p">(</span><span class="nx">GCD</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span> <span class="nx">n</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
-                    <span class="nx">result</span><span class="p">.</span><span class="nx">phi</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="p">{</span><span class="nx">phi</span><span class="o">:</span><span class="mf">1</span><span class="p">,</span> <span class="nx">coprimes</span><span class="o">:</span> <span class="p">[</span><span class="mf">1</span><span class="p">]};</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mf">2</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">n</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">GCD</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span> <span class="nx">n</span><span class="p">)</span> <span class="o">==</span> <span class="mf">1</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="nx">result</span><span class="p">.</span><span class="nx">phi</span> <span class="o">+=</span> <span class="mf">1</span><span class="p">;</span>
                     <span class="nx">result</span><span class="p">.</span><span class="nx">coprimes</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">i</span><span class="p">);</span>
             <span class="p">}</span>
     <span class="p">}</span>
     <span class="k">return</span> <span class="nx">result</span><span class="p">;</span>
 <span class="p">}</span>
 
-<span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span>
+<span class="ow">new</span> <span class="nx">Vue</span><span class="p">({</span>
   <span class="nx">el</span><span class="o">:</span> <span class="s1">&#39;#vueapp&#39;</span><span class="p">,</span>
   <span class="nx">data</span><span class="o">:</span> <span class="p">{</span>
-    <span class="nx">intn</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="nx">intn</span><span class="o">:</span> <span class="mf">1</span><span class="p">,</span>
     <span class="nx">phi</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
     <span class="nx">coprimes</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
     <span class="nx">message</span><span class="o">:</span> <span class="s2">&quot;&quot;</span>
@@ -180,7 +180,7 @@ to our result.</p>
           <span class="k">this</span><span class="p">.</span><span class="nx">message</span> <span class="o">=</span> <span class="s2">&quot;please input integer&quot;</span><span class="p">;</span>
           <span class="k">return</span><span class="p">;</span>
         <span class="p">}</span>
-        <span class="k">if</span> <span class="p">(</span><span class="nx">n</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">n</span> <span class="o">&lt;</span> <span class="mf">1</span><span class="p">)</span> <span class="p">{</span>
           <span class="k">this</span><span class="p">.</span><span class="nx">message</span> <span class="o">=</span> <span class="s2">&quot;input integer must &gt;= 1&quot;</span><span class="p">;</span>
           <span class="k">return</span><span class="p">;</span>
         <span class="p">}</span>

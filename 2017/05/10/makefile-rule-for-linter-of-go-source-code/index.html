@@ -62,17 +62,17 @@ friendliness.</p>
       @gofmt -d <span class="k">$(</span>shell find . -type f -name <span class="s1">&#39;*.go&#39;</span> -not -path <span class="s2">&quot;./vendor/*&quot;</span><span class="k">)</span>
 
       @echo <span class="s2">&quot;Running go vet...&quot;</span>
-      @for package in <span class="k">$(</span>PACKAGES<span class="k">)</span><span class="p">;</span>  <span class="k">do</span> <span class="se">\</span>
+      @for package <span class="k">in</span> <span class="k">$(</span>PACKAGES<span class="k">)</span><span class="p">;</span>  <span class="k">do</span> <span class="se">\</span>
               go vet -v <span class="nv">$$</span>package <span class="o">||</span> <span class="nb">exit</span> <span class="m">1</span><span class="p">;</span> <span class="se">\</span>
       <span class="k">done</span>
 
       @echo <span class="s2">&quot;Running golint...&quot;</span>
-      @for package in <span class="k">$(</span>PACKAGES<span class="k">)</span><span class="p">;</span> <span class="k">do</span> <span class="se">\</span>
+      @for package <span class="k">in</span> <span class="k">$(</span>PACKAGES<span class="k">)</span><span class="p">;</span> <span class="k">do</span> <span class="se">\</span>
               golint -set_exit_status <span class="nv">$$</span>package <span class="o">||</span> <span class="nb">exit</span> <span class="m">1</span><span class="p">;</span> <span class="se">\</span>
       <span class="k">done</span>
 
       @echo <span class="s2">&quot;Running errcheck...&quot;</span>
-      @for package in <span class="k">$(</span>PACKAGES<span class="k">)</span><span class="p">;</span> <span class="k">do</span> <span class="se">\</span>
+      @for package <span class="k">in</span> <span class="k">$(</span>PACKAGES<span class="k">)</span><span class="p">;</span> <span class="k">do</span> <span class="se">\</span>
               errcheck -ignore <span class="s1">&#39;Close&#39;</span> -ignoretests <span class="nv">$$</span>package <span class="o">||</span> <span class="nb">exit</span> <span class="m">1</span><span class="p">;</span> <span class="se">\</span>
       <span class="k">done</span>
 </pre></div>

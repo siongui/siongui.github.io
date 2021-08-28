@@ -56,7 +56,7 @@
 <div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 
 <span class="c1"># $1 is the directory in which files to be renamed to lowercase</span>
-<span class="k">for</span> path in <span class="k">$(</span>find <span class="nv">$1</span> -type f<span class="k">)</span>
+<span class="k">for</span> path <span class="k">in</span> <span class="k">$(</span>find <span class="nv">$1</span> -type f<span class="k">)</span>
 <span class="k">do</span>
   <span class="nv">dir</span><span class="o">=</span><span class="k">$(</span>dirname <span class="si">${</span><span class="nv">path</span><span class="si">}</span><span class="k">)</span>
   <span class="nv">file</span><span class="o">=</span><span class="k">$(</span>basename <span class="si">${</span><span class="nv">path</span><span class="si">}</span> <span class="p">|</span> tr <span class="s2">&quot;[:upper:]&quot;</span> <span class="s2">&quot;[:lower:]&quot;</span><span class="k">)</span>

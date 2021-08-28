@@ -84,7 +84,7 @@ instead of using WebDrivers. The following is my code:</p>
   <span class="nx">active</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
   <span class="nx">currentWindow</span><span class="o">:</span> <span class="kc">true</span>
 <span class="p">},</span> <span class="kd">function</span><span class="p">(</span><span class="nx">tabs</span><span class="p">)</span> <span class="p">{</span>
-  <span class="kd">var</span> <span class="nx">tab</span> <span class="o">=</span> <span class="nx">tabs</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+  <span class="kd">var</span> <span class="nx">tab</span> <span class="o">=</span> <span class="nx">tabs</span><span class="p">[</span><span class="mf">0</span><span class="p">];</span>
 
   <span class="nx">chrome</span><span class="p">.</span><span class="nx">cookies</span><span class="p">.</span><span class="nx">getAll</span><span class="p">({},</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">cookies</span><span class="p">)</span> <span class="p">{</span>
 
@@ -99,13 +99,13 @@ instead of using WebDrivers. The following is my code:</p>
     <span class="p">};</span>
 
     <span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="s2">&quot;&lt;pre&gt;&quot;</span><span class="p">);</span>
-    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="k">in</span> <span class="nx">cookies</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="ow">in</span> <span class="nx">cookies</span><span class="p">)</span> <span class="p">{</span>
 
       <span class="kd">var</span> <span class="nx">cookie</span> <span class="o">=</span> <span class="nx">cookies</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
-      <span class="k">if</span> <span class="p">(</span><span class="nx">cookieNames</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">cookie</span><span class="p">.</span><span class="nx">name</span><span class="p">)</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">cookieNames</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">cookie</span><span class="p">.</span><span class="nx">name</span><span class="p">)</span> <span class="o">==</span> <span class="o">-</span><span class="mf">1</span><span class="p">)</span> <span class="p">{</span>
         <span class="k">continue</span><span class="p">;</span>
       <span class="p">}</span>
-      <span class="k">if</span> <span class="p">(</span><span class="nx">cookieDomains</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">cookie</span><span class="p">.</span><span class="nx">domain</span><span class="p">)</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">cookieDomains</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">cookie</span><span class="p">.</span><span class="nx">domain</span><span class="p">)</span> <span class="o">==</span> <span class="o">-</span><span class="mf">1</span><span class="p">)</span> <span class="p">{</span>
         <span class="k">continue</span><span class="p">;</span>
       <span class="p">}</span>
 
@@ -120,7 +120,7 @@ instead of using WebDrivers. The following is my code:</p>
       <span class="nx">auth</span><span class="p">[</span><span class="s2">&quot;cookies&quot;</span><span class="p">].</span><span class="nx">push</span><span class="p">(</span><span class="nx">cookieAuth</span><span class="p">);</span>
 
     <span class="p">}</span>
-    <span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">auth</span><span class="p">,</span> <span class="kc">null</span><span class="p">,</span> <span class="mi">2</span><span class="p">));</span>
+    <span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="nb">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">auth</span><span class="p">,</span> <span class="kc">null</span><span class="p">,</span> <span class="mf">2</span><span class="p">));</span>
     <span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="s2">&quot;&lt;/pre&gt;&quot;</span><span class="p">);</span>
   <span class="p">});</span>
 <span class="p">});</span>

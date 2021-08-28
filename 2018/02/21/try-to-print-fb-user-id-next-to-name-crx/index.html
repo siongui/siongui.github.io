@@ -63,28 +63,28 @@ The following is the code:</p>
               <a href="https://github.com/siongui/userpages">repository</a> |
               <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/code/javascript/fb-url-change-msg/manifest.json">view raw</a>
             </figcaption><div class="code-file">
-            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
- 2
- 3
- 4
- 5
- 6
- 7
- 8
- 9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="p">{</span>
+            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="p">{</span>
   <span class="nt">&quot;manifest_version&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
 
   <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;FBUrlId&quot;</span><span class="p">,</span>
@@ -114,40 +114,40 @@ The following is the code:</p>
               <a href="https://github.com/siongui/userpages">repository</a> |
               <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/code/javascript/fb-url-change-msg/eventPage.js">view raw</a>
             </figcaption><div class="code-file">
-            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
- 2
- 3
- 4
- 5
- 6
- 7
- 8
- 9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-26
-27
-28
-29
-30
-31
-32
-33
-34</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">reId</span> <span class="o">=</span> <span class="sr">/^https:\/\/www\.facebook\.com\/profile\.php\?id=(\d+)$/</span><span class="p">;</span>
+            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">reId</span> <span class="o">=</span> <span class="sr">/^https:\/\/www\.facebook\.com\/profile\.php\?id=(\d+)$/</span><span class="p">;</span>
 <span class="kd">var</span> <span class="nx">reUser</span> <span class="o">=</span> <span class="sr">/^https:\/\/www\.facebook\.com\/([a-zA-Z0-9.]+)$/</span><span class="p">;</span>
 <span class="kd">var</span> <span class="nx">lastUrlIsId</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
 
@@ -163,7 +163,7 @@ The following is the code:</p>
       <span class="k">if</span> <span class="p">(</span><span class="nx">lastUrlIsId</span><span class="p">)</span> <span class="p">{</span>
         <span class="c1">//console.log(resultUser[1] + &quot; : &quot; + id);</span>
         <span class="nx">chrome</span><span class="p">.</span><span class="nx">tabs</span><span class="p">.</span><span class="nx">query</span><span class="p">({</span><span class="nx">active</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span> <span class="nx">currentWindow</span><span class="o">:</span> <span class="kc">true</span><span class="p">},</span> <span class="kd">function</span><span class="p">(</span><span class="nx">tabs</span><span class="p">)</span> <span class="p">{</span>
-          <span class="nx">chrome</span><span class="p">.</span><span class="nx">tabs</span><span class="p">.</span><span class="nx">sendMessage</span><span class="p">(</span><span class="nx">tabs</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">id</span><span class="p">,</span> <span class="p">{</span><span class="nx">name</span><span class="o">:</span> <span class="nx">resultUser</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="nx">id</span><span class="o">:</span> <span class="nx">id</span><span class="p">});</span>
+          <span class="nx">chrome</span><span class="p">.</span><span class="nx">tabs</span><span class="p">.</span><span class="nx">sendMessage</span><span class="p">(</span><span class="nx">tabs</span><span class="p">[</span><span class="mf">0</span><span class="p">].</span><span class="nx">id</span><span class="p">,</span> <span class="p">{</span><span class="nx">name</span><span class="o">:</span> <span class="nx">resultUser</span><span class="p">[</span><span class="mf">1</span><span class="p">],</span> <span class="nx">id</span><span class="o">:</span> <span class="nx">id</span><span class="p">});</span>
         <span class="p">});</span>
       <span class="p">}</span>
     <span class="p">}</span>
@@ -173,7 +173,7 @@ The following is the code:</p>
     <span class="k">if</span> <span class="p">(</span><span class="nx">resultId</span><span class="p">)</span> <span class="p">{</span>
       <span class="c1">//console.log(resultId[0]); // URL</span>
       <span class="c1">//console.log(resultId[1]); // id</span>
-      <span class="nx">id</span> <span class="o">=</span> <span class="nx">resultId</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+      <span class="nx">id</span> <span class="o">=</span> <span class="nx">resultId</span><span class="p">[</span><span class="mf">1</span><span class="p">];</span>
       <span class="nx">lastUrlIsId</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
     <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
       <span class="nx">lastUrlIsId</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
@@ -189,21 +189,21 @@ The following is the code:</p>
               <a href="https://github.com/siongui/userpages">repository</a> |
               <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/code/javascript/fb-url-change-msg/showid.js">view raw</a>
             </figcaption><div class="code-file">
-            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
- 2
- 3
- 4
- 5
- 6
- 7
- 8
- 9
-10
-11
-12
-13
-14
-15</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="nx">chrome</span><span class="p">.</span><span class="nx">runtime</span><span class="p">.</span><span class="nx">onMessage</span><span class="p">.</span><span class="nx">addListener</span><span class="p">(</span>
+            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="nx">chrome</span><span class="p">.</span><span class="nx">runtime</span><span class="p">.</span><span class="nx">onMessage</span><span class="p">.</span><span class="nx">addListener</span><span class="p">(</span>
   <span class="kd">function</span><span class="p">(</span><span class="nx">request</span><span class="p">,</span> <span class="nx">sender</span><span class="p">,</span> <span class="nx">sendResponse</span><span class="p">)</span> <span class="p">{</span>
     <span class="c1">//console.log(request.name);</span>
     <span class="c1">//console.log(request.id);</span>
@@ -216,7 +216,7 @@ The following is the code:</p>
         <span class="nx">n</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">idNode</span><span class="p">);</span>
         <span class="nx">clearInterval</span><span class="p">(</span><span class="nx">timerId</span><span class="p">);</span>
       <span class="p">}</span>
-    <span class="p">},</span> <span class="mi">500</span><span class="p">);</span>
+    <span class="p">},</span> <span class="mf">500</span><span class="p">);</span>
   <span class="p">});</span>
 </pre></div>
 </td></tr></table></div></figure><hr class="docutils" />

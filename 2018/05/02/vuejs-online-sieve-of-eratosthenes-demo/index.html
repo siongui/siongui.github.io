@@ -138,15 +138,15 @@ sieve algorithm to check if the number is prime.</p>
       <span class="c1">// all entries it as true. A value in prime[i] will</span>
       <span class="c1">// finally be false if i is Not a prime, else true.</span>
       <span class="kd">var</span> <span class="nx">integers</span> <span class="o">=</span> <span class="p">[];</span>
-      <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">n</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mf">2</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">n</span><span class="o">+</span><span class="mf">1</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
               <span class="nx">integers</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
       <span class="p">}</span>
 
-      <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">p</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="nx">p</span><span class="o">*</span><span class="nx">p</span> <span class="o">&lt;=</span> <span class="nx">n</span><span class="p">;</span> <span class="nx">p</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">p</span> <span class="o">=</span> <span class="mf">2</span><span class="p">;</span> <span class="nx">p</span><span class="o">*</span><span class="nx">p</span> <span class="o">&lt;=</span> <span class="nx">n</span><span class="p">;</span> <span class="nx">p</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
               <span class="c1">// If integers[p] is not changed, then it is a prime</span>
               <span class="k">if</span> <span class="p">(</span><span class="nx">integers</span><span class="p">[</span><span class="nx">p</span><span class="p">]</span> <span class="o">==</span> <span class="kc">true</span><span class="p">)</span> <span class="p">{</span>
                       <span class="c1">// Update all multiples of p</span>
-                      <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="nx">p</span> <span class="o">*</span> <span class="mi">2</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;=</span> <span class="nx">n</span><span class="p">;</span> <span class="nx">i</span> <span class="o">+=</span> <span class="nx">p</span><span class="p">)</span> <span class="p">{</span>
+                      <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="nx">p</span> <span class="o">*</span> <span class="mf">2</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;=</span> <span class="nx">n</span><span class="p">;</span> <span class="nx">i</span> <span class="o">+=</span> <span class="nx">p</span><span class="p">)</span> <span class="p">{</span>
                               <span class="nx">integers</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
                       <span class="p">}</span>
               <span class="p">}</span>
@@ -154,7 +154,7 @@ sieve algorithm to check if the number is prime.</p>
 
       <span class="c1">// return all prime numbers &lt;= n</span>
       <span class="kd">var</span> <span class="nx">primes</span> <span class="o">=</span> <span class="p">[];</span>
-      <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">p</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="nx">p</span> <span class="o">&lt;=</span> <span class="nx">n</span><span class="p">;</span> <span class="nx">p</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">p</span> <span class="o">=</span> <span class="mf">2</span><span class="p">;</span> <span class="nx">p</span> <span class="o">&lt;=</span> <span class="nx">n</span><span class="p">;</span> <span class="nx">p</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
               <span class="k">if</span> <span class="p">(</span><span class="nx">integers</span><span class="p">[</span><span class="nx">p</span><span class="p">]</span> <span class="o">==</span> <span class="kc">true</span><span class="p">)</span> <span class="p">{</span>
                       <span class="nx">primes</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">p</span><span class="p">);</span>
               <span class="p">}</span>
@@ -163,10 +163,10 @@ sieve algorithm to check if the number is prime.</p>
       <span class="k">return</span> <span class="nx">primes</span><span class="p">;</span>
 <span class="p">}</span>
 
-<span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span>
+<span class="ow">new</span> <span class="nx">Vue</span><span class="p">({</span>
   <span class="nx">el</span><span class="o">:</span> <span class="s1">&#39;#vueapp&#39;</span><span class="p">,</span>
   <span class="nx">data</span><span class="o">:</span> <span class="p">{</span>
-    <span class="nx">intn</span><span class="o">:</span> <span class="mi">5</span><span class="p">,</span>
+    <span class="nx">intn</span><span class="o">:</span> <span class="mf">5</span><span class="p">,</span>
     <span class="nx">primes</span><span class="o">:</span> <span class="s2">&quot;&quot;</span>
   <span class="p">},</span>
   <span class="nx">watch</span><span class="o">:</span> <span class="p">{</span>

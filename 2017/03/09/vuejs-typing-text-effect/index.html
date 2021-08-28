@@ -160,10 +160,10 @@ element.</p>
 <p><strong>JavaScript</strong>:</p>
 <div class="highlight"><pre><span></span><span class="s1">&#39;use strict&#39;</span><span class="p">;</span>
 
-<span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span>
+<span class="ow">new</span> <span class="nx">Vue</span><span class="p">({</span>
   <span class="nx">el</span><span class="o">:</span> <span class="s1">&#39;#vueapp&#39;</span><span class="p">,</span>
   <span class="nx">data</span><span class="o">:</span> <span class="p">{</span>
-    <span class="nx">speed</span><span class="o">:</span> <span class="mi">15</span>
+    <span class="nx">speed</span><span class="o">:</span> <span class="mf">15</span>
   <span class="p">},</span>
   <span class="nx">methods</span><span class="o">:</span> <span class="p">{</span>
     <span class="nx">playing</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">elements</span><span class="p">,</span> <span class="nx">elementIndex</span><span class="p">,</span> <span class="nx">textIndex</span><span class="p">)</span> <span class="p">{</span>
@@ -172,18 +172,18 @@ element.</p>
       <span class="p">}</span>
       <span class="kd">var</span> <span class="nx">element</span> <span class="o">=</span> <span class="nx">elements</span><span class="p">[</span><span class="nx">elementIndex</span><span class="p">];</span>
       <span class="k">if</span> <span class="p">(</span><span class="nx">textIndex</span> <span class="o">==</span> <span class="nx">element</span><span class="p">.</span><span class="nx">dataset</span><span class="p">.</span><span class="nx">typedtext</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nx">setTimeout</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">playing</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">speed</span><span class="p">,</span> <span class="nx">elements</span><span class="p">,</span> <span class="nx">elementIndex</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+        <span class="nx">setTimeout</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">playing</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">speed</span><span class="p">,</span> <span class="nx">elements</span><span class="p">,</span> <span class="nx">elementIndex</span> <span class="o">+</span> <span class="mf">1</span><span class="p">,</span> <span class="mf">0</span><span class="p">);</span>
       <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
         <span class="nx">element</span><span class="p">.</span><span class="nx">textContent</span> <span class="o">+=</span> <span class="nx">element</span><span class="p">.</span><span class="nx">dataset</span><span class="p">.</span><span class="nx">typedtext</span><span class="p">[</span><span class="nx">textIndex</span><span class="p">];</span>
-        <span class="nx">setTimeout</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">playing</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">speed</span><span class="p">,</span> <span class="nx">elements</span><span class="p">,</span> <span class="nx">elementIndex</span><span class="p">,</span> <span class="nx">textIndex</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+        <span class="nx">setTimeout</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">playing</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">speed</span><span class="p">,</span> <span class="nx">elements</span><span class="p">,</span> <span class="nx">elementIndex</span><span class="p">,</span> <span class="nx">textIndex</span> <span class="o">+</span> <span class="mf">1</span><span class="p">);</span>
       <span class="p">}</span>
     <span class="p">},</span>
     <span class="nx">playSequential</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">elements</span><span class="p">)</span> <span class="p">{</span>
-      <span class="k">this</span><span class="p">.</span><span class="nx">playing</span><span class="p">(</span><span class="nx">elements</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">playing</span><span class="p">(</span><span class="nx">elements</span><span class="p">,</span> <span class="mf">0</span><span class="p">,</span> <span class="mf">0</span><span class="p">);</span>
     <span class="p">},</span>
     <span class="nx">playParallel</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">elements</span><span class="p">)</span> <span class="p">{</span>
-      <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">elements</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="o">++</span><span class="nx">i</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">playing</span><span class="p">([</span><span class="nx">elements</span><span class="p">[</span><span class="nx">i</span><span class="p">]],</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+      <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mf">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">elements</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="o">++</span><span class="nx">i</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">playing</span><span class="p">([</span><span class="nx">elements</span><span class="p">[</span><span class="nx">i</span><span class="p">]],</span> <span class="mf">0</span><span class="p">,</span> <span class="mf">0</span><span class="p">);</span>
       <span class="p">}</span>
     <span class="p">}</span>
   <span class="p">},</span>
