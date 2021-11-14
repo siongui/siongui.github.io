@@ -62,7 +62,7 @@
 <p>不久以前，所有 HTML 頁面的佈局還都是通過 tables、floats 以及其他的 CSS 屬性來完成的。面對複雜頁面的佈局，卻沒有很好的辦法。</p>
 <p>然而 <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Using_CSS_flexible_boxes">Flexbox</a> 的出現，便輕鬆的解決了複雜的 Web 佈局。它是一種專注於創建穩定的響應式頁面的佈局模式，並可以輕鬆地正確對齊元素及其內容。如今已是大多數 Web 開發人員首選的 CSS 佈局方式。</p>
 <p>現在，又出現了一個構建 HTML 最佳佈局體系的新競爭者。（冠軍頭銜正在爭奪中…）它就是強大的 <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout">CSS Grid</a> 佈局。直到本月月底，它也將在 <a class="reference external" href="https://hacks.mozilla.org/2017/03/firefox-52-introducing-web-assembly-css-grid-and-the-grid-inspector/">Firefox 52</a> 和 <a class="reference external" href="https://developers.google.com/web/updates/2017/03/nic57">Chrome 57</a> 上得到原生支持，相信不久也會得到其他瀏覽器兼容性的支持。</p>
-<div class="section" id="id1">
+<div class="section" id="section-1">
 <h2>基本佈局測試</h2>
 <p>要瞭解這兩個體系構建佈局的方式，我們將通過相同的 HTML 頁面，利用不同的佈局方式 （即 Flexbox 與 CSS Grid）為大家區分。</p>
 <p>同時，你也可以通過文章頂部附近的下載按鈕，下載演示項目進行對比，或者通過在線演示來察看它們：</p>
@@ -75,7 +75,7 @@
 </ol>
 <p>如你所見，為了便於比較，我們將所有事項從簡處理。那麼，讓我們從第一個挑戰事項開始吧！</p>
 </div>
-<div class="section" id="id2">
+<div class="section" id="section-2">
 <h2>挑戰 1：定位頁面部分</h2>
 <div class="section" id="flexbox">
 <h3>Flexbox 解決方案</h3>
@@ -159,9 +159,9 @@
 <p>就是這樣！ 我們現在將遵循上述結構進行佈局，甚至不需要我們處理任何的 margins 或 paddings 。</p>
 </div>
 </div>
-<div class="section" id="id3">
+<div class="section" id="section-3">
 <h2>挑戰 2：將頁面變為響應式頁面</h2>
-<div class="section" id="id4">
+<div class="section" id="flexbox-1">
 <h3>Flexbox 解決方案</h3>
 <p>這一步的執行與上一步密切相關。對於 Flexbox 解決方案，我們將更改包裝器的 <tt class="docutils literal"><span class="pre">flex-direction</span></tt> 屬性，並調整一些 margins。</p>
 <div class="highlight"><pre><span></span><span class="p">@</span><span class="k">media</span> <span class="o">(</span><span class="nt">max-width</span><span class="o">:</span> <span class="nt">600px</span><span class="o">)</span> <span class="p">{</span>
@@ -177,7 +177,7 @@
 </pre></div>
 <p>由於網頁比較簡單，所以我們在媒體查詢上不需要太多的重寫。但是，如果遇見更為複雜的佈局，那麼將會重新的定義相當多的內容。</p>
 </div>
-<div class="section" id="id5">
+<div class="section" id="css-grid-1">
 <h3>CSS Grid 解決方案</h3>
 <p>由於我們已經定義了網格區域，所以我們只需要在媒體查詢中重新排序它們。 我們可以使用相同的列設置。</p>
 <div class="highlight"><pre><span></span><span class="p">@</span><span class="k">media</span> <span class="o">(</span><span class="nt">max-width</span><span class="o">:</span> <span class="nt">600px</span><span class="o">)</span> <span class="p">{</span>
@@ -206,9 +206,9 @@
 </pre></div>
 </div>
 </div>
-<div class="section" id="id6">
+<div class="section" id="section-4">
 <h2>挑戰 3：對齊標頭組件</h2>
-<div class="section" id="id7">
+<div class="section" id="flexbox-2">
 <h3>Flexbox 解決方案</h3>
 <p>我們的標頭包含了導航和一個按鈕的相關鏈接。我們希望導航朝左對齊，按鈕向右對齊。而導航中的鏈接務必正確對齊，且彼此相鄰。</p>
 <div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">header</span><span class="p">&gt;</span>
@@ -234,7 +234,7 @@
 </pre></div>
 <p>僅兩行代碼就搞定了！ 還不錯吧。接下來讓我們看看如何使用 CSS Grid 解決它。</p>
 </div>
-<div class="section" id="id8">
+<div class="section" id="css-grid-2">
 <h3>CSS Grid 解決方案</h3>
 <p>為了拆分導航和按鈕，我們要為標頭定義 <tt class="docutils literal">display: grid</tt> 屬性，並設置一個 2 列的網格。同時，我們還需要兩行額外的 CSS 代碼，將它們定位在相應的邊界上。</p>
 <div class="highlight"><pre><span></span><span class="nt">header</span><span class="p">{</span>
@@ -260,7 +260,7 @@
 <p>CSS grid 在此步驟中，存在一些明顯的佈局上的缺陷。但你也不必過於驚訝。因為它的目標是對齊容器，而不是內部的內容。所以，用它來處理收尾工作，或許不是很好的選擇哦。</p>
 </div>
 </div>
-<div class="section" id="id9">
+<div class="section" id="section-5">
 <h2>結論</h2>
 <p>如果你已經瀏覽完整篇文章，那麼結論不會讓你感到意外。事實上，並不存在最好的佈局方式。Flexbox 和 CSS grid 是兩種不同的佈局形式，我們應該根據具體的場景將它們搭配使用，而不是相互替代。</p>
 <p>對於那些跳過文章只想看結論的朋友（不用擔心，我們也這樣做），這裡是通過實例比較後的總結：</p>

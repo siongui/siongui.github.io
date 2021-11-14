@@ -66,8 +66,8 @@ noticable issue with it. But I found nothing meaningful again. Then I tried to
 use <tt class="docutils literal">head <span class="pre">-n</span> 1000</tt> to print first 1000 lines of the log, and found that an
 error message <tt class="docutils literal">Touchpad: Read error 9</tt> keeps added to the log and finally used
 up all my disk space.</p>
-<p>I again use the error message to search again <a class="footnote-reference" href="#id3" id="id1">[1]</a> and found that someone had
-the same problem as me <a class="footnote-reference" href="#id4" id="id2">[2]</a>. Bingo! I got the root cause of the issue now. It
+<p>I again use the error message to search again <a class="footnote-reference" href="#footnote-1" id="footnote-reference-1">[1]</a> and found that someone had
+the same problem as me <a class="footnote-reference" href="#footnote-2" id="footnote-reference-2">[2]</a>. Bingo! I got the root cause of the issue now. It
 seems that Xorg replaces <em>input-synaptics</em> with <em>libinput</em>. The Ubuntu upgrader
 did not remove <em>xserver-xorg-input-synaptics</em> package after upgrade and confuses
 xorg package, so that the error message keeps added to the log.</p>
@@ -78,10 +78,10 @@ xorg package, so that the error message keeps added to the log.</p>
 
 <hr class="docutils" />
 <p>References:</p>
-<table class="docutils footnote" frame="void" id="id3" rules="none">
+<table class="docutils footnote" frame="void" id="footnote-1" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td><div class="first last line-block">
+<tr><td class="label"><a class="fn-backref" href="#footnote-reference-1">[1]</a></td><td><div class="first last line-block">
 <div class="line"><a class="reference external" href="https://www.google.com/search?q=Elantech+Touchpad:+Read+error+9">Elantech Touchpad: Read error 9 - Google search</a></div>
 <div class="line"><a class="reference external" href="https://duckduckgo.com/?q=Elantech+Touchpad:+Read+error+9">Elantech Touchpad: Read error 9 - DuckDuckGo search</a></div>
 <div class="line"><a class="reference external" href="https://www.ecosia.org/search?q=Elantech+Touchpad:+Read+error+9">Elantech Touchpad: Read error 9 - Ecosia search</a></div>
@@ -94,13 +94,13 @@ xorg package, so that the error message keeps added to the log.</p>
 </td></tr>
 </tbody>
 </table>
-<table class="docutils footnote" frame="void" id="id4" rules="none">
+<table class="docutils footnote" frame="void" id="footnote-2" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id2">[2]</a></td><td><a class="reference external" href="https://bbs.archlinux.org/viewtopic.php?id=222031">[Resolved] Synaptics TouchPad: Read error 9 / Newbie Corner / Arch Linux Forums</a></td></tr>
+<tr><td class="label"><a class="fn-backref" href="#footnote-reference-2">[2]</a></td><td><a class="reference external" href="https://bbs.archlinux.org/viewtopic.php?id=222031">[Resolved] Synaptics TouchPad: Read error 9 / Newbie Corner / Arch Linux Forums</a></td></tr>
 </tbody>
 </table>
-<table class="docutils footnote" frame="void" id="id5" rules="none">
+<table class="docutils footnote" frame="void" id="footnote-3" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
 <tr><td class="label">[3]</td><td><a class="reference external" href="https://community.ubuntu.com/t/ubuntu-to-remove-xserver-xorg-input-synaptics-on-upgrade/3938">Ubuntu to remove xserver-xorg-input-synaptics on upgrade - Desktop - Ubuntu Community Hub</a></td></tr>

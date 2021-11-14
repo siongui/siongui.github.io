@@ -58,7 +58,7 @@
 <div class="line">轉載自 <a class="reference external" href="https://aotu.io/">凹凸实验室</a>: <a class="reference external" href="https://aotu.io/notes/2017/04/13/Sticky-footer/">Sticky Footer，完美的绝对底部</a></div>
 <div class="line">by <a class="reference external" href="https://github.com/liqinuo">NONO</a> on 2017-04-13</div>
 </div>
-<div class="section" id="id1">
+<div class="section" id="section-1">
 <h2>寫在前面</h2>
 <p>做過網頁開發的同學想必都遇到過這樣尷尬的排版問題：</p>
 <p>在主體內容不足夠多或者未完全加載出來之前，就會導致出現（圖一）的這種情況，原因是因為沒有足夠的垂直空間使得頁腳推到瀏覽器窗口最底部。但是，我們期望的效果是頁腳應該一直處於頁面最底部（如圖二）：</p>
@@ -66,7 +66,7 @@
 <p>筆者最近在項目中也遇到過這樣的場景，在尋找最佳解決方案的過程中，瞭解到了 「Sticky Footer」 這個名詞。</p>
 <p>本文將帶大家重新認識這個常見的網頁效果，以及一些可行的實現方案。</p>
 </div>
-<div class="section" id="id2">
+<div class="section" id="sticky-footer-1">
 <h2>什麼是 「Sticky Footer」</h2>
 <p>所謂 「Sticky Footer」，並不是什麼新的前端概念和技術，它指的就是一種網頁效果：</p>
 <p>如果頁面內容不足夠長時，頁腳固定在瀏覽器窗口的底部；如果內容足夠長時，頁腳固定在頁面的最底部。</p>
@@ -75,7 +75,7 @@
 <p>當然，實現這種效果的方法有很多種，其中有通過腳本計算的，有通過 CSS 處理的，腳本計算的方案我們不在本文探討。</p>
 <p>下面我們看看有哪些通過 CSS 可以實現且適用於移動端開發的方案，並分析其中的利弊。</p>
 </div>
-<div class="section" id="id3">
+<div class="section" id="section-2">
 <h2>如何實現</h2>
 <p>假設我們頁面的 HTML 結構是這樣：</p>
 <div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;wrapper&quot;</span><span class="p">&gt;</span>
@@ -154,7 +154,7 @@
 </pre></div>
 <p>需要注意的是想要兼容各種系統設備，需要兼顧 flex 的兼容寫法。</p>
 </div>
-<div class="section" id="id4">
+<div class="section" id="section-3">
 <h2>寫在最後</h2>
 <p>以上幾種實現方案，筆者都在項目中嘗試過，每個實現的方法其實大同小異，同時也都有自己的利弊。</p>
 <p>其中有的方案存在限制性問題，需要固定頁腳高度；其中有的方案需要添加額外的元素或者需要 Hack 手段。同學們可以根據頁面具體需求，選擇最適合的方案。</p>

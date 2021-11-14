@@ -58,7 +58,7 @@ want to make my code look like <a class="reference external" href="https://www.g
 example, I want to <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/API/Document/getElementById">getElementById</a> in <a class="reference external" href="https://golang.org/">Go</a> as follows:</p>
 <div class="highlight"><pre><span></span><span class="nx">element</span> <span class="o">:=</span> <span class="nx">Document</span><span class="p">.</span><span class="nx">GetElementById</span><span class="p">(</span><span class="s">&quot;elmId&quot;</span><span class="p">)</span>
 </pre></div>
-<p>So I write a <a class="reference external" href="https://golang.org/">Go</a>/<a class="reference external" href="http://www.gopherjs.org/">GopherJS</a> library <a class="footnote-reference" href="#id6" id="id1">[1]</a> to realize my idea:</p>
+<p>So I write a <a class="reference external" href="https://golang.org/">Go</a>/<a class="reference external" href="http://www.gopherjs.org/">GopherJS</a> library <a class="footnote-reference" href="#footnote-1" id="footnote-reference-1">[1]</a> to realize my idea:</p>
 <div class="highlight"><pre><span></span><span class="kn">import</span> <span class="p">(</span>
       <span class="s">&quot;github.com/gopherjs/gopherjs/js&quot;</span>
 <span class="p">)</span>
@@ -74,7 +74,7 @@ example, I want to <a class="reference external" href="https://developer.mozilla
       <span class="nx">panic</span><span class="p">:</span> <span class="kd">interface</span> <span class="nx">conversion</span><span class="p">:</span> <span class="nx">ast</span><span class="p">.</span><span class="nx">Expr</span> <span class="nx">is</span> <span class="o">*</span><span class="nx">ast</span><span class="p">.</span><span class="nx">SelectorExpr</span><span class="p">,</span> <span class="nx">not</span> <span class="o">*</span><span class="nx">ast</span><span class="p">.</span><span class="nx">Ident</span>
 </pre></div>
 
-<p>After some googling <a class="footnote-reference" href="#id7" id="id2">[2]</a> <a class="footnote-reference" href="#id8" id="id3">[3]</a> <a class="footnote-reference" href="#id9" id="id4">[4]</a>, I found that it is impossible to add method
+<p>After some googling <a class="footnote-reference" href="#footnote-2" id="footnote-reference-2">[2]</a> <a class="footnote-reference" href="#footnote-3" id="footnote-reference-3">[3]</a> <a class="footnote-reference" href="#footnote-4" id="footnote-reference-4">[4]</a>, I found that it is impossible to add method
 to existing type in external package. But good news is that I can still do
 something similar as follows:</p>
 <div class="highlight"><pre><span></span><span class="kd">type</span> <span class="nx">Object</span> <span class="kd">struct</span> <span class="p">{</span>
@@ -87,7 +87,7 @@ something similar as follows:</p>
       <span class="k">return</span> <span class="o">&amp;</span><span class="nx">Object</span><span class="p">{</span><span class="nx">o</span><span class="p">.</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;getElementById&quot;</span><span class="p">,</span> <span class="nx">id</span><span class="p">)}</span>
 <span class="p">}</span>
 </pre></div>
-<p>Here we wrap <tt class="docutils literal">*js.Object</tt> in a new defined type <em>Object</em> in our package <a class="footnote-reference" href="#id6" id="id5">[1]</a>.
+<p>Here we wrap <tt class="docutils literal">*js.Object</tt> in a new defined type <em>Object</em> in our package <a class="footnote-reference" href="#footnote-1" id="footnote-reference-5">[1]</a>.
 And we can <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/API/Document/getElementById">getElementById</a> in <a class="reference external" href="https://golang.org/">Go</a> as follows:</p>
 <div class="highlight"><pre><span></span><span class="kn">import</span> <span class="p">(</span>
       <span class="p">.</span> <span class="s">&quot;github.com/siongui/godom&quot;</span>
@@ -104,16 +104,16 @@ And we can <a class="reference external" href="https://developer.mozilla.org/en-
 </ul>
 <hr class="docutils" />
 <p>References:</p>
-<table class="docutils footnote" frame="void" id="id6" rules="none">
+<table class="docutils footnote" frame="void" id="footnote-1" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label">[1]</td><td><em>(<a class="fn-backref" href="#id1">1</a>, <a class="fn-backref" href="#id5">2</a>)</em> <a class="reference external" href="https://github.com/siongui/godom">GitHub - siongui/godom: Make DOM manipultation in Go as similar to JavaScript as possible. (via GopherJS)</a></td></tr>
+<tr><td class="label">[1]</td><td><em>(<a class="fn-backref" href="#footnote-reference-1">1</a>, <a class="fn-backref" href="#footnote-reference-5">2</a>)</em> <a class="reference external" href="https://github.com/siongui/godom">GitHub - siongui/godom: Make DOM manipultation in Go as similar to JavaScript as possible. (via GopherJS)</a></td></tr>
 </tbody>
 </table>
-<table class="docutils footnote" frame="void" id="id7" rules="none">
+<table class="docutils footnote" frame="void" id="footnote-2" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id2">[2]</a></td><td><div class="first last line-block">
+<tr><td class="label"><a class="fn-backref" href="#footnote-reference-2">[2]</a></td><td><div class="first last line-block">
 <div class="line"><a class="reference external" href="https://www.google.com/search?q=panic:+interface+conversion:+ast.Expr+is+*ast.SelectorExpr,+not+*ast.Ident">panic: interface conversion: ast.Expr is *ast.SelectorExpr, not *ast.Ident - Google search</a></div>
 <div class="line"><a class="reference external" href="https://duckduckgo.com/?q=panic:+interface+conversion:+ast.Expr+is+*ast.SelectorExpr,+not+*ast.Ident">panic: interface conversion: ast.Expr is *ast.SelectorExpr, not *ast.Ident - DuckDuckGo search</a></div>
 <div class="line"><a class="reference external" href="https://www.ecosia.org/search?q=panic:+interface+conversion:+ast.Expr+is+*ast.SelectorExpr,+not+*ast.Ident">panic: interface conversion: ast.Expr is *ast.SelectorExpr, not *ast.Ident - Ecosia search</a></div>
@@ -126,10 +126,10 @@ And we can <a class="reference external" href="https://developer.mozilla.org/en-
 </tbody>
 </table>
 
-<table class="docutils footnote" frame="void" id="id8" rules="none">
+<table class="docutils footnote" frame="void" id="footnote-3" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id3">[3]</a></td><td><div class="first last line-block">
+<tr><td class="label"><a class="fn-backref" href="#footnote-reference-3">[3]</a></td><td><div class="first last line-block">
 <div class="line"><a class="reference external" href="https://www.google.com/search?q=add+a+method+to+an+external+package">add a method to an external package - Google search</a></div>
 <div class="line"><a class="reference external" href="https://duckduckgo.com/?q=add+a+method+to+an+external+package">add a method to an external package - DuckDuckGo search</a></div>
 <div class="line"><a class="reference external" href="https://www.ecosia.org/search?q=add+a+method+to+an+external+package">add a method to an external package - Ecosia search</a></div>
@@ -141,13 +141,13 @@ And we can <a class="reference external" href="https://developer.mozilla.org/en-
 </td></tr>
 </tbody>
 </table>
-<table class="docutils footnote" frame="void" id="id9" rules="none">
+<table class="docutils footnote" frame="void" id="footnote-4" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id4">[4]</a></td><td><a class="reference external" href="http://stackoverflow.com/a/28800807">How to add new methods to an existing type in go? - Stack Overflow</a></td></tr>
+<tr><td class="label"><a class="fn-backref" href="#footnote-reference-4">[4]</a></td><td><a class="reference external" href="http://stackoverflow.com/a/28800807">How to add new methods to an existing type in go? - Stack Overflow</a></td></tr>
 </tbody>
 </table>
-<table class="docutils footnote" frame="void" id="id10" rules="none">
+<table class="docutils footnote" frame="void" id="footnote-5" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
 <tr><td class="label">[5]</td><td><a class="reference external" href="https://godoc.org/honnef.co/go/js/dom">dom - GopherJS bindings for the JavaScript DOM APIs</a>

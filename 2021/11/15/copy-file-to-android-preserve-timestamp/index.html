@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>Copy Files to Android While Preserving Timestamp</title>
+  <meta name="keywords" content="Bash,adb,Commandline,Android"/>
+  <meta name="description" content="Copy files to Android smart phone without losing timestamps."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="Copy Files to Android While Preserving Timestamp" /><meta property="og:image" content="https://i0.wp.com/www.infonautics.ch/blog/wp-content/uploads/2020/06/Copy-Files-With-Dates_EN.png?resize=750%2C340&ssl=1" />
+<meta property="og:description" content="Copy files to Android smart phone without losing timestamps." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2021/11/15/copy-file-to-android-preserve-timestamp/"
+           rel="bookmark"
+           title="Permalink to Copy Files to Android While Preserving Timestamp">
+          Copy Files to Android While Preserving Timestamp
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2021-11-15T00:53:00+08:00">
+    November 15, 2021
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2021/11/15/copy-file-to-android-preserve-timestamp%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p>Recently I bought a <a class="reference external" href="https://support.google.com/pixelphone/answer/7158570">Google Pixel XL</a> and tried to copy files to it. I found
+that the timestamp of the copied files is the time of the creation of the copy,
+not last modified date in original filesystem. After some googling <a class="footnote-reference" href="#footnote-1" id="footnote-reference-1">[1]</a>, I found
+that the only solution to the earlier version of Android is rooting the Android
+devices.</p>
+<p>Luckily enough, The Google Pixel XL can run Android 10 and it is possible to use
+<a class="reference external" href="https://developer.android.com/studio/command-line/adb">adb</a> push to keep timestamp because the filesystem is changed from FUSE to
+SDCardFS.</p>
+<p>On Ubuntu system, it is easy to install adb: <a class="footnote-reference" href="#footnote-3" id="footnote-reference-2">[3]</a></p>
+<div class="highlight"><pre><span></span>$ sudo apt-get install android-tools-adb android-tools-fastboot
+</pre></div>
+<p>Enable USB Debugging on Google Pixel XL <a class="footnote-reference" href="#footnote-4" id="footnote-reference-3">[4]</a>. Open a terminal and use USB cable
+to connect your phone and Ubuntu machine. Allow USB debugging on your phone,
+in the Ubuntu terminal, we can see the Android device by:</p>
+<div class="highlight"><pre><span></span>$ adb devices
+</pre></div>
+<p>You can see your phone in the list. Push the files to Android phone by:</p>
+<div class="highlight"><pre><span></span>$ adb push myfolder /sdcard/Download
+</pre></div>
+<p>After pushing files finished, we can use adb shell to check the files on Android
+phone:</p>
+<div class="highlight"><pre><span></span><span class="c1"># Login to Android shell</span>
+$ adb shell
+<span class="c1"># Go to the Download folder</span>
+$ <span class="nb">cd</span> /sdcard/Download
+<span class="c1"># See the timestamp of files</span>
+$ ls -al
+</pre></div>
+<p>If you are running Android 10 on Google Pixel XL, you can see the timestamp of
+files is preserved after the push!</p>
+<p>Hope this helps those who have the same issue as me.</p>
+<p>Tested on: <tt class="docutils literal">Ubuntu Linux 20.04</tt>.</p>
+<hr class="docutils" />
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="footnote-1" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#footnote-reference-1">[1]</a></td><td><div class="first last line-block">
+<div class="line"><a class="reference external" href="https://www.google.com/search?q=copy+file+to+android+preserve+timestamp">copy file to android preserve timestamp - Google search</a></div>
+<div class="line"><a class="reference external" href="https://duckduckgo.com/?q=copy+file+to+android+preserve+timestamp">copy file to android preserve timestamp - DuckDuckGo search</a></div>
+<div class="line"><a class="reference external" href="https://www.ecosia.org/search?q=copy+file+to+android+preserve+timestamp">copy file to android preserve timestamp - Ecosia search</a></div>
+<div class="line"><a class="reference external" href="https://www.qwant.com/?q=copy+file+to+android+preserve+timestamp">copy file to android preserve timestamp - Qwant search</a></div>
+<div class="line"><a class="reference external" href="https://www.bing.com/search?q=copy+file+to+android+preserve+timestamp">copy file to android preserve timestamp - Bing search</a></div>
+<div class="line"><a class="reference external" href="https://search.yahoo.com/search?p=copy+file+to+android+preserve+timestamp">copy file to android preserve timestamp - Yahoo search</a></div>
+<div class="line"><a class="reference external" href="https://www.baidu.com/s?wd=copy+file+to+android+preserve+timestamp">copy file to android preserve timestamp - Baidu search</a></div>
+<div class="line"><a class="reference external" href="https://www.yandex.com/search/?text=copy+file+to+android+preserve+timestamp">copy file to android preserve timestamp - Yandex search</a></div>
+</div>
+</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="footnote-2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[2]</td><td><div class="first last line-block">
+<div class="line"><a class="reference external" href="https://www.google.com/search?q=adb+push+preserve+timestamp">adb push preserve timestamp - Google search</a></div>
+<div class="line"><a class="reference external" href="https://duckduckgo.com/?q=adb+push+preserve+timestamp">adb push preserve timestamp - DuckDuckGo search</a></div>
+<div class="line"><a class="reference external" href="https://www.ecosia.org/search?q=adb+push+preserve+timestamp">adb push preserve timestamp - Ecosia search</a></div>
+<div class="line"><a class="reference external" href="https://www.qwant.com/?q=adb+push+preserve+timestamp">adb push preserve timestamp - Qwant search</a></div>
+<div class="line"><a class="reference external" href="https://www.bing.com/search?q=adb+push+preserve+timestamp">adb push preserve timestamp - Bing search</a></div>
+<div class="line"><a class="reference external" href="https://search.yahoo.com/search?p=adb+push+preserve+timestamp">adb push preserve timestamp - Yahoo search</a></div>
+<div class="line"><a class="reference external" href="https://www.baidu.com/s?wd=adb+push+preserve+timestamp">adb push preserve timestamp - Baidu search</a></div>
+<div class="line"><a class="reference external" href="https://www.yandex.com/search/?text=adb+push+preserve+timestamp">adb push preserve timestamp - Yandex search</a></div>
+</div>
+</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="footnote-3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#footnote-reference-2">[3]</a></td><td><a class="reference external" href="https://www.xda-developers.com/install-adb-windows-macos-linux/">How to Install ADB on Windows, macOS, and Linux</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="footnote-4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#footnote-reference-3">[4]</a></td><td><a class="reference external" href="https://www.syncios.com/android/how-to-debug-google-pixel.html">How to Enable USB Debugging on Google Pixel or Pixel XL (Android 7.0)</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="footnote-5" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[5]</td><td><a class="reference external" href="https://stackoverflow.com/questions/19485467/failed-to-authenticate-to-ip-adb-wifi">failed to authenticate to &lt;ip&gt; | adb wifi - Stack Overflow</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="footnote-6" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[6]</td><td><div class="first last line-block">
+<div class="line"><a class="reference external" href="https://www.google.com/search?q=root+google+pixel+google+photos">root google pixel google photos - Google search</a></div>
+<div class="line"><a class="reference external" href="https://duckduckgo.com/?q=root+google+pixel+google+photos">root google pixel google photos - DuckDuckGo search</a></div>
+<div class="line"><a class="reference external" href="https://www.ecosia.org/search?q=root+google+pixel+google+photos">root google pixel google photos - Ecosia search</a></div>
+<div class="line"><a class="reference external" href="https://www.qwant.com/?q=root+google+pixel+google+photos">root google pixel google photos - Qwant search</a></div>
+<div class="line"><a class="reference external" href="https://www.bing.com/search?q=root+google+pixel+google+photos">root google pixel google photos - Bing search</a></div>
+<div class="line"><a class="reference external" href="https://search.yahoo.com/search?p=root+google+pixel+google+photos">root google pixel google photos - Yahoo search</a></div>
+<div class="line"><a class="reference external" href="https://www.baidu.com/s?wd=root+google+pixel+google+photos">root google pixel google photos - Baidu search</a></div>
+<div class="line"><a class="reference external" href="https://www.yandex.com/search/?text=root+google+pixel+google+photos">root google pixel google photos - Yandex search</a></div>
+</div>
+</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="footnote-7" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[7]</td><td><div class="first last line-block">
+<div class="line"><a class="reference external" href="https://forum.xda-developers.com/t/mod-root-unlimited-original-quality-google-photo-storage.3969433/">[MOD][ROOT] Unlimited Original Quality Google Photo Storage | XDA Forums</a></div>
+<div class="line"><a class="reference external" href="https://forum.xda-developers.com/t/is-google-photos-unlimited-after-rooting.3722725/">Is Google Photos unlimited after rooting? | XDA Forums</a></div>
+</div>
+</td></tr>
+</tbody>
+</table>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/bash.html">Bash</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/bash.html">Bash</a>
+,       <a href="/tag/adb.html">adb</a>
+,       <a href="/tag/commandline.html">Commandline</a>
+,       <a href="/tag/android.html">Android</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

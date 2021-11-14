@@ -57,8 +57,8 @@
 </pre></div>
 <p>It works on <a class="reference external" href="https://www.dartlang.org/tools/dartium/">Dartium</a>. Then I compiled the code to JavaScript by <a class="reference external" href="https://www.dartlang.org/tools/dart2js/">dart2js</a>. The
 compiled JavaScript code failed to run on <a class="reference external" href="http://www.chromium.org/">Chromium</a>. After some Googling, I
-found <em>Dart MouseEvent clientX and clientY</em> <strong>deprecated</strong> (<a class="footnote-reference" href="#id5" id="id1">[1]</a>, <a class="footnote-reference" href="#id6" id="id2">[2]</a>, <a class="footnote-reference" href="#id8" id="id3">[4]</a>).
-And I also found someone got the same problem as me (<a class="footnote-reference" href="#id7" id="id4">[3]</a>). The correct way to
+found <em>Dart MouseEvent clientX and clientY</em> <strong>deprecated</strong> (<a class="footnote-reference" href="#footnote-1" id="footnote-reference-1">[1]</a>, <a class="footnote-reference" href="#footnote-2" id="footnote-reference-2">[2]</a>, <a class="footnote-reference" href="#footnote-4" id="footnote-reference-3">[4]</a>).
+And I also found someone got the same problem as me (<a class="footnote-reference" href="#footnote-3" id="footnote-reference-4">[3]</a>). The correct way to
 get <em>clientX</em> and <em>clientY</em> in Dart should be:</p>
 <div class="highlight"><pre><span></span><span class="kt">int</span> <span class="n">dx</span> <span class="o">=</span> <span class="n">e</span><span class="p">.</span><span class="n">client</span><span class="p">.</span><span class="n">x</span> <span class="o">-</span> <span class="n">initialMouseX</span><span class="p">;</span>
 </pre></div>
@@ -67,28 +67,28 @@ get <em>clientX</em> and <em>clientY</em> in Dart should be:</p>
 
 <hr class="docutils" />
 <p>References:</p>
-<table class="docutils footnote" frame="void" id="id5" rules="none">
+<table class="docutils footnote" frame="void" id="footnote-1" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td><a class="reference external" href="https://github.com/threeDart/three.dart/issues/109">MouseEvent ClientX and ClientY deprecated</a></td></tr>
+<tr><td class="label"><a class="fn-backref" href="#footnote-reference-1">[1]</a></td><td><a class="reference external" href="https://github.com/threeDart/three.dart/issues/109">MouseEvent ClientX and ClientY deprecated</a></td></tr>
 </tbody>
 </table>
-<table class="docutils footnote" frame="void" id="id6" rules="none">
+<table class="docutils footnote" frame="void" id="footnote-2" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id2">[2]</a></td><td><a class="reference external" href="https://groups.google.com/a/dartlang.org/d/topic/misc/DNgsK6Qbd6I">Breaking Change: dart:html Point &amp; Rect</a></td></tr>
+<tr><td class="label"><a class="fn-backref" href="#footnote-reference-2">[2]</a></td><td><a class="reference external" href="https://groups.google.com/a/dartlang.org/d/topic/misc/DNgsK6Qbd6I">Breaking Change: dart:html Point &amp; Rect</a></td></tr>
 </tbody>
 </table>
-<table class="docutils footnote" frame="void" id="id7" rules="none">
+<table class="docutils footnote" frame="void" id="footnote-3" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id4">[3]</a></td><td><a class="reference external" href="https://code.google.com/p/dart/issues/detail?id=15216">JS MouseEvent unexpectedly converted to Dart MouseEvent in interop</a></td></tr>
+<tr><td class="label"><a class="fn-backref" href="#footnote-reference-4">[3]</a></td><td><a class="reference external" href="https://code.google.com/p/dart/issues/detail?id=15216">JS MouseEvent unexpectedly converted to Dart MouseEvent in interop</a></td></tr>
 </tbody>
 </table>
-<table class="docutils footnote" frame="void" id="id8" rules="none">
+<table class="docutils footnote" frame="void" id="footnote-4" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id3">[4]</a></td><td><a class="reference external" href="https://chromium.googlesource.com/external/dart/+/f0d085ba55f544c9338232f1ef0bbe1e08675310/dart/tools/dom/templates/html/dart2js/impl_MouseEvent.darttemplate">dart/tools/dom/templates/html/dart2js/impl_MouseEvent.darttemplate - external/dart - Git at Google</a></td></tr>
+<tr><td class="label"><a class="fn-backref" href="#footnote-reference-3">[4]</a></td><td><a class="reference external" href="https://chromium.googlesource.com/external/dart/+/f0d085ba55f544c9338232f1ef0bbe1e08675310/dart/tools/dom/templates/html/dart2js/impl_MouseEvent.darttemplate">dart/tools/dom/templates/html/dart2js/impl_MouseEvent.darttemplate - external/dart - Git at Google</a></td></tr>
 </tbody>
 </table>
 </div>

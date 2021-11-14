@@ -60,9 +60,9 @@ cannot see any of my nodes appended.</p>
 <p>I investigate the problem and found that the original page use a lot of
 JavaScript to render contents of the page, and the DOM nodes of original
 contents are not ready for appending my created nodes. I tried to do some Google
-searches <a class="footnote-reference" href="#id3" id="id1">[1]</a>, and some answers said we can listen to <em>onload</em> event of
+searches <a class="footnote-reference" href="#footnote-1" id="footnote-reference-1">[1]</a>, and some answers said we can listen to <em>onload</em> event of
 <em>DOMContentLoaded</em> event. But the answer does not work in my case.</p>
-<p>I wrote post of DOM ready <a class="footnote-reference" href="#id4" id="id2">[2]</a> long time ago, and the trick in the post is
+<p>I wrote post of DOM ready <a class="footnote-reference" href="#footnote-2" id="footnote-reference-2">[2]</a> long time ago, and the trick in the post is
 periodically check if the node to which my nodes are appended is available. If
 the node is not ready, sleep for a while and check again until the node is
 available. I applied this trick to my case, and it worked!</p>
@@ -82,10 +82,10 @@ available. I applied this trick to my case, and it worked!</p>
 
 <hr class="docutils" />
 <p>References:</p>
-<table class="docutils footnote" frame="void" id="id3" rules="none">
+<table class="docutils footnote" frame="void" id="footnote-1" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td><div class="first last line-block">
+<tr><td class="label"><a class="fn-backref" href="#footnote-reference-1">[1]</a></td><td><div class="first last line-block">
 <div class="line"><a class="reference external" href="https://www.google.com/search?q=javascript+wait+page+load">javascript wait page load - Google search</a></div>
 <div class="line"><a class="reference external" href="https://duckduckgo.com/?q=javascript+wait+page+load">javascript wait page load - DuckDuckGo search</a></div>
 <div class="line"><a class="reference external" href="https://www.ecosia.org/search?q=javascript+wait+page+load">javascript wait page load - Ecosia search</a></div>
@@ -98,10 +98,10 @@ available. I applied this trick to my case, and it worked!</p>
 </td></tr>
 </tbody>
 </table>
-<table class="docutils footnote" frame="void" id="id4" rules="none">
+<table class="docutils footnote" frame="void" id="footnote-2" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id2">[2]</a></td><td><a class="reference external" href="/2012/10/04/dom-ready-without-javascript-frameworks/">DOM Ready without JavaScript Frameworks</a></td></tr>
+<tr><td class="label"><a class="fn-backref" href="#footnote-reference-2">[2]</a></td><td><a class="reference external" href="/2012/10/04/dom-ready-without-javascript-frameworks/">DOM Ready without JavaScript Frameworks</a></td></tr>
 </tbody>
 </table>
 </div>

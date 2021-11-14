@@ -59,13 +59,13 @@ from the author's. Our solution doesn't involve tree, and only a stack is used.<
 <p>A robot is to travel from station 0 to station 1, then to station 2, station 3,
 and so on, to station N - 1. It enters station 0 with energy 0 and no money. At
 each station i, the robot has two options: either it resets its energy to
-<span class="formula"><i>P</i><sub><i>i</i></sub> ≥ 0</span>, or it takes money <span class="formula"><i>V</i><sub><i>i</i></sub> ≥ 0</span>. As it enters next
+<span class="formula"><i>P</i><sub><i>i</i></sub> ≥ 0</span>, or it takes money <span class="formula"><i>V</i><sub><i>i</i></sub> ≥ 0</span>. As it enters next
 station, its energy deceases by 1. The only restriction is that its energy
 should never becomes negative. The goal is to maximize the total amount of money
-gathered. <span class="formula">1 ≤ <i>N</i> ≤ 500000</span>, <span class="formula">0 ≤ <i>V</i><sub><i>i</i></sub> ≤ 10<sup>9</sup></span>,
-<span class="formula">0 ≤ <i>P</i><sub><i>i</i></sub> ≤ 100000</span>. It is guaranteed there's a way that energy is
+gathered. <span class="formula">1 ≤ <i>N</i> ≤ 500000</span>, <span class="formula">0 ≤ <i>V</i><sub><i>i</i></sub> ≤ 10<sup>9</sup></span>,
+<span class="formula">0 ≤ <i>P</i><sub><i>i</i></sub> ≤ 100000</span>. It is guaranteed there's a way that energy is
 always non-negative.</p>
-<p>A standard DP with state (station, energy) takes O[N <span class="formula"> × </span> max_energy].
+<p>A standard DP with state (station, energy) takes O[N <span class="formula">×</span> max_energy].
 Let D(i, e)
 be the maximum amount of money to be gained when entering station i with energy
 e. Clearly</p>
@@ -122,24 +122,24 @@ up with 3 more dollars than i=3. So we're comparing these two rows:</p>
 by expanding D(i + 1, <span class="formula"><i>P</i><sub><i>i</i></sub></span> - 1) to a row. The second is by right shifting
 the row of D(i + 1, e) by 1 and add <span class="formula"><i>V</i><sub><i>i</i></sub></span>. Adding <span class="formula"><i>V</i><sub><i>i</i></sub></span> is expensive
 because the row can be long, so why not store
-<span class="formula"><i>V</i><sub><i>i</i></sub> + <i>V</i><sub><i>i</i> + 1</sub> + ... + <i>V</i><sub><i>N</i> − 1</sub></span> - earning in the table? This is exactly
+<span class="formula"><i>V</i><sub><i>i</i></sub> + <i>V</i><sub><i>i</i> + 1</sub> + ... + <i>V</i><sub><i>N</i> − 1</sub></span> - earning in the table? This is exactly
 the amount of money we don't manage to get from station i to the end. This is
 the first observation.</p>
 <p>The second observation is that the number of distinct values increases by at
-most 1, and is bounded by <span class="formula"><i>N</i> − <i>i</i></span>. So what if we just store a vector or
+most 1, and is bounded by <span class="formula"><i>N</i> − <i>i</i></span>. So what if we just store a vector or
 stack of segments with size no more than <span class="formula"><i>O</i>(<i>N</i>)</span>? One issue follows
 immediately: because of the right shift we have to update the end points of
 these segment in <span class="formula"><i>O</i>(<i>N</i>)</span> for each i. But since the right shift always
-occurs, what about storing end point - <span class="formula">(<i>N</i> − <i>i</i>)</span> as the coordinate of the
+occurs, what about storing end point - <span class="formula">(<i>N</i> − <i>i</i>)</span> as the coordinate of the
 segment? If a segment is not &quot;interrupted&quot;, this value remains constant across
 stations and needs no update. In this way no <span class="formula"><i>O</i>(<i>N</i>)</span> update is necessary.
 In each iteration, the main task is to find the value of
 D(i + 1, <span class="formula"><i>P</i><sub><i>i</i></sub></span> - 1) because it's not immediately available -- we have to
-perform <span class="formula"><i>O</i>(<i>log</i>(<i>N</i>))</span> binary search of <span class="formula"><i>P</i><sub><i>i</i></sub> − 1</span> on the end points of
+perform <span class="formula"><i>O</i>(<i>log</i>(<i>N</i>))</span> binary search of <span class="formula"><i>P</i><sub><i>i</i></sub> − 1</span> on the end points of
 the segment. Once found, updating the stack takes amortized cost of
 <span class="formula"><i>O</i>(1)</span>.</p>
 <p>In brief, with these two coordinate transformations this problem is solved in
-<span class="formula"><i>O</i>(<i>N</i> × <i>log</i>(<i>N</i>))</span> time and <span class="formula"><i>O</i>(<i>N</i>)</span> memory without tree structure. The
+<span class="formula"><i>O</i>(<i>N</i>×<i>log</i>(<i>N</i>))</span> time and <span class="formula"><i>O</i>(<i>N</i>)</span> memory without tree structure. The
 code is available at
 <a class="reference external" href="https://github.com/paritystsai8/coding_problem/blob/master/robot.cpp">https://github.com/paritystsai8/coding_problem/blob/master/robot.cpp</a></p>
 <hr class="docutils" />

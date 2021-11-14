@@ -61,12 +61,12 @@
 </div>
 </blockquote>
 <hr class="docutils" />
-<div class="section" id="id1">
+<div class="section" id="section-1">
 <h2>概述</h2>
 <p>HTML幾乎是平鋪直敘的。CSS是一個偉大的進步，它清晰地區分了頁面的結構和外觀。JavaScript添加一些魅力。道理上講是這樣的。現實世界還是有點不一樣。</p>
 <p>在本教程中，您將瞭解在瀏覽器中看到的內容是如何實際呈現的，以及如何在必要時進行抓取。特別是，您將學習如何計算Disqus評論。我們的工具是Python和這門語言的很棒的包，比如request、BeautifulSoup和Selenium。</p>
 </div>
-<div class="section" id="id2">
+<div class="section" id="section-2">
 <h2>什麼時候應該使用網頁爬取?</h2>
 <p>網頁爬取是一種自動獲取被設計於實現人工用戶交互式網頁的內容、解析它們並提取一些信息(可能是導航到其他頁面的鏈接)的實踐。如果沒有其他方法來提取必要的網頁信息時，網頁爬取是很必要有效的技術方法。理想情況下，應用程序依靠提供好的專用API來編程自動獲得網頁的數據。可在下面幾種場所景之下你最好就別用網頁抓取技術了:</p>
 <ul class="simple">
@@ -76,13 +76,13 @@
 </ul>
 </div>
 <hr class="docutils" />
-<div class="section" id="id3">
+<div class="section" id="section-3">
 <h2>瞭解真實的網頁</h2>
 <p>讓我們通過查看一些常見web應用程序代碼的實現情況，來瞭解我們面臨的問題。例如在“ <a class="reference external" href="https://code.tutsplus.com/tutorials/introduction-to-vagrant--cms-25917">Vagrant技術入門</a> ”這篇帖子的頁面底部有一些Disqus的評論:</p>
 <img alt="使用 BeautifulSoup 和 Selenium 進行網頁爬取" class="align-center" src="https://oscimg.oschina.net/oscnet/879d4b68295e6c808b4a1417e1abdf062a1.jpg" />
 <p>為了爬取這些評論，我們需要首先在頁面上找到它們。</p>
 </div>
-<div class="section" id="id4">
+<div class="section" id="section-4">
 <h2>查看頁面代碼</h2>
 <p>自20世紀90年代以來，每個瀏覽器都支持查看當前頁面的HTML代碼。下面是在源碼視圖下觀看到的是“ <a class="reference external" href="https://code.tutsplus.com/tutorials/introduction-to-vagrant--cms-25917">Vagrant技術入門</a> ”這篇帖子對應的源碼內容的一個片段，這篇源碼以大量與本文本身內容無關的被壓縮過的和醜陋的JavaScript代碼開始。下面是其中的一”小“部分:</p>
 <img alt="使用 BeautifulSoup 和 Selenium 進行網頁爬取" class="align-center" src="https://oscimg.oschina.net/oscnet/f90d94b626069bb9009fc6f3c62f5ce7000.jpg" />
@@ -91,7 +91,7 @@
 <p>代碼看起來亂糟糟，你竟然在頁面的源代碼中找不到Disqus評論，這讓你有些吃驚。</p>
 </div>
 <hr class="docutils" />
-<div class="section" id="id5">
+<div class="section" id="section-5">
 <h2>強大的內聯框架</h2>
 <p>原來頁面是一個”混搭“, Disqus評論被嵌入到iframe(內聯框架)元素中。你可以通過右鍵點擊評論區域找到它，你會看到那裡有框架信息和源碼:</p>
 <img alt="使用 BeautifulSoup 和 Selenium 進行網頁爬取" class="align-center" src="https://oscimg.oschina.net/oscnet/3bd0f23073a40cb98a2948c448f981479ce.jpg" />
@@ -110,13 +110,13 @@
 <h3>使用 Requests 和 BeautifulSoup 進行靜態抓取</h3>
 <p>讓我們來看看如何使用 Python 的兩個經典包來進行靜態抓取: requests 用來抓取網頁內容. BeautifulSoup用來解析 HTML.</p>
 </div>
-<div class="section" id="id6">
+<div class="section" id="requests-beautifulsoup-1">
 <h3>安裝 Requests 和 BeautifulSoup</h3>
 <p>首先安裝 pipenv, 然後運行命令: pipenv install requests beautifulsoup4</p>
 <p>它首先為你創建一個虛擬環境, 然後安裝這兩個包在虛擬環境裡. 如果你的代碼在gitlab上, 你可以使用命令 pipenv install 來安裝.</p>
 </div>
 <hr class="docutils" />
-<div class="section" id="id7">
+<div class="section" id="section-6">
 <h3>獲取網頁內容</h3>
 <p>用 requests 抓取網頁內容只需要一行代碼: r = requests.get(url).</p>
 <p>代碼返回一個 response 對象, 它包含大量有用的屬性. 其中最重要的屬性是 ok 和 content. 如果請求失敗, r.ok 為 False 並且 r.content 包含該錯誤信息. content 代表一個字節流, 做文本處理時, 你最好將它解碼成 utf-8.</p>
@@ -181,7 +181,7 @@ make-your-go-programs-lightning-fast-with-profiling--cms-29809
 <hr class="docutils" />
 <div class="section" id="selenium">
 <h2>使用 Selenium 動態爬取</h2>
-<div class="section" id="id8">
+<div class="section" id="selenium-1">
 <h3>安裝 Selenium</h3>
 <p>用這個命令安裝 Selenium：pipenv install selenium</p>
 </div>
@@ -241,7 +241,7 @@ make-your-go-programs-lightning-fast-with-profiling--cms-29809
 </pre></div>
 </div>
 </div>
-<div class="section" id="id9">
+<div class="section" id="section-7">
 <h2>結論</h2>
 <p>網頁爬取是一個非常實用的技術, 尤其當你需要處理的信息瀏覽器並不提供有用的API支持的時候. 它通常需要一些技巧來從現代web應用中提取信息, 不過一些成熟的、設計良好的工具, 比如: requests、BeautifulSoup、Selenium 都會減輕你的工作並提高效率.</p>
 <p>最後, 你可以試一下我寫的一些工具, 它們在 <a class="reference external" href="https://codecanyon.net/search/python">Envato Market</a> 有售, 歡迎提問和反饋.</p>

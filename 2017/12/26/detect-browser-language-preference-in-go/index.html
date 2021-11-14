@@ -62,25 +62,25 @@ preference:</p>
 will mainly focus on how to use this API.</li>
 <li>Via <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept-Language">Accept-Language</a> header in HTTP request: There is no way to directly
 access this header in your code. You can, however, run a server which returns
-the headers to client browser via JSONP. See <a class="footnote-reference" href="#id4" id="id1">[3]</a> for more details.</li>
+the headers to client browser via JSONP. See <a class="footnote-reference" href="#footnote-3" id="footnote-reference-1">[3]</a> for more details.</li>
 </ul>
 <div class="contents topic" id="table-of-content">
 <p class="topic-title"><strong>Table of Content</strong></p>
 <ul class="simple">
-<li><a class="reference internal" href="#access-navigatorlanguage-api" id="id7">Access NavigatorLanguage API</a><ul>
-<li><a class="reference internal" href="#javascript" id="id8">JavaScript</a></li>
-<li><a class="reference internal" href="#gopherjs" id="id9">GopherJS</a></li>
-<li><a class="reference internal" href="#gopherjs-godom" id="id10">GopherJS + godom</a></li>
+<li><a class="reference internal" href="#access-navigatorlanguage-api" id="toc-entry-1">Access NavigatorLanguage API</a><ul>
+<li><a class="reference internal" href="#javascript" id="toc-entry-2">JavaScript</a></li>
+<li><a class="reference internal" href="#gopherjs" id="toc-entry-3">GopherJS</a></li>
+<li><a class="reference internal" href="#gopherjs-godom" id="toc-entry-4">GopherJS + godom</a></li>
 </ul>
 </li>
 </ul>
 </div>
 <div class="section" id="access-navigatorlanguage-api">
-<h2><a class="toc-backref" href="#id7">Access NavigatorLanguage API</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-1">Access NavigatorLanguage API</a></h2>
 <p><a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/API/NavigatorLanguage/language">navigator.language</a> returns the preferred language of the user, while
 <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/API/NavigatorLanguage/languages">navigator.languages</a> returns languages known to the user.</p>
 <div class="section" id="javascript">
-<h3><a class="toc-backref" href="#id8">JavaScript</a></h3>
+<h3><a class="toc-backref" href="#toc-entry-2">JavaScript</a></h3>
 <div class="highlight"><pre><span></span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">navigator</span><span class="p">.</span><span class="nx">language</span><span class="p">);</span>
 <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">navigator</span><span class="p">.</span><span class="nx">languages</span><span class="p">);</span>
 </pre></div>
@@ -88,7 +88,7 @@ the headers to client browser via JSONP. See <a class="footnote-reference" href=
 <em>navigator.languages</em> is an array.</p>
 </div>
 <div class="section" id="gopherjs">
-<h3><a class="toc-backref" href="#id9">GopherJS</a></h3>
+<h3><a class="toc-backref" href="#toc-entry-3">GopherJS</a></h3>
 <p>The above code in Go/GopherJS is as follows:</p>
 <div class="highlight"><pre><span></span><span class="kn">import</span> <span class="p">(</span>
       <span class="s">&quot;github.com/gopherjs/gopherjs/js&quot;</span>
@@ -103,7 +103,7 @@ GopherJS compiler.</p>
 
 </div>
 <div class="section" id="gopherjs-godom">
-<h3><a class="toc-backref" href="#id10">GopherJS + godom</a></h3>
+<h3><a class="toc-backref" href="#toc-entry-4">GopherJS + godom</a></h3>
 <p>To make your code more readable, we can prettify the above code with <a class="reference external" href="https://github.com/siongui/godom">godom</a>:</p>
 <div class="highlight"><pre><span></span><span class="kn">import</span> <span class="p">(</span>
       <span class="p">.</span> <span class="s">&quot;github.com/siongui/godom&quot;</span>
@@ -115,22 +115,22 @@ GopherJS compiler.</p>
 <p>The full code example of this post is <a class="reference external" href="https://github.com/siongui/frontend-programming-in-go/tree/master/013-navigator-language">on my GitHub</a>.</p>
 <hr class="docutils" />
 <p>References:</p>
-<table class="docutils footnote" frame="void" id="id2" rules="none">
+<table class="docutils footnote" frame="void" id="footnote-1" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
 <tr><td class="label">[1]</td><td><a class="reference external" href="/2016/01/24/go-detect-browser-language-preference/">[Golang] Detect Browser Language Preference by window.navigator.language</a></td></tr>
 </tbody>
 </table>
-<table class="docutils footnote" frame="void" id="id3" rules="none">
+<table class="docutils footnote" frame="void" id="footnote-2" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
 <tr><td class="label">[2]</td><td><a class="reference external" href="/2016/01/29/go-gopherjs-synonyms-with-javascript/">[Golang] GopherJS Synonyms with JavaScript</a></td></tr>
 </tbody>
 </table>
-<table class="docutils footnote" frame="void" id="id4" rules="none">
+<table class="docutils footnote" frame="void" id="footnote-3" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id1">[3]</a></td><td><a class="reference external" href="/2016/01/24/go-http-request-header-by-jsonp-gopherjs/">[Golang] Access HTTP Request Header (Accept-Language) by JSONP</a></td></tr>
+<tr><td class="label"><a class="fn-backref" href="#footnote-reference-1">[3]</a></td><td><a class="reference external" href="/2016/01/24/go-http-request-header-by-jsonp-gopherjs/">[Golang] Access HTTP Request Header (Accept-Language) by JSONP</a></td></tr>
 </tbody>
 </table>
 </div>

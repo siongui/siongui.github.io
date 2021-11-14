@@ -56,7 +56,7 @@
 <a class="reference external" href="/2018/03/05/go-parse-dash-manifest-in-ig-post-live-broadcast/">parse dash manifest</a> of post live video shared to stories. We can get two urls
 in the dash manifest. One is <em>video</em> of the post live replay and the other is
 <em>audio</em>. We need to find some way to merge the two <em>mp4</em> file. After some Google
-searches <a class="footnote-reference" href="#id3" id="id1">[1]</a> <a class="footnote-reference" href="#id4" id="id2">[2]</a>, I got the answer. We can use <a class="reference external" href="https://www.google.com/search?q=ffmpeg">ffmpeg</a> to help us:</p>
+searches <a class="footnote-reference" href="#footnote-1" id="footnote-reference-1">[1]</a> <a class="footnote-reference" href="#footnote-2" id="footnote-reference-2">[2]</a>, I got the answer. We can use <a class="reference external" href="https://www.google.com/search?q=ffmpeg">ffmpeg</a> to help us:</p>
 <div class="highlight"><pre><span></span>$ ffmpeg -i video.mp4 -i audio.mp4 -c:v copy -c:a copy merged.mp4
 </pre></div>
 <p>The speed of merge is so fast that I got the merged mp4 instantly after press
@@ -65,10 +65,10 @@ enter key. Really amazing!</p>
 
 <hr class="docutils" />
 <p>References:</p>
-<table class="docutils footnote" frame="void" id="id3" rules="none">
+<table class="docutils footnote" frame="void" id="footnote-1" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td><div class="first last line-block">
+<tr><td class="label"><a class="fn-backref" href="#footnote-reference-1">[1]</a></td><td><div class="first last line-block">
 <div class="line"><a class="reference external" href="https://github.com/ping/instagram_private_api_extensions/blob/master/instagram_private_api_extensions/replay.py">instagram_private_api_extensions/replay.py at master · ping/instagram_private_api_extensions · GitHub</a></div>
 <div class="line"><br /></div>
 <div class="line"><a class="reference external" href="https://www.google.com/search?q=ffmpeg+instagram+live">ffmpeg instagram live - Google search</a></div>
@@ -83,10 +83,10 @@ enter key. Really amazing!</p>
 </td></tr>
 </tbody>
 </table>
-<table class="docutils footnote" frame="void" id="id4" rules="none">
+<table class="docutils footnote" frame="void" id="footnote-2" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id2">[2]</a></td><td><div class="first last line-block">
+<tr><td class="label"><a class="fn-backref" href="#footnote-reference-2">[2]</a></td><td><div class="first last line-block">
 <div class="line"><a class="reference external" href="https://superuser.com/a/277667">How to merge audio and video file in ffmpeg - Super User</a></div>
 <div class="line"><br /></div>
 <div class="line"><a class="reference external" href="https://www.google.com/search?q=ffmpeg+mix+audio+and+video">ffmpeg mix audio and video - Google search</a></div>

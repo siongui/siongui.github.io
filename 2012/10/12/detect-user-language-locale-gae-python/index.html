@@ -53,7 +53,7 @@
     <hr>
 
     <div class="main-content"><p>The best way to guess/detect/determine the locale/language of users is probably
-by using the <a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html">Accept-Language</a> field in HTTP request header (see reference <a class="footnote-reference" href="#id4" id="id1">[1]</a>
+by using the <a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html">Accept-Language</a> field in HTTP request header (see reference <a class="footnote-reference" href="#footnote-1" id="footnote-reference-1">[1]</a>
 for detail). In this post, we will show how to detect/determine user locale
 according to <a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html">Accept-Language</a> field in HTTP request header on <a class="reference external" href="https://cloud.google.com/appengine/docs/python/">Google App Engine
 for Python</a>.</p>
@@ -64,7 +64,7 @@ the web pages with the locale of higher preference. If no matches, the website
 will serve web page with <em>en_US</em> locale (default locale).</p>
 <p>The first thing to do to detect/determine user locale is parsing
 <a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html">Accept-Language</a> field. In previous post &quot;<em>[Python] Parse Accept-Language in
-HTTP Request Header</em>&quot; <a class="footnote-reference" href="#id5" id="id2">[2]</a>, this topic is discussed. Please refer to the post
+HTTP Request Header</em>&quot; <a class="footnote-reference" href="#footnote-2" id="footnote-reference-2">[2]</a>, this topic is discussed. Please refer to the post
 for detail.</p>
 <p>Next, the parsed data will be compared with supported locales of the website.
 The following code snippet demonstrates how to do this:</p>
@@ -101,7 +101,7 @@ The following code snippet demonstrates how to do this:</p>
   <span class="k">return</span> <span class="n">defaultLocale</span>
 </pre></div>
 <p>The <em>parseAcceptLanguage</em> function is the same as the function in previous post
-<a class="footnote-reference" href="#id5" id="id3">[2]</a> for parsing <a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html">Accept-Language</a> field. The <em>detectLocale</em> function compares
+<a class="footnote-reference" href="#footnote-2" id="footnote-reference-3">[2]</a> for parsing <a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html">Accept-Language</a> field. The <em>detectLocale</em> function compares
 supported locales of the website with locales in <a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html">Accept-Language</a> field. Note
 that the default locale is set to <em>en_US</em>. You can change the <em>defaultLocale</em>
 and <em>supportedLocales</em> variables to fit the locales design in your website.</p>
@@ -141,16 +141,16 @@ will give you idea of what it looks like:</p>
 </pre></div>
 <hr class="docutils" />
 <p>References:</p>
-<table class="docutils footnote" frame="void" id="id4" rules="none">
+<table class="docutils footnote" frame="void" id="footnote-1" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td><a class="reference external" href="http://www.w3.org/International/questions/qa-accept-lang-locales.en.php">Accept-Language used for locale setting</a></td></tr>
+<tr><td class="label"><a class="fn-backref" href="#footnote-reference-1">[1]</a></td><td><a class="reference external" href="http://www.w3.org/International/questions/qa-accept-lang-locales.en.php">Accept-Language used for locale setting</a></td></tr>
 </tbody>
 </table>
-<table class="docutils footnote" frame="void" id="id5" rules="none">
+<table class="docutils footnote" frame="void" id="footnote-2" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label">[2]</td><td><em>(<a class="fn-backref" href="#id2">1</a>, <a class="fn-backref" href="#id3">2</a>)</em> <a class="reference external" href="/2012/10/11/python-parse-accept-language-in-http-request-header/">[Python] Parse Accept-Language in HTTP Request Header</a></td></tr>
+<tr><td class="label">[2]</td><td><em>(<a class="fn-backref" href="#footnote-reference-2">1</a>, <a class="fn-backref" href="#footnote-reference-3">2</a>)</em> <a class="reference external" href="/2012/10/11/python-parse-accept-language-in-http-request-header/">[Python] Parse Accept-Language in HTTP Request Header</a></td></tr>
 </tbody>
 </table>
 </div>

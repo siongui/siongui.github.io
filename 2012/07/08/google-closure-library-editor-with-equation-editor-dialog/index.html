@@ -56,7 +56,7 @@
     <div class="main-content"><p>Recently I have an application which needs a HTML editor with <a class="reference external" href="http://en.wikipedia.org/wiki/LaTeX">LaTex</a> equation
 support. There are many <a class="reference external" href="http://en.wikipedia.org/wiki/WYSIWYG">WYSIWYG (WhatYou See Is What You Get)</a> editors
 available on Internet, and finally I decide to use <a class="reference external" href="https://developers.google.com/closure/library/">Google Closure Library</a>
-built-in rich text editor (see <a class="footnote-reference" href="#id7" id="id1">[1]</a>).</p>
+built-in rich text editor (see <a class="footnote-reference" href="#footnote-1" id="footnote-reference-1">[1]</a>).</p>
 <p>The default closure works perfectly, and there are also demos of equation editor
 dialog. But there are two problem:</p>
 <blockquote>
@@ -69,9 +69,9 @@ library, but I am not in the beginning.)</li>
 We have to find some way to fix this.</li>
 </ol>
 </blockquote>
-<p>To fix the issue #1, I read some material online (References <a class="footnote-reference" href="#id8" id="id2">[2]</a> ~ <a class="footnote-reference" href="#id13" id="id3">[7]</a>) and
+<p>To fix the issue #1, I read some material online (References <a class="footnote-reference" href="#footnote-2" id="footnote-reference-2">[2]</a> ~ <a class="footnote-reference" href="#footnote-7" id="footnote-reference-3">[7]</a>) and
 trace the <a class="reference external" href="https://code.google.com/p/closure-library/">online source code</a> and <a class="reference external" href="http://docs.closure-library.googlecode.com/git/index.html">api</a>. To fix the issue #2, I read the
-references <a class="footnote-reference" href="#id15" id="id4">[9]</a> ~ <a class="footnote-reference" href="#id17" id="id5">[11]</a>, and I decide to use the solution provided by <a class="footnote-reference" href="#id17" id="id6">[11]</a>. The
+references <a class="footnote-reference" href="#footnote-9" id="footnote-reference-4">[9]</a> ~ <a class="footnote-reference" href="#footnote-11" id="footnote-reference-5">[11]</a>, and I decide to use the solution provided by <a class="footnote-reference" href="#footnote-11" id="footnote-reference-6">[11]</a>. The
 following is my patch for the closure library (under <a class="reference external" href="https://github.com/google/closure-library/tree/master/closure/goog">closure/goog/</a>, revision
 <a class="reference external" href="https://code.google.com/p/closure-library/source/detail?r=2021">2021</a>):</p>
 
@@ -420,72 +420,72 @@ to make it include equation editor dialog for reference. I hope this post will
 help those who need a rich text editor with math equation.</p>
 <hr class="docutils" />
 <p>References:</p>
-<table class="docutils footnote" frame="void" id="id7" rules="none">
+<table class="docutils footnote" frame="void" id="footnote-1" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td><a class="reference external" href="http://closuretools.blogspot.com/2010/07/introducing-closure-library-editor.html">Introducing the Closure Library Editor - Closure Tools Blog</a></td></tr>
+<tr><td class="label"><a class="fn-backref" href="#footnote-reference-1">[1]</a></td><td><a class="reference external" href="http://closuretools.blogspot.com/2010/07/introducing-closure-library-editor.html">Introducing the Closure Library Editor - Closure Tools Blog</a></td></tr>
 </tbody>
 </table>
-<table class="docutils footnote" frame="void" id="id8" rules="none">
+<table class="docutils footnote" frame="void" id="footnote-2" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id2">[2]</a></td><td>Google Search: <a class="reference external" href="https://www.google.com/search?q=google+closure+editor+plugin">google closure editor plugin</a></td></tr>
+<tr><td class="label"><a class="fn-backref" href="#footnote-reference-2">[2]</a></td><td>Google Search: <a class="reference external" href="https://www.google.com/search?q=google+closure+editor+plugin">google closure editor plugin</a></td></tr>
 </tbody>
 </table>
-<table class="docutils footnote" frame="void" id="id9" rules="none">
+<table class="docutils footnote" frame="void" id="footnote-3" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
 <tr><td class="label">[3]</td><td><a class="reference external" href="http://www.slideshare.net/yinhm/plugin-6345064">Write a Google Closure Editor Plugin</a></td></tr>
 </tbody>
 </table>
-<table class="docutils footnote" frame="void" id="id10" rules="none">
+<table class="docutils footnote" frame="void" id="footnote-4" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
 <tr><td class="label">[4]</td><td><a class="reference external" href="https://github.com/yinhm/google-closure-editor-image">yinhm/google-closure-editor-image · GitHub</a></td></tr>
 </tbody>
 </table>
-<table class="docutils footnote" frame="void" id="id11" rules="none">
+<table class="docutils footnote" frame="void" id="footnote-5" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
 <tr><td class="label">[5]</td><td><a class="reference external" href="https://blog.whatwg.org/the-road-to-html-5-contenteditable">The Road to HTML 5: contentEditable</a></td></tr>
 </tbody>
 </table>
-<table class="docutils footnote" frame="void" id="id12" rules="none">
+<table class="docutils footnote" frame="void" id="footnote-6" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
 <tr><td class="label">[6]</td><td><a class="reference external" href="http://dev.opera.com/articles/view/rich-html-editing-in-the-browser-part-1/">Rich HTML editing in the browser: part 1</a>
 (<a class="reference external" href="https://github.com/operasoftware/devopera-static-backup/tree/master/http/dev.opera.com/articles/view/rich-html-editing-in-the-browser-part-1">backup</a>)</td></tr>
 </tbody>
 </table>
-<table class="docutils footnote" frame="void" id="id13" rules="none">
+<table class="docutils footnote" frame="void" id="footnote-7" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id3">[7]</a></td><td><a class="reference external" href="http://dev.opera.com/articles/view/rich-html-editing-in-the-browser-part-2/">Rich HTML editing in the browser: part 2</a>
+<tr><td class="label"><a class="fn-backref" href="#footnote-reference-3">[7]</a></td><td><a class="reference external" href="http://dev.opera.com/articles/view/rich-html-editing-in-the-browser-part-2/">Rich HTML editing in the browser: part 2</a>
 (<a class="reference external" href="https://github.com/operasoftware/devopera-static-backup/tree/master/http/dev.opera.com/articles/view/rich-html-editing-in-the-browser-part-2">backup</a>)</td></tr>
 </tbody>
 </table>
-<table class="docutils footnote" frame="void" id="id14" rules="none">
+<table class="docutils footnote" frame="void" id="footnote-8" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
 <tr><td class="label">[8]</td><td><a class="reference external" href="https://code.google.com/p/cruise-control-for-app-engine/source/detail?r=32">Updated richtext editor to include HTML source editing</a></td></tr>
 </tbody>
 </table>
-<table class="docutils footnote" frame="void" id="id15" rules="none">
+<table class="docutils footnote" frame="void" id="footnote-9" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id4">[9]</a></td><td><a class="reference external" href="http://mathscribe.com/author/jqmath.html">jqMath - Put Math on the Web</a></td></tr>
+<tr><td class="label"><a class="fn-backref" href="#footnote-reference-4">[9]</a></td><td><a class="reference external" href="http://mathscribe.com/author/jqmath.html">jqMath - Put Math on the Web</a></td></tr>
 </tbody>
 </table>
-<table class="docutils footnote" frame="void" id="id16" rules="none">
+<table class="docutils footnote" frame="void" id="footnote-10" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
 <tr><td class="label">[10]</td><td><a class="reference external" href="http://stackoverflow.com/questions/7433540/embeddable-wysiwyg-equation-editor">javascript - Embeddable WYSIWYG equation editor - Stack Overflow</a></td></tr>
 </tbody>
 </table>
-<table class="docutils footnote" frame="void" id="id17" rules="none">
+<table class="docutils footnote" frame="void" id="footnote-11" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label">[11]</td><td><em>(<a class="fn-backref" href="#id5">1</a>, <a class="fn-backref" href="#id6">2</a>)</em> <a class="reference external" href="http://www.codecogs.com/latex/integration/htmlequations.php">LaTeX Equations in HTML | CodeCogs Equation Editor</a></td></tr>
+<tr><td class="label">[11]</td><td><em>(<a class="fn-backref" href="#footnote-reference-5">1</a>, <a class="fn-backref" href="#footnote-reference-6">2</a>)</em> <a class="reference external" href="http://www.codecogs.com/latex/integration/htmlequations.php">LaTeX Equations in HTML | CodeCogs Equation Editor</a></td></tr>
 </tbody>
 </table>
 </div>

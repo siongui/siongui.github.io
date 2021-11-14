@@ -167,16 +167,16 @@
 </pre></div>
 <p>基於現在的Web Assembly狀態，這個makefile也指出了一個至關重要的問題。新型瀏覽器會忽略WASM文件，除非給他們提供合適的MIME類型。 <a class="reference external" href="https://blog.owulveryck.info/2018/06/08/some-notes-about-the-upcoming-webassembly-support-in-go.html">這篇文章</a> 有一個簡單的HTTP文件服務器，它為web assembly文件設置了正確的MIME類型。我將其複製到我的項目，並將其用於應用中。如果你的web服務器確實為.wasm文件配置好了，那麼你就不需要自定義服務器。</p>
 </div>
-<div class="section" id="id1">
+<div class="section" id="section-1">
 <h2>提出挑戰</h2>
 <p>在這一點上，我意識到Web Assembly可以正常運行，而也許更重要的是：GopherJS的很多代碼很少甚至不用修改就可以在Web Assembly可以正常運行。我給自己提出挑戰（ <a class="reference external" href="https://xkcd.com/356/">nerd sniped</a> ）。我嘗試的下一件事情是找一個 <a class="reference external" href="https://github.com/gopherjs/vecty">vecty</a> 應用並編譯它。由於vecty是專為GopherJS所寫，而且使用了js.Object類型而不是js.Vaule，因此要想失敗很困難。為了讓vecty在wasm中編譯，我 <a class="reference external" href="https://github.com/gowasm/vecty">fork了vecty</a> ，然後做了一些修改，一些處理，並註釋了很多代碼。</p>
 <p>最終的結果就是放在在vecty/example目錄中的markdown編輯器可以在Web Assembly中完美運行。本文有點冗長，因此我會讓你 <a class="reference external" href="https://github.com/bketelsen/wasmplay/tree/master/markdownvecty">在這</a> 看源碼。總結：它與GopherJS版本幾乎完全相同，但是在main()退出的時候web assembly也會退出，因此為了阻止退出並保持應用運行，我在main()結尾添加了一個空的通道接收。</p>
 </div>
-<div class="section" id="id2">
+<div class="section" id="section-2">
 <h2>事件</h2>
 <p>Go 的 syscall/js 使用了一個非常不同的方法來進行事件註冊，我不得不修改 vecty 的事件 <a class="reference external" href="https://github.com/gowasm/vecty/blob/wasm-wip/dom.go#L231">註冊代碼</a> 才能使用 wasm 新的回調註冊，在這裏我花了非常多的時間。不過直到現在，這個方法工作的還不錯。</p>
 </div>
-<div class="section" id="id3">
+<div class="section" id="section-3">
 <h2>結論</h2>
 <img alt="WebAssembly 和 Go：對未來的觀望" class="align-center" src="https://oscimg.oschina.net/oscnet/66cd656f4ef5646d1268db73cd5c7343d27.jpg" />
 <p>通過對這些事件課程的學習，我認定 WebAssembly 就是 Web 開發的未來。它可以使用任何語言作為“前端語言”來進行 Web 開發，然後編譯為 wasm 就可以了。這給像我一樣並不想再學習 Javascript，而可以使用自己喜歡的語言來進行 Web 開發的人帶來了很多好處。</p>

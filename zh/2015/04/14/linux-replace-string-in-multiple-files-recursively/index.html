@@ -52,15 +52,15 @@
     <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2015/04/14/linux-replace-string-in-multiple-files-recursively%25zh.rst">在Github上編輯</a></div></aside>
     <hr>
 
-    <div class="main-content"><div class="section" id="id1">
+    <div class="main-content"><div class="section" id="section-1">
 <h2>問題</h2>
 <p>將 <em>content</em> 目錄下 <tt class="docutils literal"><span class="pre">http://forestmeditation.com/audio/files/</span></tt>
 這個字串取代成 <tt class="docutils literal">/7rsk9vjkm4p8z5xrdtqc/audio/ForestMeditation/</tt>
 ，該如何做呢？</p>
 </div>
-<div class="section" id="id2">
+<div class="section" id="section-2">
 <h2>解答</h2>
-<p>經過Google搜尋後，找到 <a class="footnote-reference" href="#id5" id="id3">[1]</a> 跟 <a class="footnote-reference" href="#id6" id="id4">[2]</a> ，可利用 <a class="reference external" href="http://content.hccfl.edu/pollock/Unix/FindCmd.htm">find</a> 跟 <a class="reference external" href="http://www.grymoire.com/Unix/Sed.html">sed</a>
+<p>經過Google搜尋後，找到 <a class="footnote-reference" href="#footnote-1" id="footnote-reference-1">[1]</a> 跟 <a class="footnote-reference" href="#footnote-2" id="footnote-reference-2">[2]</a> ，可利用 <a class="reference external" href="http://content.hccfl.edu/pollock/Unix/FindCmd.htm">find</a> 跟 <a class="reference external" href="http://www.grymoire.com/Unix/Sed.html">sed</a>
 來達成任務：</p>
 <p>先進入 <em>content</em> 目錄，然後打：</p>
 <div class="highlight"><pre><span></span>find . -type f -exec sed -i <span class="s1">&#39;s/http:\/\/forestmeditation.com\/audio\/files\//\/7rsk9vjkm4p8z5xrdtqc\/audio\/ForestMeditation\//g&#39;</span> <span class="o">{}</span> +
@@ -69,25 +69,25 @@
 
 <hr class="docutils" />
 <p>References:</p>
-<table class="docutils footnote" frame="void" id="id5" rules="none">
+<table class="docutils footnote" frame="void" id="footnote-1" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id3">[1]</a></td><td><a class="reference external" href="http://unix.stackexchange.com/questions/112023/how-can-i-replace-a-string-in-a-files">text processing - How can I replace a string in a file(s)? - Unix &amp; Linux Stack Exchange</a></td></tr>
+<tr><td class="label"><a class="fn-backref" href="#footnote-reference-1">[1]</a></td><td><a class="reference external" href="http://unix.stackexchange.com/questions/112023/how-can-i-replace-a-string-in-a-files">text processing - How can I replace a string in a file(s)? - Unix &amp; Linux Stack Exchange</a></td></tr>
 </tbody>
 </table>
-<table class="docutils footnote" frame="void" id="id6" rules="none">
+<table class="docutils footnote" frame="void" id="footnote-2" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id4">[2]</a></td><td><a class="reference external" href="http://stackoverflow.com/questions/11392478/how-to-replace-a-string-in-multiple-files-in-linux-command-line">How to replace a string in multiple files in linux command line - Stack Overflow</a></td></tr>
+<tr><td class="label"><a class="fn-backref" href="#footnote-reference-2">[2]</a></td><td><a class="reference external" href="http://stackoverflow.com/questions/11392478/how-to-replace-a-string-in-multiple-files-in-linux-command-line">How to replace a string in multiple files in linux command line - Stack Overflow</a></td></tr>
 </tbody>
 </table>
-<table class="docutils footnote" frame="void" id="id7" rules="none">
+<table class="docutils footnote" frame="void" id="footnote-3" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
 <tr><td class="label">[3]</td><td><a class="reference external" href="http://stackoverflow.com/questions/407523/escape-a-string-for-a-sed-replace-pattern">bash - Escape a string for a sed replace pattern - Stack Overflow</a></td></tr>
 </tbody>
 </table>
-<table class="docutils footnote" frame="void" id="id8" rules="none">
+<table class="docutils footnote" frame="void" id="footnote-4" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
 <tr><td class="label">[4]</td><td><a class="reference external" href="http://blog.jobbole.com/98134/">三分钟教你轻松掌握 grep 命令中的正则表达式 - 博客 - 伯乐在线</a></td></tr>

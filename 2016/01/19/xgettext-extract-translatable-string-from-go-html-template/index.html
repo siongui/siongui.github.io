@@ -55,11 +55,11 @@
     <div class="main-content"><p>GNU <a class="reference external" href="https://www.gnu.org/software/gettext/">gettext</a> tools are great for creating <a class="reference external" href="https://en.wikipedia.org/wiki/Internationalization_and_localization">i18n</a> (web) applications. <a class="reference external" href="https://www.gnu.org/software/gettext/manual/html_node/xgettext-Invocation.html">xgettext</a> is
 one of GNU <a class="reference external" href="https://www.gnu.org/software/gettext/">gettext</a> utilities, which extracts translatable strings from given
 input files, and outputs <a class="reference external" href="https://www.gnu.org/software/gettext/manual/html_node/PO-Files.html">PO</a> template (<em>POT</em> file).</p>
-<p>If <a class="reference external" href="http://www.w3schools.com/html/">HTML</a> templates are written by <a class="reference external" href="https://golang.org/">Go</a> <a class="reference external" href="https://golang.org/pkg/html/template/">html/template</a> (read <a class="footnote-reference" href="#id7" id="id1">[3]</a>), you will
+<p>If <a class="reference external" href="http://www.w3schools.com/html/">HTML</a> templates are written by <a class="reference external" href="https://golang.org/">Go</a> <a class="reference external" href="https://golang.org/pkg/html/template/">html/template</a> (read <a class="footnote-reference" href="#footnote-3" id="footnote-reference-1">[3]</a>), you will
 find that <a class="reference external" href="https://www.gnu.org/software/gettext/manual/html_node/xgettext-Invocation.html">xgettext</a> cannot extracts translatable strings directly from the
 templates, because <a class="reference external" href="https://golang.org/">Go</a> <a class="reference external" href="https://golang.org/pkg/html/template/">html/template</a> uses different syntax.</p>
 <p>We can write a custom <em>gettext</em> function and use this function in templates by
-<a class="reference external" href="https://golang.org/">Go</a> <a class="reference external" href="https://golang.org/pkg/html/template/">html/template</a> (read <a class="footnote-reference" href="#id7" id="id2">[3]</a>), but the <em>gettext</em> function must be called with
+<a class="reference external" href="https://golang.org/">Go</a> <a class="reference external" href="https://golang.org/pkg/html/template/">html/template</a> (read <a class="footnote-reference" href="#footnote-3" id="footnote-reference-2">[3]</a>), but the <em>gettext</em> function must be called with
 the following syntax:</p>
 <div class="highlight"><pre><span></span>{{gettext &quot;Home&quot;}}
 </pre></div>
@@ -69,7 +69,7 @@ the following syntax:</p>
 </pre></div>
 
 <p>So how to extract the translatable strings in syntax of <a class="reference external" href="https://golang.org/">Go</a> <a class="reference external" href="https://golang.org/pkg/html/template/">html/template</a>?
-After some googling <a class="footnote-reference" href="#id8" id="id3">[4]</a>, I found <a class="footnote-reference" href="#id9" id="id4">[5]</a> provides me the idea of solution. The
+After some googling <a class="footnote-reference" href="#footnote-4" id="footnote-reference-3">[4]</a>, I found <a class="footnote-reference" href="#footnote-5" id="footnote-reference-4">[5]</a> provides me the idea of solution. The
 solution is to uses <a class="reference external" href="http://www.grymoire.com/Unix/Sed.html">sed</a> to convert the <a class="reference external" href="https://golang.org/">Go</a> <a class="reference external" href="https://golang.org/pkg/html/template/">html/template</a> syntax to idiomatic
 syntax by the following command:</p>
 <div class="highlight"><pre><span></span>sed <span class="s2">&quot;s/{{gettext \(&quot;</span>.*<span class="s2">&quot;\)}}/{{gettext(\1)}}/g&quot;</span> html.go <span class="p">|</span> xgettext --no-wrap --language<span class="o">=</span>c --from-code<span class="o">=</span>UTF-8 --output<span class="o">=</span>locale/messages.pot -
@@ -82,43 +82,43 @@ so the solution here is also applied to <a class="reference external" href="http
 <hr class="docutils" />
 
 <p>References:</p>
-<table class="docutils footnote" frame="void" id="id5" rules="none">
+<table class="docutils footnote" frame="void" id="footnote-1" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
 <tr><td class="label">[1]</td><td><a class="reference external" href="/2016/01/07/i18n-web-application-by-gnu-gettext-tools/">Internationalization (i18n) of Web Application by GNU gettext Tools</a></td></tr>
 </tbody>
 </table>
-<table class="docutils footnote" frame="void" id="id6" rules="none">
+<table class="docutils footnote" frame="void" id="footnote-2" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
 <tr><td class="label">[2]</td><td><a class="reference external" href="/2016/01/08/golang-i18n-go-application-by-gnu-gettext/">[Golang] Internationalization (i18n) of Go Application by GNU gettext Tools</a></td></tr>
 </tbody>
 </table>
-<table class="docutils footnote" frame="void" id="id7" rules="none">
+<table class="docutils footnote" frame="void" id="footnote-3" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label">[3]</td><td><em>(<a class="fn-backref" href="#id1">1</a>, <a class="fn-backref" href="#id2">2</a>)</em> <a class="reference external" href="/2016/01/19/i18n-go-web-application-by-gettext-html-template/">i18n Golang Web Application by gettext and html/template</a></td></tr>
+<tr><td class="label">[3]</td><td><em>(<a class="fn-backref" href="#footnote-reference-1">1</a>, <a class="fn-backref" href="#footnote-reference-2">2</a>)</em> <a class="reference external" href="/2016/01/19/i18n-go-web-application-by-gettext-html-template/">i18n Golang Web Application by gettext and html/template</a></td></tr>
 </tbody>
 </table>
-<table class="docutils footnote" frame="void" id="id8" rules="none">
+<table class="docutils footnote" frame="void" id="footnote-4" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id3">[4]</a></td><td><a class="reference external" href="https://www.google.com/search?q=xgettext+example">xgettext example</a></td></tr>
+<tr><td class="label"><a class="fn-backref" href="#footnote-reference-3">[4]</a></td><td><a class="reference external" href="https://www.google.com/search?q=xgettext+example">xgettext example</a></td></tr>
 </tbody>
 </table>
-<table class="docutils footnote" frame="void" id="id9" rules="none">
+<table class="docutils footnote" frame="void" id="footnote-5" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id4">[5]</a></td><td><a class="reference external" href="http://stackoverflow.com/questions/7645319/let-xgettext-find-keywords-in-comments">php - Let xgettext find keywords in comments - Stack Overflow</a></td></tr>
+<tr><td class="label"><a class="fn-backref" href="#footnote-reference-4">[5]</a></td><td><a class="reference external" href="http://stackoverflow.com/questions/7645319/let-xgettext-find-keywords-in-comments">php - Let xgettext find keywords in comments - Stack Overflow</a></td></tr>
 </tbody>
 </table>
-<table class="docutils footnote" frame="void" id="id10" rules="none">
+<table class="docutils footnote" frame="void" id="footnote-6" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
 <tr><td class="label">[6]</td><td><a class="reference external" href="https://github.com/gmarty/xgettext">gmarty/xgettext · GitHub</a> (Extract translatable strings from Handlebars templates.)</td></tr>
 </tbody>
 </table>
-<table class="docutils footnote" frame="void" id="id11" rules="none">
+<table class="docutils footnote" frame="void" id="footnote-7" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
 <tr><td class="label">[7]</td><td><a class="reference external" href="https://github.com/arendjr/grunt-xgettext">arendjr/grunt-xgettext: Grunt xgettext plugin for JavaScript and Handlebars</a></td></tr>

@@ -56,7 +56,7 @@
     <div class="main-content"><p>這是一篇關於 webassembly 的即時記錄，它的目的是給我做個備忘而不僅僅是如何使用它的教程。</p>
 <p>即將發佈的 Go 1.11 版本將支持 Wasm。&#64;neelance 做了大部分的實施工作。對 wasm 的支持已經可以通過他在 github 上的工作分支進行測試。</p>
 <p>看 <a class="reference external" href="https://blog.gopheracademy.com/advent-2017/go-wasm/">這篇文章</a> 瞭解更多信息</p>
-<div class="section" id="id1">
+<div class="section" id="section-1">
 <h2>工具鏈設置</h2>
 <p>要從 go 源碼生產一個 wasm 文件，您需要從源碼獲取並為 go 工具集打補丁：</p>
 <div class="highlight"><pre><span></span>~ mkdir ~/gowasm
@@ -70,7 +70,7 @@
 </pre></div>
 <p>然後使用這個版本的 Go，把 <tt class="docutils literal">GOROOT</tt> 指到 <tt class="docutils literal">~/gowasm</tt> 並使用 <tt class="docutils literal">~/gowasm/bin/go</tt> 這個二進制文件。</p>
 </div>
-<div class="section" id="id2">
+<div class="section" id="section-2">
 <h2>第一個例子</h2>
 <p>按照慣例，讓我們先來寫個 “hello world”：</p>
 <div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
@@ -85,7 +85,7 @@
 <div class="highlight"><pre><span></span><span class="nv">GOROOT</span><span class="o">=</span>~/gowasm <span class="nv">GOARCH</span><span class="o">=</span>wasm <span class="nv">GOOS</span><span class="o">=</span>js ~/gowasm/bin/go build -o example.wasm main.go
 </pre></div>
 </div>
-<div class="section" id="id3">
+<div class="section" id="section-3">
 <h2>運行這個例子</h2>
 <p>這是 <a class="reference external" href="https://webassembly.org/getting-started/js-api/">官方文檔</a> 的節選：</p>
 <blockquote>
@@ -136,7 +136,7 @@
 <p>然後使用 <tt class="docutils literal">go run server.go</tt> 來啟動服務，並打開瀏覽器訪問 <tt class="docutils literal"><span class="pre">http://localhost:3000</span></tt> 。</p>
 <p>打開控制台看看！</p>
 </div>
-<div class="section" id="id4">
+<div class="section" id="section-4">
 <h2>和瀏覽器交互</h2>
 <p>讓我們和世界互動。</p>
 <div class="section" id="dom">
@@ -171,7 +171,7 @@
 <p>像以前一樣編譯文件並刷新瀏覽器……打開控制台然後輸入一個數字……瞧瞧</p>
 </div>
 </div>
-<div class="section" id="id5">
+<div class="section" id="section-5">
 <h2>暴露函數</h2>
 <p>這有點辣手……我沒有找到任何簡單的方法將一個 Go 函數暴露給 Javascript 生態系統。我們需要做的是在 Go 文件中創建一個 <tt class="docutils literal">Callback</tt> 對象並指定到一個 Javascript 對象。</p>
 <p>為得到返回結果，我們不能返回一個值給 callback 而是使用 Javascript 對象代替。</p>
@@ -195,7 +195,7 @@
 <p>如果你輸入 <tt class="docutils literal">output</tt> 將返回 <tt class="docutils literal">Object not found</tt> 。現在您輸入 <tt class="docutils literal">add(2,3)</tt> 和 <tt class="docutils literal">output</tt> ...應該得到 <tt class="docutils literal">5</tt> 。</p>
 <p>這不是很優雅的交互方式，但它按預期運行。</p>
 </div>
-<div class="section" id="id6">
+<div class="section" id="section-6">
 <h2>結論</h2>
 <p>Go 對 wasm 的支持剛剛開始，但正大力發展。許多功能現在都可運行。我甚至可以在瀏覽器運行一個完整的遞歸神經網絡，這歸功於 Gorgonia。我將稍後講解這些。</p>
 <hr class="docutils" />

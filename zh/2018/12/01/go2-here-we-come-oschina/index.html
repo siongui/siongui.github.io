@@ -59,19 +59,19 @@
 2.採用增量升級的方式，而非單獨發佈重大更新版本
 3.實施新的提案評估流程，以評估尚未解決且 <a class="reference external" href="https://github.com/golang/go/issues?page=1&amp;q=is%3Aissue+is%3Aopen+label%3Aproposal+label%3AGo2&amp;utf8=%E2%9C%93">被標記為提案的 issue</a>
 4.將會在 Go 1.13 版本中選擇 Go 2 部分的提案</p>
-<div class="section" id="id1">
+<div class="section" id="section-1">
 <h2>背景</h2>
 <p>早在2017年的 GopherCon 大會上，Russ Cox（Go 核心開發團隊的技術 leader）就已經正式開始思考 Go 的下一個大版本（ <a class="reference external" href="https://www.oschina.net/news/86774/toward-go2">相關文章</a> ）。當時官方非正式地將它稱為 Go 2，但我們知道，所謂的 Go 2.0 並非一個單獨的重大更新版本，而是通過“增量更新(incremental)”的方式以逐漸抵達 &quot;Go 2.0&quot;。所以本文對這個未來版本的稱號 —— 也暫且用 Go 2 來描述。</p>
 <p>Go 1 和 Go 2 之間的主要區別在於主導權的不同。誰將影響設計，又該如何做出決策？我們都知道，Go 1 的誕生是小團隊努力的結果，受外部影響不大；而到了 Go 2，尤其是經過將近 10 年的發展後，Go 語言的生態已經十分龐大，因此它也更多地受到社區的驅動和影響。經歷了這些，Go 開發團隊也瞭解到了更多一開始不知道的與語言特性和庫相關的知識 —— 這些都來自於 Go 社區的反饋。</p>
 <p>2015年，Go 開發團隊引入了提案流程，以收集特定類型的反饋：針對語言和庫變更方面的提案。由 Go 開發團隊高級成員組成的委員會定期審查、分類和決定社區提交的提案。這個流程十分有效，但作為該過程的一部分，他們忽略了所有不向後兼容的提案，只是將其標記至 Go 2。到了2017年，Go 開發團隊也停止進行任何類型的向後兼容的“增量”語言特性變更，因為他們認為無論變更多麼小，都要有更全面的支持計畫，並將 Go 2 考慮在內。</p>
 <p>對於這些累積下來的提案，官方表示現在是時候採取行動了！</p>
 </div>
-<div class="section" id="id2">
+<div class="section" id="section-2">
 <h2>近況</h2>
 <p>本文發佈時，官方表示目前在 Go 2 的提案中，大約有 120 個尚未解決且 <a class="reference external" href="https://github.com/golang/go/issues?page=1&amp;q=is%3Aissue+is%3Aopen+label%3Aproposal+label%3AGo2&amp;utf8=%E2%9C%93">被標記為提案的 issue</a> 。這些提案都涉及到重要的庫或語言特性變更，而它們通常不能與 Go 1 互相兼容。Ian Lance Taylor 和 Robert Griesemer 一直在研究這些提案，並對它們進行了分類(Go2Cleanup, NeedsDecision 等)，以理解這些提案背後的含義並使它們後續更易進行。此外，他們還合併了相似的提案，並關閉了那些看似明顯超出 Go 範圍的提案，或者其他方面無法實現的提案。</p>
 <p>早期出現的兩個提案包括更好的錯誤處理和泛型，而它們的草案已在今年的 GopherCon 大會上發佈，等待更多的探索發展。至於剩餘的提案，官方提到，他們不希望過度影響數百萬 Go 開發者以及現在的 Go 代碼，更不想冒著分裂生態系統的風險去改版 Go 2，因此 Go 2 無法做出太多變更，每一個變更都需要仔細選擇。為此，這些提案都將使用新的提案評估流程來決定去留與發展。</p>
 </div>
-<div class="section" id="id3">
+<div class="section" id="section-3">
 <h2>提案評估流程</h2>
 <p>提案評估流程旨在收集對少數選定提案的反饋意見，以作出最終決定。這個過程或多或少會與發佈週期並行進行，包括以下步驟：</p>
 <ol class="arabic simple">
@@ -83,7 +83,7 @@
 </ol>
 <p>可以看到，通過兩輪的反饋過程，可對提案進行有效的篩選，從而防止“功能蔓延(feature creep)”，有助於保持 Go 語言的簡潔。</p>
 </div>
-<div class="section" id="id4">
+<div class="section" id="section-4">
 <h2>提案選擇標準</h2>
 <p>一項提案至少要滿足以下這些條件：</p>
 <ol class="arabic simple">
@@ -94,7 +94,7 @@
 <p>條件1確保提案所做的任何變更都可以幫助到儘可能多的 Go 開發者（使他們編寫的代碼更健壯、正確性更高等），條件2則保證了變更將給使用者帶來的影響降到最低。</p>
 <p>至於條件3，如果提案不能滿足該條件，它將不會被實現。即便這項提案能夠解決一個很重要的問題，思路也很好，但在沒有實現方案的情況下，它將會被拒絕，並需要重新起草。</p>
 </div>
-<div class="section" id="id5">
+<div class="section" id="section-5">
 <h2>下一步</h2>
 <p>在這篇文章發佈時，Go 開發團隊表示已經執行 <strong>提案評估流程</strong> 的第一步，並開始了流程的第二步， <a class="reference external" href="https://blog.golang.org/go2-here-we-come">關於具體的提案可點此進行查看</a> 。</p>
 <p>對於 Go 開發團隊已經明確並通過的提案，將會繼續實現（即評估流程的第3步）。開發團隊表示希望在下一個發佈週期的第一天（暫定於2019年2月1日）完成這些提案變更的實現，所以這次可能會在較早的時間開始進行，以留出兩個月的反饋時間（2018年12月至2019年1月）。</p>
