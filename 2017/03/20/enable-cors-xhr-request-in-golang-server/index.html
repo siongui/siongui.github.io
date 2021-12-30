@@ -62,10 +62,10 @@ header in request response:</p>
 <p>The above header says all requests from any other domain are allowed.</p>
 <p>To set the <tt class="docutils literal"><span class="pre">Access-Control-Allow-Origin</span></tt> header in Go server via standard
 <a class="reference external" href="https://golang.org/pkg/net/http/">net/http</a> package, we can use the following code in request handler:</p>
-<div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">myHandler</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">{</span>
-      <span class="c1">// allow all XHR requests from other domains</span>
-      <span class="nx">w</span><span class="p">.</span><span class="nx">Header</span><span class="p">().</span><span class="nx">Set</span><span class="p">(</span><span class="s">&quot;Access-Control-Allow-Origin&quot;</span><span class="p">,</span> <span class="s">&quot;*&quot;</span><span class="p">)</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span></span><span class="kd">func</span><span class="w"> </span><span class="nx">myHandler</span><span class="p">(</span><span class="nx">w</span><span class="w"> </span><span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span><span class="w"> </span><span class="nx">r</span><span class="w"> </span><span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="c1">// allow all XHR requests from other domains</span><span class="w"></span>
+<span class="w">      </span><span class="nx">w</span><span class="p">.</span><span class="nx">Header</span><span class="p">().</span><span class="nx">Set</span><span class="p">(</span><span class="s">&quot;Access-Control-Allow-Origin&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;*&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 <p>Just one line of code to make your Go server enable
 <em>Cross-Origin Resource Sharing (CORS)</em>.</p>
@@ -95,21 +95,21 @@ header in request response:</p>
 <span class="normal">12</span>
 <span class="normal">13</span>
 <span class="normal">14</span>
-<span class="normal">15</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">servejson</span>
+<span class="normal">15</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">servejson</span><span class="w"></span>
 
-<span class="kn">import</span> <span class="p">(</span>
-	<span class="s">&quot;fmt&quot;</span>
-	<span class="s">&quot;net/http&quot;</span>
-<span class="p">)</span>
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">	</span><span class="s">&quot;fmt&quot;</span><span class="w"></span>
+<span class="w">	</span><span class="s">&quot;net/http&quot;</span><span class="w"></span>
+<span class="p">)</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">init</span><span class="p">()</span> <span class="p">{</span>
-	<span class="nx">http</span><span class="p">.</span><span class="nx">HandleFunc</span><span class="p">(</span><span class="s">&quot;/&quot;</span><span class="p">,</span> <span class="nx">servejson</span><span class="p">)</span>
-<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">init</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">	</span><span class="nx">http</span><span class="p">.</span><span class="nx">HandleFunc</span><span class="p">(</span><span class="s">&quot;/&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">servejson</span><span class="p">)</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">servejson</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">{</span>
-	<span class="nx">w</span><span class="p">.</span><span class="nx">Header</span><span class="p">().</span><span class="nx">Set</span><span class="p">(</span><span class="s">&quot;Access-Control-Allow-Origin&quot;</span><span class="p">,</span> <span class="s">&quot;*&quot;</span><span class="p">)</span>
-	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Fprint</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="s">`{&quot;a&quot;:&quot;b&quot;,&quot;c&quot;:&quot;d&quot;}`</span><span class="p">)</span>
-<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">servejson</span><span class="p">(</span><span class="nx">w</span><span class="w"> </span><span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span><span class="w"> </span><span class="nx">r</span><span class="w"> </span><span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">	</span><span class="nx">w</span><span class="p">.</span><span class="nx">Header</span><span class="p">().</span><span class="nx">Set</span><span class="p">(</span><span class="s">&quot;Access-Control-Allow-Origin&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;*&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Fprint</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span><span class="w"> </span><span class="s">`{&quot;a&quot;:&quot;b&quot;,&quot;c&quot;:&quot;d&quot;}`</span><span class="p">)</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </td></tr></table></div></figure><figure class="github-file">
             <figcaption>
@@ -122,12 +122,12 @@ header in request response:</p>
 <span class="normal">3</span>
 <span class="normal">4</span>
 <span class="normal">5</span>
-<span class="normal">6</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="nt">runtime</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">go</span>
-<span class="nt">api_version</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">go1</span>
+<span class="normal">6</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="nt">runtime</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">go</span><span class="w"></span>
+<span class="nt">api_version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">go1</span><span class="w"></span>
 
-<span class="nt">handlers</span><span class="p">:</span>
-  <span class="p p-Indicator">-</span> <span class="nt">url</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/.*</span>
-    <span class="nt">script</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">_go_app</span>
+<span class="nt">handlers</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/.*</span><span class="w"></span>
+<span class="w">    </span><span class="nt">script</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">_go_app</span><span class="w"></span>
 </pre></div>
 </td></tr></table></div></figure><figure class="github-file">
             <figcaption>

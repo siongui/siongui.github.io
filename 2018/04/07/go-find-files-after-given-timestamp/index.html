@@ -59,49 +59,49 @@ to check if the modified time of the file is after or not.</p>
 <p>If you want to find files before given time, use <a class="reference external" href="https://golang.org/pkg/time/#Time.Before">Time.Before</a> instead.</p>
 <p>You can also use shell command to do this <a class="footnote-reference" href="#footnote-1" id="footnote-reference-1">[1]</a> <a class="footnote-reference" href="#footnote-2" id="footnote-reference-2">[2]</a>, but I like to code in Go
 because it is more readable.</p>
-<div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
+<div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w"></span>
 
-<span class="kn">import</span> <span class="p">(</span>
-      <span class="s">&quot;fmt&quot;</span>
-      <span class="s">&quot;os&quot;</span>
-      <span class="s">&quot;path/filepath&quot;</span>
-      <span class="s">&quot;time&quot;</span>
-<span class="p">)</span>
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">      </span><span class="s">&quot;fmt&quot;</span><span class="w"></span>
+<span class="w">      </span><span class="s">&quot;os&quot;</span><span class="w"></span>
+<span class="w">      </span><span class="s">&quot;path/filepath&quot;</span><span class="w"></span>
+<span class="w">      </span><span class="s">&quot;time&quot;</span><span class="w"></span>
+<span class="p">)</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">FindFilesAfter</span><span class="p">(</span><span class="nx">dir</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">t</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span><span class="p">)</span> <span class="p">(</span><span class="nx">paths</span> <span class="p">[]</span><span class="kt">string</span><span class="p">,</span> <span class="nx">infos</span> <span class="p">[]</span><span class="nx">os</span><span class="p">.</span><span class="nx">FileInfo</span><span class="p">,</span> <span class="nx">err</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
-      <span class="nx">err</span> <span class="p">=</span> <span class="nx">filepath</span><span class="p">.</span><span class="nx">Walk</span><span class="p">(</span><span class="nx">dir</span><span class="p">,</span> <span class="kd">func</span><span class="p">(</span><span class="nx">p</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">i</span> <span class="nx">os</span><span class="p">.</span><span class="nx">FileInfo</span><span class="p">,</span> <span class="nx">e</span> <span class="kt">error</span><span class="p">)</span> <span class="kt">error</span> <span class="p">{</span>
-              <span class="k">if</span> <span class="nx">e</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-                      <span class="k">return</span> <span class="nx">e</span>
-              <span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">FindFilesAfter</span><span class="p">(</span><span class="nx">dir</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">t</span><span class="w"> </span><span class="nx">time</span><span class="p">.</span><span class="nx">Time</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nx">paths</span><span class="w"> </span><span class="p">[]</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">infos</span><span class="w"> </span><span class="p">[]</span><span class="nx">os</span><span class="p">.</span><span class="nx">FileInfo</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nx">err</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">filepath</span><span class="p">.</span><span class="nx">Walk</span><span class="p">(</span><span class="nx">dir</span><span class="p">,</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="nx">p</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="nx">os</span><span class="p">.</span><span class="nx">FileInfo</span><span class="p">,</span><span class="w"> </span><span class="nx">e</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="k">if</span><span class="w"> </span><span class="nx">e</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                      </span><span class="k">return</span><span class="w"> </span><span class="nx">e</span><span class="w"></span>
+<span class="w">              </span><span class="p">}</span><span class="w"></span>
 
-              <span class="k">if</span> <span class="p">!</span><span class="nx">i</span><span class="p">.</span><span class="nx">IsDir</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="nx">i</span><span class="p">.</span><span class="nx">ModTime</span><span class="p">().</span><span class="nx">After</span><span class="p">(</span><span class="nx">t</span><span class="p">)</span> <span class="p">{</span>
-                      <span class="nx">paths</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">paths</span><span class="p">,</span> <span class="nx">p</span><span class="p">)</span>
-                      <span class="nx">infos</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">infos</span><span class="p">,</span> <span class="nx">i</span><span class="p">)</span>
-              <span class="p">}</span>
-              <span class="k">return</span> <span class="kc">nil</span>
-      <span class="p">})</span>
-      <span class="k">return</span>
-<span class="p">}</span>
+<span class="w">              </span><span class="k">if</span><span class="w"> </span><span class="p">!</span><span class="nx">i</span><span class="p">.</span><span class="nx">IsDir</span><span class="p">()</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">i</span><span class="p">.</span><span class="nx">ModTime</span><span class="p">().</span><span class="nx">After</span><span class="p">(</span><span class="nx">t</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                      </span><span class="nx">paths</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">append</span><span class="p">(</span><span class="nx">paths</span><span class="p">,</span><span class="w"> </span><span class="nx">p</span><span class="p">)</span><span class="w"></span>
+<span class="w">                      </span><span class="nx">infos</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">append</span><span class="p">(</span><span class="nx">infos</span><span class="p">,</span><span class="w"> </span><span class="nx">i</span><span class="p">)</span><span class="w"></span>
+<span class="w">              </span><span class="p">}</span><span class="w"></span>
+<span class="w">              </span><span class="k">return</span><span class="w"> </span><span class="kc">nil</span><span class="w"></span>
+<span class="w">      </span><span class="p">})</span><span class="w"></span>
+<span class="w">      </span><span class="k">return</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">checkFile</span><span class="p">(</span><span class="nx">path</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">info</span> <span class="nx">os</span><span class="p">.</span><span class="nx">FileInfo</span><span class="p">)</span> <span class="p">{</span>
-      <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">path</span><span class="p">)</span>
-      <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">info</span><span class="p">)</span>
-<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">checkFile</span><span class="p">(</span><span class="nx">path</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">info</span><span class="w"> </span><span class="nx">os</span><span class="p">.</span><span class="nx">FileInfo</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">path</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">info</span><span class="p">)</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
-      <span class="nx">dir</span> <span class="o">:=</span> <span class="s">&quot;path/to/your/dir&quot;</span>
-      <span class="nx">t</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Parse</span><span class="p">(</span><span class="s">&quot;2006-01-02T15:04:05-07:00&quot;</span><span class="p">,</span> <span class="s">&quot;2018-04-07T05:48:03+08:00&quot;</span><span class="p">)</span>
-      <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-              <span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
-      <span class="p">}</span>
-      <span class="nx">paths</span><span class="p">,</span> <span class="nx">infos</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">FindFilesAfter</span><span class="p">(</span><span class="nx">dir</span><span class="p">,</span> <span class="nx">t</span><span class="p">)</span>
-      <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-              <span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
-      <span class="p">}</span>
-      <span class="k">for</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">paths</span> <span class="p">{</span>
-              <span class="nx">checkFile</span><span class="p">(</span><span class="nx">paths</span><span class="p">[</span><span class="nx">i</span><span class="p">],</span> <span class="nx">infos</span><span class="p">[</span><span class="nx">i</span><span class="p">])</span>
-      <span class="p">}</span>
-<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nx">dir</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="s">&quot;path/to/your/dir&quot;</span><span class="w"></span>
+<span class="w">      </span><span class="nx">t</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">time</span><span class="p">.</span><span class="nx">Parse</span><span class="p">(</span><span class="s">&quot;2006-01-02T15:04:05-07:00&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;2018-04-07T05:48:03+08:00&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
+<span class="w">      </span><span class="nx">paths</span><span class="p">,</span><span class="w"> </span><span class="nx">infos</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">FindFilesAfter</span><span class="p">(</span><span class="nx">dir</span><span class="p">,</span><span class="w"> </span><span class="nx">t</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
+<span class="w">      </span><span class="k">for</span><span class="w"> </span><span class="nx">i</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="nx">paths</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="nx">checkFile</span><span class="p">(</span><span class="nx">paths</span><span class="p">[</span><span class="nx">i</span><span class="p">],</span><span class="w"> </span><span class="nx">infos</span><span class="p">[</span><span class="nx">i</span><span class="p">])</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 
 <hr class="docutils" />

@@ -57,49 +57,49 @@
 with specific prefx in Go.</p>
 <p>We use <a class="reference external" href="https://golang.org/pkg/io/ioutil/#ReadDir">ioutil.ReadDir</a> to read files in the directory, but not in
 sub-directories. If you need to read also sub-directories, Use <a class="reference external" href="https://golang.org/pkg/path/filepath/#Walk">filepath.Walk</a>.</p>
-<div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
+<div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w"></span>
 
-<span class="kn">import</span> <span class="p">(</span>
-      <span class="s">&quot;io/ioutil&quot;</span>
-      <span class="s">&quot;os&quot;</span>
-      <span class="s">&quot;strings&quot;</span>
-<span class="p">)</span>
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">      </span><span class="s">&quot;io/ioutil&quot;</span><span class="w"></span>
+<span class="w">      </span><span class="s">&quot;os&quot;</span><span class="w"></span>
+<span class="w">      </span><span class="s">&quot;strings&quot;</span><span class="w"></span>
+<span class="p">)</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">findLastFileStartsWith</span><span class="p">(</span><span class="nx">dir</span><span class="p">,</span> <span class="nx">prefix</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="nx">lastFile</span> <span class="nx">os</span><span class="p">.</span><span class="nx">FileInfo</span><span class="p">,</span> <span class="nx">err</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
-      <span class="nx">files</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">ioutil</span><span class="p">.</span><span class="nx">ReadDir</span><span class="p">(</span><span class="nx">dir</span><span class="p">)</span>
-      <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-              <span class="k">return</span>
-      <span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">findLastFileStartsWith</span><span class="p">(</span><span class="nx">dir</span><span class="p">,</span><span class="w"> </span><span class="nx">prefix</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nx">lastFile</span><span class="w"> </span><span class="nx">os</span><span class="p">.</span><span class="nx">FileInfo</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nx">files</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">ioutil</span><span class="p">.</span><span class="nx">ReadDir</span><span class="p">(</span><span class="nx">dir</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="k">return</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
 
-      <span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">file</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">files</span> <span class="p">{</span>
-              <span class="k">if</span> <span class="p">!</span><span class="nx">file</span><span class="p">.</span><span class="nx">Mode</span><span class="p">().</span><span class="nx">IsRegular</span><span class="p">()</span> <span class="p">{</span>
-                      <span class="k">continue</span>
-              <span class="p">}</span>
-              <span class="k">if</span> <span class="nx">strings</span><span class="p">.</span><span class="nx">HasPrefix</span><span class="p">(</span><span class="nx">file</span><span class="p">.</span><span class="nx">Name</span><span class="p">(),</span> <span class="nx">prefix</span><span class="p">)</span> <span class="p">{</span>
-                      <span class="k">if</span> <span class="nx">lastFile</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
-                              <span class="nx">lastFile</span> <span class="p">=</span> <span class="nx">file</span>
-                      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-                              <span class="k">if</span> <span class="nx">lastFile</span><span class="p">.</span><span class="nx">ModTime</span><span class="p">().</span><span class="nx">Before</span><span class="p">(</span><span class="nx">file</span><span class="p">.</span><span class="nx">ModTime</span><span class="p">())</span> <span class="p">{</span>
-                                      <span class="nx">lastFile</span> <span class="p">=</span> <span class="nx">file</span>
-                              <span class="p">}</span>
-                      <span class="p">}</span>
-              <span class="p">}</span>
-      <span class="p">}</span>
+<span class="w">      </span><span class="k">for</span><span class="w"> </span><span class="nx">_</span><span class="p">,</span><span class="w"> </span><span class="nx">file</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="nx">files</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="k">if</span><span class="w"> </span><span class="p">!</span><span class="nx">file</span><span class="p">.</span><span class="nx">Mode</span><span class="p">().</span><span class="nx">IsRegular</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                      </span><span class="k">continue</span><span class="w"></span>
+<span class="w">              </span><span class="p">}</span><span class="w"></span>
+<span class="w">              </span><span class="k">if</span><span class="w"> </span><span class="nx">strings</span><span class="p">.</span><span class="nx">HasPrefix</span><span class="p">(</span><span class="nx">file</span><span class="p">.</span><span class="nx">Name</span><span class="p">(),</span><span class="w"> </span><span class="nx">prefix</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                      </span><span class="k">if</span><span class="w"> </span><span class="nx">lastFile</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                              </span><span class="nx">lastFile</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">file</span><span class="w"></span>
+<span class="w">                      </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                              </span><span class="k">if</span><span class="w"> </span><span class="nx">lastFile</span><span class="p">.</span><span class="nx">ModTime</span><span class="p">().</span><span class="nx">Before</span><span class="p">(</span><span class="nx">file</span><span class="p">.</span><span class="nx">ModTime</span><span class="p">())</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                                      </span><span class="nx">lastFile</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">file</span><span class="w"></span>
+<span class="w">                              </span><span class="p">}</span><span class="w"></span>
+<span class="w">                      </span><span class="p">}</span><span class="w"></span>
+<span class="w">              </span><span class="p">}</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
 
-      <span class="k">if</span> <span class="nx">lastFile</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
-              <span class="nx">err</span> <span class="p">=</span> <span class="nx">os</span><span class="p">.</span><span class="nx">ErrNotExist</span>
-              <span class="k">return</span>
-      <span class="p">}</span>
-      <span class="k">return</span>
-<span class="p">}</span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="nx">lastFile</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="nx">err</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">os</span><span class="p">.</span><span class="nx">ErrNotExist</span><span class="w"></span>
+<span class="w">              </span><span class="k">return</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
+<span class="w">      </span><span class="k">return</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
-      <span class="nx">file</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">findLastFileStartsWith</span><span class="p">(</span><span class="s">&quot;.&quot;</span><span class="p">,</span> <span class="s">&quot;myprefix&quot;</span><span class="p">)</span>
-      <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-              <span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
-      <span class="p">}</span>
-      <span class="nb">println</span><span class="p">(</span><span class="nx">file</span><span class="p">.</span><span class="nx">Name</span><span class="p">())</span>
-<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nx">file</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">findLastFileStartsWith</span><span class="p">(</span><span class="s">&quot;.&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;myprefix&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
+<span class="w">      </span><span class="nb">println</span><span class="p">(</span><span class="nx">file</span><span class="p">.</span><span class="nx">Name</span><span class="p">())</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 
 <hr class="docutils" />

@@ -60,57 +60,57 @@ GCD (Greatest Common Divisor) <a class="footnote-reference" href="#footnote-2" i
 <p>According to above definition, the naive solution to implement <span class="formula"><i>ϕ</i>(<i>n</i>)</span>
 is as follows:</p>
 <p class="align-center rubric"><a class="reference external" href="https://play.golang.org/p/crIx9y2E3M">Run Code on Go Playground</a></p>
-<div class="highlight"><pre><span></span><span class="c1">// greatest common divisor (GCD) via Euclidean algorithm</span>
-<span class="kd">func</span> <span class="nx">GCD</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span> <span class="kt">uint</span><span class="p">)</span> <span class="kt">uint</span> <span class="p">{</span>
-      <span class="k">for</span> <span class="nx">b</span> <span class="o">!=</span> <span class="mi">0</span> <span class="p">{</span>
-              <span class="nx">t</span> <span class="o">:=</span> <span class="nx">b</span>
-              <span class="nx">b</span> <span class="p">=</span> <span class="nx">a</span> <span class="o">%</span> <span class="nx">b</span>
-              <span class="nx">a</span> <span class="p">=</span> <span class="nx">t</span>
-      <span class="p">}</span>
-      <span class="k">return</span> <span class="nx">a</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span></span><span class="c1">// greatest common divisor (GCD) via Euclidean algorithm</span><span class="w"></span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">GCD</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span><span class="w"> </span><span class="nx">b</span><span class="w"> </span><span class="kt">uint</span><span class="p">)</span><span class="w"> </span><span class="kt">uint</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="k">for</span><span class="w"> </span><span class="nx">b</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="nx">t</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">b</span><span class="w"></span>
+<span class="w">              </span><span class="nx">b</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="nx">b</span><span class="w"></span>
+<span class="w">              </span><span class="nx">a</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">t</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="nx">a</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="c1">// Euler’s Totient Function</span>
-<span class="kd">func</span> <span class="nx">Phi</span><span class="p">(</span><span class="nx">n</span> <span class="kt">uint</span><span class="p">)</span> <span class="kt">uint</span> <span class="p">{</span>
-      <span class="kd">var</span> <span class="nx">result</span> <span class="kt">uint</span> <span class="p">=</span> <span class="mi">1</span>
-      <span class="kd">var</span> <span class="nx">i</span> <span class="kt">uint</span>
-      <span class="k">for</span> <span class="nx">i</span> <span class="p">=</span> <span class="mi">2</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nx">n</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
-              <span class="k">if</span> <span class="nx">GCD</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span> <span class="nx">n</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="p">{</span>
-                      <span class="nx">result</span><span class="o">++</span>
-              <span class="p">}</span>
-      <span class="p">}</span>
-      <span class="k">return</span> <span class="nx">result</span>
-<span class="p">}</span>
+<span class="c1">// Euler’s Totient Function</span><span class="w"></span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">Phi</span><span class="p">(</span><span class="nx">n</span><span class="w"> </span><span class="kt">uint</span><span class="p">)</span><span class="w"> </span><span class="kt">uint</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="kd">var</span><span class="w"> </span><span class="nx">result</span><span class="w"> </span><span class="kt">uint</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">1</span><span class="w"></span>
+<span class="w">      </span><span class="kd">var</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="kt">uint</span><span class="w"></span>
+<span class="w">      </span><span class="k">for</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="p">&lt;</span><span class="w"> </span><span class="nx">n</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="o">++</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="k">if</span><span class="w"> </span><span class="nx">GCD</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span><span class="w"> </span><span class="nx">n</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                      </span><span class="nx">result</span><span class="o">++</span><span class="w"></span>
+<span class="w">              </span><span class="p">}</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="nx">result</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 <p>According to the GeeksforGeeks post <a class="footnote-reference" href="#footnote-1" id="footnote-reference-2">[1]</a>, there is a better solution based on
 Euler’s product formula without floating point calculations. I port the solution
 from C to Go:</p>
 <p class="align-center rubric"><a class="reference external" href="https://play.golang.org/p/XVY63BVSBa">Run Code on Go Playground</a></p>
-<div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">Phi</span><span class="p">(</span><span class="nx">n</span> <span class="kt">uint</span><span class="p">)</span> <span class="p">(</span><span class="nx">result</span> <span class="kt">uint</span><span class="p">)</span> <span class="p">{</span>
-      <span class="c1">// Initialize result as n</span>
-      <span class="nx">result</span> <span class="p">=</span> <span class="nx">n</span>
+<div class="highlight"><pre><span></span><span class="kd">func</span><span class="w"> </span><span class="nx">Phi</span><span class="p">(</span><span class="nx">n</span><span class="w"> </span><span class="kt">uint</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nx">result</span><span class="w"> </span><span class="kt">uint</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="c1">// Initialize result as n</span><span class="w"></span>
+<span class="w">      </span><span class="nx">result</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">n</span><span class="w"></span>
 
-      <span class="c1">// Consider all prime factors of n and subtract their</span>
-      <span class="c1">// multiples from result</span>
-      <span class="kd">var</span> <span class="nx">p</span> <span class="kt">uint</span>
-      <span class="k">for</span> <span class="nx">p</span> <span class="p">=</span> <span class="mi">2</span><span class="p">;</span> <span class="nx">p</span><span class="o">*</span><span class="nx">p</span> <span class="o">&lt;=</span> <span class="nx">n</span><span class="p">;</span> <span class="nx">p</span><span class="o">++</span> <span class="p">{</span>
-              <span class="c1">// Check if p is a prime factor.</span>
-              <span class="k">if</span> <span class="nx">n</span><span class="o">%</span><span class="nx">p</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
-                      <span class="c1">// If yes, then update n and result</span>
-                      <span class="k">for</span> <span class="nx">n</span><span class="o">%</span><span class="nx">p</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
-                              <span class="nx">n</span> <span class="o">/=</span> <span class="nx">p</span>
-                      <span class="p">}</span>
-                      <span class="nx">result</span> <span class="o">-=</span> <span class="p">(</span><span class="nx">result</span> <span class="o">/</span> <span class="nx">p</span><span class="p">)</span>
-              <span class="p">}</span>
-      <span class="p">}</span>
+<span class="w">      </span><span class="c1">// Consider all prime factors of n and subtract their</span><span class="w"></span>
+<span class="w">      </span><span class="c1">// multiples from result</span><span class="w"></span>
+<span class="w">      </span><span class="kd">var</span><span class="w"> </span><span class="nx">p</span><span class="w"> </span><span class="kt">uint</span><span class="w"></span>
+<span class="w">      </span><span class="k">for</span><span class="w"> </span><span class="nx">p</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w"> </span><span class="nx">p</span><span class="o">*</span><span class="nx">p</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="nx">n</span><span class="p">;</span><span class="w"> </span><span class="nx">p</span><span class="o">++</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="c1">// Check if p is a prime factor.</span><span class="w"></span>
+<span class="w">              </span><span class="k">if</span><span class="w"> </span><span class="nx">n</span><span class="o">%</span><span class="nx">p</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                      </span><span class="c1">// If yes, then update n and result</span><span class="w"></span>
+<span class="w">                      </span><span class="k">for</span><span class="w"> </span><span class="nx">n</span><span class="o">%</span><span class="nx">p</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                              </span><span class="nx">n</span><span class="w"> </span><span class="o">/=</span><span class="w"> </span><span class="nx">p</span><span class="w"></span>
+<span class="w">                      </span><span class="p">}</span><span class="w"></span>
+<span class="w">                      </span><span class="nx">result</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span><span class="p">(</span><span class="nx">result</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="nx">p</span><span class="p">)</span><span class="w"></span>
+<span class="w">              </span><span class="p">}</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
 
-      <span class="c1">// If n has a prime factor greater than sqrt(n)</span>
-      <span class="c1">// (There can be at-most one such prime factor)</span>
-      <span class="k">if</span> <span class="nx">n</span> <span class="p">&gt;</span> <span class="mi">1</span> <span class="p">{</span>
-              <span class="nx">result</span> <span class="o">-=</span> <span class="p">(</span><span class="nx">result</span> <span class="o">/</span> <span class="nx">n</span><span class="p">)</span>
-      <span class="p">}</span>
-      <span class="k">return</span> <span class="nx">result</span>
-<span class="p">}</span>
+<span class="w">      </span><span class="c1">// If n has a prime factor greater than sqrt(n)</span><span class="w"></span>
+<span class="w">      </span><span class="c1">// (There can be at-most one such prime factor)</span><span class="w"></span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="nx">n</span><span class="w"> </span><span class="p">&gt;</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="nx">result</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span><span class="p">(</span><span class="nx">result</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="nx">n</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="nx">result</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 <p>Tested on:</p>
 <ul class="simple">

@@ -78,19 +78,19 @@ sub-directories).</li>
 <span class="normal">10</span>
 <span class="normal">11</span>
 <span class="normal">12</span>
-<span class="normal">13</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1">// Sort file by size</span>
-<span class="kn">package</span> <span class="nx">sortfile</span>
+<span class="normal">13</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1">// Sort file by size</span><span class="w"></span>
+<span class="kn">package</span><span class="w"> </span><span class="nx">sortfile</span><span class="w"></span>
 
-<span class="kn">import</span> <span class="p">(</span>
-	<span class="s">&quot;os&quot;</span>
-	<span class="s">&quot;sort&quot;</span>
-<span class="p">)</span>
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">	</span><span class="s">&quot;os&quot;</span><span class="w"></span>
+<span class="w">	</span><span class="s">&quot;sort&quot;</span><span class="w"></span>
+<span class="p">)</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">SortFileBySize</span><span class="p">(</span><span class="nx">files</span> <span class="p">[]</span><span class="nx">os</span><span class="p">.</span><span class="nx">FileInfo</span><span class="p">)</span> <span class="p">{</span>
-	<span class="nx">sort</span><span class="p">.</span><span class="nx">Slice</span><span class="p">(</span><span class="nx">files</span><span class="p">,</span> <span class="kd">func</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span> <span class="nx">j</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">bool</span> <span class="p">{</span>
-		<span class="k">return</span> <span class="nx">files</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">Size</span><span class="p">()</span> <span class="p">&lt;</span> <span class="nx">files</span><span class="p">[</span><span class="nx">j</span><span class="p">].</span><span class="nx">Size</span><span class="p">()</span>
-	<span class="p">})</span>
-<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">SortFileBySize</span><span class="p">(</span><span class="nx">files</span><span class="w"> </span><span class="p">[]</span><span class="nx">os</span><span class="p">.</span><span class="nx">FileInfo</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">	</span><span class="nx">sort</span><span class="p">.</span><span class="nx">Slice</span><span class="p">(</span><span class="nx">files</span><span class="p">,</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span><span class="w"> </span><span class="nx">j</span><span class="w"> </span><span class="kt">int</span><span class="p">)</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">		</span><span class="k">return</span><span class="w"> </span><span class="nx">files</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">Size</span><span class="p">()</span><span class="w"> </span><span class="p">&lt;</span><span class="w"> </span><span class="nx">files</span><span class="p">[</span><span class="nx">j</span><span class="p">].</span><span class="nx">Size</span><span class="p">()</span><span class="w"></span>
+<span class="w">	</span><span class="p">})</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </td></tr></table></div></figure>
 <figure class="github-file">
@@ -117,25 +117,25 @@ sub-directories).</li>
 <span class="normal">16</span>
 <span class="normal">17</span>
 <span class="normal">18</span>
-<span class="normal">19</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">sortfile</span>
+<span class="normal">19</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">sortfile</span><span class="w"></span>
 
-<span class="kn">import</span> <span class="p">(</span>
-	<span class="s">&quot;fmt&quot;</span>
-	<span class="s">&quot;io/ioutil&quot;</span>
-	<span class="s">&quot;os&quot;</span>
-	<span class="s">&quot;testing&quot;</span>
-<span class="p">)</span>
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">	</span><span class="s">&quot;fmt&quot;</span><span class="w"></span>
+<span class="w">	</span><span class="s">&quot;io/ioutil&quot;</span><span class="w"></span>
+<span class="w">	</span><span class="s">&quot;os&quot;</span><span class="w"></span>
+<span class="w">	</span><span class="s">&quot;testing&quot;</span><span class="w"></span>
+<span class="p">)</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">ExampleSortFileBySize</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span> <span class="p">{</span>
-	<span class="nx">files</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">ioutil</span><span class="p">.</span><span class="nx">ReadDir</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">Getenv</span><span class="p">(</span><span class="s">&quot;MY_DIR&quot;</span><span class="p">))</span>
-	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-		<span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
-	<span class="p">}</span>
-	<span class="nx">SortFileBySize</span><span class="p">(</span><span class="nx">files</span><span class="p">)</span>
-	<span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">file</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">files</span> <span class="p">{</span>
-		<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">file</span><span class="p">.</span><span class="nx">Name</span><span class="p">()</span><span class="o">+</span><span class="s">&quot;: &quot;</span><span class="p">,</span> <span class="nx">file</span><span class="p">.</span><span class="nx">Size</span><span class="p">())</span>
-	<span class="p">}</span>
-<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">ExampleSortFileBySize</span><span class="p">(</span><span class="nx">t</span><span class="w"> </span><span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">	</span><span class="nx">files</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">ioutil</span><span class="p">.</span><span class="nx">ReadDir</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">Getenv</span><span class="p">(</span><span class="s">&quot;MY_DIR&quot;</span><span class="p">))</span><span class="w"></span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">		</span><span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="p">}</span><span class="w"></span>
+<span class="w">	</span><span class="nx">SortFileBySize</span><span class="p">(</span><span class="nx">files</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="k">for</span><span class="w"> </span><span class="nx">_</span><span class="p">,</span><span class="w"> </span><span class="nx">file</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="nx">files</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">		</span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">file</span><span class="p">.</span><span class="nx">Name</span><span class="p">()</span><span class="o">+</span><span class="s">&quot;: &quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">file</span><span class="p">.</span><span class="nx">Size</span><span class="p">())</span><span class="w"></span>
+<span class="w">	</span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </td></tr></table></div></figure><p>If you want to know how to sort prior to Go 1.8, see <a class="footnote-reference" href="#footnote-1" id="footnote-reference-1">[1]</a>.</p>
 <p>If you want to find all files in a directory and all its sub-directories, see

@@ -104,7 +104,7 @@ element is checked. We use CSS3 <strong>:checked</strong> selector to select cor
 tab content, and make the selected tab content visible.</p>
 <p>The complete source code is as follows:</p>
 <p><strong>HTML</strong>:</p>
-<div class="highlight"><pre><span></span><span class="c">&lt;!-- Nav tabs --&gt;</span>
+<div class="highlight"><pre><span></span><span class="cm">&lt;!-- Nav tabs --&gt;</span>
 <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;radio&quot;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;pic&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;nav-tab&quot;</span><span class="p">&gt;</span>
 <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;radio&quot;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;music&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;nav-tab&quot;</span><span class="p">&gt;</span>
 <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;radio&quot;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;video&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;nav-tab&quot;</span><span class="p">&gt;</span>
@@ -118,7 +118,7 @@ tab content, and make the selected tab content visible.</p>
   <span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
 <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
 
-<span class="c">&lt;!-- Tab panes --&gt;</span>
+<span class="cm">&lt;!-- Tab panes --&gt;</span>
 <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;tab-content&quot;</span><span class="p">&gt;</span>
   <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;tab-pane content-pic&quot;</span><span class="p">&gt;</span>My Pictures<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
   <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;tab-pane content-music&quot;</span><span class="p">&gt;</span>My Music<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
@@ -130,15 +130,15 @@ tab content, and make the selected tab content visible.</p>
 </pre></div>
 
 <p><strong>CSS</strong>:</p>
-<div class="highlight"><pre><span></span><span class="nt">input</span><span class="o">[</span><span class="nt">type</span><span class="o">=</span><span class="s2">&quot;radio&quot;</span><span class="o">],</span> <span class="p">.</span><span class="nc">tab-pane</span> <span class="p">{</span> <span class="k">display</span><span class="p">:</span> <span class="kc">none</span><span class="p">;</span> <span class="p">}</span>
+<div class="highlight"><pre><span></span><span class="nt">input</span><span class="o">[</span><span class="nt">type</span><span class="o">=</span><span class="s2">&quot;radio&quot;</span><span class="o">],</span><span class="w"> </span><span class="p">.</span><span class="nc">tab-pane</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">display</span><span class="p">:</span><span class="w"> </span><span class="kc">none</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
 
-<span class="c">/* the magic */</span>
-<span class="p">#</span><span class="nn">pic</span><span class="p">:</span><span class="nd">checked</span> <span class="o">~</span> <span class="p">.</span><span class="nc">tab-content</span> <span class="o">&gt;</span> <span class="p">.</span><span class="nc">content-pic</span><span class="o">,</span>
-<span class="p">#</span><span class="nn">music</span><span class="p">:</span><span class="nd">checked</span> <span class="o">~</span> <span class="p">.</span><span class="nc">tab-content</span> <span class="o">&gt;</span> <span class="p">.</span><span class="nc">content-music</span><span class="o">,</span>
-<span class="p">#</span><span class="nn">video</span><span class="p">:</span><span class="nd">checked</span> <span class="o">~</span> <span class="p">.</span><span class="nc">tab-content</span> <span class="o">&gt;</span> <span class="p">.</span><span class="nc">content-video</span><span class="o">,</span>
-<span class="p">#</span><span class="nn">doc</span><span class="p">:</span><span class="nd">checked</span> <span class="o">~</span> <span class="p">.</span><span class="nc">tab-content</span> <span class="o">&gt;</span> <span class="p">.</span><span class="nc">content-doc</span> <span class="p">{</span>
-  <span class="k">display</span><span class="p">:</span> <span class="kc">block</span><span class="p">;</span>
-<span class="p">}</span>
+<span class="c">/* the magic */</span><span class="w"></span>
+<span class="p">#</span><span class="nn">pic</span><span class="p">:</span><span class="nd">checked</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="p">.</span><span class="nc">tab-content</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="p">.</span><span class="nc">content-pic</span><span class="o">,</span><span class="w"></span>
+<span class="p">#</span><span class="nn">music</span><span class="p">:</span><span class="nd">checked</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="p">.</span><span class="nc">tab-content</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="p">.</span><span class="nc">content-music</span><span class="o">,</span><span class="w"></span>
+<span class="p">#</span><span class="nn">video</span><span class="p">:</span><span class="nd">checked</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="p">.</span><span class="nc">tab-content</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="p">.</span><span class="nc">content-video</span><span class="o">,</span><span class="w"></span>
+<span class="p">#</span><span class="nn">doc</span><span class="p">:</span><span class="nd">checked</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="p">.</span><span class="nc">tab-content</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="p">.</span><span class="nc">content-doc</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="k">display</span><span class="p">:</span><span class="w"> </span><span class="kc">block</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 <ul class="simple">
 <li>The first rule hides the tab content and input radio box.</li>

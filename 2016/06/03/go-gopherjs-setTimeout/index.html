@@ -115,24 +115,24 @@
 <span class="normal">15</span>
 <span class="normal">16</span>
 <span class="normal">17</span>
-<span class="normal">18</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
+<span class="normal">18</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w"></span>
 
-<span class="kn">import</span> <span class="p">(</span>
-	<span class="s">&quot;github.com/gopherjs/gopherjs/js&quot;</span>
-	<span class="s">&quot;time&quot;</span>
-<span class="p">)</span>
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">	</span><span class="s">&quot;github.com/gopherjs/gopherjs/js&quot;</span><span class="w"></span>
+<span class="w">	</span><span class="s">&quot;time&quot;</span><span class="w"></span>
+<span class="p">)</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
-	<span class="nx">info</span> <span class="o">:=</span> <span class="nx">js</span><span class="p">.</span><span class="nx">Global</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;document&quot;</span><span class="p">).</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;getElementById&quot;</span><span class="p">,</span> <span class="s">&quot;info&quot;</span><span class="p">)</span>
-	<span class="nx">button</span> <span class="o">:=</span> <span class="nx">js</span><span class="p">.</span><span class="nx">Global</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;document&quot;</span><span class="p">).</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;getElementById&quot;</span><span class="p">,</span> <span class="s">&quot;btn&quot;</span><span class="p">)</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">	</span><span class="nx">info</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">js</span><span class="p">.</span><span class="nx">Global</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;document&quot;</span><span class="p">).</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;getElementById&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;info&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="nx">button</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">js</span><span class="p">.</span><span class="nx">Global</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;document&quot;</span><span class="p">).</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;getElementById&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;btn&quot;</span><span class="p">)</span><span class="w"></span>
 
-	<span class="nx">button</span><span class="p">.</span><span class="nx">Set</span><span class="p">(</span><span class="s">&quot;onclick&quot;</span><span class="p">,</span> <span class="kd">func</span><span class="p">(</span><span class="nx">e</span> <span class="o">*</span><span class="nx">js</span><span class="p">.</span><span class="nx">Object</span><span class="p">)</span> <span class="p">{</span>
-		<span class="c1">// time.AfterFunc is Go&#39;s setTimeout</span>
-		<span class="nx">time</span><span class="p">.</span><span class="nx">AfterFunc</span><span class="p">(</span><span class="mi">3</span><span class="o">*</span><span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">,</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
-			<span class="nx">info</span><span class="p">.</span><span class="nx">Set</span><span class="p">(</span><span class="s">&quot;innerHTML&quot;</span><span class="p">,</span> <span class="s">&quot;time is up&quot;</span><span class="p">)</span>
-		<span class="p">})</span>
-	<span class="p">})</span>
-<span class="p">}</span>
+<span class="w">	</span><span class="nx">button</span><span class="p">.</span><span class="nx">Set</span><span class="p">(</span><span class="s">&quot;onclick&quot;</span><span class="p">,</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="nx">e</span><span class="w"> </span><span class="o">*</span><span class="nx">js</span><span class="p">.</span><span class="nx">Object</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">		</span><span class="c1">// time.AfterFunc is Go&#39;s setTimeout</span><span class="w"></span>
+<span class="w">		</span><span class="nx">time</span><span class="p">.</span><span class="nx">AfterFunc</span><span class="p">(</span><span class="mi">3</span><span class="o">*</span><span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">,</span><span class="w"> </span><span class="kd">func</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">			</span><span class="nx">info</span><span class="p">.</span><span class="nx">Set</span><span class="p">(</span><span class="s">&quot;innerHTML&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;time is up&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">		</span><span class="p">})</span><span class="w"></span>
+<span class="w">	</span><span class="p">})</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </td></tr></table></div></figure>
 <hr class="docutils" />

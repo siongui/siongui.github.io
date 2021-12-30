@@ -53,22 +53,22 @@
     <hr>
 
     <div class="main-content"><p>Insert (add, append) <a class="reference external" href="https://www.google.com/search?q=CSS">CSS</a> to <a class="reference external" href="http://www.w3schools.com/html/html_head.asp">head</a> element via <a class="reference external" href="http://www.gopherjs.org/">GopherJS</a>.</p>
-<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="s">&quot;github.com/gopherjs/gopherjs/js&quot;</span>
+<div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="s">&quot;github.com/gopherjs/gopherjs/js&quot;</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">appendCSSToHeadElement</span><span class="p">()</span> <span class="p">{</span>
-      <span class="nx">css</span> <span class="o">:=</span> <span class="s">`.tooltip {</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">appendCSSToHeadElement</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nx">css</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="s">`.tooltip {</span>
 <span class="s">              position: absolute;</span>
 <span class="s">              left: -9999px;</span>
 <span class="s">              background-color: #CCFFFF;</span>
 <span class="s">              border-radius: 10px;</span>
 <span class="s">              font-family: Tahoma, Arial, serif;</span>
 <span class="s">              word-wrap: break-word;</span>
-<span class="s">      }`</span>
-      <span class="nx">s</span> <span class="o">:=</span> <span class="nx">js</span><span class="p">.</span><span class="nx">Global</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;document&quot;</span><span class="p">).</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;createElement&quot;</span><span class="p">,</span> <span class="s">&quot;style&quot;</span><span class="p">)</span>
-      <span class="nx">s</span><span class="p">.</span><span class="nx">Set</span><span class="p">(</span><span class="s">&quot;innerHTML&quot;</span><span class="p">,</span> <span class="nx">css</span><span class="p">)</span>
-      <span class="c1">// insert style of tooltip at the end of head element</span>
-      <span class="nx">js</span><span class="p">.</span><span class="nx">Global</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;document&quot;</span><span class="p">).</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;getElementsByTagName&quot;</span><span class="p">,</span> <span class="s">&quot;head&quot;</span><span class="p">).</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;item&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">).</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;appendChild&quot;</span><span class="p">,</span> <span class="nx">s</span><span class="p">)</span>
-<span class="p">}</span>
+<span class="s">      }`</span><span class="w"></span>
+<span class="w">      </span><span class="nx">s</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">js</span><span class="p">.</span><span class="nx">Global</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;document&quot;</span><span class="p">).</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;createElement&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;style&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="nx">s</span><span class="p">.</span><span class="nx">Set</span><span class="p">(</span><span class="s">&quot;innerHTML&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">css</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="c1">// insert style of tooltip at the end of head element</span><span class="w"></span>
+<span class="w">      </span><span class="nx">js</span><span class="p">.</span><span class="nx">Global</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;document&quot;</span><span class="p">).</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;getElementsByTagName&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;head&quot;</span><span class="p">).</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;item&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">).</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;appendChild&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">s</span><span class="p">)</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 
 <hr class="docutils" />

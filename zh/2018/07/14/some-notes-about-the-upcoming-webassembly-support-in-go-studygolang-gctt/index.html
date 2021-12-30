@@ -73,13 +73,13 @@
 <div class="section" id="section-2">
 <h2>第一個例子</h2>
 <p>按照慣例，讓我們先來寫個 “hello world”：</p>
-<div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
+<div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w"></span>
 
-<span class="kn">import</span> <span class="s">&quot;fmt&quot;</span>
+<span class="kn">import</span><span class="w"> </span><span class="s">&quot;fmt&quot;</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
-      <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;Hello World!&quot;</span><span class="p">)</span>
-<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;Hello World!&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 <p>然後編譯出文件並命名 <tt class="docutils literal">example.wasm</tt>:</p>
 <div class="highlight"><pre><span></span><span class="nv">GOROOT</span><span class="o">=</span>~/gowasm <span class="nv">GOARCH</span><span class="o">=</span>wasm <span class="nv">GOOS</span><span class="o">=</span>js ~/gowasm/bin/go build -o example.wasm main.go
@@ -114,23 +114,23 @@
 </pre></div>
 <p>理論上，任何 web 服務都可以運行它，但是當我們試著用 <tt class="docutils literal">caddy</tt> 運行它時遇到一個問題。這個 javascript 加載器需要服務發送這個 wasm 文件的正確 mime 類型給它。</p>
 <p>這有一個快速的破解方法來運行我們的測試：為我們的 wasm 文件寫個帶有特殊處理的 Go 服務。</p>
-<div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
+<div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w"></span>
 
-<span class="kn">import</span> <span class="p">(</span>
-      <span class="s">&quot;log&quot;</span>
-      <span class="s">&quot;net/http&quot;</span>
-<span class="p">)</span>
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">      </span><span class="s">&quot;log&quot;</span><span class="w"></span>
+<span class="w">      </span><span class="s">&quot;net/http&quot;</span><span class="w"></span>
+<span class="p">)</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">wasmHandler</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">{</span>
-      <span class="nx">w</span><span class="p">.</span><span class="nx">Header</span><span class="p">().</span><span class="nx">Set</span><span class="p">(</span><span class="s">&quot;Content-Type&quot;</span><span class="p">,</span> <span class="s">&quot;application/wasm&quot;</span><span class="p">)</span>
-      <span class="nx">http</span><span class="p">.</span><span class="nx">ServeFile</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="nx">r</span><span class="p">,</span> <span class="s">&quot;example.wasm&quot;</span><span class="p">)</span>
-<span class="p">}</span>
-<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
-      <span class="nx">mux</span> <span class="o">:=</span> <span class="nx">http</span><span class="p">.</span><span class="nx">NewServeMux</span><span class="p">()</span>
-      <span class="nx">mux</span><span class="p">.</span><span class="nx">Handle</span><span class="p">(</span><span class="s">&quot;/&quot;</span><span class="p">,</span> <span class="nx">http</span><span class="p">.</span><span class="nx">FileServer</span><span class="p">(</span><span class="nx">http</span><span class="p">.</span><span class="nx">Dir</span><span class="p">(</span><span class="s">&quot;.&quot;</span><span class="p">)))</span>
-      <span class="nx">mux</span><span class="p">.</span><span class="nx">HandleFunc</span><span class="p">(</span><span class="s">&quot;/example.wasm&quot;</span><span class="p">,</span> <span class="nx">wasmHandler</span><span class="p">)</span>
-      <span class="nx">log</span><span class="p">.</span><span class="nx">Fatal</span><span class="p">(</span><span class="nx">http</span><span class="p">.</span><span class="nx">ListenAndServe</span><span class="p">(</span><span class="s">&quot;:3000&quot;</span><span class="p">,</span> <span class="nx">mux</span><span class="p">))</span>
-<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">wasmHandler</span><span class="p">(</span><span class="nx">w</span><span class="w"> </span><span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span><span class="w"> </span><span class="nx">r</span><span class="w"> </span><span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nx">w</span><span class="p">.</span><span class="nx">Header</span><span class="p">().</span><span class="nx">Set</span><span class="p">(</span><span class="s">&quot;Content-Type&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;application/wasm&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="nx">http</span><span class="p">.</span><span class="nx">ServeFile</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span><span class="w"> </span><span class="nx">r</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;example.wasm&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nx">mux</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">http</span><span class="p">.</span><span class="nx">NewServeMux</span><span class="p">()</span><span class="w"></span>
+<span class="w">      </span><span class="nx">mux</span><span class="p">.</span><span class="nx">Handle</span><span class="p">(</span><span class="s">&quot;/&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">http</span><span class="p">.</span><span class="nx">FileServer</span><span class="p">(</span><span class="nx">http</span><span class="p">.</span><span class="nx">Dir</span><span class="p">(</span><span class="s">&quot;.&quot;</span><span class="p">)))</span><span class="w"></span>
+<span class="w">      </span><span class="nx">mux</span><span class="p">.</span><span class="nx">HandleFunc</span><span class="p">(</span><span class="s">&quot;/example.wasm&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">wasmHandler</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="nx">log</span><span class="p">.</span><span class="nx">Fatal</span><span class="p">(</span><span class="nx">http</span><span class="p">.</span><span class="nx">ListenAndServe</span><span class="p">(</span><span class="s">&quot;:3000&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">mux</span><span class="p">))</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 <p><em>注意</em> 設置一個特殊的路由器來處理所有的 wasm 文件沒什麼大不了，如我所說，這是一個 POC，這篇文章只是關於它的附註。</p>
 <p>然後使用 <tt class="docutils literal">go run server.go</tt> 來啟動服務，並打開瀏覽器訪問 <tt class="docutils literal"><span class="pre">http://localhost:3000</span></tt> 。</p>
@@ -152,21 +152,21 @@
 <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
 </pre></div>
 <p>然後修改 Go 文件：</p>
-<div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
+<div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w"></span>
 
-<span class="kn">import</span> <span class="s">&quot;fmt&quot;</span>
+<span class="kn">import</span><span class="w"> </span><span class="s">&quot;fmt&quot;</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
-      <span class="nx">c</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kd">struct</span><span class="p">{},</span> <span class="mi">0</span><span class="p">)</span>
-      <span class="nx">cb</span> <span class="p">=</span> <span class="nx">js</span><span class="p">.</span><span class="nx">NewCallback</span><span class="p">(</span><span class="kd">func</span><span class="p">(</span><span class="nx">args</span> <span class="p">[]</span><span class="nx">js</span><span class="p">.</span><span class="nx">Value</span><span class="p">)</span> <span class="p">{</span>
-              <span class="nx">move</span> <span class="o">:=</span> <span class="nx">js</span><span class="p">.</span><span class="nx">Global</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;document&quot;</span><span class="p">).</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;getElementById&quot;</span><span class="p">,</span> <span class="s">&quot;myText&quot;</span><span class="p">).</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;value&quot;</span><span class="p">).</span><span class="nx">Int</span><span class="p">()</span>
-              <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">move</span><span class="p">)</span>
-      <span class="p">})</span>
-      <span class="nx">js</span><span class="p">.</span><span class="nx">Global</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;document&quot;</span><span class="p">).</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;getElementById&quot;</span><span class="p">,</span> <span class="s">&quot;myText&quot;</span><span class="p">).</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;addEventListener&quot;</span><span class="p">,</span> <span class="s">&quot;input&quot;</span><span class="p">,</span> <span class="nx">cb</span><span class="p">)</span>
-      <span class="c1">// The goal of the channel is to wait indefinitly</span>
-      <span class="c1">// Otherwise, the main function ends and the wasm modules stops</span>
-      <span class="o">&lt;-</span><span class="nx">c</span>
-<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nx">c</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">make</span><span class="p">(</span><span class="kd">chan</span><span class="w"> </span><span class="kd">struct</span><span class="p">{},</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="nx">cb</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">js</span><span class="p">.</span><span class="nx">NewCallback</span><span class="p">(</span><span class="kd">func</span><span class="p">(</span><span class="nx">args</span><span class="w"> </span><span class="p">[]</span><span class="nx">js</span><span class="p">.</span><span class="nx">Value</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="nx">move</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">js</span><span class="p">.</span><span class="nx">Global</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;document&quot;</span><span class="p">).</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;getElementById&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;myText&quot;</span><span class="p">).</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;value&quot;</span><span class="p">).</span><span class="nx">Int</span><span class="p">()</span><span class="w"></span>
+<span class="w">              </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">move</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="p">})</span><span class="w"></span>
+<span class="w">      </span><span class="nx">js</span><span class="p">.</span><span class="nx">Global</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;document&quot;</span><span class="p">).</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;getElementById&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;myText&quot;</span><span class="p">).</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;addEventListener&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;input&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">cb</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="c1">// The goal of the channel is to wait indefinitly</span><span class="w"></span>
+<span class="w">      </span><span class="c1">// Otherwise, the main function ends and the wasm modules stops</span><span class="w"></span>
+<span class="w">      </span><span class="o">&lt;-</span><span class="nx">c</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 <p>像以前一樣編譯文件並刷新瀏覽器……打開控制台然後輸入一個數字……瞧瞧</p>
 </div>
@@ -176,20 +176,20 @@
 <p>這有點辣手……我沒有找到任何簡單的方法將一個 Go 函數暴露給 Javascript 生態系統。我們需要做的是在 Go 文件中創建一個 <tt class="docutils literal">Callback</tt> 對象並指定到一個 Javascript 對象。</p>
 <p>為得到返回結果，我們不能返回一個值給 callback 而是使用 Javascript 對象代替。</p>
 <p>這是新的 Go 代碼：</p>
-<div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
+<div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w"></span>
 
-<span class="kn">import</span> <span class="p">(</span>
-      <span class="s">&quot;syscall/js&quot;</span>
-<span class="p">)</span>
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">      </span><span class="s">&quot;syscall/js&quot;</span><span class="w"></span>
+<span class="p">)</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
-      <span class="nx">c</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kd">struct</span><span class="p">{},</span> <span class="mi">0</span><span class="p">)</span>
-      <span class="nx">add</span> <span class="o">:=</span> <span class="kd">func</span><span class="p">(</span><span class="nx">i</span> <span class="p">[]</span><span class="nx">js</span><span class="p">.</span><span class="nx">Value</span><span class="p">)</span> <span class="p">{</span>
-              <span class="nx">js</span><span class="p">.</span><span class="nx">Global</span><span class="p">.</span><span class="nx">Set</span><span class="p">(</span><span class="s">&quot;output&quot;</span><span class="p">,</span> <span class="nx">js</span><span class="p">.</span><span class="nx">ValueOf</span><span class="p">(</span><span class="nx">i</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">Int</span><span class="p">()</span><span class="o">+</span><span class="nx">i</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="nx">Int</span><span class="p">()))</span>
-      <span class="p">}</span>
-      <span class="nx">js</span><span class="p">.</span><span class="nx">Global</span><span class="p">.</span><span class="nx">Set</span><span class="p">(</span><span class="s">&quot;add&quot;</span><span class="p">,</span> <span class="nx">js</span><span class="p">.</span><span class="nx">NewCallback</span><span class="p">(</span><span class="nx">add</span><span class="p">))</span>
-      <span class="o">&lt;-</span><span class="nx">c</span>
-<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nx">c</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">make</span><span class="p">(</span><span class="kd">chan</span><span class="w"> </span><span class="kd">struct</span><span class="p">{},</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="nx">add</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="nx">i</span><span class="w"> </span><span class="p">[]</span><span class="nx">js</span><span class="p">.</span><span class="nx">Value</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="nx">js</span><span class="p">.</span><span class="nx">Global</span><span class="p">.</span><span class="nx">Set</span><span class="p">(</span><span class="s">&quot;output&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">js</span><span class="p">.</span><span class="nx">ValueOf</span><span class="p">(</span><span class="nx">i</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">Int</span><span class="p">()</span><span class="o">+</span><span class="nx">i</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="nx">Int</span><span class="p">()))</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
+<span class="w">      </span><span class="nx">js</span><span class="p">.</span><span class="nx">Global</span><span class="p">.</span><span class="nx">Set</span><span class="p">(</span><span class="s">&quot;add&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">js</span><span class="p">.</span><span class="nx">NewCallback</span><span class="p">(</span><span class="nx">add</span><span class="p">))</span><span class="w"></span>
+<span class="w">      </span><span class="o">&lt;-</span><span class="nx">c</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 <p>現在編譯並運行代碼。打開瀏覽器和控制台。</p>
 <p>如果你輸入 <tt class="docutils literal">output</tt> 將返回 <tt class="docutils literal">Object not found</tt> 。現在您輸入 <tt class="docutils literal">add(2,3)</tt> 和 <tt class="docutils literal">output</tt> ...應該得到 <tt class="docutils literal">5</tt> 。</p>

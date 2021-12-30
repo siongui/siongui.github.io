@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>Update Modification Time According to EXIF Data</title>
+  <meta name="keywords" content="find command,Bash,Commandline,EXIF"/>
+  <meta name="description" content="Update modification time of photo/video according to EXIF data using command line."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="Update Modification Time According to EXIF Data" /><meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/5/59/Exif_Metadata_logo.svg" />
+<meta property="og:description" content="Update modification time of photo/video according to EXIF data using command line." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2021/12/31/update-mtime-according-to-exif-data/"
+           rel="bookmark"
+           title="Permalink to Update Modification Time According to EXIF Data">
+          Update Modification Time According to EXIF Data
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2021-12-31T00:28:00+08:00">
+    December 31, 2021
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2021/12/31/update-mtime-according-to-exif-data%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p><strong>Question</strong>:</p>
+<blockquote>
+Find photo/video and update modification time (mtime) of the photo/video
+according to EXIF data.</blockquote>
+<p><strong>Answer</strong>:</p>
+<p>Install <em>exiftool</em>:</p>
+<div class="highlight"><pre><span></span>$ sudo apt-get install libimage-exiftool-perl
+</pre></div>
+<p>Find photo/video. The <tt class="docutils literal"><span class="pre">-i</span></tt> in <tt class="docutils literal"><span class="pre">-iregex</span></tt> means case insensitive.</p>
+<div class="highlight"><pre><span></span>$ find . -type f -iregex <span class="s1">&#39;.*\.\(jpg\|gif\|png\|jpeg\|mov\|mp4\|heic\)$&#39;</span>
+</pre></div>
+<p>Update modification time according to EXIF data.</p>
+<div class="highlight"><pre><span></span>$ find . -type f -iregex <span class="s1">&#39;.*\.\(jpg\|gif\|png\|jpeg\|mov\|mp4\|heic\)$&#39;</span> <span class="p">|</span> xargs -I <span class="o">{}</span> exiftool <span class="s2">&quot;-DateTimeOriginal&gt;FileModifyDate&quot;</span> <span class="o">{}</span>
+</pre></div>
+<hr class="docutils" />
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="footnote-1" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td><a class="reference external" href="https://unix.stackexchange.com/questions/89264/change-file-created-date-from-jpeg-exif-metadata">images - Change file created date from JPEG EXIF metadata - Unix &amp; Linux Stack Exchange</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="footnote-2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[2]</td><td><a class="reference external" href="https://unix.stackexchange.com/questions/15308/how-to-use-find-command-to-search-for-multiple-extensions">regular expression - How to use find command to search for multiple extensions - Unix &amp; Linux Stack Exchange</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="footnote-3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[3]</td><td><a class="reference external" href="https://photo.stackexchange.com/questions/27245/is-there-a-free-program-to-batch-change-photo-files-date-to-match-exif">Is there a free program to (batch) change photo file's date to match EXIF? - Photography Stack Exchange</a></td></tr>
+</tbody>
+</table>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/bash.html">Bash</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/find-command.html">find command</a>
+,       <a href="/tag/bash.html">Bash</a>
+,       <a href="/tag/commandline.html">Commandline</a>
+,       <a href="/tag/exif.html">EXIF</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>

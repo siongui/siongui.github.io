@@ -59,24 +59,24 @@ your package in Go programming language.</p>
 <p>When I want to show how to use Go methods in my blog posts, I usually put the
 example code in the testing as follows:</p>
 <p><strong>Method</strong>: <em>hello.go</em></p>
-<div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">hello</span>
+<div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">hello</span><span class="w"></span>
 
-<span class="kn">import</span> <span class="p">(</span>
-      <span class="s">&quot;fmt&quot;</span>
-<span class="p">)</span>
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">      </span><span class="s">&quot;fmt&quot;</span><span class="w"></span>
+<span class="p">)</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">Hello</span><span class="p">()</span> <span class="p">{</span>
-      <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;hello world&quot;</span><span class="p">)</span>
-<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">Hello</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;hello world&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 <p><strong>Usage</strong>: <em>hello_test.go</em></p>
-<div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">hello</span>
+<div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">hello</span><span class="w"></span>
 
-<span class="kn">import</span> <span class="s">&quot;testing&quot;</span>
+<span class="kn">import</span><span class="w"> </span><span class="s">&quot;testing&quot;</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">TestHello</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span> <span class="p">{</span>
-      <span class="c1">// Example code here</span>
-<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">TestHello</span><span class="p">(</span><span class="nx">t</span><span class="w"> </span><span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="c1">// Example code here</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 <p>One day <a class="reference external" href="https://github.com/dchapes">&#64;dchapes</a> told me <a class="reference external" href="https://github.com/siongui/userpages/commit/77cd55346752ccaa2efa44b9084e97af81b664dd#commitcomment-21400283">this is not a test</a>, and <a class="reference external" href="https://github.com/shurcooL">&#64;shurcooL</a> showed me
 how to write examples in idiomatic Go way.</p>
@@ -87,24 +87,24 @@ how to write examples in idiomatic Go way.</p>
 <p><a class="reference external" href="https://github.com/shurcooL">&#64;shurcooL</a> told to <a class="reference external" href="https://github.com/siongui/userpages/commit/77cd55346752ccaa2efa44b9084e97af81b664dd#commitcomment-21401415">use Examples in testing package</a> <a class="footnote-reference" href="#footnote-1" id="footnote-reference-1">[1]</a>. The code in above
 <a class="reference internal" href="#wrong-way">Wrong Way</a> section becomes:</p>
 <p><strong>Method</strong>: <em>hello.go</em></p>
-<div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">hello</span>
+<div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">hello</span><span class="w"></span>
 
-<span class="kn">import</span> <span class="p">(</span>
-      <span class="s">&quot;fmt&quot;</span>
-<span class="p">)</span>
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">      </span><span class="s">&quot;fmt&quot;</span><span class="w"></span>
+<span class="p">)</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">Hello</span><span class="p">()</span> <span class="p">{</span>
-      <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;hello world&quot;</span><span class="p">)</span>
-<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">Hello</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;hello world&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 <p><strong>Usage</strong>: <em>hello_test.go</em></p>
-<div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">hello</span>
+<div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">hello</span><span class="w"></span>
 
-<span class="kn">import</span> <span class="s">&quot;testing&quot;</span>
+<span class="kn">import</span><span class="w"> </span><span class="s">&quot;testing&quot;</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">ExampleHello</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span> <span class="p">{</span>
-      <span class="c1">// Example code here</span>
-<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">ExampleHello</span><span class="p">(</span><span class="nx">t</span><span class="w"> </span><span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="c1">// Example code here</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 <p>The standard Go <a class="reference external" href="https://golang.org/pkg/testing/">testing</a> package can runs and verifies example code if we follow
 the conventions in the testing code. This is a better and idiomatic way to show

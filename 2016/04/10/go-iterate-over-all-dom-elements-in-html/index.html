@@ -119,52 +119,52 @@ in <a class="reference external" href="https://www.google.com/search?q=reStructu
 <span class="normal">43</span>
 <span class="normal">44</span>
 <span class="normal">45</span>
-<span class="normal">46</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
+<span class="normal">46</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w"></span>
 
-<span class="kn">import</span> <span class="p">(</span>
-	<span class="s">&quot;flag&quot;</span>
-	<span class="s">&quot;fmt&quot;</span>
-	<span class="s">&quot;golang.org/x/net/html&quot;</span>
-	<span class="s">&quot;os&quot;</span>
-<span class="p">)</span>
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">	</span><span class="s">&quot;flag&quot;</span><span class="w"></span>
+<span class="w">	</span><span class="s">&quot;fmt&quot;</span><span class="w"></span>
+<span class="w">	</span><span class="s">&quot;golang.org/x/net/html&quot;</span><span class="w"></span>
+<span class="w">	</span><span class="s">&quot;os&quot;</span><span class="w"></span>
+<span class="p">)</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">traverse</span><span class="p">(</span><span class="nx">n</span> <span class="o">*</span><span class="nx">html</span><span class="p">.</span><span class="nx">Node</span><span class="p">)</span> <span class="p">{</span>
-	<span class="k">if</span> <span class="nx">isAnchorElement</span><span class="p">(</span><span class="nx">n</span><span class="p">)</span> <span class="p">{</span>
-		<span class="nx">printRstLink</span><span class="p">(</span><span class="nx">n</span><span class="p">)</span>
-	<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">traverse</span><span class="p">(</span><span class="nx">n</span><span class="w"> </span><span class="o">*</span><span class="nx">html</span><span class="p">.</span><span class="nx">Node</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">isAnchorElement</span><span class="p">(</span><span class="nx">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">		</span><span class="nx">printRstLink</span><span class="p">(</span><span class="nx">n</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="p">}</span><span class="w"></span>
 
-	<span class="k">for</span> <span class="nx">c</span> <span class="o">:=</span> <span class="nx">n</span><span class="p">.</span><span class="nx">FirstChild</span><span class="p">;</span> <span class="nx">c</span> <span class="o">!=</span> <span class="kc">nil</span><span class="p">;</span> <span class="nx">c</span> <span class="p">=</span> <span class="nx">c</span><span class="p">.</span><span class="nx">NextSibling</span> <span class="p">{</span>
-		<span class="nx">traverse</span><span class="p">(</span><span class="nx">c</span><span class="p">)</span>
-	<span class="p">}</span>
-<span class="p">}</span>
+<span class="w">	</span><span class="k">for</span><span class="w"> </span><span class="nx">c</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">n</span><span class="p">.</span><span class="nx">FirstChild</span><span class="p">;</span><span class="w"> </span><span class="nx">c</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="p">;</span><span class="w"> </span><span class="nx">c</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">c</span><span class="p">.</span><span class="nx">NextSibling</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">		</span><span class="nx">traverse</span><span class="p">(</span><span class="nx">c</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">parseCommandLineArguments</span><span class="p">()</span> <span class="kt">string</span> <span class="p">{</span>
-	<span class="nx">pPath</span> <span class="o">:=</span> <span class="nx">flag</span><span class="p">.</span><span class="nx">String</span><span class="p">(</span><span class="s">&quot;input&quot;</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">,</span> <span class="s">&quot;Path of HTML file to be processed&quot;</span><span class="p">)</span>
-	<span class="nx">flag</span><span class="p">.</span><span class="nx">Parse</span><span class="p">()</span>
-	<span class="nx">path</span> <span class="o">:=</span> <span class="o">*</span><span class="nx">pPath</span>
-	<span class="k">if</span> <span class="nx">path</span> <span class="o">==</span> <span class="s">&quot;&quot;</span> <span class="p">{</span>
-		<span class="nx">fmt</span><span class="p">.</span><span class="nx">Fprintf</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">Stderr</span><span class="p">,</span> <span class="s">&quot;Error: empty path!\n&quot;</span><span class="p">)</span>
-	<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">parseCommandLineArguments</span><span class="p">()</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">	</span><span class="nx">pPath</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">flag</span><span class="p">.</span><span class="nx">String</span><span class="p">(</span><span class="s">&quot;input&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Path of HTML file to be processed&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="nx">flag</span><span class="p">.</span><span class="nx">Parse</span><span class="p">()</span><span class="w"></span>
+<span class="w">	</span><span class="nx">path</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="o">*</span><span class="nx">pPath</span><span class="w"></span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">path</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">		</span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Fprintf</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">Stderr</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Error: empty path!\n&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="p">}</span><span class="w"></span>
 
-	<span class="k">return</span> <span class="nx">path</span>
-<span class="p">}</span>
+<span class="w">	</span><span class="k">return</span><span class="w"> </span><span class="nx">path</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
-	<span class="nx">inputFile</span> <span class="o">:=</span> <span class="nx">parseCommandLineArguments</span><span class="p">()</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">	</span><span class="nx">inputFile</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">parseCommandLineArguments</span><span class="p">()</span><span class="w"></span>
 
-	<span class="nx">fin</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">os</span><span class="p">.</span><span class="nx">Open</span><span class="p">(</span><span class="nx">inputFile</span><span class="p">)</span>
-	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-		<span class="nb">panic</span><span class="p">(</span><span class="s">&quot;Fail to open &quot;</span> <span class="o">+</span> <span class="nx">inputFile</span><span class="p">)</span>
-	<span class="p">}</span>
-	<span class="k">defer</span> <span class="nx">fin</span><span class="p">.</span><span class="nx">Close</span><span class="p">()</span>
+<span class="w">	</span><span class="nx">fin</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">os</span><span class="p">.</span><span class="nx">Open</span><span class="p">(</span><span class="nx">inputFile</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">		</span><span class="nb">panic</span><span class="p">(</span><span class="s">&quot;Fail to open &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">inputFile</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="p">}</span><span class="w"></span>
+<span class="w">	</span><span class="k">defer</span><span class="w"> </span><span class="nx">fin</span><span class="p">.</span><span class="nx">Close</span><span class="p">()</span><span class="w"></span>
 
-	<span class="nx">doc</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">html</span><span class="p">.</span><span class="nx">Parse</span><span class="p">(</span><span class="nx">fin</span><span class="p">)</span>
-	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-		<span class="nb">panic</span><span class="p">(</span><span class="s">&quot;Fail to parse &quot;</span> <span class="o">+</span> <span class="nx">inputFile</span><span class="p">)</span>
-	<span class="p">}</span>
+<span class="w">	</span><span class="nx">doc</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">html</span><span class="p">.</span><span class="nx">Parse</span><span class="p">(</span><span class="nx">fin</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">		</span><span class="nb">panic</span><span class="p">(</span><span class="s">&quot;Fail to parse &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">inputFile</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="p">}</span><span class="w"></span>
 
-	<span class="nx">traverse</span><span class="p">(</span><span class="nx">doc</span><span class="p">)</span>
-<span class="p">}</span>
+<span class="w">	</span><span class="nx">traverse</span><span class="p">(</span><span class="nx">doc</span><span class="p">)</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </td></tr></table></div></figure>
 <p>Find <a class="reference external" href="http://www.w3schools.com/html/html_links.asp">HTML links</a> and print them in <a class="reference external" href="https://www.google.com/search?q=reStructuredText">reStructuredText</a> format:</p>
@@ -226,59 +226,59 @@ in <a class="reference external" href="https://www.google.com/search?q=reStructu
 <span class="normal">50</span>
 <span class="normal">51</span>
 <span class="normal">52</span>
-<span class="normal">53</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
+<span class="normal">53</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w"></span>
 
-<span class="kn">import</span> <span class="p">(</span>
-	<span class="s">&quot;errors&quot;</span>
-	<span class="s">&quot;fmt&quot;</span>
-	<span class="s">&quot;golang.org/x/net/html&quot;</span>
-	<span class="s">&quot;os&quot;</span>
-	<span class="s">&quot;strings&quot;</span>
-<span class="p">)</span>
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">	</span><span class="s">&quot;errors&quot;</span><span class="w"></span>
+<span class="w">	</span><span class="s">&quot;fmt&quot;</span><span class="w"></span>
+<span class="w">	</span><span class="s">&quot;golang.org/x/net/html&quot;</span><span class="w"></span>
+<span class="w">	</span><span class="s">&quot;os&quot;</span><span class="w"></span>
+<span class="w">	</span><span class="s">&quot;strings&quot;</span><span class="w"></span>
+<span class="p">)</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">isAnchorElement</span><span class="p">(</span><span class="nx">n</span> <span class="o">*</span><span class="nx">html</span><span class="p">.</span><span class="nx">Node</span><span class="p">)</span> <span class="kt">bool</span> <span class="p">{</span>
-	<span class="k">return</span> <span class="nx">n</span><span class="p">.</span><span class="nx">Type</span> <span class="o">==</span> <span class="nx">html</span><span class="p">.</span><span class="nx">ElementNode</span> <span class="o">&amp;&amp;</span> <span class="nx">n</span><span class="p">.</span><span class="nx">Data</span> <span class="o">==</span> <span class="s">&quot;a&quot;</span>
-<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">isAnchorElement</span><span class="p">(</span><span class="nx">n</span><span class="w"> </span><span class="o">*</span><span class="nx">html</span><span class="p">.</span><span class="nx">Node</span><span class="p">)</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">	</span><span class="k">return</span><span class="w"> </span><span class="nx">n</span><span class="p">.</span><span class="nx">Type</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nx">html</span><span class="p">.</span><span class="nx">ElementNode</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">n</span><span class="p">.</span><span class="nx">Data</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s">&quot;a&quot;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">isTextNode</span><span class="p">(</span><span class="nx">n</span> <span class="o">*</span><span class="nx">html</span><span class="p">.</span><span class="nx">Node</span><span class="p">)</span> <span class="kt">bool</span> <span class="p">{</span>
-	<span class="k">return</span> <span class="nx">n</span><span class="p">.</span><span class="nx">Type</span> <span class="o">==</span> <span class="nx">html</span><span class="p">.</span><span class="nx">TextNode</span>
-<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">isTextNode</span><span class="p">(</span><span class="nx">n</span><span class="w"> </span><span class="o">*</span><span class="nx">html</span><span class="p">.</span><span class="nx">Node</span><span class="p">)</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">	</span><span class="k">return</span><span class="w"> </span><span class="nx">n</span><span class="p">.</span><span class="nx">Type</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nx">html</span><span class="p">.</span><span class="nx">TextNode</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">isHasOnlyOneChild</span><span class="p">(</span><span class="nx">n</span> <span class="o">*</span><span class="nx">html</span><span class="p">.</span><span class="nx">Node</span><span class="p">)</span> <span class="kt">bool</span> <span class="p">{</span>
-	<span class="k">return</span> <span class="nx">n</span><span class="p">.</span><span class="nx">FirstChild</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="o">&amp;&amp;</span> <span class="nx">n</span><span class="p">.</span><span class="nx">FirstChild</span> <span class="o">==</span> <span class="nx">n</span><span class="p">.</span><span class="nx">LastChild</span>
-<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">isHasOnlyOneChild</span><span class="p">(</span><span class="nx">n</span><span class="w"> </span><span class="o">*</span><span class="nx">html</span><span class="p">.</span><span class="nx">Node</span><span class="p">)</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">	</span><span class="k">return</span><span class="w"> </span><span class="nx">n</span><span class="p">.</span><span class="nx">FirstChild</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">n</span><span class="p">.</span><span class="nx">FirstChild</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nx">n</span><span class="p">.</span><span class="nx">LastChild</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">getAttribute</span><span class="p">(</span><span class="nx">n</span> <span class="o">*</span><span class="nx">html</span><span class="p">.</span><span class="nx">Node</span><span class="p">,</span> <span class="nx">key</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="kt">string</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
-	<span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">attr</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">n</span><span class="p">.</span><span class="nx">Attr</span> <span class="p">{</span>
-		<span class="k">if</span> <span class="nx">attr</span><span class="p">.</span><span class="nx">Key</span> <span class="o">==</span> <span class="nx">key</span> <span class="p">{</span>
-			<span class="k">return</span> <span class="nx">attr</span><span class="p">.</span><span class="nx">Val</span><span class="p">,</span> <span class="kc">nil</span>
-		<span class="p">}</span>
-	<span class="p">}</span>
-	<span class="k">return</span> <span class="s">&quot;&quot;</span><span class="p">,</span> <span class="nx">errors</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="nx">key</span> <span class="o">+</span> <span class="s">&quot; not exist in attribute!&quot;</span><span class="p">)</span>
-<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">getAttribute</span><span class="p">(</span><span class="nx">n</span><span class="w"> </span><span class="o">*</span><span class="nx">html</span><span class="p">.</span><span class="nx">Node</span><span class="p">,</span><span class="w"> </span><span class="nx">key</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">	</span><span class="k">for</span><span class="w"> </span><span class="nx">_</span><span class="p">,</span><span class="w"> </span><span class="nx">attr</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="nx">n</span><span class="p">.</span><span class="nx">Attr</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">		</span><span class="k">if</span><span class="w"> </span><span class="nx">attr</span><span class="p">.</span><span class="nx">Key</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nx">key</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">			</span><span class="k">return</span><span class="w"> </span><span class="nx">attr</span><span class="p">.</span><span class="nx">Val</span><span class="p">,</span><span class="w"> </span><span class="kc">nil</span><span class="w"></span>
+<span class="w">		</span><span class="p">}</span><span class="w"></span>
+<span class="w">	</span><span class="p">}</span><span class="w"></span>
+<span class="w">	</span><span class="k">return</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">errors</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="nx">key</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot; not exist in attribute!&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">printRstLink</span><span class="p">(</span><span class="nx">n</span> <span class="o">*</span><span class="nx">html</span><span class="p">.</span><span class="nx">Node</span><span class="p">)</span> <span class="p">{</span>
-	<span class="k">if</span> <span class="p">!</span><span class="nx">isHasOnlyOneChild</span><span class="p">(</span><span class="nx">n</span><span class="p">)</span> <span class="p">{</span>
-		<span class="nx">fmt</span><span class="p">.</span><span class="nx">Fprintf</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">Stderr</span><span class="p">,</span> <span class="s">&quot;Child number of anchor is not 1\n&quot;</span><span class="p">)</span>
-		<span class="k">return</span>
-	<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">printRstLink</span><span class="p">(</span><span class="nx">n</span><span class="w"> </span><span class="o">*</span><span class="nx">html</span><span class="p">.</span><span class="nx">Node</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="p">!</span><span class="nx">isHasOnlyOneChild</span><span class="p">(</span><span class="nx">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">		</span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Fprintf</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">Stderr</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Child number of anchor is not 1\n&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">		</span><span class="k">return</span><span class="w"></span>
+<span class="w">	</span><span class="p">}</span><span class="w"></span>
 
-	<span class="k">if</span> <span class="p">!</span><span class="nx">isTextNode</span><span class="p">(</span><span class="nx">n</span><span class="p">.</span><span class="nx">FirstChild</span><span class="p">)</span> <span class="p">{</span>
-		<span class="nx">fmt</span><span class="p">.</span><span class="nx">Fprintf</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">Stderr</span><span class="p">,</span> <span class="s">&quot;Child of anchor is not TextNode\n&quot;</span><span class="p">)</span>
-		<span class="k">return</span>
-	<span class="p">}</span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="p">!</span><span class="nx">isTextNode</span><span class="p">(</span><span class="nx">n</span><span class="p">.</span><span class="nx">FirstChild</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">		</span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Fprintf</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">Stderr</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Child of anchor is not TextNode\n&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">		</span><span class="k">return</span><span class="w"></span>
+<span class="w">	</span><span class="p">}</span><span class="w"></span>
 
-	<span class="nx">text</span> <span class="o">:=</span> <span class="nx">strings</span><span class="p">.</span><span class="nx">TrimSpace</span><span class="p">(</span><span class="nx">n</span><span class="p">.</span><span class="nx">FirstChild</span><span class="p">.</span><span class="nx">Data</span><span class="p">)</span>
+<span class="w">	</span><span class="nx">text</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">strings</span><span class="p">.</span><span class="nx">TrimSpace</span><span class="p">(</span><span class="nx">n</span><span class="p">.</span><span class="nx">FirstChild</span><span class="p">.</span><span class="nx">Data</span><span class="p">)</span><span class="w"></span>
 
-	<span class="nx">href</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">getAttribute</span><span class="p">(</span><span class="nx">n</span><span class="p">,</span> <span class="s">&quot;href&quot;</span><span class="p">)</span>
-	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-		<span class="nx">fmt</span><span class="p">.</span><span class="nx">Fprintf</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">Stderr</span><span class="p">,</span> <span class="nx">err</span><span class="p">.</span><span class="nx">Error</span><span class="p">())</span>
-		<span class="k">return</span>
-	<span class="p">}</span>
+<span class="w">	</span><span class="nx">href</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">getAttribute</span><span class="p">(</span><span class="nx">n</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;href&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">		</span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Fprintf</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">Stderr</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="p">.</span><span class="nx">Error</span><span class="p">())</span><span class="w"></span>
+<span class="w">		</span><span class="k">return</span><span class="w"></span>
+<span class="w">	</span><span class="p">}</span><span class="w"></span>
 
-	<span class="nx">rstLink</span> <span class="o">:=</span> <span class="s">&quot;`&quot;</span> <span class="o">+</span> <span class="nx">text</span> <span class="o">+</span> <span class="s">&quot; &lt;&quot;</span> <span class="o">+</span> <span class="nx">href</span> <span class="o">+</span> <span class="s">&quot;&gt;`__&quot;</span>
-	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">rstLink</span><span class="p">)</span>
-<span class="p">}</span>
+<span class="w">	</span><span class="nx">rstLink</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="s">&quot;`&quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">text</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot; &lt;&quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">href</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot;&gt;`__&quot;</span><span class="w"></span>
+<span class="w">	</span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">rstLink</span><span class="p">)</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </td></tr></table></div></figure>
 </div>

@@ -107,39 +107,39 @@ link. Print to screen via <a class="reference external" href="https://golang.org
 <span class="normal">30</span>
 <span class="normal">31</span>
 <span class="normal">32</span>
-<span class="normal">33</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
+<span class="normal">33</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w"></span>
 
-<span class="kn">import</span> <span class="p">(</span>
-	<span class="s">&quot;github.com/PuerkitoBio/goquery&quot;</span>
-	<span class="s">&quot;os&quot;</span>
-	<span class="s">&quot;strings&quot;</span>
-	<span class="s">&quot;text/template&quot;</span>
-<span class="p">)</span>
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">	</span><span class="s">&quot;github.com/PuerkitoBio/goquery&quot;</span><span class="w"></span>
+<span class="w">	</span><span class="s">&quot;os&quot;</span><span class="w"></span>
+<span class="w">	</span><span class="s">&quot;strings&quot;</span><span class="w"></span>
+<span class="w">	</span><span class="s">&quot;text/template&quot;</span><span class="w"></span>
+<span class="p">)</span><span class="w"></span>
 
-<span class="kd">const</span> <span class="nx">rstLink</span> <span class="p">=</span> <span class="s">&quot;`{{.Text}} &lt;{{.Href}}&gt;`_\n&quot;</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">rstLink</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;`{{.Text}} &lt;{{.Href}}&gt;`_\n&quot;</span><span class="w"></span>
 
-<span class="kd">type</span> <span class="nx">htmlLink</span> <span class="kd">struct</span> <span class="p">{</span>
-	<span class="nx">Text</span> <span class="kt">string</span>
-	<span class="nx">Href</span> <span class="kt">string</span>
-<span class="p">}</span>
+<span class="kd">type</span><span class="w"> </span><span class="nx">htmlLink</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">	</span><span class="nx">Text</span><span class="w"> </span><span class="kt">string</span><span class="w"></span>
+<span class="w">	</span><span class="nx">Href</span><span class="w"> </span><span class="kt">string</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
-	<span class="nx">url</span> <span class="o">:=</span> <span class="s">&quot;https://siongui.github.io/2016/04/09/js-copy-to-clipboard/&quot;</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">	</span><span class="nx">url</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="s">&quot;https://siongui.github.io/2016/04/09/js-copy-to-clipboard/&quot;</span><span class="w"></span>
 
-	<span class="nx">doc</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">goquery</span><span class="p">.</span><span class="nx">NewDocument</span><span class="p">(</span><span class="nx">url</span><span class="p">)</span>
-	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-		<span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
-	<span class="p">}</span>
+<span class="w">	</span><span class="nx">doc</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">goquery</span><span class="p">.</span><span class="nx">NewDocument</span><span class="p">(</span><span class="nx">url</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">		</span><span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="p">}</span><span class="w"></span>
 
-	<span class="nx">tmpl</span> <span class="o">:=</span> <span class="nx">template</span><span class="p">.</span><span class="nx">Must</span><span class="p">(</span><span class="nx">template</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="s">&quot;link2rst&quot;</span><span class="p">).</span><span class="nx">Parse</span><span class="p">(</span><span class="nx">rstLink</span><span class="p">))</span>
-	<span class="nx">doc</span><span class="p">.</span><span class="nx">Find</span><span class="p">(</span><span class="s">&quot;a&quot;</span><span class="p">).</span><span class="nx">Each</span><span class="p">(</span><span class="kd">func</span><span class="p">(</span><span class="nx">_</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">link</span> <span class="o">*</span><span class="nx">goquery</span><span class="p">.</span><span class="nx">Selection</span><span class="p">)</span> <span class="p">{</span>
-		<span class="nx">text</span> <span class="o">:=</span> <span class="nx">strings</span><span class="p">.</span><span class="nx">TrimSpace</span><span class="p">(</span><span class="nx">link</span><span class="p">.</span><span class="nx">Text</span><span class="p">())</span>
-		<span class="nx">href</span><span class="p">,</span> <span class="nx">ok</span> <span class="o">:=</span> <span class="nx">link</span><span class="p">.</span><span class="nx">Attr</span><span class="p">(</span><span class="s">&quot;href&quot;</span><span class="p">)</span>
-		<span class="k">if</span> <span class="nx">ok</span> <span class="p">{</span>
-			<span class="nx">tmpl</span><span class="p">.</span><span class="nx">Execute</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">Stdout</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">htmlLink</span><span class="p">{</span><span class="nx">text</span><span class="p">,</span> <span class="nx">href</span><span class="p">})</span>
-		<span class="p">}</span>
-	<span class="p">})</span>
-<span class="p">}</span>
+<span class="w">	</span><span class="nx">tmpl</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">template</span><span class="p">.</span><span class="nx">Must</span><span class="p">(</span><span class="nx">template</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="s">&quot;link2rst&quot;</span><span class="p">).</span><span class="nx">Parse</span><span class="p">(</span><span class="nx">rstLink</span><span class="p">))</span><span class="w"></span>
+<span class="w">	</span><span class="nx">doc</span><span class="p">.</span><span class="nx">Find</span><span class="p">(</span><span class="s">&quot;a&quot;</span><span class="p">).</span><span class="nx">Each</span><span class="p">(</span><span class="kd">func</span><span class="p">(</span><span class="nx">_</span><span class="w"> </span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="nx">link</span><span class="w"> </span><span class="o">*</span><span class="nx">goquery</span><span class="p">.</span><span class="nx">Selection</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">		</span><span class="nx">text</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">strings</span><span class="p">.</span><span class="nx">TrimSpace</span><span class="p">(</span><span class="nx">link</span><span class="p">.</span><span class="nx">Text</span><span class="p">())</span><span class="w"></span>
+<span class="w">		</span><span class="nx">href</span><span class="p">,</span><span class="w"> </span><span class="nx">ok</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">link</span><span class="p">.</span><span class="nx">Attr</span><span class="p">(</span><span class="s">&quot;href&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">		</span><span class="k">if</span><span class="w"> </span><span class="nx">ok</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">			</span><span class="nx">tmpl</span><span class="p">.</span><span class="nx">Execute</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">Stdout</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">htmlLink</span><span class="p">{</span><span class="nx">text</span><span class="p">,</span><span class="w"> </span><span class="nx">href</span><span class="p">})</span><span class="w"></span>
+<span class="w">		</span><span class="p">}</span><span class="w"></span>
+<span class="w">	</span><span class="p">})</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </td></tr></table></div></figure>
 </div>

@@ -61,19 +61,19 @@ Google地圖（ <a class="reference external" href="https://maps.google.com/">Go
 <p>在請教 <a class="reference external" href="https://www.google.com/search?q=responsive+google+map+embed">Google大神</a> 之後，答案很簡單。以下是文章 <a class="footnote-reference" href="#footnote-2" id="footnote-reference-1">[2]</a>
 裡頭所提出的解決方案：</p>
 <p>首先先把下列CSS程式碼貼到網站的CSS檔裡：</p>
-<div class="highlight"><pre><span></span><span class="p">.</span><span class="nc">google-maps</span> <span class="p">{</span>
-  <span class="k">position</span><span class="p">:</span> <span class="kc">relative</span><span class="p">;</span>
-  <span class="k">padding-bottom</span><span class="p">:</span> <span class="mi">75</span><span class="kt">%</span><span class="p">;</span> <span class="c">/* 此為地圖長寬比 */</span>
-  <span class="k">height</span><span class="p">:</span> <span class="mi">0</span><span class="p">;</span>
-  <span class="k">overflow</span><span class="p">:</span> <span class="kc">hidden</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="p">.</span><span class="nc">google-maps</span> <span class="nt">iframe</span> <span class="p">{</span>
-  <span class="k">position</span><span class="p">:</span> <span class="kc">absolute</span><span class="p">;</span>
-  <span class="k">top</span><span class="p">:</span> <span class="mi">0</span><span class="p">;</span>
-  <span class="k">left</span><span class="p">:</span> <span class="mi">0</span><span class="p">;</span>
-  <span class="k">width</span><span class="p">:</span> <span class="mi">100</span><span class="kt">%</span> <span class="cp">!important</span><span class="p">;</span>
-  <span class="k">height</span><span class="p">:</span> <span class="mi">100</span><span class="kt">%</span> <span class="cp">!important</span><span class="p">;</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span></span><span class="p">.</span><span class="nc">google-maps</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="k">position</span><span class="p">:</span><span class="w"> </span><span class="kc">relative</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="k">padding-bottom</span><span class="p">:</span><span class="w"> </span><span class="mi">75</span><span class="kt">%</span><span class="p">;</span><span class="w"> </span><span class="c">/* 此為地圖長寬比 */</span><span class="w"></span>
+<span class="w">  </span><span class="k">height</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="k">overflow</span><span class="p">:</span><span class="w"> </span><span class="kc">hidden</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+<span class="p">.</span><span class="nc">google-maps</span><span class="w"> </span><span class="nt">iframe</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="k">position</span><span class="p">:</span><span class="w"> </span><span class="kc">absolute</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="k">top</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="k">left</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="k">width</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="kt">%</span><span class="w"> </span><span class="cp">!important</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="k">height</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="kt">%</span><span class="w"> </span><span class="cp">!important</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 <p>接著把內嵌地圖的iframe程式碼包在 <strong>div</strong> 裡面，並且把此 <strong>div</strong> 的
 <em>class</em> 設成 <tt class="docutils literal"><span class="pre">google-maps</span></tt> ，以下為範例：</p>
@@ -89,21 +89,21 @@ Google地圖（ <a class="reference external" href="https://maps.google.com/">Go
 <p>若想要更進一步，在螢幕寬度 <tt class="docutils literal">599px</tt> 以下Google地圖才自動調整大小，螢幕寬度
 <tt class="docutils literal">600px</tt> 以上則不變動，則我們可利用 <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Media_queries">CSS media query</a>
 把上面CSS程式碼改成如下：</p>
-<div class="highlight"><pre><span></span><span class="p">@</span><span class="k">media</span> <span class="o">(</span><span class="nt">max-width</span><span class="o">:</span> <span class="nt">599px</span><span class="o">)</span> <span class="p">{</span>
-  <span class="p">.</span><span class="nc">google-maps</span> <span class="p">{</span>
-    <span class="k">position</span><span class="p">:</span> <span class="kc">relative</span><span class="p">;</span>
-    <span class="k">padding-bottom</span><span class="p">:</span> <span class="mi">75</span><span class="kt">%</span><span class="p">;</span> <span class="c">/* 此為地圖長寬比 */</span>
-    <span class="k">height</span><span class="p">:</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="k">overflow</span><span class="p">:</span> <span class="kc">hidden</span><span class="p">;</span>
-  <span class="p">}</span>
-  <span class="p">.</span><span class="nc">google-maps</span> <span class="nt">iframe</span> <span class="p">{</span>
-    <span class="k">position</span><span class="p">:</span> <span class="kc">absolute</span><span class="p">;</span>
-    <span class="k">top</span><span class="p">:</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="k">left</span><span class="p">:</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="k">width</span><span class="p">:</span> <span class="mi">100</span><span class="kt">%</span> <span class="cp">!important</span><span class="p">;</span>
-    <span class="k">height</span><span class="p">:</span> <span class="mi">100</span><span class="kt">%</span> <span class="cp">!important</span><span class="p">;</span>
-  <span class="p">}</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span></span><span class="p">@</span><span class="k">media</span><span class="w"> </span><span class="o">(</span><span class="nt">max-width</span><span class="o">:</span><span class="w"> </span><span class="nt">599px</span><span class="o">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="p">.</span><span class="nc">google-maps</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">position</span><span class="p">:</span><span class="w"> </span><span class="kc">relative</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">padding-bottom</span><span class="p">:</span><span class="w"> </span><span class="mi">75</span><span class="kt">%</span><span class="p">;</span><span class="w"> </span><span class="c">/* 此為地圖長寬比 */</span><span class="w"></span>
+<span class="w">    </span><span class="k">height</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">overflow</span><span class="p">:</span><span class="w"> </span><span class="kc">hidden</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="w">  </span><span class="p">.</span><span class="nc">google-maps</span><span class="w"> </span><span class="nt">iframe</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">position</span><span class="p">:</span><span class="w"> </span><span class="kc">absolute</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">top</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">left</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">width</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="kt">%</span><span class="w"> </span><span class="cp">!important</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">height</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="kt">%</span><span class="w"> </span><span class="cp">!important</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 <p>這樣一來就可以達到我們想要的效果！</p>
 

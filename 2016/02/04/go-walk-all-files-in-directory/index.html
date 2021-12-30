@@ -55,26 +55,26 @@
 
     <div class="main-content"><p>List all files in a directory in <a class="reference external" href="https://golang.org/">Golang</a>. Use <a class="reference external" href="https://golang.org/pkg/path/filepath/#Walk">filepath.Walk</a> in Go standard
 library, which is similar to <a class="reference external" href="https://www.python.org/">Python</a> <a class="reference external" href="https://docs.python.org/2/library/os.html#os.walk">os.walk</a>.</p>
-<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="p">(</span>
-      <span class="s">&quot;fmt&quot;</span>
-      <span class="s">&quot;os&quot;</span>
-      <span class="s">&quot;path/filepath&quot;</span>
-<span class="p">)</span>
+<div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">      </span><span class="s">&quot;fmt&quot;</span><span class="w"></span>
+<span class="w">      </span><span class="s">&quot;os&quot;</span><span class="w"></span>
+<span class="w">      </span><span class="s">&quot;path/filepath&quot;</span><span class="w"></span>
+<span class="p">)</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">WalkAllFilesInDir</span><span class="p">(</span><span class="nx">dir</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">error</span> <span class="p">{</span>
-      <span class="k">return</span> <span class="nx">filepath</span><span class="p">.</span><span class="nx">Walk</span><span class="p">(</span><span class="nx">dir</span><span class="p">,</span> <span class="kd">func</span><span class="p">(</span><span class="nx">path</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">info</span> <span class="nx">os</span><span class="p">.</span><span class="nx">FileInfo</span><span class="p">,</span> <span class="nx">e</span> <span class="kt">error</span><span class="p">)</span> <span class="kt">error</span> <span class="p">{</span>
-              <span class="k">if</span> <span class="nx">e</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-                      <span class="k">return</span> <span class="nx">e</span>
-              <span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">WalkAllFilesInDir</span><span class="p">(</span><span class="nx">dir</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="nx">filepath</span><span class="p">.</span><span class="nx">Walk</span><span class="p">(</span><span class="nx">dir</span><span class="p">,</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="nx">path</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">info</span><span class="w"> </span><span class="nx">os</span><span class="p">.</span><span class="nx">FileInfo</span><span class="p">,</span><span class="w"> </span><span class="nx">e</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="k">if</span><span class="w"> </span><span class="nx">e</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                      </span><span class="k">return</span><span class="w"> </span><span class="nx">e</span><span class="w"></span>
+<span class="w">              </span><span class="p">}</span><span class="w"></span>
 
-              <span class="c1">// check if it is a regular file (not dir)</span>
-              <span class="k">if</span> <span class="nx">info</span><span class="p">.</span><span class="nx">Mode</span><span class="p">().</span><span class="nx">IsRegular</span><span class="p">()</span> <span class="p">{</span>
-                      <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;file name:&quot;</span><span class="p">,</span> <span class="nx">info</span><span class="p">.</span><span class="nx">Name</span><span class="p">())</span>
-                      <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;file path:&quot;</span><span class="p">,</span> <span class="nx">path</span><span class="p">)</span>
-              <span class="p">}</span>
-              <span class="k">return</span> <span class="kc">nil</span>
-      <span class="p">})</span>
-<span class="p">}</span>
+<span class="w">              </span><span class="c1">// check if it is a regular file (not dir)</span><span class="w"></span>
+<span class="w">              </span><span class="k">if</span><span class="w"> </span><span class="nx">info</span><span class="p">.</span><span class="nx">Mode</span><span class="p">().</span><span class="nx">IsRegular</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                      </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;file name:&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">info</span><span class="p">.</span><span class="nx">Name</span><span class="p">())</span><span class="w"></span>
+<span class="w">                      </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;file path:&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">path</span><span class="p">)</span><span class="w"></span>
+<span class="w">              </span><span class="p">}</span><span class="w"></span>
+<span class="w">              </span><span class="k">return</span><span class="w"> </span><span class="kc">nil</span><span class="w"></span>
+<span class="w">      </span><span class="p">})</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 <p>If you do not want to walk into sub-directories, use <a class="reference external" href="https://golang.org/pkg/io/ioutil/#ReadDir">ioutil.ReadDir</a>.</p>
 

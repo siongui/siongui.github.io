@@ -56,31 +56,31 @@
     <div class="main-content"><p>After a slices contains some items and we want to empty the slice, how to write
 the syntax?</p>
 <p>Use <em>int</em> array as example, the syntax is:</p>
-<div class="highlight"><pre><span></span><span class="nx">myArray</span> <span class="p">=</span> <span class="p">[]</span><span class="kt">int</span><span class="p">{}</span>
+<div class="highlight"><pre><span></span><span class="nx">myArray</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">[]</span><span class="kt">int</span><span class="p">{}</span><span class="w"></span>
 </pre></div>
 <p>See the following full example on Go Playground.</p>
 <p class="align-center rubric"><a class="reference external" href="https://play.golang.org/p/JnMftkbyVU7">Run Code on Go Playground</a></p>
-<div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
+<div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w"></span>
 
-<span class="kn">import</span> <span class="p">(</span>
-      <span class="s">&quot;fmt&quot;</span>
-<span class="p">)</span>
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">      </span><span class="s">&quot;fmt&quot;</span><span class="w"></span>
+<span class="p">)</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">printNumbers</span><span class="p">(</span><span class="nx">numbers</span> <span class="p">[]</span><span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
-      <span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">number</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">numbers</span> <span class="p">{</span>
-              <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">number</span><span class="p">)</span>
-      <span class="p">}</span>
-<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">printNumbers</span><span class="p">(</span><span class="nx">numbers</span><span class="w"> </span><span class="p">[]</span><span class="kt">int</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="k">for</span><span class="w"> </span><span class="nx">_</span><span class="p">,</span><span class="w"> </span><span class="nx">number</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="nx">numbers</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">number</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
-      <span class="c1">// initialize int slice</span>
-      <span class="kd">var</span> <span class="nx">numbers</span> <span class="p">=</span> <span class="p">[]</span><span class="kt">int</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">}</span>
-      <span class="nx">printNumbers</span><span class="p">(</span><span class="nx">numbers</span><span class="p">)</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="c1">// initialize int slice</span><span class="w"></span>
+<span class="w">      </span><span class="kd">var</span><span class="w"> </span><span class="nx">numbers</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">[]</span><span class="kt">int</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">}</span><span class="w"></span>
+<span class="w">      </span><span class="nx">printNumbers</span><span class="p">(</span><span class="nx">numbers</span><span class="p">)</span><span class="w"></span>
 
-      <span class="c1">// make slice empty</span>
-      <span class="nx">numbers</span> <span class="p">=</span> <span class="p">[]</span><span class="kt">int</span><span class="p">{}</span>
-      <span class="nx">printNumbers</span><span class="p">(</span><span class="nx">numbers</span><span class="p">)</span>
-<span class="p">}</span>
+<span class="w">      </span><span class="c1">// make slice empty</span><span class="w"></span>
+<span class="w">      </span><span class="nx">numbers</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">[]</span><span class="kt">int</span><span class="p">{}</span><span class="w"></span>
+<span class="w">      </span><span class="nx">printNumbers</span><span class="p">(</span><span class="nx">numbers</span><span class="p">)</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 
 <p>Tested on: <a class="reference external" href="https://play.golang.org/">Go Playground</a></p>

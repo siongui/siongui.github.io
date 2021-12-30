@@ -141,49 +141,49 @@ following OPML example comes from my <a class="reference external" href="http://
 <span class="normal">40</span>
 <span class="normal">41</span>
 <span class="normal">42</span>
-<span class="normal">43</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
+<span class="normal">43</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w"></span>
 
-<span class="kn">import</span> <span class="p">(</span>
-	<span class="s">&quot;io/ioutil&quot;</span>
-	<span class="s">&quot;encoding/xml&quot;</span>
-	<span class="s">&quot;fmt&quot;</span>
-<span class="p">)</span>
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">	</span><span class="s">&quot;io/ioutil&quot;</span><span class="w"></span>
+<span class="w">	</span><span class="s">&quot;encoding/xml&quot;</span><span class="w"></span>
+<span class="w">	</span><span class="s">&quot;fmt&quot;</span><span class="w"></span>
+<span class="p">)</span><span class="w"></span>
 
-<span class="kd">type</span> <span class="nx">opml</span> <span class="kd">struct</span> <span class="p">{</span>
-	<span class="nx">XMLName</span>		<span class="nx">xml</span><span class="p">.</span><span class="nx">Name</span>	<span class="s">`xml:&quot;opml&quot;`</span>
-	<span class="nx">Version</span>		<span class="kt">string</span>		<span class="s">`xml:&quot;version,attr&quot;`</span>
-	<span class="nx">Head</span>		<span class="nx">head</span>
-	<span class="nx">Body</span>		<span class="nx">body</span>
-<span class="p">}</span>
+<span class="kd">type</span><span class="w"> </span><span class="nx">opml</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">	</span><span class="nx">XMLName</span><span class="w">		</span><span class="nx">xml</span><span class="p">.</span><span class="nx">Name</span><span class="w">	</span><span class="s">`xml:&quot;opml&quot;`</span><span class="w"></span>
+<span class="w">	</span><span class="nx">Version</span><span class="w">		</span><span class="kt">string</span><span class="w">		</span><span class="s">`xml:&quot;version,attr&quot;`</span><span class="w"></span>
+<span class="w">	</span><span class="nx">Head</span><span class="w">		</span><span class="nx">head</span><span class="w"></span>
+<span class="w">	</span><span class="nx">Body</span><span class="w">		</span><span class="nx">body</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">type</span> <span class="nx">head</span> <span class="kd">struct</span> <span class="p">{</span>
-	<span class="nx">XMLName</span>		<span class="nx">xml</span><span class="p">.</span><span class="nx">Name</span>	<span class="s">`xml:&quot;head&quot;`</span>
-	<span class="nx">Title</span>		<span class="kt">string</span>		<span class="s">`xml:&quot;title&quot;`</span>
-<span class="p">}</span>
+<span class="kd">type</span><span class="w"> </span><span class="nx">head</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">	</span><span class="nx">XMLName</span><span class="w">		</span><span class="nx">xml</span><span class="p">.</span><span class="nx">Name</span><span class="w">	</span><span class="s">`xml:&quot;head&quot;`</span><span class="w"></span>
+<span class="w">	</span><span class="nx">Title</span><span class="w">		</span><span class="kt">string</span><span class="w">		</span><span class="s">`xml:&quot;title&quot;`</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">type</span> <span class="nx">body</span> <span class="kd">struct</span> <span class="p">{</span>
-	<span class="nx">XMLName</span>		<span class="nx">xml</span><span class="p">.</span><span class="nx">Name</span>	<span class="s">`xml:&quot;body&quot;`</span>
-	<span class="nx">Outlines</span>	<span class="p">[]</span><span class="nx">outline</span>	<span class="s">`xml:&quot;outline&quot;`</span>
-<span class="p">}</span>
+<span class="kd">type</span><span class="w"> </span><span class="nx">body</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">	</span><span class="nx">XMLName</span><span class="w">		</span><span class="nx">xml</span><span class="p">.</span><span class="nx">Name</span><span class="w">	</span><span class="s">`xml:&quot;body&quot;`</span><span class="w"></span>
+<span class="w">	</span><span class="nx">Outlines</span><span class="w">	</span><span class="p">[]</span><span class="nx">outline</span><span class="w">	</span><span class="s">`xml:&quot;outline&quot;`</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">type</span> <span class="nx">outline</span> <span class="kd">struct</span> <span class="p">{</span>
-	<span class="nx">Text</span>		<span class="kt">string</span>		<span class="s">`xml:&quot;text,attr&quot;`</span>
-	<span class="nx">Title</span>		<span class="kt">string</span>		<span class="s">`xml:&quot;title,attr&quot;`</span>
-	<span class="nx">Type</span>		<span class="kt">string</span>		<span class="s">`xml:&quot;type,attr&quot;`</span>
-	<span class="nx">XmlUrl</span>		<span class="kt">string</span>		<span class="s">`xml:&quot;xmlUrl,attr&quot;`</span>
-	<span class="nx">HtmlUrl</span>		<span class="kt">string</span>		<span class="s">`xml:&quot;htmlUrl,attr&quot;`</span>
-	<span class="nx">Favicon</span>		<span class="kt">string</span>		<span class="s">`xml:&quot;rssfr-favicon,attr&quot;`</span>
-<span class="p">}</span>
+<span class="kd">type</span><span class="w"> </span><span class="nx">outline</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">	</span><span class="nx">Text</span><span class="w">		</span><span class="kt">string</span><span class="w">		</span><span class="s">`xml:&quot;text,attr&quot;`</span><span class="w"></span>
+<span class="w">	</span><span class="nx">Title</span><span class="w">		</span><span class="kt">string</span><span class="w">		</span><span class="s">`xml:&quot;title,attr&quot;`</span><span class="w"></span>
+<span class="w">	</span><span class="nx">Type</span><span class="w">		</span><span class="kt">string</span><span class="w">		</span><span class="s">`xml:&quot;type,attr&quot;`</span><span class="w"></span>
+<span class="w">	</span><span class="nx">XmlUrl</span><span class="w">		</span><span class="kt">string</span><span class="w">		</span><span class="s">`xml:&quot;xmlUrl,attr&quot;`</span><span class="w"></span>
+<span class="w">	</span><span class="nx">HtmlUrl</span><span class="w">		</span><span class="kt">string</span><span class="w">		</span><span class="s">`xml:&quot;htmlUrl,attr&quot;`</span><span class="w"></span>
+<span class="w">	</span><span class="nx">Favicon</span><span class="w">		</span><span class="kt">string</span><span class="w">		</span><span class="s">`xml:&quot;rssfr-favicon,attr&quot;`</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
-	<span class="nx">o</span> <span class="o">:=</span> <span class="nx">opml</span><span class="p">{}</span>
-	<span class="nx">xmlContent</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">ioutil</span><span class="p">.</span><span class="nx">ReadFile</span><span class="p">(</span><span class="s">&quot;example-5.xml&quot;</span><span class="p">)</span>
-	<span class="nx">err</span> <span class="o">:=</span> <span class="nx">xml</span><span class="p">.</span><span class="nx">Unmarshal</span><span class="p">(</span><span class="nx">xmlContent</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">o</span><span class="p">)</span>
-	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span> <span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">}</span>
-	<span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">outline</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">o</span><span class="p">.</span><span class="nx">Body</span><span class="p">.</span><span class="nx">Outlines</span> <span class="p">{</span>
-		<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">outline</span><span class="p">)</span>
-	<span class="p">}</span>
-<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">	</span><span class="nx">o</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">opml</span><span class="p">{}</span><span class="w"></span>
+<span class="w">	</span><span class="nx">xmlContent</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">ioutil</span><span class="p">.</span><span class="nx">ReadFile</span><span class="p">(</span><span class="s">&quot;example-5.xml&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">xml</span><span class="p">.</span><span class="nx">Unmarshal</span><span class="p">(</span><span class="nx">xmlContent</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">o</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
+<span class="w">	</span><span class="k">for</span><span class="w"> </span><span class="nx">_</span><span class="p">,</span><span class="w"> </span><span class="nx">outline</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="nx">o</span><span class="p">.</span><span class="nx">Body</span><span class="p">.</span><span class="nx">Outlines</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">		</span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">outline</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </td></tr></table></div></figure>
 <p>The output result:</p>

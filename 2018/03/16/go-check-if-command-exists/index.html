@@ -59,31 +59,31 @@ check if a command exists in shell as follows:</p>
 <div class="highlight"><pre><span></span>$ <span class="nb">command</span> -v &lt;the_command&gt;
 </pre></div>
 <p>Now we use standard <a class="reference external" href="https://golang.org/pkg/os/exec/">os.exec</a> package to run the command for us:</p>
-<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="p">(</span>
-      <span class="s">&quot;os/exec&quot;</span>
-<span class="p">)</span>
+<div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">      </span><span class="s">&quot;os/exec&quot;</span><span class="w"></span>
+<span class="p">)</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">isCommandAvailable</span><span class="p">(</span><span class="nx">name</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">bool</span> <span class="p">{</span>
-      <span class="nx">cmd</span> <span class="o">:=</span> <span class="nx">exec</span><span class="p">.</span><span class="nx">Command</span><span class="p">(</span><span class="s">&quot;command&quot;</span><span class="p">,</span> <span class="s">&quot;-v&quot;</span><span class="p">,</span> <span class="nx">name</span><span class="p">)</span>
-      <span class="k">if</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">cmd</span><span class="p">.</span><span class="nx">Run</span><span class="p">();</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-              <span class="k">return</span> <span class="kc">false</span>
-      <span class="p">}</span>
-      <span class="k">return</span> <span class="kc">true</span>
-<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">isCommandAvailable</span><span class="p">(</span><span class="nx">name</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nx">cmd</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">exec</span><span class="p">.</span><span class="nx">Command</span><span class="p">(</span><span class="s">&quot;command&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;-v&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">name</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">cmd</span><span class="p">.</span><span class="nx">Run</span><span class="p">();</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="k">return</span><span class="w"> </span><span class="kc">false</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="kc">true</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 <p>Looks very easy. To be more confident, we write a test to see if it works:</p>
-<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="p">(</span>
-      <span class="s">&quot;testing&quot;</span>
-<span class="p">)</span>
+<div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">      </span><span class="s">&quot;testing&quot;</span><span class="w"></span>
+<span class="p">)</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">TestIsCommandAvailable</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span> <span class="p">{</span>
-      <span class="k">if</span> <span class="nx">isCommandAvailable</span><span class="p">(</span><span class="s">&quot;ls&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="kc">false</span> <span class="p">{</span>
-              <span class="nx">t</span><span class="p">.</span><span class="nx">Error</span><span class="p">(</span><span class="s">&quot;ls command does not exist!&quot;</span><span class="p">)</span>
-      <span class="p">}</span>
-      <span class="k">if</span> <span class="nx">isCommandAvailable</span><span class="p">(</span><span class="s">&quot;ls111&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="kc">true</span> <span class="p">{</span>
-              <span class="nx">t</span><span class="p">.</span><span class="nx">Error</span><span class="p">(</span><span class="s">&quot;ls111 command should not exist!&quot;</span><span class="p">)</span>
-      <span class="p">}</span>
-<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">TestIsCommandAvailable</span><span class="p">(</span><span class="nx">t</span><span class="w"> </span><span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="nx">isCommandAvailable</span><span class="p">(</span><span class="s">&quot;ls&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">false</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="nx">t</span><span class="p">.</span><span class="nx">Error</span><span class="p">(</span><span class="s">&quot;ls command does not exist!&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="nx">isCommandAvailable</span><span class="p">(</span><span class="s">&quot;ls111&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="nx">t</span><span class="p">.</span><span class="nx">Error</span><span class="p">(</span><span class="s">&quot;ls111 command should not exist!&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 <p>And the test failed!!!</p>
 <div class="highlight"><pre><span></span><span class="o">===</span> RUN   TestIsCommandAvailable
@@ -96,24 +96,24 @@ check if a command exists in shell as follows:</p>
 <p>This is really strange, and I googled again and found <a class="footnote-reference" href="#footnote-4" id="footnote-reference-2">[4]</a> that you cannot run
 built-in command directly via <a class="reference external" href="https://golang.org/pkg/os/exec/#Command">exec.Command</a>, so the following way of running
 built-in command will not work:</p>
-<div class="highlight"><pre><span></span><span class="nx">cmd</span> <span class="o">:=</span> <span class="nx">exec</span><span class="p">.</span><span class="nx">Command</span><span class="p">(</span><span class="s">&quot;command&quot;</span><span class="p">,</span> <span class="s">&quot;-v&quot;</span><span class="p">,</span> <span class="nx">name</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><span class="nx">cmd</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">exec</span><span class="p">.</span><span class="nx">Command</span><span class="p">(</span><span class="s">&quot;command&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;-v&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">name</span><span class="p">)</span><span class="w"></span>
 </pre></div>
 <p>Instead, you should run the built-in command as follows:</p>
-<div class="highlight"><pre><span></span><span class="nx">cmd</span> <span class="o">:=</span> <span class="nx">exec</span><span class="p">.</span><span class="nx">Command</span><span class="p">(</span><span class="s">&quot;/bin/sh&quot;</span><span class="p">,</span> <span class="s">&quot;-c&quot;</span><span class="p">,</span> <span class="s">&quot;command -v &quot;</span><span class="o">+</span><span class="nx">name</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><span class="nx">cmd</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">exec</span><span class="p">.</span><span class="nx">Command</span><span class="p">(</span><span class="s">&quot;/bin/sh&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;-c&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;command -v &quot;</span><span class="o">+</span><span class="nx">name</span><span class="p">)</span><span class="w"></span>
 </pre></div>
 <p>And finally it works as expected and the test passed! The correct way to check
 if a program exists in Go is:</p>
-<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="p">(</span>
-      <span class="s">&quot;os/exec&quot;</span>
-<span class="p">)</span>
+<div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">      </span><span class="s">&quot;os/exec&quot;</span><span class="w"></span>
+<span class="p">)</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">isCommandAvailable</span><span class="p">(</span><span class="nx">name</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">bool</span> <span class="p">{</span>
-      <span class="nx">cmd</span> <span class="o">:=</span> <span class="nx">exec</span><span class="p">.</span><span class="nx">Command</span><span class="p">(</span><span class="s">&quot;/bin/sh&quot;</span><span class="p">,</span> <span class="s">&quot;-c&quot;</span><span class="p">,</span> <span class="s">&quot;command -v &quot;</span><span class="o">+</span><span class="nx">name</span><span class="p">)</span>
-      <span class="k">if</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">cmd</span><span class="p">.</span><span class="nx">Run</span><span class="p">();</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-              <span class="k">return</span> <span class="kc">false</span>
-      <span class="p">}</span>
-      <span class="k">return</span> <span class="kc">true</span>
-<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">isCommandAvailable</span><span class="p">(</span><span class="nx">name</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nx">cmd</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">exec</span><span class="p">.</span><span class="nx">Command</span><span class="p">(</span><span class="s">&quot;/bin/sh&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;-c&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;command -v &quot;</span><span class="o">+</span><span class="nx">name</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">cmd</span><span class="p">.</span><span class="nx">Run</span><span class="p">();</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="k">return</span><span class="w"> </span><span class="kc">false</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="kc">true</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 
 <p>Tested on: <cite>Ubuntu 17.10</cite>, <cite>Go 1.10</cite></p>

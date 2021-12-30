@@ -55,42 +55,42 @@
 
     <div class="main-content"><p>Use <a class="reference external" href="https://golang.org/pkg/bytes/#Buffer">Buffer</a> in Go <a class="reference external" href="https://golang.org/pkg/bytes/">bytes</a> package to get <a class="reference external" href="https://www.google.com/search?q=golang+string">string</a> from <a class="reference external" href="https://golang.org/pkg/io/#Writer">io.Writer</a> (<a class="reference external" href="https://golang.org/pkg/io/">io</a> Writer).
 Common pattern as follows:</p>
-<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="s">&quot;bytes&quot;</span>
+<div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="s">&quot;bytes&quot;</span><span class="w"></span>
 
-<span class="kd">var</span> <span class="nx">b</span> <span class="nx">bytes</span><span class="p">.</span><span class="nx">Buffer</span>
-<span class="nx">fn</span><span class="p">(</span><span class="nx">b</span><span class="p">)</span>
-<span class="nx">b</span><span class="p">.</span><span class="nx">String</span><span class="p">()</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">b</span><span class="w"> </span><span class="nx">bytes</span><span class="p">.</span><span class="nx">Buffer</span><span class="w"></span>
+<span class="nx">fn</span><span class="p">(</span><span class="nx">b</span><span class="p">)</span><span class="w"></span>
+<span class="nx">b</span><span class="p">.</span><span class="nx">String</span><span class="p">()</span><span class="w"></span>
 </pre></div>
 <div class="section" id="text-template-example">
 <h2><a class="reference external" href="https://golang.org/pkg/text/template/">text/template</a> Example</h2>
 <p><a class="reference external" href="https://play.golang.org/p/68YQg5KlBT">Run code on Go Playground</a></p>
 
-<div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
+<div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w"></span>
 
-<span class="kn">import</span> <span class="p">(</span>
-      <span class="s">&quot;bytes&quot;</span>
-      <span class="s">&quot;fmt&quot;</span>
-      <span class="s">&quot;text/template&quot;</span>
-<span class="p">)</span>
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">      </span><span class="s">&quot;bytes&quot;</span><span class="w"></span>
+<span class="w">      </span><span class="s">&quot;fmt&quot;</span><span class="w"></span>
+<span class="w">      </span><span class="s">&quot;text/template&quot;</span><span class="w"></span>
+<span class="p">)</span><span class="w"></span>
 
-<span class="kd">type</span> <span class="nx">TmplData</span> <span class="kd">struct</span> <span class="p">{</span>
-      <span class="nx">Name</span> <span class="kt">string</span>
-<span class="p">}</span>
+<span class="kd">type</span><span class="w"> </span><span class="nx">TmplData</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nx">Name</span><span class="w"> </span><span class="kt">string</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">var</span> <span class="nx">testTmpl</span> <span class="p">=</span> <span class="s">`Hello {{.Name}}`</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">testTmpl</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">`Hello {{.Name}}`</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
-      <span class="nx">data</span> <span class="o">:=</span> <span class="nx">TmplData</span><span class="p">{</span><span class="nx">Name</span><span class="p">:</span> <span class="s">&quot;World&quot;</span><span class="p">}</span>
-      <span class="nx">tmpl</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">template</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="s">&quot;test&quot;</span><span class="p">).</span><span class="nx">Parse</span><span class="p">(</span><span class="nx">testTmpl</span><span class="p">)</span>
-      <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-              <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
-      <span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nx">data</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">TmplData</span><span class="p">{</span><span class="nx">Name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;World&quot;</span><span class="p">}</span><span class="w"></span>
+<span class="w">      </span><span class="nx">tmpl</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">template</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="s">&quot;test&quot;</span><span class="p">).</span><span class="nx">Parse</span><span class="p">(</span><span class="nx">testTmpl</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
 
-      <span class="kd">var</span> <span class="nx">b</span> <span class="nx">bytes</span><span class="p">.</span><span class="nx">Buffer</span>
-      <span class="nx">err</span> <span class="p">=</span> <span class="nx">tmpl</span><span class="p">.</span><span class="nx">Execute</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">b</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">data</span><span class="p">)</span>
+<span class="w">      </span><span class="kd">var</span><span class="w"> </span><span class="nx">b</span><span class="w"> </span><span class="nx">bytes</span><span class="p">.</span><span class="nx">Buffer</span><span class="w"></span>
+<span class="w">      </span><span class="nx">err</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">tmpl</span><span class="p">.</span><span class="nx">Execute</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">b</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">data</span><span class="p">)</span><span class="w"></span>
 
-      <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">b</span><span class="p">.</span><span class="nx">String</span><span class="p">())</span>
-<span class="p">}</span>
+<span class="w">      </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">b</span><span class="p">.</span><span class="nx">String</span><span class="p">())</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 
 <p>Final output:</p>

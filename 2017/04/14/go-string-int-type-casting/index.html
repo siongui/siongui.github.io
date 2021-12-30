@@ -58,7 +58,7 @@
 <div class="section" id="problem">
 <h2>Problem</h2>
 <p>Assume we have the following variable of type <em>string</em>:</p>
-<div class="highlight"><pre><span></span><span class="nx">intNum</span> <span class="o">:=</span> <span class="s">&quot;100&quot;</span>
+<div class="highlight"><pre><span></span><span class="nx">intNum</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="s">&quot;100&quot;</span><span class="w"></span>
 </pre></div>
 <p>We will multiply the intNum by 2, convert the result back to <em>string</em>.</p>
 </div>
@@ -88,28 +88,28 @@
 <p>The following code convert <em>string</em> to <em>int64</em>, multiply the number by 2, and
 then convert the result from <em>int64</em> back to <em>string</em>.</p>
 <p class="align-center rubric"><a class="reference external" href="https://play.golang.org/p/bvaoIu-1uS">Run Code on Go Playground</a></p>
-<div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
+<div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w"></span>
 
-<span class="kn">import</span> <span class="p">(</span>
-      <span class="s">&quot;fmt&quot;</span>
-      <span class="s">&quot;strconv&quot;</span>
-<span class="p">)</span>
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">      </span><span class="s">&quot;fmt&quot;</span><span class="w"></span>
+<span class="w">      </span><span class="s">&quot;strconv&quot;</span><span class="w"></span>
+<span class="p">)</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
-      <span class="nx">intNum</span> <span class="o">:=</span> <span class="s">&quot;100&quot;</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nx">intNum</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="s">&quot;100&quot;</span><span class="w"></span>
 
-      <span class="c1">// convert string to int</span>
-      <span class="nx">n</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">strconv</span><span class="p">.</span><span class="nx">ParseInt</span><span class="p">(</span><span class="nx">intNum</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-      <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-              <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
-              <span class="k">return</span>
-      <span class="p">}</span>
+<span class="w">      </span><span class="c1">// convert string to int</span><span class="w"></span>
+<span class="w">      </span><span class="nx">n</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">strconv</span><span class="p">.</span><span class="nx">ParseInt</span><span class="p">(</span><span class="nx">intNum</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"></span>
+<span class="w">              </span><span class="k">return</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
 
-      <span class="c1">// convert int to string</span>
-      <span class="nx">result</span> <span class="o">:=</span> <span class="nx">strconv</span><span class="p">.</span><span class="nx">FormatInt</span><span class="p">(</span><span class="nx">n</span><span class="o">*</span><span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="w">      </span><span class="c1">// convert int to string</span><span class="w"></span>
+<span class="w">      </span><span class="nx">result</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">strconv</span><span class="p">.</span><span class="nx">FormatInt</span><span class="p">(</span><span class="nx">n</span><span class="o">*</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">)</span><span class="w"></span>
 
-      <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;result: &quot;</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span>
-<span class="p">}</span>
+<span class="w">      </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;result: &quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">result</span><span class="p">)</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 
 <hr class="docutils" />

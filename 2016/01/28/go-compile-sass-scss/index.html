@@ -166,45 +166,45 @@ same directory as Makefile):</p>
 <span class="normal">36</span>
 <span class="normal">37</span>
 <span class="normal">38</span>
-<span class="normal">39</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
+<span class="normal">39</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w"></span>
 
-<span class="kn">import</span> <span class="p">(</span>
-	<span class="nx">libsass</span> <span class="s">&quot;github.com/wellington/go-libsass&quot;</span>
-	<span class="s">&quot;os&quot;</span>
-<span class="p">)</span>
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">	</span><span class="nx">libsass</span><span class="w"> </span><span class="s">&quot;github.com/wellington/go-libsass&quot;</span><span class="w"></span>
+<span class="w">	</span><span class="s">&quot;os&quot;</span><span class="w"></span>
+<span class="p">)</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
-	<span class="kd">const</span> <span class="nx">sassdir</span> <span class="p">=</span> <span class="s">&quot;src/style/&quot;</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">	</span><span class="kd">const</span><span class="w"> </span><span class="nx">sassdir</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;src/style/&quot;</span><span class="w"></span>
 
-	<span class="c1">// open input sass/scss file to be compiled</span>
-	<span class="nx">fi</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">os</span><span class="p">.</span><span class="nx">Open</span><span class="p">(</span><span class="nx">sassdir</span> <span class="o">+</span> <span class="s">&quot;style.scss&quot;</span><span class="p">)</span>
-	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-		<span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
-	<span class="p">}</span>
-	<span class="k">defer</span> <span class="nx">fi</span><span class="p">.</span><span class="nx">Close</span><span class="p">()</span>
+<span class="w">	</span><span class="c1">// open input sass/scss file to be compiled</span><span class="w"></span>
+<span class="w">	</span><span class="nx">fi</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">os</span><span class="p">.</span><span class="nx">Open</span><span class="p">(</span><span class="nx">sassdir</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot;style.scss&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">		</span><span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="p">}</span><span class="w"></span>
+<span class="w">	</span><span class="k">defer</span><span class="w"> </span><span class="nx">fi</span><span class="p">.</span><span class="nx">Close</span><span class="p">()</span><span class="w"></span>
 
-	<span class="c1">// create output css file</span>
-	<span class="nx">fo</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">os</span><span class="p">.</span><span class="nx">Create</span><span class="p">(</span><span class="s">&quot;style.css&quot;</span><span class="p">)</span>
-	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-		<span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
-	<span class="p">}</span>
-	<span class="k">defer</span> <span class="nx">fo</span><span class="p">.</span><span class="nx">Close</span><span class="p">()</span>
+<span class="w">	</span><span class="c1">// create output css file</span><span class="w"></span>
+<span class="w">	</span><span class="nx">fo</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">os</span><span class="p">.</span><span class="nx">Create</span><span class="p">(</span><span class="s">&quot;style.css&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">		</span><span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="p">}</span><span class="w"></span>
+<span class="w">	</span><span class="k">defer</span><span class="w"> </span><span class="nx">fo</span><span class="p">.</span><span class="nx">Close</span><span class="p">()</span><span class="w"></span>
 
-	<span class="c1">// options for compilation</span>
-	<span class="nx">p</span> <span class="o">:=</span> <span class="nx">libsass</span><span class="p">.</span><span class="nx">IncludePaths</span><span class="p">([]</span><span class="kt">string</span><span class="p">{</span><span class="nx">sassdir</span><span class="p">})</span>
-	<span class="nx">s</span> <span class="o">:=</span> <span class="nx">libsass</span><span class="p">.</span><span class="nx">OutputStyle</span><span class="p">(</span><span class="nx">libsass</span><span class="p">.</span><span class="nx">COMPRESSED_STYLE</span><span class="p">)</span>
+<span class="w">	</span><span class="c1">// options for compilation</span><span class="w"></span>
+<span class="w">	</span><span class="nx">p</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">libsass</span><span class="p">.</span><span class="nx">IncludePaths</span><span class="p">([]</span><span class="kt">string</span><span class="p">{</span><span class="nx">sassdir</span><span class="p">})</span><span class="w"></span>
+<span class="w">	</span><span class="nx">s</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">libsass</span><span class="p">.</span><span class="nx">OutputStyle</span><span class="p">(</span><span class="nx">libsass</span><span class="p">.</span><span class="nx">COMPRESSED_STYLE</span><span class="p">)</span><span class="w"></span>
 
-	<span class="c1">// create a new compiler with options</span>
-	<span class="nx">comp</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">libsass</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="nx">fo</span><span class="p">,</span> <span class="nx">fi</span><span class="p">,</span> <span class="nx">p</span><span class="p">,</span> <span class="nx">s</span><span class="p">)</span>
-	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-		<span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
-	<span class="p">}</span>
+<span class="w">	</span><span class="c1">// create a new compiler with options</span><span class="w"></span>
+<span class="w">	</span><span class="nx">comp</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">libsass</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="nx">fo</span><span class="p">,</span><span class="w"> </span><span class="nx">fi</span><span class="p">,</span><span class="w"> </span><span class="nx">p</span><span class="p">,</span><span class="w"> </span><span class="nx">s</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">		</span><span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="p">}</span><span class="w"></span>
 
-	<span class="c1">// start compile</span>
-	<span class="k">if</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">comp</span><span class="p">.</span><span class="nx">Run</span><span class="p">();</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-		<span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
-	<span class="p">}</span>
-<span class="p">}</span>
+<span class="w">	</span><span class="c1">// start compile</span><span class="w"></span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">comp</span><span class="p">.</span><span class="nx">Run</span><span class="p">();</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">		</span><span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </td></tr></table></div></figure>
 <p>Run the <a class="reference external" href="https://golang.org/">Go</a> program:</p>

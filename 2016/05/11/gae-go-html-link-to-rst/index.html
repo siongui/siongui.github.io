@@ -120,12 +120,12 @@ environment.</p>
 <span class="normal">3</span>
 <span class="normal">4</span>
 <span class="normal">5</span>
-<span class="normal">6</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="nt">runtime</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">go</span>
-<span class="nt">api_version</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">go1</span>
+<span class="normal">6</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="nt">runtime</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">go</span><span class="w"></span>
+<span class="nt">api_version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">go1</span><span class="w"></span>
 
-<span class="nt">handlers</span><span class="p">:</span>
-<span class="p p-Indicator">-</span> <span class="nt">url</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/.*</span>
-  <span class="nt">script</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">_go_app</span>
+<span class="nt">handlers</span><span class="p">:</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/.*</span><span class="w"></span>
+<span class="w">  </span><span class="nt">script</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">_go_app</span><span class="w"></span>
 </pre></div>
 </td></tr></table></div></figure>
 <p>Source code:</p>
@@ -190,18 +190,18 @@ environment.</p>
 <span class="normal">53</span>
 <span class="normal">54</span>
 <span class="normal">55</span>
-<span class="normal">56</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">link2rst</span>
+<span class="normal">56</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">link2rst</span><span class="w"></span>
 
-<span class="kn">import</span> <span class="p">(</span>
-	<span class="s">&quot;html/template&quot;</span>
-	<span class="s">&quot;net/http&quot;</span>
-<span class="p">)</span>
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">	</span><span class="s">&quot;html/template&quot;</span><span class="w"></span>
+<span class="w">	</span><span class="s">&quot;net/http&quot;</span><span class="w"></span>
+<span class="p">)</span><span class="w"></span>
 
-<span class="kd">type</span> <span class="nx">TemplateValue</span> <span class="kd">struct</span> <span class="p">{</span>
-	<span class="nx">Textarea</span> <span class="kt">string</span>
-<span class="p">}</span>
+<span class="kd">type</span><span class="w"> </span><span class="nx">TemplateValue</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">	</span><span class="nx">Textarea</span><span class="w"> </span><span class="kt">string</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">var</span> <span class="nx">index</span> <span class="p">=</span> <span class="s">`&lt;!doctype html&gt;</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">index</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">`&lt;!doctype html&gt;</span>
 <span class="s">&lt;html&gt;</span>
 <span class="s">&lt;head&gt;</span>
 <span class="s">  &lt;title&gt;HTML Link to Rst&lt;/title&gt;</span>
@@ -228,24 +228,24 @@ environment.</p>
 <span class="s">&lt;/script&gt;</span>
 
 <span class="s">&lt;/body&gt;</span>
-<span class="s">&lt;/html&gt;`</span>
+<span class="s">&lt;/html&gt;`</span><span class="w"></span>
 
-<span class="kd">var</span> <span class="nx">tmpl</span> <span class="p">=</span> <span class="nx">template</span><span class="p">.</span><span class="nx">Must</span><span class="p">(</span><span class="nx">template</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="s">&quot;link2rst&quot;</span><span class="p">).</span><span class="nx">Parse</span><span class="p">(</span><span class="nx">index</span><span class="p">))</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">tmpl</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">template</span><span class="p">.</span><span class="nx">Must</span><span class="p">(</span><span class="nx">template</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="s">&quot;link2rst&quot;</span><span class="p">).</span><span class="nx">Parse</span><span class="p">(</span><span class="nx">index</span><span class="p">))</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">init</span><span class="p">()</span> <span class="p">{</span>
-	<span class="nx">http</span><span class="p">.</span><span class="nx">HandleFunc</span><span class="p">(</span><span class="s">&quot;/&quot;</span><span class="p">,</span> <span class="nx">handler</span><span class="p">)</span>
-<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">init</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">	</span><span class="nx">http</span><span class="p">.</span><span class="nx">HandleFunc</span><span class="p">(</span><span class="s">&quot;/&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">handler</span><span class="p">)</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">handler</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">{</span>
-	<span class="nx">val</span> <span class="o">:=</span> <span class="nx">TemplateValue</span><span class="p">{}</span>
-	<span class="k">if</span> <span class="nx">r</span><span class="p">.</span><span class="nx">Method</span> <span class="o">==</span> <span class="s">&quot;POST&quot;</span> <span class="p">{</span>
-		<span class="nx">val</span><span class="p">.</span><span class="nx">Textarea</span> <span class="p">=</span> <span class="nx">getLinkRst</span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">PostFormValue</span><span class="p">(</span><span class="s">&quot;url&quot;</span><span class="p">),</span> <span class="nx">r</span><span class="p">)</span>
-	<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">handler</span><span class="p">(</span><span class="nx">w</span><span class="w"> </span><span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span><span class="w"> </span><span class="nx">r</span><span class="w"> </span><span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">	</span><span class="nx">val</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">TemplateValue</span><span class="p">{}</span><span class="w"></span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">r</span><span class="p">.</span><span class="nx">Method</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s">&quot;POST&quot;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">		</span><span class="nx">val</span><span class="p">.</span><span class="nx">Textarea</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">getLinkRst</span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">PostFormValue</span><span class="p">(</span><span class="s">&quot;url&quot;</span><span class="p">),</span><span class="w"> </span><span class="nx">r</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="p">}</span><span class="w"></span>
 
-	<span class="k">if</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">tmpl</span><span class="p">.</span><span class="nx">Execute</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">val</span><span class="p">);</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-		<span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
-	<span class="p">}</span>
-<span class="p">}</span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">tmpl</span><span class="p">.</span><span class="nx">Execute</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">val</span><span class="p">);</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">		</span><span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </td></tr></table></div></figure>
 <figure class="github-file">
@@ -287,40 +287,40 @@ environment.</p>
 <span class="normal">31</span>
 <span class="normal">32</span>
 <span class="normal">33</span>
-<span class="normal">34</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">link2rst</span>
+<span class="normal">34</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">link2rst</span><span class="w"></span>
 
-<span class="kn">import</span> <span class="p">(</span>
-	<span class="s">&quot;golang.org/x/net/html&quot;</span>
-	<span class="s">&quot;io&quot;</span>
-<span class="p">)</span>
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">	</span><span class="s">&quot;golang.org/x/net/html&quot;</span><span class="w"></span>
+<span class="w">	</span><span class="s">&quot;io&quot;</span><span class="w"></span>
+<span class="p">)</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">isTitleElement</span><span class="p">(</span><span class="nx">n</span> <span class="o">*</span><span class="nx">html</span><span class="p">.</span><span class="nx">Node</span><span class="p">)</span> <span class="kt">bool</span> <span class="p">{</span>
-	<span class="k">return</span> <span class="nx">n</span><span class="p">.</span><span class="nx">Type</span> <span class="o">==</span> <span class="nx">html</span><span class="p">.</span><span class="nx">ElementNode</span> <span class="o">&amp;&amp;</span> <span class="nx">n</span><span class="p">.</span><span class="nx">Data</span> <span class="o">==</span> <span class="s">&quot;title&quot;</span>
-<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">isTitleElement</span><span class="p">(</span><span class="nx">n</span><span class="w"> </span><span class="o">*</span><span class="nx">html</span><span class="p">.</span><span class="nx">Node</span><span class="p">)</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">	</span><span class="k">return</span><span class="w"> </span><span class="nx">n</span><span class="p">.</span><span class="nx">Type</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nx">html</span><span class="p">.</span><span class="nx">ElementNode</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">n</span><span class="p">.</span><span class="nx">Data</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s">&quot;title&quot;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">traverse</span><span class="p">(</span><span class="nx">n</span> <span class="o">*</span><span class="nx">html</span><span class="p">.</span><span class="nx">Node</span><span class="p">)</span> <span class="p">(</span><span class="kt">string</span><span class="p">,</span> <span class="kt">bool</span><span class="p">)</span> <span class="p">{</span>
-	<span class="k">if</span> <span class="nx">isTitleElement</span><span class="p">(</span><span class="nx">n</span><span class="p">)</span> <span class="p">{</span>
-		<span class="k">return</span> <span class="nx">n</span><span class="p">.</span><span class="nx">FirstChild</span><span class="p">.</span><span class="nx">Data</span><span class="p">,</span> <span class="kc">true</span>
-	<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">traverse</span><span class="p">(</span><span class="nx">n</span><span class="w"> </span><span class="o">*</span><span class="nx">html</span><span class="p">.</span><span class="nx">Node</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="kt">bool</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">isTitleElement</span><span class="p">(</span><span class="nx">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">		</span><span class="k">return</span><span class="w"> </span><span class="nx">n</span><span class="p">.</span><span class="nx">FirstChild</span><span class="p">.</span><span class="nx">Data</span><span class="p">,</span><span class="w"> </span><span class="kc">true</span><span class="w"></span>
+<span class="w">	</span><span class="p">}</span><span class="w"></span>
 
-	<span class="k">for</span> <span class="nx">c</span> <span class="o">:=</span> <span class="nx">n</span><span class="p">.</span><span class="nx">FirstChild</span><span class="p">;</span> <span class="nx">c</span> <span class="o">!=</span> <span class="kc">nil</span><span class="p">;</span> <span class="nx">c</span> <span class="p">=</span> <span class="nx">c</span><span class="p">.</span><span class="nx">NextSibling</span> <span class="p">{</span>
-		<span class="nx">result</span><span class="p">,</span> <span class="nx">ok</span> <span class="o">:=</span> <span class="nx">traverse</span><span class="p">(</span><span class="nx">c</span><span class="p">)</span>
-		<span class="k">if</span> <span class="nx">ok</span> <span class="p">{</span>
-			<span class="k">return</span> <span class="nx">result</span><span class="p">,</span> <span class="nx">ok</span>
-		<span class="p">}</span>
-	<span class="p">}</span>
+<span class="w">	</span><span class="k">for</span><span class="w"> </span><span class="nx">c</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">n</span><span class="p">.</span><span class="nx">FirstChild</span><span class="p">;</span><span class="w"> </span><span class="nx">c</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="p">;</span><span class="w"> </span><span class="nx">c</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">c</span><span class="p">.</span><span class="nx">NextSibling</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">		</span><span class="nx">result</span><span class="p">,</span><span class="w"> </span><span class="nx">ok</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">traverse</span><span class="p">(</span><span class="nx">c</span><span class="p">)</span><span class="w"></span>
+<span class="w">		</span><span class="k">if</span><span class="w"> </span><span class="nx">ok</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">			</span><span class="k">return</span><span class="w"> </span><span class="nx">result</span><span class="p">,</span><span class="w"> </span><span class="nx">ok</span><span class="w"></span>
+<span class="w">		</span><span class="p">}</span><span class="w"></span>
+<span class="w">	</span><span class="p">}</span><span class="w"></span>
 
-	<span class="k">return</span> <span class="s">&quot;&quot;</span><span class="p">,</span> <span class="kc">false</span>
-<span class="p">}</span>
+<span class="w">	</span><span class="k">return</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="p">,</span><span class="w"> </span><span class="kc">false</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">GetHtmlTitle</span><span class="p">(</span><span class="nx">r</span> <span class="nx">io</span><span class="p">.</span><span class="nx">Reader</span><span class="p">)</span> <span class="p">(</span><span class="kt">string</span><span class="p">,</span> <span class="kt">bool</span><span class="p">)</span> <span class="p">{</span>
-	<span class="nx">doc</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">html</span><span class="p">.</span><span class="nx">Parse</span><span class="p">(</span><span class="nx">r</span><span class="p">)</span>
-	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-		<span class="nb">panic</span><span class="p">(</span><span class="s">&quot;Fail to parse html&quot;</span><span class="p">)</span>
-	<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">GetHtmlTitle</span><span class="p">(</span><span class="nx">r</span><span class="w"> </span><span class="nx">io</span><span class="p">.</span><span class="nx">Reader</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="kt">bool</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">	</span><span class="nx">doc</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">html</span><span class="p">.</span><span class="nx">Parse</span><span class="p">(</span><span class="nx">r</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">		</span><span class="nb">panic</span><span class="p">(</span><span class="s">&quot;Fail to parse html&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="p">}</span><span class="w"></span>
 
-	<span class="k">return</span> <span class="nx">traverse</span><span class="p">(</span><span class="nx">doc</span><span class="p">)</span>
-<span class="p">}</span>
+<span class="w">	</span><span class="k">return</span><span class="w"> </span><span class="nx">traverse</span><span class="p">(</span><span class="nx">doc</span><span class="p">)</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </td></tr></table></div></figure>
 <figure class="github-file">
@@ -351,29 +351,29 @@ environment.</p>
 <span class="normal">20</span>
 <span class="normal">21</span>
 <span class="normal">22</span>
-<span class="normal">23</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">link2rst</span>
+<span class="normal">23</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">link2rst</span><span class="w"></span>
 
-<span class="kn">import</span> <span class="p">(</span>
-	<span class="s">&quot;net/http&quot;</span>
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">	</span><span class="s">&quot;net/http&quot;</span><span class="w"></span>
 
-	<span class="s">&quot;google.golang.org/appengine&quot;</span>
-	<span class="s">&quot;google.golang.org/appengine/urlfetch&quot;</span>
-<span class="p">)</span>
+<span class="w">	</span><span class="s">&quot;google.golang.org/appengine&quot;</span><span class="w"></span>
+<span class="w">	</span><span class="s">&quot;google.golang.org/appengine/urlfetch&quot;</span><span class="w"></span>
+<span class="p">)</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">getLinkRst</span><span class="p">(</span><span class="nx">url</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="kt">string</span> <span class="p">{</span>
-	<span class="nx">ctx</span> <span class="o">:=</span> <span class="nx">appengine</span><span class="p">.</span><span class="nx">NewContext</span><span class="p">(</span><span class="nx">r</span><span class="p">)</span>
-	<span class="nx">client</span> <span class="o">:=</span> <span class="nx">urlfetch</span><span class="p">.</span><span class="nx">Client</span><span class="p">(</span><span class="nx">ctx</span><span class="p">)</span>
-	<span class="nx">resp</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">client</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="nx">url</span><span class="p">)</span>
-	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-		<span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
-	<span class="p">}</span>
-	<span class="k">defer</span> <span class="nx">resp</span><span class="p">.</span><span class="nx">Body</span><span class="p">.</span><span class="nx">Close</span><span class="p">()</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">getLinkRst</span><span class="p">(</span><span class="nx">url</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">r</span><span class="w"> </span><span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">	</span><span class="nx">ctx</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">appengine</span><span class="p">.</span><span class="nx">NewContext</span><span class="p">(</span><span class="nx">r</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="nx">client</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">urlfetch</span><span class="p">.</span><span class="nx">Client</span><span class="p">(</span><span class="nx">ctx</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="nx">resp</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">client</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="nx">url</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">		</span><span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="p">}</span><span class="w"></span>
+<span class="w">	</span><span class="k">defer</span><span class="w"> </span><span class="nx">resp</span><span class="p">.</span><span class="nx">Body</span><span class="p">.</span><span class="nx">Close</span><span class="p">()</span><span class="w"></span>
 
-	<span class="k">if</span> <span class="nx">title</span><span class="p">,</span> <span class="nx">ok</span> <span class="o">:=</span> <span class="nx">GetHtmlTitle</span><span class="p">(</span><span class="nx">resp</span><span class="p">.</span><span class="nx">Body</span><span class="p">);</span> <span class="nx">ok</span> <span class="p">{</span>
-		<span class="k">return</span> <span class="s">&quot;`&quot;</span> <span class="o">+</span> <span class="nx">title</span> <span class="o">+</span> <span class="s">&quot; &lt;&quot;</span> <span class="o">+</span> <span class="nx">url</span> <span class="o">+</span> <span class="s">&quot;&gt;`_&quot;</span>
-	<span class="p">}</span>
-	<span class="k">return</span> <span class="s">&quot;&quot;</span>
-<span class="p">}</span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">title</span><span class="p">,</span><span class="w"> </span><span class="nx">ok</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">GetHtmlTitle</span><span class="p">(</span><span class="nx">resp</span><span class="p">.</span><span class="nx">Body</span><span class="p">);</span><span class="w"> </span><span class="nx">ok</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">		</span><span class="k">return</span><span class="w"> </span><span class="s">&quot;`&quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">title</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot; &lt;&quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">url</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot;&gt;`_&quot;</span><span class="w"></span>
+<span class="w">	</span><span class="p">}</span><span class="w"></span>
+<span class="w">	</span><span class="k">return</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </td></tr></table></div></figure>
 <hr class="docutils" />

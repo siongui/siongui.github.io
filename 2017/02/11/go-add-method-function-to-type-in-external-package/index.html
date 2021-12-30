@@ -56,44 +56,44 @@
     <div class="main-content"><p>When I write frontend code in <a class="reference external" href="https://golang.org/">Go</a> (compiled to <a class="reference external" href="https://www.google.com/search?q=JavaScript">JavaScript</a> via <a class="reference external" href="http://www.gopherjs.org/">GopherJS</a>), I
 want to make my code look like <a class="reference external" href="https://www.google.com/search?q=JavaScript">JavaScript</a> code as much as possible. For
 example, I want to <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/API/Document/getElementById">getElementById</a> in <a class="reference external" href="https://golang.org/">Go</a> as follows:</p>
-<div class="highlight"><pre><span></span><span class="nx">element</span> <span class="o">:=</span> <span class="nx">Document</span><span class="p">.</span><span class="nx">GetElementById</span><span class="p">(</span><span class="s">&quot;elmId&quot;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><span class="nx">element</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">Document</span><span class="p">.</span><span class="nx">GetElementById</span><span class="p">(</span><span class="s">&quot;elmId&quot;</span><span class="p">)</span><span class="w"></span>
 </pre></div>
 <p>So I write a <a class="reference external" href="https://golang.org/">Go</a>/<a class="reference external" href="http://www.gopherjs.org/">GopherJS</a> library <a class="footnote-reference" href="#footnote-1" id="footnote-reference-1">[1]</a> to realize my idea:</p>
-<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="p">(</span>
-      <span class="s">&quot;github.com/gopherjs/gopherjs/js&quot;</span>
-<span class="p">)</span>
+<div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">      </span><span class="s">&quot;github.com/gopherjs/gopherjs/js&quot;</span><span class="w"></span>
+<span class="p">)</span><span class="w"></span>
 
-<span class="kd">var</span> <span class="nx">Document</span> <span class="p">=</span> <span class="nx">js</span><span class="p">.</span><span class="nx">Global</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;document&quot;</span><span class="p">)</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">Document</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">js</span><span class="p">.</span><span class="nx">Global</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;document&quot;</span><span class="p">)</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="p">(</span><span class="nx">o</span> <span class="o">*</span><span class="nx">js</span><span class="p">.</span><span class="nx">Object</span><span class="p">)</span> <span class="nx">GetElementById</span><span class="p">(</span><span class="nx">id</span> <span class="kt">string</span><span class="p">)</span> <span class="o">*</span><span class="nx">js</span><span class="p">.</span><span class="nx">Object</span> <span class="p">{</span>
-      <span class="k">return</span> <span class="nx">o</span><span class="p">.</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;getElementById&quot;</span><span class="p">,</span> <span class="nx">id</span><span class="p">)</span>
-<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">o</span><span class="w"> </span><span class="o">*</span><span class="nx">js</span><span class="p">.</span><span class="nx">Object</span><span class="p">)</span><span class="w"> </span><span class="nx">GetElementById</span><span class="p">(</span><span class="nx">id</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="nx">js</span><span class="p">.</span><span class="nx">Object</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="nx">o</span><span class="p">.</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;getElementById&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">id</span><span class="p">)</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 <p>When I compile the code, I get the following error message:</p>
-<div class="highlight"><pre><span></span><span class="nx">panic</span><span class="p">:</span> <span class="kd">interface</span> <span class="nx">conversion</span><span class="p">:</span> <span class="nx">ast</span><span class="p">.</span><span class="nx">Expr</span> <span class="nx">is</span> <span class="o">*</span><span class="nx">ast</span><span class="p">.</span><span class="nx">SelectorExpr</span><span class="p">,</span> <span class="nx">not</span> <span class="o">*</span><span class="nx">ast</span><span class="p">.</span><span class="nx">Ident</span> <span class="p">[</span><span class="nx">recovered</span><span class="p">]</span>
-      <span class="nx">panic</span><span class="p">:</span> <span class="kd">interface</span> <span class="nx">conversion</span><span class="p">:</span> <span class="nx">ast</span><span class="p">.</span><span class="nx">Expr</span> <span class="nx">is</span> <span class="o">*</span><span class="nx">ast</span><span class="p">.</span><span class="nx">SelectorExpr</span><span class="p">,</span> <span class="nx">not</span> <span class="o">*</span><span class="nx">ast</span><span class="p">.</span><span class="nx">Ident</span>
+<div class="highlight"><pre><span></span><span class="nx">panic</span><span class="p">:</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="nx">conversion</span><span class="p">:</span><span class="w"> </span><span class="nx">ast</span><span class="p">.</span><span class="nx">Expr</span><span class="w"> </span><span class="nx">is</span><span class="w"> </span><span class="o">*</span><span class="nx">ast</span><span class="p">.</span><span class="nx">SelectorExpr</span><span class="p">,</span><span class="w"> </span><span class="nx">not</span><span class="w"> </span><span class="o">*</span><span class="nx">ast</span><span class="p">.</span><span class="nx">Ident</span><span class="w"> </span><span class="p">[</span><span class="nx">recovered</span><span class="p">]</span><span class="w"></span>
+<span class="w">      </span><span class="nx">panic</span><span class="p">:</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="nx">conversion</span><span class="p">:</span><span class="w"> </span><span class="nx">ast</span><span class="p">.</span><span class="nx">Expr</span><span class="w"> </span><span class="nx">is</span><span class="w"> </span><span class="o">*</span><span class="nx">ast</span><span class="p">.</span><span class="nx">SelectorExpr</span><span class="p">,</span><span class="w"> </span><span class="nx">not</span><span class="w"> </span><span class="o">*</span><span class="nx">ast</span><span class="p">.</span><span class="nx">Ident</span><span class="w"></span>
 </pre></div>
 
 <p>After some googling <a class="footnote-reference" href="#footnote-2" id="footnote-reference-2">[2]</a> <a class="footnote-reference" href="#footnote-3" id="footnote-reference-3">[3]</a> <a class="footnote-reference" href="#footnote-4" id="footnote-reference-4">[4]</a>, I found that it is impossible to add method
 to existing type in external package. But good news is that I can still do
 something similar as follows:</p>
-<div class="highlight"><pre><span></span><span class="kd">type</span> <span class="nx">Object</span> <span class="kd">struct</span> <span class="p">{</span>
-      <span class="o">*</span><span class="nx">js</span><span class="p">.</span><span class="nx">Object</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span></span><span class="kd">type</span><span class="w"> </span><span class="nx">Object</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="o">*</span><span class="nx">js</span><span class="p">.</span><span class="nx">Object</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">var</span> <span class="nx">Document</span> <span class="p">=</span> <span class="o">&amp;</span><span class="nx">Object</span><span class="p">{</span><span class="nx">js</span><span class="p">.</span><span class="nx">Global</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;document&quot;</span><span class="p">)}</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">Document</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">Object</span><span class="p">{</span><span class="nx">js</span><span class="p">.</span><span class="nx">Global</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;document&quot;</span><span class="p">)}</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="p">(</span><span class="nx">o</span> <span class="o">*</span><span class="nx">Object</span><span class="p">)</span> <span class="nx">GetElementById</span><span class="p">(</span><span class="nx">id</span> <span class="kt">string</span><span class="p">)</span> <span class="o">*</span><span class="nx">Object</span> <span class="p">{</span>
-      <span class="k">return</span> <span class="o">&amp;</span><span class="nx">Object</span><span class="p">{</span><span class="nx">o</span><span class="p">.</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;getElementById&quot;</span><span class="p">,</span> <span class="nx">id</span><span class="p">)}</span>
-<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">o</span><span class="w"> </span><span class="o">*</span><span class="nx">Object</span><span class="p">)</span><span class="w"> </span><span class="nx">GetElementById</span><span class="p">(</span><span class="nx">id</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="nx">Object</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">Object</span><span class="p">{</span><span class="nx">o</span><span class="p">.</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;getElementById&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">id</span><span class="p">)}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 <p>Here we wrap <tt class="docutils literal">*js.Object</tt> in a new defined type <em>Object</em> in our package <a class="footnote-reference" href="#footnote-1" id="footnote-reference-5">[1]</a>.
 And we can <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/API/Document/getElementById">getElementById</a> in <a class="reference external" href="https://golang.org/">Go</a> as follows:</p>
-<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="p">(</span>
-      <span class="p">.</span> <span class="s">&quot;github.com/siongui/godom&quot;</span>
-<span class="p">)</span>
+<div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">      </span><span class="p">.</span><span class="w"> </span><span class="s">&quot;github.com/siongui/godom&quot;</span><span class="w"></span>
+<span class="p">)</span><span class="w"></span>
 
-<span class="nx">element</span> <span class="o">:=</span> <span class="nx">Document</span><span class="p">.</span><span class="nx">GetElementById</span><span class="p">(</span><span class="s">&quot;elmId&quot;</span><span class="p">)</span>
+<span class="nx">element</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">Document</span><span class="p">.</span><span class="nx">GetElementById</span><span class="p">(</span><span class="s">&quot;elmId&quot;</span><span class="p">)</span><span class="w"></span>
 </pre></div>
 
 <hr class="docutils" />

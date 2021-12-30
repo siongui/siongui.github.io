@@ -76,39 +76,39 @@ that all starting numbers finish at 1.</p>
 <blockquote>
 starting number: 837799, chain length: 525</blockquote>
 <p class="align-center rubric"><a class="reference external" href="https://play.golang.org/p/Ha3kbkW2eo">Run Code on Go Playground</a></p>
-<div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
+<div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w"></span>
 
-<span class="kn">import</span> <span class="p">(</span>
-      <span class="s">&quot;fmt&quot;</span>
-<span class="p">)</span>
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">      </span><span class="s">&quot;fmt&quot;</span><span class="w"></span>
+<span class="p">)</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">CollatzSequence</span><span class="p">(</span><span class="nx">n</span> <span class="kt">uint</span><span class="p">)</span> <span class="p">[]</span><span class="kt">uint</span> <span class="p">{</span>
-      <span class="kd">var</span> <span class="nx">result</span> <span class="p">[]</span><span class="kt">uint</span>
-      <span class="nx">result</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">result</span><span class="p">,</span> <span class="nx">n</span><span class="p">)</span>
-      <span class="k">for</span> <span class="nx">n</span> <span class="o">!=</span> <span class="mi">1</span> <span class="p">{</span>
-              <span class="k">if</span> <span class="nx">n</span><span class="o">%</span><span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
-                      <span class="nx">n</span> <span class="o">/=</span> <span class="mi">2</span>
-              <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-                      <span class="nx">n</span> <span class="p">=</span> <span class="mi">3</span><span class="o">*</span><span class="nx">n</span> <span class="o">+</span> <span class="mi">1</span>
-              <span class="p">}</span>
-              <span class="nx">result</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">result</span><span class="p">,</span> <span class="nx">n</span><span class="p">)</span>
-      <span class="p">}</span>
-      <span class="k">return</span> <span class="nx">result</span>
-<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">CollatzSequence</span><span class="p">(</span><span class="nx">n</span><span class="w"> </span><span class="kt">uint</span><span class="p">)</span><span class="w"> </span><span class="p">[]</span><span class="kt">uint</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="kd">var</span><span class="w"> </span><span class="nx">result</span><span class="w"> </span><span class="p">[]</span><span class="kt">uint</span><span class="w"></span>
+<span class="w">      </span><span class="nx">result</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">append</span><span class="p">(</span><span class="nx">result</span><span class="p">,</span><span class="w"> </span><span class="nx">n</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="k">for</span><span class="w"> </span><span class="nx">n</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="k">if</span><span class="w"> </span><span class="nx">n</span><span class="o">%</span><span class="mi">2</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                      </span><span class="nx">n</span><span class="w"> </span><span class="o">/=</span><span class="w"> </span><span class="mi">2</span><span class="w"></span>
+<span class="w">              </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                      </span><span class="nx">n</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">3</span><span class="o">*</span><span class="nx">n</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="w"></span>
+<span class="w">              </span><span class="p">}</span><span class="w"></span>
+<span class="w">              </span><span class="nx">result</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">append</span><span class="p">(</span><span class="nx">result</span><span class="p">,</span><span class="w"> </span><span class="nx">n</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="nx">result</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
-      <span class="nx">number</span> <span class="o">:=</span> <span class="nb">uint</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-      <span class="nx">max</span> <span class="o">:=</span> <span class="mi">1</span>
-      <span class="k">for</span> <span class="nx">n</span> <span class="o">:=</span> <span class="nb">uint</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span> <span class="nx">n</span> <span class="p">&lt;</span> <span class="mi">1000000</span><span class="p">;</span> <span class="nx">n</span><span class="o">++</span> <span class="p">{</span>
-              <span class="nx">length</span> <span class="o">:=</span> <span class="nb">len</span><span class="p">(</span><span class="nx">CollatzSequence</span><span class="p">(</span><span class="nx">n</span><span class="p">))</span>
-              <span class="k">if</span> <span class="nx">length</span> <span class="p">&gt;</span> <span class="nx">max</span> <span class="p">{</span>
-                      <span class="nx">number</span> <span class="p">=</span> <span class="nx">n</span>
-                      <span class="nx">max</span> <span class="p">=</span> <span class="nx">length</span>
-              <span class="p">}</span>
-      <span class="p">}</span>
-      <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">number</span><span class="p">)</span>
-      <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">max</span><span class="p">)</span>
-<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nx">number</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">uint</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="nx">max</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">1</span><span class="w"></span>
+<span class="w">      </span><span class="k">for</span><span class="w"> </span><span class="nx">n</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">uint</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span><span class="w"> </span><span class="nx">n</span><span class="w"> </span><span class="p">&lt;</span><span class="w"> </span><span class="mi">1000000</span><span class="p">;</span><span class="w"> </span><span class="nx">n</span><span class="o">++</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="nx">length</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="nx">CollatzSequence</span><span class="p">(</span><span class="nx">n</span><span class="p">))</span><span class="w"></span>
+<span class="w">              </span><span class="k">if</span><span class="w"> </span><span class="nx">length</span><span class="w"> </span><span class="p">&gt;</span><span class="w"> </span><span class="nx">max</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                      </span><span class="nx">number</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">n</span><span class="w"></span>
+<span class="w">                      </span><span class="nx">max</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">length</span><span class="w"></span>
+<span class="w">              </span><span class="p">}</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
+<span class="w">      </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">number</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">max</span><span class="p">)</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 
 <p>Tested on: <a class="reference external" href="https://play.golang.org/">Go Playground</a></p>

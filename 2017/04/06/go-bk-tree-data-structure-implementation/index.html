@@ -132,71 +132,71 @@ the <em>Levenshtein distance</em> section below.</p>
 <span class="normal">62</span>
 <span class="normal">63</span>
 <span class="normal">64</span>
-<span class="normal">65</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">ld</span>
+<span class="normal">65</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">ld</span><span class="w"></span>
 
-<span class="kd">type</span> <span class="nx">BKNode</span> <span class="kd">struct</span> <span class="p">{</span>
-	<span class="nx">Str</span>      <span class="kt">string</span>
-	<span class="nx">Children</span> <span class="kd">map</span><span class="p">[</span><span class="kt">int</span><span class="p">]</span><span class="o">*</span><span class="nx">BKNode</span>
-<span class="p">}</span>
+<span class="kd">type</span><span class="w"> </span><span class="nx">BKNode</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">	</span><span class="nx">Str</span><span class="w">      </span><span class="kt">string</span><span class="w"></span>
+<span class="w">	</span><span class="nx">Children</span><span class="w"> </span><span class="kd">map</span><span class="p">[</span><span class="kt">int</span><span class="p">]</span><span class="o">*</span><span class="nx">BKNode</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">type</span> <span class="nx">BKTree</span> <span class="kd">struct</span> <span class="p">{</span>
-	<span class="nx">root</span>         <span class="o">*</span><span class="nx">BKNode</span>
-	<span class="nx">DistanceFunc</span> <span class="kd">func</span><span class="p">(</span><span class="kt">string</span><span class="p">,</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">int</span>
-<span class="p">}</span>
+<span class="kd">type</span><span class="w"> </span><span class="nx">BKTree</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">	</span><span class="nx">root</span><span class="w">         </span><span class="o">*</span><span class="nx">BKNode</span><span class="w"></span>
+<span class="w">	</span><span class="nx">DistanceFunc</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="kt">int</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">NewBKTree</span><span class="p">()</span> <span class="o">*</span><span class="nx">BKTree</span> <span class="p">{</span>
-	<span class="k">return</span> <span class="o">&amp;</span><span class="nx">BKTree</span><span class="p">{</span>
-		<span class="nx">root</span><span class="p">:</span>         <span class="kc">nil</span><span class="p">,</span>
-		<span class="nx">DistanceFunc</span><span class="p">:</span> <span class="nx">EditDistance</span><span class="p">,</span>
-	<span class="p">}</span>
-<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">NewBKTree</span><span class="p">()</span><span class="w"> </span><span class="o">*</span><span class="nx">BKTree</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">	</span><span class="k">return</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">BKTree</span><span class="p">{</span><span class="w"></span>
+<span class="w">		</span><span class="nx">root</span><span class="p">:</span><span class="w">         </span><span class="kc">nil</span><span class="p">,</span><span class="w"></span>
+<span class="w">		</span><span class="nx">DistanceFunc</span><span class="p">:</span><span class="w"> </span><span class="nx">EditDistance</span><span class="p">,</span><span class="w"></span>
+<span class="w">	</span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="p">(</span><span class="nx">b</span> <span class="o">*</span><span class="nx">BKTree</span><span class="p">)</span> <span class="nx">Add</span><span class="p">(</span><span class="nx">s</span> <span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
-	<span class="k">if</span> <span class="nx">b</span><span class="p">.</span><span class="nx">root</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
-		<span class="nx">b</span><span class="p">.</span><span class="nx">root</span> <span class="p">=</span> <span class="o">&amp;</span><span class="nx">BKNode</span><span class="p">{</span><span class="nx">Str</span><span class="p">:</span> <span class="nx">s</span><span class="p">,</span> <span class="nx">Children</span><span class="p">:</span> <span class="nb">make</span><span class="p">(</span><span class="kd">map</span><span class="p">[</span><span class="kt">int</span><span class="p">]</span><span class="o">*</span><span class="nx">BKNode</span><span class="p">)}</span>
-		<span class="k">return</span>
-	<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">b</span><span class="w"> </span><span class="o">*</span><span class="nx">BKTree</span><span class="p">)</span><span class="w"> </span><span class="nx">Add</span><span class="p">(</span><span class="nx">s</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">b</span><span class="p">.</span><span class="nx">root</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">		</span><span class="nx">b</span><span class="p">.</span><span class="nx">root</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">BKNode</span><span class="p">{</span><span class="nx">Str</span><span class="p">:</span><span class="w"> </span><span class="nx">s</span><span class="p">,</span><span class="w"> </span><span class="nx">Children</span><span class="p">:</span><span class="w"> </span><span class="nb">make</span><span class="p">(</span><span class="kd">map</span><span class="p">[</span><span class="kt">int</span><span class="p">]</span><span class="o">*</span><span class="nx">BKNode</span><span class="p">)}</span><span class="w"></span>
+<span class="w">		</span><span class="k">return</span><span class="w"></span>
+<span class="w">	</span><span class="p">}</span><span class="w"></span>
 
-	<span class="nx">current</span> <span class="o">:=</span> <span class="nx">b</span><span class="p">.</span><span class="nx">root</span>
-	<span class="k">for</span> <span class="p">{</span>
-		<span class="nx">d</span> <span class="o">:=</span> <span class="nx">b</span><span class="p">.</span><span class="nx">DistanceFunc</span><span class="p">(</span><span class="nx">s</span><span class="p">,</span> <span class="nx">current</span><span class="p">.</span><span class="nx">Str</span><span class="p">)</span>
-		<span class="k">if</span> <span class="nx">target</span><span class="p">,</span> <span class="nx">ok</span> <span class="o">:=</span> <span class="nx">current</span><span class="p">.</span><span class="nx">Children</span><span class="p">[</span><span class="nx">d</span><span class="p">];</span> <span class="nx">ok</span> <span class="p">{</span>
-			<span class="nx">current</span> <span class="p">=</span> <span class="nx">target</span>
-		<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-			<span class="nx">current</span><span class="p">.</span><span class="nx">Children</span><span class="p">[</span><span class="nx">d</span><span class="p">]</span> <span class="p">=</span> <span class="o">&amp;</span><span class="nx">BKNode</span><span class="p">{</span><span class="nx">Str</span><span class="p">:</span> <span class="nx">s</span><span class="p">,</span> <span class="nx">Children</span><span class="p">:</span> <span class="nb">make</span><span class="p">(</span><span class="kd">map</span><span class="p">[</span><span class="kt">int</span><span class="p">]</span><span class="o">*</span><span class="nx">BKNode</span><span class="p">)}</span>
-			<span class="k">break</span>
-		<span class="p">}</span>
-	<span class="p">}</span>
-<span class="p">}</span>
+<span class="w">	</span><span class="nx">current</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">b</span><span class="p">.</span><span class="nx">root</span><span class="w"></span>
+<span class="w">	</span><span class="k">for</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">		</span><span class="nx">d</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">b</span><span class="p">.</span><span class="nx">DistanceFunc</span><span class="p">(</span><span class="nx">s</span><span class="p">,</span><span class="w"> </span><span class="nx">current</span><span class="p">.</span><span class="nx">Str</span><span class="p">)</span><span class="w"></span>
+<span class="w">		</span><span class="k">if</span><span class="w"> </span><span class="nx">target</span><span class="p">,</span><span class="w"> </span><span class="nx">ok</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">current</span><span class="p">.</span><span class="nx">Children</span><span class="p">[</span><span class="nx">d</span><span class="p">];</span><span class="w"> </span><span class="nx">ok</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">			</span><span class="nx">current</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">target</span><span class="w"></span>
+<span class="w">		</span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">			</span><span class="nx">current</span><span class="p">.</span><span class="nx">Children</span><span class="p">[</span><span class="nx">d</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">BKNode</span><span class="p">{</span><span class="nx">Str</span><span class="p">:</span><span class="w"> </span><span class="nx">s</span><span class="p">,</span><span class="w"> </span><span class="nx">Children</span><span class="p">:</span><span class="w"> </span><span class="nb">make</span><span class="p">(</span><span class="kd">map</span><span class="p">[</span><span class="kt">int</span><span class="p">]</span><span class="o">*</span><span class="nx">BKNode</span><span class="p">)}</span><span class="w"></span>
+<span class="w">			</span><span class="k">break</span><span class="w"></span>
+<span class="w">		</span><span class="p">}</span><span class="w"></span>
+<span class="w">	</span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="p">(</span><span class="nx">b</span> <span class="o">*</span><span class="nx">BKTree</span><span class="p">)</span> <span class="nx">Search</span><span class="p">(</span><span class="nx">s</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">radius</span> <span class="kt">int</span><span class="p">)</span> <span class="p">[]</span><span class="o">*</span><span class="nx">BKNode</span> <span class="p">{</span>
-	<span class="kd">var</span> <span class="nx">resultList</span> <span class="p">[]</span><span class="o">*</span><span class="nx">BKNode</span>
-	<span class="k">if</span> <span class="nx">b</span><span class="p">.</span><span class="nx">root</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
-		<span class="k">return</span> <span class="nx">resultList</span>
-	<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">b</span><span class="w"> </span><span class="o">*</span><span class="nx">BKTree</span><span class="p">)</span><span class="w"> </span><span class="nx">Search</span><span class="p">(</span><span class="nx">s</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">radius</span><span class="w"> </span><span class="kt">int</span><span class="p">)</span><span class="w"> </span><span class="p">[]</span><span class="o">*</span><span class="nx">BKNode</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">	</span><span class="kd">var</span><span class="w"> </span><span class="nx">resultList</span><span class="w"> </span><span class="p">[]</span><span class="o">*</span><span class="nx">BKNode</span><span class="w"></span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">b</span><span class="p">.</span><span class="nx">root</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">		</span><span class="k">return</span><span class="w"> </span><span class="nx">resultList</span><span class="w"></span>
+<span class="w">	</span><span class="p">}</span><span class="w"></span>
 
-	<span class="kd">var</span> <span class="nx">candidates</span> <span class="p">[]</span><span class="o">*</span><span class="nx">BKNode</span>
-	<span class="nx">candidates</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">candidates</span><span class="p">,</span> <span class="nx">b</span><span class="p">.</span><span class="nx">root</span><span class="p">)</span>
-	<span class="k">for</span> <span class="nb">len</span><span class="p">(</span><span class="nx">candidates</span><span class="p">)</span> <span class="p">&gt;</span> <span class="mi">0</span> <span class="p">{</span>
-		<span class="nx">candidate</span> <span class="o">:=</span> <span class="nx">candidates</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-		<span class="nx">candidates</span> <span class="p">=</span> <span class="nx">candidates</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+<span class="w">	</span><span class="kd">var</span><span class="w"> </span><span class="nx">candidates</span><span class="w"> </span><span class="p">[]</span><span class="o">*</span><span class="nx">BKNode</span><span class="w"></span>
+<span class="w">	</span><span class="nx">candidates</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">append</span><span class="p">(</span><span class="nx">candidates</span><span class="p">,</span><span class="w"> </span><span class="nx">b</span><span class="p">.</span><span class="nx">root</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="k">for</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="nx">candidates</span><span class="p">)</span><span class="w"> </span><span class="p">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">		</span><span class="nx">candidate</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">candidates</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"></span>
+<span class="w">		</span><span class="nx">candidates</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">candidates</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span><span class="w"></span>
 
-		<span class="nx">d</span> <span class="o">:=</span> <span class="nx">b</span><span class="p">.</span><span class="nx">DistanceFunc</span><span class="p">(</span><span class="nx">s</span><span class="p">,</span> <span class="nx">candidate</span><span class="p">.</span><span class="nx">Str</span><span class="p">)</span>
-		<span class="k">if</span> <span class="nx">d</span> <span class="o">&lt;=</span> <span class="nx">radius</span> <span class="p">{</span>
-			<span class="nx">resultList</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">resultList</span><span class="p">,</span> <span class="nx">candidate</span><span class="p">)</span>
-		<span class="p">}</span>
+<span class="w">		</span><span class="nx">d</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">b</span><span class="p">.</span><span class="nx">DistanceFunc</span><span class="p">(</span><span class="nx">s</span><span class="p">,</span><span class="w"> </span><span class="nx">candidate</span><span class="p">.</span><span class="nx">Str</span><span class="p">)</span><span class="w"></span>
+<span class="w">		</span><span class="k">if</span><span class="w"> </span><span class="nx">d</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="nx">radius</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">			</span><span class="nx">resultList</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">append</span><span class="p">(</span><span class="nx">resultList</span><span class="p">,</span><span class="w"> </span><span class="nx">candidate</span><span class="p">)</span><span class="w"></span>
+<span class="w">		</span><span class="p">}</span><span class="w"></span>
 
-		<span class="nx">low</span> <span class="o">:=</span> <span class="nx">d</span> <span class="o">-</span> <span class="nx">radius</span>
-		<span class="nx">high</span> <span class="o">:=</span> <span class="nx">d</span> <span class="o">+</span> <span class="nx">radius</span>
-		<span class="k">for</span> <span class="nx">distance</span><span class="p">,</span> <span class="nx">node</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">candidate</span><span class="p">.</span><span class="nx">Children</span> <span class="p">{</span>
-			<span class="k">if</span> <span class="nx">distance</span> <span class="o">&gt;=</span> <span class="nx">low</span> <span class="o">&amp;&amp;</span> <span class="nx">distance</span> <span class="o">&lt;=</span> <span class="nx">high</span> <span class="p">{</span>
-				<span class="nx">candidates</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">candidates</span><span class="p">,</span> <span class="nx">node</span><span class="p">)</span>
-			<span class="p">}</span>
-		<span class="p">}</span>
-	<span class="p">}</span>
+<span class="w">		</span><span class="nx">low</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">d</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nx">radius</span><span class="w"></span>
+<span class="w">		</span><span class="nx">high</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">d</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">radius</span><span class="w"></span>
+<span class="w">		</span><span class="k">for</span><span class="w"> </span><span class="nx">distance</span><span class="p">,</span><span class="w"> </span><span class="nx">node</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="nx">candidate</span><span class="p">.</span><span class="nx">Children</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">			</span><span class="k">if</span><span class="w"> </span><span class="nx">distance</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="nx">low</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">distance</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="nx">high</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">				</span><span class="nx">candidates</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">append</span><span class="p">(</span><span class="nx">candidates</span><span class="p">,</span><span class="w"> </span><span class="nx">node</span><span class="p">)</span><span class="w"></span>
+<span class="w">			</span><span class="p">}</span><span class="w"></span>
+<span class="w">		</span><span class="p">}</span><span class="w"></span>
+<span class="w">	</span><span class="p">}</span><span class="w"></span>
 
-	<span class="k">return</span> <span class="nx">resultList</span>
-<span class="p">}</span>
+<span class="w">	</span><span class="k">return</span><span class="w"> </span><span class="nx">resultList</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </td></tr></table></div></figure>
 <p>Example of using Bk-tree:</p>
@@ -233,34 +233,34 @@ the <em>Levenshtein distance</em> section below.</p>
 <span class="normal">25</span>
 <span class="normal">26</span>
 <span class="normal">27</span>
-<span class="normal">28</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">ld</span>
+<span class="normal">28</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">ld</span><span class="w"></span>
 
-<span class="kn">import</span> <span class="p">(</span>
-	<span class="s">&quot;encoding/json&quot;</span>
-	<span class="s">&quot;os&quot;</span>
-	<span class="s">&quot;testing&quot;</span>
-<span class="p">)</span>
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">	</span><span class="s">&quot;encoding/json&quot;</span><span class="w"></span>
+<span class="w">	</span><span class="s">&quot;os&quot;</span><span class="w"></span>
+<span class="w">	</span><span class="s">&quot;testing&quot;</span><span class="w"></span>
+<span class="p">)</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">ExampleBKTree</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span> <span class="p">{</span>
-	<span class="nx">bkt</span> <span class="o">:=</span> <span class="nx">NewBKTree</span><span class="p">()</span>
-	<span class="nx">bkt</span><span class="p">.</span><span class="nx">Add</span><span class="p">(</span><span class="s">&quot;some&quot;</span><span class="p">)</span>
-	<span class="nx">bkt</span><span class="p">.</span><span class="nx">Add</span><span class="p">(</span><span class="s">&quot;soft&quot;</span><span class="p">)</span>
-	<span class="nx">bkt</span><span class="p">.</span><span class="nx">Add</span><span class="p">(</span><span class="s">&quot;same&quot;</span><span class="p">)</span>
-	<span class="nx">bkt</span><span class="p">.</span><span class="nx">Add</span><span class="p">(</span><span class="s">&quot;mole&quot;</span><span class="p">)</span>
-	<span class="nx">bkt</span><span class="p">.</span><span class="nx">Add</span><span class="p">(</span><span class="s">&quot;soda&quot;</span><span class="p">)</span>
-	<span class="nx">bkt</span><span class="p">.</span><span class="nx">Add</span><span class="p">(</span><span class="s">&quot;salmon&quot;</span><span class="p">)</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">ExampleBKTree</span><span class="p">(</span><span class="nx">t</span><span class="w"> </span><span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">	</span><span class="nx">bkt</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">NewBKTree</span><span class="p">()</span><span class="w"></span>
+<span class="w">	</span><span class="nx">bkt</span><span class="p">.</span><span class="nx">Add</span><span class="p">(</span><span class="s">&quot;some&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="nx">bkt</span><span class="p">.</span><span class="nx">Add</span><span class="p">(</span><span class="s">&quot;soft&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="nx">bkt</span><span class="p">.</span><span class="nx">Add</span><span class="p">(</span><span class="s">&quot;same&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="nx">bkt</span><span class="p">.</span><span class="nx">Add</span><span class="p">(</span><span class="s">&quot;mole&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="nx">bkt</span><span class="p">.</span><span class="nx">Add</span><span class="p">(</span><span class="s">&quot;soda&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="nx">bkt</span><span class="p">.</span><span class="nx">Add</span><span class="p">(</span><span class="s">&quot;salmon&quot;</span><span class="p">)</span><span class="w"></span>
 
-	<span class="nx">b</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">json</span><span class="p">.</span><span class="nx">MarshalIndent</span><span class="p">(</span><span class="nx">bkt</span><span class="p">.</span><span class="nx">root</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">,</span> <span class="s">&quot;  &quot;</span><span class="p">)</span>
-	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-		<span class="nx">t</span><span class="p">.</span><span class="nx">Error</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
-	<span class="p">}</span>
-	<span class="nx">os</span><span class="p">.</span><span class="nx">Stdout</span><span class="p">.</span><span class="nx">Write</span><span class="p">(</span><span class="nx">b</span><span class="p">)</span>
+<span class="w">	</span><span class="nx">b</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">json</span><span class="p">.</span><span class="nx">MarshalIndent</span><span class="p">(</span><span class="nx">bkt</span><span class="p">.</span><span class="nx">root</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;  &quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">		</span><span class="nx">t</span><span class="p">.</span><span class="nx">Error</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="p">}</span><span class="w"></span>
+<span class="w">	</span><span class="nx">os</span><span class="p">.</span><span class="nx">Stdout</span><span class="p">.</span><span class="nx">Write</span><span class="p">(</span><span class="nx">b</span><span class="p">)</span><span class="w"></span>
 
-	<span class="nx">r</span> <span class="o">:=</span> <span class="nx">bkt</span><span class="p">.</span><span class="nx">Search</span><span class="p">(</span><span class="s">&quot;sort&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-	<span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">node</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">r</span> <span class="p">{</span>
-		<span class="nb">println</span><span class="p">(</span><span class="nx">node</span><span class="p">.</span><span class="nx">Str</span><span class="p">)</span>
-	<span class="p">}</span>
-<span class="p">}</span>
+<span class="w">	</span><span class="nx">r</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">bkt</span><span class="p">.</span><span class="nx">Search</span><span class="p">(</span><span class="s">&quot;sort&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="k">for</span><span class="w"> </span><span class="nx">_</span><span class="p">,</span><span class="w"> </span><span class="nx">node</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="nx">r</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">		</span><span class="nb">println</span><span class="p">(</span><span class="nx">node</span><span class="p">.</span><span class="nx">Str</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </td></tr></table></div></figure>
 <div class="section" id="levenshtein-distance">
@@ -291,26 +291,26 @@ the <em>Levenshtein distance</em> section below.</p>
 <span class="normal">17</span>
 <span class="normal">18</span>
 <span class="normal">19</span>
-<span class="normal">20</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">ld</span>
+<span class="normal">20</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">ld</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">StringToRuneSlice</span><span class="p">(</span><span class="nx">s</span> <span class="kt">string</span><span class="p">)</span> <span class="p">[]</span><span class="kt">rune</span> <span class="p">{</span>
-	<span class="kd">var</span> <span class="nx">r</span> <span class="p">[]</span><span class="kt">rune</span>
-	<span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">runeValue</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">s</span> <span class="p">{</span>
-		<span class="nx">r</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">r</span><span class="p">,</span> <span class="nx">runeValue</span><span class="p">)</span>
-	<span class="p">}</span>
-	<span class="k">return</span> <span class="nx">r</span>
-<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">StringToRuneSlice</span><span class="p">(</span><span class="nx">s</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">[]</span><span class="kt">rune</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">	</span><span class="kd">var</span><span class="w"> </span><span class="nx">r</span><span class="w"> </span><span class="p">[]</span><span class="kt">rune</span><span class="w"></span>
+<span class="w">	</span><span class="k">for</span><span class="w"> </span><span class="nx">_</span><span class="p">,</span><span class="w"> </span><span class="nx">runeValue</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="nx">s</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">		</span><span class="nx">r</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">append</span><span class="p">(</span><span class="nx">r</span><span class="p">,</span><span class="w"> </span><span class="nx">runeValue</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="p">}</span><span class="w"></span>
+<span class="w">	</span><span class="k">return</span><span class="w"> </span><span class="nx">r</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">minimum</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">,</span> <span class="nx">c</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
-	<span class="nx">min</span> <span class="o">:=</span> <span class="nx">a</span>
-	<span class="k">if</span> <span class="nx">min</span> <span class="p">&gt;</span> <span class="nx">b</span> <span class="p">{</span>
-		<span class="nx">min</span> <span class="p">=</span> <span class="nx">b</span>
-	<span class="p">}</span>
-	<span class="k">if</span> <span class="nx">min</span> <span class="p">&gt;</span> <span class="nx">c</span> <span class="p">{</span>
-		<span class="nx">min</span> <span class="p">=</span> <span class="nx">c</span>
-	<span class="p">}</span>
-	<span class="k">return</span> <span class="nx">min</span>
-<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">minimum</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span><span class="w"> </span><span class="nx">b</span><span class="p">,</span><span class="w"> </span><span class="nx">c</span><span class="w"> </span><span class="kt">int</span><span class="p">)</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">	</span><span class="nx">min</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">a</span><span class="w"></span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">min</span><span class="w"> </span><span class="p">&gt;</span><span class="w"> </span><span class="nx">b</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">		</span><span class="nx">min</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">b</span><span class="w"></span>
+<span class="w">	</span><span class="p">}</span><span class="w"></span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">min</span><span class="w"> </span><span class="p">&gt;</span><span class="w"> </span><span class="nx">c</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">		</span><span class="nx">min</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">c</span><span class="w"></span>
+<span class="w">	</span><span class="p">}</span><span class="w"></span>
+<span class="w">	</span><span class="k">return</span><span class="w"> </span><span class="nx">min</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </td></tr></table></div></figure>
 <figure class="github-file">
@@ -360,48 +360,48 @@ the <em>Levenshtein distance</em> section below.</p>
 <span class="normal">39</span>
 <span class="normal">40</span>
 <span class="normal">41</span>
-<span class="normal">42</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">ld</span>
+<span class="normal">42</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">ld</span><span class="w"></span>
 
-<span class="c1">// The edit distances here is actually Levenshtein distance, minimum number of</span>
-<span class="c1">// single-character edits (insertions, deletions or substitutions) required to</span>
-<span class="c1">// change one string into the other.</span>
-<span class="kd">func</span> <span class="nx">EditDistance</span><span class="p">(</span><span class="nx">s</span><span class="p">,</span> <span class="nx">t</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
-	<span class="nx">ss</span> <span class="o">:=</span> <span class="nx">StringToRuneSlice</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span>
-	<span class="nx">m</span> <span class="o">:=</span> <span class="nb">len</span><span class="p">(</span><span class="nx">ss</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
-	<span class="nx">tt</span> <span class="o">:=</span> <span class="nx">StringToRuneSlice</span><span class="p">(</span><span class="nx">t</span><span class="p">)</span>
-	<span class="nx">n</span> <span class="o">:=</span> <span class="nb">len</span><span class="p">(</span><span class="nx">tt</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="c1">// The edit distances here is actually Levenshtein distance, minimum number of</span><span class="w"></span>
+<span class="c1">// single-character edits (insertions, deletions or substitutions) required to</span><span class="w"></span>
+<span class="c1">// change one string into the other.</span><span class="w"></span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">EditDistance</span><span class="p">(</span><span class="nx">s</span><span class="p">,</span><span class="w"> </span><span class="nx">t</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">	</span><span class="nx">ss</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">StringToRuneSlice</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="nx">m</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="nx">ss</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="w"></span>
+<span class="w">	</span><span class="nx">tt</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">StringToRuneSlice</span><span class="p">(</span><span class="nx">t</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="nx">n</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="nx">tt</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="w"></span>
 
-	<span class="nx">d</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([][]</span><span class="kt">int</span><span class="p">,</span> <span class="nx">m</span><span class="p">)</span>
-	<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">d</span> <span class="p">{</span>
-		<span class="nx">d</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">int</span><span class="p">,</span> <span class="nx">n</span><span class="p">)</span>
-	<span class="p">}</span>
+<span class="w">	</span><span class="nx">d</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">make</span><span class="p">([][]</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="nx">m</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="k">for</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="nx">d</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">		</span><span class="nx">d</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">make</span><span class="p">([]</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="nx">n</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="p">}</span><span class="w"></span>
 
-	<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nx">m</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
-		<span class="nx">d</span><span class="p">[</span><span class="nx">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="p">=</span> <span class="nx">i</span>
-	<span class="p">}</span>
+<span class="w">	</span><span class="k">for</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="p">&lt;</span><span class="w"> </span><span class="nx">m</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="o">++</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">		</span><span class="nx">d</span><span class="p">[</span><span class="nx">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">i</span><span class="w"></span>
+<span class="w">	</span><span class="p">}</span><span class="w"></span>
 
-	<span class="k">for</span> <span class="nx">j</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">j</span> <span class="p">&lt;</span> <span class="nx">n</span><span class="p">;</span> <span class="nx">j</span><span class="o">++</span> <span class="p">{</span>
-		<span class="nx">d</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="nx">j</span><span class="p">]</span> <span class="p">=</span> <span class="nx">j</span>
-	<span class="p">}</span>
+<span class="w">	</span><span class="k">for</span><span class="w"> </span><span class="nx">j</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="nx">j</span><span class="w"> </span><span class="p">&lt;</span><span class="w"> </span><span class="nx">n</span><span class="p">;</span><span class="w"> </span><span class="nx">j</span><span class="o">++</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">		</span><span class="nx">d</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="nx">j</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">j</span><span class="w"></span>
+<span class="w">	</span><span class="p">}</span><span class="w"></span>
 
-	<span class="k">for</span> <span class="nx">j</span> <span class="o">:=</span> <span class="mi">1</span><span class="p">;</span> <span class="nx">j</span> <span class="p">&lt;</span> <span class="nx">n</span><span class="p">;</span> <span class="nx">j</span><span class="o">++</span> <span class="p">{</span>
-		<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">1</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nx">m</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
-			<span class="kd">var</span> <span class="nx">substitutionCost</span> <span class="kt">int</span>
-			<span class="k">if</span> <span class="nx">ss</span><span class="p">[</span><span class="nx">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="nx">tt</span><span class="p">[</span><span class="nx">j</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="p">{</span>
-				<span class="nx">substitutionCost</span> <span class="p">=</span> <span class="mi">0</span>
-			<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-				<span class="nx">substitutionCost</span> <span class="p">=</span> <span class="mi">1</span>
-			<span class="p">}</span>
-			<span class="nx">d</span><span class="p">[</span><span class="nx">i</span><span class="p">][</span><span class="nx">j</span><span class="p">]</span> <span class="p">=</span> <span class="nx">minimum</span><span class="p">(</span>
-				<span class="nx">d</span><span class="p">[</span><span class="nx">i</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="nx">j</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span>
-				<span class="nx">d</span><span class="p">[</span><span class="nx">i</span><span class="p">][</span><span class="nx">j</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span>
-				<span class="nx">d</span><span class="p">[</span><span class="nx">i</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="nx">j</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="nx">substitutionCost</span><span class="p">,</span>
-			<span class="p">)</span>
-		<span class="p">}</span>
-	<span class="p">}</span>
+<span class="w">	</span><span class="k">for</span><span class="w"> </span><span class="nx">j</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="nx">j</span><span class="w"> </span><span class="p">&lt;</span><span class="w"> </span><span class="nx">n</span><span class="p">;</span><span class="w"> </span><span class="nx">j</span><span class="o">++</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">		</span><span class="k">for</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="p">&lt;</span><span class="w"> </span><span class="nx">m</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="o">++</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">			</span><span class="kd">var</span><span class="w"> </span><span class="nx">substitutionCost</span><span class="w"> </span><span class="kt">int</span><span class="w"></span>
+<span class="w">			</span><span class="k">if</span><span class="w"> </span><span class="nx">ss</span><span class="p">[</span><span class="nx">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nx">tt</span><span class="p">[</span><span class="nx">j</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">				</span><span class="nx">substitutionCost</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">0</span><span class="w"></span>
+<span class="w">			</span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">				</span><span class="nx">substitutionCost</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">1</span><span class="w"></span>
+<span class="w">			</span><span class="p">}</span><span class="w"></span>
+<span class="w">			</span><span class="nx">d</span><span class="p">[</span><span class="nx">i</span><span class="p">][</span><span class="nx">j</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">minimum</span><span class="p">(</span><span class="w"></span>
+<span class="w">				</span><span class="nx">d</span><span class="p">[</span><span class="nx">i</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="nx">j</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="w"></span>
+<span class="w">				</span><span class="nx">d</span><span class="p">[</span><span class="nx">i</span><span class="p">][</span><span class="nx">j</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="w"></span>
+<span class="w">				</span><span class="nx">d</span><span class="p">[</span><span class="nx">i</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="nx">j</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="nx">substitutionCost</span><span class="p">,</span><span class="w"></span>
+<span class="w">			</span><span class="p">)</span><span class="w"></span>
+<span class="w">		</span><span class="p">}</span><span class="w"></span>
+<span class="w">	</span><span class="p">}</span><span class="w"></span>
 
-	<span class="k">return</span> <span class="nx">d</span><span class="p">[</span><span class="nx">m</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="nx">n</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-<span class="p">}</span>
+<span class="w">	</span><span class="k">return</span><span class="w"> </span><span class="nx">d</span><span class="p">[</span><span class="nx">m</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="nx">n</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </td></tr></table></div></figure>
 <hr class="docutils" />

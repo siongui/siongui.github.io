@@ -69,78 +69,78 @@ same as that written in Go.</p>
 </pre></div>
 <p><strong>Go</strong>: <em>go get</em> <em>github.com/gopherjs/gopherjs</em> and
 <em>github.com/oskca/gopherjs-vue</em> before compiling the Go code.</p>
-<div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
+<div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w"></span>
 
-<span class="kn">import</span> <span class="p">(</span>
-      <span class="s">&quot;strconv&quot;</span>
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">      </span><span class="s">&quot;strconv&quot;</span><span class="w"></span>
 
-      <span class="s">&quot;github.com/gopherjs/gopherjs/js&quot;</span>
-      <span class="s">&quot;github.com/oskca/gopherjs-vue&quot;</span>
-<span class="p">)</span>
+<span class="w">      </span><span class="s">&quot;github.com/gopherjs/gopherjs/js&quot;</span><span class="w"></span>
+<span class="w">      </span><span class="s">&quot;github.com/oskca/gopherjs-vue&quot;</span><span class="w"></span>
+<span class="p">)</span><span class="w"></span>
 
-<span class="kd">type</span> <span class="nx">Model</span> <span class="kd">struct</span> <span class="p">{</span>
-      <span class="o">*</span><span class="nx">js</span><span class="p">.</span><span class="nx">Object</span>        <span class="c1">// this is needed for bidirectional data bindings</span>
-      <span class="nx">Intn</span>       <span class="kt">string</span> <span class="s">`js:&quot;intn&quot;`</span>
-      <span class="nx">Result</span>     <span class="kt">string</span> <span class="s">`js:&quot;result&quot;`</span>
-<span class="p">}</span>
+<span class="kd">type</span><span class="w"> </span><span class="nx">Model</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="o">*</span><span class="nx">js</span><span class="p">.</span><span class="nx">Object</span><span class="w">        </span><span class="c1">// this is needed for bidirectional data bindings</span><span class="w"></span>
+<span class="w">      </span><span class="nx">Intn</span><span class="w">       </span><span class="kt">string</span><span class="w"> </span><span class="s">`js:&quot;intn&quot;`</span><span class="w"></span>
+<span class="w">      </span><span class="nx">Result</span><span class="w">     </span><span class="kt">string</span><span class="w"> </span><span class="s">`js:&quot;result&quot;`</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">SieveOfEratosthenes</span><span class="p">(</span><span class="nx">n</span> <span class="kt">int</span><span class="p">)</span> <span class="p">[]</span><span class="kt">int</span> <span class="p">{</span>
-      <span class="c1">// Create a boolean array &quot;prime[0..n]&quot; and initialize</span>
-      <span class="c1">// all entries it as true. A value in prime[i] will</span>
-      <span class="c1">// finally be false if i is Not a prime, else true.</span>
-      <span class="nx">integers</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">bool</span><span class="p">,</span> <span class="nx">n</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
-      <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">2</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nx">n</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
-              <span class="nx">integers</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="kc">true</span>
-      <span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">SieveOfEratosthenes</span><span class="p">(</span><span class="nx">n</span><span class="w"> </span><span class="kt">int</span><span class="p">)</span><span class="w"> </span><span class="p">[]</span><span class="kt">int</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="c1">// Create a boolean array &quot;prime[0..n]&quot; and initialize</span><span class="w"></span>
+<span class="w">      </span><span class="c1">// all entries it as true. A value in prime[i] will</span><span class="w"></span>
+<span class="w">      </span><span class="c1">// finally be false if i is Not a prime, else true.</span><span class="w"></span>
+<span class="w">      </span><span class="nx">integers</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">make</span><span class="p">([]</span><span class="kt">bool</span><span class="p">,</span><span class="w"> </span><span class="nx">n</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="k">for</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="p">&lt;</span><span class="w"> </span><span class="nx">n</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="o">++</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="nx">integers</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kc">true</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
 
-      <span class="k">for</span> <span class="nx">p</span> <span class="o">:=</span> <span class="mi">2</span><span class="p">;</span> <span class="nx">p</span><span class="o">*</span><span class="nx">p</span> <span class="o">&lt;=</span> <span class="nx">n</span><span class="p">;</span> <span class="nx">p</span><span class="o">++</span> <span class="p">{</span>
-              <span class="c1">// If integers[p] is not changed, then it is a prime</span>
-              <span class="k">if</span> <span class="nx">integers</span><span class="p">[</span><span class="nx">p</span><span class="p">]</span> <span class="o">==</span> <span class="kc">true</span> <span class="p">{</span>
-                      <span class="c1">// Update all multiples of p</span>
-                      <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="nx">p</span> <span class="o">*</span> <span class="mi">2</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;=</span> <span class="nx">n</span><span class="p">;</span> <span class="nx">i</span> <span class="o">+=</span> <span class="nx">p</span> <span class="p">{</span>
-                              <span class="nx">integers</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="kc">false</span>
-                      <span class="p">}</span>
-              <span class="p">}</span>
-      <span class="p">}</span>
+<span class="w">      </span><span class="k">for</span><span class="w"> </span><span class="nx">p</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w"> </span><span class="nx">p</span><span class="o">*</span><span class="nx">p</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="nx">n</span><span class="p">;</span><span class="w"> </span><span class="nx">p</span><span class="o">++</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="c1">// If integers[p] is not changed, then it is a prime</span><span class="w"></span>
+<span class="w">              </span><span class="k">if</span><span class="w"> </span><span class="nx">integers</span><span class="p">[</span><span class="nx">p</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                      </span><span class="c1">// Update all multiples of p</span><span class="w"></span>
+<span class="w">                      </span><span class="k">for</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">p</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="nx">n</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="nx">p</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                              </span><span class="nx">integers</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kc">false</span><span class="w"></span>
+<span class="w">                      </span><span class="p">}</span><span class="w"></span>
+<span class="w">              </span><span class="p">}</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
 
-      <span class="c1">// return all prime numbers &lt;= n</span>
-      <span class="kd">var</span> <span class="nx">primes</span> <span class="p">[]</span><span class="kt">int</span>
-      <span class="k">for</span> <span class="nx">p</span> <span class="o">:=</span> <span class="mi">2</span><span class="p">;</span> <span class="nx">p</span> <span class="o">&lt;=</span> <span class="nx">n</span><span class="p">;</span> <span class="nx">p</span><span class="o">++</span> <span class="p">{</span>
-              <span class="k">if</span> <span class="nx">integers</span><span class="p">[</span><span class="nx">p</span><span class="p">]</span> <span class="o">==</span> <span class="kc">true</span> <span class="p">{</span>
-                      <span class="nx">primes</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">primes</span><span class="p">,</span> <span class="nx">p</span><span class="p">)</span>
-              <span class="p">}</span>
-      <span class="p">}</span>
+<span class="w">      </span><span class="c1">// return all prime numbers &lt;= n</span><span class="w"></span>
+<span class="w">      </span><span class="kd">var</span><span class="w"> </span><span class="nx">primes</span><span class="w"> </span><span class="p">[]</span><span class="kt">int</span><span class="w"></span>
+<span class="w">      </span><span class="k">for</span><span class="w"> </span><span class="nx">p</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w"> </span><span class="nx">p</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="nx">n</span><span class="p">;</span><span class="w"> </span><span class="nx">p</span><span class="o">++</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="k">if</span><span class="w"> </span><span class="nx">integers</span><span class="p">[</span><span class="nx">p</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                      </span><span class="nx">primes</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">append</span><span class="p">(</span><span class="nx">primes</span><span class="p">,</span><span class="w"> </span><span class="nx">p</span><span class="p">)</span><span class="w"></span>
+<span class="w">              </span><span class="p">}</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
 
-      <span class="k">return</span> <span class="nx">primes</span>
-<span class="p">}</span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="nx">primes</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
-      <span class="nx">m</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">Model</span><span class="p">{</span>
-              <span class="nx">Object</span><span class="p">:</span> <span class="nx">js</span><span class="p">.</span><span class="nx">Global</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;Object&quot;</span><span class="p">).</span><span class="nx">New</span><span class="p">(),</span>
-      <span class="p">}</span>
-      <span class="c1">// field assignment is required in this way to make data passing works</span>
-      <span class="nx">m</span><span class="p">.</span><span class="nx">Intn</span> <span class="p">=</span> <span class="s">&quot;4&quot;</span>
-      <span class="nx">m</span><span class="p">.</span><span class="nx">Result</span> <span class="p">=</span> <span class="s">&quot;&quot;</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nx">m</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">Model</span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="nx">Object</span><span class="p">:</span><span class="w"> </span><span class="nx">js</span><span class="p">.</span><span class="nx">Global</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;Object&quot;</span><span class="p">).</span><span class="nx">New</span><span class="p">(),</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
+<span class="w">      </span><span class="c1">// field assignment is required in this way to make data passing works</span><span class="w"></span>
+<span class="w">      </span><span class="nx">m</span><span class="p">.</span><span class="nx">Intn</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;4&quot;</span><span class="w"></span>
+<span class="w">      </span><span class="nx">m</span><span class="p">.</span><span class="nx">Result</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w"></span>
 
-      <span class="c1">// create the VueJS viewModel using a struct pointer</span>
-      <span class="nx">app</span> <span class="o">:=</span> <span class="nx">vue</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="s">&quot;#vueapp&quot;</span><span class="p">,</span> <span class="nx">m</span><span class="p">)</span>
+<span class="w">      </span><span class="c1">// create the VueJS viewModel using a struct pointer</span><span class="w"></span>
+<span class="w">      </span><span class="nx">app</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">vue</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="s">&quot;#vueapp&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">m</span><span class="p">)</span><span class="w"></span>
 
-      <span class="nx">opt</span> <span class="o">:=</span> <span class="nx">js</span><span class="p">.</span><span class="nx">Global</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;Object&quot;</span><span class="p">).</span><span class="nx">New</span><span class="p">()</span>
-      <span class="nx">opt</span><span class="p">.</span><span class="nx">Set</span><span class="p">(</span><span class="s">&quot;immediate&quot;</span><span class="p">,</span> <span class="kc">true</span><span class="p">)</span>
-      <span class="nx">app</span><span class="p">.</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;$watch&quot;</span><span class="p">,</span> <span class="s">&quot;intn&quot;</span><span class="p">,</span> <span class="kd">func</span><span class="p">(</span><span class="nx">newVal</span><span class="p">,</span> <span class="nx">oldVal</span> <span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
-              <span class="nx">n</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">strconv</span><span class="p">.</span><span class="nx">Atoi</span><span class="p">(</span><span class="nx">newVal</span><span class="p">)</span>
-              <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-                      <span class="nx">m</span><span class="p">.</span><span class="nx">Result</span> <span class="p">=</span> <span class="s">&quot;input must be integer&quot;</span>
-                      <span class="k">return</span>
-              <span class="p">}</span>
-              <span class="nx">m</span><span class="p">.</span><span class="nx">Result</span> <span class="p">=</span> <span class="s">&quot;&quot;</span>
+<span class="w">      </span><span class="nx">opt</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">js</span><span class="p">.</span><span class="nx">Global</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;Object&quot;</span><span class="p">).</span><span class="nx">New</span><span class="p">()</span><span class="w"></span>
+<span class="w">      </span><span class="nx">opt</span><span class="p">.</span><span class="nx">Set</span><span class="p">(</span><span class="s">&quot;immediate&quot;</span><span class="p">,</span><span class="w"> </span><span class="kc">true</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="nx">app</span><span class="p">.</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;$watch&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;intn&quot;</span><span class="p">,</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="nx">newVal</span><span class="p">,</span><span class="w"> </span><span class="nx">oldVal</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="nx">n</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">strconv</span><span class="p">.</span><span class="nx">Atoi</span><span class="p">(</span><span class="nx">newVal</span><span class="p">)</span><span class="w"></span>
+<span class="w">              </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                      </span><span class="nx">m</span><span class="p">.</span><span class="nx">Result</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;input must be integer&quot;</span><span class="w"></span>
+<span class="w">                      </span><span class="k">return</span><span class="w"></span>
+<span class="w">              </span><span class="p">}</span><span class="w"></span>
+<span class="w">              </span><span class="nx">m</span><span class="p">.</span><span class="nx">Result</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w"></span>
 
-              <span class="nx">primes</span> <span class="o">:=</span> <span class="nx">SieveOfEratosthenes</span><span class="p">(</span><span class="nx">n</span><span class="p">)</span>
-              <span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">prime</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">primes</span> <span class="p">{</span>
-                      <span class="nx">m</span><span class="p">.</span><span class="nx">Result</span> <span class="o">+=</span> <span class="p">(</span><span class="nx">strconv</span><span class="p">.</span><span class="nx">Itoa</span><span class="p">(</span><span class="nx">prime</span><span class="p">)</span> <span class="o">+</span> <span class="s">&quot; &quot;</span><span class="p">)</span>
-              <span class="p">}</span>
-      <span class="p">},</span> <span class="nx">opt</span><span class="p">)</span>
-<span class="p">}</span>
+<span class="w">              </span><span class="nx">primes</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">SieveOfEratosthenes</span><span class="p">(</span><span class="nx">n</span><span class="p">)</span><span class="w"></span>
+<span class="w">              </span><span class="k">for</span><span class="w"> </span><span class="nx">_</span><span class="p">,</span><span class="w"> </span><span class="nx">prime</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="nx">primes</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                      </span><span class="nx">m</span><span class="p">.</span><span class="nx">Result</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="p">(</span><span class="nx">strconv</span><span class="p">.</span><span class="nx">Itoa</span><span class="p">(</span><span class="nx">prime</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot; &quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">              </span><span class="p">}</span><span class="w"></span>
+<span class="w">      </span><span class="p">},</span><span class="w"> </span><span class="nx">opt</span><span class="p">)</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 <p>The JavaScript equivalent is available on my previous post <a class="footnote-reference" href="#footnote-2" id="footnote-reference-2">[2]</a>.</p>
 

@@ -97,42 +97,42 @@ directory, and if the directory does not exist, it will be created first.</p>
 <span class="normal">33</span>
 <span class="normal">34</span>
 <span class="normal">35</span>
-<span class="normal">36</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1">// http://stackoverflow.com/questions/10510691/how-to-check-whether-a-file-or-directory-denoted-by-a-path-exists-in-golang</span>
-<span class="c1">// http://stackoverflow.com/questions/14249467/os-mkdir-and-os-mkdirall-permission-value</span>
-<span class="c1">// http://stackoverflow.com/questions/1760757/how-to-efficiently-concatenate-strings-in-go</span>
-<span class="kn">package</span> <span class="nx">mylib</span>
+<span class="normal">36</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1">// http://stackoverflow.com/questions/10510691/how-to-check-whether-a-file-or-directory-denoted-by-a-path-exists-in-golang</span><span class="w"></span>
+<span class="c1">// http://stackoverflow.com/questions/14249467/os-mkdir-and-os-mkdirall-permission-value</span><span class="w"></span>
+<span class="c1">// http://stackoverflow.com/questions/1760757/how-to-efficiently-concatenate-strings-in-go</span><span class="w"></span>
+<span class="kn">package</span><span class="w"> </span><span class="nx">mylib</span><span class="w"></span>
 
-<span class="kn">import</span> <span class="p">(</span>
-	<span class="s">&quot;net/url&quot;</span>
-	<span class="s">&quot;encoding/json&quot;</span>
-	<span class="s">&quot;os&quot;</span>
-	<span class="s">&quot;io/ioutil&quot;</span>
-	<span class="s">&quot;fmt&quot;</span>
-	<span class="s">&quot;log&quot;</span>
-<span class="p">)</span>
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">	</span><span class="s">&quot;net/url&quot;</span><span class="w"></span>
+<span class="w">	</span><span class="s">&quot;encoding/json&quot;</span><span class="w"></span>
+<span class="w">	</span><span class="s">&quot;os&quot;</span><span class="w"></span>
+<span class="w">	</span><span class="s">&quot;io/ioutil&quot;</span><span class="w"></span>
+<span class="w">	</span><span class="s">&quot;fmt&quot;</span><span class="w"></span>
+<span class="w">	</span><span class="s">&quot;log&quot;</span><span class="w"></span>
+<span class="p">)</span><span class="w"></span>
 
-<span class="kd">type</span> <span class="nx">LinkInfo</span> <span class="kd">struct</span> <span class="p">{</span>
-	<span class="nx">Title</span>		<span class="kt">string</span>
-	<span class="nx">Link</span>		<span class="kt">string</span>
-<span class="p">}</span>
+<span class="kd">type</span><span class="w"> </span><span class="nx">LinkInfo</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">	</span><span class="nx">Title</span><span class="w">		</span><span class="kt">string</span><span class="w"></span>
+<span class="w">	</span><span class="nx">Link</span><span class="w">		</span><span class="kt">string</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">SaveLinkAsJson</span><span class="p">(</span><span class="nx">l</span> <span class="nx">LinkInfo</span><span class="p">,</span> <span class="nx">dir</span> <span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
-	<span class="k">if</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">os</span><span class="p">.</span><span class="nx">Stat</span><span class="p">(</span><span class="nx">dir</span><span class="p">);</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-		<span class="k">if</span> <span class="nx">os</span><span class="p">.</span><span class="nx">IsNotExist</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
-			<span class="nx">os</span><span class="p">.</span><span class="nx">Mkdir</span><span class="p">(</span><span class="nx">dir</span><span class="p">,</span> <span class="mo">0755</span><span class="p">)</span>
-		<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-			<span class="nx">log</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
-		<span class="p">}</span>
-	<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">SaveLinkAsJson</span><span class="p">(</span><span class="nx">l</span><span class="w"> </span><span class="nx">LinkInfo</span><span class="p">,</span><span class="w"> </span><span class="nx">dir</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">_</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">os</span><span class="p">.</span><span class="nx">Stat</span><span class="p">(</span><span class="nx">dir</span><span class="p">);</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">		</span><span class="k">if</span><span class="w"> </span><span class="nx">os</span><span class="p">.</span><span class="nx">IsNotExist</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">			</span><span class="nx">os</span><span class="p">.</span><span class="nx">Mkdir</span><span class="p">(</span><span class="nx">dir</span><span class="p">,</span><span class="w"> </span><span class="mo">0755</span><span class="p">)</span><span class="w"></span>
+<span class="w">		</span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">			</span><span class="nx">log</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"></span>
+<span class="w">		</span><span class="p">}</span><span class="w"></span>
+<span class="w">	</span><span class="p">}</span><span class="w"></span>
 
-	<span class="nx">path</span> <span class="o">:=</span> <span class="nx">fmt</span><span class="p">.</span><span class="nx">Sprint</span><span class="p">(</span><span class="nx">dir</span><span class="p">,</span> <span class="nx">url</span><span class="p">.</span><span class="nx">QueryEscape</span><span class="p">(</span><span class="nx">l</span><span class="p">.</span><span class="nx">Link</span><span class="p">))</span>
-	<span class="nx">os</span><span class="p">.</span><span class="nx">Remove</span><span class="p">(</span><span class="nx">path</span><span class="p">)</span>
+<span class="w">	</span><span class="nx">path</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Sprint</span><span class="p">(</span><span class="nx">dir</span><span class="p">,</span><span class="w"> </span><span class="nx">url</span><span class="p">.</span><span class="nx">QueryEscape</span><span class="p">(</span><span class="nx">l</span><span class="p">.</span><span class="nx">Link</span><span class="p">))</span><span class="w"></span>
+<span class="w">	</span><span class="nx">os</span><span class="p">.</span><span class="nx">Remove</span><span class="p">(</span><span class="nx">path</span><span class="p">)</span><span class="w"></span>
 
-	<span class="nx">b</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">json</span><span class="p">.</span><span class="nx">Marshal</span><span class="p">(</span><span class="nx">l</span><span class="p">)</span>
-	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span> <span class="nx">log</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">}</span>
+<span class="w">	</span><span class="nx">b</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">json</span><span class="p">.</span><span class="nx">Marshal</span><span class="p">(</span><span class="nx">l</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">log</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
 
-	<span class="nx">ioutil</span><span class="p">.</span><span class="nx">WriteFile</span><span class="p">(</span><span class="nx">path</span><span class="p">,</span> <span class="nx">b</span><span class="p">,</span> <span class="mo">0644</span><span class="p">)</span>
-<span class="p">}</span>
+<span class="w">	</span><span class="nx">ioutil</span><span class="p">.</span><span class="nx">WriteFile</span><span class="p">(</span><span class="nx">path</span><span class="p">,</span><span class="w"> </span><span class="nx">b</span><span class="p">,</span><span class="w"> </span><span class="mo">0644</span><span class="p">)</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </td></tr></table></div></figure>
 </div>
@@ -156,19 +156,19 @@ directory, and if the directory does not exist, it will be created first.</p>
 <span class="normal">10</span>
 <span class="normal">11</span>
 <span class="normal">12</span>
-<span class="normal">13</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">mylib</span>
+<span class="normal">13</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">mylib</span><span class="w"></span>
 
-<span class="kn">import</span> <span class="s">&quot;testing&quot;</span>
+<span class="kn">import</span><span class="w"> </span><span class="s">&quot;testing&quot;</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">TestSaveLinkAsJson</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span> <span class="p">{</span>
-	<span class="nx">l1</span> <span class="o">:=</span> <span class="nx">LinkInfo</span><span class="p">{</span><span class="s">&quot;Google&quot;</span><span class="p">,</span> <span class="s">&quot;https://www.google.com/&quot;</span><span class="p">}</span>
-	<span class="nx">l2</span> <span class="o">:=</span> <span class="nx">LinkInfo</span><span class="p">{</span><span class="s">&quot;DuckDuckGo&quot;</span><span class="p">,</span> <span class="s">&quot;https://duckduckgo.com/&quot;</span><span class="p">}</span>
-	<span class="nx">d</span> <span class="o">:=</span> <span class="s">&quot;./links/&quot;</span>
-	<span class="nx">t</span><span class="p">.</span><span class="nx">Log</span><span class="p">(</span><span class="nx">l1</span><span class="p">,</span> <span class="nx">d</span><span class="p">)</span>
-	<span class="nx">SaveLinkAsJson</span><span class="p">(</span><span class="nx">l1</span><span class="p">,</span> <span class="nx">d</span><span class="p">)</span>
-	<span class="nx">t</span><span class="p">.</span><span class="nx">Log</span><span class="p">(</span><span class="nx">l2</span><span class="p">,</span> <span class="nx">d</span><span class="p">)</span>
-	<span class="nx">SaveLinkAsJson</span><span class="p">(</span><span class="nx">l2</span><span class="p">,</span> <span class="nx">d</span><span class="p">)</span>
-<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">TestSaveLinkAsJson</span><span class="p">(</span><span class="nx">t</span><span class="w"> </span><span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">	</span><span class="nx">l1</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">LinkInfo</span><span class="p">{</span><span class="s">&quot;Google&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;https://www.google.com/&quot;</span><span class="p">}</span><span class="w"></span>
+<span class="w">	</span><span class="nx">l2</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">LinkInfo</span><span class="p">{</span><span class="s">&quot;DuckDuckGo&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;https://duckduckgo.com/&quot;</span><span class="p">}</span><span class="w"></span>
+<span class="w">	</span><span class="nx">d</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="s">&quot;./links/&quot;</span><span class="w"></span>
+<span class="w">	</span><span class="nx">t</span><span class="p">.</span><span class="nx">Log</span><span class="p">(</span><span class="nx">l1</span><span class="p">,</span><span class="w"> </span><span class="nx">d</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="nx">SaveLinkAsJson</span><span class="p">(</span><span class="nx">l1</span><span class="p">,</span><span class="w"> </span><span class="nx">d</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="nx">t</span><span class="p">.</span><span class="nx">Log</span><span class="p">(</span><span class="nx">l2</span><span class="p">,</span><span class="w"> </span><span class="nx">d</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="nx">SaveLinkAsJson</span><span class="p">(</span><span class="nx">l2</span><span class="p">,</span><span class="w"> </span><span class="nx">d</span><span class="p">)</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </td></tr></table></div></figure>
 <p>Tested on: <tt class="docutils literal">Ubuntu Linux 14.10</tt>, <tt class="docutils literal">Go 1.4</tt>.</p>

@@ -103,48 +103,48 @@ My answer to <a class="reference external" href="http://stackoverflow.com/">Stac
 <span class="normal">39</span>
 <span class="normal">40</span>
 <span class="normal">41</span>
-<span class="normal">42</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
+<span class="normal">42</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w"></span>
 
-<span class="kn">import</span> <span class="p">(</span>
-	<span class="s">&quot;encoding/json&quot;</span>
-	<span class="s">&quot;github.com/PuerkitoBio/goquery&quot;</span>
-<span class="p">)</span>
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">	</span><span class="s">&quot;encoding/json&quot;</span><span class="w"></span>
+<span class="w">	</span><span class="s">&quot;github.com/PuerkitoBio/goquery&quot;</span><span class="w"></span>
+<span class="p">)</span><span class="w"></span>
 
-<span class="kd">type</span> <span class="nx">SharedContent</span> <span class="kd">struct</span> <span class="p">{</span>
-	<span class="nx">ContentUrl</span> <span class="kt">string</span> <span class="s">`json:&quot;contentUrl&quot;`</span>
-<span class="p">}</span>
+<span class="kd">type</span><span class="w"> </span><span class="nx">SharedContent</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">	</span><span class="nx">ContentUrl</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="s">`json:&quot;contentUrl&quot;`</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">type</span> <span class="nx">VineVideoMetadata</span> <span class="kd">struct</span> <span class="p">{</span>
-	<span class="nx">SC</span> <span class="nx">SharedContent</span> <span class="s">`json:&quot;sharedContent&quot;`</span>
-<span class="p">}</span>
+<span class="kd">type</span><span class="w"> </span><span class="nx">VineVideoMetadata</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">	</span><span class="nx">SC</span><span class="w"> </span><span class="nx">SharedContent</span><span class="w"> </span><span class="s">`json:&quot;sharedContent&quot;`</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">DecodeVineJsonBlob</span><span class="p">(</span><span class="nx">blob</span> <span class="kt">string</span><span class="p">)</span> <span class="nx">VineVideoMetadata</span> <span class="p">{</span>
-	<span class="nx">meta</span> <span class="o">:=</span> <span class="nx">VineVideoMetadata</span><span class="p">{}</span>
-	<span class="nx">err</span> <span class="o">:=</span> <span class="nx">json</span><span class="p">.</span><span class="nx">Unmarshal</span><span class="p">([]</span><span class="nb">byte</span><span class="p">(</span><span class="nx">blob</span><span class="p">),</span> <span class="o">&amp;</span><span class="nx">meta</span><span class="p">)</span>
-	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-		<span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
-	<span class="p">}</span>
-	<span class="k">return</span> <span class="nx">meta</span>
-<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">DecodeVineJsonBlob</span><span class="p">(</span><span class="nx">blob</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="nx">VineVideoMetadata</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">	</span><span class="nx">meta</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">VineVideoMetadata</span><span class="p">{}</span><span class="w"></span>
+<span class="w">	</span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">json</span><span class="p">.</span><span class="nx">Unmarshal</span><span class="p">([]</span><span class="nb">byte</span><span class="p">(</span><span class="nx">blob</span><span class="p">),</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">meta</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">		</span><span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="p">}</span><span class="w"></span>
+<span class="w">	</span><span class="k">return</span><span class="w"> </span><span class="nx">meta</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">GetVineVideoJsonBlob</span><span class="p">(</span><span class="nx">url</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">string</span> <span class="p">{</span>
-	<span class="nx">doc</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">goquery</span><span class="p">.</span><span class="nx">NewDocument</span><span class="p">(</span><span class="nx">url</span><span class="p">)</span>
-	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-		<span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
-	<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">GetVineVideoJsonBlob</span><span class="p">(</span><span class="nx">url</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">	</span><span class="nx">doc</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">goquery</span><span class="p">.</span><span class="nx">NewDocument</span><span class="p">(</span><span class="nx">url</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">		</span><span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="p">}</span><span class="w"></span>
 
-	<span class="k">return</span> <span class="nx">doc</span><span class="p">.</span><span class="nx">Find</span><span class="p">(</span><span class="s">&quot;script[type=\&quot;application/ld+json\&quot;]&quot;</span><span class="p">).</span><span class="nx">Text</span><span class="p">()</span>
-<span class="p">}</span>
+<span class="w">	</span><span class="k">return</span><span class="w"> </span><span class="nx">doc</span><span class="p">.</span><span class="nx">Find</span><span class="p">(</span><span class="s">&quot;script[type=\&quot;application/ld+json\&quot;]&quot;</span><span class="p">).</span><span class="nx">Text</span><span class="p">()</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">GetVineVideoSrc</span><span class="p">(</span><span class="nx">url</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">string</span> <span class="p">{</span>
-	<span class="nx">jsonBlob</span> <span class="o">:=</span> <span class="nx">GetVineVideoJsonBlob</span><span class="p">(</span><span class="nx">url</span><span class="p">)</span>
-	<span class="nx">meta</span> <span class="o">:=</span> <span class="nx">DecodeVineJsonBlob</span><span class="p">(</span><span class="nx">jsonBlob</span><span class="p">)</span>
-	<span class="k">return</span> <span class="nx">meta</span><span class="p">.</span><span class="nx">SC</span><span class="p">.</span><span class="nx">ContentUrl</span>
-<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">GetVineVideoSrc</span><span class="p">(</span><span class="nx">url</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">	</span><span class="nx">jsonBlob</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">GetVineVideoJsonBlob</span><span class="p">(</span><span class="nx">url</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="nx">meta</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">DecodeVineJsonBlob</span><span class="p">(</span><span class="nx">jsonBlob</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="k">return</span><span class="w"> </span><span class="nx">meta</span><span class="p">.</span><span class="nx">SC</span><span class="p">.</span><span class="nx">ContentUrl</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
-	<span class="nb">println</span><span class="p">(</span><span class="nx">GetVineVideoSrc</span><span class="p">(</span><span class="s">&quot;https://vine.co/v/MlWtKgwh7WY&quot;</span><span class="p">))</span>
-<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">	</span><span class="nb">println</span><span class="p">(</span><span class="nx">GetVineVideoSrc</span><span class="p">(</span><span class="s">&quot;https://vine.co/v/MlWtKgwh7WY&quot;</span><span class="p">))</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </td></tr></table></div></figure>
 <p>Output:</p>

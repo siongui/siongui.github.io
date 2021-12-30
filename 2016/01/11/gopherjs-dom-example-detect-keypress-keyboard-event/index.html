@@ -120,20 +120,20 @@ the <a class="reference external" href="http://www.w3schools.com/jsref/event_key
 <span class="normal">11</span>
 <span class="normal">12</span>
 <span class="normal">13</span>
-<span class="normal">14</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
+<span class="normal">14</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w"></span>
 
-<span class="kn">import</span> <span class="s">&quot;honnef.co/go/js/dom&quot;</span>
-<span class="kn">import</span> <span class="s">&quot;strconv&quot;</span>
+<span class="kn">import</span><span class="w"> </span><span class="s">&quot;honnef.co/go/js/dom&quot;</span><span class="w"></span>
+<span class="kn">import</span><span class="w"> </span><span class="s">&quot;strconv&quot;</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
-	<span class="nx">w</span> <span class="o">:=</span> <span class="nx">dom</span><span class="p">.</span><span class="nx">GetWindow</span><span class="p">()</span>
-	<span class="nx">s</span> <span class="o">:=</span> <span class="nx">w</span><span class="p">.</span><span class="nx">Document</span><span class="p">().</span><span class="nx">GetElementByID</span><span class="p">(</span><span class="s">&quot;foo&quot;</span><span class="p">)</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">	</span><span class="nx">w</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">dom</span><span class="p">.</span><span class="nx">GetWindow</span><span class="p">()</span><span class="w"></span>
+<span class="w">	</span><span class="nx">s</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">w</span><span class="p">.</span><span class="nx">Document</span><span class="p">().</span><span class="nx">GetElementByID</span><span class="p">(</span><span class="s">&quot;foo&quot;</span><span class="p">)</span><span class="w"></span>
 
-	<span class="nx">w</span><span class="p">.</span><span class="nx">AddEventListener</span><span class="p">(</span><span class="s">&quot;keydown&quot;</span><span class="p">,</span> <span class="kc">false</span><span class="p">,</span> <span class="kd">func</span><span class="p">(</span><span class="nx">event</span> <span class="nx">dom</span><span class="p">.</span><span class="nx">Event</span><span class="p">)</span> <span class="p">{</span>
-		<span class="nx">ke</span> <span class="o">:=</span> <span class="nx">event</span><span class="p">.(</span><span class="o">*</span><span class="nx">dom</span><span class="p">.</span><span class="nx">KeyboardEvent</span><span class="p">)</span>
-		<span class="nx">s</span><span class="p">.</span><span class="nx">SetInnerHTML</span><span class="p">(</span><span class="nx">strconv</span><span class="p">.</span><span class="nx">Itoa</span><span class="p">(</span><span class="nx">ke</span><span class="p">.</span><span class="nx">KeyCode</span><span class="p">))</span>
-	<span class="p">})</span>
-<span class="p">}</span>
+<span class="w">	</span><span class="nx">w</span><span class="p">.</span><span class="nx">AddEventListener</span><span class="p">(</span><span class="s">&quot;keydown&quot;</span><span class="p">,</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="nx">event</span><span class="w"> </span><span class="nx">dom</span><span class="p">.</span><span class="nx">Event</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">		</span><span class="nx">ke</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">event</span><span class="p">.(</span><span class="o">*</span><span class="nx">dom</span><span class="p">.</span><span class="nx">KeyboardEvent</span><span class="p">)</span><span class="w"></span>
+<span class="w">		</span><span class="nx">s</span><span class="p">.</span><span class="nx">SetInnerHTML</span><span class="p">(</span><span class="nx">strconv</span><span class="p">.</span><span class="nx">Itoa</span><span class="p">(</span><span class="nx">ke</span><span class="p">.</span><span class="nx">KeyCode</span><span class="p">))</span><span class="w"></span>
+<span class="w">	</span><span class="p">})</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </td></tr></table></div></figure>
 <p>The above code is very similar to JavaScript counterpart. Note that <em>dom.Event</em>

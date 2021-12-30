@@ -88,88 +88,88 @@ technique of <em>CSS only toggle</em> <a class="footnote-reference" href="#footn
 </pre></div>
 
 <p><strong>SCSS</strong>: You can <a class="reference external" href="https://www.google.com/search?q=scss+to+css+online">compile the SCSS code online</a>.</p>
-<div class="highlight"><pre><span></span><span class="nv">$mobile</span><span class="o">:</span> <span class="mi">768</span><span class="kt">px</span><span class="p">;</span>
-<span class="nv">$nav-height</span><span class="o">:</span> <span class="mi">3</span><span class="mf">.25</span><span class="kt">rem</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><span class="nv">$mobile</span><span class="o">:</span><span class="w"> </span><span class="mi">768</span><span class="kt">px</span><span class="p">;</span><span class="w"></span>
+<span class="nv">$nav-height</span><span class="o">:</span><span class="w"> </span><span class="mi">3</span><span class="mf">.25</span><span class="kt">rem</span><span class="p">;</span><span class="w"></span>
 
-<span class="nc">.is-hidden</span> <span class="p">{</span>
-  <span class="nt">display</span><span class="nd">:</span> <span class="nt">none</span><span class="o">;</span>
-<span class="p">}</span>
+<span class="nc">.is-hidden</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nt">display</span><span class="nd">:</span><span class="w"> </span><span class="nt">none</span><span class="o">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
 
-<span class="k">@media</span> <span class="n">screen</span> <span class="ow">and</span> <span class="p">(</span><span class="no">max-width</span><span class="o">:</span> <span class="nv">$mobile</span><span class="p">)</span> <span class="p">{</span>
-  <span class="c1">// if user touch nav-toggle, show nav-menu</span>
-  <span class="nn">#menu-toggle</span><span class="nd">:checked</span> <span class="o">+</span> <span class="nc">.nav-menu</span> <span class="p">{</span>
-    <span class="nt">display</span><span class="nd">:</span> <span class="nt">block</span><span class="o">;</span>
-  <span class="p">}</span>
-<span class="p">}</span>
+<span class="k">@media</span><span class="w"> </span><span class="n">screen</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="p">(</span><span class="no">max-width</span><span class="o">:</span><span class="w"> </span><span class="nv">$mobile</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="c1">// if user touch nav-toggle, show nav-menu</span>
+<span class="w">  </span><span class="nn">#menu-toggle</span><span class="nd">:checked</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nc">.nav-menu</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">display</span><span class="nd">:</span><span class="w"> </span><span class="nt">block</span><span class="o">;</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
 <span class="c1">// ≡ is nav-toggle</span>
-<span class="nc">.nav-toggle</span> <span class="p">{</span>
-  <span class="c1">// hidden if not mobile</span>
-  <span class="k">@media</span> <span class="p">(</span><span class="no">min-width</span><span class="o">:</span> <span class="nv">$mobile</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nt">display</span><span class="nd">:</span> <span class="nt">none</span><span class="o">;</span>
-  <span class="p">}</span>
+<span class="nc">.nav-toggle</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="c1">// hidden if not mobile</span>
+<span class="w">  </span><span class="k">@media</span><span class="w"> </span><span class="p">(</span><span class="no">min-width</span><span class="o">:</span><span class="w"> </span><span class="nv">$mobile</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">display</span><span class="nd">:</span><span class="w"> </span><span class="nt">none</span><span class="o">;</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
 
-  <span class="k">&amp;</span><span class="nd">:hover</span> <span class="p">{</span>
-    <span class="nt">cursor</span><span class="nd">:</span> <span class="nt">pointer</span><span class="o">;</span>
-  <span class="p">}</span>
+<span class="w">  </span><span class="k">&amp;</span><span class="nd">:hover</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">cursor</span><span class="nd">:</span><span class="w"> </span><span class="nt">pointer</span><span class="o">;</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
 
-  <span class="nt">font-size</span><span class="nd">:</span> <span class="err">$</span><span class="nt">nav-height</span><span class="o">;</span>
+<span class="w">  </span><span class="nt">font-size</span><span class="nd">:</span><span class="w"> </span><span class="err">$</span><span class="nt">nav-height</span><span class="o">;</span><span class="w"></span>
 
-  <span class="nt">align-items</span><span class="nd">:</span> <span class="nt">center</span><span class="o">;</span>
-  <span class="nt">display</span><span class="nd">:</span> <span class="nt">flex</span><span class="o">;</span>
-  <span class="nt">padding-right</span><span class="nd">:</span> <span class="nt">0</span><span class="nc">.75rem</span><span class="o">;</span>
-<span class="p">}</span>
+<span class="w">  </span><span class="nt">align-items</span><span class="nd">:</span><span class="w"> </span><span class="nt">center</span><span class="o">;</span><span class="w"></span>
+<span class="w">  </span><span class="nt">display</span><span class="nd">:</span><span class="w"> </span><span class="nt">flex</span><span class="o">;</span><span class="w"></span>
+<span class="w">  </span><span class="nt">padding-right</span><span class="nd">:</span><span class="w"> </span><span class="nt">0</span><span class="nc">.75rem</span><span class="o">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="nc">.nav-item</span> <span class="p">{</span>
-  <span class="nt">align-items</span><span class="nd">:</span> <span class="nt">center</span><span class="o">;</span>
-  <span class="nt">display</span><span class="nd">:</span> <span class="nt">flex</span><span class="o">;</span>
-  <span class="nt">padding</span><span class="nd">:</span> <span class="nt">0</span><span class="nc">.25rem</span> <span class="nt">0</span><span class="nc">.5rem</span><span class="o">;</span>
-<span class="p">}</span>
+<span class="nc">.nav-item</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nt">align-items</span><span class="nd">:</span><span class="w"> </span><span class="nt">center</span><span class="o">;</span><span class="w"></span>
+<span class="w">  </span><span class="nt">display</span><span class="nd">:</span><span class="w"> </span><span class="nt">flex</span><span class="o">;</span><span class="w"></span>
+<span class="w">  </span><span class="nt">padding</span><span class="nd">:</span><span class="w"> </span><span class="nt">0</span><span class="nc">.25rem</span><span class="w"> </span><span class="nt">0</span><span class="nc">.5rem</span><span class="o">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="nc">.nav-left</span><span class="o">,</span> <span class="nc">.nav-right</span> <span class="p">{</span>
-  <span class="nt">align-items</span><span class="nd">:</span> <span class="nt">stretch</span><span class="o">;</span>
-  <span class="nt">display</span><span class="nd">:</span> <span class="nt">flex</span><span class="o">;</span>
-  <span class="nt">flex-wrap</span><span class="nd">:</span> <span class="nt">wrap</span><span class="o">;</span>
-  <span class="nt">flex-grow</span><span class="nd">:</span> <span class="nt">1</span><span class="o">;</span>
-<span class="p">}</span>
+<span class="nc">.nav-left</span><span class="o">,</span><span class="w"> </span><span class="nc">.nav-right</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nt">align-items</span><span class="nd">:</span><span class="w"> </span><span class="nt">stretch</span><span class="o">;</span><span class="w"></span>
+<span class="w">  </span><span class="nt">display</span><span class="nd">:</span><span class="w"> </span><span class="nt">flex</span><span class="o">;</span><span class="w"></span>
+<span class="w">  </span><span class="nt">flex-wrap</span><span class="nd">:</span><span class="w"> </span><span class="nt">wrap</span><span class="o">;</span><span class="w"></span>
+<span class="w">  </span><span class="nt">flex-grow</span><span class="nd">:</span><span class="w"> </span><span class="nt">1</span><span class="o">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="nc">.nav-left</span> <span class="p">{</span>
-  <span class="nt">justify-content</span><span class="nd">:</span> <span class="nt">flex-start</span><span class="o">;</span>
-<span class="p">}</span>
+<span class="nc">.nav-left</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nt">justify-content</span><span class="nd">:</span><span class="w"> </span><span class="nt">flex-start</span><span class="o">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="nc">.nav-right</span> <span class="p">{</span>
-  <span class="nt">justify-content</span><span class="nd">:</span> <span class="nt">flex-end</span><span class="o">;</span>
-<span class="p">}</span>
+<span class="nc">.nav-right</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nt">justify-content</span><span class="nd">:</span><span class="w"> </span><span class="nt">flex-end</span><span class="o">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
 <span class="c1">// responsiveness</span>
-<span class="nc">.nav-menu</span> <span class="p">{</span>
-  <span class="k">@media</span> <span class="p">(</span><span class="no">max-width</span><span class="o">:</span> <span class="nv">$mobile</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">&amp;</span><span class="nc">.nav-right</span> <span class="p">{</span>
-      <span class="nt">display</span><span class="nd">:</span> <span class="nt">none</span><span class="o">;</span>
-      <span class="nt">left</span><span class="nd">:</span> <span class="nt">0</span><span class="o">;</span>
-      <span class="nt">right</span><span class="nd">:</span> <span class="nt">0</span><span class="o">;</span>
-      <span class="nt">top</span><span class="nd">:</span> <span class="nt">100</span><span class="err">%</span><span class="o">;</span>
-      <span class="nt">position</span><span class="nd">:</span> <span class="nt">absolute</span><span class="o">;</span>
-      <span class="nt">background-color</span><span class="nd">:</span> <span class="nt">white</span><span class="o">;</span>
-      <span class="nt">box-shadow</span><span class="nd">:</span> <span class="nt">0</span> <span class="nt">4px</span> <span class="nt">7px</span> <span class="nt">rgba</span><span class="o">(</span><span class="nt">10</span><span class="o">,</span> <span class="nt">10</span><span class="o">,</span> <span class="nt">10</span><span class="o">,</span> <span class="nt">0</span><span class="nc">.1</span><span class="o">);</span>
-      <span class="nc">.nav-item</span> <span class="p">{</span>
-        <span class="nt">border-top</span><span class="nd">:</span> <span class="nt">1px</span> <span class="nt">solid</span> <span class="nt">rgba</span><span class="o">(</span><span class="nt">219</span><span class="o">,</span> <span class="nt">219</span><span class="o">,</span> <span class="nt">219</span><span class="o">,</span> <span class="nt">0</span><span class="nc">.5</span><span class="o">);</span>
-        <span class="nt">padding</span><span class="nd">:</span> <span class="nt">0</span><span class="nc">.75rem</span><span class="o">;</span>
-      <span class="p">}</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
-<span class="p">}</span>
+<span class="nc">.nav-menu</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="k">@media</span><span class="w"> </span><span class="p">(</span><span class="no">max-width</span><span class="o">:</span><span class="w"> </span><span class="nv">$mobile</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">&amp;</span><span class="nc">.nav-right</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nt">display</span><span class="nd">:</span><span class="w"> </span><span class="nt">none</span><span class="o">;</span><span class="w"></span>
+<span class="w">      </span><span class="nt">left</span><span class="nd">:</span><span class="w"> </span><span class="nt">0</span><span class="o">;</span><span class="w"></span>
+<span class="w">      </span><span class="nt">right</span><span class="nd">:</span><span class="w"> </span><span class="nt">0</span><span class="o">;</span><span class="w"></span>
+<span class="w">      </span><span class="nt">top</span><span class="nd">:</span><span class="w"> </span><span class="nt">100</span><span class="err">%</span><span class="o">;</span><span class="w"></span>
+<span class="w">      </span><span class="nt">position</span><span class="nd">:</span><span class="w"> </span><span class="nt">absolute</span><span class="o">;</span><span class="w"></span>
+<span class="w">      </span><span class="nt">background-color</span><span class="nd">:</span><span class="w"> </span><span class="nt">white</span><span class="o">;</span><span class="w"></span>
+<span class="w">      </span><span class="nt">box-shadow</span><span class="nd">:</span><span class="w"> </span><span class="nt">0</span><span class="w"> </span><span class="nt">4px</span><span class="w"> </span><span class="nt">7px</span><span class="w"> </span><span class="nt">rgba</span><span class="o">(</span><span class="nt">10</span><span class="o">,</span><span class="w"> </span><span class="nt">10</span><span class="o">,</span><span class="w"> </span><span class="nt">10</span><span class="o">,</span><span class="w"> </span><span class="nt">0</span><span class="nc">.1</span><span class="o">);</span><span class="w"></span>
+<span class="w">      </span><span class="nc">.nav-item</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nt">border-top</span><span class="nd">:</span><span class="w"> </span><span class="nt">1px</span><span class="w"> </span><span class="nt">solid</span><span class="w"> </span><span class="nt">rgba</span><span class="o">(</span><span class="nt">219</span><span class="o">,</span><span class="w"> </span><span class="nt">219</span><span class="o">,</span><span class="w"> </span><span class="nt">219</span><span class="o">,</span><span class="w"> </span><span class="nt">0</span><span class="nc">.5</span><span class="o">);</span><span class="w"></span>
+<span class="w">        </span><span class="nt">padding</span><span class="nd">:</span><span class="w"> </span><span class="nt">0</span><span class="nc">.75rem</span><span class="o">;</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="nc">.nav</span> <span class="p">{</span>
-  <span class="nt">display</span><span class="nd">:</span> <span class="nt">flex</span><span class="o">;</span>
-  <span class="nt">align-items</span><span class="nd">:</span> <span class="nt">stretch</span><span class="o">;</span>
-  <span class="nt">background-image</span><span class="nd">:</span> <span class="nt">linear-gradient</span><span class="o">(</span><span class="nt">to</span> <span class="nt">bottom</span> <span class="nt">left</span><span class="o">,</span> <span class="nt">white</span><span class="o">,</span> <span class="nn">#dddddd</span><span class="o">);</span>
-  <span class="nt">min-height</span><span class="nd">:</span> <span class="err">$</span><span class="nt">nav-height</span><span class="o">;</span>
+<span class="nc">.nav</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nt">display</span><span class="nd">:</span><span class="w"> </span><span class="nt">flex</span><span class="o">;</span><span class="w"></span>
+<span class="w">  </span><span class="nt">align-items</span><span class="nd">:</span><span class="w"> </span><span class="nt">stretch</span><span class="o">;</span><span class="w"></span>
+<span class="w">  </span><span class="nt">background-image</span><span class="nd">:</span><span class="w"> </span><span class="nt">linear-gradient</span><span class="o">(</span><span class="nt">to</span><span class="w"> </span><span class="nt">bottom</span><span class="w"> </span><span class="nt">left</span><span class="o">,</span><span class="w"> </span><span class="nt">white</span><span class="o">,</span><span class="w"> </span><span class="nn">#dddddd</span><span class="o">);</span><span class="w"></span>
+<span class="w">  </span><span class="nt">min-height</span><span class="nd">:</span><span class="w"> </span><span class="err">$</span><span class="nt">nav-height</span><span class="o">;</span><span class="w"></span>
 
-  <span class="o">//</span> <span class="nt">responsiveness</span>
-  <span class="nt">position</span><span class="nd">:</span> <span class="nt">relative</span><span class="o">;</span>
-<span class="p">}</span>
+<span class="w">  </span><span class="o">//</span><span class="w"> </span><span class="nt">responsiveness</span><span class="w"></span>
+<span class="w">  </span><span class="nt">position</span><span class="nd">:</span><span class="w"> </span><span class="nt">relative</span><span class="o">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 
 <p>Tested on:

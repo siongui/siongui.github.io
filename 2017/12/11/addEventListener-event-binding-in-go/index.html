@@ -89,29 +89,29 @@ click on the div, the text content of the <em>div</em> element will be changed t
 <div class="section" id="gopherjs">
 <h3><a class="toc-backref" href="#toc-entry-3">GopherJS</a></h3>
 <p>The above code in Go/GopherJS is as follows:</p>
-<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="p">(</span>
-      <span class="s">&quot;github.com/gopherjs/gopherjs/js&quot;</span>
-<span class="p">)</span>
+<div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">      </span><span class="s">&quot;github.com/gopherjs/gopherjs/js&quot;</span><span class="w"></span>
+<span class="p">)</span><span class="w"></span>
 
-<span class="nx">f</span> <span class="o">:=</span> <span class="nx">js</span><span class="p">.</span><span class="nx">Global</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;document&quot;</span><span class="p">).</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;querySelector&quot;</span><span class="p">,</span> <span class="s">&quot;#foo&quot;</span><span class="p">)</span>
+<span class="nx">f</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">js</span><span class="p">.</span><span class="nx">Global</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;document&quot;</span><span class="p">).</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;querySelector&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;#foo&quot;</span><span class="p">)</span><span class="w"></span>
 
-<span class="nx">f</span><span class="p">.</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;addEventListener&quot;</span><span class="p">,</span> <span class="s">&quot;click&quot;</span><span class="p">,</span> <span class="kd">func</span><span class="p">(</span><span class="nx">event</span> <span class="o">*</span><span class="nx">js</span><span class="p">.</span><span class="nx">Object</span><span class="p">)</span> <span class="p">{</span>
-      <span class="nx">f</span><span class="p">.</span><span class="nx">Set</span><span class="p">(</span><span class="s">&quot;textContent&quot;</span><span class="p">,</span> <span class="s">&quot;I am clicked&quot;</span><span class="p">)</span>
-<span class="p">})</span>
+<span class="nx">f</span><span class="p">.</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;addEventListener&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;click&quot;</span><span class="p">,</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="nx">event</span><span class="w"> </span><span class="o">*</span><span class="nx">js</span><span class="p">.</span><span class="nx">Object</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nx">f</span><span class="p">.</span><span class="nx">Set</span><span class="p">(</span><span class="s">&quot;textContent&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;I am clicked&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="p">})</span><span class="w"></span>
 </pre></div>
 </div>
 <div class="section" id="gopherjs-godom">
 <h3><a class="toc-backref" href="#toc-entry-4">GopherJS + godom</a></h3>
 <p>To make your code more readable, we can prettify the above code with <a class="reference external" href="https://github.com/siongui/godom">godom</a>:</p>
-<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="p">(</span>
-      <span class="p">.</span> <span class="s">&quot;github.com/siongui/godom&quot;</span>
-<span class="p">)</span>
+<div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">      </span><span class="p">.</span><span class="w"> </span><span class="s">&quot;github.com/siongui/godom&quot;</span><span class="w"></span>
+<span class="p">)</span><span class="w"></span>
 
-<span class="nx">f</span> <span class="o">:=</span> <span class="nx">Document</span><span class="p">.</span><span class="nx">QuerySelector</span><span class="p">(</span><span class="s">&quot;#foo&quot;</span><span class="p">)</span>
+<span class="nx">f</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">Document</span><span class="p">.</span><span class="nx">QuerySelector</span><span class="p">(</span><span class="s">&quot;#foo&quot;</span><span class="p">)</span><span class="w"></span>
 
-<span class="nx">f</span><span class="p">.</span><span class="nx">AddEventListener</span><span class="p">(</span><span class="s">&quot;click&quot;</span><span class="p">,</span> <span class="kd">func</span><span class="p">(</span><span class="nx">e</span> <span class="nx">Event</span><span class="p">)</span> <span class="p">{</span>
-      <span class="nx">f</span><span class="p">.</span><span class="nx">SetTextContent</span><span class="p">(</span><span class="s">&quot;I am clicked&quot;</span><span class="p">)</span>
-<span class="p">})</span>
+<span class="nx">f</span><span class="p">.</span><span class="nx">AddEventListener</span><span class="p">(</span><span class="s">&quot;click&quot;</span><span class="p">,</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="nx">e</span><span class="w"> </span><span class="nx">Event</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nx">f</span><span class="p">.</span><span class="nx">SetTextContent</span><span class="p">(</span><span class="s">&quot;I am clicked&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="p">})</span><span class="w"></span>
 </pre></div>
 
 <p>You can add third argument (<em>useCapture</em>, a boolean value) to the

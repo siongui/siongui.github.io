@@ -62,30 +62,30 @@
 <p>目前 Go 檢查錯誤的代碼太多，但處理這些錯誤的代碼卻嚴重不足。對於 Go 2，開發團隊希望錯誤檢查更加輕量級，減少用於錯誤檢查的 Go 程序的文本量。此外，還能更加方便地編寫錯誤處理程序，提高開發者處理錯誤的可能性。</p>
 <p>為避免處理重複異常，錯誤檢查和錯誤處理還必須是顯性的，在程序文本中可見。</p>
 <p>參考示例：</p>
-<div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
-      <span class="nx">hex</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">ioutil</span><span class="p">.</span><span class="nx">ReadAll</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">Stdin</span><span class="p">)</span>
-      <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-              <span class="nx">log</span><span class="p">.</span><span class="nx">Fatal</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
-      <span class="p">}</span>
+<div class="highlight"><pre><span></span><span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nx">hex</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">ioutil</span><span class="p">.</span><span class="nx">ReadAll</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">Stdin</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="nx">log</span><span class="p">.</span><span class="nx">Fatal</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
 
-      <span class="nx">data</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">parseHexdump</span><span class="p">(</span><span class="nb">string</span><span class="p">(</span><span class="nx">hex</span><span class="p">))</span>
-      <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-              <span class="nx">log</span><span class="p">.</span><span class="nx">Fatal</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
-      <span class="p">}</span>
+<span class="w">      </span><span class="nx">data</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">parseHexdump</span><span class="p">(</span><span class="nb">string</span><span class="p">(</span><span class="nx">hex</span><span class="p">))</span><span class="w"></span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="nx">log</span><span class="p">.</span><span class="nx">Fatal</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
 
-      <span class="nx">os</span><span class="p">.</span><span class="nx">Stdout</span><span class="p">.</span><span class="nx">Write</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span>
-<span class="p">}</span>
+<span class="w">      </span><span class="nx">os</span><span class="p">.</span><span class="nx">Stdout</span><span class="p">.</span><span class="nx">Write</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 <p>簡化後：</p>
-<div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
-      <span class="nx">handle</span> <span class="nx">err</span> <span class="p">{</span>
-              <span class="nx">log</span><span class="p">.</span><span class="nx">Fatal</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
-      <span class="p">}</span>
+<div class="highlight"><pre><span></span><span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nx">handle</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="nx">log</span><span class="p">.</span><span class="nx">Fatal</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
 
-      <span class="nx">hex</span> <span class="o">:=</span> <span class="nx">check</span> <span class="nx">ioutil</span><span class="p">.</span><span class="nx">ReadAll</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">Stdin</span><span class="p">)</span>
-      <span class="nx">data</span> <span class="o">:=</span> <span class="nx">check</span> <span class="nx">parseHexdump</span><span class="p">(</span><span class="nb">string</span><span class="p">(</span><span class="nx">hex</span><span class="p">))</span>
-      <span class="nx">os</span><span class="p">.</span><span class="nx">Stdout</span><span class="p">.</span><span class="nx">Write</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span>
-<span class="p">}</span>
+<span class="w">      </span><span class="nx">hex</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">check</span><span class="w"> </span><span class="nx">ioutil</span><span class="p">.</span><span class="nx">ReadAll</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">Stdin</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="nx">data</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">check</span><span class="w"> </span><span class="nx">parseHexdump</span><span class="p">(</span><span class="nb">string</span><span class="p">(</span><span class="nx">hex</span><span class="p">))</span><span class="w"></span>
+<span class="w">      </span><span class="nx">os</span><span class="p">.</span><span class="nx">Stdout</span><span class="p">.</span><span class="nx">Write</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 <div class="section" id="error-values">
@@ -104,9 +104,9 @@ func As(type E)(err error) (e E, ok bool)
 <p>Go 團隊在早期其實一直有在調查和討論“泛型”的可能性設計，但由於種種原因，Go 1 更多的是確保能快速構建包含很多獨立軟件包的程序。</p>
 <p>Go 2 的目標是通過允許帶有類型參數的參數多態來解決編寫 Go 庫的問題，這些問題抽象出了不必要的類型細節。</p>
 <p>此外，除了預期的容器類型之外，開發團隊還希望能編寫有用的庫來操作任意的 map 和 channel 值。理想方案是編寫能夠同時操作 [ ]byte 和 string 值的多態函數。</p>
-<div class="highlight"><pre><span></span><span class="kd">type</span> <span class="nx">List</span><span class="p">(</span><span class="kd">type</span> <span class="nx">T</span><span class="p">)</span> <span class="p">[]</span><span class="nx">T</span>
+<div class="highlight"><pre><span></span><span class="kd">type</span><span class="w"> </span><span class="nx">List</span><span class="p">(</span><span class="kd">type</span><span class="w"> </span><span class="nx">T</span><span class="p">)</span><span class="w"> </span><span class="p">[]</span><span class="nx">T</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">Keys</span><span class="p">(</span><span class="kd">type</span> <span class="nx">K</span><span class="p">,</span> <span class="nx">V</span><span class="p">)(</span><span class="nx">m</span> <span class="kd">map</span><span class="p">[</span><span class="nx">K</span><span class="p">]</span><span class="nx">V</span><span class="p">)</span> <span class="p">[]</span><span class="nx">K</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">Keys</span><span class="p">(</span><span class="kd">type</span><span class="w"> </span><span class="nx">K</span><span class="p">,</span><span class="w"> </span><span class="nx">V</span><span class="p">)(</span><span class="nx">m</span><span class="w"> </span><span class="kd">map</span><span class="p">[</span><span class="nx">K</span><span class="p">]</span><span class="nx">V</span><span class="p">)</span><span class="w"> </span><span class="p">[]</span><span class="nx">K</span><span class="w"></span>
 </pre></div>
 <p><a class="reference external" href="https://go.googlesource.com/proposal/+/master/design/go2draft.md">更多細節請查閱設計草案頁面。</a></p>
 <div class="line-block">

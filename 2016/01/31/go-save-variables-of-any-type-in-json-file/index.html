@@ -54,23 +54,23 @@
 
     <div class="main-content"><p>Save variables of any type (struct, map, array, slice, etc.) in <a class="reference external" href="http://json.org/">JSON</a> format
 file via <a class="reference external" href="https://golang.org/">Golang</a>.</p>
-<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="s">&quot;os&quot;</span>
-<span class="kn">import</span> <span class="s">&quot;encoding/json&quot;</span>
+<div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="s">&quot;os&quot;</span><span class="w"></span>
+<span class="kn">import</span><span class="w"> </span><span class="s">&quot;encoding/json&quot;</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">SaveJsonFile</span><span class="p">(</span><span class="nx">v</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">path</span> <span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nx">fo</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">os</span><span class="p">.</span><span class="nx">Create</span><span class="p">(</span><span class="nx">path</span><span class="p">)</span>
-        <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-                <span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
-        <span class="p">}</span>
-        <span class="k">defer</span> <span class="nx">fo</span><span class="p">.</span><span class="nx">Close</span><span class="p">()</span>
-        <span class="nx">e</span> <span class="o">:=</span> <span class="nx">json</span><span class="p">.</span><span class="nx">NewEncoder</span><span class="p">(</span><span class="nx">fo</span><span class="p">)</span>
-        <span class="k">if</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">e</span><span class="p">.</span><span class="nx">Encode</span><span class="p">(</span><span class="nx">v</span><span class="p">);</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-                <span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
-        <span class="p">}</span>
-<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">SaveJsonFile</span><span class="p">(</span><span class="nx">v</span><span class="w"> </span><span class="kd">interface</span><span class="p">{},</span><span class="w"> </span><span class="nx">path</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nx">fo</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">os</span><span class="p">.</span><span class="nx">Create</span><span class="p">(</span><span class="nx">path</span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                </span><span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="k">defer</span><span class="w"> </span><span class="nx">fo</span><span class="p">.</span><span class="nx">Close</span><span class="p">()</span><span class="w"></span>
+<span class="w">        </span><span class="nx">e</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">json</span><span class="p">.</span><span class="nx">NewEncoder</span><span class="p">(</span><span class="nx">fo</span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">e</span><span class="p">.</span><span class="nx">Encode</span><span class="p">(</span><span class="nx">v</span><span class="p">);</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                </span><span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="c1">// assume we want to save *mystruct* in ``/home/myaccount/mystruct.json``</span>
-<span class="nx">SaveJsonFile</span><span class="p">(</span><span class="nx">mystruct</span><span class="p">,</span> <span class="s">&quot;/home/myaccount/mystruct.json&quot;</span><span class="p">)</span>
+<span class="c1">// assume we want to save *mystruct* in ``/home/myaccount/mystruct.json``</span><span class="w"></span>
+<span class="nx">SaveJsonFile</span><span class="p">(</span><span class="nx">mystruct</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/home/myaccount/mystruct.json&quot;</span><span class="p">)</span><span class="w"></span>
 </pre></div>
 <p>Tested on: <tt class="docutils literal">Ubuntu Linux 15.10</tt>, <tt class="docutils literal">Go 1.5.3</tt>.</p>
 

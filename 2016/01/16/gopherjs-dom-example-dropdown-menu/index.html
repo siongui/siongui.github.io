@@ -135,24 +135,24 @@ $ go get -u honnef.co/go/js/dom
 <span class="normal">15</span>
 <span class="normal">16</span>
 <span class="normal">17</span>
-<span class="normal">18</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="p">#</span><span class="nn">menu-dropdown</span> <span class="p">{</span>
-  <span class="k">font-size</span><span class="p">:</span> <span class="mi">3</span><span class="kt">em</span><span class="p">;</span>
-  <span class="k">color</span><span class="p">:</span> <span class="kc">blue</span><span class="p">;</span>
-<span class="p">}</span>
+<span class="normal">18</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="p">#</span><span class="nn">menu-dropdown</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="k">font-size</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="kt">em</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="k">color</span><span class="p">:</span><span class="w"> </span><span class="kc">blue</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="p">#</span><span class="nn">menu-dropdown</span><span class="p">:</span><span class="nd">hover</span> <span class="p">{</span>
-  <span class="k">cursor</span><span class="p">:</span> <span class="kc">pointer</span><span class="p">;</span>
-<span class="p">}</span>
+<span class="p">#</span><span class="nn">menu-dropdown</span><span class="p">:</span><span class="nd">hover</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="k">cursor</span><span class="p">:</span><span class="w"> </span><span class="kc">pointer</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="p">#</span><span class="nn">menuDiv-dropdown</span> <span class="p">{</span>
-  <span class="k">font-size</span><span class="p">:</span> <span class="mi">3</span><span class="kt">em</span><span class="p">;</span>
-  <span class="k">position</span><span class="p">:</span> <span class="kc">absolute</span><span class="p">;</span>
-  <span class="k">border</span><span class="p">:</span> <span class="mi">1</span><span class="kt">px</span> <span class="kc">solid</span> <span class="kc">blue</span><span class="p">;</span>
-<span class="p">}</span>
+<span class="p">#</span><span class="nn">menuDiv-dropdown</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="k">font-size</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="kt">em</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="k">position</span><span class="p">:</span><span class="w"> </span><span class="kc">absolute</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="k">border</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="kt">px</span><span class="w"> </span><span class="kc">solid</span><span class="w"> </span><span class="kc">blue</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="p">.</span><span class="nc">invisible</span> <span class="p">{</span>
-  <span class="k">display</span><span class="p">:</span> <span class="kc">none</span><span class="p">;</span>
-<span class="p">}</span>
+<span class="p">.</span><span class="nc">invisible</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="k">display</span><span class="p">:</span><span class="w"> </span><span class="kc">none</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </td></tr></table></div></figure>
 <p>We will bind a <a class="reference external" href="http://www.w3schools.com/jsref/event_onclick.asp">onclick</a> event handler to the HTML DOM <a class="reference external" href="http://www.w3schools.com/jsref/dom_obj_document.asp">document</a> object.
@@ -197,39 +197,39 @@ dropdown menu will show up or disappear.</p>
 <span class="normal">30</span>
 <span class="normal">31</span>
 <span class="normal">32</span>
-<span class="normal">33</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
+<span class="normal">33</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w"></span>
 
-<span class="kn">import</span> <span class="s">&quot;honnef.co/go/js/dom&quot;</span>
+<span class="kn">import</span><span class="w"> </span><span class="s">&quot;honnef.co/go/js/dom&quot;</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">checkParent</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span> <span class="nx">elm</span> <span class="nx">dom</span><span class="p">.</span><span class="nx">Element</span><span class="p">)</span> <span class="kt">bool</span> <span class="p">{</span>
-	<span class="k">for</span> <span class="nx">target</span><span class="p">.</span><span class="nx">ParentElement</span><span class="p">()</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-		<span class="k">if</span> <span class="nx">target</span><span class="p">.</span><span class="nx">IsEqualNode</span><span class="p">(</span><span class="nx">elm</span><span class="p">)</span> <span class="p">{</span>
-			<span class="k">return</span> <span class="kc">true</span>
-		<span class="p">}</span>
-		<span class="nx">target</span> <span class="p">=</span> <span class="nx">target</span><span class="p">.</span><span class="nx">ParentElement</span><span class="p">()</span>
-	<span class="p">}</span>
-	<span class="k">return</span> <span class="kc">false</span>
-<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">checkParent</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span><span class="w"> </span><span class="nx">elm</span><span class="w"> </span><span class="nx">dom</span><span class="p">.</span><span class="nx">Element</span><span class="p">)</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">	</span><span class="k">for</span><span class="w"> </span><span class="nx">target</span><span class="p">.</span><span class="nx">ParentElement</span><span class="p">()</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">		</span><span class="k">if</span><span class="w"> </span><span class="nx">target</span><span class="p">.</span><span class="nx">IsEqualNode</span><span class="p">(</span><span class="nx">elm</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">			</span><span class="k">return</span><span class="w"> </span><span class="kc">true</span><span class="w"></span>
+<span class="w">		</span><span class="p">}</span><span class="w"></span>
+<span class="w">		</span><span class="nx">target</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">target</span><span class="p">.</span><span class="nx">ParentElement</span><span class="p">()</span><span class="w"></span>
+<span class="w">	</span><span class="p">}</span><span class="w"></span>
+<span class="w">	</span><span class="k">return</span><span class="w"> </span><span class="kc">false</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
-	<span class="nx">d</span> <span class="o">:=</span> <span class="nx">dom</span><span class="p">.</span><span class="nx">GetWindow</span><span class="p">().</span><span class="nx">Document</span><span class="p">()</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">	</span><span class="nx">d</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">dom</span><span class="p">.</span><span class="nx">GetWindow</span><span class="p">().</span><span class="nx">Document</span><span class="p">()</span><span class="w"></span>
 
-	<span class="nx">toggle</span> <span class="o">:=</span> <span class="nx">d</span><span class="p">.</span><span class="nx">GetElementByID</span><span class="p">(</span><span class="s">&quot;menu-dropdown&quot;</span><span class="p">).(</span><span class="o">*</span><span class="nx">dom</span><span class="p">.</span><span class="nx">HTMLDivElement</span><span class="p">)</span>
-	<span class="nx">menu</span> <span class="o">:=</span> <span class="nx">d</span><span class="p">.</span><span class="nx">GetElementByID</span><span class="p">(</span><span class="s">&quot;menuDiv-dropdown&quot;</span><span class="p">).(</span><span class="o">*</span><span class="nx">dom</span><span class="p">.</span><span class="nx">HTMLDivElement</span><span class="p">)</span>
+<span class="w">	</span><span class="nx">toggle</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">d</span><span class="p">.</span><span class="nx">GetElementByID</span><span class="p">(</span><span class="s">&quot;menu-dropdown&quot;</span><span class="p">).(</span><span class="o">*</span><span class="nx">dom</span><span class="p">.</span><span class="nx">HTMLDivElement</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="nx">menu</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">d</span><span class="p">.</span><span class="nx">GetElementByID</span><span class="p">(</span><span class="s">&quot;menuDiv-dropdown&quot;</span><span class="p">).(</span><span class="o">*</span><span class="nx">dom</span><span class="p">.</span><span class="nx">HTMLDivElement</span><span class="p">)</span><span class="w"></span>
 
-	<span class="nx">d</span><span class="p">.</span><span class="nx">AddEventListener</span><span class="p">(</span><span class="s">&quot;click&quot;</span><span class="p">,</span> <span class="kc">false</span><span class="p">,</span> <span class="kd">func</span><span class="p">(</span><span class="nx">event</span> <span class="nx">dom</span><span class="p">.</span><span class="nx">Event</span><span class="p">)</span> <span class="p">{</span>
-		<span class="k">if</span> <span class="p">!</span><span class="nx">checkParent</span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">Target</span><span class="p">(),</span> <span class="nx">menu</span><span class="p">)</span> <span class="p">{</span>
-			<span class="c1">// click NOT on the menu</span>
-			<span class="k">if</span> <span class="nx">checkParent</span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">Target</span><span class="p">(),</span> <span class="nx">toggle</span><span class="p">)</span> <span class="p">{</span>
-				<span class="c1">// click on the link</span>
-				<span class="nx">menu</span><span class="p">.</span><span class="nx">Class</span><span class="p">().</span><span class="nx">Toggle</span><span class="p">(</span><span class="s">&quot;invisible&quot;</span><span class="p">)</span>
-			<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-				<span class="c1">// click both outside link and outside menu, hide menu</span>
-				<span class="nx">menu</span><span class="p">.</span><span class="nx">Class</span><span class="p">().</span><span class="nx">Add</span><span class="p">(</span><span class="s">&quot;invisible&quot;</span><span class="p">)</span>
-			<span class="p">}</span>
-		<span class="p">}</span>
-	<span class="p">})</span>
-<span class="p">}</span>
+<span class="w">	</span><span class="nx">d</span><span class="p">.</span><span class="nx">AddEventListener</span><span class="p">(</span><span class="s">&quot;click&quot;</span><span class="p">,</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="nx">event</span><span class="w"> </span><span class="nx">dom</span><span class="p">.</span><span class="nx">Event</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">		</span><span class="k">if</span><span class="w"> </span><span class="p">!</span><span class="nx">checkParent</span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">Target</span><span class="p">(),</span><span class="w"> </span><span class="nx">menu</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">			</span><span class="c1">// click NOT on the menu</span><span class="w"></span>
+<span class="w">			</span><span class="k">if</span><span class="w"> </span><span class="nx">checkParent</span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">Target</span><span class="p">(),</span><span class="w"> </span><span class="nx">toggle</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">				</span><span class="c1">// click on the link</span><span class="w"></span>
+<span class="w">				</span><span class="nx">menu</span><span class="p">.</span><span class="nx">Class</span><span class="p">().</span><span class="nx">Toggle</span><span class="p">(</span><span class="s">&quot;invisible&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">			</span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">				</span><span class="c1">// click both outside link and outside menu, hide menu</span><span class="w"></span>
+<span class="w">				</span><span class="nx">menu</span><span class="p">.</span><span class="nx">Class</span><span class="p">().</span><span class="nx">Add</span><span class="p">(</span><span class="s">&quot;invisible&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">			</span><span class="p">}</span><span class="w"></span>
+<span class="w">		</span><span class="p">}</span><span class="w"></span>
+<span class="w">	</span><span class="p">})</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </td></tr></table></div></figure>
 <p>Compile the <a class="reference external" href="https://golang.org/">Go</a> code to <a class="reference external" href="https://en.wikipedia.org/wiki/JavaScript">JavaScript</a> by:</p>

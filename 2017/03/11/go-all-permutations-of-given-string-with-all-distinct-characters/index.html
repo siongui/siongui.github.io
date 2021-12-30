@@ -64,49 +64,49 @@ port the code from <a class="reference external" href="https://www.google.com/se
 <h2>Answer</h2>
 <p>Use <a class="reference external" href="https://www.google.com/search?q=backtracking">Backtracking</a> algorithm. See <a class="reference external" href="http://www.techiedelight.com/find-permutations-given-string/">original post</a> for explanation.</p>
 <p class="align-center rubric"><a class="reference external" href="https://play.golang.org/p/TC39OY3euz">Run Code on Go Playground</a></p>
-<div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
+<div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w"></span>
 
-<span class="c1">// Swap the i-th byte and j-th byte of the string</span>
-<span class="kd">func</span> <span class="nx">swap</span><span class="p">(</span><span class="nx">s</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">j</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">string</span> <span class="p">{</span>
-      <span class="kd">var</span> <span class="nx">result</span> <span class="p">[]</span><span class="kt">byte</span>
-      <span class="k">for</span> <span class="nx">k</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">k</span> <span class="p">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="nx">s</span><span class="p">);</span> <span class="nx">k</span><span class="o">++</span> <span class="p">{</span>
-              <span class="k">if</span> <span class="nx">k</span> <span class="o">==</span> <span class="nx">i</span> <span class="p">{</span>
-                      <span class="nx">result</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">result</span><span class="p">,</span> <span class="nx">s</span><span class="p">[</span><span class="nx">j</span><span class="p">])</span>
-              <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="nx">k</span> <span class="o">==</span> <span class="nx">j</span> <span class="p">{</span>
-                      <span class="nx">result</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">result</span><span class="p">,</span> <span class="nx">s</span><span class="p">[</span><span class="nx">i</span><span class="p">])</span>
-              <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-                      <span class="nx">result</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">result</span><span class="p">,</span> <span class="nx">s</span><span class="p">[</span><span class="nx">k</span><span class="p">])</span>
-              <span class="p">}</span>
-      <span class="p">}</span>
-      <span class="k">return</span> <span class="nb">string</span><span class="p">(</span><span class="nx">result</span><span class="p">)</span>
-<span class="p">}</span>
+<span class="c1">// Swap the i-th byte and j-th byte of the string</span><span class="w"></span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">swap</span><span class="p">(</span><span class="nx">s</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">i</span><span class="p">,</span><span class="w"> </span><span class="nx">j</span><span class="w"> </span><span class="kt">int</span><span class="p">)</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="kd">var</span><span class="w"> </span><span class="nx">result</span><span class="w"> </span><span class="p">[]</span><span class="kt">byte</span><span class="w"></span>
+<span class="w">      </span><span class="k">for</span><span class="w"> </span><span class="nx">k</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="nx">k</span><span class="w"> </span><span class="p">&lt;</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="nx">s</span><span class="p">);</span><span class="w"> </span><span class="nx">k</span><span class="o">++</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="k">if</span><span class="w"> </span><span class="nx">k</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                      </span><span class="nx">result</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">append</span><span class="p">(</span><span class="nx">result</span><span class="p">,</span><span class="w"> </span><span class="nx">s</span><span class="p">[</span><span class="nx">j</span><span class="p">])</span><span class="w"></span>
+<span class="w">              </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="nx">k</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nx">j</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                      </span><span class="nx">result</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">append</span><span class="p">(</span><span class="nx">result</span><span class="p">,</span><span class="w"> </span><span class="nx">s</span><span class="p">[</span><span class="nx">i</span><span class="p">])</span><span class="w"></span>
+<span class="w">              </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                      </span><span class="nx">result</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">append</span><span class="p">(</span><span class="nx">result</span><span class="p">,</span><span class="w"> </span><span class="nx">s</span><span class="p">[</span><span class="nx">k</span><span class="p">])</span><span class="w"></span>
+<span class="w">              </span><span class="p">}</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="nb">string</span><span class="p">(</span><span class="nx">result</span><span class="p">)</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="c1">// Function to find all Permutations of a given string str[i:n]</span>
-<span class="c1">// containing all distinct characters</span>
-<span class="kd">func</span> <span class="nx">permutations</span><span class="p">(</span><span class="nx">str</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">n</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
-      <span class="c1">// base condition</span>
-      <span class="k">if</span> <span class="nx">i</span> <span class="o">==</span> <span class="nx">n</span><span class="o">-</span><span class="mi">1</span> <span class="p">{</span>
-              <span class="nb">println</span><span class="p">(</span><span class="nx">str</span><span class="p">)</span>
-              <span class="k">return</span>
-      <span class="p">}</span>
+<span class="c1">// Function to find all Permutations of a given string str[i:n]</span><span class="w"></span>
+<span class="c1">// containing all distinct characters</span><span class="w"></span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">permutations</span><span class="p">(</span><span class="nx">str</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">i</span><span class="p">,</span><span class="w"> </span><span class="nx">n</span><span class="w"> </span><span class="kt">int</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="c1">// base condition</span><span class="w"></span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nx">n</span><span class="o">-</span><span class="mi">1</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="nb">println</span><span class="p">(</span><span class="nx">str</span><span class="p">)</span><span class="w"></span>
+<span class="w">              </span><span class="k">return</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
 
-      <span class="c1">// process each character of the remaining string</span>
-      <span class="k">for</span> <span class="nx">j</span> <span class="o">:=</span> <span class="nx">i</span><span class="p">;</span> <span class="nx">j</span> <span class="p">&lt;</span> <span class="nx">n</span><span class="p">;</span> <span class="nx">j</span><span class="o">++</span> <span class="p">{</span>
-              <span class="c1">// swap character at index i with current character</span>
-              <span class="nx">str</span> <span class="p">=</span> <span class="nx">swap</span><span class="p">(</span><span class="nx">str</span><span class="p">,</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">j</span><span class="p">)</span>
+<span class="w">      </span><span class="c1">// process each character of the remaining string</span><span class="w"></span>
+<span class="w">      </span><span class="k">for</span><span class="w"> </span><span class="nx">j</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">i</span><span class="p">;</span><span class="w"> </span><span class="nx">j</span><span class="w"> </span><span class="p">&lt;</span><span class="w"> </span><span class="nx">n</span><span class="p">;</span><span class="w"> </span><span class="nx">j</span><span class="o">++</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="c1">// swap character at index i with current character</span><span class="w"></span>
+<span class="w">              </span><span class="nx">str</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">swap</span><span class="p">(</span><span class="nx">str</span><span class="p">,</span><span class="w"> </span><span class="nx">i</span><span class="p">,</span><span class="w"> </span><span class="nx">j</span><span class="p">)</span><span class="w"></span>
 
-              <span class="c1">// recursion for string [i+1:n]</span>
-              <span class="nx">permutations</span><span class="p">(</span><span class="nx">str</span><span class="p">,</span> <span class="nx">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="nx">n</span><span class="p">)</span>
+<span class="w">              </span><span class="c1">// recursion for string [i+1:n]</span><span class="w"></span>
+<span class="w">              </span><span class="nx">permutations</span><span class="p">(</span><span class="nx">str</span><span class="p">,</span><span class="w"> </span><span class="nx">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nx">n</span><span class="p">)</span><span class="w"></span>
 
-              <span class="c1">// backtrack (restore the string to its original state)</span>
-              <span class="nx">str</span> <span class="p">=</span> <span class="nx">swap</span><span class="p">(</span><span class="nx">str</span><span class="p">,</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">j</span><span class="p">)</span>
-      <span class="p">}</span>
-<span class="p">}</span>
+<span class="w">              </span><span class="c1">// backtrack (restore the string to its original state)</span><span class="w"></span>
+<span class="w">              </span><span class="nx">str</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">swap</span><span class="p">(</span><span class="nx">str</span><span class="p">,</span><span class="w"> </span><span class="nx">i</span><span class="p">,</span><span class="w"> </span><span class="nx">j</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
-      <span class="nx">str</span> <span class="o">:=</span> <span class="s">&quot;ABC&quot;</span>
-      <span class="nx">permutations</span><span class="p">(</span><span class="nx">str</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="nx">str</span><span class="p">))</span>
-<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nx">str</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="s">&quot;ABC&quot;</span><span class="w"></span>
+<span class="w">      </span><span class="nx">permutations</span><span class="p">(</span><span class="nx">str</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="nx">str</span><span class="p">))</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 
 <hr class="docutils" />

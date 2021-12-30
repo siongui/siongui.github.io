@@ -75,7 +75,7 @@ For the full list of methods provided in <em>classList</em>, see
 <div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;foo&quot;</span><span class="p">&gt;</span>Hello World<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
 </pre></div>
 <p>And also the following CSS class:</p>
-<div class="highlight"><pre><span></span><span class="p">.</span><span class="nc">invisible</span> <span class="p">{</span> <span class="k">display</span><span class="p">:</span> <span class="kc">none</span><span class="p">;</span> <span class="p">}</span>
+<div class="highlight"><pre><span></span><span class="p">.</span><span class="nc">invisible</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">display</span><span class="p">:</span><span class="w"> </span><span class="kc">none</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
 </pre></div>
 <p>We will show you how to add the <em>invisible</em> class to the <em>div</em> element via the
 <em>classList</em> property. For other manipulations like <em>remove</em>, <em>toggle</em>, or
@@ -91,30 +91,30 @@ For the full list of methods provided in <em>classList</em>, see
 <div class="section" id="gopherjs">
 <h3><a class="toc-backref" href="#toc-entry-3">GopherJS</a></h3>
 <p>The above code in Go/GopherJS is as follows:</p>
-<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="p">(</span>
-      <span class="s">&quot;github.com/gopherjs/gopherjs/js&quot;</span>
-<span class="p">)</span>
+<div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">      </span><span class="s">&quot;github.com/gopherjs/gopherjs/js&quot;</span><span class="w"></span>
+<span class="p">)</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
-      <span class="nx">f</span> <span class="o">:=</span> <span class="nx">js</span><span class="p">.</span><span class="nx">Global</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;document&quot;</span><span class="p">).</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;querySelector&quot;</span><span class="p">,</span> <span class="s">&quot;#foo&quot;</span><span class="p">)</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nx">f</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">js</span><span class="p">.</span><span class="nx">Global</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;document&quot;</span><span class="p">).</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;querySelector&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;#foo&quot;</span><span class="p">)</span><span class="w"></span>
 
-      <span class="nx">f</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;classList&quot;</span><span class="p">).</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;add&quot;</span><span class="p">,</span> <span class="s">&quot;invisible&quot;</span><span class="p">)</span>
-<span class="p">}</span>
+<span class="w">      </span><span class="nx">f</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;classList&quot;</span><span class="p">).</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;add&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;invisible&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 
 </div>
 <div class="section" id="gopherjs-godom">
 <h3><a class="toc-backref" href="#toc-entry-4">GopherJS + godom</a></h3>
 <p>To make your code more readable, we can prettify the above code with <a class="reference external" href="https://github.com/siongui/godom">godom</a>:</p>
-<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="p">(</span>
-      <span class="p">.</span> <span class="s">&quot;github.com/siongui/godom&quot;</span>
-<span class="p">)</span>
+<div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">      </span><span class="p">.</span><span class="w"> </span><span class="s">&quot;github.com/siongui/godom&quot;</span><span class="w"></span>
+<span class="p">)</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
-      <span class="nx">f</span> <span class="o">:=</span> <span class="nx">Document</span><span class="p">.</span><span class="nx">QuerySelector</span><span class="p">(</span><span class="s">&quot;#foo&quot;</span><span class="p">)</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nx">f</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">Document</span><span class="p">.</span><span class="nx">QuerySelector</span><span class="p">(</span><span class="s">&quot;#foo&quot;</span><span class="p">)</span><span class="w"></span>
 
-      <span class="nx">f</span><span class="p">.</span><span class="nx">ClassList</span><span class="p">().</span><span class="nx">Add</span><span class="p">(</span><span class="s">&quot;invisible&quot;</span><span class="p">)</span>
-<span class="p">}</span>
+<span class="w">      </span><span class="nx">f</span><span class="p">.</span><span class="nx">ClassList</span><span class="p">().</span><span class="nx">Add</span><span class="p">(</span><span class="s">&quot;invisible&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 <p>The full code example of this post is <a class="reference external" href="https://github.com/siongui/frontend-programming-in-go/tree/master/011-element-classlist">on my GitHub</a>.</p>
 

@@ -63,17 +63,17 @@
     <span class="n">handler</span><span class="p">()</span>
 </pre></div>
 <p><a class="reference external" href="https://golang.org/">Go</a>:</p>
-<div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
-      <span class="k">defer</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
-              <span class="nx">e</span> <span class="o">:=</span> <span class="nb">recover</span><span class="p">()</span>
-              <span class="k">if</span> <span class="nx">e</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-                      <span class="nx">handler</span><span class="p">()</span>
-              <span class="p">}</span>
-      <span class="p">}()</span>
-      <span class="nx">one</span><span class="p">()</span>
-      <span class="nx">two</span><span class="p">()</span>
-      <span class="nx">three</span><span class="p">()</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span></span><span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="k">defer</span><span class="w"> </span><span class="kd">func</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="nx">e</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">recover</span><span class="p">()</span><span class="w"></span>
+<span class="w">              </span><span class="k">if</span><span class="w"> </span><span class="nx">e</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                      </span><span class="nx">handler</span><span class="p">()</span><span class="w"></span>
+<span class="w">              </span><span class="p">}</span><span class="w"></span>
+<span class="w">      </span><span class="p">}()</span><span class="w"></span>
+<span class="w">      </span><span class="nx">one</span><span class="p">()</span><span class="w"></span>
+<span class="w">      </span><span class="nx">two</span><span class="p">()</span><span class="w"></span>
+<span class="w">      </span><span class="nx">three</span><span class="p">()</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 
 <p>I believe the original version comes from <a class="footnote-reference" href="#footnote-3" id="footnote-reference-1">[3]</a>, but the post seems to be

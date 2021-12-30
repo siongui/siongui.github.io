@@ -80,10 +80,10 @@
 <div class="section" id="flexbox">
 <h3>Flexbox 解決方案</h3>
 <p>我們將從 Flexbox 解決方案開始。我們將為容器添加 <tt class="docutils literal">display: flex</tt> 來指定為 Flex 佈局，並指定子元素的垂直方向。</p>
-<div class="highlight"><pre><span></span><span class="p">.</span><span class="nc">container</span> <span class="p">{</span>
-    <span class="k">display</span><span class="p">:</span> <span class="kc">flex</span><span class="p">;</span>
-    <span class="k">flex-direction</span><span class="p">:</span> <span class="kc">column</span><span class="p">;</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span></span><span class="p">.</span><span class="nc">container</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">display</span><span class="p">:</span><span class="w"> </span><span class="kc">flex</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">flex-direction</span><span class="p">:</span><span class="w"> </span><span class="kc">column</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 <p>現在我們需要使主要內容部分和側邊欄彼此相鄰。由於 Flex 容器通常是單向的，所以我們需要添加一個包裝器元素。</p>
 <div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">header</span><span class="p">&gt;&lt;/</span><span class="nt">header</span><span class="p">&gt;</span>
@@ -94,19 +94,19 @@
 <span class="p">&lt;</span><span class="nt">footer</span><span class="p">&gt;&lt;/</span><span class="nt">footer</span><span class="p">&gt;</span>
 </pre></div>
 <p>然後，我們給包裝器在反向添加 <tt class="docutils literal">display: flex</tt> 和 <tt class="docutils literal"><span class="pre">flex-direction</span></tt> 屬性。</p>
-<div class="highlight"><pre><span></span><span class="p">.</span><span class="nc">main-and-sidebar-wrapper</span> <span class="p">{</span>
-    <span class="k">display</span><span class="p">:</span> <span class="kc">flex</span><span class="p">;</span>
-    <span class="k">flex-direction</span><span class="p">:</span> <span class="kc">row</span><span class="p">;</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span></span><span class="p">.</span><span class="nc">main-and-sidebar-wrapper</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">display</span><span class="p">:</span><span class="w"> </span><span class="kc">flex</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">flex-direction</span><span class="p">:</span><span class="w"> </span><span class="kc">row</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 <p>最後一步，我們將設置主要內容部分與側邊欄的大小。通過 Flex 實現後，主要內容部分會比側邊欄大三倍。</p>
-<div class="highlight"><pre><span></span><span class="p">.</span><span class="nc">main</span> <span class="p">{</span>
-    <span class="k">flex</span><span class="p">:</span> <span class="mi">3</span><span class="p">;</span>
-    <span class="k">margin-right</span><span class="p">:</span> <span class="mi">60</span><span class="kt">px</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="p">.</span><span class="nc">sidebar</span> <span class="p">{</span>
-   <span class="k">flex</span><span class="p">:</span> <span class="mi">1</span><span class="p">;</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span></span><span class="p">.</span><span class="nc">main</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">flex</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">margin-right</span><span class="p">:</span><span class="w"> </span><span class="mi">60</span><span class="kt">px</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+<span class="p">.</span><span class="nc">sidebar</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">   </span><span class="k">flex</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 <p>如你所見，Flex 將其很好的實現了出來，但是仍需要相當多的 CSS 屬性，並借助了額外的 HTML 元素。那麼，讓我們看看 CSS Grid 如何實現的。</p>
 </div>
@@ -115,46 +115,46 @@
 <p>針對本項目，有幾種不同的 CSS Grid 解決方法，但是我們將使用 <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-areas">網格模板區域</a> 語法來實現，因為它似乎最適合我們要完成的工作。</p>
 <p>首先，我們將定義四個網格區域，所有的頁面各一個：</p>
 <div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">header</span><span class="p">&gt;&lt;/</span><span class="nt">header</span><span class="p">&gt;</span>
-<span class="c">&lt;!-- Notice there isn&#39;t a wrapper this time --&gt;</span>
+<span class="cm">&lt;!-- Notice there isn&#39;t a wrapper this time --&gt;</span>
 <span class="p">&lt;</span><span class="nt">section</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;main&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">section</span><span class="p">&gt;</span>
 <span class="p">&lt;</span><span class="nt">aside</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;sidebar&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">aside</span><span class="p">&gt;</span>
 <span class="p">&lt;</span><span class="nt">footer</span><span class="p">&gt;&lt;/</span><span class="nt">footer</span><span class="p">&gt;</span>
 </pre></div>
-<div class="highlight"><pre><span></span><span class="nt">header</span> <span class="p">{</span>
-    <span class="k">grid-area</span><span class="p">:</span> <span class="n">header</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="p">.</span><span class="nc">main</span> <span class="p">{</span>
-    <span class="k">grid-area</span><span class="p">:</span> <span class="n">main</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="p">.</span><span class="nc">sidebar</span> <span class="p">{</span>
-    <span class="k">grid-area</span><span class="p">:</span> <span class="n">sidebar</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="nt">footer</span> <span class="p">{</span>
-    <span class="k">grid-area</span><span class="p">:</span> <span class="n">footer</span><span class="p">;</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span></span><span class="nt">header</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">grid-area</span><span class="p">:</span><span class="w"> </span><span class="n">header</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+<span class="p">.</span><span class="nc">main</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">grid-area</span><span class="p">:</span><span class="w"> </span><span class="n">main</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+<span class="p">.</span><span class="nc">sidebar</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">grid-area</span><span class="p">:</span><span class="w"> </span><span class="n">sidebar</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+<span class="nt">footer</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">grid-area</span><span class="p">:</span><span class="w"> </span><span class="n">footer</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 <p>然後，我們會設置網格並分配每個區域的位置。初次接觸 Grid 佈局的朋友，可能感覺以下的代碼會有些複雜，但當你瞭解了網格體系，就很容易掌握了。</p>
-<div class="highlight"><pre><span></span><span class="p">.</span><span class="nc">container</span> <span class="p">{</span>
-    <span class="k">display</span><span class="p">:</span> <span class="k">grid</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><span class="p">.</span><span class="nc">container</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">display</span><span class="p">:</span><span class="w"> </span><span class="k">grid</span><span class="p">;</span><span class="w"></span>
 
-    <span class="c">/*     Define the size and number of columns in our grid.</span>
+<span class="w">    </span><span class="c">/*     Define the size and number of columns in our grid.</span>
 <span class="c">    The fr unit works similar to flex:</span>
 <span class="c">    fr columns will share the free space in the row in proportion to their value.</span>
-<span class="c">    We will have 2 columns - the first will be 3x the size of the second.  */</span>
-    <span class="k">grid-template-columns</span><span class="p">:</span> <span class="mi">3</span><span class="n">fr</span> <span class="mi">1</span><span class="n">fr</span><span class="p">;</span>
+<span class="c">    We will have 2 columns - the first will be 3x the size of the second.  */</span><span class="w"></span>
+<span class="w">    </span><span class="k">grid-template-columns</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="n">fr</span><span class="w"> </span><span class="mi">1</span><span class="n">fr</span><span class="p">;</span><span class="w"></span>
 
-    <span class="c">/*     Assign the grid areas we did earlier to specific places on the grid.</span>
+<span class="w">    </span><span class="c">/*     Assign the grid areas we did earlier to specific places on the grid.</span>
 <span class="c">        First row is all header.</span>
 <span class="c">        Second row is shared between main and sidebar.</span>
-<span class="c">        Last row is all footer.  */</span>
-    <span class="k">grid-template-areas</span><span class="p">:</span>
-        <span class="s2">&quot;header header&quot;</span>
-        <span class="s2">&quot;main sidebar&quot;</span>
-        <span class="s2">&quot;footer footer&quot;</span><span class="p">;</span>
+<span class="c">        Last row is all footer.  */</span><span class="w"></span>
+<span class="w">    </span><span class="k">grid-template-areas</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="s2">&quot;header header&quot;</span><span class="w"></span>
+<span class="w">        </span><span class="s2">&quot;main sidebar&quot;</span><span class="w"></span>
+<span class="w">        </span><span class="s2">&quot;footer footer&quot;</span><span class="p">;</span><span class="w"></span>
 
-    <span class="c">/*  The gutters between each grid cell will be 60 pixels. */</span>
-    <span class="k">grid-gap</span><span class="p">:</span> <span class="mi">60</span><span class="kt">px</span><span class="p">;</span>
-<span class="p">}</span>
+<span class="w">    </span><span class="c">/*  The gutters between each grid cell will be 60 pixels. */</span><span class="w"></span>
+<span class="w">    </span><span class="k">grid-gap</span><span class="p">:</span><span class="w"> </span><span class="mi">60</span><span class="kt">px</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 <p>就是這樣！ 我們現在將遵循上述結構進行佈局，甚至不需要我們處理任何的 margins 或 paddings 。</p>
 </div>
@@ -164,45 +164,45 @@
 <div class="section" id="flexbox-1">
 <h3>Flexbox 解決方案</h3>
 <p>這一步的執行與上一步密切相關。對於 Flexbox 解決方案，我們將更改包裝器的 <tt class="docutils literal"><span class="pre">flex-direction</span></tt> 屬性，並調整一些 margins。</p>
-<div class="highlight"><pre><span></span><span class="p">@</span><span class="k">media</span> <span class="o">(</span><span class="nt">max-width</span><span class="o">:</span> <span class="nt">600px</span><span class="o">)</span> <span class="p">{</span>
-    <span class="p">.</span><span class="nc">main-and-sidebar-wrapper</span> <span class="p">{</span>
-        <span class="k">flex-direction</span><span class="p">:</span> <span class="kc">column</span><span class="p">;</span>
-    <span class="p">}</span>
+<div class="highlight"><pre><span></span><span class="p">@</span><span class="k">media</span><span class="w"> </span><span class="o">(</span><span class="nt">max-width</span><span class="o">:</span><span class="w"> </span><span class="nt">600px</span><span class="o">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="p">.</span><span class="nc">main-and-sidebar-wrapper</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">flex-direction</span><span class="p">:</span><span class="w"> </span><span class="kc">column</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
 
-    <span class="p">.</span><span class="nc">main</span> <span class="p">{</span>
-        <span class="k">margin-right</span><span class="p">:</span> <span class="mi">0</span><span class="p">;</span>
-        <span class="k">margin-bottom</span><span class="p">:</span> <span class="mi">60</span><span class="kt">px</span><span class="p">;</span>
-    <span class="p">}</span>
-<span class="p">}</span>
+<span class="w">    </span><span class="p">.</span><span class="nc">main</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">margin-right</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="k">margin-bottom</span><span class="p">:</span><span class="w"> </span><span class="mi">60</span><span class="kt">px</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 <p>由於網頁比較簡單，所以我們在媒體查詢上不需要太多的重寫。但是，如果遇見更為複雜的佈局，那麼將會重新的定義相當多的內容。</p>
 </div>
 <div class="section" id="css-grid-1">
 <h3>CSS Grid 解決方案</h3>
 <p>由於我們已經定義了網格區域，所以我們只需要在媒體查詢中重新排序它們。 我們可以使用相同的列設置。</p>
-<div class="highlight"><pre><span></span><span class="p">@</span><span class="k">media</span> <span class="o">(</span><span class="nt">max-width</span><span class="o">:</span> <span class="nt">600px</span><span class="o">)</span> <span class="p">{</span>
-    <span class="p">.</span><span class="nc">container</span> <span class="p">{</span>
-    <span class="c">/*  Realign the grid areas for a mobile layout. */</span>
-        <span class="k">grid-template-areas</span><span class="p">:</span>
-            <span class="s2">&quot;header header&quot;</span>
-            <span class="s2">&quot;main main&quot;</span>
-            <span class="s2">&quot;sidebar sidebar&quot;</span>
-            <span class="s2">&quot;footer footer&quot;</span><span class="p">;</span>
-    <span class="p">}</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span></span><span class="p">@</span><span class="k">media</span><span class="w"> </span><span class="o">(</span><span class="nt">max-width</span><span class="o">:</span><span class="w"> </span><span class="nt">600px</span><span class="o">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="p">.</span><span class="nc">container</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="c">/*  Realign the grid areas for a mobile layout. */</span><span class="w"></span>
+<span class="w">        </span><span class="k">grid-template-areas</span><span class="p">:</span><span class="w"></span>
+<span class="w">            </span><span class="s2">&quot;header header&quot;</span><span class="w"></span>
+<span class="w">            </span><span class="s2">&quot;main main&quot;</span><span class="w"></span>
+<span class="w">            </span><span class="s2">&quot;sidebar sidebar&quot;</span><span class="w"></span>
+<span class="w">            </span><span class="s2">&quot;footer footer&quot;</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 <p>或者，我們可以從頭開始重新定義整個佈局。</p>
-<div class="highlight"><pre><span></span><span class="p">@</span><span class="k">media</span> <span class="o">(</span><span class="nt">max-width</span><span class="o">:</span> <span class="nt">600px</span><span class="o">)</span> <span class="p">{</span>
-    <span class="p">.</span><span class="nc">container</span> <span class="p">{</span>
-        <span class="c">/*  Redefine the grid into a single column layout. */</span>
-        <span class="k">grid-template-columns</span><span class="p">:</span> <span class="mi">1</span><span class="n">fr</span><span class="p">;</span>
-        <span class="k">grid-template-areas</span><span class="p">:</span>
-            <span class="s2">&quot;header&quot;</span>
-            <span class="s2">&quot;main&quot;</span>
-            <span class="s2">&quot;sidebar&quot;</span>
-            <span class="s2">&quot;footer&quot;</span><span class="p">;</span>
-    <span class="p">}</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span></span><span class="p">@</span><span class="k">media</span><span class="w"> </span><span class="o">(</span><span class="nt">max-width</span><span class="o">:</span><span class="w"> </span><span class="nt">600px</span><span class="o">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="p">.</span><span class="nc">container</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="c">/*  Redefine the grid into a single column layout. */</span><span class="w"></span>
+<span class="w">        </span><span class="k">grid-template-columns</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="n">fr</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="k">grid-template-areas</span><span class="p">:</span><span class="w"></span>
+<span class="w">            </span><span class="s2">&quot;header&quot;</span><span class="w"></span>
+<span class="w">            </span><span class="s2">&quot;main&quot;</span><span class="w"></span>
+<span class="w">            </span><span class="s2">&quot;sidebar&quot;</span><span class="w"></span>
+<span class="w">            </span><span class="s2">&quot;footer&quot;</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
@@ -221,41 +221,41 @@
 <span class="p">&lt;/</span><span class="nt">header</span><span class="p">&gt;</span>
 </pre></div>
 <p>我們曾在一篇較早的文章中使用 Flexbox 做了類似的佈局： <a class="reference external" href="http://tutorialzine.com/2016/02/quick-tip-easiest-way-to-make-responsive-headers/">響應式標頭最簡單的製作方法</a> 。這個技術很簡單：</p>
-<div class="highlight"><pre><span></span><span class="nt">header</span> <span class="p">{</span>
-    <span class="k">display</span><span class="p">:</span> <span class="kc">flex</span><span class="p">;</span>
-    <span class="k">justify-content</span><span class="p">:</span> <span class="kc">space-between</span><span class="p">;</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span></span><span class="nt">header</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">display</span><span class="p">:</span><span class="w"> </span><span class="kc">flex</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">justify-content</span><span class="p">:</span><span class="w"> </span><span class="kc">space-between</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 <p>現在導航列表和按鈕已正確對齊。下來我們將使 <tt class="docutils literal">&lt;nav&gt;</tt> 內的 items 進行水平移動。這裡最簡單的方法就是使用 <tt class="docutils literal"><span class="pre">display：inline-block</span></tt> 屬性，但目前我們需要使用一個 Flexbox 解決方案：</p>
-<div class="highlight"><pre><span></span><span class="nt">header</span> <span class="nt">nav</span> <span class="p">{</span>
-    <span class="k">display</span><span class="p">:</span> <span class="kc">flex</span><span class="p">;</span>
-    <span class="k">align-items</span><span class="p">:</span> <span class="kc">baseline</span><span class="p">;</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span></span><span class="nt">header</span><span class="w"> </span><span class="nt">nav</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">display</span><span class="p">:</span><span class="w"> </span><span class="kc">flex</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">align-items</span><span class="p">:</span><span class="w"> </span><span class="kc">baseline</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 <p>僅兩行代碼就搞定了！ 還不錯吧。接下來讓我們看看如何使用 CSS Grid 解決它。</p>
 </div>
 <div class="section" id="css-grid-2">
 <h3>CSS Grid 解決方案</h3>
 <p>為了拆分導航和按鈕，我們要為標頭定義 <tt class="docutils literal">display: grid</tt> 屬性，並設置一個 2 列的網格。同時，我們還需要兩行額外的 CSS 代碼，將它們定位在相應的邊界上。</p>
-<div class="highlight"><pre><span></span><span class="nt">header</span><span class="p">{</span>
-    <span class="k">display</span><span class="p">:</span> <span class="k">grid</span><span class="p">;</span>
-    <span class="k">grid-template-columns</span><span class="p">:</span> <span class="mi">1</span><span class="n">fr</span> <span class="mi">1</span><span class="n">fr</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="nt">header</span> <span class="nt">nav</span> <span class="p">{</span>
-    <span class="k">justify-self</span><span class="p">:</span> <span class="kc">start</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="nt">header</span> <span class="nt">button</span> <span class="p">{</span>
-    <span class="k">justify-self</span><span class="p">:</span> <span class="kc">end</span><span class="p">;</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span></span><span class="nt">header</span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">display</span><span class="p">:</span><span class="w"> </span><span class="k">grid</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">grid-template-columns</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="n">fr</span><span class="w"> </span><span class="mi">1</span><span class="n">fr</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+<span class="nt">header</span><span class="w"> </span><span class="nt">nav</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">justify-self</span><span class="p">:</span><span class="w"> </span><span class="kc">start</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+<span class="nt">header</span><span class="w"> </span><span class="nt">button</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">justify-self</span><span class="p">:</span><span class="w"> </span><span class="kc">end</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 <p>至於導航中的內鏈 - 這是我們使用 CSS grid 最好的佈局展示：</p>
 <img alt="CSS Grid VS Flexbox：實例對比" class="align-center" src="http://upload-images.jianshu.io/upload_images/675733-bd93d208a446870e.png?imageMogr2/auto-orient/strip%7CimageView2/2" />
 <p>雖然鏈接為內鏈形式，但它們不能正確的對齊。由於 CSS grid 不具備基線選項（不像 Flexbox 具備的 <tt class="docutils literal"><span class="pre">align-items</span></tt> 屬性），所以我們只能再定義一個子網格。</p>
-<div class="highlight"><pre><span></span><span class="nt">header</span> <span class="nt">nav</span> <span class="p">{</span>
-    <span class="k">display</span><span class="p">:</span> <span class="k">grid</span><span class="p">;</span>
-    <span class="k">grid-template-columns</span><span class="p">:</span> <span class="kc">auto</span> <span class="mi">1</span><span class="n">fr</span> <span class="mi">1</span><span class="n">fr</span><span class="p">;</span>
-    <span class="k">align-items</span><span class="p">:</span> <span class="kc">end</span><span class="p">;</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span></span><span class="nt">header</span><span class="w"> </span><span class="nt">nav</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">display</span><span class="p">:</span><span class="w"> </span><span class="k">grid</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">grid-template-columns</span><span class="p">:</span><span class="w"> </span><span class="kc">auto</span><span class="w"> </span><span class="mi">1</span><span class="n">fr</span><span class="w"> </span><span class="mi">1</span><span class="n">fr</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">align-items</span><span class="p">:</span><span class="w"> </span><span class="kc">end</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 <p>CSS grid 在此步驟中，存在一些明顯的佈局上的缺陷。但你也不必過於驚訝。因為它的目標是對齊容器，而不是內部的內容。所以，用它來處理收尾工作，或許不是很好的選擇哦。</p>
 </div>

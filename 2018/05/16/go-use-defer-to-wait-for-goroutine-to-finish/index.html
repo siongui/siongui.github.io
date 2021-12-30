@@ -58,62 +58,62 @@ goroutines to finish.</p>
 <p>Let's start with bad practice. Look at the following code example, which waits
 for all goroutines to finish:</p>
 <p class="align-center rubric"><a class="reference external" href="https://play.golang.org/p/0lDZVtmpL1e">Run Code on Go Playground</a></p>
-<div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
+<div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w"></span>
 
-<span class="kn">import</span> <span class="p">(</span>
-      <span class="s">&quot;fmt&quot;</span>
-<span class="p">)</span>
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">      </span><span class="s">&quot;fmt&quot;</span><span class="w"></span>
+<span class="p">)</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">routine</span><span class="p">(</span><span class="nx">site</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">c</span> <span class="kd">chan</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
-      <span class="c1">// do something</span>
-      <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">site</span><span class="p">)</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">routine</span><span class="p">(</span><span class="nx">site</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">c</span><span class="w"> </span><span class="kd">chan</span><span class="w"> </span><span class="kt">int</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="c1">// do something</span><span class="w"></span>
+<span class="w">      </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">site</span><span class="p">)</span><span class="w"></span>
 
-      <span class="nx">c</span> <span class="o">&lt;-</span> <span class="mi">1</span>
-<span class="p">}</span>
+<span class="w">      </span><span class="nx">c</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="mi">1</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
-      <span class="nx">c</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kt">int</span><span class="p">)</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nx">c</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">make</span><span class="p">(</span><span class="kd">chan</span><span class="w"> </span><span class="kt">int</span><span class="p">)</span><span class="w"></span>
 
-      <span class="nx">sites</span> <span class="o">:=</span> <span class="p">[]</span><span class="kt">string</span><span class="p">{</span>
-              <span class="s">&quot;https://www.google.com/&quot;</span><span class="p">,</span>
-              <span class="s">&quot;https://duckduckgo.com/&quot;</span><span class="p">,</span>
-              <span class="s">&quot;https://www.bing.com/&quot;</span><span class="p">}</span>
+<span class="w">      </span><span class="nx">sites</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="s">&quot;https://www.google.com/&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">              </span><span class="s">&quot;https://duckduckgo.com/&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">              </span><span class="s">&quot;https://www.bing.com/&quot;</span><span class="p">}</span><span class="w"></span>
 
-      <span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">site</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">sites</span> <span class="p">{</span>
-              <span class="k">go</span> <span class="nx">routine</span><span class="p">(</span><span class="nx">site</span><span class="p">,</span> <span class="nx">c</span><span class="p">)</span>
-      <span class="p">}</span>
+<span class="w">      </span><span class="k">for</span><span class="w"> </span><span class="nx">_</span><span class="p">,</span><span class="w"> </span><span class="nx">site</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="nx">sites</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="k">go</span><span class="w"> </span><span class="nx">routine</span><span class="p">(</span><span class="nx">site</span><span class="p">,</span><span class="w"> </span><span class="nx">c</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
 
-      <span class="c1">// wait all goroutines to finish</span>
-      <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="nx">sites</span><span class="p">);</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
-              <span class="o">&lt;-</span><span class="nx">c</span>
-      <span class="p">}</span>
-<span class="p">}</span>
+<span class="w">      </span><span class="c1">// wait all goroutines to finish</span><span class="w"></span>
+<span class="w">      </span><span class="k">for</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="p">&lt;</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="nx">sites</span><span class="p">);</span><span class="w"> </span><span class="nx">i</span><span class="o">++</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="o">&lt;-</span><span class="nx">c</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 <p>In the end of the <a class="reference external" href="https://tour.golang.org/concurrency/1">goroutine</a>, The line <tt class="docutils literal">c &lt;- 1</tt> sends integer 1 to <a class="reference external" href="https://tour.golang.org/concurrency/2">channel</a> to
 notify that the goroutine is finished. This way looks good, if your goroutine
 return only at the end of the func. More often than not, the goroutine will
 return at multiple places inside the func. For example, consider the following
 goroutine:</p>
-<div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">routine</span><span class="p">(</span><span class="nx">c</span> <span class="kd">chan</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
-      <span class="nx">b</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">ioutil</span><span class="p">.</span><span class="nx">ReadFile</span><span class="p">(</span><span class="s">&quot;myfile.txt&quot;</span><span class="p">)</span>
-      <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-              <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
-              <span class="nx">c</span> <span class="o">&lt;-</span> <span class="mi">1</span>
-              <span class="k">return</span>
-      <span class="p">}</span>
+<div class="highlight"><pre><span></span><span class="kd">func</span><span class="w"> </span><span class="nx">routine</span><span class="p">(</span><span class="nx">c</span><span class="w"> </span><span class="kd">chan</span><span class="w"> </span><span class="kt">int</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nx">b</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">ioutil</span><span class="p">.</span><span class="nx">ReadFile</span><span class="p">(</span><span class="s">&quot;myfile.txt&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"></span>
+<span class="w">              </span><span class="nx">c</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="mi">1</span><span class="w"></span>
+<span class="w">              </span><span class="k">return</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
 
-      <span class="nx">mystruct</span> <span class="o">:=</span> <span class="nx">MyStruct</span><span class="p">{}</span>
-      <span class="nx">err</span> <span class="p">=</span> <span class="nx">json</span><span class="p">.</span><span class="nx">Unmarshal</span><span class="p">(</span><span class="nx">b</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">mystrcut</span><span class="p">)</span>
-      <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-              <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
-              <span class="nx">c</span> <span class="o">&lt;-</span> <span class="mi">1</span>
-              <span class="k">return</span>
-      <span class="p">}</span>
+<span class="w">      </span><span class="nx">mystruct</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">MyStruct</span><span class="p">{}</span><span class="w"></span>
+<span class="w">      </span><span class="nx">err</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">json</span><span class="p">.</span><span class="nx">Unmarshal</span><span class="p">(</span><span class="nx">b</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">mystrcut</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"></span>
+<span class="w">              </span><span class="nx">c</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="mi">1</span><span class="w"></span>
+<span class="w">              </span><span class="k">return</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
 
-      <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">mystruct</span><span class="p">)</span>
-      <span class="nx">c</span> <span class="o">&lt;-</span> <span class="mi">1</span>
-      <span class="k">return</span>
-<span class="p">}</span>
+<span class="w">      </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">mystruct</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="nx">c</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="mi">1</span><span class="w"></span>
+<span class="w">      </span><span class="k">return</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 <p>As you can see from above example, there are three <em>return</em> statement in the
 goroutine, and you have to write <tt class="docutils literal">c &lt;- 1</tt> three times right before the
@@ -126,25 +126,25 @@ According to the description in <em>A Tour of Go</em>:</p>
 A defer statement defers the execution of a function until the surrounding
 function returns.</blockquote>
 <p>So we can use <em>defer</em> to write <tt class="docutils literal">c &lt;- 1</tt> only once as follows:</p>
-<div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">routine</span><span class="p">(</span><span class="nx">c</span> <span class="kd">chan</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
-      <span class="k">defer</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span> <span class="nx">c</span> <span class="o">&lt;-</span> <span class="mi">1</span> <span class="p">}()</span>
+<div class="highlight"><pre><span></span><span class="kd">func</span><span class="w"> </span><span class="nx">routine</span><span class="p">(</span><span class="nx">c</span><span class="w"> </span><span class="kd">chan</span><span class="w"> </span><span class="kt">int</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="k">defer</span><span class="w"> </span><span class="kd">func</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">c</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="p">}()</span><span class="w"></span>
 
-      <span class="nx">b</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">ioutil</span><span class="p">.</span><span class="nx">ReadFile</span><span class="p">(</span><span class="s">&quot;myfile.txt&quot;</span><span class="p">)</span>
-      <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-              <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
-              <span class="k">return</span>
-      <span class="p">}</span>
+<span class="w">      </span><span class="nx">b</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">ioutil</span><span class="p">.</span><span class="nx">ReadFile</span><span class="p">(</span><span class="s">&quot;myfile.txt&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"></span>
+<span class="w">              </span><span class="k">return</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
 
-      <span class="nx">mystruct</span> <span class="o">:=</span> <span class="nx">MyStruct</span><span class="p">{}</span>
-      <span class="nx">err</span> <span class="p">=</span> <span class="nx">json</span><span class="p">.</span><span class="nx">Unmarshal</span><span class="p">(</span><span class="nx">b</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">mystrcut</span><span class="p">)</span>
-      <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-              <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
-              <span class="k">return</span>
-      <span class="p">}</span>
+<span class="w">      </span><span class="nx">mystruct</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">MyStruct</span><span class="p">{}</span><span class="w"></span>
+<span class="w">      </span><span class="nx">err</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">json</span><span class="p">.</span><span class="nx">Unmarshal</span><span class="p">(</span><span class="nx">b</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">mystrcut</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"></span>
+<span class="w">              </span><span class="k">return</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
 
-      <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">mystruct</span><span class="p">)</span>
-      <span class="k">return</span>
-<span class="p">}</span>
+<span class="w">      </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">mystruct</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="k">return</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 <p>No matter how many <em>return</em> in your goroutine, the <tt class="docutils literal">c &lt;- 1</tt> is guaranteed to
 be executed right after the function returns. To use <em>defer</em> is a better
@@ -152,36 +152,36 @@ practice because it makes your code more readable and you will not forget to add
 <tt class="docutils literal">c &lt;- 1</tt> if you add more <em>return</em> in the function.</p>
 <p>The following is complete code example of good practice:</p>
 <p class="align-center rubric"><a class="reference external" href="https://play.golang.org/p/dHYMGZNbnj5">Run Code on Go Playground</a></p>
-<div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
+<div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w"></span>
 
-<span class="kn">import</span> <span class="p">(</span>
-      <span class="s">&quot;fmt&quot;</span>
-<span class="p">)</span>
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">      </span><span class="s">&quot;fmt&quot;</span><span class="w"></span>
+<span class="p">)</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">routine</span><span class="p">(</span><span class="nx">site</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">c</span> <span class="kd">chan</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
-      <span class="k">defer</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span> <span class="nx">c</span> <span class="o">&lt;-</span> <span class="mi">1</span> <span class="p">}()</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">routine</span><span class="p">(</span><span class="nx">site</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">c</span><span class="w"> </span><span class="kd">chan</span><span class="w"> </span><span class="kt">int</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="k">defer</span><span class="w"> </span><span class="kd">func</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">c</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="p">}()</span><span class="w"></span>
 
-      <span class="c1">// do something</span>
-      <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">site</span><span class="p">)</span>
-<span class="p">}</span>
+<span class="w">      </span><span class="c1">// do something</span><span class="w"></span>
+<span class="w">      </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">site</span><span class="p">)</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
-      <span class="nx">c</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kt">int</span><span class="p">)</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nx">c</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">make</span><span class="p">(</span><span class="kd">chan</span><span class="w"> </span><span class="kt">int</span><span class="p">)</span><span class="w"></span>
 
-      <span class="nx">sites</span> <span class="o">:=</span> <span class="p">[]</span><span class="kt">string</span><span class="p">{</span>
-              <span class="s">&quot;https://www.google.com/&quot;</span><span class="p">,</span>
-              <span class="s">&quot;https://duckduckgo.com/&quot;</span><span class="p">,</span>
-              <span class="s">&quot;https://www.bing.com/&quot;</span><span class="p">}</span>
+<span class="w">      </span><span class="nx">sites</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="s">&quot;https://www.google.com/&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">              </span><span class="s">&quot;https://duckduckgo.com/&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">              </span><span class="s">&quot;https://www.bing.com/&quot;</span><span class="p">}</span><span class="w"></span>
 
-      <span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">site</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">sites</span> <span class="p">{</span>
-              <span class="k">go</span> <span class="nx">routine</span><span class="p">(</span><span class="nx">site</span><span class="p">,</span> <span class="nx">c</span><span class="p">)</span>
-      <span class="p">}</span>
+<span class="w">      </span><span class="k">for</span><span class="w"> </span><span class="nx">_</span><span class="p">,</span><span class="w"> </span><span class="nx">site</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="nx">sites</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="k">go</span><span class="w"> </span><span class="nx">routine</span><span class="p">(</span><span class="nx">site</span><span class="p">,</span><span class="w"> </span><span class="nx">c</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
 
-      <span class="c1">// wait all goroutines to finish</span>
-      <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="nx">sites</span><span class="p">);</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
-              <span class="o">&lt;-</span><span class="nx">c</span>
-      <span class="p">}</span>
-<span class="p">}</span>
+<span class="w">      </span><span class="c1">// wait all goroutines to finish</span><span class="w"></span>
+<span class="w">      </span><span class="k">for</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="p">&lt;</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="nx">sites</span><span class="p">);</span><span class="w"> </span><span class="nx">i</span><span class="o">++</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="o">&lt;-</span><span class="nx">c</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 <p>In the example of this post, we use <a class="reference external" href="https://tour.golang.org/concurrency/2">channel</a> to wait for all goroutines to
 finish, you can also use <a class="reference external" href="https://golang.org/pkg/sync/#WaitGroup">sync.WaitGroup</a> to do this. See <a class="footnote-reference" href="#footnote-3" id="footnote-reference-1">[3]</a> for more

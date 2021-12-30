@@ -78,7 +78,7 @@
 <span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
   <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&quot;utf-8&quot;</span><span class="p">&gt;</span>
   <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>GopherJS mouseenter/mouseleave Demo<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
-  <span class="p">&lt;</span><span class="nt">style</span><span class="p">&gt;#</span><span class="nn">demo</span><span class="p">{</span><span class="k">background-color</span><span class="p">:</span> <span class="kc">yellow</span><span class="p">;</span> <span class="k">width</span><span class="p">:</span> <span class="mi">10</span><span class="kt">em</span><span class="p">;</span> <span class="k">height</span><span class="p">:</span> <span class="mi">10</span><span class="kt">em</span><span class="p">;}&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">style</span><span class="p">&gt;#</span><span class="nn">demo</span><span class="p">{</span><span class="k">background-color</span><span class="p">:</span><span class="w"> </span><span class="kc">yellow</span><span class="p">;</span><span class="w"> </span><span class="k">width</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="kt">em</span><span class="p">;</span><span class="w"> </span><span class="k">height</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="kt">em</span><span class="p">;}&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
 <span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
 <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
 
@@ -113,24 +113,24 @@
 <span class="normal">15</span>
 <span class="normal">16</span>
 <span class="normal">17</span>
-<span class="normal">18</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
+<span class="normal">18</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w"></span>
 
-<span class="kn">import</span> <span class="p">(</span>
-	<span class="s">&quot;github.com/gopherjs/gopherjs/js&quot;</span>
-<span class="p">)</span>
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">	</span><span class="s">&quot;github.com/gopherjs/gopherjs/js&quot;</span><span class="w"></span>
+<span class="p">)</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
-	<span class="nx">demo</span> <span class="o">:=</span> <span class="nx">js</span><span class="p">.</span><span class="nx">Global</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;document&quot;</span><span class="p">).</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;getElementById&quot;</span><span class="p">,</span> <span class="s">&quot;demo&quot;</span><span class="p">)</span>
-	<span class="nx">info</span> <span class="o">:=</span> <span class="nx">js</span><span class="p">.</span><span class="nx">Global</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;document&quot;</span><span class="p">).</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;getElementById&quot;</span><span class="p">,</span> <span class="s">&quot;info&quot;</span><span class="p">)</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">	</span><span class="nx">demo</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">js</span><span class="p">.</span><span class="nx">Global</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;document&quot;</span><span class="p">).</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;getElementById&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;demo&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="nx">info</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">js</span><span class="p">.</span><span class="nx">Global</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;document&quot;</span><span class="p">).</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;getElementById&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;info&quot;</span><span class="p">)</span><span class="w"></span>
 
-	<span class="nx">demo</span><span class="p">.</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;addEventListener&quot;</span><span class="p">,</span> <span class="s">&quot;mouseenter&quot;</span><span class="p">,</span> <span class="kd">func</span><span class="p">(</span><span class="nx">event</span> <span class="o">*</span><span class="nx">js</span><span class="p">.</span><span class="nx">Object</span><span class="p">)</span> <span class="p">{</span>
-		<span class="nx">info</span><span class="p">.</span><span class="nx">Set</span><span class="p">(</span><span class="s">&quot;innerHTML&quot;</span><span class="p">,</span> <span class="s">&quot;mouse entered&quot;</span><span class="p">)</span>
-	<span class="p">},</span> <span class="kc">false</span><span class="p">)</span>
+<span class="w">	</span><span class="nx">demo</span><span class="p">.</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;addEventListener&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;mouseenter&quot;</span><span class="p">,</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="nx">event</span><span class="w"> </span><span class="o">*</span><span class="nx">js</span><span class="p">.</span><span class="nx">Object</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">		</span><span class="nx">info</span><span class="p">.</span><span class="nx">Set</span><span class="p">(</span><span class="s">&quot;innerHTML&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;mouse entered&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="p">},</span><span class="w"> </span><span class="kc">false</span><span class="p">)</span><span class="w"></span>
 
-	<span class="nx">demo</span><span class="p">.</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;addEventListener&quot;</span><span class="p">,</span> <span class="s">&quot;mouseleave&quot;</span><span class="p">,</span> <span class="kd">func</span><span class="p">(</span><span class="nx">event</span> <span class="o">*</span><span class="nx">js</span><span class="p">.</span><span class="nx">Object</span><span class="p">)</span> <span class="p">{</span>
-		<span class="nx">info</span><span class="p">.</span><span class="nx">Set</span><span class="p">(</span><span class="s">&quot;innerHTML&quot;</span><span class="p">,</span> <span class="s">&quot;mouse leaved&quot;</span><span class="p">)</span>
-	<span class="p">},</span> <span class="kc">false</span><span class="p">)</span>
-<span class="p">}</span>
+<span class="w">	</span><span class="nx">demo</span><span class="p">.</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;addEventListener&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;mouseleave&quot;</span><span class="p">,</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="nx">event</span><span class="w"> </span><span class="o">*</span><span class="nx">js</span><span class="p">.</span><span class="nx">Object</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">		</span><span class="nx">info</span><span class="p">.</span><span class="nx">Set</span><span class="p">(</span><span class="s">&quot;innerHTML&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;mouse leaved&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="p">},</span><span class="w"> </span><span class="kc">false</span><span class="p">)</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </td></tr></table></div></figure>
 <p>To see demo: use <a class="reference external" href="http://www.gopherjs.org/">GopherJS</a> to compile <tt class="docutils literal">app.go</tt> to <tt class="docutils literal">app.js</tt>. Put

@@ -68,27 +68,27 @@ in my previous post first.</p>
 <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
 </pre></div>
 <p><strong>Go</strong></p>
-<div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
+<div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w"></span>
 
-<span class="kn">import</span> <span class="p">(</span>
-      <span class="s">&quot;github.com/gopherjs/gopherjs/js&quot;</span>
-      <span class="s">&quot;github.com/oskca/gopherjs-vue&quot;</span>
-<span class="p">)</span>
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">      </span><span class="s">&quot;github.com/gopherjs/gopherjs/js&quot;</span><span class="w"></span>
+<span class="w">      </span><span class="s">&quot;github.com/oskca/gopherjs-vue&quot;</span><span class="w"></span>
+<span class="p">)</span><span class="w"></span>
 
-<span class="kd">type</span> <span class="nx">Model</span> <span class="kd">struct</span> <span class="p">{</span>
-      <span class="o">*</span><span class="nx">js</span><span class="p">.</span><span class="nx">Object</span>      <span class="c1">// this is needed for bidirectional data bindings</span>
-      <span class="nx">IsShow</span>     <span class="kt">bool</span> <span class="s">`js:&quot;isShow&quot;`</span>
-<span class="p">}</span>
+<span class="kd">type</span><span class="w"> </span><span class="nx">Model</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="o">*</span><span class="nx">js</span><span class="p">.</span><span class="nx">Object</span><span class="w">      </span><span class="c1">// this is needed for bidirectional data bindings</span><span class="w"></span>
+<span class="w">      </span><span class="nx">IsShow</span><span class="w">     </span><span class="kt">bool</span><span class="w"> </span><span class="s">`js:&quot;isShow&quot;`</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
-      <span class="nx">m</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">Model</span><span class="p">{</span>
-              <span class="nx">Object</span><span class="p">:</span> <span class="nx">js</span><span class="p">.</span><span class="nx">Global</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;Object&quot;</span><span class="p">).</span><span class="nx">New</span><span class="p">(),</span>
-      <span class="p">}</span>
-      <span class="c1">// field assignment is required in this way to make data passing works</span>
-      <span class="nx">m</span><span class="p">.</span><span class="nx">IsShow</span> <span class="p">=</span> <span class="kc">false</span>
-      <span class="c1">// create the VueJS viewModel using a struct pointer</span>
-      <span class="nx">vue</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="s">&quot;#app&quot;</span><span class="p">,</span> <span class="nx">m</span><span class="p">)</span>
-<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nx">m</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">Model</span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="nx">Object</span><span class="p">:</span><span class="w"> </span><span class="nx">js</span><span class="p">.</span><span class="nx">Global</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;Object&quot;</span><span class="p">).</span><span class="nx">New</span><span class="p">(),</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
+<span class="w">      </span><span class="c1">// field assignment is required in this way to make data passing works</span><span class="w"></span>
+<span class="w">      </span><span class="nx">m</span><span class="p">.</span><span class="nx">IsShow</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kc">false</span><span class="w"></span>
+<span class="w">      </span><span class="c1">// create the VueJS viewModel using a struct pointer</span><span class="w"></span>
+<span class="w">      </span><span class="nx">vue</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="s">&quot;#app&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">m</span><span class="p">)</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 <p>The full code example can be found <a class="reference external" href="https://github.com/siongui/frontend-programming-in-go/tree/master/022-toggle-element-gopherjs-vue">on my GitHub</a>.</p>
 

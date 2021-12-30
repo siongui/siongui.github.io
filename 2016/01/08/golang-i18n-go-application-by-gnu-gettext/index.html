@@ -249,24 +249,24 @@ us. Install <a class="reference external" href="https://github.com/chai2010/gett
 <span class="normal">15</span>
 <span class="normal">16</span>
 <span class="normal">17</span>
-<span class="normal">18</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">mylib</span>
+<span class="normal">18</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">mylib</span><span class="w"></span>
 
-<span class="kn">import</span> <span class="s">&quot;github.com/chai2010/gettext-go/gettext&quot;</span>
+<span class="kn">import</span><span class="w"> </span><span class="s">&quot;github.com/chai2010/gettext-go/gettext&quot;</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">setup</span><span class="p">(</span><span class="nx">locale</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">domain</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">dir</span> <span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
-	<span class="nx">gettext</span><span class="p">.</span><span class="nx">SetLocale</span><span class="p">(</span><span class="nx">locale</span><span class="p">)</span>
-	<span class="nx">gettext</span><span class="p">.</span><span class="nx">Textdomain</span><span class="p">(</span><span class="nx">domain</span><span class="p">)</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">setup</span><span class="p">(</span><span class="nx">locale</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">domain</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">dir</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">	</span><span class="nx">gettext</span><span class="p">.</span><span class="nx">SetLocale</span><span class="p">(</span><span class="nx">locale</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="nx">gettext</span><span class="p">.</span><span class="nx">Textdomain</span><span class="p">(</span><span class="nx">domain</span><span class="p">)</span><span class="w"></span>
 
-	<span class="nx">gettext</span><span class="p">.</span><span class="nx">BindTextdomain</span><span class="p">(</span><span class="nx">domain</span><span class="p">,</span> <span class="nx">dir</span><span class="p">,</span> <span class="kc">nil</span><span class="p">)</span>
-<span class="p">}</span>
+<span class="w">	</span><span class="nx">gettext</span><span class="p">.</span><span class="nx">BindTextdomain</span><span class="p">(</span><span class="nx">domain</span><span class="p">,</span><span class="w"> </span><span class="nx">dir</span><span class="p">,</span><span class="w"> </span><span class="kc">nil</span><span class="p">)</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">changeLocale</span><span class="p">(</span><span class="nx">locale</span> <span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
-	<span class="nx">gettext</span><span class="p">.</span><span class="nx">SetLocale</span><span class="p">(</span><span class="nx">locale</span><span class="p">)</span>
-<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">changeLocale</span><span class="p">(</span><span class="nx">locale</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">	</span><span class="nx">gettext</span><span class="p">.</span><span class="nx">SetLocale</span><span class="p">(</span><span class="nx">locale</span><span class="p">)</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">translate</span><span class="p">(</span><span class="nx">input</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">string</span> <span class="p">{</span>
-	<span class="k">return</span> <span class="nx">gettext</span><span class="p">.</span><span class="nx">PGettext</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">,</span> <span class="nx">input</span><span class="p">)</span>
-<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">translate</span><span class="p">(</span><span class="nx">input</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">	</span><span class="k">return</span><span class="w"> </span><span class="nx">gettext</span><span class="p">.</span><span class="nx">PGettext</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">input</span><span class="p">)</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </td></tr></table></div></figure>
 <div class="admonition note">
@@ -304,28 +304,28 @@ detail, see <a class="reference external" href="https://github.com/chai2010/gett
 <span class="normal">19</span>
 <span class="normal">20</span>
 <span class="normal">21</span>
-<span class="normal">22</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">mylib</span>
+<span class="normal">22</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">mylib</span><span class="w"></span>
 
-<span class="kn">import</span> <span class="s">&quot;testing&quot;</span>
+<span class="kn">import</span><span class="w"> </span><span class="s">&quot;testing&quot;</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">TestAll</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span> <span class="p">{</span>
-	<span class="nx">setup</span><span class="p">(</span><span class="s">&quot;zh_TW&quot;</span><span class="p">,</span> <span class="s">&quot;messages&quot;</span><span class="p">,</span> <span class="s">&quot;locale&quot;</span><span class="p">)</span>
-	<span class="nx">setup</span><span class="p">(</span><span class="s">&quot;vi_VN&quot;</span><span class="p">,</span> <span class="s">&quot;messages&quot;</span><span class="p">,</span> <span class="s">&quot;locale&quot;</span><span class="p">)</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">TestAll</span><span class="p">(</span><span class="nx">t</span><span class="w"> </span><span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">	</span><span class="nx">setup</span><span class="p">(</span><span class="s">&quot;zh_TW&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;messages&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;locale&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="nx">setup</span><span class="p">(</span><span class="s">&quot;vi_VN&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;messages&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;locale&quot;</span><span class="p">)</span><span class="w"></span>
 
-	<span class="nx">changeLocale</span><span class="p">(</span><span class="s">&quot;zh_TW&quot;</span><span class="p">)</span>
-	<span class="nx">t</span><span class="p">.</span><span class="nx">Log</span><span class="p">(</span><span class="nx">translate</span><span class="p">(</span><span class="s">&quot;Home&quot;</span><span class="p">))</span>
-	<span class="nx">t</span><span class="p">.</span><span class="nx">Log</span><span class="p">(</span><span class="nx">translate</span><span class="p">(</span><span class="s">&quot;Canon&quot;</span><span class="p">))</span>
-	<span class="nx">t</span><span class="p">.</span><span class="nx">Log</span><span class="p">(</span><span class="nx">translate</span><span class="p">(</span><span class="s">&quot;About&quot;</span><span class="p">))</span>
-	<span class="nx">t</span><span class="p">.</span><span class="nx">Log</span><span class="p">(</span><span class="nx">translate</span><span class="p">(</span><span class="s">&quot;Setting&quot;</span><span class="p">))</span>
-	<span class="nx">t</span><span class="p">.</span><span class="nx">Log</span><span class="p">(</span><span class="nx">translate</span><span class="p">(</span><span class="s">&quot;Translation&quot;</span><span class="p">))</span>
+<span class="w">	</span><span class="nx">changeLocale</span><span class="p">(</span><span class="s">&quot;zh_TW&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="nx">t</span><span class="p">.</span><span class="nx">Log</span><span class="p">(</span><span class="nx">translate</span><span class="p">(</span><span class="s">&quot;Home&quot;</span><span class="p">))</span><span class="w"></span>
+<span class="w">	</span><span class="nx">t</span><span class="p">.</span><span class="nx">Log</span><span class="p">(</span><span class="nx">translate</span><span class="p">(</span><span class="s">&quot;Canon&quot;</span><span class="p">))</span><span class="w"></span>
+<span class="w">	</span><span class="nx">t</span><span class="p">.</span><span class="nx">Log</span><span class="p">(</span><span class="nx">translate</span><span class="p">(</span><span class="s">&quot;About&quot;</span><span class="p">))</span><span class="w"></span>
+<span class="w">	</span><span class="nx">t</span><span class="p">.</span><span class="nx">Log</span><span class="p">(</span><span class="nx">translate</span><span class="p">(</span><span class="s">&quot;Setting&quot;</span><span class="p">))</span><span class="w"></span>
+<span class="w">	</span><span class="nx">t</span><span class="p">.</span><span class="nx">Log</span><span class="p">(</span><span class="nx">translate</span><span class="p">(</span><span class="s">&quot;Translation&quot;</span><span class="p">))</span><span class="w"></span>
 
-	<span class="nx">changeLocale</span><span class="p">(</span><span class="s">&quot;vi_VN&quot;</span><span class="p">)</span>
-	<span class="nx">t</span><span class="p">.</span><span class="nx">Log</span><span class="p">(</span><span class="nx">translate</span><span class="p">(</span><span class="s">&quot;Home&quot;</span><span class="p">))</span>
-	<span class="nx">t</span><span class="p">.</span><span class="nx">Log</span><span class="p">(</span><span class="nx">translate</span><span class="p">(</span><span class="s">&quot;Canon&quot;</span><span class="p">))</span>
-	<span class="nx">t</span><span class="p">.</span><span class="nx">Log</span><span class="p">(</span><span class="nx">translate</span><span class="p">(</span><span class="s">&quot;About&quot;</span><span class="p">))</span>
-	<span class="nx">t</span><span class="p">.</span><span class="nx">Log</span><span class="p">(</span><span class="nx">translate</span><span class="p">(</span><span class="s">&quot;Setting&quot;</span><span class="p">))</span>
-	<span class="nx">t</span><span class="p">.</span><span class="nx">Log</span><span class="p">(</span><span class="nx">translate</span><span class="p">(</span><span class="s">&quot;Translation&quot;</span><span class="p">))</span>
-<span class="p">}</span>
+<span class="w">	</span><span class="nx">changeLocale</span><span class="p">(</span><span class="s">&quot;vi_VN&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="nx">t</span><span class="p">.</span><span class="nx">Log</span><span class="p">(</span><span class="nx">translate</span><span class="p">(</span><span class="s">&quot;Home&quot;</span><span class="p">))</span><span class="w"></span>
+<span class="w">	</span><span class="nx">t</span><span class="p">.</span><span class="nx">Log</span><span class="p">(</span><span class="nx">translate</span><span class="p">(</span><span class="s">&quot;Canon&quot;</span><span class="p">))</span><span class="w"></span>
+<span class="w">	</span><span class="nx">t</span><span class="p">.</span><span class="nx">Log</span><span class="p">(</span><span class="nx">translate</span><span class="p">(</span><span class="s">&quot;About&quot;</span><span class="p">))</span><span class="w"></span>
+<span class="w">	</span><span class="nx">t</span><span class="p">.</span><span class="nx">Log</span><span class="p">(</span><span class="nx">translate</span><span class="p">(</span><span class="s">&quot;Setting&quot;</span><span class="p">))</span><span class="w"></span>
+<span class="w">	</span><span class="nx">t</span><span class="p">.</span><span class="nx">Log</span><span class="p">(</span><span class="nx">translate</span><span class="p">(</span><span class="s">&quot;Translation&quot;</span><span class="p">))</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </td></tr></table></div></figure>
 <div class="admonition note">

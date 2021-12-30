@@ -55,26 +55,26 @@
     <div class="main-content"><p>Extract title and URL from <a class="reference external" href="https://news.ycombinator.com/item?id=11410894">Hacker News comment</a> via <a class="reference external" href="https://github.com/PuerkitoBio/goquery">goquery</a>, and then output
 the info to <a class="reference external" href="http://docutils.sourceforge.net/docs/user/rst/quickref.html#footnotes">reStructuredText footnote</a>.</p>
 <p>Install <a class="reference external" href="https://golang.org/">Go</a> and <a class="reference external" href="https://github.com/PuerkitoBio/goquery">goquery</a> package first. Then <tt class="docutils literal">go run</tt> the following code:</p>
-<div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
+<div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w"></span>
 
-<span class="kn">import</span> <span class="p">(</span>
-      <span class="s">&quot;bytes&quot;</span>
-      <span class="s">&quot;github.com/PuerkitoBio/goquery&quot;</span>
-      <span class="s">&quot;html/template&quot;</span>
-      <span class="s">&quot;net/http&quot;</span>
-<span class="p">)</span>
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">      </span><span class="s">&quot;bytes&quot;</span><span class="w"></span>
+<span class="w">      </span><span class="s">&quot;github.com/PuerkitoBio/goquery&quot;</span><span class="w"></span>
+<span class="w">      </span><span class="s">&quot;html/template&quot;</span><span class="w"></span>
+<span class="w">      </span><span class="s">&quot;net/http&quot;</span><span class="w"></span>
+<span class="p">)</span><span class="w"></span>
 
-<span class="kd">type</span> <span class="nx">HNews</span> <span class="kd">struct</span> <span class="p">{</span>
-      <span class="nx">Title</span>       <span class="kt">string</span>
-      <span class="nx">URL</span>         <span class="kt">string</span>
-      <span class="nx">CommentsURL</span> <span class="kt">string</span>
-<span class="p">}</span>
+<span class="kd">type</span><span class="w"> </span><span class="nx">HNews</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nx">Title</span><span class="w">       </span><span class="kt">string</span><span class="w"></span>
+<span class="w">      </span><span class="nx">URL</span><span class="w">         </span><span class="kt">string</span><span class="w"></span>
+<span class="w">      </span><span class="nx">CommentsURL</span><span class="w"> </span><span class="kt">string</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">type</span> <span class="nx">Index</span> <span class="kd">struct</span> <span class="p">{</span>
-      <span class="nx">Textarea</span> <span class="nx">template</span><span class="p">.</span><span class="nx">HTML</span>
-<span class="p">}</span>
+<span class="kd">type</span><span class="w"> </span><span class="nx">Index</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nx">Textarea</span><span class="w"> </span><span class="nx">template</span><span class="p">.</span><span class="nx">HTML</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">var</span> <span class="nx">htmlTmpl</span> <span class="p">=</span> <span class="s">`&lt;!doctype html&gt;&lt;html&gt;</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">htmlTmpl</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">`&lt;!doctype html&gt;&lt;html&gt;</span>
 <span class="s">&lt;head&gt;&lt;title&gt;Link to Rst Image&lt;/title&gt;&lt;/head&gt;</span>
 <span class="s">&lt;body&gt;</span>
 <span class="s">&lt;form action=&quot;/&quot; method=&quot;post&quot;&gt;</span>
@@ -96,53 +96,53 @@ the info to <a class="reference external" href="http://docutils.sourceforge.net/
 <span class="s">    }</span>
 <span class="s">  }</span>
 <span class="s">&lt;/script&gt;</span>
-<span class="s">&lt;/body&gt;&lt;/html&gt;`</span>
+<span class="s">&lt;/body&gt;&lt;/html&gt;`</span><span class="w"></span>
 
-<span class="kd">var</span> <span class="nx">rstTmpl</span> <span class="p">=</span> <span class="s">&quot;.. [1] `{{.Title}} &lt;{{.URL}}&gt;`_\n&quot;</span> <span class="o">+</span>
-      <span class="s">&quot;       (`HN comments &lt;{{.CommentsURL}}&gt;`__)\n&quot;</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">rstTmpl</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;.. [1] `{{.Title}} &lt;{{.URL}}&gt;`_\n&quot;</span><span class="w"> </span><span class="o">+</span><span class="w"></span>
+<span class="w">      </span><span class="s">&quot;       (`HN comments &lt;{{.CommentsURL}}&gt;`__)\n&quot;</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">processHNURL</span><span class="p">(</span><span class="nx">url</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">string</span> <span class="p">{</span>
-      <span class="nx">doc</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">goquery</span><span class="p">.</span><span class="nx">NewDocument</span><span class="p">(</span><span class="nx">url</span><span class="p">)</span>
-      <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-              <span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
-      <span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">processHNURL</span><span class="p">(</span><span class="nx">url</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nx">doc</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">goquery</span><span class="p">.</span><span class="nx">NewDocument</span><span class="p">(</span><span class="nx">url</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
 
-      <span class="nx">news</span> <span class="o">:=</span> <span class="nx">HNews</span><span class="p">{</span><span class="nx">CommentsURL</span><span class="p">:</span> <span class="nx">url</span><span class="p">}</span>
-      <span class="nx">newsElm</span> <span class="o">:=</span> <span class="nx">doc</span><span class="p">.</span><span class="nx">Find</span><span class="p">(</span><span class="s">&quot;td.title &gt; a&quot;</span><span class="p">)</span>
-      <span class="nx">news</span><span class="p">.</span><span class="nx">Title</span> <span class="p">=</span> <span class="nx">newsElm</span><span class="p">.</span><span class="nx">Text</span><span class="p">()</span>
-      <span class="nx">news</span><span class="p">.</span><span class="nx">URL</span><span class="p">,</span> <span class="nx">_</span> <span class="p">=</span> <span class="nx">newsElm</span><span class="p">.</span><span class="nx">Attr</span><span class="p">(</span><span class="s">&quot;href&quot;</span><span class="p">)</span>
+<span class="w">      </span><span class="nx">news</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">HNews</span><span class="p">{</span><span class="nx">CommentsURL</span><span class="p">:</span><span class="w"> </span><span class="nx">url</span><span class="p">}</span><span class="w"></span>
+<span class="w">      </span><span class="nx">newsElm</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">doc</span><span class="p">.</span><span class="nx">Find</span><span class="p">(</span><span class="s">&quot;td.title &gt; a&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="nx">news</span><span class="p">.</span><span class="nx">Title</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">newsElm</span><span class="p">.</span><span class="nx">Text</span><span class="p">()</span><span class="w"></span>
+<span class="w">      </span><span class="nx">news</span><span class="p">.</span><span class="nx">URL</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">newsElm</span><span class="p">.</span><span class="nx">Attr</span><span class="p">(</span><span class="s">&quot;href&quot;</span><span class="p">)</span><span class="w"></span>
 
-      <span class="nx">tmpl</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">template</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="s">&quot;hn&quot;</span><span class="p">).</span><span class="nx">Parse</span><span class="p">(</span><span class="nx">rstTmpl</span><span class="p">)</span>
-      <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-              <span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
-      <span class="p">}</span>
+<span class="w">      </span><span class="nx">tmpl</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">template</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="s">&quot;hn&quot;</span><span class="p">).</span><span class="nx">Parse</span><span class="p">(</span><span class="nx">rstTmpl</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
 
-      <span class="kd">var</span> <span class="nx">rst</span> <span class="nx">bytes</span><span class="p">.</span><span class="nx">Buffer</span>
-      <span class="nx">err</span> <span class="p">=</span> <span class="nx">tmpl</span><span class="p">.</span><span class="nx">Execute</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">rst</span><span class="p">,</span> <span class="nx">news</span><span class="p">)</span>
-      <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-              <span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
-      <span class="p">}</span>
+<span class="w">      </span><span class="kd">var</span><span class="w"> </span><span class="nx">rst</span><span class="w"> </span><span class="nx">bytes</span><span class="p">.</span><span class="nx">Buffer</span><span class="w"></span>
+<span class="w">      </span><span class="nx">err</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">tmpl</span><span class="p">.</span><span class="nx">Execute</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">rst</span><span class="p">,</span><span class="w"> </span><span class="nx">news</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
 
-      <span class="k">return</span> <span class="nx">rst</span><span class="p">.</span><span class="nx">String</span><span class="p">()</span>
-<span class="p">}</span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="nx">rst</span><span class="p">.</span><span class="nx">String</span><span class="p">()</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">handler</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">{</span>
-      <span class="nx">idx</span> <span class="o">:=</span> <span class="nx">Index</span><span class="p">{}</span>
-      <span class="k">if</span> <span class="nx">r</span><span class="p">.</span><span class="nx">Method</span> <span class="o">==</span> <span class="s">&quot;POST&quot;</span> <span class="p">{</span>
-              <span class="nx">hnurl</span> <span class="o">:=</span> <span class="nx">r</span><span class="p">.</span><span class="nx">PostFormValue</span><span class="p">(</span><span class="s">&quot;url&quot;</span><span class="p">)</span>
-              <span class="nx">idx</span><span class="p">.</span><span class="nx">Textarea</span> <span class="p">=</span> <span class="nx">template</span><span class="p">.</span><span class="nx">HTML</span><span class="p">(</span><span class="nx">processHNURL</span><span class="p">(</span><span class="nx">hnurl</span><span class="p">))</span>
-      <span class="p">}</span>
-      <span class="nx">tmpl</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">template</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="s">&quot;index&quot;</span><span class="p">).</span><span class="nx">Parse</span><span class="p">(</span><span class="nx">htmlTmpl</span><span class="p">)</span>
-      <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-              <span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
-      <span class="p">}</span>
-      <span class="nx">tmpl</span><span class="p">.</span><span class="nx">Execute</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="nx">idx</span><span class="p">)</span>
-<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">handler</span><span class="p">(</span><span class="nx">w</span><span class="w"> </span><span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span><span class="w"> </span><span class="nx">r</span><span class="w"> </span><span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nx">idx</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">Index</span><span class="p">{}</span><span class="w"></span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="nx">r</span><span class="p">.</span><span class="nx">Method</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s">&quot;POST&quot;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="nx">hnurl</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">r</span><span class="p">.</span><span class="nx">PostFormValue</span><span class="p">(</span><span class="s">&quot;url&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">              </span><span class="nx">idx</span><span class="p">.</span><span class="nx">Textarea</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">template</span><span class="p">.</span><span class="nx">HTML</span><span class="p">(</span><span class="nx">processHNURL</span><span class="p">(</span><span class="nx">hnurl</span><span class="p">))</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
+<span class="w">      </span><span class="nx">tmpl</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">template</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="s">&quot;index&quot;</span><span class="p">).</span><span class="nx">Parse</span><span class="p">(</span><span class="nx">htmlTmpl</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
+<span class="w">      </span><span class="nx">tmpl</span><span class="p">.</span><span class="nx">Execute</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span><span class="w"> </span><span class="nx">idx</span><span class="p">)</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
-      <span class="nx">http</span><span class="p">.</span><span class="nx">HandleFunc</span><span class="p">(</span><span class="s">&quot;/&quot;</span><span class="p">,</span> <span class="nx">handler</span><span class="p">)</span>
-      <span class="nx">http</span><span class="p">.</span><span class="nx">ListenAndServe</span><span class="p">(</span><span class="s">&quot;:8000&quot;</span><span class="p">,</span> <span class="kc">nil</span><span class="p">)</span>
-<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nx">http</span><span class="p">.</span><span class="nx">HandleFunc</span><span class="p">(</span><span class="s">&quot;/&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">handler</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="nx">http</span><span class="p">.</span><span class="nx">ListenAndServe</span><span class="p">(</span><span class="s">&quot;:8000&quot;</span><span class="p">,</span><span class="w"> </span><span class="kc">nil</span><span class="p">)</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 
 <hr class="docutils" />

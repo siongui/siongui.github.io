@@ -58,79 +58,79 @@ if you have a directory with 1,000 files, you split them into 4 sub-directories,
 each with 300, 300, 300, 100 files inside. You can specify the maximum number of
 files in each subdirectories.</p>
 <p>You can also do this via shell command. See <a class="footnote-reference" href="#footnote-2" id="footnote-reference-1">[2]</a>.</p>
-<div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
+<div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w"></span>
 
-<span class="kn">import</span> <span class="p">(</span>
-      <span class="s">&quot;flag&quot;</span>
-      <span class="s">&quot;fmt&quot;</span>
-      <span class="s">&quot;io/ioutil&quot;</span>
-      <span class="s">&quot;os&quot;</span>
-      <span class="s">&quot;path&quot;</span>
-      <span class="s">&quot;strconv&quot;</span>
-<span class="p">)</span>
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">      </span><span class="s">&quot;flag&quot;</span><span class="w"></span>
+<span class="w">      </span><span class="s">&quot;fmt&quot;</span><span class="w"></span>
+<span class="w">      </span><span class="s">&quot;io/ioutil&quot;</span><span class="w"></span>
+<span class="w">      </span><span class="s">&quot;os&quot;</span><span class="w"></span>
+<span class="w">      </span><span class="s">&quot;path&quot;</span><span class="w"></span>
+<span class="w">      </span><span class="s">&quot;strconv&quot;</span><span class="w"></span>
+<span class="p">)</span><span class="w"></span>
 
-<span class="kd">var</span> <span class="nx">maxFilesPerDir</span> <span class="p">=</span> <span class="mi">1500</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">maxFilesPerDir</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">1500</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">getTargetDir</span><span class="p">(</span><span class="nx">groupCount</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">srcDir</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">string</span> <span class="p">{</span>
-      <span class="k">return</span> <span class="nx">path</span><span class="p">.</span><span class="nx">Join</span><span class="p">(</span><span class="nx">srcDir</span><span class="p">,</span> <span class="s">&quot;dir&quot;</span><span class="o">+</span><span class="nx">strconv</span><span class="p">.</span><span class="nx">Itoa</span><span class="p">(</span><span class="nx">groupCount</span><span class="p">))</span>
-<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">getTargetDir</span><span class="p">(</span><span class="nx">groupCount</span><span class="w"> </span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="nx">srcDir</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="nx">path</span><span class="p">.</span><span class="nx">Join</span><span class="p">(</span><span class="nx">srcDir</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;dir&quot;</span><span class="o">+</span><span class="nx">strconv</span><span class="p">.</span><span class="nx">Itoa</span><span class="p">(</span><span class="nx">groupCount</span><span class="p">))</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">createDirIfNotExist</span><span class="p">(</span><span class="nx">dir</span> <span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
-      <span class="k">if</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">os</span><span class="p">.</span><span class="nx">Stat</span><span class="p">(</span><span class="nx">dir</span><span class="p">);</span> <span class="nx">os</span><span class="p">.</span><span class="nx">IsNotExist</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
-              <span class="nx">err</span> <span class="p">=</span> <span class="nx">os</span><span class="p">.</span><span class="nx">MkdirAll</span><span class="p">(</span><span class="nx">dir</span><span class="p">,</span> <span class="mo">0755</span><span class="p">)</span>
-              <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-                      <span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
-              <span class="p">}</span>
-      <span class="p">}</span>
-<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">createDirIfNotExist</span><span class="p">(</span><span class="nx">dir</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="nx">_</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">os</span><span class="p">.</span><span class="nx">Stat</span><span class="p">(</span><span class="nx">dir</span><span class="p">);</span><span class="w"> </span><span class="nx">os</span><span class="p">.</span><span class="nx">IsNotExist</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="nx">err</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">os</span><span class="p">.</span><span class="nx">MkdirAll</span><span class="p">(</span><span class="nx">dir</span><span class="p">,</span><span class="w"> </span><span class="mo">0755</span><span class="p">)</span><span class="w"></span>
+<span class="w">              </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                      </span><span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"></span>
+<span class="w">              </span><span class="p">}</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">moveFilesToDir</span><span class="p">(</span><span class="nx">filesGroup</span> <span class="p">[][]</span><span class="nx">os</span><span class="p">.</span><span class="nx">FileInfo</span><span class="p">,</span> <span class="nx">srcDir</span> <span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
-      <span class="k">for</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">group</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">filesGroup</span> <span class="p">{</span>
-              <span class="nx">targetDir</span> <span class="o">:=</span> <span class="nx">getTargetDir</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span> <span class="nx">srcDir</span><span class="p">)</span>
-              <span class="nx">createDirIfNotExist</span><span class="p">(</span><span class="nx">targetDir</span><span class="p">)</span>
-              <span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">file</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">group</span> <span class="p">{</span>
-                      <span class="nx">filepath</span> <span class="o">:=</span> <span class="nx">path</span><span class="p">.</span><span class="nx">Join</span><span class="p">(</span><span class="nx">srcDir</span><span class="p">,</span> <span class="nx">file</span><span class="p">.</span><span class="nx">Name</span><span class="p">())</span>
-                      <span class="nx">targetFilepath</span> <span class="o">:=</span> <span class="nx">path</span><span class="p">.</span><span class="nx">Join</span><span class="p">(</span><span class="nx">targetDir</span><span class="p">,</span> <span class="nx">file</span><span class="p">.</span><span class="nx">Name</span><span class="p">())</span>
-                      <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;move&quot;</span><span class="p">,</span> <span class="nx">filepath</span><span class="p">,</span> <span class="s">&quot;to&quot;</span><span class="p">,</span> <span class="nx">targetFilepath</span><span class="p">)</span>
-                      <span class="nx">os</span><span class="p">.</span><span class="nx">Rename</span><span class="p">(</span><span class="nx">filepath</span><span class="p">,</span> <span class="nx">targetFilepath</span><span class="p">)</span>
-              <span class="p">}</span>
-      <span class="p">}</span>
-<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">moveFilesToDir</span><span class="p">(</span><span class="nx">filesGroup</span><span class="w"> </span><span class="p">[][]</span><span class="nx">os</span><span class="p">.</span><span class="nx">FileInfo</span><span class="p">,</span><span class="w"> </span><span class="nx">srcDir</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="k">for</span><span class="w"> </span><span class="nx">i</span><span class="p">,</span><span class="w"> </span><span class="nx">group</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="nx">filesGroup</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="nx">targetDir</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">getTargetDir</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span><span class="w"> </span><span class="nx">srcDir</span><span class="p">)</span><span class="w"></span>
+<span class="w">              </span><span class="nx">createDirIfNotExist</span><span class="p">(</span><span class="nx">targetDir</span><span class="p">)</span><span class="w"></span>
+<span class="w">              </span><span class="k">for</span><span class="w"> </span><span class="nx">_</span><span class="p">,</span><span class="w"> </span><span class="nx">file</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="nx">group</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                      </span><span class="nx">filepath</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">path</span><span class="p">.</span><span class="nx">Join</span><span class="p">(</span><span class="nx">srcDir</span><span class="p">,</span><span class="w"> </span><span class="nx">file</span><span class="p">.</span><span class="nx">Name</span><span class="p">())</span><span class="w"></span>
+<span class="w">                      </span><span class="nx">targetFilepath</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">path</span><span class="p">.</span><span class="nx">Join</span><span class="p">(</span><span class="nx">targetDir</span><span class="p">,</span><span class="w"> </span><span class="nx">file</span><span class="p">.</span><span class="nx">Name</span><span class="p">())</span><span class="w"></span>
+<span class="w">                      </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;move&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">filepath</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;to&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">targetFilepath</span><span class="p">)</span><span class="w"></span>
+<span class="w">                      </span><span class="nx">os</span><span class="p">.</span><span class="nx">Rename</span><span class="p">(</span><span class="nx">filepath</span><span class="p">,</span><span class="w"> </span><span class="nx">targetFilepath</span><span class="p">)</span><span class="w"></span>
+<span class="w">              </span><span class="p">}</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">makeFilesGroup</span><span class="p">(</span><span class="nx">srcDir</span> <span class="kt">string</span><span class="p">)</span> <span class="p">[][]</span><span class="nx">os</span><span class="p">.</span><span class="nx">FileInfo</span> <span class="p">{</span>
-      <span class="nx">files</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">ioutil</span><span class="p">.</span><span class="nx">ReadDir</span><span class="p">(</span><span class="nx">srcDir</span><span class="p">)</span>
-      <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-              <span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
-      <span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">makeFilesGroup</span><span class="p">(</span><span class="nx">srcDir</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">[][]</span><span class="nx">os</span><span class="p">.</span><span class="nx">FileInfo</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nx">files</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">ioutil</span><span class="p">.</span><span class="nx">ReadDir</span><span class="p">(</span><span class="nx">srcDir</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
 
-      <span class="nx">count</span> <span class="o">:=</span> <span class="mi">0</span>
-      <span class="kd">var</span> <span class="nx">filesGroup</span> <span class="p">[][]</span><span class="nx">os</span><span class="p">.</span><span class="nx">FileInfo</span>
-      <span class="nx">filesGroup</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">filesGroup</span><span class="p">,</span> <span class="p">[]</span><span class="nx">os</span><span class="p">.</span><span class="nx">FileInfo</span><span class="p">{})</span>
-      <span class="nx">groupCount</span> <span class="o">:=</span> <span class="mi">0</span>
-      <span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">file</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">files</span> <span class="p">{</span>
-              <span class="k">if</span> <span class="nx">file</span><span class="p">.</span><span class="nx">Mode</span><span class="p">().</span><span class="nx">IsRegular</span><span class="p">()</span> <span class="p">{</span>
-                      <span class="nx">filesGroup</span><span class="p">[</span><span class="nx">groupCount</span><span class="p">]</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">filesGroup</span><span class="p">[</span><span class="nx">groupCount</span><span class="p">],</span> <span class="nx">file</span><span class="p">)</span>
-                      <span class="nx">count</span><span class="o">++</span>
-                      <span class="k">if</span> <span class="nx">count</span> <span class="o">==</span> <span class="nx">maxFilesPerDir</span> <span class="p">{</span>
-                              <span class="nx">count</span> <span class="p">=</span> <span class="mi">0</span>
-                              <span class="nx">filesGroup</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">filesGroup</span><span class="p">,</span> <span class="p">[]</span><span class="nx">os</span><span class="p">.</span><span class="nx">FileInfo</span><span class="p">{})</span>
-                              <span class="nx">groupCount</span><span class="o">++</span>
-                      <span class="p">}</span>
-              <span class="p">}</span>
-      <span class="p">}</span>
+<span class="w">      </span><span class="nx">count</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">0</span><span class="w"></span>
+<span class="w">      </span><span class="kd">var</span><span class="w"> </span><span class="nx">filesGroup</span><span class="w"> </span><span class="p">[][]</span><span class="nx">os</span><span class="p">.</span><span class="nx">FileInfo</span><span class="w"></span>
+<span class="w">      </span><span class="nx">filesGroup</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">append</span><span class="p">(</span><span class="nx">filesGroup</span><span class="p">,</span><span class="w"> </span><span class="p">[]</span><span class="nx">os</span><span class="p">.</span><span class="nx">FileInfo</span><span class="p">{})</span><span class="w"></span>
+<span class="w">      </span><span class="nx">groupCount</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">0</span><span class="w"></span>
+<span class="w">      </span><span class="k">for</span><span class="w"> </span><span class="nx">_</span><span class="p">,</span><span class="w"> </span><span class="nx">file</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="nx">files</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="k">if</span><span class="w"> </span><span class="nx">file</span><span class="p">.</span><span class="nx">Mode</span><span class="p">().</span><span class="nx">IsRegular</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                      </span><span class="nx">filesGroup</span><span class="p">[</span><span class="nx">groupCount</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">append</span><span class="p">(</span><span class="nx">filesGroup</span><span class="p">[</span><span class="nx">groupCount</span><span class="p">],</span><span class="w"> </span><span class="nx">file</span><span class="p">)</span><span class="w"></span>
+<span class="w">                      </span><span class="nx">count</span><span class="o">++</span><span class="w"></span>
+<span class="w">                      </span><span class="k">if</span><span class="w"> </span><span class="nx">count</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nx">maxFilesPerDir</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                              </span><span class="nx">count</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">0</span><span class="w"></span>
+<span class="w">                              </span><span class="nx">filesGroup</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">append</span><span class="p">(</span><span class="nx">filesGroup</span><span class="p">,</span><span class="w"> </span><span class="p">[]</span><span class="nx">os</span><span class="p">.</span><span class="nx">FileInfo</span><span class="p">{})</span><span class="w"></span>
+<span class="w">                              </span><span class="nx">groupCount</span><span class="o">++</span><span class="w"></span>
+<span class="w">                      </span><span class="p">}</span><span class="w"></span>
+<span class="w">              </span><span class="p">}</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
 
-      <span class="k">return</span> <span class="nx">filesGroup</span>
-<span class="p">}</span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="nx">filesGroup</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
-      <span class="nx">srcDir</span> <span class="o">:=</span> <span class="nx">flag</span><span class="p">.</span><span class="nx">String</span><span class="p">(</span><span class="s">&quot;src&quot;</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">,</span> <span class="s">&quot;source dir to split&quot;</span><span class="p">)</span>
-      <span class="nx">max</span> <span class="o">:=</span> <span class="nx">flag</span><span class="p">.</span><span class="nx">Int</span><span class="p">(</span><span class="s">&quot;max&quot;</span><span class="p">,</span> <span class="mi">1500</span><span class="p">,</span> <span class="s">&quot;max number of files in split dir&quot;</span><span class="p">)</span>
-      <span class="nx">flag</span><span class="p">.</span><span class="nx">Parse</span><span class="p">()</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nx">srcDir</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">flag</span><span class="p">.</span><span class="nx">String</span><span class="p">(</span><span class="s">&quot;src&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;source dir to split&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="nx">max</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">flag</span><span class="p">.</span><span class="nx">Int</span><span class="p">(</span><span class="s">&quot;max&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">1500</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;max number of files in split dir&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="nx">flag</span><span class="p">.</span><span class="nx">Parse</span><span class="p">()</span><span class="w"></span>
 
-      <span class="nx">maxFilesPerDir</span> <span class="p">=</span> <span class="o">*</span><span class="nx">max</span>
-      <span class="nx">filesGroup</span> <span class="o">:=</span> <span class="nx">makeFilesGroup</span><span class="p">(</span><span class="o">*</span><span class="nx">srcDir</span><span class="p">)</span>
-      <span class="nx">moveFilesToDir</span><span class="p">(</span><span class="nx">filesGroup</span><span class="p">,</span> <span class="o">*</span><span class="nx">srcDir</span><span class="p">)</span>
-<span class="p">}</span>
+<span class="w">      </span><span class="nx">maxFilesPerDir</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="o">*</span><span class="nx">max</span><span class="w"></span>
+<span class="w">      </span><span class="nx">filesGroup</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">makeFilesGroup</span><span class="p">(</span><span class="o">*</span><span class="nx">srcDir</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="nx">moveFilesToDir</span><span class="p">(</span><span class="nx">filesGroup</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="nx">srcDir</span><span class="p">)</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 <p>Usage: <em>max</em> means the number of max number of files in sub directory, and <em>src</em>
 means the path to the directory to split</p>

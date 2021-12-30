@@ -56,59 +56,59 @@
 This is similar to removing leading and trailing whitespaces in a string, but in
 two dimension.</p>
 <p><a class="reference external" href="https://play.golang.org/p/fcY7KGQCIo">Run code on Go Playground</a></p>
-<div class="highlight"><pre><span></span><span class="c1">// Remove leading and trailing empty strings in string array</span>
-<span class="kn">package</span> <span class="nx">main</span>
+<div class="highlight"><pre><span></span><span class="c1">// Remove leading and trailing empty strings in string array</span><span class="w"></span>
+<span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w"></span>
 
-<span class="kn">import</span> <span class="p">(</span>
-      <span class="s">&quot;fmt&quot;</span>
-<span class="p">)</span>
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">      </span><span class="s">&quot;fmt&quot;</span><span class="w"></span>
+<span class="p">)</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">RemoveLeadingEmptyStringsInStringArray</span><span class="p">(</span><span class="nx">sa</span> <span class="p">[]</span><span class="kt">string</span><span class="p">)</span> <span class="p">[]</span><span class="kt">string</span> <span class="p">{</span>
-      <span class="nx">firstNonEmptyStringIndex</span> <span class="o">:=</span> <span class="mi">0</span>
-      <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="nx">sa</span><span class="p">);</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
-              <span class="k">if</span> <span class="nx">sa</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">==</span> <span class="s">&quot;&quot;</span> <span class="p">{</span>
-                      <span class="nx">firstNonEmptyStringIndex</span><span class="o">++</span>
-              <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-                      <span class="k">break</span>
-              <span class="p">}</span>
-      <span class="p">}</span>
-      <span class="k">return</span> <span class="nx">sa</span><span class="p">[</span><span class="nx">firstNonEmptyStringIndex</span><span class="p">:</span><span class="nb">len</span><span class="p">(</span><span class="nx">sa</span><span class="p">)]</span>
-<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">RemoveLeadingEmptyStringsInStringArray</span><span class="p">(</span><span class="nx">sa</span><span class="w"> </span><span class="p">[]</span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">[]</span><span class="kt">string</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nx">firstNonEmptyStringIndex</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">0</span><span class="w"></span>
+<span class="w">      </span><span class="k">for</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="p">&lt;</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="nx">sa</span><span class="p">);</span><span class="w"> </span><span class="nx">i</span><span class="o">++</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="k">if</span><span class="w"> </span><span class="nx">sa</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                      </span><span class="nx">firstNonEmptyStringIndex</span><span class="o">++</span><span class="w"></span>
+<span class="w">              </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                      </span><span class="k">break</span><span class="w"></span>
+<span class="w">              </span><span class="p">}</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="nx">sa</span><span class="p">[</span><span class="nx">firstNonEmptyStringIndex</span><span class="p">:</span><span class="nb">len</span><span class="p">(</span><span class="nx">sa</span><span class="p">)]</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">RemoveTrailingEmptyStringsInStringArray</span><span class="p">(</span><span class="nx">sa</span> <span class="p">[]</span><span class="kt">string</span><span class="p">)</span> <span class="p">[]</span><span class="kt">string</span> <span class="p">{</span>
-      <span class="nx">lastNonEmptyStringIndex</span> <span class="o">:=</span> <span class="nb">len</span><span class="p">(</span><span class="nx">sa</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
-      <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="nx">lastNonEmptyStringIndex</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="o">--</span> <span class="p">{</span>
-              <span class="k">if</span> <span class="nx">sa</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">==</span> <span class="s">&quot;&quot;</span> <span class="p">{</span>
-                      <span class="nx">lastNonEmptyStringIndex</span><span class="o">--</span>
-              <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-                      <span class="k">break</span>
-              <span class="p">}</span>
-      <span class="p">}</span>
-      <span class="k">return</span> <span class="nx">sa</span><span class="p">[</span><span class="mi">0</span> <span class="p">:</span> <span class="nx">lastNonEmptyStringIndex</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
-<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">RemoveTrailingEmptyStringsInStringArray</span><span class="p">(</span><span class="nx">sa</span><span class="w"> </span><span class="p">[]</span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">[]</span><span class="kt">string</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nx">lastNonEmptyStringIndex</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="nx">sa</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="w"></span>
+<span class="w">      </span><span class="k">for</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">lastNonEmptyStringIndex</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="o">--</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="k">if</span><span class="w"> </span><span class="nx">sa</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                      </span><span class="nx">lastNonEmptyStringIndex</span><span class="o">--</span><span class="w"></span>
+<span class="w">              </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                      </span><span class="k">break</span><span class="w"></span>
+<span class="w">              </span><span class="p">}</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="nx">sa</span><span class="p">[</span><span class="mi">0</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="nx">lastNonEmptyStringIndex</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
-      <span class="nx">testStringArray</span> <span class="o">:=</span> <span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&quot;&quot;</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">,</span> <span class="s">&quot;aa&quot;</span><span class="p">,</span> <span class="s">&quot;bb&quot;</span><span class="p">,</span> <span class="s">&quot;cc&quot;</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nx">testStringArray</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&quot;&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;aa&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;bb&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;cc&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="p">}</span><span class="w"></span>
 
-      <span class="nx">trailingTrimed</span> <span class="o">:=</span> <span class="nx">RemoveTrailingEmptyStringsInStringArray</span><span class="p">(</span><span class="nx">testStringArray</span><span class="p">)</span>
-      <span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">str</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">trailingTrimed</span> <span class="p">{</span>
-              <span class="k">if</span> <span class="nx">str</span> <span class="o">==</span> <span class="s">&quot;&quot;</span> <span class="p">{</span>
-                      <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;nil&quot;</span><span class="p">)</span>
-              <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-                      <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">str</span><span class="p">)</span>
-              <span class="p">}</span>
-      <span class="p">}</span>
+<span class="w">      </span><span class="nx">trailingTrimed</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">RemoveTrailingEmptyStringsInStringArray</span><span class="p">(</span><span class="nx">testStringArray</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="k">for</span><span class="w"> </span><span class="nx">_</span><span class="p">,</span><span class="w"> </span><span class="nx">str</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="nx">trailingTrimed</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="k">if</span><span class="w"> </span><span class="nx">str</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                      </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;nil&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">              </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                      </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">str</span><span class="p">)</span><span class="w"></span>
+<span class="w">              </span><span class="p">}</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
 
-      <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;----&quot;</span><span class="p">)</span>
-      <span class="nx">leadingTrailingTrimed</span> <span class="o">:=</span> <span class="nx">RemoveLeadingEmptyStringsInStringArray</span><span class="p">(</span><span class="nx">trailingTrimed</span><span class="p">)</span>
-      <span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">str</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">leadingTrailingTrimed</span> <span class="p">{</span>
-              <span class="k">if</span> <span class="nx">str</span> <span class="o">==</span> <span class="s">&quot;&quot;</span> <span class="p">{</span>
-                      <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;nil&quot;</span><span class="p">)</span>
-              <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-                      <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">str</span><span class="p">)</span>
-              <span class="p">}</span>
-      <span class="p">}</span>
-<span class="p">}</span>
+<span class="w">      </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;----&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="nx">leadingTrailingTrimed</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">RemoveLeadingEmptyStringsInStringArray</span><span class="p">(</span><span class="nx">trailingTrimed</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="k">for</span><span class="w"> </span><span class="nx">_</span><span class="p">,</span><span class="w"> </span><span class="nx">str</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="nx">leadingTrailingTrimed</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="k">if</span><span class="w"> </span><span class="nx">str</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                      </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;nil&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">              </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                      </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">str</span><span class="p">)</span><span class="w"></span>
+<span class="w">              </span><span class="p">}</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 
 <hr class="docutils" />

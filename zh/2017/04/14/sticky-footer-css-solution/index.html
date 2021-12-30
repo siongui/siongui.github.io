@@ -79,40 +79,40 @@
 <h2>如何實現</h2>
 <p>假設我們頁面的 HTML 結構是這樣：</p>
 <div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;wrapper&quot;</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;content&quot;</span><span class="p">&gt;</span><span class="c">&lt;!-- 頁面主體內容區域 --&gt;</span><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;footer&quot;</span><span class="p">&gt;</span><span class="c">&lt;!-- 需要做到 Sticky Footer 效果的頁腳 --&gt;</span><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;content&quot;</span><span class="p">&gt;</span><span class="cm">&lt;!-- 頁面主體內容區域 --&gt;</span><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;footer&quot;</span><span class="p">&gt;</span><span class="cm">&lt;!-- 需要做到 Sticky Footer 效果的頁腳 --&gt;</span><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
 <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
 </pre></div>
 </div>
 <div class="section" id="absolute">
 <h2>實現方案一：absolute</h2>
 <p>通過絕對定位處理應該是常見的方案，只要使得頁腳一直定位在主容器預留佔位位置。</p>
-<div class="highlight"><pre><span></span><span class="nt">html</span><span class="o">,</span> <span class="nt">body</span> <span class="p">{</span>
-    <span class="k">height</span><span class="p">:</span> <span class="mi">100</span><span class="kt">%</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="p">.</span><span class="nc">wrapper</span> <span class="p">{</span>
-    <span class="k">position</span><span class="p">:</span> <span class="kc">relative</span><span class="p">;</span>
-    <span class="k">min-height</span><span class="p">:</span> <span class="mi">100</span><span class="kt">%</span><span class="p">;</span>
-    <span class="k">padding-bottom</span><span class="p">:</span> <span class="mi">50</span><span class="kt">px</span><span class="p">;</span>
-    <span class="k">box-sizing</span><span class="p">:</span> <span class="kc">border-box</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="p">.</span><span class="nc">footer</span> <span class="p">{</span>
-    <span class="k">position</span><span class="p">:</span> <span class="kc">absolute</span><span class="p">;</span>
-    <span class="k">bottom</span><span class="p">:</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="k">height</span><span class="p">:</span> <span class="mi">50</span><span class="kt">px</span><span class="p">;</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span></span><span class="nt">html</span><span class="o">,</span><span class="w"> </span><span class="nt">body</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">height</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="kt">%</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+<span class="p">.</span><span class="nc">wrapper</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">position</span><span class="p">:</span><span class="w"> </span><span class="kc">relative</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">min-height</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="kt">%</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">padding-bottom</span><span class="p">:</span><span class="w"> </span><span class="mi">50</span><span class="kt">px</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">box-sizing</span><span class="p">:</span><span class="w"> </span><span class="kc">border-box</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+<span class="p">.</span><span class="nc">footer</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">position</span><span class="p">:</span><span class="w"> </span><span class="kc">absolute</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">bottom</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">height</span><span class="p">:</span><span class="w"> </span><span class="mi">50</span><span class="kt">px</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 <p>這個方案需指定 html、body 100% 的高度，且 content 的 padding-bottom 需要與 footer 的 height 一致。</p>
 </div>
 <div class="section" id="calc">
 <h2>實現方案二：calc</h2>
 <p>通過計算函數 calc 計算（視窗高度 - 頁腳高度）賦予內容區最小高度，不需要任何額外樣式處理，代碼量最少、最簡單。</p>
-<div class="highlight"><pre><span></span><span class="p">.</span><span class="nc">content</span> <span class="p">{</span>
-    <span class="k">min-height</span><span class="p">:</span> <span class="nb">calc</span><span class="p">(</span><span class="mi">100</span><span class="kt">vh</span> <span class="o">-</span> <span class="mi">50</span><span class="kt">px</span><span class="p">);</span>
-<span class="p">}</span>
-<span class="p">.</span><span class="nc">footer</span> <span class="p">{</span>
-    <span class="k">height</span><span class="p">:</span> <span class="mi">50</span><span class="kt">px</span><span class="p">;</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span></span><span class="p">.</span><span class="nc">content</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">min-height</span><span class="p">:</span><span class="w"> </span><span class="nb">calc</span><span class="p">(</span><span class="mi">100</span><span class="kt">vh</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">50</span><span class="kt">px</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+<span class="p">.</span><span class="nc">footer</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">height</span><span class="p">:</span><span class="w"> </span><span class="mi">50</span><span class="kt">px</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 <p>如果不需考慮 calc() 以及 vh 單位的兼容情況，這是個很理想的實現方案。</p>
 <p>同樣的問題是 footer 的高度值需要與 content 其中的計算值一致。</p>
@@ -120,18 +120,18 @@
 <div class="section" id="table">
 <h2>實現方案三：table</h2>
 <p>通過 table 屬性使得頁面以表格的形態呈現。</p>
-<div class="highlight"><pre><span></span><span class="nt">html</span><span class="o">,</span> <span class="nt">body</span> <span class="p">{</span>
-    <span class="k">height</span><span class="p">:</span> <span class="mi">100</span><span class="kt">%</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="p">.</span><span class="nc">wrapper</span> <span class="p">{</span>
-    <span class="k">display</span><span class="p">:</span> <span class="kc">table</span><span class="p">;</span>
-    <span class="k">width</span><span class="p">:</span> <span class="mi">100</span><span class="kt">%</span><span class="p">;</span>
-    <span class="k">min-height</span><span class="p">:</span> <span class="mi">100</span><span class="kt">%</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="p">.</span><span class="nc">content</span> <span class="p">{</span>
-    <span class="k">display</span><span class="p">:</span> <span class="kc">table-row</span><span class="p">;</span>
-    <span class="k">height</span><span class="p">:</span> <span class="mi">100</span><span class="kt">%</span><span class="p">;</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span></span><span class="nt">html</span><span class="o">,</span><span class="w"> </span><span class="nt">body</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">height</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="kt">%</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+<span class="p">.</span><span class="nc">wrapper</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">display</span><span class="p">:</span><span class="w"> </span><span class="kc">table</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">width</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="kt">%</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">min-height</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="kt">%</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+<span class="p">.</span><span class="nc">content</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">display</span><span class="p">:</span><span class="w"> </span><span class="kc">table-row</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">height</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="kt">%</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 <p>需要注意的是，使用 table 方案存在一個比較常見的樣式限制，通常 margin、padding、border 等屬性會不符合預期。</p>
 <p>筆者不建議使用這個方案。當然，問題也是可以解決的：別把其他樣式寫在 table 上。</p>
@@ -140,17 +140,17 @@
 <h2>實現方案四：Flexbox</h2>
 <p>Flexbox 是非常適合實現這種效果的，使用 Flexbox 實現不僅不需要任何額外的元素，而且允許頁腳的高度是可變的。</p>
 <p>雖然大多數 Flexbox 佈局常用於水平方向佈局，但別忘了實際上它也可用於垂直佈局，所以你需要做的是將垂直部分包裝在一個 Flex 容器中，並選擇要擴展的部分，他們將自動佔用其容器中的所有可用空間。</p>
-<div class="highlight"><pre><span></span><span class="nt">html</span> <span class="p">{</span>
-    <span class="k">height</span><span class="p">:</span> <span class="mi">100</span><span class="kt">%</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="nt">body</span> <span class="p">{</span>
-    <span class="k">min-height</span><span class="p">:</span> <span class="mi">100</span><span class="kt">%</span><span class="p">;</span>
-    <span class="k">display</span><span class="p">:</span> <span class="kc">flex</span><span class="p">;</span>
-    <span class="k">flex-direction</span><span class="p">:</span> <span class="kc">column</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="p">.</span><span class="nc">content</span> <span class="p">{</span>
-    <span class="k">flex</span><span class="p">:</span> <span class="mi">1</span><span class="p">;</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span></span><span class="nt">html</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">height</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="kt">%</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+<span class="nt">body</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">min-height</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="kt">%</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">display</span><span class="p">:</span><span class="w"> </span><span class="kc">flex</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">flex-direction</span><span class="p">:</span><span class="w"> </span><span class="kc">column</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+<span class="p">.</span><span class="nc">content</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">flex</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 <p>需要注意的是想要兼容各種系統設備，需要兼顧 flex 的兼容寫法。</p>
 </div>

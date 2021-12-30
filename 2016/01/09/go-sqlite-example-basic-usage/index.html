@@ -147,80 +147,80 @@ popular <a class="reference external" href="https://github.com/mattn/go-sqlite3"
 <span class="normal">71</span>
 <span class="normal">72</span>
 <span class="normal">73</span>
-<span class="normal">74</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">mylib</span>
+<span class="normal">74</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">mylib</span><span class="w"></span>
 
-<span class="kn">import</span> <span class="p">(</span>
-	<span class="s">&quot;database/sql&quot;</span>
-	<span class="nx">_</span> <span class="s">&quot;github.com/mattn/go-sqlite3&quot;</span>
-<span class="p">)</span>
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">	</span><span class="s">&quot;database/sql&quot;</span><span class="w"></span>
+<span class="w">	</span><span class="nx">_</span><span class="w"> </span><span class="s">&quot;github.com/mattn/go-sqlite3&quot;</span><span class="w"></span>
+<span class="p">)</span><span class="w"></span>
 
-<span class="kd">type</span> <span class="nx">TestItem</span> <span class="kd">struct</span> <span class="p">{</span>
-	<span class="nx">Id</span>	<span class="kt">string</span>
-	<span class="nx">Name</span>	<span class="kt">string</span>
-	<span class="nx">Phone</span>	<span class="kt">string</span>
-<span class="p">}</span>
+<span class="kd">type</span><span class="w"> </span><span class="nx">TestItem</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">	</span><span class="nx">Id</span><span class="w">	</span><span class="kt">string</span><span class="w"></span>
+<span class="w">	</span><span class="nx">Name</span><span class="w">	</span><span class="kt">string</span><span class="w"></span>
+<span class="w">	</span><span class="nx">Phone</span><span class="w">	</span><span class="kt">string</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">InitDB</span><span class="p">(</span><span class="nx">filepath</span> <span class="kt">string</span><span class="p">)</span> <span class="o">*</span><span class="nx">sql</span><span class="p">.</span><span class="nx">DB</span> <span class="p">{</span>
-	<span class="nx">db</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">sql</span><span class="p">.</span><span class="nx">Open</span><span class="p">(</span><span class="s">&quot;sqlite3&quot;</span><span class="p">,</span> <span class="nx">filepath</span><span class="p">)</span>
-	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span> <span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">}</span>
-	<span class="k">if</span> <span class="nx">db</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span> <span class="nb">panic</span><span class="p">(</span><span class="s">&quot;db nil&quot;</span><span class="p">)</span> <span class="p">}</span>
-	<span class="k">return</span> <span class="nx">db</span>
-<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">InitDB</span><span class="p">(</span><span class="nx">filepath</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="nx">sql</span><span class="p">.</span><span class="nx">DB</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">	</span><span class="nx">db</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">sql</span><span class="p">.</span><span class="nx">Open</span><span class="p">(</span><span class="s">&quot;sqlite3&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">filepath</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">db</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nb">panic</span><span class="p">(</span><span class="s">&quot;db nil&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
+<span class="w">	</span><span class="k">return</span><span class="w"> </span><span class="nx">db</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">CreateTable</span><span class="p">(</span><span class="nx">db</span> <span class="o">*</span><span class="nx">sql</span><span class="p">.</span><span class="nx">DB</span><span class="p">)</span> <span class="p">{</span>
-	<span class="c1">// create table if not exists</span>
-	<span class="nx">sql_table</span> <span class="o">:=</span> <span class="s">`</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">CreateTable</span><span class="p">(</span><span class="nx">db</span><span class="w"> </span><span class="o">*</span><span class="nx">sql</span><span class="p">.</span><span class="nx">DB</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">	</span><span class="c1">// create table if not exists</span><span class="w"></span>
+<span class="w">	</span><span class="nx">sql_table</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="s">`</span>
 <span class="s">	CREATE TABLE IF NOT EXISTS items(</span>
 <span class="s">		Id TEXT NOT NULL PRIMARY KEY,</span>
 <span class="s">		Name TEXT,</span>
 <span class="s">		Phone TEXT,</span>
 <span class="s">		InsertedDatetime DATETIME</span>
 <span class="s">	);</span>
-<span class="s">	`</span>
+<span class="s">	`</span><span class="w"></span>
 
-	<span class="nx">_</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">db</span><span class="p">.</span><span class="nx">Exec</span><span class="p">(</span><span class="nx">sql_table</span><span class="p">)</span>
-	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span> <span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">}</span>
-<span class="p">}</span>
+<span class="w">	</span><span class="nx">_</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">Exec</span><span class="p">(</span><span class="nx">sql_table</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">StoreItem</span><span class="p">(</span><span class="nx">db</span> <span class="o">*</span><span class="nx">sql</span><span class="p">.</span><span class="nx">DB</span><span class="p">,</span> <span class="nx">items</span> <span class="p">[]</span><span class="nx">TestItem</span><span class="p">)</span> <span class="p">{</span>
-	<span class="nx">sql_additem</span> <span class="o">:=</span> <span class="s">`</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">StoreItem</span><span class="p">(</span><span class="nx">db</span><span class="w"> </span><span class="o">*</span><span class="nx">sql</span><span class="p">.</span><span class="nx">DB</span><span class="p">,</span><span class="w"> </span><span class="nx">items</span><span class="w"> </span><span class="p">[]</span><span class="nx">TestItem</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">	</span><span class="nx">sql_additem</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="s">`</span>
 <span class="s">	INSERT OR REPLACE INTO items(</span>
 <span class="s">		Id,</span>
 <span class="s">		Name,</span>
 <span class="s">		Phone,</span>
 <span class="s">		InsertedDatetime</span>
 <span class="s">	) values(?, ?, ?, CURRENT_TIMESTAMP)</span>
-<span class="s">	`</span>
+<span class="s">	`</span><span class="w"></span>
 
-	<span class="nx">stmt</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">db</span><span class="p">.</span><span class="nx">Prepare</span><span class="p">(</span><span class="nx">sql_additem</span><span class="p">)</span>
-	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span> <span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">}</span>
-	<span class="k">defer</span> <span class="nx">stmt</span><span class="p">.</span><span class="nx">Close</span><span class="p">()</span>
+<span class="w">	</span><span class="nx">stmt</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">Prepare</span><span class="p">(</span><span class="nx">sql_additem</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
+<span class="w">	</span><span class="k">defer</span><span class="w"> </span><span class="nx">stmt</span><span class="p">.</span><span class="nx">Close</span><span class="p">()</span><span class="w"></span>
 
-	<span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">item</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">items</span> <span class="p">{</span>
-		<span class="nx">_</span><span class="p">,</span> <span class="nx">err2</span> <span class="o">:=</span> <span class="nx">stmt</span><span class="p">.</span><span class="nx">Exec</span><span class="p">(</span><span class="nx">item</span><span class="p">.</span><span class="nx">Id</span><span class="p">,</span> <span class="nx">item</span><span class="p">.</span><span class="nx">Name</span><span class="p">,</span> <span class="nx">item</span><span class="p">.</span><span class="nx">Phone</span><span class="p">)</span>
-		<span class="k">if</span> <span class="nx">err2</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span> <span class="nb">panic</span><span class="p">(</span><span class="nx">err2</span><span class="p">)</span> <span class="p">}</span>
-	<span class="p">}</span>
-<span class="p">}</span>
+<span class="w">	</span><span class="k">for</span><span class="w"> </span><span class="nx">_</span><span class="p">,</span><span class="w"> </span><span class="nx">item</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="nx">items</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">		</span><span class="nx">_</span><span class="p">,</span><span class="w"> </span><span class="nx">err2</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">stmt</span><span class="p">.</span><span class="nx">Exec</span><span class="p">(</span><span class="nx">item</span><span class="p">.</span><span class="nx">Id</span><span class="p">,</span><span class="w"> </span><span class="nx">item</span><span class="p">.</span><span class="nx">Name</span><span class="p">,</span><span class="w"> </span><span class="nx">item</span><span class="p">.</span><span class="nx">Phone</span><span class="p">)</span><span class="w"></span>
+<span class="w">		</span><span class="k">if</span><span class="w"> </span><span class="nx">err2</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nb">panic</span><span class="p">(</span><span class="nx">err2</span><span class="p">)</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
+<span class="w">	</span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">ReadItem</span><span class="p">(</span><span class="nx">db</span> <span class="o">*</span><span class="nx">sql</span><span class="p">.</span><span class="nx">DB</span><span class="p">)</span> <span class="p">[]</span><span class="nx">TestItem</span> <span class="p">{</span>
-	<span class="nx">sql_readall</span> <span class="o">:=</span> <span class="s">`</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">ReadItem</span><span class="p">(</span><span class="nx">db</span><span class="w"> </span><span class="o">*</span><span class="nx">sql</span><span class="p">.</span><span class="nx">DB</span><span class="p">)</span><span class="w"> </span><span class="p">[]</span><span class="nx">TestItem</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">	</span><span class="nx">sql_readall</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="s">`</span>
 <span class="s">	SELECT Id, Name, Phone FROM items</span>
 <span class="s">	ORDER BY datetime(InsertedDatetime) DESC</span>
-<span class="s">	`</span>
+<span class="s">	`</span><span class="w"></span>
 
-	<span class="nx">rows</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">db</span><span class="p">.</span><span class="nx">Query</span><span class="p">(</span><span class="nx">sql_readall</span><span class="p">)</span>
-	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span> <span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">}</span>
-	<span class="k">defer</span> <span class="nx">rows</span><span class="p">.</span><span class="nx">Close</span><span class="p">()</span>
+<span class="w">	</span><span class="nx">rows</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">Query</span><span class="p">(</span><span class="nx">sql_readall</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
+<span class="w">	</span><span class="k">defer</span><span class="w"> </span><span class="nx">rows</span><span class="p">.</span><span class="nx">Close</span><span class="p">()</span><span class="w"></span>
 
-	<span class="kd">var</span> <span class="nx">result</span> <span class="p">[]</span><span class="nx">TestItem</span>
-	<span class="k">for</span> <span class="nx">rows</span><span class="p">.</span><span class="nx">Next</span><span class="p">()</span> <span class="p">{</span>
-		<span class="nx">item</span> <span class="o">:=</span> <span class="nx">TestItem</span><span class="p">{}</span>
-		<span class="nx">err2</span> <span class="o">:=</span> <span class="nx">rows</span><span class="p">.</span><span class="nx">Scan</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">item</span><span class="p">.</span><span class="nx">Id</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">item</span><span class="p">.</span><span class="nx">Name</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">item</span><span class="p">.</span><span class="nx">Phone</span><span class="p">)</span>
-		<span class="k">if</span> <span class="nx">err2</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span> <span class="nb">panic</span><span class="p">(</span><span class="nx">err2</span><span class="p">)</span> <span class="p">}</span>
-		<span class="nx">result</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">result</span><span class="p">,</span> <span class="nx">item</span><span class="p">)</span>
-	<span class="p">}</span>
-	<span class="k">return</span> <span class="nx">result</span>
-<span class="p">}</span>
+<span class="w">	</span><span class="kd">var</span><span class="w"> </span><span class="nx">result</span><span class="w"> </span><span class="p">[]</span><span class="nx">TestItem</span><span class="w"></span>
+<span class="w">	</span><span class="k">for</span><span class="w"> </span><span class="nx">rows</span><span class="p">.</span><span class="nx">Next</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">		</span><span class="nx">item</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">TestItem</span><span class="p">{}</span><span class="w"></span>
+<span class="w">		</span><span class="nx">err2</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">rows</span><span class="p">.</span><span class="nx">Scan</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">item</span><span class="p">.</span><span class="nx">Id</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">item</span><span class="p">.</span><span class="nx">Name</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">item</span><span class="p">.</span><span class="nx">Phone</span><span class="p">)</span><span class="w"></span>
+<span class="w">		</span><span class="k">if</span><span class="w"> </span><span class="nx">err2</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nb">panic</span><span class="p">(</span><span class="nx">err2</span><span class="p">)</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
+<span class="w">		</span><span class="nx">result</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">append</span><span class="p">(</span><span class="nx">result</span><span class="p">,</span><span class="w"> </span><span class="nx">item</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="p">}</span><span class="w"></span>
+<span class="w">	</span><span class="k">return</span><span class="w"> </span><span class="nx">result</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </td></tr></table></div></figure>
 <p>Now we open database and create a table in our test program. Then write some
@@ -259,35 +259,35 @@ data to the table and then read the data from the table.</p>
 <span class="normal">26</span>
 <span class="normal">27</span>
 <span class="normal">28</span>
-<span class="normal">29</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">mylib</span>
+<span class="normal">29</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">mylib</span><span class="w"></span>
 
-<span class="kn">import</span> <span class="s">&quot;testing&quot;</span>
+<span class="kn">import</span><span class="w"> </span><span class="s">&quot;testing&quot;</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">TestAll</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span> <span class="p">{</span>
-	<span class="kd">const</span> <span class="nx">dbpath</span> <span class="p">=</span> <span class="s">&quot;foo.db&quot;</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">TestAll</span><span class="p">(</span><span class="nx">t</span><span class="w"> </span><span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">	</span><span class="kd">const</span><span class="w"> </span><span class="nx">dbpath</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;foo.db&quot;</span><span class="w"></span>
 
-	<span class="nx">db</span> <span class="o">:=</span> <span class="nx">InitDB</span><span class="p">(</span><span class="nx">dbpath</span><span class="p">)</span>
-	<span class="k">defer</span> <span class="nx">db</span><span class="p">.</span><span class="nx">Close</span><span class="p">()</span>
-	<span class="nx">CreateTable</span><span class="p">(</span><span class="nx">db</span><span class="p">)</span>
+<span class="w">	</span><span class="nx">db</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">InitDB</span><span class="p">(</span><span class="nx">dbpath</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="k">defer</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">Close</span><span class="p">()</span><span class="w"></span>
+<span class="w">	</span><span class="nx">CreateTable</span><span class="p">(</span><span class="nx">db</span><span class="p">)</span><span class="w"></span>
 
-	<span class="nx">items</span> <span class="o">:=</span> <span class="p">[]</span><span class="nx">TestItem</span><span class="p">{</span>
-		<span class="nx">TestItem</span><span class="p">{</span><span class="s">&quot;1&quot;</span><span class="p">,</span> <span class="s">&quot;A&quot;</span><span class="p">,</span> <span class="s">&quot;213&quot;</span><span class="p">},</span>
-		<span class="nx">TestItem</span><span class="p">{</span><span class="s">&quot;2&quot;</span><span class="p">,</span> <span class="s">&quot;B&quot;</span><span class="p">,</span> <span class="s">&quot;214&quot;</span><span class="p">},</span>
-	<span class="p">}</span>
-	<span class="nx">StoreItem</span><span class="p">(</span><span class="nx">db</span><span class="p">,</span> <span class="nx">items</span><span class="p">)</span>
+<span class="w">	</span><span class="nx">items</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="p">[]</span><span class="nx">TestItem</span><span class="p">{</span><span class="w"></span>
+<span class="w">		</span><span class="nx">TestItem</span><span class="p">{</span><span class="s">&quot;1&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;A&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;213&quot;</span><span class="p">},</span><span class="w"></span>
+<span class="w">		</span><span class="nx">TestItem</span><span class="p">{</span><span class="s">&quot;2&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;B&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;214&quot;</span><span class="p">},</span><span class="w"></span>
+<span class="w">	</span><span class="p">}</span><span class="w"></span>
+<span class="w">	</span><span class="nx">StoreItem</span><span class="p">(</span><span class="nx">db</span><span class="p">,</span><span class="w"> </span><span class="nx">items</span><span class="p">)</span><span class="w"></span>
 
-	<span class="nx">readItems</span> <span class="o">:=</span> <span class="nx">ReadItem</span><span class="p">(</span><span class="nx">db</span><span class="p">)</span>
-	<span class="nx">t</span><span class="p">.</span><span class="nx">Log</span><span class="p">(</span><span class="nx">readItems</span><span class="p">)</span>
+<span class="w">	</span><span class="nx">readItems</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">ReadItem</span><span class="p">(</span><span class="nx">db</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="nx">t</span><span class="p">.</span><span class="nx">Log</span><span class="p">(</span><span class="nx">readItems</span><span class="p">)</span><span class="w"></span>
 
-	<span class="nx">items2</span> <span class="o">:=</span> <span class="p">[]</span><span class="nx">TestItem</span><span class="p">{</span>
-		<span class="nx">TestItem</span><span class="p">{</span><span class="s">&quot;1&quot;</span><span class="p">,</span> <span class="s">&quot;C&quot;</span><span class="p">,</span> <span class="s">&quot;215&quot;</span><span class="p">},</span>
-		<span class="nx">TestItem</span><span class="p">{</span><span class="s">&quot;3&quot;</span><span class="p">,</span> <span class="s">&quot;D&quot;</span><span class="p">,</span> <span class="s">&quot;216&quot;</span><span class="p">},</span>
-	<span class="p">}</span>
-	<span class="nx">StoreItem</span><span class="p">(</span><span class="nx">db</span><span class="p">,</span> <span class="nx">items2</span><span class="p">)</span>
+<span class="w">	</span><span class="nx">items2</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="p">[]</span><span class="nx">TestItem</span><span class="p">{</span><span class="w"></span>
+<span class="w">		</span><span class="nx">TestItem</span><span class="p">{</span><span class="s">&quot;1&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;C&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;215&quot;</span><span class="p">},</span><span class="w"></span>
+<span class="w">		</span><span class="nx">TestItem</span><span class="p">{</span><span class="s">&quot;3&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;D&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;216&quot;</span><span class="p">},</span><span class="w"></span>
+<span class="w">	</span><span class="p">}</span><span class="w"></span>
+<span class="w">	</span><span class="nx">StoreItem</span><span class="p">(</span><span class="nx">db</span><span class="p">,</span><span class="w"> </span><span class="nx">items2</span><span class="p">)</span><span class="w"></span>
 
-	<span class="nx">readItems2</span> <span class="o">:=</span> <span class="nx">ReadItem</span><span class="p">(</span><span class="nx">db</span><span class="p">)</span>
-	<span class="nx">t</span><span class="p">.</span><span class="nx">Log</span><span class="p">(</span><span class="nx">readItems2</span><span class="p">)</span>
-<span class="p">}</span>
+<span class="w">	</span><span class="nx">readItems2</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">ReadItem</span><span class="p">(</span><span class="nx">db</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="nx">t</span><span class="p">.</span><span class="nx">Log</span><span class="p">(</span><span class="nx">readItems2</span><span class="p">)</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </td></tr></table></div></figure>
 </div>

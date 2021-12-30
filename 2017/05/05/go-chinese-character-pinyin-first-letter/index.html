@@ -55,34 +55,34 @@
 
     <div class="main-content"><p>My answer to <em>How can I get Chinese first letter(Pinyin) by using Go language?
 - Stack Overflow</em> <a class="footnote-reference" href="#footnote-4" id="footnote-reference-1">[4]</a></p>
-<div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">first</span>
+<div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">first</span><span class="w"></span>
 
-<span class="kn">import</span> <span class="p">(</span>
-      <span class="s">&quot;github.com/mozillazg/go-pinyin&quot;</span>
-<span class="p">)</span>
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">      </span><span class="s">&quot;github.com/mozillazg/go-pinyin&quot;</span><span class="w"></span>
+<span class="p">)</span><span class="w"></span>
 
-<span class="kd">var</span> <span class="nx">a</span> <span class="p">=</span> <span class="nx">pinyin</span><span class="p">.</span><span class="nx">NewArgs</span><span class="p">()</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">pinyin</span><span class="p">.</span><span class="nx">NewArgs</span><span class="p">()</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">FirstLetterOfPinYin</span><span class="p">(</span><span class="nx">r</span> <span class="kt">rune</span><span class="p">)</span> <span class="kt">string</span> <span class="p">{</span>
-      <span class="nx">result</span> <span class="o">:=</span> <span class="nx">pinyin</span><span class="p">.</span><span class="nx">Pinyin</span><span class="p">(</span><span class="nb">string</span><span class="p">(</span><span class="nx">r</span><span class="p">),</span> <span class="nx">a</span><span class="p">)</span>
-      <span class="k">return</span> <span class="nb">string</span><span class="p">(</span><span class="nx">result</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
-<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">FirstLetterOfPinYin</span><span class="p">(</span><span class="nx">r</span><span class="w"> </span><span class="kt">rune</span><span class="p">)</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nx">result</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">pinyin</span><span class="p">.</span><span class="nx">Pinyin</span><span class="p">(</span><span class="nb">string</span><span class="p">(</span><span class="nx">r</span><span class="p">),</span><span class="w"> </span><span class="nx">a</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="nb">string</span><span class="p">(</span><span class="nx">result</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 <p>Testing:</p>
-<div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">first</span>
+<div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">first</span><span class="w"></span>
 
-<span class="kn">import</span> <span class="p">(</span>
-      <span class="s">&quot;testing&quot;</span>
-<span class="p">)</span>
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">      </span><span class="s">&quot;testing&quot;</span><span class="w"></span>
+<span class="p">)</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">TestFirstLetterOfPinYin</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span> <span class="p">{</span>
-      <span class="k">if</span> <span class="nx">FirstLetterOfPinYin</span><span class="p">(</span><span class="sc">&#39;世&#39;</span><span class="p">)</span> <span class="o">!=</span> <span class="s">&quot;s&quot;</span> <span class="p">{</span>
-              <span class="nx">t</span><span class="p">.</span><span class="nx">Error</span><span class="p">(</span><span class="s">&quot;世&quot;</span><span class="p">)</span>
-      <span class="p">}</span>
-      <span class="k">if</span> <span class="nx">FirstLetterOfPinYin</span><span class="p">(</span><span class="sc">&#39;界&#39;</span><span class="p">)</span> <span class="o">!=</span> <span class="s">&quot;j&quot;</span> <span class="p">{</span>
-              <span class="nx">t</span><span class="p">.</span><span class="nx">Error</span><span class="p">(</span><span class="s">&quot;界&quot;</span><span class="p">)</span>
-      <span class="p">}</span>
-<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">TestFirstLetterOfPinYin</span><span class="p">(</span><span class="nx">t</span><span class="w"> </span><span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="nx">FirstLetterOfPinYin</span><span class="p">(</span><span class="sc">&#39;世&#39;</span><span class="p">)</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="s">&quot;s&quot;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="nx">t</span><span class="p">.</span><span class="nx">Error</span><span class="p">(</span><span class="s">&quot;世&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="nx">FirstLetterOfPinYin</span><span class="p">(</span><span class="sc">&#39;界&#39;</span><span class="p">)</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="s">&quot;j&quot;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="nx">t</span><span class="p">.</span><span class="nx">Error</span><span class="p">(</span><span class="s">&quot;界&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 
 <hr class="docutils" />

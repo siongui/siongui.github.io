@@ -119,20 +119,20 @@ be changed, and print a message on the browser console.</p>
 <span class="normal">11</span>
 <span class="normal">12</span>
 <span class="normal">13</span>
-<span class="normal">14</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
+<span class="normal">14</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w"></span>
 
-<span class="kn">import</span> <span class="s">&quot;honnef.co/go/js/dom&quot;</span>
+<span class="kn">import</span><span class="w"> </span><span class="s">&quot;honnef.co/go/js/dom&quot;</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
-	<span class="nx">d</span> <span class="o">:=</span> <span class="nx">dom</span><span class="p">.</span><span class="nx">GetWindow</span><span class="p">().</span><span class="nx">Document</span><span class="p">()</span>
-	<span class="nx">h</span> <span class="o">:=</span> <span class="nx">d</span><span class="p">.</span><span class="nx">GetElementByID</span><span class="p">(</span><span class="s">&quot;foo&quot;</span><span class="p">)</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">	</span><span class="nx">d</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">dom</span><span class="p">.</span><span class="nx">GetWindow</span><span class="p">().</span><span class="nx">Document</span><span class="p">()</span><span class="w"></span>
+<span class="w">	</span><span class="nx">h</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">d</span><span class="p">.</span><span class="nx">GetElementByID</span><span class="p">(</span><span class="s">&quot;foo&quot;</span><span class="p">)</span><span class="w"></span>
 
-	<span class="nx">h</span><span class="p">.</span><span class="nx">AddEventListener</span><span class="p">(</span><span class="s">&quot;click&quot;</span><span class="p">,</span> <span class="kc">false</span><span class="p">,</span> <span class="kd">func</span><span class="p">(</span><span class="nx">event</span> <span class="nx">dom</span><span class="p">.</span><span class="nx">Event</span><span class="p">)</span> <span class="p">{</span>
-		<span class="nx">event</span><span class="p">.</span><span class="nx">PreventDefault</span><span class="p">()</span>
-		<span class="nx">h</span><span class="p">.</span><span class="nx">SetInnerHTML</span><span class="p">(</span><span class="s">&quot;I am Clicked&quot;</span><span class="p">)</span>
-		<span class="nb">println</span><span class="p">(</span><span class="s">&quot;This message is printed in browser console&quot;</span><span class="p">)</span>
-	<span class="p">})</span>
-<span class="p">}</span>
+<span class="w">	</span><span class="nx">h</span><span class="p">.</span><span class="nx">AddEventListener</span><span class="p">(</span><span class="s">&quot;click&quot;</span><span class="p">,</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="nx">event</span><span class="w"> </span><span class="nx">dom</span><span class="p">.</span><span class="nx">Event</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">		</span><span class="nx">event</span><span class="p">.</span><span class="nx">PreventDefault</span><span class="p">()</span><span class="w"></span>
+<span class="w">		</span><span class="nx">h</span><span class="p">.</span><span class="nx">SetInnerHTML</span><span class="p">(</span><span class="s">&quot;I am Clicked&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">		</span><span class="nb">println</span><span class="p">(</span><span class="s">&quot;This message is printed in browser console&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="p">})</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </td></tr></table></div></figure>
 <p>As the above code show, the event registration is almost the same as JavaScript

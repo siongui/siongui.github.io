@@ -157,100 +157,100 @@ fields in RSS feed are copied to corresponding Atom equivalent.</p>
 <span class="normal">91</span>
 <span class="normal">92</span>
 <span class="normal">93</span>
-<span class="normal">94</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
+<span class="normal">94</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w"></span>
 
-<span class="kn">import</span> <span class="p">(</span>
-	<span class="s">&quot;io/ioutil&quot;</span>
-	<span class="s">&quot;encoding/xml&quot;</span>
-	<span class="s">&quot;html/template&quot;</span>
-	<span class="s">&quot;fmt&quot;</span>
-<span class="p">)</span>
-
-
-<span class="kd">type</span> <span class="nx">Rss2</span> <span class="kd">struct</span> <span class="p">{</span>
-	<span class="nx">XMLName</span>		<span class="nx">xml</span><span class="p">.</span><span class="nx">Name</span>	<span class="s">`xml:&quot;rss&quot;`</span>
-	<span class="nx">Version</span>		<span class="kt">string</span>		<span class="s">`xml:&quot;version,attr&quot;`</span>
-	<span class="c1">// Required</span>
-	<span class="nx">Title</span>		<span class="kt">string</span>		<span class="s">`xml:&quot;channel&gt;title&quot;`</span>
-	<span class="nx">Link</span>		<span class="kt">string</span>		<span class="s">`xml:&quot;channel&gt;link&quot;`</span>
-	<span class="nx">Description</span>	<span class="kt">string</span>		<span class="s">`xml:&quot;channel&gt;description&quot;`</span>
-	<span class="c1">// Optional</span>
-	<span class="nx">PubDate</span>		<span class="kt">string</span>		<span class="s">`xml:&quot;channel&gt;pubDate&quot;`</span>
-	<span class="nx">ItemList</span>	<span class="p">[]</span><span class="nx">Item</span>		<span class="s">`xml:&quot;channel&gt;item&quot;`</span>
-<span class="p">}</span>
-
-<span class="kd">type</span> <span class="nx">Item</span> <span class="kd">struct</span> <span class="p">{</span>
-	<span class="c1">// Required</span>
-	<span class="nx">Title</span>		<span class="kt">string</span>		<span class="s">`xml:&quot;title&quot;`</span>
-	<span class="nx">Link</span>		<span class="kt">string</span>		<span class="s">`xml:&quot;link&quot;`</span>
-	<span class="nx">Description</span>	<span class="nx">template</span><span class="p">.</span><span class="nx">HTML</span>	<span class="s">`xml:&quot;description&quot;`</span>
-	<span class="c1">// Optional</span>
-	<span class="nx">Content</span>		<span class="nx">template</span><span class="p">.</span><span class="nx">HTML</span>	<span class="s">`xml:&quot;encoded&quot;`</span>
-	<span class="nx">PubDate</span>		<span class="kt">string</span>		<span class="s">`xml:&quot;pubDate&quot;`</span>
-	<span class="nx">Comments</span>	<span class="kt">string</span>		<span class="s">`xml:&quot;comments&quot;`</span>
-<span class="p">}</span>
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">	</span><span class="s">&quot;io/ioutil&quot;</span><span class="w"></span>
+<span class="w">	</span><span class="s">&quot;encoding/xml&quot;</span><span class="w"></span>
+<span class="w">	</span><span class="s">&quot;html/template&quot;</span><span class="w"></span>
+<span class="w">	</span><span class="s">&quot;fmt&quot;</span><span class="w"></span>
+<span class="p">)</span><span class="w"></span>
 
 
-<span class="kd">type</span> <span class="nx">Atom1</span> <span class="kd">struct</span> <span class="p">{</span>
-	<span class="nx">XMLName</span>		<span class="nx">xml</span><span class="p">.</span><span class="nx">Name</span>	<span class="s">`xml:&quot;http://www.w3.org/2005/Atom feed&quot;`</span>
-	<span class="nx">Title</span>		<span class="kt">string</span>		<span class="s">`xml:&quot;title&quot;`</span>
-	<span class="nx">Subtitle</span>	<span class="kt">string</span>		<span class="s">`xml:&quot;subtitle&quot;`</span>
-	<span class="nx">Id</span>		<span class="kt">string</span>		<span class="s">`xml:&quot;id&quot;`</span>
-	<span class="nx">Updated</span>		<span class="kt">string</span>		<span class="s">`xml:&quot;updated&quot;`</span>
-	<span class="nx">Rights</span>		<span class="kt">string</span>		<span class="s">`xml:&quot;rights&quot;`</span>
-	<span class="nx">Link</span>		<span class="nx">Link</span>		<span class="s">`xml:&quot;link&quot;`</span>
-	<span class="nx">Author</span>		<span class="nx">Author</span>		<span class="s">`xml:&quot;author&quot;`</span>
-	<span class="nx">EntryList</span>	<span class="p">[]</span><span class="nx">Entry</span>		<span class="s">`xml:&quot;entry&quot;`</span>
-<span class="p">}</span>
+<span class="kd">type</span><span class="w"> </span><span class="nx">Rss2</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">	</span><span class="nx">XMLName</span><span class="w">		</span><span class="nx">xml</span><span class="p">.</span><span class="nx">Name</span><span class="w">	</span><span class="s">`xml:&quot;rss&quot;`</span><span class="w"></span>
+<span class="w">	</span><span class="nx">Version</span><span class="w">		</span><span class="kt">string</span><span class="w">		</span><span class="s">`xml:&quot;version,attr&quot;`</span><span class="w"></span>
+<span class="w">	</span><span class="c1">// Required</span><span class="w"></span>
+<span class="w">	</span><span class="nx">Title</span><span class="w">		</span><span class="kt">string</span><span class="w">		</span><span class="s">`xml:&quot;channel&gt;title&quot;`</span><span class="w"></span>
+<span class="w">	</span><span class="nx">Link</span><span class="w">		</span><span class="kt">string</span><span class="w">		</span><span class="s">`xml:&quot;channel&gt;link&quot;`</span><span class="w"></span>
+<span class="w">	</span><span class="nx">Description</span><span class="w">	</span><span class="kt">string</span><span class="w">		</span><span class="s">`xml:&quot;channel&gt;description&quot;`</span><span class="w"></span>
+<span class="w">	</span><span class="c1">// Optional</span><span class="w"></span>
+<span class="w">	</span><span class="nx">PubDate</span><span class="w">		</span><span class="kt">string</span><span class="w">		</span><span class="s">`xml:&quot;channel&gt;pubDate&quot;`</span><span class="w"></span>
+<span class="w">	</span><span class="nx">ItemList</span><span class="w">	</span><span class="p">[]</span><span class="nx">Item</span><span class="w">		</span><span class="s">`xml:&quot;channel&gt;item&quot;`</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">type</span> <span class="nx">Link</span> <span class="kd">struct</span> <span class="p">{</span>
-	<span class="nx">Href</span>		<span class="kt">string</span>		<span class="s">`xml:&quot;href,attr&quot;`</span>
-<span class="p">}</span>
-
-<span class="kd">type</span> <span class="nx">Author</span> <span class="kd">struct</span> <span class="p">{</span>
-	<span class="nx">Name</span>		<span class="kt">string</span>		<span class="s">`xml:&quot;name&quot;`</span>
-	<span class="nx">Email</span>		<span class="kt">string</span>		<span class="s">`xml:&quot;email&quot;`</span>
-<span class="p">}</span>
-
-<span class="kd">type</span> <span class="nx">Entry</span> <span class="kd">struct</span> <span class="p">{</span>
-	<span class="nx">Title</span>		<span class="kt">string</span>		<span class="s">`xml:&quot;title&quot;`</span>
-	<span class="nx">Summary</span>		<span class="kt">string</span>		<span class="s">`xml:&quot;summary&quot;`</span>
-	<span class="nx">Content</span>		<span class="kt">string</span>		<span class="s">`xml:&quot;content&quot;`</span>
-	<span class="nx">Id</span>		<span class="kt">string</span>		<span class="s">`xml:&quot;id&quot;`</span>
-	<span class="nx">Updated</span>		<span class="kt">string</span>		<span class="s">`xml:&quot;updated&quot;`</span>
-	<span class="nx">Link</span>		<span class="nx">Link</span>		<span class="s">`xml:&quot;link&quot;`</span>
-	<span class="nx">Author</span>		<span class="nx">Author</span>		<span class="s">`xml:&quot;author&quot;`</span>
-<span class="p">}</span>
-
-<span class="kd">func</span> <span class="nx">atom1ToRss2</span><span class="p">(</span><span class="nx">a</span> <span class="nx">Atom1</span><span class="p">)</span> <span class="nx">Rss2</span> <span class="p">{</span>
-	<span class="nx">r</span> <span class="o">:=</span> <span class="nx">Rss2</span><span class="p">{</span>
-		<span class="nx">Title</span><span class="p">:</span> <span class="nx">a</span><span class="p">.</span><span class="nx">Title</span><span class="p">,</span>
-		<span class="nx">Link</span><span class="p">:</span> <span class="nx">a</span><span class="p">.</span><span class="nx">Link</span><span class="p">.</span><span class="nx">Href</span><span class="p">,</span>
-		<span class="nx">Description</span><span class="p">:</span> <span class="nx">a</span><span class="p">.</span><span class="nx">Subtitle</span><span class="p">,</span>
-		<span class="nx">PubDate</span><span class="p">:</span> <span class="nx">a</span><span class="p">.</span><span class="nx">Updated</span><span class="p">,</span>
-	<span class="p">}</span>
-	<span class="nx">r</span><span class="p">.</span><span class="nx">ItemList</span> <span class="p">=</span> <span class="nb">make</span><span class="p">([]</span><span class="nx">Item</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="nx">a</span><span class="p">.</span><span class="nx">EntryList</span><span class="p">))</span>
-	<span class="k">for</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">entry</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">a</span><span class="p">.</span><span class="nx">EntryList</span> <span class="p">{</span>
-		<span class="nx">r</span><span class="p">.</span><span class="nx">ItemList</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">Title</span> <span class="p">=</span> <span class="nx">entry</span><span class="p">.</span><span class="nx">Title</span>
-		<span class="nx">r</span><span class="p">.</span><span class="nx">ItemList</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">Link</span> <span class="p">=</span> <span class="nx">entry</span><span class="p">.</span><span class="nx">Link</span><span class="p">.</span><span class="nx">Href</span>
-		<span class="k">if</span> <span class="nx">entry</span><span class="p">.</span><span class="nx">Content</span> <span class="o">==</span> <span class="s">&quot;&quot;</span> <span class="p">{</span>
-			<span class="nx">r</span><span class="p">.</span><span class="nx">ItemList</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">Description</span> <span class="p">=</span> <span class="nx">template</span><span class="p">.</span><span class="nx">HTML</span><span class="p">(</span><span class="nx">entry</span><span class="p">.</span><span class="nx">Summary</span><span class="p">)</span>
-		<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-			<span class="nx">r</span><span class="p">.</span><span class="nx">ItemList</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">Description</span> <span class="p">=</span> <span class="nx">template</span><span class="p">.</span><span class="nx">HTML</span><span class="p">(</span><span class="nx">entry</span><span class="p">.</span><span class="nx">Content</span><span class="p">)</span>
-		<span class="p">}</span>
-	<span class="p">}</span>
-	<span class="k">return</span> <span class="nx">r</span>
-<span class="p">}</span>
+<span class="kd">type</span><span class="w"> </span><span class="nx">Item</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">	</span><span class="c1">// Required</span><span class="w"></span>
+<span class="w">	</span><span class="nx">Title</span><span class="w">		</span><span class="kt">string</span><span class="w">		</span><span class="s">`xml:&quot;title&quot;`</span><span class="w"></span>
+<span class="w">	</span><span class="nx">Link</span><span class="w">		</span><span class="kt">string</span><span class="w">		</span><span class="s">`xml:&quot;link&quot;`</span><span class="w"></span>
+<span class="w">	</span><span class="nx">Description</span><span class="w">	</span><span class="nx">template</span><span class="p">.</span><span class="nx">HTML</span><span class="w">	</span><span class="s">`xml:&quot;description&quot;`</span><span class="w"></span>
+<span class="w">	</span><span class="c1">// Optional</span><span class="w"></span>
+<span class="w">	</span><span class="nx">Content</span><span class="w">		</span><span class="nx">template</span><span class="p">.</span><span class="nx">HTML</span><span class="w">	</span><span class="s">`xml:&quot;encoded&quot;`</span><span class="w"></span>
+<span class="w">	</span><span class="nx">PubDate</span><span class="w">		</span><span class="kt">string</span><span class="w">		</span><span class="s">`xml:&quot;pubDate&quot;`</span><span class="w"></span>
+<span class="w">	</span><span class="nx">Comments</span><span class="w">	</span><span class="kt">string</span><span class="w">		</span><span class="s">`xml:&quot;comments&quot;`</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
 
-<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
-	<span class="nx">a</span> <span class="o">:=</span> <span class="nx">Atom1</span><span class="p">{}</span>
-	<span class="nx">xmlContent</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">ioutil</span><span class="p">.</span><span class="nx">ReadFile</span><span class="p">(</span><span class="s">&quot;example-7.xml&quot;</span><span class="p">)</span>
-	<span class="nx">err</span> <span class="o">:=</span> <span class="nx">xml</span><span class="p">.</span><span class="nx">Unmarshal</span><span class="p">(</span><span class="nx">xmlContent</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">a</span><span class="p">)</span>
-	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span> <span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">}</span>
-	<span class="nx">r</span> <span class="o">:=</span> <span class="nx">atom1ToRss2</span><span class="p">(</span><span class="nx">a</span><span class="p">)</span>
-	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">r</span><span class="p">)</span>
-<span class="p">}</span>
+<span class="kd">type</span><span class="w"> </span><span class="nx">Atom1</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">	</span><span class="nx">XMLName</span><span class="w">		</span><span class="nx">xml</span><span class="p">.</span><span class="nx">Name</span><span class="w">	</span><span class="s">`xml:&quot;http://www.w3.org/2005/Atom feed&quot;`</span><span class="w"></span>
+<span class="w">	</span><span class="nx">Title</span><span class="w">		</span><span class="kt">string</span><span class="w">		</span><span class="s">`xml:&quot;title&quot;`</span><span class="w"></span>
+<span class="w">	</span><span class="nx">Subtitle</span><span class="w">	</span><span class="kt">string</span><span class="w">		</span><span class="s">`xml:&quot;subtitle&quot;`</span><span class="w"></span>
+<span class="w">	</span><span class="nx">Id</span><span class="w">		</span><span class="kt">string</span><span class="w">		</span><span class="s">`xml:&quot;id&quot;`</span><span class="w"></span>
+<span class="w">	</span><span class="nx">Updated</span><span class="w">		</span><span class="kt">string</span><span class="w">		</span><span class="s">`xml:&quot;updated&quot;`</span><span class="w"></span>
+<span class="w">	</span><span class="nx">Rights</span><span class="w">		</span><span class="kt">string</span><span class="w">		</span><span class="s">`xml:&quot;rights&quot;`</span><span class="w"></span>
+<span class="w">	</span><span class="nx">Link</span><span class="w">		</span><span class="nx">Link</span><span class="w">		</span><span class="s">`xml:&quot;link&quot;`</span><span class="w"></span>
+<span class="w">	</span><span class="nx">Author</span><span class="w">		</span><span class="nx">Author</span><span class="w">		</span><span class="s">`xml:&quot;author&quot;`</span><span class="w"></span>
+<span class="w">	</span><span class="nx">EntryList</span><span class="w">	</span><span class="p">[]</span><span class="nx">Entry</span><span class="w">		</span><span class="s">`xml:&quot;entry&quot;`</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="kd">type</span><span class="w"> </span><span class="nx">Link</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">	</span><span class="nx">Href</span><span class="w">		</span><span class="kt">string</span><span class="w">		</span><span class="s">`xml:&quot;href,attr&quot;`</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="kd">type</span><span class="w"> </span><span class="nx">Author</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">	</span><span class="nx">Name</span><span class="w">		</span><span class="kt">string</span><span class="w">		</span><span class="s">`xml:&quot;name&quot;`</span><span class="w"></span>
+<span class="w">	</span><span class="nx">Email</span><span class="w">		</span><span class="kt">string</span><span class="w">		</span><span class="s">`xml:&quot;email&quot;`</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="kd">type</span><span class="w"> </span><span class="nx">Entry</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">	</span><span class="nx">Title</span><span class="w">		</span><span class="kt">string</span><span class="w">		</span><span class="s">`xml:&quot;title&quot;`</span><span class="w"></span>
+<span class="w">	</span><span class="nx">Summary</span><span class="w">		</span><span class="kt">string</span><span class="w">		</span><span class="s">`xml:&quot;summary&quot;`</span><span class="w"></span>
+<span class="w">	</span><span class="nx">Content</span><span class="w">		</span><span class="kt">string</span><span class="w">		</span><span class="s">`xml:&quot;content&quot;`</span><span class="w"></span>
+<span class="w">	</span><span class="nx">Id</span><span class="w">		</span><span class="kt">string</span><span class="w">		</span><span class="s">`xml:&quot;id&quot;`</span><span class="w"></span>
+<span class="w">	</span><span class="nx">Updated</span><span class="w">		</span><span class="kt">string</span><span class="w">		</span><span class="s">`xml:&quot;updated&quot;`</span><span class="w"></span>
+<span class="w">	</span><span class="nx">Link</span><span class="w">		</span><span class="nx">Link</span><span class="w">		</span><span class="s">`xml:&quot;link&quot;`</span><span class="w"></span>
+<span class="w">	</span><span class="nx">Author</span><span class="w">		</span><span class="nx">Author</span><span class="w">		</span><span class="s">`xml:&quot;author&quot;`</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="kd">func</span><span class="w"> </span><span class="nx">atom1ToRss2</span><span class="p">(</span><span class="nx">a</span><span class="w"> </span><span class="nx">Atom1</span><span class="p">)</span><span class="w"> </span><span class="nx">Rss2</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">	</span><span class="nx">r</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">Rss2</span><span class="p">{</span><span class="w"></span>
+<span class="w">		</span><span class="nx">Title</span><span class="p">:</span><span class="w"> </span><span class="nx">a</span><span class="p">.</span><span class="nx">Title</span><span class="p">,</span><span class="w"></span>
+<span class="w">		</span><span class="nx">Link</span><span class="p">:</span><span class="w"> </span><span class="nx">a</span><span class="p">.</span><span class="nx">Link</span><span class="p">.</span><span class="nx">Href</span><span class="p">,</span><span class="w"></span>
+<span class="w">		</span><span class="nx">Description</span><span class="p">:</span><span class="w"> </span><span class="nx">a</span><span class="p">.</span><span class="nx">Subtitle</span><span class="p">,</span><span class="w"></span>
+<span class="w">		</span><span class="nx">PubDate</span><span class="p">:</span><span class="w"> </span><span class="nx">a</span><span class="p">.</span><span class="nx">Updated</span><span class="p">,</span><span class="w"></span>
+<span class="w">	</span><span class="p">}</span><span class="w"></span>
+<span class="w">	</span><span class="nx">r</span><span class="p">.</span><span class="nx">ItemList</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">make</span><span class="p">([]</span><span class="nx">Item</span><span class="p">,</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="nx">a</span><span class="p">.</span><span class="nx">EntryList</span><span class="p">))</span><span class="w"></span>
+<span class="w">	</span><span class="k">for</span><span class="w"> </span><span class="nx">i</span><span class="p">,</span><span class="w"> </span><span class="nx">entry</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="nx">a</span><span class="p">.</span><span class="nx">EntryList</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">		</span><span class="nx">r</span><span class="p">.</span><span class="nx">ItemList</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">Title</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">entry</span><span class="p">.</span><span class="nx">Title</span><span class="w"></span>
+<span class="w">		</span><span class="nx">r</span><span class="p">.</span><span class="nx">ItemList</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">Link</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">entry</span><span class="p">.</span><span class="nx">Link</span><span class="p">.</span><span class="nx">Href</span><span class="w"></span>
+<span class="w">		</span><span class="k">if</span><span class="w"> </span><span class="nx">entry</span><span class="p">.</span><span class="nx">Content</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">			</span><span class="nx">r</span><span class="p">.</span><span class="nx">ItemList</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">Description</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">template</span><span class="p">.</span><span class="nx">HTML</span><span class="p">(</span><span class="nx">entry</span><span class="p">.</span><span class="nx">Summary</span><span class="p">)</span><span class="w"></span>
+<span class="w">		</span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">			</span><span class="nx">r</span><span class="p">.</span><span class="nx">ItemList</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">Description</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">template</span><span class="p">.</span><span class="nx">HTML</span><span class="p">(</span><span class="nx">entry</span><span class="p">.</span><span class="nx">Content</span><span class="p">)</span><span class="w"></span>
+<span class="w">		</span><span class="p">}</span><span class="w"></span>
+<span class="w">	</span><span class="p">}</span><span class="w"></span>
+<span class="w">	</span><span class="k">return</span><span class="w"> </span><span class="nx">r</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">	</span><span class="nx">a</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">Atom1</span><span class="p">{}</span><span class="w"></span>
+<span class="w">	</span><span class="nx">xmlContent</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">ioutil</span><span class="p">.</span><span class="nx">ReadFile</span><span class="p">(</span><span class="s">&quot;example-7.xml&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">xml</span><span class="p">.</span><span class="nx">Unmarshal</span><span class="p">(</span><span class="nx">xmlContent</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">a</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
+<span class="w">	</span><span class="nx">r</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">atom1ToRss2</span><span class="p">(</span><span class="nx">a</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">r</span><span class="p">)</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </td></tr></table></div></figure>
 <p>Tested on: <tt class="docutils literal">Ubuntu Linux 14.10</tt>, <tt class="docutils literal">Go 1.4</tt>.</p>

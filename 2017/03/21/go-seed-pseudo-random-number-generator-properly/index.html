@@ -54,19 +54,19 @@
 
     <div class="main-content"><p>In my <a class="reference external" href="/2015/04/13/go-generate-random-string/">previous post</a>, I use the <a class="reference external" href="https://www.google.com/search?q=pseudo+random+number+generator">pseudo random number generator</a> (PRNG) of <a class="reference external" href="https://golang.org/">Go</a>
 standard <a class="reference external" href="https://golang.org/pkg/math/rand/">math/rand</a> package to generate random string as follows:</p>
-<div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">mylib</span>
+<div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">mylib</span><span class="w"></span>
 
-<span class="kn">import</span> <span class="p">(</span>
-      <span class="s">&quot;math/rand&quot;</span>
-      <span class="s">&quot;time&quot;</span>
-<span class="p">)</span>
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">      </span><span class="s">&quot;math/rand&quot;</span><span class="w"></span>
+<span class="w">      </span><span class="s">&quot;time&quot;</span><span class="w"></span>
+<span class="p">)</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">RandomString</span><span class="p">(</span><span class="nx">strlen</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">string</span> <span class="p">{</span>
-      <span class="c1">// seed the PRNG</span>
-      <span class="nx">rand</span><span class="p">.</span><span class="nx">Seed</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">Now</span><span class="p">().</span><span class="nx">UTC</span><span class="p">().</span><span class="nx">UnixNano</span><span class="p">())</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">RandomString</span><span class="p">(</span><span class="nx">strlen</span><span class="w"> </span><span class="kt">int</span><span class="p">)</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="c1">// seed the PRNG</span><span class="w"></span>
+<span class="w">      </span><span class="nx">rand</span><span class="p">.</span><span class="nx">Seed</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">Now</span><span class="p">().</span><span class="nx">UTC</span><span class="p">().</span><span class="nx">UnixNano</span><span class="p">())</span><span class="w"></span>
 
-      <span class="c1">// generate randsom string with rand.Intn method</span>
-<span class="p">}</span>
+<span class="w">      </span><span class="c1">// generate randsom string with rand.Intn method</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 <p>As you can see, I seed the PRNG on each use because I have no idea what is the
 proper way to use the PRNG.</p>
@@ -80,39 +80,39 @@ comment to show me how to <a class="reference external" href="https://github.com
 <blockquote>
 <p>If you're using global <tt class="docutils literal">rand.Rand</tt>, don't re-seed it. But if you want to
 set your own seed, create your own local instance of <tt class="docutils literal">rand.Rand</tt>.</p>
-<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">rand</span><span class="p">.</span><span class="nx">Rand</span> <span class="c1">// Rand for this package.</span>
+<div class="highlight"><pre><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">r</span><span class="w"> </span><span class="o">*</span><span class="nx">rand</span><span class="p">.</span><span class="nx">Rand</span><span class="w"> </span><span class="c1">// Rand for this package.</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">init</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nx">r</span> <span class="p">=</span> <span class="nx">rand</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="nx">rand</span><span class="p">.</span><span class="nx">NewSource</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">Now</span><span class="p">().</span><span class="nx">UnixNano</span><span class="p">()))</span>
-<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">init</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">r</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">rand</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="nx">rand</span><span class="p">.</span><span class="nx">NewSource</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">Now</span><span class="p">().</span><span class="nx">UnixNano</span><span class="p">()))</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">RandomString</span><span class="p">(</span><span class="nx">strlen</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">string</span> <span class="p">{</span>
-    <span class="c1">// use existing r, no need to re-seed it</span>
-    <span class="nx">r</span><span class="p">.</span><span class="nx">Intn</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nx">chars</span><span class="p">))</span>
-<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">RandomString</span><span class="p">(</span><span class="nx">strlen</span><span class="w"> </span><span class="kt">int</span><span class="p">)</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// use existing r, no need to re-seed it</span><span class="w"></span>
+<span class="w">    </span><span class="nx">r</span><span class="p">.</span><span class="nx">Intn</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nx">chars</span><span class="p">))</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 <p>You can also <a class="reference external" href="https://github.com/siongui/userpages/commit/6dc58d0b28a615ae19c43900358bcd258c1faac6#commitcomment-21402539">simplify this into one line</a>:</p>
-<div class="highlight"><pre><span></span><span class="c1">// r is a source of random numbers used in this package.</span>
-<span class="kd">var</span> <span class="nx">r</span> <span class="p">=</span> <span class="nx">rand</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="nx">rand</span><span class="p">.</span><span class="nx">NewSource</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">Now</span><span class="p">().</span><span class="nx">UnixNano</span><span class="p">()))</span>
+<div class="highlight"><pre><span></span><span class="c1">// r is a source of random numbers used in this package.</span><span class="w"></span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">r</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">rand</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="nx">rand</span><span class="p">.</span><span class="nx">NewSource</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">Now</span><span class="p">().</span><span class="nx">UnixNano</span><span class="p">()))</span><span class="w"></span>
 </pre></div>
 </blockquote>
 
 <hr class="docutils" />
 <p>According to above comments, the most proper way to seed the PRNG in my case is
 as follows:</p>
-<div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">mylib</span>
+<div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">mylib</span><span class="w"></span>
 
-<span class="kn">import</span> <span class="p">(</span>
-      <span class="s">&quot;math/rand&quot;</span>
-      <span class="s">&quot;time&quot;</span>
-<span class="p">)</span>
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">      </span><span class="s">&quot;math/rand&quot;</span><span class="w"></span>
+<span class="w">      </span><span class="s">&quot;time&quot;</span><span class="w"></span>
+<span class="p">)</span><span class="w"></span>
 
-<span class="c1">// r is a source of random numbers used in this package.</span>
-<span class="kd">var</span> <span class="nx">r</span> <span class="p">=</span> <span class="nx">rand</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="nx">rand</span><span class="p">.</span><span class="nx">NewSource</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">Now</span><span class="p">().</span><span class="nx">UnixNano</span><span class="p">()))</span>
+<span class="c1">// r is a source of random numbers used in this package.</span><span class="w"></span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">r</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">rand</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="nx">rand</span><span class="p">.</span><span class="nx">NewSource</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">Now</span><span class="p">().</span><span class="nx">UnixNano</span><span class="p">()))</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">RandomString</span><span class="p">(</span><span class="nx">strlen</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">string</span> <span class="p">{</span>
-      <span class="c1">// generate randsom string with r.Intn method</span>
-<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">RandomString</span><span class="p">(</span><span class="nx">strlen</span><span class="w"> </span><span class="kt">int</span><span class="p">)</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="c1">// generate randsom string with r.Intn method</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 <p>You can see my post for complete example of using PRNG to generate random
 string. <a class="footnote-reference" href="#footnote-3" id="footnote-reference-3">[3]</a></p>

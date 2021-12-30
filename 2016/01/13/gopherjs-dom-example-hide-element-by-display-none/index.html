@@ -124,18 +124,18 @@ is set to <em>none</em>, which hides the <em>div</em> element.</p>
 <span class="normal"> 9</span>
 <span class="normal">10</span>
 <span class="normal">11</span>
-<span class="normal">12</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
+<span class="normal">12</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w"></span>
 
-<span class="kn">import</span> <span class="s">&quot;honnef.co/go/js/dom&quot;</span>
+<span class="kn">import</span><span class="w"> </span><span class="s">&quot;honnef.co/go/js/dom&quot;</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
-	<span class="nx">d</span> <span class="o">:=</span> <span class="nx">dom</span><span class="p">.</span><span class="nx">GetWindow</span><span class="p">().</span><span class="nx">Document</span><span class="p">()</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">	</span><span class="nx">d</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">dom</span><span class="p">.</span><span class="nx">GetWindow</span><span class="p">().</span><span class="nx">Document</span><span class="p">()</span><span class="w"></span>
 
-	<span class="nx">foo</span> <span class="o">:=</span> <span class="nx">d</span><span class="p">.</span><span class="nx">GetElementByID</span><span class="p">(</span><span class="s">&quot;foo&quot;</span><span class="p">).(</span><span class="o">*</span><span class="nx">dom</span><span class="p">.</span><span class="nx">HTMLDivElement</span><span class="p">)</span>
-	<span class="nx">foo</span><span class="p">.</span><span class="nx">AddEventListener</span><span class="p">(</span><span class="s">&quot;click&quot;</span><span class="p">,</span> <span class="kc">false</span><span class="p">,</span> <span class="kd">func</span><span class="p">(</span><span class="nx">event</span> <span class="nx">dom</span><span class="p">.</span><span class="nx">Event</span><span class="p">)</span> <span class="p">{</span>
-		<span class="nx">foo</span><span class="p">.</span><span class="nx">Style</span><span class="p">().</span><span class="nx">SetProperty</span><span class="p">(</span><span class="s">&quot;display&quot;</span><span class="p">,</span> <span class="s">&quot;none&quot;</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">)</span>
-	<span class="p">})</span>
-<span class="p">}</span>
+<span class="w">	</span><span class="nx">foo</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">d</span><span class="p">.</span><span class="nx">GetElementByID</span><span class="p">(</span><span class="s">&quot;foo&quot;</span><span class="p">).(</span><span class="o">*</span><span class="nx">dom</span><span class="p">.</span><span class="nx">HTMLDivElement</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="nx">foo</span><span class="p">.</span><span class="nx">AddEventListener</span><span class="p">(</span><span class="s">&quot;click&quot;</span><span class="p">,</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="nx">event</span><span class="w"> </span><span class="nx">dom</span><span class="p">.</span><span class="nx">Event</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">		</span><span class="nx">foo</span><span class="p">.</span><span class="nx">Style</span><span class="p">().</span><span class="nx">SetProperty</span><span class="p">(</span><span class="s">&quot;display&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;none&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="p">})</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </td></tr></table></div></figure>
 <p>Note that to call <em>Style()</em>, we must <a class="reference external" href="https://golang.org/ref/spec#Type_assertions">assert the type</a> of <em>foo</em> to

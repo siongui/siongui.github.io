@@ -107,11 +107,11 @@ implementation. Please read the references first if you are not familiar with
 the CSS toggle technique or JavaScript modal.</p>
 <p>The following is the source code for above demo.</p>
 <p><strong>HTML</strong>:</p>
-<div class="highlight"><pre><span></span><span class="c">&lt;!-- Modal trigger --&gt;</span>
+<div class="highlight"><pre><span></span><span class="cm">&lt;!-- Modal trigger --&gt;</span>
 <span class="p">&lt;</span><span class="nt">label</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;button&quot;</span> <span class="na">for</span><span class="o">=</span><span class="s">&quot;element-toggle&quot;</span><span class="p">&gt;</span>Launch Modal<span class="p">&lt;/</span><span class="nt">label</span><span class="p">&gt;</span>
 <span class="p">&lt;</span><span class="nt">input</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;element-toggle&quot;</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;checkbox&quot;</span> <span class="p">/&gt;</span>
 
-<span class="c">&lt;!-- Modal --&gt;</span>
+<span class="cm">&lt;!-- Modal --&gt;</span>
 <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;modal&quot;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;myModal&quot;</span><span class="p">&gt;</span>
   <span class="p">&lt;</span><span class="nt">h4</span><span class="p">&gt;</span>Modal Title<span class="p">&lt;/</span><span class="nt">h4</span><span class="p">&gt;</span>
   <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>
@@ -129,30 +129,30 @@ a button. The <strong>Close</strong> button in the modal is also a <em>label</em
 modal is toggled.</p>
 
 <p><strong>CSS</strong>:</p>
-<div class="highlight"><pre><span></span><span class="p">#</span><span class="nn">element-toggle</span> <span class="p">{</span>
-  <span class="k">display</span><span class="p">:</span> <span class="kc">none</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="p">#</span><span class="nn">element-toggle</span><span class="p">:</span><span class="nd">not</span><span class="o">(</span><span class="p">:</span><span class="nd">checked</span><span class="o">)</span> <span class="o">~</span> <span class="p">#</span><span class="nn">myModal</span> <span class="p">{</span>
-  <span class="k">display</span><span class="p">:</span> <span class="kc">none</span><span class="p">;</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span></span><span class="p">#</span><span class="nn">element-toggle</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="k">display</span><span class="p">:</span><span class="w"> </span><span class="kc">none</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+<span class="p">#</span><span class="nn">element-toggle</span><span class="p">:</span><span class="nd">not</span><span class="o">(</span><span class="p">:</span><span class="nd">checked</span><span class="o">)</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="p">#</span><span class="nn">myModal</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="k">display</span><span class="p">:</span><span class="w"> </span><span class="kc">none</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="p">.</span><span class="nc">modal</span> <span class="p">{</span>
-  <span class="k">position</span><span class="p">:</span> <span class="kc">absolute</span><span class="p">;</span>
-  <span class="k">top</span><span class="p">:</span> <span class="mi">50</span><span class="kt">%</span><span class="p">;</span>
-  <span class="k">left</span><span class="p">:</span> <span class="mi">50</span><span class="kt">%</span><span class="p">;</span>
-  <span class="k">transform</span><span class="p">:</span> <span class="nb">translateX</span><span class="p">(</span><span class="nv">-50</span><span class="err">%</span><span class="p">)</span> <span class="nb">translateY</span><span class="p">(</span><span class="nv">-50</span><span class="err">%</span><span class="p">);</span>
-  <span class="k">background</span><span class="p">:</span> <span class="kc">azure</span><span class="p">;</span>
-  <span class="k">padding</span><span class="p">:</span> <span class="mi">1</span><span class="kt">rem</span><span class="p">;</span>
-  <span class="k">border-radius</span><span class="p">:</span> <span class="mi">1</span><span class="kt">rem</span><span class="p">;</span>
-  <span class="k">border</span><span class="p">:</span> <span class="mi">1</span><span class="kt">px</span> <span class="kc">solid</span> <span class="kc">gray</span><span class="p">;</span>
-<span class="p">}</span>
+<span class="p">.</span><span class="nc">modal</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="k">position</span><span class="p">:</span><span class="w"> </span><span class="kc">absolute</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="k">top</span><span class="p">:</span><span class="w"> </span><span class="mi">50</span><span class="kt">%</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="k">left</span><span class="p">:</span><span class="w"> </span><span class="mi">50</span><span class="kt">%</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="k">transform</span><span class="p">:</span><span class="w"> </span><span class="nb">translateX</span><span class="p">(</span><span class="nv">-50</span><span class="err">%</span><span class="p">)</span><span class="w"> </span><span class="nb">translateY</span><span class="p">(</span><span class="nv">-50</span><span class="err">%</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="k">background</span><span class="p">:</span><span class="w"> </span><span class="kc">azure</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="k">padding</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="kt">rem</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="k">border-radius</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="kt">rem</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="k">border</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="kt">px</span><span class="w"> </span><span class="kc">solid</span><span class="w"> </span><span class="kc">gray</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="p">.</span><span class="nc">button</span> <span class="p">{</span>
-  <span class="k">background-color</span><span class="p">:</span> <span class="kc">beige</span><span class="p">;</span>
-  <span class="k">border-radius</span><span class="p">:</span> <span class="mi">4</span><span class="kt">px</span><span class="p">;</span>
-  <span class="k">padding</span><span class="p">:</span> <span class="mi">4</span><span class="kt">px</span><span class="p">;</span>
-  <span class="k">border</span><span class="p">:</span> <span class="mi">1</span><span class="kt">px</span> <span class="kc">solid</span> <span class="kc">gray</span><span class="p">;</span>
-<span class="p">}</span>
+<span class="p">.</span><span class="nc">button</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="k">background-color</span><span class="p">:</span><span class="w"> </span><span class="kc">beige</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="k">border-radius</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="kt">px</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="k">padding</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="kt">px</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="k">border</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="kt">px</span><span class="w"> </span><span class="kc">solid</span><span class="w"> </span><span class="kc">gray</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 <p>We have four rules in above CSS code.</p>
 <ul class="simple">

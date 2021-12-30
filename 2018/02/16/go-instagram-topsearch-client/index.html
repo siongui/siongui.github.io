@@ -173,110 +173,110 @@ and get the following information from your browser:</p>
 <span class="normal">101</span>
 <span class="normal">102</span>
 <span class="normal">103</span>
-<span class="normal">104</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">instago</span>
+<span class="normal">104</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">instago</span><span class="w"></span>
 
-<span class="c1">// This file implements topsearch of Instagram web.</span>
+<span class="c1">// This file implements topsearch of Instagram web.</span><span class="w"></span>
 
-<span class="kn">import</span> <span class="p">(</span>
-	<span class="s">&quot;encoding/json&quot;</span>
-	<span class="s">&quot;errors&quot;</span>
-	<span class="s">&quot;io/ioutil&quot;</span>
-	<span class="s">&quot;net/http&quot;</span>
-	<span class="s">&quot;strconv&quot;</span>
-<span class="p">)</span>
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">	</span><span class="s">&quot;encoding/json&quot;</span><span class="w"></span>
+<span class="w">	</span><span class="s">&quot;errors&quot;</span><span class="w"></span>
+<span class="w">	</span><span class="s">&quot;io/ioutil&quot;</span><span class="w"></span>
+<span class="w">	</span><span class="s">&quot;net/http&quot;</span><span class="w"></span>
+<span class="w">	</span><span class="s">&quot;strconv&quot;</span><span class="w"></span>
+<span class="p">)</span><span class="w"></span>
 
-<span class="kd">const</span> <span class="nx">urlTopsearch</span> <span class="p">=</span> <span class="s">`https://www.instagram.com/web/search/topsearch/?query=`</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">urlTopsearch</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">`https://www.instagram.com/web/search/topsearch/?query=`</span><span class="w"></span>
 
-<span class="c1">// Decode JSON data returned from Instagram topsearch API</span>
-<span class="kd">type</span> <span class="nx">IGTopsearchResp</span> <span class="kd">struct</span> <span class="p">{</span>
-	<span class="nx">Users</span> <span class="p">[]</span><span class="kd">struct</span> <span class="p">{</span>
-		<span class="nx">Position</span> <span class="kt">int64</span> <span class="s">`json:&quot;position&quot;`</span>
-		<span class="nx">User</span>     <span class="kd">struct</span> <span class="p">{</span>
-			<span class="nx">Pk</span>               <span class="kt">string</span> <span class="s">`json:&quot;pk&quot;`</span>
-			<span class="nx">Username</span>         <span class="kt">string</span> <span class="s">`json:&quot;username&quot;`</span>
-			<span class="nx">FullName</span>         <span class="kt">string</span> <span class="s">`json:&quot;full_name&quot;`</span>
-			<span class="nx">IsPrivate</span>        <span class="kt">bool</span>   <span class="s">`json:&quot;is_private&quot;`</span>
-			<span class="nx">ProfilePicUrl</span>    <span class="kt">string</span> <span class="s">`json:&quot;profile_pic_url&quot;`</span>
-			<span class="nx">ProfilePicId</span>     <span class="kt">string</span> <span class="s">`json:&quot;profile_pic_id&quot;`</span>
-			<span class="nx">FriendshipStatus</span> <span class="kd">struct</span> <span class="p">{</span>
-				<span class="nx">Following</span>       <span class="kt">bool</span> <span class="s">`json:&quot;following&quot;`</span>
-				<span class="nx">IsPrivate</span>       <span class="kt">bool</span> <span class="s">`json:&quot;is_private&quot;`</span>
-				<span class="nx">IncomingRequest</span> <span class="kt">bool</span> <span class="s">`json:&quot;incoming_request&quot;`</span>
-				<span class="nx">OutgoingRequest</span> <span class="kt">bool</span> <span class="s">`json:&quot;outgoing_request&quot;`</span>
-				<span class="nx">IsBestie</span>        <span class="kt">bool</span> <span class="s">`json:&quot;is_bestie&quot;`</span>
-			<span class="p">}</span> <span class="s">`json:&quot;friendship_status&quot;`</span>
-			<span class="nx">IsVerified</span>                 <span class="kt">bool</span>    <span class="s">`json:&quot;is_verified&quot;`</span>
-			<span class="nx">HasAnonymousProfilePicture</span> <span class="kt">bool</span>    <span class="s">`json:&quot;has_anonymous_profile_picture&quot;`</span>
-			<span class="nx">FollowerCount</span>              <span class="kt">int64</span>   <span class="s">`json:&quot;follower_count&quot;`</span>
-			<span class="nx">Byline</span>                     <span class="kt">string</span>  <span class="s">`json:&quot;byline&quot;`</span>
-			<span class="nx">MutualFollowersCount</span>       <span class="kt">float64</span> <span class="s">`json:&quot;mutual_followers_count&quot;`</span>
-			<span class="nx">LatestReelMedia</span>            <span class="kt">int64</span>   <span class="s">`json:&quot;latest_reel_media&quot;`</span>
-		<span class="p">}</span> <span class="s">`json:&quot;user&quot;`</span>
-	<span class="p">}</span> <span class="s">`json:&quot;users&quot;`</span>
+<span class="c1">// Decode JSON data returned from Instagram topsearch API</span><span class="w"></span>
+<span class="kd">type</span><span class="w"> </span><span class="nx">IGTopsearchResp</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">	</span><span class="nx">Users</span><span class="w"> </span><span class="p">[]</span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">		</span><span class="nx">Position</span><span class="w"> </span><span class="kt">int64</span><span class="w"> </span><span class="s">`json:&quot;position&quot;`</span><span class="w"></span>
+<span class="w">		</span><span class="nx">User</span><span class="w">     </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">			</span><span class="nx">Pk</span><span class="w">               </span><span class="kt">string</span><span class="w"> </span><span class="s">`json:&quot;pk&quot;`</span><span class="w"></span>
+<span class="w">			</span><span class="nx">Username</span><span class="w">         </span><span class="kt">string</span><span class="w"> </span><span class="s">`json:&quot;username&quot;`</span><span class="w"></span>
+<span class="w">			</span><span class="nx">FullName</span><span class="w">         </span><span class="kt">string</span><span class="w"> </span><span class="s">`json:&quot;full_name&quot;`</span><span class="w"></span>
+<span class="w">			</span><span class="nx">IsPrivate</span><span class="w">        </span><span class="kt">bool</span><span class="w">   </span><span class="s">`json:&quot;is_private&quot;`</span><span class="w"></span>
+<span class="w">			</span><span class="nx">ProfilePicUrl</span><span class="w">    </span><span class="kt">string</span><span class="w"> </span><span class="s">`json:&quot;profile_pic_url&quot;`</span><span class="w"></span>
+<span class="w">			</span><span class="nx">ProfilePicId</span><span class="w">     </span><span class="kt">string</span><span class="w"> </span><span class="s">`json:&quot;profile_pic_id&quot;`</span><span class="w"></span>
+<span class="w">			</span><span class="nx">FriendshipStatus</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">				</span><span class="nx">Following</span><span class="w">       </span><span class="kt">bool</span><span class="w"> </span><span class="s">`json:&quot;following&quot;`</span><span class="w"></span>
+<span class="w">				</span><span class="nx">IsPrivate</span><span class="w">       </span><span class="kt">bool</span><span class="w"> </span><span class="s">`json:&quot;is_private&quot;`</span><span class="w"></span>
+<span class="w">				</span><span class="nx">IncomingRequest</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="s">`json:&quot;incoming_request&quot;`</span><span class="w"></span>
+<span class="w">				</span><span class="nx">OutgoingRequest</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="s">`json:&quot;outgoing_request&quot;`</span><span class="w"></span>
+<span class="w">				</span><span class="nx">IsBestie</span><span class="w">        </span><span class="kt">bool</span><span class="w"> </span><span class="s">`json:&quot;is_bestie&quot;`</span><span class="w"></span>
+<span class="w">			</span><span class="p">}</span><span class="w"> </span><span class="s">`json:&quot;friendship_status&quot;`</span><span class="w"></span>
+<span class="w">			</span><span class="nx">IsVerified</span><span class="w">                 </span><span class="kt">bool</span><span class="w">    </span><span class="s">`json:&quot;is_verified&quot;`</span><span class="w"></span>
+<span class="w">			</span><span class="nx">HasAnonymousProfilePicture</span><span class="w"> </span><span class="kt">bool</span><span class="w">    </span><span class="s">`json:&quot;has_anonymous_profile_picture&quot;`</span><span class="w"></span>
+<span class="w">			</span><span class="nx">FollowerCount</span><span class="w">              </span><span class="kt">int64</span><span class="w">   </span><span class="s">`json:&quot;follower_count&quot;`</span><span class="w"></span>
+<span class="w">			</span><span class="nx">Byline</span><span class="w">                     </span><span class="kt">string</span><span class="w">  </span><span class="s">`json:&quot;byline&quot;`</span><span class="w"></span>
+<span class="w">			</span><span class="nx">MutualFollowersCount</span><span class="w">       </span><span class="kt">float64</span><span class="w"> </span><span class="s">`json:&quot;mutual_followers_count&quot;`</span><span class="w"></span>
+<span class="w">			</span><span class="nx">LatestReelMedia</span><span class="w">            </span><span class="kt">int64</span><span class="w">   </span><span class="s">`json:&quot;latest_reel_media&quot;`</span><span class="w"></span>
+<span class="w">		</span><span class="p">}</span><span class="w"> </span><span class="s">`json:&quot;user&quot;`</span><span class="w"></span>
+<span class="w">	</span><span class="p">}</span><span class="w"> </span><span class="s">`json:&quot;users&quot;`</span><span class="w"></span>
 
-	<span class="c1">//TODO: Places ... `json:&quot;places&quot;`</span>
+<span class="w">	</span><span class="c1">//TODO: Places ... `json:&quot;places&quot;`</span><span class="w"></span>
 
-	<span class="nx">Hashtags</span> <span class="p">[]</span><span class="kd">struct</span> <span class="p">{</span>
-		<span class="nx">Position</span> <span class="kt">int64</span> <span class="s">`json:&quot;position&quot;`</span>
-		<span class="nx">Hashtag</span>  <span class="kd">struct</span> <span class="p">{</span>
-			<span class="nx">Name</span>       <span class="kt">string</span> <span class="s">`json:&quot;name&quot;`</span>
-			<span class="nx">Id</span>         <span class="kt">int64</span>  <span class="s">`json:&quot;id&quot;`</span>
-			<span class="nx">MediaCount</span> <span class="kt">int64</span>  <span class="s">`json:&quot;media_count&quot;`</span>
-		<span class="p">}</span> <span class="s">`json:&quot;hashtag&quot;`</span>
-	<span class="p">}</span> <span class="s">`json:&quot;hashtags&quot;`</span>
-	<span class="nx">HasMore</span>          <span class="kt">bool</span>   <span class="s">`json:&quot;has_more&quot;`</span>
-	<span class="nx">RankToken</span>        <span class="kt">string</span> <span class="s">`json:&quot;rank_token&quot;`</span>
-	<span class="nx">ClearClientCache</span> <span class="kt">bool</span>   <span class="s">`json:&quot;clear_client_cache&quot;`</span>
-	<span class="nx">Status</span>           <span class="kt">string</span> <span class="s">`json:&quot;status&quot;`</span>
-<span class="p">}</span>
+<span class="w">	</span><span class="nx">Hashtags</span><span class="w"> </span><span class="p">[]</span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">		</span><span class="nx">Position</span><span class="w"> </span><span class="kt">int64</span><span class="w"> </span><span class="s">`json:&quot;position&quot;`</span><span class="w"></span>
+<span class="w">		</span><span class="nx">Hashtag</span><span class="w">  </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">			</span><span class="nx">Name</span><span class="w">       </span><span class="kt">string</span><span class="w"> </span><span class="s">`json:&quot;name&quot;`</span><span class="w"></span>
+<span class="w">			</span><span class="nx">Id</span><span class="w">         </span><span class="kt">int64</span><span class="w">  </span><span class="s">`json:&quot;id&quot;`</span><span class="w"></span>
+<span class="w">			</span><span class="nx">MediaCount</span><span class="w"> </span><span class="kt">int64</span><span class="w">  </span><span class="s">`json:&quot;media_count&quot;`</span><span class="w"></span>
+<span class="w">		</span><span class="p">}</span><span class="w"> </span><span class="s">`json:&quot;hashtag&quot;`</span><span class="w"></span>
+<span class="w">	</span><span class="p">}</span><span class="w"> </span><span class="s">`json:&quot;hashtags&quot;`</span><span class="w"></span>
+<span class="w">	</span><span class="nx">HasMore</span><span class="w">          </span><span class="kt">bool</span><span class="w">   </span><span class="s">`json:&quot;has_more&quot;`</span><span class="w"></span>
+<span class="w">	</span><span class="nx">RankToken</span><span class="w">        </span><span class="kt">string</span><span class="w"> </span><span class="s">`json:&quot;rank_token&quot;`</span><span class="w"></span>
+<span class="w">	</span><span class="nx">ClearClientCache</span><span class="w"> </span><span class="kt">bool</span><span class="w">   </span><span class="s">`json:&quot;clear_client_cache&quot;`</span><span class="w"></span>
+<span class="w">	</span><span class="nx">Status</span><span class="w">           </span><span class="kt">string</span><span class="w"> </span><span class="s">`json:&quot;status&quot;`</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="c1">// Send HTTP request and get http response on behalf of a specific Instagram</span>
-<span class="c1">// user. After login to Instagram, you can get the cookies of *ds_user_id*,</span>
-<span class="c1">// *sessionid*, *csrftoken* in Chrome Developer Tools.</span>
-<span class="c1">// See https://stackoverflow.com/a/44773079</span>
-<span class="c1">// or</span>
-<span class="c1">// https://github.com/hoschiCZ/instastories-backup#obtain-cookies</span>
-<span class="kd">func</span> <span class="nx">getHTTPResponse</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span> <span class="nx">ds_user_id</span><span class="p">,</span> <span class="nx">sessionid</span><span class="p">,</span> <span class="nx">csrftoken</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="nx">b</span> <span class="p">[]</span><span class="kt">byte</span><span class="p">,</span> <span class="nx">err</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
-	<span class="nx">req</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">http</span><span class="p">.</span><span class="nx">NewRequest</span><span class="p">(</span><span class="s">&quot;GET&quot;</span><span class="p">,</span> <span class="nx">url</span><span class="p">,</span> <span class="kc">nil</span><span class="p">)</span>
-	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-		<span class="k">return</span>
-	<span class="p">}</span>
+<span class="c1">// Send HTTP request and get http response on behalf of a specific Instagram</span><span class="w"></span>
+<span class="c1">// user. After login to Instagram, you can get the cookies of *ds_user_id*,</span><span class="w"></span>
+<span class="c1">// *sessionid*, *csrftoken* in Chrome Developer Tools.</span><span class="w"></span>
+<span class="c1">// See https://stackoverflow.com/a/44773079</span><span class="w"></span>
+<span class="c1">// or</span><span class="w"></span>
+<span class="c1">// https://github.com/hoschiCZ/instastories-backup#obtain-cookies</span><span class="w"></span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">getHTTPResponse</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span><span class="w"> </span><span class="nx">ds_user_id</span><span class="p">,</span><span class="w"> </span><span class="nx">sessionid</span><span class="p">,</span><span class="w"> </span><span class="nx">csrftoken</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nx">b</span><span class="w"> </span><span class="p">[]</span><span class="kt">byte</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">	</span><span class="nx">req</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">http</span><span class="p">.</span><span class="nx">NewRequest</span><span class="p">(</span><span class="s">&quot;GET&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">url</span><span class="p">,</span><span class="w"> </span><span class="kc">nil</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">		</span><span class="k">return</span><span class="w"></span>
+<span class="w">	</span><span class="p">}</span><span class="w"></span>
 
-	<span class="nx">req</span><span class="p">.</span><span class="nx">AddCookie</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">http</span><span class="p">.</span><span class="nx">Cookie</span><span class="p">{</span><span class="nx">Name</span><span class="p">:</span> <span class="s">&quot;ds_user_id&quot;</span><span class="p">,</span> <span class="nx">Value</span><span class="p">:</span> <span class="nx">ds_user_id</span><span class="p">})</span>
-	<span class="nx">req</span><span class="p">.</span><span class="nx">AddCookie</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">http</span><span class="p">.</span><span class="nx">Cookie</span><span class="p">{</span><span class="nx">Name</span><span class="p">:</span> <span class="s">&quot;sessionid&quot;</span><span class="p">,</span> <span class="nx">Value</span><span class="p">:</span> <span class="nx">sessionid</span><span class="p">})</span>
-	<span class="nx">req</span><span class="p">.</span><span class="nx">AddCookie</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">http</span><span class="p">.</span><span class="nx">Cookie</span><span class="p">{</span><span class="nx">Name</span><span class="p">:</span> <span class="s">&quot;csrftoken&quot;</span><span class="p">,</span> <span class="nx">Value</span><span class="p">:</span> <span class="nx">csrftoken</span><span class="p">})</span>
+<span class="w">	</span><span class="nx">req</span><span class="p">.</span><span class="nx">AddCookie</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">http</span><span class="p">.</span><span class="nx">Cookie</span><span class="p">{</span><span class="nx">Name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ds_user_id&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">Value</span><span class="p">:</span><span class="w"> </span><span class="nx">ds_user_id</span><span class="p">})</span><span class="w"></span>
+<span class="w">	</span><span class="nx">req</span><span class="p">.</span><span class="nx">AddCookie</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">http</span><span class="p">.</span><span class="nx">Cookie</span><span class="p">{</span><span class="nx">Name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;sessionid&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">Value</span><span class="p">:</span><span class="w"> </span><span class="nx">sessionid</span><span class="p">})</span><span class="w"></span>
+<span class="w">	</span><span class="nx">req</span><span class="p">.</span><span class="nx">AddCookie</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">http</span><span class="p">.</span><span class="nx">Cookie</span><span class="p">{</span><span class="nx">Name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;csrftoken&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">Value</span><span class="p">:</span><span class="w"> </span><span class="nx">csrftoken</span><span class="p">})</span><span class="w"></span>
 
-	<span class="nx">req</span><span class="p">.</span><span class="nx">Header</span><span class="p">.</span><span class="nx">Set</span><span class="p">(</span><span class="s">&quot;User-Agent&quot;</span><span class="p">,</span> <span class="s">&quot;Instagram 10.3.2 (iPhone7,2; iPhone OS 9_3_3; en_US; en-US; scale=2.00; 750x1334) AppleWebKit/420+&quot;</span><span class="p">)</span>
+<span class="w">	</span><span class="nx">req</span><span class="p">.</span><span class="nx">Header</span><span class="p">.</span><span class="nx">Set</span><span class="p">(</span><span class="s">&quot;User-Agent&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Instagram 10.3.2 (iPhone7,2; iPhone OS 9_3_3; en_US; en-US; scale=2.00; 750x1334) AppleWebKit/420+&quot;</span><span class="p">)</span><span class="w"></span>
 
-	<span class="nx">client</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">http</span><span class="p">.</span><span class="nx">Client</span><span class="p">{}</span>
-	<span class="nx">resp</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">client</span><span class="p">.</span><span class="nx">Do</span><span class="p">(</span><span class="nx">req</span><span class="p">)</span>
-	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-		<span class="k">return</span>
-	<span class="p">}</span>
-	<span class="k">defer</span> <span class="nx">resp</span><span class="p">.</span><span class="nx">Body</span><span class="p">.</span><span class="nx">Close</span><span class="p">()</span>
+<span class="w">	</span><span class="nx">client</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">http</span><span class="p">.</span><span class="nx">Client</span><span class="p">{}</span><span class="w"></span>
+<span class="w">	</span><span class="nx">resp</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">client</span><span class="p">.</span><span class="nx">Do</span><span class="p">(</span><span class="nx">req</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">		</span><span class="k">return</span><span class="w"></span>
+<span class="w">	</span><span class="p">}</span><span class="w"></span>
+<span class="w">	</span><span class="k">defer</span><span class="w"> </span><span class="nx">resp</span><span class="p">.</span><span class="nx">Body</span><span class="p">.</span><span class="nx">Close</span><span class="p">()</span><span class="w"></span>
 
-	<span class="k">if</span> <span class="nx">resp</span><span class="p">.</span><span class="nx">StatusCode</span> <span class="o">!=</span> <span class="mi">200</span> <span class="p">{</span>
-		<span class="nx">err</span> <span class="p">=</span> <span class="nx">errors</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span>
-			<span class="s">&quot;resp.StatusCode: &quot;</span> <span class="o">+</span>
-				<span class="nx">strconv</span><span class="p">.</span><span class="nx">Itoa</span><span class="p">(</span><span class="nx">resp</span><span class="p">.</span><span class="nx">StatusCode</span><span class="p">))</span>
-		<span class="k">return</span>
-	<span class="p">}</span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">resp</span><span class="p">.</span><span class="nx">StatusCode</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">200</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">		</span><span class="nx">err</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">errors</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="w"></span>
+<span class="w">			</span><span class="s">&quot;resp.StatusCode: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"></span>
+<span class="w">				</span><span class="nx">strconv</span><span class="p">.</span><span class="nx">Itoa</span><span class="p">(</span><span class="nx">resp</span><span class="p">.</span><span class="nx">StatusCode</span><span class="p">))</span><span class="w"></span>
+<span class="w">		</span><span class="k">return</span><span class="w"></span>
+<span class="w">	</span><span class="p">}</span><span class="w"></span>
 
-	<span class="k">return</span> <span class="nx">ioutil</span><span class="p">.</span><span class="nx">ReadAll</span><span class="p">(</span><span class="nx">resp</span><span class="p">.</span><span class="nx">Body</span><span class="p">)</span>
-<span class="p">}</span>
+<span class="w">	</span><span class="k">return</span><span class="w"> </span><span class="nx">ioutil</span><span class="p">.</span><span class="nx">ReadAll</span><span class="p">(</span><span class="nx">resp</span><span class="p">.</span><span class="nx">Body</span><span class="p">)</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="c1">// Given a string, return the users that best matches the string. This is</span>
-<span class="c1">// actually *topsearch* on Instagram web.</span>
-<span class="kd">func</span> <span class="nx">Topsearch</span><span class="p">(</span><span class="nx">str</span><span class="p">,</span> <span class="nx">ds_user_id</span><span class="p">,</span> <span class="nx">sessionid</span><span class="p">,</span> <span class="nx">csrftoken</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="nx">tr</span> <span class="nx">IGTopsearchResp</span><span class="p">,</span> <span class="nx">err</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
-	<span class="nx">url</span> <span class="o">:=</span> <span class="nx">urlTopsearch</span> <span class="o">+</span> <span class="nx">str</span>
-	<span class="nx">b</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">getHTTPResponse</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span> <span class="nx">ds_user_id</span><span class="p">,</span> <span class="nx">sessionid</span><span class="p">,</span> <span class="nx">csrftoken</span><span class="p">)</span>
-	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-		<span class="k">return</span>
-	<span class="p">}</span>
+<span class="c1">// Given a string, return the users that best matches the string. This is</span><span class="w"></span>
+<span class="c1">// actually *topsearch* on Instagram web.</span><span class="w"></span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">Topsearch</span><span class="p">(</span><span class="nx">str</span><span class="p">,</span><span class="w"> </span><span class="nx">ds_user_id</span><span class="p">,</span><span class="w"> </span><span class="nx">sessionid</span><span class="p">,</span><span class="w"> </span><span class="nx">csrftoken</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nx">tr</span><span class="w"> </span><span class="nx">IGTopsearchResp</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">	</span><span class="nx">url</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">urlTopsearch</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">str</span><span class="w"></span>
+<span class="w">	</span><span class="nx">b</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">getHTTPResponse</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span><span class="w"> </span><span class="nx">ds_user_id</span><span class="p">,</span><span class="w"> </span><span class="nx">sessionid</span><span class="p">,</span><span class="w"> </span><span class="nx">csrftoken</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">		</span><span class="k">return</span><span class="w"></span>
+<span class="w">	</span><span class="p">}</span><span class="w"></span>
 
-	<span class="nx">err</span> <span class="p">=</span> <span class="nx">json</span><span class="p">.</span><span class="nx">Unmarshal</span><span class="p">(</span><span class="nx">b</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">tr</span><span class="p">)</span>
-	<span class="k">return</span>
-<span class="p">}</span>
+<span class="w">	</span><span class="nx">err</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">json</span><span class="p">.</span><span class="nx">Unmarshal</span><span class="p">(</span><span class="nx">b</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">tr</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="k">return</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </td></tr></table></div></figure>
 <p><strong>Example</strong>:</p>
@@ -303,24 +303,24 @@ and get the following information from your browser:</p>
 <span class="normal">15</span>
 <span class="normal">16</span>
 <span class="normal">17</span>
-<span class="normal">18</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">instago</span>
+<span class="normal">18</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">instago</span><span class="w"></span>
 
-<span class="kn">import</span> <span class="p">(</span>
-	<span class="s">&quot;os&quot;</span>
-	<span class="s">&quot;testing&quot;</span>
-<span class="p">)</span>
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">	</span><span class="s">&quot;os&quot;</span><span class="w"></span>
+<span class="w">	</span><span class="s">&quot;testing&quot;</span><span class="w"></span>
+<span class="p">)</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">ExampleTopsearch</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span> <span class="p">{</span>
-	<span class="nx">tr</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">Topsearch</span><span class="p">(</span><span class="s">&quot;instagram&quot;</span><span class="p">,</span>
-		<span class="nx">os</span><span class="p">.</span><span class="nx">Getenv</span><span class="p">(</span><span class="s">&quot;IG_DS_USER_ID&quot;</span><span class="p">),</span>
-		<span class="nx">os</span><span class="p">.</span><span class="nx">Getenv</span><span class="p">(</span><span class="s">&quot;IG_SESSIONID&quot;</span><span class="p">),</span>
-		<span class="nx">os</span><span class="p">.</span><span class="nx">Getenv</span><span class="p">(</span><span class="s">&quot;IG_CSRFTOKEN&quot;</span><span class="p">))</span>
-	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-		<span class="nx">t</span><span class="p">.</span><span class="nx">Error</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
-		<span class="k">return</span>
-	<span class="p">}</span>
-	<span class="nx">t</span><span class="p">.</span><span class="nx">Log</span><span class="p">(</span><span class="nx">tr</span><span class="p">)</span>
-<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">ExampleTopsearch</span><span class="p">(</span><span class="nx">t</span><span class="w"> </span><span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">	</span><span class="nx">tr</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">Topsearch</span><span class="p">(</span><span class="s">&quot;instagram&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">		</span><span class="nx">os</span><span class="p">.</span><span class="nx">Getenv</span><span class="p">(</span><span class="s">&quot;IG_DS_USER_ID&quot;</span><span class="p">),</span><span class="w"></span>
+<span class="w">		</span><span class="nx">os</span><span class="p">.</span><span class="nx">Getenv</span><span class="p">(</span><span class="s">&quot;IG_SESSIONID&quot;</span><span class="p">),</span><span class="w"></span>
+<span class="w">		</span><span class="nx">os</span><span class="p">.</span><span class="nx">Getenv</span><span class="p">(</span><span class="s">&quot;IG_CSRFTOKEN&quot;</span><span class="p">))</span><span class="w"></span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">		</span><span class="nx">t</span><span class="p">.</span><span class="nx">Error</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"></span>
+<span class="w">		</span><span class="k">return</span><span class="w"></span>
+<span class="w">	</span><span class="p">}</span><span class="w"></span>
+<span class="w">	</span><span class="nx">t</span><span class="p">.</span><span class="nx">Log</span><span class="p">(</span><span class="nx">tr</span><span class="p">)</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </td></tr></table></div></figure>
 <p>The full code is also available on my GitHub repo <a class="footnote-reference" href="#footnote-1" id="footnote-reference-1">[1]</a>.</p>

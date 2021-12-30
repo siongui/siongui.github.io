@@ -118,12 +118,12 @@ URL from <a class="reference external" href="https://www.taobao.com/">Taobao</a>
 <span class="normal">3</span>
 <span class="normal">4</span>
 <span class="normal">5</span>
-<span class="normal">6</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="nt">runtime</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">go</span>
-<span class="nt">api_version</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">go1</span>
+<span class="normal">6</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="nt">runtime</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">go</span><span class="w"></span>
+<span class="nt">api_version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">go1</span><span class="w"></span>
 
-<span class="nt">handlers</span><span class="p">:</span>
-<span class="p p-Indicator">-</span> <span class="nt">url</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/.*</span>
-  <span class="nt">script</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">_go_app</span>
+<span class="nt">handlers</span><span class="p">:</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/.*</span><span class="w"></span>
+<span class="w">  </span><span class="nt">script</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">_go_app</span><span class="w"></span>
 </pre></div>
 </td></tr></table></div></figure><figure class="github-file">
             <figcaption>
@@ -192,18 +192,18 @@ URL from <a class="reference external" href="https://www.taobao.com/">Taobao</a>
 <span class="normal">59</span>
 <span class="normal">60</span>
 <span class="normal">61</span>
-<span class="normal">62</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">taobaoitem2rst</span>
+<span class="normal">62</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">taobaoitem2rst</span><span class="w"></span>
 
-<span class="kn">import</span> <span class="p">(</span>
-	<span class="s">&quot;html/template&quot;</span>
-	<span class="s">&quot;net/http&quot;</span>
-<span class="p">)</span>
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">	</span><span class="s">&quot;html/template&quot;</span><span class="w"></span>
+<span class="w">	</span><span class="s">&quot;net/http&quot;</span><span class="w"></span>
+<span class="p">)</span><span class="w"></span>
 
-<span class="kd">type</span> <span class="nx">TemplateValue</span> <span class="kd">struct</span> <span class="p">{</span>
-	<span class="nx">Textarea</span> <span class="kt">string</span>
-<span class="p">}</span>
+<span class="kd">type</span><span class="w"> </span><span class="nx">TemplateValue</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">	</span><span class="nx">Textarea</span><span class="w"> </span><span class="kt">string</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">var</span> <span class="nx">index</span> <span class="p">=</span> <span class="s">`&lt;!doctype html&gt;</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">index</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">`&lt;!doctype html&gt;</span>
 <span class="s">&lt;html&gt;</span>
 <span class="s">&lt;head&gt;</span>
 <span class="s">  &lt;title&gt;Taobao Item to Rst&lt;/title&gt;</span>
@@ -236,24 +236,24 @@ URL from <a class="reference external" href="https://www.taobao.com/">Taobao</a>
 <span class="s">&lt;/script&gt;</span>
 
 <span class="s">&lt;/body&gt;</span>
-<span class="s">&lt;/html&gt;`</span>
+<span class="s">&lt;/html&gt;`</span><span class="w"></span>
 
-<span class="kd">var</span> <span class="nx">tmpl</span> <span class="p">=</span> <span class="nx">template</span><span class="p">.</span><span class="nx">Must</span><span class="p">(</span><span class="nx">template</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="s">&quot;taobaoitem2rst&quot;</span><span class="p">).</span><span class="nx">Parse</span><span class="p">(</span><span class="nx">index</span><span class="p">))</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">tmpl</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">template</span><span class="p">.</span><span class="nx">Must</span><span class="p">(</span><span class="nx">template</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="s">&quot;taobaoitem2rst&quot;</span><span class="p">).</span><span class="nx">Parse</span><span class="p">(</span><span class="nx">index</span><span class="p">))</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">init</span><span class="p">()</span> <span class="p">{</span>
-	<span class="nx">http</span><span class="p">.</span><span class="nx">HandleFunc</span><span class="p">(</span><span class="s">&quot;/&quot;</span><span class="p">,</span> <span class="nx">handler</span><span class="p">)</span>
-<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">init</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">	</span><span class="nx">http</span><span class="p">.</span><span class="nx">HandleFunc</span><span class="p">(</span><span class="s">&quot;/&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">handler</span><span class="p">)</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">handler</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">{</span>
-	<span class="nx">val</span> <span class="o">:=</span> <span class="nx">TemplateValue</span><span class="p">{}</span>
-	<span class="k">if</span> <span class="nx">r</span><span class="p">.</span><span class="nx">Method</span> <span class="o">==</span> <span class="s">&quot;POST&quot;</span> <span class="p">{</span>
-		<span class="nx">val</span><span class="p">.</span><span class="nx">Textarea</span> <span class="p">=</span> <span class="nx">getTaobaoItemImgRst</span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">PostFormValue</span><span class="p">(</span><span class="s">&quot;url&quot;</span><span class="p">),</span> <span class="nx">r</span><span class="p">)</span>
-	<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">handler</span><span class="p">(</span><span class="nx">w</span><span class="w"> </span><span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span><span class="w"> </span><span class="nx">r</span><span class="w"> </span><span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">	</span><span class="nx">val</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">TemplateValue</span><span class="p">{}</span><span class="w"></span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">r</span><span class="p">.</span><span class="nx">Method</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s">&quot;POST&quot;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">		</span><span class="nx">val</span><span class="p">.</span><span class="nx">Textarea</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">getTaobaoItemImgRst</span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">PostFormValue</span><span class="p">(</span><span class="s">&quot;url&quot;</span><span class="p">),</span><span class="w"> </span><span class="nx">r</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="p">}</span><span class="w"></span>
 
-	<span class="k">if</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">tmpl</span><span class="p">.</span><span class="nx">Execute</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">val</span><span class="p">);</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-		<span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
-	<span class="p">}</span>
-<span class="p">}</span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">tmpl</span><span class="p">.</span><span class="nx">Execute</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">val</span><span class="p">);</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">		</span><span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </td></tr></table></div></figure>
 <figure class="github-file">
@@ -299,44 +299,44 @@ URL from <a class="reference external" href="https://www.taobao.com/">Taobao</a>
 <span class="normal">35</span>
 <span class="normal">36</span>
 <span class="normal">37</span>
-<span class="normal">38</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">taobaoitem2rst</span>
+<span class="normal">38</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">taobaoitem2rst</span><span class="w"></span>
 
-<span class="kn">import</span> <span class="p">(</span>
-	<span class="s">&quot;bytes&quot;</span>
-	<span class="s">&quot;html/template&quot;</span>
-	<span class="s">&quot;net/http&quot;</span>
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">	</span><span class="s">&quot;bytes&quot;</span><span class="w"></span>
+<span class="w">	</span><span class="s">&quot;html/template&quot;</span><span class="w"></span>
+<span class="w">	</span><span class="s">&quot;net/http&quot;</span><span class="w"></span>
 
-	<span class="s">&quot;google.golang.org/appengine&quot;</span>
-	<span class="s">&quot;google.golang.org/appengine/urlfetch&quot;</span>
-<span class="p">)</span>
+<span class="w">	</span><span class="s">&quot;google.golang.org/appengine&quot;</span><span class="w"></span>
+<span class="w">	</span><span class="s">&quot;google.golang.org/appengine/urlfetch&quot;</span><span class="w"></span>
+<span class="p">)</span><span class="w"></span>
 
-<span class="kd">var</span> <span class="nx">imgRst</span> <span class="p">=</span> <span class="s">`.. image:: {{ .ImgURL }}</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">imgRst</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">`.. image:: {{ .ImgURL }}</span>
 <span class="s">   :alt: {{ .Title }}</span>
 <span class="s">   :target: {{ .URL }}</span>
-<span class="s">   :align: center`</span>
+<span class="s">   :align: center`</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">getTaobaoItemImgRst</span><span class="p">(</span><span class="nx">url</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="kt">string</span> <span class="p">{</span>
-	<span class="nx">nUrl</span> <span class="o">:=</span> <span class="nx">NormalizeURL</span><span class="p">(</span><span class="nx">url</span><span class="p">)</span>
-	<span class="nx">ctx</span> <span class="o">:=</span> <span class="nx">appengine</span><span class="p">.</span><span class="nx">NewContext</span><span class="p">(</span><span class="nx">r</span><span class="p">)</span>
-	<span class="nx">client</span> <span class="o">:=</span> <span class="nx">urlfetch</span><span class="p">.</span><span class="nx">Client</span><span class="p">(</span><span class="nx">ctx</span><span class="p">)</span>
-	<span class="nx">resp</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">client</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="nx">nUrl</span><span class="p">)</span>
-	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-		<span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
-	<span class="p">}</span>
-	<span class="k">defer</span> <span class="nx">resp</span><span class="p">.</span><span class="nx">Body</span><span class="p">.</span><span class="nx">Close</span><span class="p">()</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">getTaobaoItemImgRst</span><span class="p">(</span><span class="nx">url</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">r</span><span class="w"> </span><span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">	</span><span class="nx">nUrl</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">NormalizeURL</span><span class="p">(</span><span class="nx">url</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="nx">ctx</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">appengine</span><span class="p">.</span><span class="nx">NewContext</span><span class="p">(</span><span class="nx">r</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="nx">client</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">urlfetch</span><span class="p">.</span><span class="nx">Client</span><span class="p">(</span><span class="nx">ctx</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="nx">resp</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">client</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="nx">nUrl</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">		</span><span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="p">}</span><span class="w"></span>
+<span class="w">	</span><span class="k">defer</span><span class="w"> </span><span class="nx">resp</span><span class="p">.</span><span class="nx">Body</span><span class="p">.</span><span class="nx">Close</span><span class="p">()</span><span class="w"></span>
 
-	<span class="nx">ii</span> <span class="o">:=</span> <span class="nx">getTaobaoItemInfo</span><span class="p">(</span><span class="nx">resp</span><span class="p">.</span><span class="nx">Body</span><span class="p">)</span>
-	<span class="nx">ii</span><span class="p">.</span><span class="nx">URL</span> <span class="p">=</span> <span class="nx">nUrl</span>
+<span class="w">	</span><span class="nx">ii</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">getTaobaoItemInfo</span><span class="p">(</span><span class="nx">resp</span><span class="p">.</span><span class="nx">Body</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="nx">ii</span><span class="p">.</span><span class="nx">URL</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">nUrl</span><span class="w"></span>
 
-	<span class="nx">tmpl</span> <span class="o">:=</span> <span class="nx">template</span><span class="p">.</span><span class="nx">Must</span><span class="p">(</span><span class="nx">template</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="s">&quot;imgRst&quot;</span><span class="p">).</span><span class="nx">Parse</span><span class="p">(</span><span class="nx">imgRst</span><span class="p">))</span>
-	<span class="kd">var</span> <span class="nx">rst</span> <span class="nx">bytes</span><span class="p">.</span><span class="nx">Buffer</span>
-	<span class="nx">err</span> <span class="p">=</span> <span class="nx">tmpl</span><span class="p">.</span><span class="nx">Execute</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">rst</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">ii</span><span class="p">)</span>
-	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-		<span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
-	<span class="p">}</span>
+<span class="w">	</span><span class="nx">tmpl</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">template</span><span class="p">.</span><span class="nx">Must</span><span class="p">(</span><span class="nx">template</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="s">&quot;imgRst&quot;</span><span class="p">).</span><span class="nx">Parse</span><span class="p">(</span><span class="nx">imgRst</span><span class="p">))</span><span class="w"></span>
+<span class="w">	</span><span class="kd">var</span><span class="w"> </span><span class="nx">rst</span><span class="w"> </span><span class="nx">bytes</span><span class="p">.</span><span class="nx">Buffer</span><span class="w"></span>
+<span class="w">	</span><span class="nx">err</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">tmpl</span><span class="p">.</span><span class="nx">Execute</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">rst</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">ii</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">		</span><span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="p">}</span><span class="w"></span>
 
-	<span class="k">return</span> <span class="nx">rst</span><span class="p">.</span><span class="nx">String</span><span class="p">()</span>
-<span class="p">}</span>
+<span class="w">	</span><span class="k">return</span><span class="w"> </span><span class="nx">rst</span><span class="p">.</span><span class="nx">String</span><span class="p">()</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </td></tr></table></div></figure>
 <figure class="github-file">
@@ -363,25 +363,25 @@ URL from <a class="reference external" href="https://www.taobao.com/">Taobao</a>
 <span class="normal">16</span>
 <span class="normal">17</span>
 <span class="normal">18</span>
-<span class="normal">19</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">taobaoitem2rst</span>
+<span class="normal">19</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">taobaoitem2rst</span><span class="w"></span>
 
-<span class="kn">import</span> <span class="p">(</span>
-	<span class="s">&quot;net/url&quot;</span>
-<span class="p">)</span>
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">	</span><span class="s">&quot;net/url&quot;</span><span class="w"></span>
+<span class="p">)</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">NormalizeURL</span><span class="p">(</span><span class="nx">inputUrl</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">string</span> <span class="p">{</span>
-	<span class="nx">u</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">url</span><span class="p">.</span><span class="nx">Parse</span><span class="p">(</span><span class="nx">inputUrl</span><span class="p">)</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">NormalizeURL</span><span class="p">(</span><span class="nx">inputUrl</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">	</span><span class="nx">u</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">url</span><span class="p">.</span><span class="nx">Parse</span><span class="p">(</span><span class="nx">inputUrl</span><span class="p">)</span><span class="w"></span>
 
-	<span class="k">if</span> <span class="nx">u</span><span class="p">.</span><span class="nx">Host</span> <span class="o">!=</span> <span class="s">&quot;item.taobao.com&quot;</span> <span class="p">{</span>
-		<span class="k">return</span> <span class="nx">inputUrl</span>
-	<span class="p">}</span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">u</span><span class="p">.</span><span class="nx">Host</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="s">&quot;item.taobao.com&quot;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">		</span><span class="k">return</span><span class="w"> </span><span class="nx">inputUrl</span><span class="w"></span>
+<span class="w">	</span><span class="p">}</span><span class="w"></span>
 
-	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-		<span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
-	<span class="p">}</span>
-	<span class="nx">u</span><span class="p">.</span><span class="nx">RawQuery</span> <span class="p">=</span> <span class="s">&quot;id=&quot;</span> <span class="o">+</span> <span class="nx">u</span><span class="p">.</span><span class="nx">Query</span><span class="p">().</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;id&quot;</span><span class="p">)</span>
-	<span class="k">return</span> <span class="nx">u</span><span class="p">.</span><span class="nx">String</span><span class="p">()</span>
-<span class="p">}</span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">		</span><span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="p">}</span><span class="w"></span>
+<span class="w">	</span><span class="nx">u</span><span class="p">.</span><span class="nx">RawQuery</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;id=&quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">u</span><span class="p">.</span><span class="nx">Query</span><span class="p">().</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;id&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="k">return</span><span class="w"> </span><span class="nx">u</span><span class="p">.</span><span class="nx">String</span><span class="p">()</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </td></tr></table></div></figure>
 <figure class="github-file">
@@ -468,85 +468,85 @@ URL from <a class="reference external" href="https://www.taobao.com/">Taobao</a>
 <span class="normal">76</span>
 <span class="normal">77</span>
 <span class="normal">78</span>
-<span class="normal">79</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">taobaoitem2rst</span>
+<span class="normal">79</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">taobaoitem2rst</span><span class="w"></span>
 
-<span class="kn">import</span> <span class="p">(</span>
-	<span class="s">&quot;golang.org/x/net/html&quot;</span>
-	<span class="s">&quot;io&quot;</span>
-<span class="p">)</span>
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">	</span><span class="s">&quot;golang.org/x/net/html&quot;</span><span class="w"></span>
+<span class="w">	</span><span class="s">&quot;io&quot;</span><span class="w"></span>
+<span class="p">)</span><span class="w"></span>
 
-<span class="kd">type</span> <span class="nx">ItemInfo</span> <span class="kd">struct</span> <span class="p">{</span>
-	<span class="nx">Title</span>  <span class="kt">string</span>
-	<span class="nx">URL</span>    <span class="kt">string</span>
-	<span class="nx">ImgURL</span> <span class="kt">string</span>
-<span class="p">}</span>
+<span class="kd">type</span><span class="w"> </span><span class="nx">ItemInfo</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">	</span><span class="nx">Title</span><span class="w">  </span><span class="kt">string</span><span class="w"></span>
+<span class="w">	</span><span class="nx">URL</span><span class="w">    </span><span class="kt">string</span><span class="w"></span>
+<span class="w">	</span><span class="nx">ImgURL</span><span class="w"> </span><span class="kt">string</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">GetAttribute</span><span class="p">(</span><span class="nx">n</span> <span class="o">*</span><span class="nx">html</span><span class="p">.</span><span class="nx">Node</span><span class="p">,</span> <span class="nx">key</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="kt">string</span><span class="p">,</span> <span class="kt">bool</span><span class="p">)</span> <span class="p">{</span>
-	<span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">attr</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">n</span><span class="p">.</span><span class="nx">Attr</span> <span class="p">{</span>
-		<span class="k">if</span> <span class="nx">attr</span><span class="p">.</span><span class="nx">Key</span> <span class="o">==</span> <span class="nx">key</span> <span class="p">{</span>
-			<span class="k">return</span> <span class="nx">attr</span><span class="p">.</span><span class="nx">Val</span><span class="p">,</span> <span class="kc">true</span>
-		<span class="p">}</span>
-	<span class="p">}</span>
-	<span class="k">return</span> <span class="s">&quot;&quot;</span><span class="p">,</span> <span class="kc">false</span>
-<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">GetAttribute</span><span class="p">(</span><span class="nx">n</span><span class="w"> </span><span class="o">*</span><span class="nx">html</span><span class="p">.</span><span class="nx">Node</span><span class="p">,</span><span class="w"> </span><span class="nx">key</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="kt">bool</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">	</span><span class="k">for</span><span class="w"> </span><span class="nx">_</span><span class="p">,</span><span class="w"> </span><span class="nx">attr</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="nx">n</span><span class="p">.</span><span class="nx">Attr</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">		</span><span class="k">if</span><span class="w"> </span><span class="nx">attr</span><span class="p">.</span><span class="nx">Key</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nx">key</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">			</span><span class="k">return</span><span class="w"> </span><span class="nx">attr</span><span class="p">.</span><span class="nx">Val</span><span class="p">,</span><span class="w"> </span><span class="kc">true</span><span class="w"></span>
+<span class="w">		</span><span class="p">}</span><span class="w"></span>
+<span class="w">	</span><span class="p">}</span><span class="w"></span>
+<span class="w">	</span><span class="k">return</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="p">,</span><span class="w"> </span><span class="kc">false</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">isTitleElement</span><span class="p">(</span><span class="nx">n</span> <span class="o">*</span><span class="nx">html</span><span class="p">.</span><span class="nx">Node</span><span class="p">)</span> <span class="kt">bool</span> <span class="p">{</span>
-	<span class="k">return</span> <span class="nx">n</span><span class="p">.</span><span class="nx">Type</span> <span class="o">==</span> <span class="nx">html</span><span class="p">.</span><span class="nx">ElementNode</span> <span class="o">&amp;&amp;</span> <span class="nx">n</span><span class="p">.</span><span class="nx">Data</span> <span class="o">==</span> <span class="s">&quot;title&quot;</span>
-<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">isTitleElement</span><span class="p">(</span><span class="nx">n</span><span class="w"> </span><span class="o">*</span><span class="nx">html</span><span class="p">.</span><span class="nx">Node</span><span class="p">)</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">	</span><span class="k">return</span><span class="w"> </span><span class="nx">n</span><span class="p">.</span><span class="nx">Type</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nx">html</span><span class="p">.</span><span class="nx">ElementNode</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">n</span><span class="p">.</span><span class="nx">Data</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s">&quot;title&quot;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">isLinkElement</span><span class="p">(</span><span class="nx">n</span> <span class="o">*</span><span class="nx">html</span><span class="p">.</span><span class="nx">Node</span><span class="p">)</span> <span class="kt">bool</span> <span class="p">{</span>
-	<span class="k">return</span> <span class="nx">n</span><span class="p">.</span><span class="nx">Type</span> <span class="o">==</span> <span class="nx">html</span><span class="p">.</span><span class="nx">ElementNode</span> <span class="o">&amp;&amp;</span> <span class="nx">n</span><span class="p">.</span><span class="nx">Data</span> <span class="o">==</span> <span class="s">&quot;link&quot;</span>
-<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">isLinkElement</span><span class="p">(</span><span class="nx">n</span><span class="w"> </span><span class="o">*</span><span class="nx">html</span><span class="p">.</span><span class="nx">Node</span><span class="p">)</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">	</span><span class="k">return</span><span class="w"> </span><span class="nx">n</span><span class="p">.</span><span class="nx">Type</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nx">html</span><span class="p">.</span><span class="nx">ElementNode</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">n</span><span class="p">.</span><span class="nx">Data</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s">&quot;link&quot;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">isImgElement</span><span class="p">(</span><span class="nx">n</span> <span class="o">*</span><span class="nx">html</span><span class="p">.</span><span class="nx">Node</span><span class="p">)</span> <span class="kt">bool</span> <span class="p">{</span>
-	<span class="k">return</span> <span class="nx">n</span><span class="p">.</span><span class="nx">Type</span> <span class="o">==</span> <span class="nx">html</span><span class="p">.</span><span class="nx">ElementNode</span> <span class="o">&amp;&amp;</span> <span class="nx">n</span><span class="p">.</span><span class="nx">Data</span> <span class="o">==</span> <span class="s">&quot;img&quot;</span>
-<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">isImgElement</span><span class="p">(</span><span class="nx">n</span><span class="w"> </span><span class="o">*</span><span class="nx">html</span><span class="p">.</span><span class="nx">Node</span><span class="p">)</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">	</span><span class="k">return</span><span class="w"> </span><span class="nx">n</span><span class="p">.</span><span class="nx">Type</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nx">html</span><span class="p">.</span><span class="nx">ElementNode</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">n</span><span class="p">.</span><span class="nx">Data</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s">&quot;img&quot;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">isMetaElement</span><span class="p">(</span><span class="nx">n</span> <span class="o">*</span><span class="nx">html</span><span class="p">.</span><span class="nx">Node</span><span class="p">)</span> <span class="kt">bool</span> <span class="p">{</span>
-	<span class="k">return</span> <span class="nx">n</span><span class="p">.</span><span class="nx">Type</span> <span class="o">==</span> <span class="nx">html</span><span class="p">.</span><span class="nx">ElementNode</span> <span class="o">&amp;&amp;</span> <span class="nx">n</span><span class="p">.</span><span class="nx">Data</span> <span class="o">==</span> <span class="s">&quot;meta&quot;</span>
-<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">isMetaElement</span><span class="p">(</span><span class="nx">n</span><span class="w"> </span><span class="o">*</span><span class="nx">html</span><span class="p">.</span><span class="nx">Node</span><span class="p">)</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">	</span><span class="k">return</span><span class="w"> </span><span class="nx">n</span><span class="p">.</span><span class="nx">Type</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nx">html</span><span class="p">.</span><span class="nx">ElementNode</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">n</span><span class="p">.</span><span class="nx">Data</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s">&quot;meta&quot;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">traverse</span><span class="p">(</span><span class="nx">n</span> <span class="o">*</span><span class="nx">html</span><span class="p">.</span><span class="nx">Node</span><span class="p">,</span> <span class="nx">ii</span> <span class="o">*</span><span class="nx">ItemInfo</span><span class="p">)</span> <span class="p">{</span>
-	<span class="k">if</span> <span class="nx">isTitleElement</span><span class="p">(</span><span class="nx">n</span><span class="p">)</span> <span class="p">{</span>
-		<span class="nx">ii</span><span class="p">.</span><span class="nx">Title</span> <span class="p">=</span> <span class="nx">n</span><span class="p">.</span><span class="nx">FirstChild</span><span class="p">.</span><span class="nx">Data</span>
-	<span class="p">}</span>
-	<span class="k">if</span> <span class="nx">isLinkElement</span><span class="p">(</span><span class="nx">n</span><span class="p">)</span> <span class="p">{</span>
-		<span class="nx">rel</span><span class="p">,</span> <span class="nx">ok</span> <span class="o">:=</span> <span class="nx">GetAttribute</span><span class="p">(</span><span class="nx">n</span><span class="p">,</span> <span class="s">&quot;rel&quot;</span><span class="p">)</span>
-		<span class="k">if</span> <span class="nx">ok</span> <span class="o">&amp;&amp;</span> <span class="nx">rel</span> <span class="o">==</span> <span class="s">&quot;canonical&quot;</span> <span class="p">{</span>
-			<span class="nx">ii</span><span class="p">.</span><span class="nx">URL</span><span class="p">,</span> <span class="nx">_</span> <span class="p">=</span> <span class="nx">GetAttribute</span><span class="p">(</span><span class="nx">n</span><span class="p">,</span> <span class="s">&quot;href&quot;</span><span class="p">)</span>
-		<span class="p">}</span>
-	<span class="p">}</span>
-	<span class="k">if</span> <span class="nx">isImgElement</span><span class="p">(</span><span class="nx">n</span><span class="p">)</span> <span class="p">{</span>
-		<span class="c1">// item.taobao.com</span>
-		<span class="nx">id</span><span class="p">,</span> <span class="nx">ok</span> <span class="o">:=</span> <span class="nx">GetAttribute</span><span class="p">(</span><span class="nx">n</span><span class="p">,</span> <span class="s">&quot;id&quot;</span><span class="p">)</span>
-		<span class="k">if</span> <span class="nx">ok</span> <span class="o">&amp;&amp;</span> <span class="nx">id</span> <span class="o">==</span> <span class="s">&quot;J_ImgBooth&quot;</span> <span class="p">{</span>
-			<span class="nx">ii</span><span class="p">.</span><span class="nx">ImgURL</span><span class="p">,</span> <span class="nx">_</span> <span class="p">=</span> <span class="nx">GetAttribute</span><span class="p">(</span><span class="nx">n</span><span class="p">,</span> <span class="s">&quot;src&quot;</span><span class="p">)</span>
-		<span class="p">}</span>
-	<span class="p">}</span>
-	<span class="k">if</span> <span class="nx">isMetaElement</span><span class="p">(</span><span class="nx">n</span><span class="p">)</span> <span class="p">{</span>
-		<span class="c1">// world.taobao.com</span>
-		<span class="nx">property</span><span class="p">,</span> <span class="nx">ok</span> <span class="o">:=</span> <span class="nx">GetAttribute</span><span class="p">(</span><span class="nx">n</span><span class="p">,</span> <span class="s">&quot;property&quot;</span><span class="p">)</span>
-		<span class="k">if</span> <span class="nx">ok</span> <span class="o">&amp;&amp;</span> <span class="nx">property</span> <span class="o">==</span> <span class="s">&quot;og:image&quot;</span> <span class="p">{</span>
-			<span class="nx">ii</span><span class="p">.</span><span class="nx">ImgURL</span><span class="p">,</span> <span class="nx">_</span> <span class="p">=</span> <span class="nx">GetAttribute</span><span class="p">(</span><span class="nx">n</span><span class="p">,</span> <span class="s">&quot;content&quot;</span><span class="p">)</span>
-		<span class="p">}</span>
-	<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">traverse</span><span class="p">(</span><span class="nx">n</span><span class="w"> </span><span class="o">*</span><span class="nx">html</span><span class="p">.</span><span class="nx">Node</span><span class="p">,</span><span class="w"> </span><span class="nx">ii</span><span class="w"> </span><span class="o">*</span><span class="nx">ItemInfo</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">isTitleElement</span><span class="p">(</span><span class="nx">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">		</span><span class="nx">ii</span><span class="p">.</span><span class="nx">Title</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">n</span><span class="p">.</span><span class="nx">FirstChild</span><span class="p">.</span><span class="nx">Data</span><span class="w"></span>
+<span class="w">	</span><span class="p">}</span><span class="w"></span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">isLinkElement</span><span class="p">(</span><span class="nx">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">		</span><span class="nx">rel</span><span class="p">,</span><span class="w"> </span><span class="nx">ok</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">GetAttribute</span><span class="p">(</span><span class="nx">n</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;rel&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">		</span><span class="k">if</span><span class="w"> </span><span class="nx">ok</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">rel</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s">&quot;canonical&quot;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">			</span><span class="nx">ii</span><span class="p">.</span><span class="nx">URL</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">GetAttribute</span><span class="p">(</span><span class="nx">n</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;href&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">		</span><span class="p">}</span><span class="w"></span>
+<span class="w">	</span><span class="p">}</span><span class="w"></span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">isImgElement</span><span class="p">(</span><span class="nx">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">		</span><span class="c1">// item.taobao.com</span><span class="w"></span>
+<span class="w">		</span><span class="nx">id</span><span class="p">,</span><span class="w"> </span><span class="nx">ok</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">GetAttribute</span><span class="p">(</span><span class="nx">n</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;id&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">		</span><span class="k">if</span><span class="w"> </span><span class="nx">ok</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">id</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s">&quot;J_ImgBooth&quot;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">			</span><span class="nx">ii</span><span class="p">.</span><span class="nx">ImgURL</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">GetAttribute</span><span class="p">(</span><span class="nx">n</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;src&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">		</span><span class="p">}</span><span class="w"></span>
+<span class="w">	</span><span class="p">}</span><span class="w"></span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">isMetaElement</span><span class="p">(</span><span class="nx">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">		</span><span class="c1">// world.taobao.com</span><span class="w"></span>
+<span class="w">		</span><span class="nx">property</span><span class="p">,</span><span class="w"> </span><span class="nx">ok</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">GetAttribute</span><span class="p">(</span><span class="nx">n</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;property&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">		</span><span class="k">if</span><span class="w"> </span><span class="nx">ok</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">property</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s">&quot;og:image&quot;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">			</span><span class="nx">ii</span><span class="p">.</span><span class="nx">ImgURL</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">GetAttribute</span><span class="p">(</span><span class="nx">n</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;content&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">		</span><span class="p">}</span><span class="w"></span>
+<span class="w">	</span><span class="p">}</span><span class="w"></span>
 
-	<span class="k">for</span> <span class="nx">c</span> <span class="o">:=</span> <span class="nx">n</span><span class="p">.</span><span class="nx">FirstChild</span><span class="p">;</span> <span class="nx">c</span> <span class="o">!=</span> <span class="kc">nil</span><span class="p">;</span> <span class="nx">c</span> <span class="p">=</span> <span class="nx">c</span><span class="p">.</span><span class="nx">NextSibling</span> <span class="p">{</span>
-		<span class="nx">traverse</span><span class="p">(</span><span class="nx">c</span><span class="p">,</span> <span class="nx">ii</span><span class="p">)</span>
-	<span class="p">}</span>
-<span class="p">}</span>
+<span class="w">	</span><span class="k">for</span><span class="w"> </span><span class="nx">c</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">n</span><span class="p">.</span><span class="nx">FirstChild</span><span class="p">;</span><span class="w"> </span><span class="nx">c</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="p">;</span><span class="w"> </span><span class="nx">c</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">c</span><span class="p">.</span><span class="nx">NextSibling</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">		</span><span class="nx">traverse</span><span class="p">(</span><span class="nx">c</span><span class="p">,</span><span class="w"> </span><span class="nx">ii</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">getTaobaoItemInfo</span><span class="p">(</span><span class="nx">r</span> <span class="nx">io</span><span class="p">.</span><span class="nx">Reader</span><span class="p">)</span> <span class="nx">ItemInfo</span> <span class="p">{</span>
-	<span class="nx">ii</span> <span class="o">:=</span> <span class="nx">ItemInfo</span><span class="p">{}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">getTaobaoItemInfo</span><span class="p">(</span><span class="nx">r</span><span class="w"> </span><span class="nx">io</span><span class="p">.</span><span class="nx">Reader</span><span class="p">)</span><span class="w"> </span><span class="nx">ItemInfo</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">	</span><span class="nx">ii</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">ItemInfo</span><span class="p">{}</span><span class="w"></span>
 
-	<span class="nx">doc</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">html</span><span class="p">.</span><span class="nx">Parse</span><span class="p">(</span><span class="nx">r</span><span class="p">)</span>
-	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-		<span class="nb">panic</span><span class="p">(</span><span class="s">&quot;Fail to parse html&quot;</span><span class="p">)</span>
-	<span class="p">}</span>
-	<span class="nx">traverse</span><span class="p">(</span><span class="nx">doc</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">ii</span><span class="p">)</span>
+<span class="w">	</span><span class="nx">doc</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">html</span><span class="p">.</span><span class="nx">Parse</span><span class="p">(</span><span class="nx">r</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">		</span><span class="nb">panic</span><span class="p">(</span><span class="s">&quot;Fail to parse html&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="p">}</span><span class="w"></span>
+<span class="w">	</span><span class="nx">traverse</span><span class="p">(</span><span class="nx">doc</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">ii</span><span class="p">)</span><span class="w"></span>
 
-	<span class="k">return</span> <span class="nx">ii</span>
-<span class="p">}</span>
+<span class="w">	</span><span class="k">return</span><span class="w"> </span><span class="nx">ii</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </td></tr></table></div></figure>
 <hr class="docutils" />

@@ -56,20 +56,20 @@
 <a class="reference external" href="http://www.gopherjs.org/">GopherJS</a>. I got runtime error when writing code to make <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest">XHR</a> requests and also
 code to generate <a class="reference external" href="http://www.w3schools.com/html/">HTML</a> via <a class="reference external" href="https://golang.org/pkg/html/template/">html/template</a></p>
 <p>The following code is an <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest">XHR</a> request to retrieve JSON data from server: <a class="footnote-reference" href="#footnote-7" id="footnote-reference-1">[7]</a></p>
-<div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">XhrGetWordInfo</span><span class="p">(</span><span class="nx">word</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="nx">w</span> <span class="nx">WordInfo</span><span class="p">,</span> <span class="nx">err</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">resp</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">http</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="nx">HttpWordJsonPath</span><span class="p">(</span><span class="nx">word</span><span class="p">))</span>
-    <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-            <span class="k">return</span>
-    <span class="p">}</span>
-    <span class="k">defer</span> <span class="nx">resp</span><span class="p">.</span><span class="nx">Body</span><span class="p">.</span><span class="nx">Close</span><span class="p">()</span>
+<div class="highlight"><pre><span></span><span class="kd">func</span><span class="w"> </span><span class="nx">XhrGetWordInfo</span><span class="p">(</span><span class="nx">word</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nx">w</span><span class="w"> </span><span class="nx">WordInfo</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">resp</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">http</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="nx">HttpWordJsonPath</span><span class="p">(</span><span class="nx">word</span><span class="p">))</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="k">return</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">defer</span><span class="w"> </span><span class="nx">resp</span><span class="p">.</span><span class="nx">Body</span><span class="p">.</span><span class="nx">Close</span><span class="p">()</span><span class="w"></span>
 
-    <span class="nx">dec</span> <span class="o">:=</span> <span class="nx">json</span><span class="p">.</span><span class="nx">NewDecoder</span><span class="p">(</span><span class="nx">resp</span><span class="p">.</span><span class="nx">Body</span><span class="p">)</span>
-    <span class="nx">err</span> <span class="p">=</span> <span class="nx">dec</span><span class="p">.</span><span class="nx">Decode</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">w</span><span class="p">)</span>
-    <span class="k">return</span>
-<span class="p">}</span>
+<span class="w">    </span><span class="nx">dec</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">json</span><span class="p">.</span><span class="nx">NewDecoder</span><span class="p">(</span><span class="nx">resp</span><span class="p">.</span><span class="nx">Body</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="nx">err</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">dec</span><span class="p">.</span><span class="nx">Decode</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">w</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 <p><em>XhrGetWordInfo</em> is called by:</p>
-<div class="highlight"><pre><span></span><span class="nx">XhrGetWordInfo</span><span class="p">(</span><span class="s">&quot;sacca&quot;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><span class="nx">XhrGetWordInfo</span><span class="p">(</span><span class="s">&quot;sacca&quot;</span><span class="p">)</span><span class="w"></span>
 </pre></div>
 
 <p>The following error showed up in browser console: <a class="footnote-reference" href="#footnote-4" id="footnote-reference-2">[4]</a></p>
@@ -77,7 +77,7 @@ code to generate <a class="reference external" href="http://www.w3schools.com/ht
 Uncaught TypeError: r is not a function
 </pre></div>
 <p>After some trial and error, the correct way to make <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest">XHR</a> requests is: <a class="footnote-reference" href="#footnote-5" id="footnote-reference-3">[5]</a></p>
-<div class="highlight"><pre><span></span><span class="k">go</span> <span class="nx">XhrGetWordInfo</span><span class="p">(</span><span class="s">&quot;sacca&quot;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><span class="k">go</span><span class="w"> </span><span class="nx">XhrGetWordInfo</span><span class="p">(</span><span class="s">&quot;sacca&quot;</span><span class="p">)</span><span class="w"></span>
 </pre></div>
 <p>The code must be wrapped in <a class="reference external" href="https://tour.golang.org/concurrency/1">goroutine</a> to prevent blocking the execution.</p>
 <p>Similar situation <a class="footnote-reference" href="#footnote-6" id="footnote-reference-4">[6]</a> happened again and the same solution was applied to fix

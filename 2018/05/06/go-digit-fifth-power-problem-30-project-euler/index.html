@@ -73,42 +73,42 @@ of their digits.</p>
 <blockquote>
 443839</blockquote>
 <p class="align-center rubric"><a class="reference external" href="https://play.golang.org/p/TA-oxzQX4SB">Run Code on Go Playground</a></p>
-<div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
+<div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w"></span>
 
-<span class="kn">import</span> <span class="p">(</span>
-      <span class="s">&quot;fmt&quot;</span>
-      <span class="s">&quot;strconv&quot;</span>
-<span class="p">)</span>
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">      </span><span class="s">&quot;fmt&quot;</span><span class="w"></span>
+<span class="w">      </span><span class="s">&quot;strconv&quot;</span><span class="w"></span>
+<span class="p">)</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">IsFifthPowerEqual</span><span class="p">(</span><span class="nx">n</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">bool</span> <span class="p">{</span>
-      <span class="nx">s</span> <span class="o">:=</span> <span class="nx">strconv</span><span class="p">.</span><span class="nx">Itoa</span><span class="p">(</span><span class="nx">n</span><span class="p">)</span>
-      <span class="nx">sum</span> <span class="o">:=</span> <span class="mi">0</span>
-      <span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">digit</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">s</span> <span class="p">{</span>
-              <span class="nx">d</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">strconv</span><span class="p">.</span><span class="nx">Atoi</span><span class="p">(</span><span class="nb">string</span><span class="p">(</span><span class="nx">digit</span><span class="p">))</span>
-              <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-                      <span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
-              <span class="p">}</span>
-              <span class="nx">sum</span> <span class="o">+=</span> <span class="nx">d</span> <span class="o">*</span> <span class="nx">d</span> <span class="o">*</span> <span class="nx">d</span> <span class="o">*</span> <span class="nx">d</span> <span class="o">*</span> <span class="nx">d</span>
-      <span class="p">}</span>
-      <span class="k">if</span> <span class="nx">sum</span> <span class="o">==</span> <span class="nx">n</span> <span class="p">{</span>
-              <span class="k">return</span> <span class="kc">true</span>
-      <span class="p">}</span>
-      <span class="k">return</span> <span class="kc">false</span>
-<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">IsFifthPowerEqual</span><span class="p">(</span><span class="nx">n</span><span class="w"> </span><span class="kt">int</span><span class="p">)</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nx">s</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">strconv</span><span class="p">.</span><span class="nx">Itoa</span><span class="p">(</span><span class="nx">n</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="nx">sum</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">0</span><span class="w"></span>
+<span class="w">      </span><span class="k">for</span><span class="w"> </span><span class="nx">_</span><span class="p">,</span><span class="w"> </span><span class="nx">digit</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="nx">s</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="nx">d</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">strconv</span><span class="p">.</span><span class="nx">Atoi</span><span class="p">(</span><span class="nb">string</span><span class="p">(</span><span class="nx">digit</span><span class="p">))</span><span class="w"></span>
+<span class="w">              </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                      </span><span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"></span>
+<span class="w">              </span><span class="p">}</span><span class="w"></span>
+<span class="w">              </span><span class="nx">sum</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="nx">d</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nx">d</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nx">d</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nx">d</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nx">d</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="nx">sum</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nx">n</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="k">return</span><span class="w"> </span><span class="kc">true</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="kc">false</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
-      <span class="nx">d95</span> <span class="o">:=</span> <span class="mi">9</span> <span class="o">*</span> <span class="mi">9</span> <span class="o">*</span> <span class="mi">9</span> <span class="o">*</span> <span class="mi">9</span> <span class="o">*</span> <span class="mi">9</span>
-      <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;9^5 =&quot;</span><span class="p">,</span> <span class="nx">d95</span><span class="p">)</span>
-      <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;max possible: 6 * 9^5 =&quot;</span><span class="p">,</span> <span class="mi">6</span><span class="o">*</span><span class="nx">d95</span><span class="p">)</span>
-      <span class="nx">sum</span> <span class="o">:=</span> <span class="mi">0</span>
-      <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">2</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="mi">6</span><span class="o">*</span><span class="nx">d95</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
-              <span class="k">if</span> <span class="nx">IsFifthPowerEqual</span><span class="p">(</span><span class="nx">i</span><span class="p">)</span> <span class="p">{</span>
-                      <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">i</span><span class="p">)</span>
-                      <span class="nx">sum</span> <span class="o">+=</span> <span class="nx">i</span>
-              <span class="p">}</span>
-      <span class="p">}</span>
-      <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;Sum:&quot;</span><span class="p">,</span> <span class="nx">sum</span><span class="p">)</span>
-<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nx">d95</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">9</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">9</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">9</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">9</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">9</span><span class="w"></span>
+<span class="w">      </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;9^5 =&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">d95</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;max possible: 6 * 9^5 =&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">6</span><span class="o">*</span><span class="nx">d95</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="nx">sum</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">0</span><span class="w"></span>
+<span class="w">      </span><span class="k">for</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="p">&lt;</span><span class="w"> </span><span class="mi">6</span><span class="o">*</span><span class="nx">d95</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="o">++</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="k">if</span><span class="w"> </span><span class="nx">IsFifthPowerEqual</span><span class="p">(</span><span class="nx">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                      </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">i</span><span class="p">)</span><span class="w"></span>
+<span class="w">                      </span><span class="nx">sum</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="nx">i</span><span class="w"></span>
+<span class="w">              </span><span class="p">}</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
+<span class="w">      </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;Sum:&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">sum</span><span class="p">)</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 <p>Result:</p>
 <div class="highlight"><pre><span></span>9^5 = 59049

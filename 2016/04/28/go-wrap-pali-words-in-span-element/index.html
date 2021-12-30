@@ -72,17 +72,17 @@ programming language).</p>
 <span class="normal"> 8</span>
 <span class="normal"> 9</span>
 <span class="normal">10</span>
-<span class="normal">11</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">wrappali</span>
+<span class="normal">11</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">wrappali</span><span class="w"></span>
 
-<span class="kn">import</span> <span class="s">&quot;regexp&quot;</span>
+<span class="kn">import</span><span class="w"> </span><span class="s">&quot;regexp&quot;</span><span class="w"></span>
 
-<span class="kd">var</span> <span class="nx">paliWord</span> <span class="p">=</span> <span class="nx">regexp</span><span class="p">.</span><span class="nx">MustCompile</span><span class="p">(</span><span class="s">`[AaBbCcDdEeGgHhIiJjKkLlMmNnOoPpRrSsTtUuVvYyĀāĪīŪūṀṁṂṃŊŋṆṇṄṅÑñṬṭḌḍḶḷ]+`</span><span class="p">)</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">paliWord</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">regexp</span><span class="p">.</span><span class="nx">MustCompile</span><span class="p">(</span><span class="s">`[AaBbCcDdEeGgHhIiJjKkLlMmNnOoPpRrSsTtUuVvYyĀāĪīŪūṀṁṂṃŊŋṆṇṄṅÑñṬṭḌḍḶḷ]+`</span><span class="p">)</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">WrapPaliWordsInSpan</span><span class="p">(</span><span class="nx">html</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">string</span> <span class="p">{</span>
-	<span class="k">return</span> <span class="nx">paliWord</span><span class="p">.</span><span class="nx">ReplaceAllStringFunc</span><span class="p">(</span><span class="nx">html</span><span class="p">,</span> <span class="kd">func</span><span class="p">(</span><span class="nx">match</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">string</span> <span class="p">{</span>
-		<span class="k">return</span> <span class="s">&quot;&lt;span&gt;&quot;</span> <span class="o">+</span> <span class="nx">match</span> <span class="o">+</span> <span class="s">&quot;&lt;/span&gt;&quot;</span>
-	<span class="p">})</span>
-<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">WrapPaliWordsInSpan</span><span class="p">(</span><span class="nx">html</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">	</span><span class="k">return</span><span class="w"> </span><span class="nx">paliWord</span><span class="p">.</span><span class="nx">ReplaceAllStringFunc</span><span class="p">(</span><span class="nx">html</span><span class="p">,</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="nx">match</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">		</span><span class="k">return</span><span class="w"> </span><span class="s">&quot;&lt;span&gt;&quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">match</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot;&lt;/span&gt;&quot;</span><span class="w"></span>
+<span class="w">	</span><span class="p">})</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </td></tr></table></div></figure>
 <figure class="github-file">
@@ -102,18 +102,18 @@ programming language).</p>
 <span class="normal"> 9</span>
 <span class="normal">10</span>
 <span class="normal">11</span>
-<span class="normal">12</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">wrappali</span>
+<span class="normal">12</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">wrappali</span><span class="w"></span>
 
-<span class="kn">import</span> <span class="s">&quot;testing&quot;</span>
+<span class="kn">import</span><span class="w"> </span><span class="s">&quot;testing&quot;</span><span class="w"></span>
 
-<span class="kd">const</span> <span class="nx">html</span> <span class="p">=</span> <span class="s">`1.</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">html</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">`1.</span>
 <span class="s">Manopubbaṅgamā dhammā, manoseṭṭhā manomayā;</span>
 <span class="s">Manasā ce paduṭṭhena, bhāsati vā karoti vā;</span>
-<span class="s">Tato naṃ dukkhamanveti, cakkaṃva vahato padaṃ.`</span>
+<span class="s">Tato naṃ dukkhamanveti, cakkaṃva vahato padaṃ.`</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">TestWrapPaliWordsInSpan</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span> <span class="p">{</span>
-	<span class="nx">t</span><span class="p">.</span><span class="nx">Log</span><span class="p">(</span><span class="nx">WrapPaliWordsInSpan</span><span class="p">(</span><span class="nx">html</span><span class="p">))</span>
-<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">TestWrapPaliWordsInSpan</span><span class="p">(</span><span class="nx">t</span><span class="w"> </span><span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">	</span><span class="nx">t</span><span class="p">.</span><span class="nx">Log</span><span class="p">(</span><span class="nx">WrapPaliWordsInSpan</span><span class="p">(</span><span class="nx">html</span><span class="p">))</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </td></tr></table></div></figure>
 <p>Output:</p>

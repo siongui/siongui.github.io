@@ -74,12 +74,12 @@ Jinja2 template (see <a class="citation-reference" href="#d" id="citation-refere
 </thead>
 <tbody valign="top">
 <tr><td><p class="first">custom function <em>gettext</em></p>
-<div class="last"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">gettext</span><span class="p">(</span><span class="nx">s</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">string</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="nx">s</span> <span class="o">==</span> <span class="s">&quot;world&quot;</span> <span class="p">{</span>
-                <span class="k">return</span> <span class="s">&quot;世界&quot;</span>
-        <span class="p">}</span>
-        <span class="k">return</span> <span class="nx">s</span>
-<span class="p">}</span>
+<div class="last"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="w"> </span><span class="nx">gettext</span><span class="p">(</span><span class="nx">s</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="nx">s</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s">&quot;world&quot;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                </span><span class="k">return</span><span class="w"> </span><span class="s">&quot;世界&quot;</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nx">s</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div></td>
 <td><p class="first">custom function/filter <em>gettext</em></p>
@@ -91,10 +91,10 @@ Jinja2 template (see <a class="citation-reference" href="#d" id="citation-refere
 </div></td>
 </tr>
 <tr><td><p class="first">custom function in template:</p>
-<div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nx">span</span><span class="p">&gt;</span><span class="nx">hello</span> <span class="p">{{</span><span class="nx">gettext</span> <span class="p">.}}&lt;</span><span class="o">/</span><span class="nx">span</span><span class="p">&gt;</span>
+<div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nx">span</span><span class="p">&gt;</span><span class="nx">hello</span><span class="w"> </span><span class="p">{{</span><span class="nx">gettext</span><span class="w"> </span><span class="p">.}}&lt;</span><span class="o">/</span><span class="nx">span</span><span class="p">&gt;</span><span class="w"></span>
 </pre></div>
 <p>use custom function with syntax similar to Jinja2 filter:</p>
-<div class="last"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nx">span</span><span class="p">&gt;</span><span class="nx">hello</span> <span class="p">{{.</span> <span class="p">|</span> <span class="nx">gettext</span><span class="p">}}&lt;</span><span class="o">/</span><span class="nx">span</span><span class="p">&gt;</span>
+<div class="last"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nx">span</span><span class="p">&gt;</span><span class="nx">hello</span><span class="w"> </span><span class="p">{{.</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nx">gettext</span><span class="p">}}&lt;</span><span class="o">/</span><span class="nx">span</span><span class="p">&gt;</span><span class="w"></span>
 </pre></div>
 </div></td>
 <td><p class="first">custom function in Jinja2 template: (see <a class="citation-reference" href="#d" id="citation-reference-2">[d]</a>)</p>
@@ -106,13 +106,13 @@ Jinja2 template (see <a class="citation-reference" href="#d" id="citation-refere
 </div></td>
 </tr>
 <tr><td><p class="first">load custom function and output: (see <a class="citation-reference" href="#a" id="citation-reference-5">[a]</a>)</p>
-<div class="last"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">funcMap</span> <span class="p">=</span> <span class="nx">template</span><span class="p">.</span><span class="nx">FuncMap</span><span class="p">{</span>
-       <span class="s">&quot;gettext&quot;</span><span class="p">:</span> <span class="nx">gettext</span><span class="p">,</span>
-<span class="p">}</span>
+<div class="last"><div class="highlight"><pre><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">funcMap</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">template</span><span class="p">.</span><span class="nx">FuncMap</span><span class="p">{</span><span class="w"></span>
+<span class="w">       </span><span class="s">&quot;gettext&quot;</span><span class="p">:</span><span class="w"> </span><span class="nx">gettext</span><span class="p">,</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="nx">t</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">template</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="s">&quot;foo&quot;</span><span class="p">).</span><span class="nx">Funcs</span><span class="p">(</span><span class="nx">funcMap</span><span class="p">).</span><span class="nx">Parse</span><span class="p">(</span><span class="nx">tmpl</span><span class="p">)</span>
-<span class="nx">s</span> <span class="o">:=</span> <span class="s">&quot;world&quot;</span>
-<span class="nx">t</span><span class="p">.</span><span class="nx">Execute</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">Stdout</span><span class="p">,</span> <span class="nx">s</span><span class="p">)</span>
+<span class="nx">t</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">template</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="s">&quot;foo&quot;</span><span class="p">).</span><span class="nx">Funcs</span><span class="p">(</span><span class="nx">funcMap</span><span class="p">).</span><span class="nx">Parse</span><span class="p">(</span><span class="nx">tmpl</span><span class="p">)</span><span class="w"></span>
+<span class="nx">s</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="s">&quot;world&quot;</span><span class="w"></span>
+<span class="nx">t</span><span class="p">.</span><span class="nx">Execute</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">Stdout</span><span class="p">,</span><span class="w"> </span><span class="nx">s</span><span class="p">)</span><span class="w"></span>
 </pre></div>
 </div></td>
 <td><p class="first">load custom function and output:</p>
@@ -169,35 +169,35 @@ Jinja2 template (see <a class="citation-reference" href="#d" id="citation-refere
 <span class="normal">26</span>
 <span class="normal">27</span>
 <span class="normal">28</span>
-<span class="normal">29</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1">// http://stackoverflow.com/questions/17843311/template-and-custom-function-panic-function-not-defined</span>
-<span class="kn">package</span> <span class="nx">main</span>
+<span class="normal">29</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1">// http://stackoverflow.com/questions/17843311/template-and-custom-function-panic-function-not-defined</span><span class="w"></span>
+<span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w"></span>
 
-<span class="kn">import</span> <span class="p">(</span>
-	<span class="s">&quot;html/template&quot;</span>
-	<span class="s">&quot;os&quot;</span>
-<span class="p">)</span>
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">	</span><span class="s">&quot;html/template&quot;</span><span class="w"></span>
+<span class="w">	</span><span class="s">&quot;os&quot;</span><span class="w"></span>
+<span class="p">)</span><span class="w"></span>
 
-<span class="kd">const</span> <span class="nx">tmpl</span> <span class="p">=</span> <span class="s">`</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">tmpl</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">`</span>
 <span class="s">&lt;span&gt;hello {{gettext .}}&lt;/span&gt;</span>
 <span class="s">&lt;span&gt;hello {{. | gettext}}&lt;/span&gt;</span>
-<span class="s">`</span>
+<span class="s">`</span><span class="w"></span>
 
-<span class="kd">var</span> <span class="nx">funcMap</span> <span class="p">=</span> <span class="nx">template</span><span class="p">.</span><span class="nx">FuncMap</span><span class="p">{</span>
-	<span class="s">&quot;gettext&quot;</span><span class="p">:</span> <span class="nx">gettext</span><span class="p">,</span>
-<span class="p">}</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">funcMap</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">template</span><span class="p">.</span><span class="nx">FuncMap</span><span class="p">{</span><span class="w"></span>
+<span class="w">	</span><span class="s">&quot;gettext&quot;</span><span class="p">:</span><span class="w"> </span><span class="nx">gettext</span><span class="p">,</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">gettext</span><span class="p">(</span><span class="nx">s</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">string</span> <span class="p">{</span>
-	<span class="k">if</span> <span class="nx">s</span> <span class="o">==</span> <span class="s">&quot;world&quot;</span> <span class="p">{</span>
-		<span class="k">return</span> <span class="s">&quot;世界&quot;</span>
-	<span class="p">}</span>
-	<span class="k">return</span> <span class="nx">s</span>
-<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">gettext</span><span class="p">(</span><span class="nx">s</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">s</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s">&quot;world&quot;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">		</span><span class="k">return</span><span class="w"> </span><span class="s">&quot;世界&quot;</span><span class="w"></span>
+<span class="w">	</span><span class="p">}</span><span class="w"></span>
+<span class="w">	</span><span class="k">return</span><span class="w"> </span><span class="nx">s</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
-	<span class="nx">t</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">template</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="s">&quot;foo&quot;</span><span class="p">).</span><span class="nx">Funcs</span><span class="p">(</span><span class="nx">funcMap</span><span class="p">).</span><span class="nx">Parse</span><span class="p">(</span><span class="nx">tmpl</span><span class="p">)</span>
-	<span class="nx">s</span> <span class="o">:=</span> <span class="s">&quot;world&quot;</span>
-	<span class="nx">t</span><span class="p">.</span><span class="nx">Execute</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">Stdout</span><span class="p">,</span> <span class="nx">s</span><span class="p">)</span>
-<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">	</span><span class="nx">t</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">template</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="s">&quot;foo&quot;</span><span class="p">).</span><span class="nx">Funcs</span><span class="p">(</span><span class="nx">funcMap</span><span class="p">).</span><span class="nx">Parse</span><span class="p">(</span><span class="nx">tmpl</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="nx">s</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="s">&quot;world&quot;</span><span class="w"></span>
+<span class="w">	</span><span class="nx">t</span><span class="p">.</span><span class="nx">Execute</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">Stdout</span><span class="p">,</span><span class="w"> </span><span class="nx">s</span><span class="p">)</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </td></tr></table></div></figure>
 <p>Complete <em>Python Jinja2</em> source code:</p>

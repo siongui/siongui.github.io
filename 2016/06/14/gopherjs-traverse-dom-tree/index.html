@@ -90,38 +90,38 @@
 <span class="normal">29</span>
 <span class="normal">30</span>
 <span class="normal">31</span>
-<span class="normal">32</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
+<span class="normal">32</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w"></span>
 
-<span class="kn">import</span> <span class="p">(</span>
-	<span class="s">&quot;github.com/gopherjs/gopherjs/js&quot;</span>
-<span class="p">)</span>
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">	</span><span class="s">&quot;github.com/gopherjs/gopherjs/js&quot;</span><span class="w"></span>
+<span class="p">)</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">traverse</span><span class="p">(</span><span class="nx">elm</span> <span class="o">*</span><span class="nx">js</span><span class="p">.</span><span class="nx">Object</span><span class="p">)</span> <span class="p">{</span>
-	<span class="nx">nodeType</span> <span class="o">:=</span> <span class="nx">elm</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;nodeType&quot;</span><span class="p">).</span><span class="nx">Int</span><span class="p">()</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">traverse</span><span class="p">(</span><span class="nx">elm</span><span class="w"> </span><span class="o">*</span><span class="nx">js</span><span class="p">.</span><span class="nx">Object</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">	</span><span class="nx">nodeType</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">elm</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;nodeType&quot;</span><span class="p">).</span><span class="nx">Int</span><span class="p">()</span><span class="w"></span>
 
-	<span class="k">if</span> <span class="nx">nodeType</span> <span class="o">==</span> <span class="mi">1</span> <span class="o">||</span> <span class="nx">nodeType</span> <span class="o">==</span> <span class="mi">9</span> <span class="p">{</span>
-		<span class="c1">// element node or document node</span>
-		<span class="nx">childNodesList</span> <span class="o">:=</span> <span class="nx">elm</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;childNodes&quot;</span><span class="p">)</span>
-		<span class="nx">length</span> <span class="o">:=</span> <span class="nx">childNodesList</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;length&quot;</span><span class="p">).</span><span class="nx">Int</span><span class="p">()</span>
-		<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
-			<span class="c1">// recursively call to traverse</span>
-			<span class="nx">traverse</span><span class="p">(</span><span class="nx">childNodesList</span><span class="p">.</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;item&quot;</span><span class="p">,</span> <span class="nx">i</span><span class="p">))</span>
-		<span class="p">}</span>
-		<span class="k">return</span>
-	<span class="p">}</span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">nodeType</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nx">nodeType</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">9</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">		</span><span class="c1">// element node or document node</span><span class="w"></span>
+<span class="w">		</span><span class="nx">childNodesList</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">elm</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;childNodes&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">		</span><span class="nx">length</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">childNodesList</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;length&quot;</span><span class="p">).</span><span class="nx">Int</span><span class="p">()</span><span class="w"></span>
+<span class="w">		</span><span class="k">for</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="p">&lt;</span><span class="w"> </span><span class="nx">length</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="o">++</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">			</span><span class="c1">// recursively call to traverse</span><span class="w"></span>
+<span class="w">			</span><span class="nx">traverse</span><span class="p">(</span><span class="nx">childNodesList</span><span class="p">.</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;item&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">i</span><span class="p">))</span><span class="w"></span>
+<span class="w">		</span><span class="p">}</span><span class="w"></span>
+<span class="w">		</span><span class="k">return</span><span class="w"></span>
+<span class="w">	</span><span class="p">}</span><span class="w"></span>
 
-	<span class="k">if</span> <span class="nx">nodeType</span> <span class="o">==</span> <span class="mi">3</span> <span class="p">{</span>
-		<span class="c1">// text node</span>
-		<span class="nx">s</span> <span class="o">:=</span> <span class="nx">elm</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;nodeValue&quot;</span><span class="p">).</span><span class="nx">String</span><span class="p">()</span>
-		<span class="nb">println</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span>
-		<span class="k">return</span>
-	<span class="p">}</span>
-<span class="p">}</span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">nodeType</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">		</span><span class="c1">// text node</span><span class="w"></span>
+<span class="w">		</span><span class="nx">s</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">elm</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;nodeValue&quot;</span><span class="p">).</span><span class="nx">String</span><span class="p">()</span><span class="w"></span>
+<span class="w">		</span><span class="nb">println</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span><span class="w"></span>
+<span class="w">		</span><span class="k">return</span><span class="w"></span>
+<span class="w">	</span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
-	<span class="nx">doc</span> <span class="o">:=</span> <span class="nx">js</span><span class="p">.</span><span class="nx">Global</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;document&quot;</span><span class="p">)</span>
-	<span class="nx">traverse</span><span class="p">(</span><span class="nx">doc</span><span class="p">)</span>
-<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">	</span><span class="nx">doc</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">js</span><span class="p">.</span><span class="nx">Global</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;document&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="nx">traverse</span><span class="p">(</span><span class="nx">doc</span><span class="p">)</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </td></tr></table></div></figure><p>If you want to access other nodeType, see <a class="footnote-reference" href="#footnote-2" id="footnote-reference-1">[2]</a>.</p>
 <hr class="docutils" />

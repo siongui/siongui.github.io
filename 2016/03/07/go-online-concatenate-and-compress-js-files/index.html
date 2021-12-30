@@ -54,72 +54,72 @@
 
     <div class="main-content"><p>Concatenate and compress <a class="reference external" href="https://www.google.com/search?q=javascript">JavaScript</a> files via <a class="reference external" href="https://golang.org/">Golang</a> and online
 <a class="reference external" href="https://developers.google.com/closure/compiler/">Google Closure Compiler</a>.</p>
-<div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
+<div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w"></span>
 
-<span class="kn">import</span> <span class="p">(</span>
-      <span class="s">&quot;io/ioutil&quot;</span>
-      <span class="s">&quot;net/http&quot;</span>
-      <span class="s">&quot;net/url&quot;</span>
-      <span class="s">&quot;path&quot;</span>
-<span class="p">)</span>
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">      </span><span class="s">&quot;io/ioutil&quot;</span><span class="w"></span>
+<span class="w">      </span><span class="s">&quot;net/http&quot;</span><span class="w"></span>
+<span class="w">      </span><span class="s">&quot;net/url&quot;</span><span class="w"></span>
+<span class="w">      </span><span class="s">&quot;path&quot;</span><span class="w"></span>
+<span class="p">)</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">minjs</span><span class="p">(</span><span class="nx">baseDir</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">jsFiles</span> <span class="p">[]</span><span class="kt">string</span><span class="p">,</span> <span class="nx">outputPath</span> <span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
-      <span class="kd">var</span> <span class="nx">jsCode</span> <span class="p">[]</span><span class="kt">byte</span>
-      <span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">file</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">jsFiles</span> <span class="p">{</span>
-              <span class="nx">jsPath</span> <span class="o">:=</span> <span class="nx">path</span><span class="p">.</span><span class="nx">Join</span><span class="p">(</span><span class="nx">baseDir</span><span class="p">,</span> <span class="nx">file</span><span class="p">)</span>
-              <span class="nb">println</span><span class="p">(</span><span class="s">&quot;concatenating &quot;</span> <span class="o">+</span> <span class="nx">jsPath</span> <span class="o">+</span> <span class="s">&quot; ...&quot;</span><span class="p">)</span>
-              <span class="nx">b</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">ioutil</span><span class="p">.</span><span class="nx">ReadFile</span><span class="p">(</span><span class="nx">jsPath</span><span class="p">)</span>
-              <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-                      <span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
-              <span class="p">}</span>
-              <span class="nx">jsCode</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">jsCode</span><span class="p">,</span> <span class="nx">b</span><span class="o">...</span><span class="p">)</span>
-      <span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">minjs</span><span class="p">(</span><span class="nx">baseDir</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">jsFiles</span><span class="w"> </span><span class="p">[]</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">outputPath</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="kd">var</span><span class="w"> </span><span class="nx">jsCode</span><span class="w"> </span><span class="p">[]</span><span class="kt">byte</span><span class="w"></span>
+<span class="w">      </span><span class="k">for</span><span class="w"> </span><span class="nx">_</span><span class="p">,</span><span class="w"> </span><span class="nx">file</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="nx">jsFiles</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="nx">jsPath</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">path</span><span class="p">.</span><span class="nx">Join</span><span class="p">(</span><span class="nx">baseDir</span><span class="p">,</span><span class="w"> </span><span class="nx">file</span><span class="p">)</span><span class="w"></span>
+<span class="w">              </span><span class="nb">println</span><span class="p">(</span><span class="s">&quot;concatenating &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">jsPath</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot; ...&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">              </span><span class="nx">b</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">ioutil</span><span class="p">.</span><span class="nx">ReadFile</span><span class="p">(</span><span class="nx">jsPath</span><span class="p">)</span><span class="w"></span>
+<span class="w">              </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                      </span><span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"></span>
+<span class="w">              </span><span class="p">}</span><span class="w"></span>
+<span class="w">              </span><span class="nx">jsCode</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">append</span><span class="p">(</span><span class="nx">jsCode</span><span class="p">,</span><span class="w"> </span><span class="nx">b</span><span class="o">...</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
 
-      <span class="nx">params</span> <span class="o">:=</span> <span class="nx">url</span><span class="p">.</span><span class="nx">Values</span><span class="p">{}</span>
-      <span class="c1">//params.Set(&quot;code_url&quot;, &quot;https://github.com/twnanda/twnanda/raw/master/theme/javascript/tongwen_core.js&quot;)</span>
-      <span class="c1">//params.Set(&quot;code_url&quot;, &quot;https://github.com/twnanda/twnanda/raw/master/theme/javascript/tongwen_table_ps2t.js&quot;)</span>
-      <span class="c1">//params.Set(&quot;code_url&quot;, &quot;https://github.com/twnanda/twnanda/raw/master/theme/javascript/tongwen_table_pt2s.js&quot;)</span>
-      <span class="c1">//params.Set(&quot;code_url&quot;, &quot;https://github.com/twnanda/twnanda/raw/master/theme/javascript/tongwen_table_s2t.js&quot;)</span>
-      <span class="c1">//params.Set(&quot;code_url&quot;, &quot;https://github.com/twnanda/twnanda/raw/master/theme/javascript/tongwen_table_t2s.js&quot;)</span>
-      <span class="nx">params</span><span class="p">.</span><span class="nx">Set</span><span class="p">(</span><span class="s">&quot;js_code&quot;</span><span class="p">,</span> <span class="nb">string</span><span class="p">(</span><span class="nx">jsCode</span><span class="p">))</span>
-      <span class="nx">params</span><span class="p">.</span><span class="nx">Set</span><span class="p">(</span><span class="s">&quot;compilation_level&quot;</span><span class="p">,</span> <span class="s">&quot;SIMPLE_OPTIMIZATIONS&quot;</span><span class="p">)</span>
-      <span class="nx">params</span><span class="p">.</span><span class="nx">Set</span><span class="p">(</span><span class="s">&quot;language&quot;</span><span class="p">,</span> <span class="s">&quot;ECMASCRIPT5&quot;</span><span class="p">)</span>
-      <span class="nx">params</span><span class="p">.</span><span class="nx">Set</span><span class="p">(</span><span class="s">&quot;output_format&quot;</span><span class="p">,</span> <span class="s">&quot;text&quot;</span><span class="p">)</span>
-      <span class="nx">params</span><span class="p">.</span><span class="nx">Set</span><span class="p">(</span><span class="s">&quot;output_info&quot;</span><span class="p">,</span> <span class="s">&quot;compiled_code&quot;</span><span class="p">)</span>
+<span class="w">      </span><span class="nx">params</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">url</span><span class="p">.</span><span class="nx">Values</span><span class="p">{}</span><span class="w"></span>
+<span class="w">      </span><span class="c1">//params.Set(&quot;code_url&quot;, &quot;https://github.com/twnanda/twnanda/raw/master/theme/javascript/tongwen_core.js&quot;)</span><span class="w"></span>
+<span class="w">      </span><span class="c1">//params.Set(&quot;code_url&quot;, &quot;https://github.com/twnanda/twnanda/raw/master/theme/javascript/tongwen_table_ps2t.js&quot;)</span><span class="w"></span>
+<span class="w">      </span><span class="c1">//params.Set(&quot;code_url&quot;, &quot;https://github.com/twnanda/twnanda/raw/master/theme/javascript/tongwen_table_pt2s.js&quot;)</span><span class="w"></span>
+<span class="w">      </span><span class="c1">//params.Set(&quot;code_url&quot;, &quot;https://github.com/twnanda/twnanda/raw/master/theme/javascript/tongwen_table_s2t.js&quot;)</span><span class="w"></span>
+<span class="w">      </span><span class="c1">//params.Set(&quot;code_url&quot;, &quot;https://github.com/twnanda/twnanda/raw/master/theme/javascript/tongwen_table_t2s.js&quot;)</span><span class="w"></span>
+<span class="w">      </span><span class="nx">params</span><span class="p">.</span><span class="nx">Set</span><span class="p">(</span><span class="s">&quot;js_code&quot;</span><span class="p">,</span><span class="w"> </span><span class="nb">string</span><span class="p">(</span><span class="nx">jsCode</span><span class="p">))</span><span class="w"></span>
+<span class="w">      </span><span class="nx">params</span><span class="p">.</span><span class="nx">Set</span><span class="p">(</span><span class="s">&quot;compilation_level&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;SIMPLE_OPTIMIZATIONS&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="nx">params</span><span class="p">.</span><span class="nx">Set</span><span class="p">(</span><span class="s">&quot;language&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;ECMASCRIPT5&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="nx">params</span><span class="p">.</span><span class="nx">Set</span><span class="p">(</span><span class="s">&quot;output_format&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;text&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="nx">params</span><span class="p">.</span><span class="nx">Set</span><span class="p">(</span><span class="s">&quot;output_info&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;compiled_code&quot;</span><span class="p">)</span><span class="w"></span>
 
-      <span class="nb">println</span><span class="p">(</span><span class="s">&quot;\nCompressing combined js online ...&quot;</span><span class="p">)</span>
-      <span class="nx">resp</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">http</span><span class="p">.</span><span class="nx">PostForm</span><span class="p">(</span><span class="s">&quot;https://closure-compiler.appspot.com/compile&quot;</span><span class="p">,</span> <span class="nx">params</span><span class="p">)</span>
-      <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-              <span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
-      <span class="p">}</span>
-      <span class="k">defer</span> <span class="nx">resp</span><span class="p">.</span><span class="nx">Body</span><span class="p">.</span><span class="nx">Close</span><span class="p">()</span>
-      <span class="nx">b</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">ioutil</span><span class="p">.</span><span class="nx">ReadAll</span><span class="p">(</span><span class="nx">resp</span><span class="p">.</span><span class="nx">Body</span><span class="p">)</span>
-      <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-              <span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
-      <span class="p">}</span>
-      <span class="nx">ioutil</span><span class="p">.</span><span class="nx">WriteFile</span><span class="p">(</span><span class="nx">path</span><span class="p">.</span><span class="nx">Join</span><span class="p">(</span><span class="nx">baseDir</span><span class="p">,</span> <span class="nx">outputPath</span><span class="p">),</span> <span class="nx">b</span><span class="p">,</span> <span class="mo">0644</span><span class="p">)</span>
-<span class="p">}</span>
+<span class="w">      </span><span class="nb">println</span><span class="p">(</span><span class="s">&quot;\nCompressing combined js online ...&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="nx">resp</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">http</span><span class="p">.</span><span class="nx">PostForm</span><span class="p">(</span><span class="s">&quot;https://closure-compiler.appspot.com/compile&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">params</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
+<span class="w">      </span><span class="k">defer</span><span class="w"> </span><span class="nx">resp</span><span class="p">.</span><span class="nx">Body</span><span class="p">.</span><span class="nx">Close</span><span class="p">()</span><span class="w"></span>
+<span class="w">      </span><span class="nx">b</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">ioutil</span><span class="p">.</span><span class="nx">ReadAll</span><span class="p">(</span><span class="nx">resp</span><span class="p">.</span><span class="nx">Body</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
+<span class="w">      </span><span class="nx">ioutil</span><span class="p">.</span><span class="nx">WriteFile</span><span class="p">(</span><span class="nx">path</span><span class="p">.</span><span class="nx">Join</span><span class="p">(</span><span class="nx">baseDir</span><span class="p">,</span><span class="w"> </span><span class="nx">outputPath</span><span class="p">),</span><span class="w"> </span><span class="nx">b</span><span class="p">,</span><span class="w"> </span><span class="mo">0644</span><span class="p">)</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
-      <span class="nx">baseDir</span> <span class="o">:=</span> <span class="s">&quot;dictionary&quot;</span>
-      <span class="nx">jsFiles</span> <span class="o">:=</span> <span class="p">[]</span><span class="kt">string</span><span class="p">{</span>
-              <span class="s">&quot;common/app/scripts/services/data/dicBooks.js&quot;</span><span class="p">,</span>
-              <span class="s">&quot;common/app/scripts/services/data/succinctTrie.js&quot;</span><span class="p">,</span>
-              <span class="s">&quot;common/app/scripts/services/data/i18nStrings.js&quot;</span><span class="p">,</span>
-              <span class="s">&quot;app/scripts/app.js&quot;</span><span class="p">,</span>
-              <span class="s">&quot;app/scripts/controllers.js&quot;</span><span class="p">,</span>
-              <span class="s">&quot;app/scripts/directives/inputSuggest.js&quot;</span><span class="p">,</span>
-              <span class="s">&quot;app/scripts/directives/draggableAndEvents.js&quot;</span><span class="p">,</span>
-              <span class="s">&quot;common/app/scripts/services/paliWordJson.js&quot;</span><span class="p">,</span>
-              <span class="s">&quot;common/app/scripts/services/shortExp.js&quot;</span><span class="p">,</span>
-              <span class="s">&quot;common/app/scripts/services/ngBits.js&quot;</span><span class="p">,</span>
-              <span class="s">&quot;common/app/scripts/services/wordSearch.js&quot;</span><span class="p">,</span>
-              <span class="s">&quot;common/app/scripts/directives/dropdown.js&quot;</span><span class="p">,</span>
-              <span class="s">&quot;common/app/scripts/filters/expOrder.js&quot;</span><span class="p">,</span>
-              <span class="s">&quot;common/app/scripts/i18n.js&quot;</span><span class="p">,</span>
-      <span class="p">}</span>
-      <span class="nx">minjs</span><span class="p">(</span><span class="nx">baseDir</span><span class="p">,</span> <span class="nx">jsFiles</span><span class="p">,</span> <span class="s">&quot;app/all_compiled.js&quot;</span><span class="p">)</span>
-<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nx">baseDir</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="s">&quot;dictionary&quot;</span><span class="w"></span>
+<span class="w">      </span><span class="nx">jsFiles</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="s">&quot;common/app/scripts/services/data/dicBooks.js&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">              </span><span class="s">&quot;common/app/scripts/services/data/succinctTrie.js&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">              </span><span class="s">&quot;common/app/scripts/services/data/i18nStrings.js&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">              </span><span class="s">&quot;app/scripts/app.js&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">              </span><span class="s">&quot;app/scripts/controllers.js&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">              </span><span class="s">&quot;app/scripts/directives/inputSuggest.js&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">              </span><span class="s">&quot;app/scripts/directives/draggableAndEvents.js&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">              </span><span class="s">&quot;common/app/scripts/services/paliWordJson.js&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">              </span><span class="s">&quot;common/app/scripts/services/shortExp.js&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">              </span><span class="s">&quot;common/app/scripts/services/ngBits.js&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">              </span><span class="s">&quot;common/app/scripts/services/wordSearch.js&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">              </span><span class="s">&quot;common/app/scripts/directives/dropdown.js&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">              </span><span class="s">&quot;common/app/scripts/filters/expOrder.js&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">              </span><span class="s">&quot;common/app/scripts/i18n.js&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
+<span class="w">      </span><span class="nx">minjs</span><span class="p">(</span><span class="nx">baseDir</span><span class="p">,</span><span class="w"> </span><span class="nx">jsFiles</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;app/all_compiled.js&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 
 <hr class="docutils" />

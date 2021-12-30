@@ -64,60 +64,60 @@ $ go get -u golang.org/x/crypto/ssh
 $ go get -u golang.org/x/sys/unix
 </pre></div>
 <p>Code:</p>
-<div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
+<div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w"></span>
 
-<span class="kn">import</span> <span class="p">(</span>
-      <span class="s">&quot;bufio&quot;</span>
-      <span class="s">&quot;fmt&quot;</span>
-      <span class="s">&quot;net/smtp&quot;</span>
-      <span class="s">&quot;net/textproto&quot;</span>
-      <span class="s">&quot;os&quot;</span>
-      <span class="s">&quot;strings&quot;</span>
-      <span class="s">&quot;syscall&quot;</span>
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">      </span><span class="s">&quot;bufio&quot;</span><span class="w"></span>
+<span class="w">      </span><span class="s">&quot;fmt&quot;</span><span class="w"></span>
+<span class="w">      </span><span class="s">&quot;net/smtp&quot;</span><span class="w"></span>
+<span class="w">      </span><span class="s">&quot;net/textproto&quot;</span><span class="w"></span>
+<span class="w">      </span><span class="s">&quot;os&quot;</span><span class="w"></span>
+<span class="w">      </span><span class="s">&quot;strings&quot;</span><span class="w"></span>
+<span class="w">      </span><span class="s">&quot;syscall&quot;</span><span class="w"></span>
 
-      <span class="s">&quot;github.com/jordan-wright/email&quot;</span>
-      <span class="s">&quot;golang.org/x/crypto/ssh/terminal&quot;</span>
-<span class="p">)</span>
+<span class="w">      </span><span class="s">&quot;github.com/jordan-wright/email&quot;</span><span class="w"></span>
+<span class="w">      </span><span class="s">&quot;golang.org/x/crypto/ssh/terminal&quot;</span><span class="w"></span>
+<span class="p">)</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">credentials</span><span class="p">()</span> <span class="p">(</span><span class="kt">string</span><span class="p">,</span> <span class="kt">string</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
-      <span class="nx">reader</span> <span class="o">:=</span> <span class="nx">bufio</span><span class="p">.</span><span class="nx">NewReader</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">Stdin</span><span class="p">)</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">credentials</span><span class="p">()</span><span class="w"> </span><span class="p">(</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nx">reader</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">bufio</span><span class="p">.</span><span class="nx">NewReader</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">Stdin</span><span class="p">)</span><span class="w"></span>
 
-      <span class="nx">fmt</span><span class="p">.</span><span class="nx">Print</span><span class="p">(</span><span class="s">&quot;Enter Username: &quot;</span><span class="p">)</span>
-      <span class="nx">username</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">reader</span><span class="p">.</span><span class="nx">ReadString</span><span class="p">(</span><span class="sc">&#39;\n&#39;</span><span class="p">)</span>
+<span class="w">      </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Print</span><span class="p">(</span><span class="s">&quot;Enter Username: &quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="nx">username</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">reader</span><span class="p">.</span><span class="nx">ReadString</span><span class="p">(</span><span class="sc">&#39;\n&#39;</span><span class="p">)</span><span class="w"></span>
 
-      <span class="nx">fmt</span><span class="p">.</span><span class="nx">Print</span><span class="p">(</span><span class="s">&quot;Enter Password: &quot;</span><span class="p">)</span>
-      <span class="nx">bytePassword</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">terminal</span><span class="p">.</span><span class="nx">ReadPassword</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="nx">syscall</span><span class="p">.</span><span class="nx">Stdin</span><span class="p">))</span>
-      <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-              <span class="k">return</span> <span class="s">&quot;&quot;</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">,</span> <span class="nx">err</span>
-      <span class="p">}</span>
-      <span class="nx">password</span> <span class="o">:=</span> <span class="nb">string</span><span class="p">(</span><span class="nx">bytePassword</span><span class="p">)</span>
+<span class="w">      </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Print</span><span class="p">(</span><span class="s">&quot;Enter Password: &quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="nx">bytePassword</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">terminal</span><span class="p">.</span><span class="nx">ReadPassword</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="nx">syscall</span><span class="p">.</span><span class="nx">Stdin</span><span class="p">))</span><span class="w"></span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="k">return</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
+<span class="w">      </span><span class="nx">password</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">string</span><span class="p">(</span><span class="nx">bytePassword</span><span class="p">)</span><span class="w"></span>
 
-      <span class="k">return</span> <span class="nx">strings</span><span class="p">.</span><span class="nx">TrimSpace</span><span class="p">(</span><span class="nx">username</span><span class="p">),</span> <span class="nx">strings</span><span class="p">.</span><span class="nx">TrimSpace</span><span class="p">(</span><span class="nx">password</span><span class="p">),</span> <span class="kc">nil</span>
-<span class="p">}</span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="nx">strings</span><span class="p">.</span><span class="nx">TrimSpace</span><span class="p">(</span><span class="nx">username</span><span class="p">),</span><span class="w"> </span><span class="nx">strings</span><span class="p">.</span><span class="nx">TrimSpace</span><span class="p">(</span><span class="nx">password</span><span class="p">),</span><span class="w"> </span><span class="kc">nil</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
-      <span class="nx">e</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">email</span><span class="p">.</span><span class="nx">Email</span><span class="p">{</span>
-              <span class="nx">To</span><span class="p">:</span>      <span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&quot;someone@example.com&quot;</span><span class="p">},</span>
-              <span class="nx">From</span><span class="p">:</span>    <span class="s">&quot;someone &lt;someone@example.com&gt;&quot;</span><span class="p">,</span>
-              <span class="nx">Subject</span><span class="p">:</span> <span class="s">&quot;Test&quot;</span><span class="p">,</span>
-              <span class="nx">Text</span><span class="p">:</span>    <span class="p">[]</span><span class="nb">byte</span><span class="p">(</span><span class="s">&quot;Hello World&quot;</span><span class="p">),</span>
-              <span class="nx">Headers</span><span class="p">:</span> <span class="nx">textproto</span><span class="p">.</span><span class="nx">MIMEHeader</span><span class="p">{},</span>
-      <span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nx">e</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">email</span><span class="p">.</span><span class="nx">Email</span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="nx">To</span><span class="p">:</span><span class="w">      </span><span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&quot;someone@example.com&quot;</span><span class="p">},</span><span class="w"></span>
+<span class="w">              </span><span class="nx">From</span><span class="p">:</span><span class="w">    </span><span class="s">&quot;someone &lt;someone@example.com&gt;&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">              </span><span class="nx">Subject</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Test&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">              </span><span class="nx">Text</span><span class="p">:</span><span class="w">    </span><span class="p">[]</span><span class="nb">byte</span><span class="p">(</span><span class="s">&quot;Hello World&quot;</span><span class="p">),</span><span class="w"></span>
+<span class="w">              </span><span class="nx">Headers</span><span class="p">:</span><span class="w"> </span><span class="nx">textproto</span><span class="p">.</span><span class="nx">MIMEHeader</span><span class="p">{},</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
 
-      <span class="nx">username</span><span class="p">,</span> <span class="nx">password</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">credentials</span><span class="p">()</span>
-      <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-              <span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
-      <span class="p">}</span>
+<span class="w">      </span><span class="nx">username</span><span class="p">,</span><span class="w"> </span><span class="nx">password</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">credentials</span><span class="p">()</span><span class="w"></span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
 
-      <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;\nsending mail ...&quot;</span><span class="p">)</span>
-      <span class="k">if</span> <span class="p">!</span><span class="nx">strings</span><span class="p">.</span><span class="nx">HasSuffix</span><span class="p">(</span><span class="nx">username</span><span class="p">,</span> <span class="s">&quot;@gmail.com&quot;</span><span class="p">)</span> <span class="p">{</span>
-              <span class="nx">username</span> <span class="o">+=</span> <span class="s">&quot;@gmail.com&quot;</span>
-      <span class="p">}</span>
-      <span class="nx">err</span> <span class="p">=</span> <span class="nx">e</span><span class="p">.</span><span class="nx">Send</span><span class="p">(</span><span class="s">&quot;smtp.gmail.com:587&quot;</span><span class="p">,</span> <span class="nx">smtp</span><span class="p">.</span><span class="nx">PlainAuth</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">,</span> <span class="nx">username</span><span class="p">,</span> <span class="nx">password</span><span class="p">,</span> <span class="s">&quot;smtp.gmail.com&quot;</span><span class="p">))</span>
-      <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-              <span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
-      <span class="p">}</span>
-<span class="p">}</span>
+<span class="w">      </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;\nsending mail ...&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="p">!</span><span class="nx">strings</span><span class="p">.</span><span class="nx">HasSuffix</span><span class="p">(</span><span class="nx">username</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;@gmail.com&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="nx">username</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="s">&quot;@gmail.com&quot;</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
+<span class="w">      </span><span class="nx">err</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">e</span><span class="p">.</span><span class="nx">Send</span><span class="p">(</span><span class="s">&quot;smtp.gmail.com:587&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">smtp</span><span class="p">.</span><span class="nx">PlainAuth</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">username</span><span class="p">,</span><span class="w"> </span><span class="nx">password</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;smtp.gmail.com&quot;</span><span class="p">))</span><span class="w"></span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 <p>You can even send attachments, see <a class="reference external" href="https://github.com/jordan-wright/email">github.com/jordan-wright/email</a> for more
 options.</p>

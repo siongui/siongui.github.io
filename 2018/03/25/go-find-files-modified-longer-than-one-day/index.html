@@ -64,31 +64,31 @@ subtraction of current time and modified time of file. If the duration is
 greater than 24 hours, than it's more than one day.</li>
 </ol>
 <p>The following code is the implementation of above idea:</p>
-<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="p">(</span>
-      <span class="s">&quot;io/ioutil&quot;</span>
-      <span class="s">&quot;os&quot;</span>
-      <span class="s">&quot;time&quot;</span>
-<span class="p">)</span>
+<div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">      </span><span class="s">&quot;io/ioutil&quot;</span><span class="w"></span>
+<span class="w">      </span><span class="s">&quot;os&quot;</span><span class="w"></span>
+<span class="w">      </span><span class="s">&quot;time&quot;</span><span class="w"></span>
+<span class="p">)</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">isOlderThanOneDay</span><span class="p">(</span><span class="nx">t</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span><span class="p">)</span> <span class="kt">bool</span> <span class="p">{</span>
-      <span class="k">return</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Now</span><span class="p">().</span><span class="nx">Sub</span><span class="p">(</span><span class="nx">t</span><span class="p">)</span> <span class="p">&gt;</span> <span class="mi">24</span><span class="o">*</span><span class="nx">time</span><span class="p">.</span><span class="nx">Hour</span>
-<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">isOlderThanOneDay</span><span class="p">(</span><span class="nx">t</span><span class="w"> </span><span class="nx">time</span><span class="p">.</span><span class="nx">Time</span><span class="p">)</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="nx">time</span><span class="p">.</span><span class="nx">Now</span><span class="p">().</span><span class="nx">Sub</span><span class="p">(</span><span class="nx">t</span><span class="p">)</span><span class="w"> </span><span class="p">&gt;</span><span class="w"> </span><span class="mi">24</span><span class="o">*</span><span class="nx">time</span><span class="p">.</span><span class="nx">Hour</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">findFilesOlderThanOneDay</span><span class="p">(</span><span class="nx">dir</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="nx">files</span> <span class="p">[]</span><span class="nx">os</span><span class="p">.</span><span class="nx">FileInfo</span><span class="p">,</span> <span class="nx">err</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
-      <span class="nx">tmpfiles</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">ioutil</span><span class="p">.</span><span class="nx">ReadDir</span><span class="p">(</span><span class="nx">dir</span><span class="p">)</span>
-      <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-              <span class="k">return</span>
-      <span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">findFilesOlderThanOneDay</span><span class="p">(</span><span class="nx">dir</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nx">files</span><span class="w"> </span><span class="p">[]</span><span class="nx">os</span><span class="p">.</span><span class="nx">FileInfo</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nx">tmpfiles</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">ioutil</span><span class="p">.</span><span class="nx">ReadDir</span><span class="p">(</span><span class="nx">dir</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="k">return</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
 
-      <span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">file</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">tmpfiles</span> <span class="p">{</span>
-              <span class="k">if</span> <span class="nx">file</span><span class="p">.</span><span class="nx">Mode</span><span class="p">().</span><span class="nx">IsRegular</span><span class="p">()</span> <span class="p">{</span>
-                      <span class="k">if</span> <span class="nx">isOlderThanOneDay</span><span class="p">(</span><span class="nx">file</span><span class="p">.</span><span class="nx">ModTime</span><span class="p">())</span> <span class="p">{</span>
-                              <span class="nx">files</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">files</span><span class="p">,</span> <span class="nx">file</span><span class="p">)</span>
-                      <span class="p">}</span>
-              <span class="p">}</span>
-      <span class="p">}</span>
-      <span class="k">return</span>
-<span class="p">}</span>
+<span class="w">      </span><span class="k">for</span><span class="w"> </span><span class="nx">_</span><span class="p">,</span><span class="w"> </span><span class="nx">file</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="nx">tmpfiles</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="k">if</span><span class="w"> </span><span class="nx">file</span><span class="p">.</span><span class="nx">Mode</span><span class="p">().</span><span class="nx">IsRegular</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                      </span><span class="k">if</span><span class="w"> </span><span class="nx">isOlderThanOneDay</span><span class="p">(</span><span class="nx">file</span><span class="p">.</span><span class="nx">ModTime</span><span class="p">())</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                              </span><span class="nx">files</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">append</span><span class="p">(</span><span class="nx">files</span><span class="p">,</span><span class="w"> </span><span class="nx">file</span><span class="p">)</span><span class="w"></span>
+<span class="w">                      </span><span class="p">}</span><span class="w"></span>
+<span class="w">              </span><span class="p">}</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
+<span class="w">      </span><span class="k">return</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 
 <hr class="docutils" />

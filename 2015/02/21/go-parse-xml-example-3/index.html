@@ -96,31 +96,31 @@ struct</em> to the <em>div</em> struct.</p>
 <span class="normal">22</span>
 <span class="normal">23</span>
 <span class="normal">24</span>
-<span class="normal">25</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
+<span class="normal">25</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w"></span>
 
-<span class="kn">import</span> <span class="p">(</span>
-	<span class="s">&quot;io/ioutil&quot;</span>
-	<span class="s">&quot;encoding/xml&quot;</span>
-	<span class="s">&quot;fmt&quot;</span>
-<span class="p">)</span>
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">	</span><span class="s">&quot;io/ioutil&quot;</span><span class="w"></span>
+<span class="w">	</span><span class="s">&quot;encoding/xml&quot;</span><span class="w"></span>
+<span class="w">	</span><span class="s">&quot;fmt&quot;</span><span class="w"></span>
+<span class="p">)</span><span class="w"></span>
 
-<span class="kd">type</span> <span class="nx">div</span> <span class="kd">struct</span> <span class="p">{</span>
-	<span class="nx">XMLName</span>		<span class="nx">xml</span><span class="p">.</span><span class="nx">Name</span>	<span class="s">`xml:&quot;div&quot;`</span>
-	<span class="nx">ChildSpan</span>	<span class="nx">span</span>
-<span class="p">}</span>
+<span class="kd">type</span><span class="w"> </span><span class="nx">div</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">	</span><span class="nx">XMLName</span><span class="w">		</span><span class="nx">xml</span><span class="p">.</span><span class="nx">Name</span><span class="w">	</span><span class="s">`xml:&quot;div&quot;`</span><span class="w"></span>
+<span class="w">	</span><span class="nx">ChildSpan</span><span class="w">	</span><span class="nx">span</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">type</span> <span class="nx">span</span> <span class="kd">struct</span> <span class="p">{</span>
-	<span class="nx">XMLName</span>		<span class="nx">xml</span><span class="p">.</span><span class="nx">Name</span>	<span class="s">`xml:&quot;span&quot;`</span>
-	<span class="nx">Text</span>		<span class="kt">string</span>		<span class="s">`xml:&quot;,chardata&quot;`</span>
-<span class="p">}</span>
+<span class="kd">type</span><span class="w"> </span><span class="nx">span</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">	</span><span class="nx">XMLName</span><span class="w">		</span><span class="nx">xml</span><span class="p">.</span><span class="nx">Name</span><span class="w">	</span><span class="s">`xml:&quot;span&quot;`</span><span class="w"></span>
+<span class="w">	</span><span class="nx">Text</span><span class="w">		</span><span class="kt">string</span><span class="w">		</span><span class="s">`xml:&quot;,chardata&quot;`</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
-	<span class="nx">d</span> <span class="o">:=</span> <span class="nx">div</span><span class="p">{}</span>
-	<span class="nx">xmlContent</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">ioutil</span><span class="p">.</span><span class="nx">ReadFile</span><span class="p">(</span><span class="s">&quot;example-3.xml&quot;</span><span class="p">)</span>
-	<span class="nx">err</span> <span class="o">:=</span> <span class="nx">xml</span><span class="p">.</span><span class="nx">Unmarshal</span><span class="p">(</span><span class="nx">xmlContent</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">d</span><span class="p">)</span>
-	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span> <span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">}</span>
-	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;ChildSpan:&quot;</span><span class="p">,</span> <span class="nx">d</span><span class="p">.</span><span class="nx">ChildSpan</span><span class="p">)</span>
-<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">	</span><span class="nx">d</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">div</span><span class="p">{}</span><span class="w"></span>
+<span class="w">	</span><span class="nx">xmlContent</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">ioutil</span><span class="p">.</span><span class="nx">ReadFile</span><span class="p">(</span><span class="s">&quot;example-3.xml&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">xml</span><span class="p">.</span><span class="nx">Unmarshal</span><span class="p">(</span><span class="nx">xmlContent</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">d</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
+<span class="w">	</span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;ChildSpan:&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">d</span><span class="p">.</span><span class="nx">ChildSpan</span><span class="p">)</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </td></tr></table></div></figure>
 <p>The output result:</p>

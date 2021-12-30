@@ -56,47 +56,47 @@
     <div class="main-content"><p>Remove HTML inline style, i.e., remove <em>style</em> attribute from HTML node via Go
 <a class="reference external" href="https://godoc.org/golang.org/x/net/html">net/html</a> package.</p>
 <p class="align-center rubric"><a class="reference external" href="https://play.golang.org/p/ZYivPISjA3J">Run Code on Go Playground</a></p>
-<div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
+<div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w"></span>
 
-<span class="kn">import</span> <span class="p">(</span>
-      <span class="s">&quot;golang.org/x/net/html&quot;</span>
-      <span class="s">&quot;os&quot;</span>
-      <span class="s">&quot;strings&quot;</span>
-<span class="p">)</span>
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">      </span><span class="s">&quot;golang.org/x/net/html&quot;</span><span class="w"></span>
+<span class="w">      </span><span class="s">&quot;os&quot;</span><span class="w"></span>
+<span class="w">      </span><span class="s">&quot;strings&quot;</span><span class="w"></span>
+<span class="p">)</span><span class="w"></span>
 
-<span class="kd">var</span> <span class="nx">testhtml</span> <span class="p">=</span> <span class="s">`</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">testhtml</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">`</span>
 <span class="s">&lt;table style=&quot;s1&quot;&gt;</span>
 <span class="s">  &lt;tr&gt;&lt;td id=&quot;foo&quot; style=&quot;s2&quot;&gt;R1, C1&lt;/td&gt;&lt;td&gt;R1, C2&lt;/td&gt;&lt;/tr&gt;</span>
 <span class="s">  &lt;tr&gt;&lt;td alt=&quot;hi&quot;&gt;R2, C1&lt;/td&gt;&lt;td style=&quot;s3&quot;&gt;R2, C2&lt;/td&gt;&lt;/tr&gt;</span>
-<span class="s">&lt;/table&gt;`</span>
+<span class="s">&lt;/table&gt;`</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">RemoveStyleAttr</span><span class="p">(</span><span class="nx">n</span> <span class="o">*</span><span class="nx">html</span><span class="p">.</span><span class="nx">Node</span><span class="p">)</span> <span class="p">{</span>
-      <span class="nx">i</span> <span class="o">:=</span> <span class="o">-</span><span class="mi">1</span>
-      <span class="k">for</span> <span class="nx">index</span><span class="p">,</span> <span class="nx">attr</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">n</span><span class="p">.</span><span class="nx">Attr</span> <span class="p">{</span>
-              <span class="k">if</span> <span class="nx">attr</span><span class="p">.</span><span class="nx">Key</span> <span class="o">==</span> <span class="s">&quot;style&quot;</span> <span class="p">{</span>
-                      <span class="nx">i</span> <span class="p">=</span> <span class="nx">index</span>
-                      <span class="k">break</span>
-              <span class="p">}</span>
-      <span class="p">}</span>
-      <span class="k">if</span> <span class="nx">i</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span> <span class="p">{</span>
-              <span class="nx">n</span><span class="p">.</span><span class="nx">Attr</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">n</span><span class="p">.</span><span class="nx">Attr</span><span class="p">[:</span><span class="nx">i</span><span class="p">],</span> <span class="nx">n</span><span class="p">.</span><span class="nx">Attr</span><span class="p">[</span><span class="nx">i</span><span class="o">+</span><span class="mi">1</span><span class="p">:]</span><span class="o">...</span><span class="p">)</span>
-      <span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">RemoveStyleAttr</span><span class="p">(</span><span class="nx">n</span><span class="w"> </span><span class="o">*</span><span class="nx">html</span><span class="p">.</span><span class="nx">Node</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nx">i</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="w"></span>
+<span class="w">      </span><span class="k">for</span><span class="w"> </span><span class="nx">index</span><span class="p">,</span><span class="w"> </span><span class="nx">attr</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="nx">n</span><span class="p">.</span><span class="nx">Attr</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="k">if</span><span class="w"> </span><span class="nx">attr</span><span class="p">.</span><span class="nx">Key</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s">&quot;style&quot;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                      </span><span class="nx">i</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">index</span><span class="w"></span>
+<span class="w">                      </span><span class="k">break</span><span class="w"></span>
+<span class="w">              </span><span class="p">}</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="nx">n</span><span class="p">.</span><span class="nx">Attr</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">append</span><span class="p">(</span><span class="nx">n</span><span class="p">.</span><span class="nx">Attr</span><span class="p">[:</span><span class="nx">i</span><span class="p">],</span><span class="w"> </span><span class="nx">n</span><span class="p">.</span><span class="nx">Attr</span><span class="p">[</span><span class="nx">i</span><span class="o">+</span><span class="mi">1</span><span class="p">:]</span><span class="o">...</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
 
-      <span class="k">for</span> <span class="nx">c</span> <span class="o">:=</span> <span class="nx">n</span><span class="p">.</span><span class="nx">FirstChild</span><span class="p">;</span> <span class="nx">c</span> <span class="o">!=</span> <span class="kc">nil</span><span class="p">;</span> <span class="nx">c</span> <span class="p">=</span> <span class="nx">c</span><span class="p">.</span><span class="nx">NextSibling</span> <span class="p">{</span>
-              <span class="nx">RemoveStyleAttr</span><span class="p">(</span><span class="nx">c</span><span class="p">)</span>
-      <span class="p">}</span>
-<span class="p">}</span>
+<span class="w">      </span><span class="k">for</span><span class="w"> </span><span class="nx">c</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">n</span><span class="p">.</span><span class="nx">FirstChild</span><span class="p">;</span><span class="w"> </span><span class="nx">c</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="p">;</span><span class="w"> </span><span class="nx">c</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">c</span><span class="p">.</span><span class="nx">NextSibling</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="nx">RemoveStyleAttr</span><span class="p">(</span><span class="nx">c</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
-      <span class="nx">doc</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">html</span><span class="p">.</span><span class="nx">Parse</span><span class="p">(</span><span class="nx">strings</span><span class="p">.</span><span class="nx">NewReader</span><span class="p">(</span><span class="nx">testhtml</span><span class="p">))</span>
-      <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-              <span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
-      <span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nx">doc</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">html</span><span class="p">.</span><span class="nx">Parse</span><span class="p">(</span><span class="nx">strings</span><span class="p">.</span><span class="nx">NewReader</span><span class="p">(</span><span class="nx">testhtml</span><span class="p">))</span><span class="w"></span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
 
-      <span class="nx">RemoveStyleAttr</span><span class="p">(</span><span class="nx">doc</span><span class="p">)</span>
+<span class="w">      </span><span class="nx">RemoveStyleAttr</span><span class="p">(</span><span class="nx">doc</span><span class="p">)</span><span class="w"></span>
 
-      <span class="nx">html</span><span class="p">.</span><span class="nx">Render</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">Stdout</span><span class="p">,</span> <span class="nx">doc</span><span class="p">)</span>
-<span class="p">}</span>
+<span class="w">      </span><span class="nx">html</span><span class="p">.</span><span class="nx">Render</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">Stdout</span><span class="p">,</span><span class="w"> </span><span class="nx">doc</span><span class="p">)</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 
 <hr class="docutils" />

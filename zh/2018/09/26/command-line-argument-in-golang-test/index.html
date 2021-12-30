@@ -58,18 +58,18 @@
 <p>在Google搜尋 <a class="footnote-reference" href="#footnote-1" id="footnote-reference-1">[1]</a> 以及 Stack Overflow <a class="footnote-reference" href="#footnote-2" id="footnote-reference-2">[2]</a> 裡找到的答案無法在 <tt class="docutils literal">Go 1.8.1</tt> 使用。
 最後我發現這個問題 <a class="footnote-reference" href="#footnote-3" id="footnote-reference-3">[3]</a> 並搞清楚該如何正確地傳入參數。下面就是解答。</p>
 <p>在Golang測試程式碼：</p>
-<div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">goef</span>
+<div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">goef</span><span class="w"></span>
 
-<span class="kn">import</span> <span class="p">(</span>
-      <span class="s">&quot;flag&quot;</span>
-      <span class="s">&quot;testing&quot;</span>
-<span class="p">)</span>
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">      </span><span class="s">&quot;flag&quot;</span><span class="w"></span>
+<span class="w">      </span><span class="s">&quot;testing&quot;</span><span class="w"></span>
+<span class="p">)</span><span class="w"></span>
 
-<span class="kd">var</span> <span class="nx">pkgdir</span> <span class="p">=</span> <span class="nx">flag</span><span class="p">.</span><span class="nx">String</span><span class="p">(</span><span class="s">&quot;pkgdir&quot;</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">,</span> <span class="s">&quot;dir of package containing embedded files&quot;</span><span class="p">)</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">pkgdir</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">flag</span><span class="p">.</span><span class="nx">String</span><span class="p">(</span><span class="s">&quot;pkgdir&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;dir of package containing embedded files&quot;</span><span class="p">)</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">TestGenerateGoPackage</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span> <span class="p">{</span>
-      <span class="nx">t</span><span class="p">.</span><span class="nx">Log</span><span class="p">(</span><span class="o">*</span><span class="nx">pkgdir</span><span class="p">)</span>
-<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">TestGenerateGoPackage</span><span class="p">(</span><span class="nx">t</span><span class="w"> </span><span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nx">t</span><span class="p">.</span><span class="nx">Log</span><span class="p">(</span><span class="o">*</span><span class="nx">pkgdir</span><span class="p">)</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 <p>注意！你並不需要在測試程式碼裡呼叫 <a class="reference external" href="https://golang.org/pkg/flag/#Parse">flag.Parse()</a> 。</p>
 <p>你可以以如下的方法傳入命令行參數：</p>
@@ -82,16 +82,16 @@ $ go <span class="nb">test</span> -v embed.go buildpkg.go buildpkg_test.go -args
 <p><strong>附錄</strong></p>
 <p>你也可以透過 <a class="reference external" href="https://www.google.com/search?q=environment+variable">environment variable</a> 來在Golang測試裡傳參數。</p>
 <p>在Golang測試碼：</p>
-<div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">goef</span>
+<div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">goef</span><span class="w"></span>
 
-<span class="kn">import</span> <span class="p">(</span>
-      <span class="s">&quot;os&quot;</span>
-      <span class="s">&quot;testing&quot;</span>
-<span class="p">)</span>
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">      </span><span class="s">&quot;os&quot;</span><span class="w"></span>
+<span class="w">      </span><span class="s">&quot;testing&quot;</span><span class="w"></span>
+<span class="p">)</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">TestGenerateGoPackage</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span> <span class="p">{</span>
-      <span class="nx">t</span><span class="p">.</span><span class="nx">Log</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">Getenv</span><span class="p">(</span><span class="s">&quot;PKGDIR&quot;</span><span class="p">))</span>
-<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">TestGenerateGoPackage</span><span class="p">(</span><span class="nx">t</span><span class="w"> </span><span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nx">t</span><span class="p">.</span><span class="nx">Log</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">Getenv</span><span class="p">(</span><span class="s">&quot;PKGDIR&quot;</span><span class="p">))</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 <p>可以以如下的方式傳參數：</p>
 <div class="highlight"><pre><span></span>$ <span class="nb">export</span> <span class="nv">PKGDIR</span><span class="o">=</span><span class="si">${</span><span class="nv">GOPATH</span><span class="si">}</span>/src/github.com/siongui/myvfs

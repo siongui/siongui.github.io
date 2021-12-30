@@ -55,48 +55,48 @@
 
     <div class="main-content"><p>Example of sending HTTP request with <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies">cookies</a> via Go standard <a class="reference external" href="https://golang.org/pkg/net/http/">net/http</a>
 package.</p>
-<div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
+<div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w"></span>
 
-<span class="kn">import</span> <span class="p">(</span>
-      <span class="s">&quot;errors&quot;</span>
-      <span class="s">&quot;io/ioutil&quot;</span>
-      <span class="s">&quot;net/http&quot;</span>
-      <span class="s">&quot;strconv&quot;</span>
-<span class="p">)</span>
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">      </span><span class="s">&quot;errors&quot;</span><span class="w"></span>
+<span class="w">      </span><span class="s">&quot;io/ioutil&quot;</span><span class="w"></span>
+<span class="w">      </span><span class="s">&quot;net/http&quot;</span><span class="w"></span>
+<span class="w">      </span><span class="s">&quot;strconv&quot;</span><span class="w"></span>
+<span class="p">)</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">HTTPwithCookies</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span> <span class="nx">ds_user_id</span><span class="p">,</span> <span class="nx">sessionid</span><span class="p">,</span> <span class="nx">csrftoken</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="nx">b</span> <span class="p">[]</span><span class="kt">byte</span><span class="p">,</span> <span class="nx">err</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
-      <span class="nx">req</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">http</span><span class="p">.</span><span class="nx">NewRequest</span><span class="p">(</span><span class="s">&quot;GET&quot;</span><span class="p">,</span> <span class="nx">url</span><span class="p">,</span> <span class="kc">nil</span><span class="p">)</span>
-      <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-              <span class="k">return</span>
-      <span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">HTTPwithCookies</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span><span class="w"> </span><span class="nx">ds_user_id</span><span class="p">,</span><span class="w"> </span><span class="nx">sessionid</span><span class="p">,</span><span class="w"> </span><span class="nx">csrftoken</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nx">b</span><span class="w"> </span><span class="p">[]</span><span class="kt">byte</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nx">req</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">http</span><span class="p">.</span><span class="nx">NewRequest</span><span class="p">(</span><span class="s">&quot;GET&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">url</span><span class="p">,</span><span class="w"> </span><span class="kc">nil</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="k">return</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
 
-      <span class="nx">req</span><span class="p">.</span><span class="nx">AddCookie</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">http</span><span class="p">.</span><span class="nx">Cookie</span><span class="p">{</span><span class="nx">Name</span><span class="p">:</span> <span class="s">&quot;ds_user_id&quot;</span><span class="p">,</span> <span class="nx">Value</span><span class="p">:</span> <span class="nx">ds_user_id</span><span class="p">})</span>
-      <span class="nx">req</span><span class="p">.</span><span class="nx">AddCookie</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">http</span><span class="p">.</span><span class="nx">Cookie</span><span class="p">{</span><span class="nx">Name</span><span class="p">:</span> <span class="s">&quot;sessionid&quot;</span><span class="p">,</span> <span class="nx">Value</span><span class="p">:</span> <span class="nx">sessionid</span><span class="p">})</span>
-      <span class="nx">req</span><span class="p">.</span><span class="nx">AddCookie</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">http</span><span class="p">.</span><span class="nx">Cookie</span><span class="p">{</span><span class="nx">Name</span><span class="p">:</span> <span class="s">&quot;csrftoken&quot;</span><span class="p">,</span> <span class="nx">Value</span><span class="p">:</span> <span class="nx">csrftoken</span><span class="p">})</span>
+<span class="w">      </span><span class="nx">req</span><span class="p">.</span><span class="nx">AddCookie</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">http</span><span class="p">.</span><span class="nx">Cookie</span><span class="p">{</span><span class="nx">Name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ds_user_id&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">Value</span><span class="p">:</span><span class="w"> </span><span class="nx">ds_user_id</span><span class="p">})</span><span class="w"></span>
+<span class="w">      </span><span class="nx">req</span><span class="p">.</span><span class="nx">AddCookie</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">http</span><span class="p">.</span><span class="nx">Cookie</span><span class="p">{</span><span class="nx">Name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;sessionid&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">Value</span><span class="p">:</span><span class="w"> </span><span class="nx">sessionid</span><span class="p">})</span><span class="w"></span>
+<span class="w">      </span><span class="nx">req</span><span class="p">.</span><span class="nx">AddCookie</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">http</span><span class="p">.</span><span class="nx">Cookie</span><span class="p">{</span><span class="nx">Name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;csrftoken&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">Value</span><span class="p">:</span><span class="w"> </span><span class="nx">csrftoken</span><span class="p">})</span><span class="w"></span>
 
-      <span class="nx">client</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">http</span><span class="p">.</span><span class="nx">Client</span><span class="p">{}</span>
-      <span class="nx">resp</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">client</span><span class="p">.</span><span class="nx">Do</span><span class="p">(</span><span class="nx">req</span><span class="p">)</span>
-      <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-              <span class="k">return</span>
-      <span class="p">}</span>
-      <span class="k">defer</span> <span class="nx">resp</span><span class="p">.</span><span class="nx">Body</span><span class="p">.</span><span class="nx">Close</span><span class="p">()</span>
+<span class="w">      </span><span class="nx">client</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">http</span><span class="p">.</span><span class="nx">Client</span><span class="p">{}</span><span class="w"></span>
+<span class="w">      </span><span class="nx">resp</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">client</span><span class="p">.</span><span class="nx">Do</span><span class="p">(</span><span class="nx">req</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="k">return</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
+<span class="w">      </span><span class="k">defer</span><span class="w"> </span><span class="nx">resp</span><span class="p">.</span><span class="nx">Body</span><span class="p">.</span><span class="nx">Close</span><span class="p">()</span><span class="w"></span>
 
-      <span class="k">if</span> <span class="nx">resp</span><span class="p">.</span><span class="nx">StatusCode</span> <span class="o">!=</span> <span class="mi">200</span> <span class="p">{</span>
-              <span class="nx">err</span> <span class="p">=</span> <span class="nx">errors</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="nx">url</span> <span class="o">+</span>
-                      <span class="s">&quot;\nresp.StatusCode: &quot;</span> <span class="o">+</span> <span class="nx">strconv</span><span class="p">.</span><span class="nx">Itoa</span><span class="p">(</span><span class="nx">resp</span><span class="p">.</span><span class="nx">StatusCode</span><span class="p">))</span>
-              <span class="k">return</span>
-      <span class="p">}</span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="nx">resp</span><span class="p">.</span><span class="nx">StatusCode</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">200</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="nx">err</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">errors</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="nx">url</span><span class="w"> </span><span class="o">+</span><span class="w"></span>
+<span class="w">                      </span><span class="s">&quot;\nresp.StatusCode: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">strconv</span><span class="p">.</span><span class="nx">Itoa</span><span class="p">(</span><span class="nx">resp</span><span class="p">.</span><span class="nx">StatusCode</span><span class="p">))</span><span class="w"></span>
+<span class="w">              </span><span class="k">return</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
 
-      <span class="k">return</span> <span class="nx">ioutil</span><span class="p">.</span><span class="nx">ReadAll</span><span class="p">(</span><span class="nx">resp</span><span class="p">.</span><span class="nx">Body</span><span class="p">)</span>
-<span class="p">}</span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="nx">ioutil</span><span class="p">.</span><span class="nx">ReadAll</span><span class="p">(</span><span class="nx">resp</span><span class="p">.</span><span class="nx">Body</span><span class="p">)</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
-      <span class="nx">b</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">HTTPwithCookies</span><span class="p">(</span><span class="s">&quot;https://www.instagram.com/&quot;</span><span class="p">,</span> <span class="s">&quot;my_id&quot;</span><span class="p">,</span> <span class="s">&quot;my_sessionid&quot;</span><span class="p">,</span> <span class="s">&quot;my_csrftoken&quot;</span><span class="p">)</span>
-      <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-              <span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
-      <span class="p">}</span>
-      <span class="nb">println</span><span class="p">(</span><span class="nb">string</span><span class="p">(</span><span class="nx">b</span><span class="p">))</span>
-<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nx">b</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">HTTPwithCookies</span><span class="p">(</span><span class="s">&quot;https://www.instagram.com/&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;my_id&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;my_sessionid&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;my_csrftoken&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
+<span class="w">      </span><span class="nb">println</span><span class="p">(</span><span class="nb">string</span><span class="p">(</span><span class="nx">b</span><span class="p">))</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 <p>If you want to know how to send HTTP request with headers, for example,
 <em>User-Agent</em> header, please see <a class="footnote-reference" href="#footnote-1" id="footnote-reference-1">[1]</a>.</p>

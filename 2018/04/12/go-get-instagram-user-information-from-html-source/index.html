@@ -58,71 +58,71 @@ accidentally found that the some user information is embedded in the
 <em>window._sharedData</em> variable in <em>script</em> tag. The user information is stored in
 JSON format, so I wrote a small program to retrieve the information from the
 HTML source. The following is complete source code:</p>
-<div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
+<div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w"></span>
 
-<span class="kn">import</span> <span class="p">(</span>
-      <span class="s">&quot;encoding/json&quot;</span>
-      <span class="s">&quot;fmt&quot;</span>
-      <span class="s">&quot;io/ioutil&quot;</span>
-      <span class="s">&quot;net/http&quot;</span>
-      <span class="s">&quot;regexp&quot;</span>
-      <span class="s">&quot;strings&quot;</span>
-<span class="p">)</span>
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">      </span><span class="s">&quot;encoding/json&quot;</span><span class="w"></span>
+<span class="w">      </span><span class="s">&quot;fmt&quot;</span><span class="w"></span>
+<span class="w">      </span><span class="s">&quot;io/ioutil&quot;</span><span class="w"></span>
+<span class="w">      </span><span class="s">&quot;net/http&quot;</span><span class="w"></span>
+<span class="w">      </span><span class="s">&quot;regexp&quot;</span><span class="w"></span>
+<span class="w">      </span><span class="s">&quot;strings&quot;</span><span class="w"></span>
+<span class="p">)</span><span class="w"></span>
 
-<span class="kd">type</span> <span class="nx">sharedData</span> <span class="kd">struct</span> <span class="p">{</span>
-      <span class="nx">EntryData</span> <span class="kd">struct</span> <span class="p">{</span>
-              <span class="nx">ProfilePage</span> <span class="p">[]</span><span class="kd">struct</span> <span class="p">{</span>
-                      <span class="nx">GraphQL</span> <span class="kd">struct</span> <span class="p">{</span>
-                              <span class="nx">User</span> <span class="nx">IGUser</span> <span class="s">`json:&quot;user&quot;`</span>
-                      <span class="p">}</span> <span class="s">`json:&quot;graphql&quot;`</span>
-              <span class="p">}</span> <span class="s">`json:&quot;ProfilePage&quot;`</span>
-      <span class="p">}</span> <span class="s">`json:&quot;entry_data&quot;`</span>
-<span class="p">}</span>
+<span class="kd">type</span><span class="w"> </span><span class="nx">sharedData</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nx">EntryData</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="nx">ProfilePage</span><span class="w"> </span><span class="p">[]</span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                      </span><span class="nx">GraphQL</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                              </span><span class="nx">User</span><span class="w"> </span><span class="nx">IGUser</span><span class="w"> </span><span class="s">`json:&quot;user&quot;`</span><span class="w"></span>
+<span class="w">                      </span><span class="p">}</span><span class="w"> </span><span class="s">`json:&quot;graphql&quot;`</span><span class="w"></span>
+<span class="w">              </span><span class="p">}</span><span class="w"> </span><span class="s">`json:&quot;ProfilePage&quot;`</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"> </span><span class="s">`json:&quot;entry_data&quot;`</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">type</span> <span class="nx">IGUser</span> <span class="kd">struct</span> <span class="p">{</span>
-      <span class="nx">Biography</span>     <span class="kt">string</span> <span class="s">`json:&quot;biography&quot;`</span>
-      <span class="nx">Id</span>            <span class="kt">string</span> <span class="s">`json:&quot;id&quot;`</span>
-      <span class="nx">Username</span>      <span class="kt">string</span> <span class="s">`json:&quot;username&quot;`</span>
-      <span class="nx">ProfilePicUrl</span> <span class="kt">string</span> <span class="s">`json:&quot;profile_pic_url&quot;`</span>
-<span class="p">}</span>
+<span class="kd">type</span><span class="w"> </span><span class="nx">IGUser</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nx">Biography</span><span class="w">     </span><span class="kt">string</span><span class="w"> </span><span class="s">`json:&quot;biography&quot;`</span><span class="w"></span>
+<span class="w">      </span><span class="nx">Id</span><span class="w">            </span><span class="kt">string</span><span class="w"> </span><span class="s">`json:&quot;id&quot;`</span><span class="w"></span>
+<span class="w">      </span><span class="nx">Username</span><span class="w">      </span><span class="kt">string</span><span class="w"> </span><span class="s">`json:&quot;username&quot;`</span><span class="w"></span>
+<span class="w">      </span><span class="nx">ProfilePicUrl</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="s">`json:&quot;profile_pic_url&quot;`</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">getSource</span><span class="p">(</span><span class="nx">username</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="nx">b</span> <span class="p">[]</span><span class="kt">byte</span><span class="p">,</span> <span class="nx">err</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
-      <span class="nx">resp</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">http</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;https://www.instagram.com/&quot;</span> <span class="o">+</span> <span class="nx">username</span> <span class="o">+</span> <span class="s">&quot;/&quot;</span><span class="p">)</span>
-      <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-              <span class="k">return</span>
-      <span class="p">}</span>
-      <span class="k">defer</span> <span class="nx">resp</span><span class="p">.</span><span class="nx">Body</span><span class="p">.</span><span class="nx">Close</span><span class="p">()</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">getSource</span><span class="p">(</span><span class="nx">username</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nx">b</span><span class="w"> </span><span class="p">[]</span><span class="kt">byte</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nx">resp</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">http</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;https://www.instagram.com/&quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">username</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot;/&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="k">return</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
+<span class="w">      </span><span class="k">defer</span><span class="w"> </span><span class="nx">resp</span><span class="p">.</span><span class="nx">Body</span><span class="p">.</span><span class="nx">Close</span><span class="p">()</span><span class="w"></span>
 
-      <span class="k">return</span> <span class="nx">ioutil</span><span class="p">.</span><span class="nx">ReadAll</span><span class="p">(</span><span class="nx">resp</span><span class="p">.</span><span class="nx">Body</span><span class="p">)</span>
-<span class="p">}</span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="nx">ioutil</span><span class="p">.</span><span class="nx">ReadAll</span><span class="p">(</span><span class="nx">resp</span><span class="p">.</span><span class="nx">Body</span><span class="p">)</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">getJsonStr</span><span class="p">(</span><span class="nx">b</span> <span class="p">[]</span><span class="kt">byte</span><span class="p">)</span> <span class="kt">string</span> <span class="p">{</span>
-      <span class="nx">pattern</span> <span class="o">:=</span> <span class="nx">regexp</span><span class="p">.</span><span class="nx">MustCompile</span><span class="p">(</span><span class="s">`&lt;script type=&quot;text\/javascript&quot;&gt;window\._sharedData = (.*?);&lt;\/script&gt;`</span><span class="p">)</span>
-      <span class="nx">m</span> <span class="o">:=</span> <span class="nb">string</span><span class="p">(</span><span class="nx">pattern</span><span class="p">.</span><span class="nx">Find</span><span class="p">(</span><span class="nx">b</span><span class="p">))</span>
-      <span class="nx">m1</span> <span class="o">:=</span> <span class="nx">strings</span><span class="p">.</span><span class="nx">TrimPrefix</span><span class="p">(</span><span class="nx">m</span><span class="p">,</span> <span class="s">`&lt;script type=&quot;text/javascript&quot;&gt;window._sharedData = `</span><span class="p">)</span>
-      <span class="k">return</span> <span class="nx">strings</span><span class="p">.</span><span class="nx">TrimSuffix</span><span class="p">(</span><span class="nx">m1</span><span class="p">,</span> <span class="s">`;&lt;/script&gt;`</span><span class="p">)</span>
-<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">getJsonStr</span><span class="p">(</span><span class="nx">b</span><span class="w"> </span><span class="p">[]</span><span class="kt">byte</span><span class="p">)</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nx">pattern</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">regexp</span><span class="p">.</span><span class="nx">MustCompile</span><span class="p">(</span><span class="s">`&lt;script type=&quot;text\/javascript&quot;&gt;window\._sharedData = (.*?);&lt;\/script&gt;`</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="nx">m</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">string</span><span class="p">(</span><span class="nx">pattern</span><span class="p">.</span><span class="nx">Find</span><span class="p">(</span><span class="nx">b</span><span class="p">))</span><span class="w"></span>
+<span class="w">      </span><span class="nx">m1</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">strings</span><span class="p">.</span><span class="nx">TrimPrefix</span><span class="p">(</span><span class="nx">m</span><span class="p">,</span><span class="w"> </span><span class="s">`&lt;script type=&quot;text/javascript&quot;&gt;window._sharedData = `</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="nx">strings</span><span class="p">.</span><span class="nx">TrimSuffix</span><span class="p">(</span><span class="nx">m1</span><span class="p">,</span><span class="w"> </span><span class="s">`;&lt;/script&gt;`</span><span class="p">)</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">decodeJsonString</span><span class="p">(</span><span class="nx">s</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="nx">user</span> <span class="nx">IGUser</span><span class="p">,</span> <span class="nx">err</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
-      <span class="nx">d</span> <span class="o">:=</span> <span class="nx">sharedData</span><span class="p">{}</span>
-      <span class="nx">err</span> <span class="p">=</span> <span class="nx">json</span><span class="p">.</span><span class="nx">Unmarshal</span><span class="p">([]</span><span class="nb">byte</span><span class="p">(</span><span class="nx">s</span><span class="p">),</span> <span class="o">&amp;</span><span class="nx">d</span><span class="p">)</span>
-      <span class="nx">user</span> <span class="p">=</span> <span class="nx">d</span><span class="p">.</span><span class="nx">EntryData</span><span class="p">.</span><span class="nx">ProfilePage</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">GraphQL</span><span class="p">.</span><span class="nx">User</span>
-      <span class="k">return</span>
-<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">decodeJsonString</span><span class="p">(</span><span class="nx">s</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nx">user</span><span class="w"> </span><span class="nx">IGUser</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nx">d</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">sharedData</span><span class="p">{}</span><span class="w"></span>
+<span class="w">      </span><span class="nx">err</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">json</span><span class="p">.</span><span class="nx">Unmarshal</span><span class="p">([]</span><span class="nb">byte</span><span class="p">(</span><span class="nx">s</span><span class="p">),</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">d</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="nx">user</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">d</span><span class="p">.</span><span class="nx">EntryData</span><span class="p">.</span><span class="nx">ProfilePage</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">GraphQL</span><span class="p">.</span><span class="nx">User</span><span class="w"></span>
+<span class="w">      </span><span class="k">return</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
-      <span class="nx">b</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">getSource</span><span class="p">(</span><span class="s">&quot;instagram&quot;</span><span class="p">)</span>
-      <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-              <span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
-      <span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nx">b</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">getSource</span><span class="p">(</span><span class="s">&quot;instagram&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
 
-      <span class="nx">jsonStr</span> <span class="o">:=</span> <span class="nx">getJsonStr</span><span class="p">(</span><span class="nx">b</span><span class="p">)</span>
-      <span class="nx">user</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">decodeJsonString</span><span class="p">(</span><span class="nx">jsonStr</span><span class="p">)</span>
-      <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-              <span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
-      <span class="p">}</span>
-      <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">user</span><span class="p">)</span>
-<span class="p">}</span>
+<span class="w">      </span><span class="nx">jsonStr</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">getJsonStr</span><span class="p">(</span><span class="nx">b</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="nx">user</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">decodeJsonString</span><span class="p">(</span><span class="nx">jsonStr</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
+<span class="w">      </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">user</span><span class="p">)</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 <p>If you want, you can take a look at the JSON data and get more information of
 the user.</p>

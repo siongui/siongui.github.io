@@ -59,23 +59,23 @@
 <h2>Build Website</h2>
 <p>First add <tt class="docutils literal">.travis.yml</tt> <a class="footnote-reference" href="#footnote-11" id="footnote-reference-1">[11]</a> in the root of your source repo. My
 configuration is as follows:</p>
-<div class="highlight"><pre><span></span><span class="nt">language</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">python</span>
-<span class="nt">python</span><span class="p">:</span>
-<span class="p p-Indicator">-</span> <span class="s">&#39;2.7&#39;</span>
-<span class="nt">branches</span><span class="p">:</span>
-  <span class="nt">only</span><span class="p">:</span>
-  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">master</span>
-<span class="nt">addons</span><span class="p">:</span>
-  <span class="nt">apt</span><span class="p">:</span>
-    <span class="nt">packages</span><span class="p">:</span>
-    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">language-pack-en</span>
-    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">language-pack-zh-hant</span>
-    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">language-pack-th</span>
-<span class="nt">install</span><span class="p">:</span>
-<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">pip install -r requirements.txt</span>
-<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">make download</span>
-<span class="nt">script</span><span class="p">:</span>
-<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">make publish</span>
+<div class="highlight"><pre><span></span><span class="nt">language</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">python</span><span class="w"></span>
+<span class="nt">python</span><span class="p">:</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&#39;2.7&#39;</span><span class="w"></span>
+<span class="nt">branches</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">only</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">master</span><span class="w"></span>
+<span class="nt">addons</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">apt</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">packages</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">language-pack-en</span><span class="w"></span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">language-pack-zh-hant</span><span class="w"></span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">language-pack-th</span><span class="w"></span>
+<span class="nt">install</span><span class="p">:</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pip install -r requirements.txt</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">make download</span><span class="w"></span>
+<span class="nt">script</span><span class="p">:</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">make publish</span><span class="w"></span>
 </pre></div>
 <p>My website support threes languages (English, Traditional Chinese, Thai), and I
 need three locales (en_US.UTF8, zh_TW.UTF-8, th_TH.UTF-8) to build each
@@ -88,24 +88,24 @@ subsites. That's why three language-packs are installed.</p>
 a successful build. <a class="footnote-reference" href="#footnote-13" id="footnote-reference-2">[13]</a></p>
 <p>First save your <a class="reference external" href="https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/">personal access token</a> in <a class="reference external" href="https://docs.travis-ci.com/user/environment-variables#Defining-Variables-in-Repository-Settings">repository settings</a>.</p>
 <p>For User Pages, the following is sample config:</p>
-<div class="highlight"><pre><span></span><span class="nt">deploy</span><span class="p">:</span>
-  <span class="nt">provider</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">pages</span>
-  <span class="nt">repo</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">siongui/siongui.github.io</span>
-  <span class="nt">target_branch</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">master</span>
-  <span class="nt">skip_cleanup</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
-  <span class="nt">github_token</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">$GITHUB_TOKEN</span>
-  <span class="nt">local_dir</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">output</span>
-  <span class="nt">on</span><span class="p">:</span>
-    <span class="nt">branch</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">master</span>
+<div class="highlight"><pre><span></span><span class="nt">deploy</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pages</span><span class="w"></span>
+<span class="w">  </span><span class="nt">repo</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">siongui/siongui.github.io</span><span class="w"></span>
+<span class="w">  </span><span class="nt">target_branch</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">master</span><span class="w"></span>
+<span class="w">  </span><span class="nt">skip_cleanup</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
+<span class="w">  </span><span class="nt">github_token</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">$GITHUB_TOKEN</span><span class="w"></span>
+<span class="w">  </span><span class="nt">local_dir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">output</span><span class="w"></span>
+<span class="w">  </span><span class="nt">on</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">branch</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">master</span><span class="w"></span>
 </pre></div>
 <p>For Project Pages, the following is sample config:</p>
-<div class="highlight"><pre><span></span><span class="nt">deploy</span><span class="p">:</span>
-  <span class="nt">provider</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">pages</span>
-  <span class="nt">skip_cleanup</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
-  <span class="nt">github_token</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">$GITHUB_TOKEN</span>
-  <span class="nt">local_dir</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">output</span>
-  <span class="nt">on</span><span class="p">:</span>
-    <span class="nt">branch</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">master</span>
+<div class="highlight"><pre><span></span><span class="nt">deploy</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pages</span><span class="w"></span>
+<span class="w">  </span><span class="nt">skip_cleanup</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
+<span class="w">  </span><span class="nt">github_token</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">$GITHUB_TOKEN</span><span class="w"></span>
+<span class="w">  </span><span class="nt">local_dir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">output</span><span class="w"></span>
+<span class="w">  </span><span class="nt">on</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">branch</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">master</span><span class="w"></span>
 </pre></div>
 <hr class="docutils" />
 <p>References:</p>

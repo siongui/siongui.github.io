@@ -59,38 +59,38 @@ characters to <a class="reference external" href="https://www.google.com/search?
 <li><p class="first">error message: <tt class="docutils literal">wkhtmltopdf: cannot connect to X server</tt></p>
 <p>The solution comes from <a class="reference external" href="http://stackoverflow.com/a/34947479">this answer on Stack Overflow</a>.
 Add the following lines in your <tt class="docutils literal">.travis.yml</tt></p>
-<div class="highlight"><pre><span></span><span class="nt">sudo</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">required</span>
-<span class="nt">dist</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">trusty</span>
-<span class="nt">before_install</span><span class="p">:</span>
-<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">sudo apt-get -qq update</span>
-<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">sudo apt-get install -y xfonts-75dpi</span>
-<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">wget http://download.gna.org/wkhtmltopdf/0.12/0.12.2/wkhtmltox-0.12.2_linux-trusty-amd64.deb</span>
-<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">sudo dpkg -i wkhtmltox-0.12.2_linux-trusty-amd64.deb</span>
+<div class="highlight"><pre><span></span><span class="nt">sudo</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">required</span><span class="w"></span>
+<span class="nt">dist</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">trusty</span><span class="w"></span>
+<span class="nt">before_install</span><span class="p">:</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sudo apt-get -qq update</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sudo apt-get install -y xfonts-75dpi</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">wget http://download.gna.org/wkhtmltopdf/0.12/0.12.2/wkhtmltox-0.12.2_linux-trusty-amd64.deb</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sudo dpkg -i wkhtmltox-0.12.2_linux-trusty-amd64.deb</span><span class="w"></span>
 </pre></div>
 </li>
 <li><p class="first">wkhtmltopdf Chinese character support</p>
 <p>The solution comes from <a class="reference external" href="https://cnedelcu.blogspot.com/2015/04/wkhtmltopdf-chinese-character-support.html">this blog post</a>.
 Add the following lines in your <tt class="docutils literal">.travis.yml</tt></p>
-<div class="highlight"><pre><span></span><span class="nt">before_install</span><span class="p">:</span>
-<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">sudo apt-get install -y language-pack-zh-hant fonts-wqy-microhei ttf-wqy-microhei fonts-wqy-zenhei ttf-wqy-zenhei</span>
-<span class="nt">install</span><span class="p">:</span>
-<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">fc-cache -f -v</span>
+<div class="highlight"><pre><span></span><span class="nt">before_install</span><span class="p">:</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sudo apt-get install -y language-pack-zh-hant fonts-wqy-microhei ttf-wqy-microhei fonts-wqy-zenhei ttf-wqy-zenhei</span><span class="w"></span>
+<span class="nt">install</span><span class="p">:</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fc-cache -f -v</span><span class="w"></span>
 </pre></div>
 </li>
 </ol>
 
 <p>Combine the above two solution together, your final <tt class="docutils literal">.travis.yml</tt> will looks
 like:</p>
-<div class="highlight"><pre><span></span><span class="nt">sudo</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">required</span>
-<span class="nt">dist</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">trusty</span>
-<span class="nt">before_install</span><span class="p">:</span>
-<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">sudo apt-get -qq update</span>
-<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">sudo apt-get install -y language-pack-zh-hant fonts-wqy-microhei ttf-wqy-microhei fonts-wqy-zenhei ttf-wqy-zenhei</span>
-<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">sudo apt-get install -y xfonts-75dpi</span>
-<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">wget http://download.gna.org/wkhtmltopdf/0.12/0.12.2/wkhtmltox-0.12.2_linux-trusty-amd64.deb</span>
-<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">sudo dpkg -i wkhtmltox-0.12.2_linux-trusty-amd64.deb</span>
-<span class="nt">install</span><span class="p">:</span>
-<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">fc-cache -f -v</span>
+<div class="highlight"><pre><span></span><span class="nt">sudo</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">required</span><span class="w"></span>
+<span class="nt">dist</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">trusty</span><span class="w"></span>
+<span class="nt">before_install</span><span class="p">:</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sudo apt-get -qq update</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sudo apt-get install -y language-pack-zh-hant fonts-wqy-microhei ttf-wqy-microhei fonts-wqy-zenhei ttf-wqy-zenhei</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sudo apt-get install -y xfonts-75dpi</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">wget http://download.gna.org/wkhtmltopdf/0.12/0.12.2/wkhtmltox-0.12.2_linux-trusty-amd64.deb</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sudo dpkg -i wkhtmltox-0.12.2_linux-trusty-amd64.deb</span><span class="w"></span>
+<span class="nt">install</span><span class="p">:</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fc-cache -f -v</span><span class="w"></span>
 </pre></div>
 <hr class="docutils" />
 <p>Example <a class="reference external" href="https://www.google.com/search?q=Bash">Bash</a> script to run <a class="reference external" href="http://wkhtmltopdf.org/">wkhtmltopdf</a>:</p>

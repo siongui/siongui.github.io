@@ -68,75 +68,75 @@ using GopherJS.</p>
 local program. This is the power of GopherJS, which compiles almost all local
 Go sources without I/O to JavaScript, and makes your code shareable both on
 frontend and backend.</p>
-<div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
+<div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w"></span>
 
-<span class="kn">import</span> <span class="p">(</span>
-      <span class="s">&quot;errors&quot;</span>
-<span class="p">)</span>
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">      </span><span class="s">&quot;errors&quot;</span><span class="w"></span>
+<span class="p">)</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">IsPrime</span><span class="p">(</span><span class="nx">n</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">bool</span> <span class="p">{</span>
-      <span class="k">if</span> <span class="nx">n</span> <span class="p">&lt;</span> <span class="mi">2</span> <span class="p">{</span>
-              <span class="k">return</span> <span class="kc">false</span>
-      <span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">IsPrime</span><span class="p">(</span><span class="nx">n</span><span class="w"> </span><span class="kt">int</span><span class="p">)</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="nx">n</span><span class="w"> </span><span class="p">&lt;</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="k">return</span><span class="w"> </span><span class="kc">false</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
 
-      <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">2</span><span class="p">;</span> <span class="nx">i</span><span class="o">*</span><span class="nx">i</span> <span class="o">&lt;=</span> <span class="nx">n</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
-              <span class="k">if</span> <span class="nx">n</span><span class="o">%</span><span class="nx">i</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
-                      <span class="k">return</span> <span class="kc">false</span>
-              <span class="p">}</span>
-      <span class="p">}</span>
-      <span class="k">return</span> <span class="kc">true</span>
-<span class="p">}</span>
+<span class="w">      </span><span class="k">for</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="o">*</span><span class="nx">i</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="nx">n</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="o">++</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="k">if</span><span class="w"> </span><span class="nx">n</span><span class="o">%</span><span class="nx">i</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                      </span><span class="k">return</span><span class="w"> </span><span class="kc">false</span><span class="w"></span>
+<span class="w">              </span><span class="p">}</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="kc">true</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">Lemoine</span><span class="p">(</span><span class="nx">n</span> <span class="kt">int</span><span class="p">)</span> <span class="p">(</span><span class="kd">map</span><span class="p">[</span><span class="kt">int</span><span class="p">]</span><span class="kt">int</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
-      <span class="k">if</span> <span class="nx">n</span> <span class="o">&lt;=</span> <span class="mi">5</span> <span class="o">||</span> <span class="nx">n</span><span class="o">%</span><span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
-              <span class="k">return</span> <span class="kc">nil</span><span class="p">,</span> <span class="nx">errors</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="s">&quot;n must be greater than 5 and must be odd&quot;</span><span class="p">)</span>
-      <span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">Lemoine</span><span class="p">(</span><span class="nx">n</span><span class="w"> </span><span class="kt">int</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="kd">map</span><span class="p">[</span><span class="kt">int</span><span class="p">]</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="nx">n</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nx">n</span><span class="o">%</span><span class="mi">2</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="k">return</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span><span class="w"> </span><span class="nx">errors</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="s">&quot;n must be greater than 5 and must be odd&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
 
-      <span class="nx">m</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">map</span><span class="p">[</span><span class="kt">int</span><span class="p">]</span><span class="kt">int</span><span class="p">)</span>
+<span class="w">      </span><span class="nx">m</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">make</span><span class="p">(</span><span class="kd">map</span><span class="p">[</span><span class="kt">int</span><span class="p">]</span><span class="kt">int</span><span class="p">)</span><span class="w"></span>
 
-      <span class="k">for</span> <span class="nx">q</span> <span class="o">:=</span> <span class="mi">1</span><span class="p">;</span> <span class="nx">q</span> <span class="o">&lt;=</span> <span class="nx">n</span><span class="o">/</span><span class="mi">2</span><span class="p">;</span> <span class="nx">q</span><span class="o">++</span> <span class="p">{</span>
-              <span class="nx">p</span> <span class="o">:=</span> <span class="nx">n</span> <span class="o">-</span> <span class="mi">2</span><span class="o">*</span><span class="nx">q</span>
+<span class="w">      </span><span class="k">for</span><span class="w"> </span><span class="nx">q</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="nx">q</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="nx">n</span><span class="o">/</span><span class="mi">2</span><span class="p">;</span><span class="w"> </span><span class="nx">q</span><span class="o">++</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="nx">p</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">n</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">2</span><span class="o">*</span><span class="nx">q</span><span class="w"></span>
 
-              <span class="k">if</span> <span class="nx">IsPrime</span><span class="p">(</span><span class="nx">p</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nx">IsPrime</span><span class="p">(</span><span class="nx">q</span><span class="p">)</span> <span class="p">{</span>
-                      <span class="nx">m</span><span class="p">[</span><span class="nx">p</span><span class="p">]</span> <span class="p">=</span> <span class="nx">q</span>
-              <span class="p">}</span>
-      <span class="p">}</span>
-      <span class="k">return</span> <span class="nx">m</span><span class="p">,</span> <span class="kc">nil</span>
-<span class="p">}</span>
+<span class="w">              </span><span class="k">if</span><span class="w"> </span><span class="nx">IsPrime</span><span class="p">(</span><span class="nx">p</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">IsPrime</span><span class="p">(</span><span class="nx">q</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                      </span><span class="nx">m</span><span class="p">[</span><span class="nx">p</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">q</span><span class="w"></span>
+<span class="w">              </span><span class="p">}</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="nx">m</span><span class="p">,</span><span class="w"> </span><span class="kc">nil</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 <p><strong>Go (appdom.go)</strong>: This file use <em>github.com/siongui/godom</em>. Please <em>go get</em> it
 before compiling this file.</p>
-<div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
+<div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w"></span>
 
-<span class="kn">import</span> <span class="p">(</span>
-      <span class="p">.</span> <span class="s">&quot;github.com/siongui/godom&quot;</span>
-      <span class="s">&quot;strconv&quot;</span>
-<span class="p">)</span>
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">      </span><span class="p">.</span><span class="w"> </span><span class="s">&quot;github.com/siongui/godom&quot;</span><span class="w"></span>
+<span class="w">      </span><span class="s">&quot;strconv&quot;</span><span class="w"></span>
+<span class="p">)</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
-      <span class="nx">elmn</span> <span class="o">:=</span> <span class="nx">Document</span><span class="p">.</span><span class="nx">QuerySelector</span><span class="p">(</span><span class="s">&quot;input[name=&#39;n&#39;]&quot;</span><span class="p">)</span>
-      <span class="nx">btn</span> <span class="o">:=</span> <span class="nx">Document</span><span class="p">.</span><span class="nx">QuerySelector</span><span class="p">(</span><span class="s">&quot;#getLemoine&quot;</span><span class="p">)</span>
-      <span class="nx">resultElm</span> <span class="o">:=</span> <span class="nx">Document</span><span class="p">.</span><span class="nx">QuerySelector</span><span class="p">(</span><span class="s">&quot;#result&quot;</span><span class="p">)</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nx">elmn</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">Document</span><span class="p">.</span><span class="nx">QuerySelector</span><span class="p">(</span><span class="s">&quot;input[name=&#39;n&#39;]&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="nx">btn</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">Document</span><span class="p">.</span><span class="nx">QuerySelector</span><span class="p">(</span><span class="s">&quot;#getLemoine&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="nx">resultElm</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">Document</span><span class="p">.</span><span class="nx">QuerySelector</span><span class="p">(</span><span class="s">&quot;#result&quot;</span><span class="p">)</span><span class="w"></span>
 
-      <span class="nx">btn</span><span class="p">.</span><span class="nx">AddEventListener</span><span class="p">(</span><span class="s">&quot;click&quot;</span><span class="p">,</span> <span class="kd">func</span><span class="p">(</span><span class="nx">e</span> <span class="nx">Event</span><span class="p">)</span> <span class="p">{</span>
-              <span class="nx">n</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">strconv</span><span class="p">.</span><span class="nx">Atoi</span><span class="p">(</span><span class="nx">elmn</span><span class="p">.</span><span class="nx">Value</span><span class="p">())</span>
-              <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-                      <span class="nx">resultElm</span><span class="p">.</span><span class="nx">SetValue</span><span class="p">(</span><span class="nx">err</span><span class="p">.</span><span class="nx">Error</span><span class="p">())</span>
-                      <span class="k">return</span>
-              <span class="p">}</span>
-              <span class="nx">pqs</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">Lemoine</span><span class="p">(</span><span class="nx">n</span><span class="p">)</span>
-              <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-                      <span class="nx">resultElm</span><span class="p">.</span><span class="nx">SetValue</span><span class="p">(</span><span class="nx">err</span><span class="p">.</span><span class="nx">Error</span><span class="p">())</span>
-                      <span class="k">return</span>
-              <span class="p">}</span>
+<span class="w">      </span><span class="nx">btn</span><span class="p">.</span><span class="nx">AddEventListener</span><span class="p">(</span><span class="s">&quot;click&quot;</span><span class="p">,</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="nx">e</span><span class="w"> </span><span class="nx">Event</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="nx">n</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">strconv</span><span class="p">.</span><span class="nx">Atoi</span><span class="p">(</span><span class="nx">elmn</span><span class="p">.</span><span class="nx">Value</span><span class="p">())</span><span class="w"></span>
+<span class="w">              </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                      </span><span class="nx">resultElm</span><span class="p">.</span><span class="nx">SetValue</span><span class="p">(</span><span class="nx">err</span><span class="p">.</span><span class="nx">Error</span><span class="p">())</span><span class="w"></span>
+<span class="w">                      </span><span class="k">return</span><span class="w"></span>
+<span class="w">              </span><span class="p">}</span><span class="w"></span>
+<span class="w">              </span><span class="nx">pqs</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">Lemoine</span><span class="p">(</span><span class="nx">n</span><span class="p">)</span><span class="w"></span>
+<span class="w">              </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                      </span><span class="nx">resultElm</span><span class="p">.</span><span class="nx">SetValue</span><span class="p">(</span><span class="nx">err</span><span class="p">.</span><span class="nx">Error</span><span class="p">())</span><span class="w"></span>
+<span class="w">                      </span><span class="k">return</span><span class="w"></span>
+<span class="w">              </span><span class="p">}</span><span class="w"></span>
 
-              <span class="nx">text</span> <span class="o">:=</span> <span class="s">&quot;&quot;</span>
-              <span class="k">for</span> <span class="nx">p</span><span class="p">,</span> <span class="nx">q</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">pqs</span> <span class="p">{</span>
-                      <span class="nx">text</span> <span class="o">+=</span> <span class="nx">elmn</span><span class="p">.</span><span class="nx">Value</span><span class="p">()</span> <span class="o">+</span> <span class="s">&quot; = &quot;</span> <span class="o">+</span> <span class="nx">strconv</span><span class="p">.</span><span class="nx">Itoa</span><span class="p">(</span><span class="nx">p</span><span class="p">)</span> <span class="o">+</span> <span class="s">&quot; + ( 2 * &quot;</span> <span class="o">+</span> <span class="nx">strconv</span><span class="p">.</span><span class="nx">Itoa</span><span class="p">(</span><span class="nx">q</span><span class="p">)</span> <span class="o">+</span> <span class="s">&quot; )\n&quot;</span>
-                      <span class="nx">resultElm</span><span class="p">.</span><span class="nx">SetValue</span><span class="p">(</span><span class="nx">text</span><span class="p">)</span>
-              <span class="p">}</span>
-      <span class="p">})</span>
-<span class="p">}</span>
+<span class="w">              </span><span class="nx">text</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w"></span>
+<span class="w">              </span><span class="k">for</span><span class="w"> </span><span class="nx">p</span><span class="p">,</span><span class="w"> </span><span class="nx">q</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="nx">pqs</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                      </span><span class="nx">text</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="nx">elmn</span><span class="p">.</span><span class="nx">Value</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot; = &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">strconv</span><span class="p">.</span><span class="nx">Itoa</span><span class="p">(</span><span class="nx">p</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot; + ( 2 * &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">strconv</span><span class="p">.</span><span class="nx">Itoa</span><span class="p">(</span><span class="nx">q</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot; )\n&quot;</span><span class="w"></span>
+<span class="w">                      </span><span class="nx">resultElm</span><span class="p">.</span><span class="nx">SetValue</span><span class="p">(</span><span class="nx">text</span><span class="p">)</span><span class="w"></span>
+<span class="w">              </span><span class="p">}</span><span class="w"></span>
+<span class="w">      </span><span class="p">})</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 <p>The JavaScript equivalent is also available on the demo page <a class="footnote-reference" href="#footnote-1" id="footnote-reference-1">[1]</a>.</p>
 <p>The link of full source code is available <a class="reference external" href="https://github.com/siongui/frontend-programming-in-go/tree/master/028-lemoine-conjecture">on my GitHub repo</a>.</p>

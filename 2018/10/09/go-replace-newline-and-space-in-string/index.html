@@ -60,10 +60,10 @@ space.</p>
 <blockquote>
 <p>We have a string as follows:</p>
 <div class="highlight"><pre><span></span><span class="s">`CONDUIT</span>
-<span class="s">                FITTINGS`</span>
+<span class="s">                FITTINGS`</span><span class="w"></span>
 </pre></div>
 <p>There are spaces and newline in the string. We want the string to become</p>
-<div class="highlight"><pre><span></span><span class="s">`CONDUIT FITTINGS`</span>
+<div class="highlight"><pre><span></span><span class="s">`CONDUIT FITTINGS`</span><span class="w"></span>
 </pre></div>
 <p>How to do it?</p>
 </blockquote>
@@ -71,25 +71,25 @@ space.</p>
 <div class="section" id="solution">
 <h2>Solution</h2>
 <p class="align-center rubric"><a class="reference external" href="https://play.golang.org/p/uaEY0sjBImv">Run Code on Go Playground</a></p>
-<div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
+<div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w"></span>
 
-<span class="kn">import</span> <span class="p">(</span>
-      <span class="s">&quot;fmt&quot;</span>
-      <span class="s">&quot;regexp&quot;</span>
-<span class="p">)</span>
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">      </span><span class="s">&quot;fmt&quot;</span><span class="w"></span>
+<span class="w">      </span><span class="s">&quot;regexp&quot;</span><span class="w"></span>
+<span class="p">)</span><span class="w"></span>
 
-<span class="kd">var</span> <span class="nx">str</span> <span class="p">=</span> <span class="s">`CONDUIT</span>
-<span class="s">                FITTINGS`</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">str</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">`CONDUIT</span>
+<span class="s">                FITTINGS`</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">TrimSpaceNewlineInString</span><span class="p">(</span><span class="nx">s</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">string</span> <span class="p">{</span>
-      <span class="nx">re</span> <span class="o">:=</span> <span class="nx">regexp</span><span class="p">.</span><span class="nx">MustCompile</span><span class="p">(</span><span class="s">` +\r?\n +`</span><span class="p">)</span>
-      <span class="k">return</span> <span class="nx">re</span><span class="p">.</span><span class="nx">ReplaceAllString</span><span class="p">(</span><span class="nx">s</span><span class="p">,</span> <span class="s">&quot; &quot;</span><span class="p">)</span>
-<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">TrimSpaceNewlineInString</span><span class="p">(</span><span class="nx">s</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nx">re</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">regexp</span><span class="p">.</span><span class="nx">MustCompile</span><span class="p">(</span><span class="s">` +\r?\n +`</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="nx">re</span><span class="p">.</span><span class="nx">ReplaceAllString</span><span class="p">(</span><span class="nx">s</span><span class="p">,</span><span class="w"> </span><span class="s">&quot; &quot;</span><span class="p">)</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
-      <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">str</span><span class="p">)</span>
-      <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">TrimSpaceNewlineInString</span><span class="p">(</span><span class="nx">str</span><span class="p">))</span>
-<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">str</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">TrimSpaceNewlineInString</span><span class="p">(</span><span class="nx">str</span><span class="p">))</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 
 <p>Trick: If you are not sure whether the regular expression is written correctly,

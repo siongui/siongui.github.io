@@ -56,47 +56,47 @@
     <div class="main-content"><p>Go implementation of <a class="reference external" href="https://www.google.com/search?q=Sieve+of+Eratosthenes">Sieve of Eratosthenes</a>. See from GeeksforGeeks <a class="footnote-reference" href="#footnote-1" id="footnote-reference-1">[1]</a>. The
 Go code is ported from the C/C++ code of GeeksforGeeks.</p>
 <p class="align-center rubric"><a class="reference external" href="https://play.golang.org/p/66tBiUdvy2">Run Code on Go Playground</a></p>
-<div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
+<div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w"></span>
 
-<span class="kn">import</span> <span class="p">(</span>
-      <span class="s">&quot;fmt&quot;</span>
-<span class="p">)</span>
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">      </span><span class="s">&quot;fmt&quot;</span><span class="w"></span>
+<span class="p">)</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">SieveOfEratosthenes</span><span class="p">(</span><span class="nx">n</span> <span class="kt">int</span><span class="p">)</span> <span class="p">[]</span><span class="kt">int</span> <span class="p">{</span>
-      <span class="c1">// Create a boolean array &quot;prime[0..n]&quot; and initialize</span>
-      <span class="c1">// all entries it as true. A value in prime[i] will</span>
-      <span class="c1">// finally be false if i is Not a prime, else true.</span>
-      <span class="nx">integers</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">bool</span><span class="p">,</span> <span class="nx">n</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
-      <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">2</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nx">n</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
-              <span class="nx">integers</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="kc">true</span>
-      <span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">SieveOfEratosthenes</span><span class="p">(</span><span class="nx">n</span><span class="w"> </span><span class="kt">int</span><span class="p">)</span><span class="w"> </span><span class="p">[]</span><span class="kt">int</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="c1">// Create a boolean array &quot;prime[0..n]&quot; and initialize</span><span class="w"></span>
+<span class="w">      </span><span class="c1">// all entries it as true. A value in prime[i] will</span><span class="w"></span>
+<span class="w">      </span><span class="c1">// finally be false if i is Not a prime, else true.</span><span class="w"></span>
+<span class="w">      </span><span class="nx">integers</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">make</span><span class="p">([]</span><span class="kt">bool</span><span class="p">,</span><span class="w"> </span><span class="nx">n</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="k">for</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="p">&lt;</span><span class="w"> </span><span class="nx">n</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="o">++</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="nx">integers</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kc">true</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
 
-      <span class="k">for</span> <span class="nx">p</span> <span class="o">:=</span> <span class="mi">2</span><span class="p">;</span> <span class="nx">p</span><span class="o">*</span><span class="nx">p</span> <span class="o">&lt;=</span> <span class="nx">n</span><span class="p">;</span> <span class="nx">p</span><span class="o">++</span> <span class="p">{</span>
-              <span class="c1">// If integers[p] is not changed, then it is a prime</span>
-              <span class="k">if</span> <span class="nx">integers</span><span class="p">[</span><span class="nx">p</span><span class="p">]</span> <span class="o">==</span> <span class="kc">true</span> <span class="p">{</span>
-                      <span class="c1">// Update all multiples of p</span>
-                      <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="nx">p</span> <span class="o">*</span> <span class="mi">2</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;=</span> <span class="nx">n</span><span class="p">;</span> <span class="nx">i</span> <span class="o">+=</span> <span class="nx">p</span> <span class="p">{</span>
-                              <span class="nx">integers</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="kc">false</span>
-                      <span class="p">}</span>
-              <span class="p">}</span>
-      <span class="p">}</span>
+<span class="w">      </span><span class="k">for</span><span class="w"> </span><span class="nx">p</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w"> </span><span class="nx">p</span><span class="o">*</span><span class="nx">p</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="nx">n</span><span class="p">;</span><span class="w"> </span><span class="nx">p</span><span class="o">++</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="c1">// If integers[p] is not changed, then it is a prime</span><span class="w"></span>
+<span class="w">              </span><span class="k">if</span><span class="w"> </span><span class="nx">integers</span><span class="p">[</span><span class="nx">p</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                      </span><span class="c1">// Update all multiples of p</span><span class="w"></span>
+<span class="w">                      </span><span class="k">for</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">p</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="nx">n</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="nx">p</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                              </span><span class="nx">integers</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kc">false</span><span class="w"></span>
+<span class="w">                      </span><span class="p">}</span><span class="w"></span>
+<span class="w">              </span><span class="p">}</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
 
-      <span class="c1">// return all prime numbers &lt;= n</span>
-      <span class="kd">var</span> <span class="nx">primes</span> <span class="p">[]</span><span class="kt">int</span>
-      <span class="k">for</span> <span class="nx">p</span> <span class="o">:=</span> <span class="mi">2</span><span class="p">;</span> <span class="nx">p</span> <span class="o">&lt;=</span> <span class="nx">n</span><span class="p">;</span> <span class="nx">p</span><span class="o">++</span> <span class="p">{</span>
-              <span class="k">if</span> <span class="nx">integers</span><span class="p">[</span><span class="nx">p</span><span class="p">]</span> <span class="o">==</span> <span class="kc">true</span> <span class="p">{</span>
-                      <span class="nx">primes</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">primes</span><span class="p">,</span> <span class="nx">p</span><span class="p">)</span>
-              <span class="p">}</span>
-      <span class="p">}</span>
+<span class="w">      </span><span class="c1">// return all prime numbers &lt;= n</span><span class="w"></span>
+<span class="w">      </span><span class="kd">var</span><span class="w"> </span><span class="nx">primes</span><span class="w"> </span><span class="p">[]</span><span class="kt">int</span><span class="w"></span>
+<span class="w">      </span><span class="k">for</span><span class="w"> </span><span class="nx">p</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w"> </span><span class="nx">p</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="nx">n</span><span class="p">;</span><span class="w"> </span><span class="nx">p</span><span class="o">++</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="k">if</span><span class="w"> </span><span class="nx">integers</span><span class="p">[</span><span class="nx">p</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                      </span><span class="nx">primes</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">append</span><span class="p">(</span><span class="nx">primes</span><span class="p">,</span><span class="w"> </span><span class="nx">p</span><span class="p">)</span><span class="w"></span>
+<span class="w">              </span><span class="p">}</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
 
-      <span class="k">return</span> <span class="nx">primes</span>
-<span class="p">}</span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="nx">primes</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
-      <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">SieveOfEratosthenes</span><span class="p">(</span><span class="mi">20</span><span class="p">))</span>
-      <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">SieveOfEratosthenes</span><span class="p">(</span><span class="mi">30</span><span class="p">))</span>
-      <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">SieveOfEratosthenes</span><span class="p">(</span><span class="mi">40</span><span class="p">))</span>
-<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">SieveOfEratosthenes</span><span class="p">(</span><span class="mi">20</span><span class="p">))</span><span class="w"></span>
+<span class="w">      </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">SieveOfEratosthenes</span><span class="p">(</span><span class="mi">30</span><span class="p">))</span><span class="w"></span>
+<span class="w">      </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">SieveOfEratosthenes</span><span class="p">(</span><span class="mi">40</span><span class="p">))</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 
 <p>Tested on:</p>

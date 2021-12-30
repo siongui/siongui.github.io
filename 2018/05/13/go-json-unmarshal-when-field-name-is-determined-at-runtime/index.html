@@ -55,13 +55,13 @@
 
     <div class="main-content"><p>Today I got a problem about unmarshalling JSON data. One of the field names in
 the JSON data can only be known at runtime. The JSON data looks like:</p>
-<div class="highlight"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;reels&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;highlight:1234567890&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="err">...</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;reels&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;highlight:1234567890&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="err">...</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 <p>The field name <em>highlight:1234567890</em> is the id of the query, and is known only
 at runtime. But to unmarshal JSON using <a class="reference external" href="https://golang.org/pkg/encoding/json/#Unmarshal">json.Unmarshal</a> in Go standard
@@ -75,16 +75,16 @@ the field name with another fixed string using <a class="reference external" hre
 <a class="reference external" href="https://golang.org/pkg/strings/">strings</a> package.</p>
 <p>Im my case, the field name <em>highlight:1234567890</em> is stored in the variable
 <em>id</em>, and we can replace it with another fixed string <em>reels_media</em> as follows:</p>
-<div class="highlight"><pre><span></span><span class="nx">strings</span><span class="p">.</span><span class="nx">Replace</span><span class="p">(</span><span class="nx">jsonData</span><span class="p">,</span> <span class="nx">id</span><span class="p">,</span> <span class="s">&quot;reels_media&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><span class="nx">strings</span><span class="p">.</span><span class="nx">Replace</span><span class="p">(</span><span class="nx">jsonData</span><span class="p">,</span><span class="w"> </span><span class="nx">id</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;reels_media&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"></span>
 </pre></div>
 <p>Now in our struct used to unmarshal JSON, we can declare as follows:</p>
-<div class="highlight"><pre><span></span><span class="kd">type</span> <span class="nx">highlightMedia</span> <span class="kd">struct</span> <span class="p">{</span>
-      <span class="nx">Reels</span> <span class="kd">struct</span> <span class="p">{</span>
-              <span class="nx">ReelsMedia</span> <span class="kd">struct</span><span class="p">{</span>
-                      <span class="o">...</span>
-              <span class="p">}</span> <span class="s">`json:&quot;reels_media&quot;`</span>
-      <span class="p">}</span> <span class="s">`json:&quot;reels&quot;`</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span></span><span class="kd">type</span><span class="w"> </span><span class="nx">highlightMedia</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nx">Reels</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="nx">ReelsMedia</span><span class="w"> </span><span class="kd">struct</span><span class="p">{</span><span class="w"></span>
+<span class="w">                      </span><span class="o">...</span><span class="w"></span>
+<span class="w">              </span><span class="p">}</span><span class="w"> </span><span class="s">`json:&quot;reels_media&quot;`</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"> </span><span class="s">`json:&quot;reels&quot;`</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 <p>Now we can use <a class="reference external" href="https://golang.org/pkg/encoding/json/#Unmarshal">json.Unmarshal</a> as usual without any problem!</p>
 <p>The other possible way to solve this problem is to retag at runtime, but it

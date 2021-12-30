@@ -63,43 +63,43 @@
 <blockquote>
 6857 (600851475143 = 71 x 839 x 1471 x 6857)</blockquote>
 <p class="align-center rubric"><a class="reference external" href="https://play.golang.org/p/Qedc4S_INB">Run Code on Go Playground</a></p>
-<div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
+<div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w"></span>
 
-<span class="kn">import</span> <span class="p">(</span>
-      <span class="s">&quot;fmt&quot;</span>
-<span class="p">)</span>
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">      </span><span class="s">&quot;fmt&quot;</span><span class="w"></span>
+<span class="p">)</span><span class="w"></span>
 
-<span class="c1">// Get all prime factors of a given number n</span>
-<span class="kd">func</span> <span class="nx">PrimeFactors</span><span class="p">(</span><span class="nx">n</span> <span class="kt">int64</span><span class="p">)</span> <span class="p">(</span><span class="nx">pfs</span> <span class="p">[]</span><span class="kt">int64</span><span class="p">)</span> <span class="p">{</span>
-      <span class="c1">// Get the number of 2s that divide n</span>
-      <span class="k">for</span> <span class="nx">n</span><span class="o">%</span><span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
-              <span class="nx">pfs</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">pfs</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-              <span class="nx">n</span> <span class="p">=</span> <span class="nx">n</span> <span class="o">/</span> <span class="mi">2</span>
-      <span class="p">}</span>
+<span class="c1">// Get all prime factors of a given number n</span><span class="w"></span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">PrimeFactors</span><span class="p">(</span><span class="nx">n</span><span class="w"> </span><span class="kt">int64</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nx">pfs</span><span class="w"> </span><span class="p">[]</span><span class="kt">int64</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="c1">// Get the number of 2s that divide n</span><span class="w"></span>
+<span class="w">      </span><span class="k">for</span><span class="w"> </span><span class="nx">n</span><span class="o">%</span><span class="mi">2</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="nx">pfs</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">append</span><span class="p">(</span><span class="nx">pfs</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"></span>
+<span class="w">              </span><span class="nx">n</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">n</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">2</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
 
-      <span class="c1">// n must be odd at this point. so we can skip one element</span>
-      <span class="c1">// (note i = i + 2)</span>
-      <span class="kd">var</span> <span class="nx">i</span> <span class="kt">int64</span>
-      <span class="k">for</span> <span class="nx">i</span> <span class="p">=</span> <span class="mi">3</span><span class="p">;</span> <span class="nx">i</span><span class="o">*</span><span class="nx">i</span> <span class="o">&lt;=</span> <span class="nx">n</span><span class="p">;</span> <span class="nx">i</span> <span class="p">=</span> <span class="nx">i</span> <span class="o">+</span> <span class="mi">2</span> <span class="p">{</span>
-              <span class="c1">// while i divides n, append i and divide n</span>
-              <span class="k">for</span> <span class="nx">n</span><span class="o">%</span><span class="nx">i</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
-                      <span class="nx">pfs</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">pfs</span><span class="p">,</span> <span class="nx">i</span><span class="p">)</span>
-                      <span class="nx">n</span> <span class="p">=</span> <span class="nx">n</span> <span class="o">/</span> <span class="nx">i</span>
-              <span class="p">}</span>
-      <span class="p">}</span>
+<span class="w">      </span><span class="c1">// n must be odd at this point. so we can skip one element</span><span class="w"></span>
+<span class="w">      </span><span class="c1">// (note i = i + 2)</span><span class="w"></span>
+<span class="w">      </span><span class="kd">var</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="kt">int64</span><span class="w"></span>
+<span class="w">      </span><span class="k">for</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="o">*</span><span class="nx">i</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="nx">n</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="c1">// while i divides n, append i and divide n</span><span class="w"></span>
+<span class="w">              </span><span class="k">for</span><span class="w"> </span><span class="nx">n</span><span class="o">%</span><span class="nx">i</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                      </span><span class="nx">pfs</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">append</span><span class="p">(</span><span class="nx">pfs</span><span class="p">,</span><span class="w"> </span><span class="nx">i</span><span class="p">)</span><span class="w"></span>
+<span class="w">                      </span><span class="nx">n</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">n</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="nx">i</span><span class="w"></span>
+<span class="w">              </span><span class="p">}</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
 
-      <span class="c1">// This condition is to handle the case when n is a prime number</span>
-      <span class="c1">// greater than 2</span>
-      <span class="k">if</span> <span class="nx">n</span> <span class="p">&gt;</span> <span class="mi">2</span> <span class="p">{</span>
-              <span class="nx">pfs</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">pfs</span><span class="p">,</span> <span class="nx">n</span><span class="p">)</span>
-      <span class="p">}</span>
+<span class="w">      </span><span class="c1">// This condition is to handle the case when n is a prime number</span><span class="w"></span>
+<span class="w">      </span><span class="c1">// greater than 2</span><span class="w"></span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="nx">n</span><span class="w"> </span><span class="p">&gt;</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="nx">pfs</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">append</span><span class="p">(</span><span class="nx">pfs</span><span class="p">,</span><span class="w"> </span><span class="nx">n</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
 
-      <span class="k">return</span>
-<span class="p">}</span>
+<span class="w">      </span><span class="k">return</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
-      <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">PrimeFactors</span><span class="p">(</span><span class="mi">600851475143</span><span class="p">))</span>
-<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">PrimeFactors</span><span class="p">(</span><span class="mi">600851475143</span><span class="p">))</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 <p>The method for factoring a number comes from my another post <a class="footnote-reference" href="#footnote-2" id="footnote-reference-2">[2]</a>.</p>
 

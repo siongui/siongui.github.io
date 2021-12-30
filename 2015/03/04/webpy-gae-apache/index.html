@@ -135,15 +135,15 @@ directory.</p>
 <span class="normal">6</span>
 <span class="normal">7</span>
 <span class="normal">8</span>
-<span class="normal">9</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="nt">application</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">webpy-gae</span>
-<span class="nt">version</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
-<span class="nt">runtime</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">python27</span>
-<span class="nt">api_version</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
-<span class="nt">threadsafe</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="normal">9</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="nt">application</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">webpy-gae</span><span class="w"></span>
+<span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w"></span>
+<span class="nt">runtime</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">python27</span><span class="w"></span>
+<span class="nt">api_version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w"></span>
+<span class="nt">threadsafe</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
 
-<span class="nt">handlers</span><span class="p">:</span>
-<span class="p p-Indicator">-</span> <span class="nt">url</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/.*</span>
-  <span class="nt">script</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">mainweb.app</span>
+<span class="nt">handlers</span><span class="p">:</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/.*</span><span class="w"></span>
+<span class="w">  </span><span class="nt">script</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mainweb.app</span><span class="w"></span>
 </pre></div>
 </td></tr></table></div></figure>
 </div>
@@ -167,19 +167,19 @@ directory.</p>
 <span class="normal">10</span>
 <span class="normal">11</span>
 <span class="normal">12</span>
-<span class="normal">13</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="nt">&lt;VirtualHost</span> <span class="s">*:80</span><span class="nt">&gt;</span>
-        <span class="nb">ServerName</span>      {{ domain_name }}
-        <span class="nb">ServerAdmin</span>     {{ <span class="k">email</span> }}
-        <span class="nb">ErrorLog</span>        {{ SOME_DIR }}/logs/error_log
-        <span class="nb">CustomLog</span>       {{ SOME_DIR }}/logs/access_log combined
+<span class="normal">13</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="nt">&lt;VirtualHost</span><span class="w"> </span><span class="s">*:80</span><span class="nt">&gt;</span><span class="w"></span>
+<span class="w">        </span><span class="nb">ServerName</span><span class="w">      </span>{{<span class="w"> </span>domain_name<span class="w"> </span>}}<span class="w"></span>
+<span class="w">        </span><span class="nb">ServerAdmin</span><span class="w">     </span>{{<span class="w"> </span><span class="k">email</span><span class="w"> </span>}}<span class="w"></span>
+<span class="w">        </span><span class="nb">ErrorLog</span><span class="w">        </span>{{<span class="w"> </span>SOME_DIR<span class="w"> </span>}}/logs/error_log<span class="w"></span>
+<span class="w">        </span><span class="nb">CustomLog</span><span class="w">       </span>{{<span class="w"> </span>SOME_DIR<span class="w"> </span>}}/logs/access_log<span class="w"> </span>combined<span class="w"></span>
 
-        <span class="nb">Alias</span>           <span class="sx">/favicon.ico</span> {{ REPO_DIR }}/favicon.ico
-        <span class="nb">Alias</span>           <span class="sx">/robots.txt</span> {{ REPO_DIR }}/robots.txt
+<span class="w">        </span><span class="nb">Alias</span><span class="w">           </span><span class="sx">/favicon.ico</span><span class="w"> </span>{{<span class="w"> </span>REPO_DIR<span class="w"> </span>}}/favicon.ico<span class="w"></span>
+<span class="w">        </span><span class="nb">Alias</span><span class="w">           </span><span class="sx">/robots.txt</span><span class="w"> </span>{{<span class="w"> </span>REPO_DIR<span class="w"> </span>}}/robots.txt<span class="w"></span>
 
-        <span class="nb">WSGIScriptAlias</span> / {{ REPO_DIR }}/mainweb.py
+<span class="w">        </span><span class="nb">WSGIScriptAlias</span><span class="w"> </span>/<span class="w"> </span>{{<span class="w"> </span>REPO_DIR<span class="w"> </span>}}/mainweb.py<span class="w"></span>
 
-        <span class="nb">AddType</span>         text/html .py
-<span class="nt">&lt;/VirtualHost&gt;</span>
+<span class="w">        </span><span class="nb">AddType</span><span class="w">         </span>text/html<span class="w"> </span>.py<span class="w"></span>
+<span class="nt">&lt;/VirtualHost&gt;</span><span class="w"></span>
 </pre></div>
 </td></tr></table></div></figure></div>
 <div class="section" id="development">

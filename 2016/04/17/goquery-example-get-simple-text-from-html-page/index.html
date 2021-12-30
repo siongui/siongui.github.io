@@ -93,14 +93,14 @@
 <span class="normal">31</span>
 <span class="normal">32</span>
 <span class="normal">33</span>
-<span class="normal">34</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
+<span class="normal">34</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w"></span>
 
-<span class="kn">import</span> <span class="p">(</span>
-	<span class="s">&quot;github.com/PuerkitoBio/goquery&quot;</span>
-	<span class="s">&quot;strings&quot;</span>
-<span class="p">)</span>
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">	</span><span class="s">&quot;github.com/PuerkitoBio/goquery&quot;</span><span class="w"></span>
+<span class="w">	</span><span class="s">&quot;strings&quot;</span><span class="w"></span>
+<span class="p">)</span><span class="w"></span>
 
-<span class="kd">const</span> <span class="nx">html</span> <span class="p">=</span> <span class="s">`</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">html</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">`</span>
 <span class="s">&lt;div class=&quot;container&quot;&gt;</span>
 <span class="s">    &lt;div class=&quot;row&quot;&gt;</span>
 <span class="s">      &lt;div class=&quot;col-lg-8&quot;&gt;</span>
@@ -113,20 +113,20 @@
 <span class="s">       &lt;/div&gt;</span>
 <span class="s">    &lt;/div&gt;</span>
 <span class="s">&lt;/div&gt;</span>
-<span class="s">`</span>
+<span class="s">`</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
-	<span class="nx">doc</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">goquery</span><span class="p">.</span><span class="nx">NewDocumentFromReader</span><span class="p">(</span><span class="nx">strings</span><span class="p">.</span><span class="nx">NewReader</span><span class="p">(</span><span class="nx">html</span><span class="p">))</span>
-	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-		<span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
-	<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">	</span><span class="nx">doc</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">goquery</span><span class="p">.</span><span class="nx">NewDocumentFromReader</span><span class="p">(</span><span class="nx">strings</span><span class="p">.</span><span class="nx">NewReader</span><span class="p">(</span><span class="nx">html</span><span class="p">))</span><span class="w"></span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">		</span><span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="p">}</span><span class="w"></span>
 
-	<span class="nx">doc</span><span class="p">.</span><span class="nx">Find</span><span class="p">(</span><span class="s">&quot;.container&quot;</span><span class="p">).</span><span class="nx">Find</span><span class="p">(</span><span class="s">&quot;[align=\&quot;justify\&quot;]&quot;</span><span class="p">).</span><span class="nx">Each</span><span class="p">(</span><span class="kd">func</span><span class="p">(</span><span class="nx">_</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">s</span> <span class="o">*</span><span class="nx">goquery</span><span class="p">.</span><span class="nx">Selection</span><span class="p">)</span> <span class="p">{</span>
-		<span class="nx">prefix</span> <span class="o">:=</span> <span class="nx">s</span><span class="p">.</span><span class="nx">Find</span><span class="p">(</span><span class="s">&quot;b&quot;</span><span class="p">).</span><span class="nx">Text</span><span class="p">()</span>
-		<span class="nx">result</span> <span class="o">:=</span> <span class="nx">strings</span><span class="p">.</span><span class="nx">TrimPrefix</span><span class="p">(</span><span class="nx">s</span><span class="p">.</span><span class="nx">Text</span><span class="p">(),</span> <span class="nx">prefix</span><span class="p">)</span>
-		<span class="nb">println</span><span class="p">(</span><span class="nx">result</span><span class="p">)</span>
-	<span class="p">})</span>
-<span class="p">}</span>
+<span class="w">	</span><span class="nx">doc</span><span class="p">.</span><span class="nx">Find</span><span class="p">(</span><span class="s">&quot;.container&quot;</span><span class="p">).</span><span class="nx">Find</span><span class="p">(</span><span class="s">&quot;[align=\&quot;justify\&quot;]&quot;</span><span class="p">).</span><span class="nx">Each</span><span class="p">(</span><span class="kd">func</span><span class="p">(</span><span class="nx">_</span><span class="w"> </span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="nx">s</span><span class="w"> </span><span class="o">*</span><span class="nx">goquery</span><span class="p">.</span><span class="nx">Selection</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">		</span><span class="nx">prefix</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">s</span><span class="p">.</span><span class="nx">Find</span><span class="p">(</span><span class="s">&quot;b&quot;</span><span class="p">).</span><span class="nx">Text</span><span class="p">()</span><span class="w"></span>
+<span class="w">		</span><span class="nx">result</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">strings</span><span class="p">.</span><span class="nx">TrimPrefix</span><span class="p">(</span><span class="nx">s</span><span class="p">.</span><span class="nx">Text</span><span class="p">(),</span><span class="w"> </span><span class="nx">prefix</span><span class="p">)</span><span class="w"></span>
+<span class="w">		</span><span class="nb">println</span><span class="p">(</span><span class="nx">result</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="p">})</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </td></tr></table></div></figure>
 <hr class="docutils" />

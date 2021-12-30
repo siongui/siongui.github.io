@@ -76,14 +76,14 @@
 </tr>
 </thead>
 <tbody valign="top">
-<tr><td><div class="first last"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="s">&quot;html/template&quot;</span>
+<tr><td><div class="first last"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="s">&quot;html/template&quot;</span><span class="w"></span>
 </pre></div>
 </div></td>
 <td><div class="first last"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">jinja2</span>
 </pre></div>
 </div></td>
 </tr>
-<tr><td><div class="first last"><div class="highlight"><pre><span></span><span class="c1">// assume template and go source code are in the same directory.</span>
+<tr><td><div class="first last"><div class="highlight"><pre><span></span><span class="c1">// assume template and go source code are in the same directory.</span><span class="w"></span>
 </pre></div>
 </div></td>
 <td><div class="first last"><div class="highlight"><pre><span></span><span class="c1"># Tell Jinja2 where the template folder is</span>
@@ -97,7 +97,7 @@
 </pre></div>
 </div></td>
 </tr>
-<tr><td><div class="first last"><div class="highlight"><pre><span></span><span class="nx">t</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">template</span><span class="p">.</span><span class="nx">ParseFiles</span><span class="p">(</span><span class="s">&quot;index.html&quot;</span><span class="p">)</span>
+<tr><td><div class="first last"><div class="highlight"><pre><span></span><span class="nx">t</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">template</span><span class="p">.</span><span class="nx">ParseFiles</span><span class="p">(</span><span class="s">&quot;index.html&quot;</span><span class="p">)</span><span class="w"></span>
 </pre></div>
 </div></td>
 <td><div class="first last"><div class="highlight"><pre><span></span><span class="n">template</span> <span class="o">=</span> <span class="n">JINJA_ENVIRONMENT</span><span class="o">.</span><span class="n">get_template</span><span class="p">(</span><span class="s1">&#39;index.html&#39;</span><span class="p">)</span>
@@ -114,7 +114,7 @@
 </div></td>
 </tr>
 <tr><td><p class="first">setup tempalate value in Go:</p>
-<div class="last"><div class="highlight"><pre><span></span><span class="nx">template_values</span> <span class="o">:=</span> <span class="s">&quot;World&quot;</span>
+<div class="last"><div class="highlight"><pre><span></span><span class="nx">template_values</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="s">&quot;World&quot;</span><span class="w"></span>
 </pre></div>
 </div></td>
 <td><p class="first">setup tempalate value in Python:</p>
@@ -123,8 +123,8 @@
 </div></td>
 </tr>
 <tr><td><p class="first">use go <a class="reference external" href="http://golang.org/pkg/net/http/">net/http</a> to serve webpage</p>
-<div class="last"><div class="highlight"><pre><span></span><span class="c1">// w http.ResponseWriter</span>
-<span class="nx">t</span><span class="p">.</span><span class="nx">Execute</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="nx">template_values</span><span class="p">)</span>
+<div class="last"><div class="highlight"><pre><span></span><span class="c1">// w http.ResponseWriter</span><span class="w"></span>
+<span class="nx">t</span><span class="p">.</span><span class="nx">Execute</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span><span class="w"> </span><span class="nx">template_values</span><span class="p">)</span><span class="w"></span>
 </pre></div>
 </div></td>
 <td><p class="first">use <a class="reference external" href="https://cloud.google.com/appengine/docs/python/tools/webapp2">webapp2</a> to serve webpage</p>
@@ -352,24 +352,24 @@ Hello <span class="cp">{{</span> <span class="err">.</span> <span class="cp">}}<
 <span class="normal">15</span>
 <span class="normal">16</span>
 <span class="normal">17</span>
-<span class="normal">18</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
+<span class="normal">18</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w"></span>
 
-<span class="kn">import</span> <span class="p">(</span>
-	<span class="s">&quot;html/template&quot;</span>
-	<span class="s">&quot;net/http&quot;</span>
-<span class="p">)</span>
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">	</span><span class="s">&quot;html/template&quot;</span><span class="w"></span>
+<span class="w">	</span><span class="s">&quot;net/http&quot;</span><span class="w"></span>
+<span class="p">)</span><span class="w"></span>
 
 
-<span class="kd">func</span> <span class="nx">handler</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">{</span>
-	<span class="nx">t</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">template</span><span class="p">.</span><span class="nx">ParseFiles</span><span class="p">(</span><span class="s">&quot;index-go.html&quot;</span><span class="p">)</span>
-	<span class="nx">name</span> <span class="o">:=</span> <span class="s">&quot;World&quot;</span>
-	<span class="nx">t</span><span class="p">.</span><span class="nx">Execute</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="nx">name</span><span class="p">)</span>
-<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">handler</span><span class="p">(</span><span class="nx">w</span><span class="w"> </span><span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span><span class="w"> </span><span class="nx">r</span><span class="w"> </span><span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">	</span><span class="nx">t</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">template</span><span class="p">.</span><span class="nx">ParseFiles</span><span class="p">(</span><span class="s">&quot;index-go.html&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="nx">name</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="s">&quot;World&quot;</span><span class="w"></span>
+<span class="w">	</span><span class="nx">t</span><span class="p">.</span><span class="nx">Execute</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span><span class="w"> </span><span class="nx">name</span><span class="p">)</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
-	<span class="nx">http</span><span class="p">.</span><span class="nx">HandleFunc</span><span class="p">(</span><span class="s">&quot;/&quot;</span><span class="p">,</span> <span class="nx">handler</span><span class="p">)</span>
-	<span class="nx">http</span><span class="p">.</span><span class="nx">ListenAndServe</span><span class="p">(</span><span class="s">&quot;:8080&quot;</span><span class="p">,</span> <span class="kc">nil</span><span class="p">)</span>
-<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">	</span><span class="nx">http</span><span class="p">.</span><span class="nx">HandleFunc</span><span class="p">(</span><span class="s">&quot;/&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">handler</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="nx">http</span><span class="p">.</span><span class="nx">ListenAndServe</span><span class="p">(</span><span class="s">&quot;:8080&quot;</span><span class="p">,</span><span class="w"> </span><span class="kc">nil</span><span class="p">)</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </td></tr></table></div></figure><hr class="docutils" />
 <p>Tested on: <tt class="docutils literal">Ubuntu Linux 14.10</tt>, <tt class="docutils literal">Go 1.4</tt>, <tt class="docutils literal">Python 2.7.8</tt>, <tt class="docutils literal">Google App Engine Python SDK 1.9.18</tt>, <tt class="docutils literal">Jinja2 2.7.3</tt></p>

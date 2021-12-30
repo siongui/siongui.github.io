@@ -63,24 +63,24 @@ we check if items in array A is in the hash table. If not, append the item to
 the difference array, and return the difference array after finish.</p>
 <p>The following is the implementation of above idea.</p>
 <p class="align-center rubric"><a class="reference external" href="https://repl.it/repls/TotalSlategreyRecovery">Run Code on repl.it</a></p>
-<div class="highlight"><pre><span></span><span class="err">#</span> <span class="nx">A</span> <span class="o">-</span> <span class="nx">B</span>
-<span class="nx">def</span> <span class="nx">difference</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">):</span>
-      <span class="kd">map</span> <span class="p">=</span> <span class="p">{}</span>
+<div class="highlight"><pre><span></span><span class="err">#</span><span class="w"> </span><span class="nx">A</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nx">B</span><span class="w"></span>
+<span class="nx">def</span><span class="w"> </span><span class="nx">difference</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span><span class="w"> </span><span class="nx">b</span><span class="p">):</span><span class="w"></span>
+<span class="w">      </span><span class="kd">map</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">{}</span><span class="w"></span>
 
-      <span class="k">for</span> <span class="nx">x</span> <span class="nx">in</span> <span class="nx">b</span><span class="p">:</span>
-              <span class="kd">map</span><span class="p">[</span><span class="nx">x</span><span class="p">]</span> <span class="p">=</span> <span class="nx">True</span>
+<span class="w">      </span><span class="k">for</span><span class="w"> </span><span class="nx">x</span><span class="w"> </span><span class="nx">in</span><span class="w"> </span><span class="nx">b</span><span class="p">:</span><span class="w"></span>
+<span class="w">              </span><span class="kd">map</span><span class="p">[</span><span class="nx">x</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">True</span><span class="w"></span>
 
-      <span class="nx">diff</span> <span class="p">=</span> <span class="p">[]</span>
-      <span class="k">for</span> <span class="nx">x</span> <span class="nx">in</span> <span class="nx">a</span><span class="p">:</span>
-              <span class="k">if</span> <span class="nx">x</span> <span class="nx">not</span> <span class="nx">in</span> <span class="kd">map</span><span class="p">:</span>
-                      <span class="nx">diff</span><span class="p">.</span><span class="nb">append</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span>
+<span class="w">      </span><span class="nx">diff</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">[]</span><span class="w"></span>
+<span class="w">      </span><span class="k">for</span><span class="w"> </span><span class="nx">x</span><span class="w"> </span><span class="nx">in</span><span class="w"> </span><span class="nx">a</span><span class="p">:</span><span class="w"></span>
+<span class="w">              </span><span class="k">if</span><span class="w"> </span><span class="nx">x</span><span class="w"> </span><span class="nx">not</span><span class="w"> </span><span class="nx">in</span><span class="w"> </span><span class="kd">map</span><span class="p">:</span><span class="w"></span>
+<span class="w">                      </span><span class="nx">diff</span><span class="p">.</span><span class="nb">append</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span><span class="w"></span>
 
-      <span class="k">return</span> <span class="nx">diff</span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="nx">diff</span><span class="w"></span>
 
-<span class="k">if</span> <span class="nx">__name__</span> <span class="o">==</span> <span class="s">&quot;__main__&quot;</span><span class="p">:</span>
-      <span class="nx">a</span> <span class="p">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
-      <span class="nx">b</span> <span class="p">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">11</span><span class="p">]</span>
-      <span class="nb">print</span><span class="p">(</span><span class="nx">difference</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">))</span>
+<span class="k">if</span><span class="w"> </span><span class="nx">__name__</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s">&quot;__main__&quot;</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nx">a</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">]</span><span class="w"></span>
+<span class="w">      </span><span class="nx">b</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w"> </span><span class="mi">11</span><span class="p">]</span><span class="w"></span>
+<span class="w">      </span><span class="nb">print</span><span class="p">(</span><span class="nx">difference</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span><span class="w"> </span><span class="nx">b</span><span class="p">))</span><span class="w"></span>
 </pre></div>
 <p>The result will be <cite>[1, 4]</cite>.</p>
 

@@ -59,70 +59,70 @@ files. However, the <a class="reference external" href="https://golang.org/pkg/e
 spending a lot of time for search and trial and error <a class="footnote-reference" href="#footnote-1" id="footnote-reference-1">[1]</a> <a class="footnote-reference" href="#footnote-2" id="footnote-reference-2">[2]</a> <a class="footnote-reference" href="#footnote-3" id="footnote-reference-3">[3]</a>, finally I
 get my UTF-16 XML parsed correctly. I do not know why it works. Just show the
 code for reference.</p>
-<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="p">(</span>
-      <span class="s">&quot;encoding/xml&quot;</span>
-      <span class="s">&quot;io&quot;</span>
+<div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">      </span><span class="s">&quot;encoding/xml&quot;</span><span class="w"></span>
+<span class="w">      </span><span class="s">&quot;io&quot;</span><span class="w"></span>
 
-      <span class="s">&quot;golang.org/x/net/html/charset&quot;</span>
-<span class="p">)</span>
+<span class="w">      </span><span class="s">&quot;golang.org/x/net/html/charset&quot;</span><span class="w"></span>
+<span class="p">)</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">BypassReader</span><span class="p">(</span><span class="nx">label</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">input</span> <span class="nx">io</span><span class="p">.</span><span class="nx">Reader</span><span class="p">)</span> <span class="p">(</span><span class="nx">io</span><span class="p">.</span><span class="nx">Reader</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
-      <span class="k">return</span> <span class="nx">input</span><span class="p">,</span> <span class="kc">nil</span>
-<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">BypassReader</span><span class="p">(</span><span class="nx">label</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">input</span><span class="w"> </span><span class="nx">io</span><span class="p">.</span><span class="nx">Reader</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nx">io</span><span class="p">.</span><span class="nx">Reader</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="nx">input</span><span class="p">,</span><span class="w"> </span><span class="kc">nil</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">DecodeUtf16XML</span><span class="p">(</span><span class="nx">r</span> <span class="nx">io</span><span class="p">.</span><span class="nx">Reader</span><span class="p">,</span> <span class="nx">v</span> <span class="kd">interface</span><span class="p">{})</span> <span class="p">(</span><span class="nx">err</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
-      <span class="c1">// https://www.tipitaka.org/romn/cscd/vin01m.mul.toc.xml</span>
-      <span class="c1">// The Tipiṭaka XML is encoded in UTF-16</span>
-      <span class="c1">// Google search: golang xml utf-16</span>
-      <span class="c1">// https://stackoverflow.com/questions/6002619/unmarshal-an-iso-8859-1-xml-input-in-go</span>
-      <span class="c1">// https://groups.google.com/forum/#!topic/golang-nuts/tXcECEKC2rs</span>
-      <span class="nx">nr</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">charset</span><span class="p">.</span><span class="nx">NewReader</span><span class="p">(</span><span class="nx">r</span><span class="p">,</span> <span class="s">&quot;utf-16&quot;</span><span class="p">)</span>
-      <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-              <span class="k">return</span>
-      <span class="p">}</span>
-      <span class="nx">decoder</span> <span class="o">:=</span> <span class="nx">xml</span><span class="p">.</span><span class="nx">NewDecoder</span><span class="p">(</span><span class="nx">nr</span><span class="p">)</span>
-      <span class="nx">decoder</span><span class="p">.</span><span class="nx">CharsetReader</span> <span class="p">=</span> <span class="nx">BypassReader</span>
-      <span class="nx">err</span> <span class="p">=</span> <span class="nx">decoder</span><span class="p">.</span><span class="nx">Decode</span><span class="p">(</span><span class="nx">v</span><span class="p">)</span>
-      <span class="k">return</span>
-<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">DecodeUtf16XML</span><span class="p">(</span><span class="nx">r</span><span class="w"> </span><span class="nx">io</span><span class="p">.</span><span class="nx">Reader</span><span class="p">,</span><span class="w"> </span><span class="nx">v</span><span class="w"> </span><span class="kd">interface</span><span class="p">{})</span><span class="w"> </span><span class="p">(</span><span class="nx">err</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="c1">// https://www.tipitaka.org/romn/cscd/vin01m.mul.toc.xml</span><span class="w"></span>
+<span class="w">      </span><span class="c1">// The Tipiṭaka XML is encoded in UTF-16</span><span class="w"></span>
+<span class="w">      </span><span class="c1">// Google search: golang xml utf-16</span><span class="w"></span>
+<span class="w">      </span><span class="c1">// https://stackoverflow.com/questions/6002619/unmarshal-an-iso-8859-1-xml-input-in-go</span><span class="w"></span>
+<span class="w">      </span><span class="c1">// https://groups.google.com/forum/#!topic/golang-nuts/tXcECEKC2rs</span><span class="w"></span>
+<span class="w">      </span><span class="nx">nr</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">charset</span><span class="p">.</span><span class="nx">NewReader</span><span class="p">(</span><span class="nx">r</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;utf-16&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="k">return</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
+<span class="w">      </span><span class="nx">decoder</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">xml</span><span class="p">.</span><span class="nx">NewDecoder</span><span class="p">(</span><span class="nx">nr</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="nx">decoder</span><span class="p">.</span><span class="nx">CharsetReader</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">BypassReader</span><span class="w"></span>
+<span class="w">      </span><span class="nx">err</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">decoder</span><span class="p">.</span><span class="nx">Decode</span><span class="p">(</span><span class="nx">v</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="k">return</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 <p><strong>Usage</strong>:</p>
-<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="p">(</span>
-      <span class="s">&quot;encoding/xml&quot;</span>
-      <span class="s">&quot;os&quot;</span>
-      <span class="s">&quot;testing&quot;</span>
-<span class="p">)</span>
+<div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">      </span><span class="s">&quot;encoding/xml&quot;</span><span class="w"></span>
+<span class="w">      </span><span class="s">&quot;os&quot;</span><span class="w"></span>
+<span class="w">      </span><span class="s">&quot;testing&quot;</span><span class="w"></span>
+<span class="p">)</span><span class="w"></span>
 
-<span class="kd">type</span> <span class="nx">Tree</span> <span class="kd">struct</span> <span class="p">{</span>
-      <span class="nx">XMLName</span> <span class="nx">xml</span><span class="p">.</span><span class="nx">Name</span> <span class="s">`xml:&quot;tree&quot;`</span>
-      <span class="nx">Trees</span>   <span class="p">[]</span><span class="nx">Tree</span>   <span class="s">`xml:&quot;tree&quot;`</span>
-      <span class="nx">Text</span>    <span class="kt">string</span>   <span class="s">`xml:&quot;text,attr&quot;`</span>
-      <span class="nx">Src</span>     <span class="kt">string</span>   <span class="s">`xml:&quot;src,attr&quot;`</span>
-      <span class="nx">Action</span>  <span class="kt">string</span>   <span class="s">`xml:&quot;action,attr&quot;`</span>
-<span class="p">}</span>
+<span class="kd">type</span><span class="w"> </span><span class="nx">Tree</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nx">XMLName</span><span class="w"> </span><span class="nx">xml</span><span class="p">.</span><span class="nx">Name</span><span class="w"> </span><span class="s">`xml:&quot;tree&quot;`</span><span class="w"></span>
+<span class="w">      </span><span class="nx">Trees</span><span class="w">   </span><span class="p">[]</span><span class="nx">Tree</span><span class="w">   </span><span class="s">`xml:&quot;tree&quot;`</span><span class="w"></span>
+<span class="w">      </span><span class="nx">Text</span><span class="w">    </span><span class="kt">string</span><span class="w">   </span><span class="s">`xml:&quot;text,attr&quot;`</span><span class="w"></span>
+<span class="w">      </span><span class="nx">Src</span><span class="w">     </span><span class="kt">string</span><span class="w">   </span><span class="s">`xml:&quot;src,attr&quot;`</span><span class="w"></span>
+<span class="w">      </span><span class="nx">Action</span><span class="w">  </span><span class="kt">string</span><span class="w">   </span><span class="s">`xml:&quot;action,attr&quot;`</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kd">func</span> <span class="nx">TestDecodeUtf16XML</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span> <span class="p">{</span>
-      <span class="nx">dst</span> <span class="o">:=</span> <span class="s">&quot;/tmp/romn/cscd/vin01m.mul.toc.xml&quot;</span>
-      <span class="nx">err</span> <span class="o">:=</span> <span class="nx">CheckDownload</span><span class="p">(</span><span class="s">&quot;https://www.tipitaka.org/romn/cscd/vin01m.mul.toc.xml&quot;</span><span class="p">,</span> <span class="nx">dst</span><span class="p">,</span> <span class="kc">false</span><span class="p">)</span>
-      <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-              <span class="nx">t</span><span class="p">.</span><span class="nx">Error</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
-              <span class="k">return</span>
-      <span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">TestDecodeUtf16XML</span><span class="p">(</span><span class="nx">t</span><span class="w"> </span><span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nx">dst</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="s">&quot;/tmp/romn/cscd/vin01m.mul.toc.xml&quot;</span><span class="w"></span>
+<span class="w">      </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">CheckDownload</span><span class="p">(</span><span class="s">&quot;https://www.tipitaka.org/romn/cscd/vin01m.mul.toc.xml&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">dst</span><span class="p">,</span><span class="w"> </span><span class="kc">false</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="nx">t</span><span class="p">.</span><span class="nx">Error</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"></span>
+<span class="w">              </span><span class="k">return</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
 
-      <span class="nx">f16</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">os</span><span class="p">.</span><span class="nx">Open</span><span class="p">(</span><span class="nx">dst</span><span class="p">)</span>
-      <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-              <span class="nx">t</span><span class="p">.</span><span class="nx">Error</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
-              <span class="k">return</span>
-      <span class="p">}</span>
+<span class="w">      </span><span class="nx">f16</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">os</span><span class="p">.</span><span class="nx">Open</span><span class="p">(</span><span class="nx">dst</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="nx">t</span><span class="p">.</span><span class="nx">Error</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"></span>
+<span class="w">              </span><span class="k">return</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
 
-      <span class="nx">tree</span> <span class="o">:=</span> <span class="nx">Tree</span><span class="p">{}</span>
-      <span class="nx">err</span> <span class="p">=</span> <span class="nx">DecodeUtf16XML</span><span class="p">(</span><span class="nx">f16</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">tree</span><span class="p">)</span>
-      <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-              <span class="nx">t</span><span class="p">.</span><span class="nx">Error</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
-              <span class="k">return</span>
-      <span class="p">}</span>
-      <span class="nx">t</span><span class="p">.</span><span class="nx">Log</span><span class="p">(</span><span class="nx">tree</span><span class="p">)</span>
-<span class="p">}</span>
+<span class="w">      </span><span class="nx">tree</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">Tree</span><span class="p">{}</span><span class="w"></span>
+<span class="w">      </span><span class="nx">err</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">DecodeUtf16XML</span><span class="p">(</span><span class="nx">f16</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">tree</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="nx">t</span><span class="p">.</span><span class="nx">Error</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"></span>
+<span class="w">              </span><span class="k">return</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
+<span class="w">      </span><span class="nx">t</span><span class="p">.</span><span class="nx">Log</span><span class="p">(</span><span class="nx">tree</span><span class="p">)</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 <hr class="docutils" />
 <p>Tested on: <tt class="docutils literal">Ubuntu Linux 20.04</tt>, <tt class="docutils literal">Go 1.12.17, 1.14.4</tt>.</p>
