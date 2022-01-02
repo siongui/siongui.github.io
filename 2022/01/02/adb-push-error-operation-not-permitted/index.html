@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>adb push error: remote couldn't create file: Operation not permitted</title>
+  <meta name="keywords" content="Commandline,Android,adb"/>
+  <meta name="description" content="adb push error caused by illegal character in file name on Android."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="adb push error: remote couldn't create file: Operation not permitted" /><meta property="og:image" content="https://c.pxhere.com/photos/85/1a/android_android_phone_blur_close_up_data_device_display_electronics-1515453.jpg!d" />
+<meta property="og:description" content="adb push error caused by illegal character in file name on Android." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2022/01/02/adb-push-error-operation-not-permitted/"
+           rel="bookmark"
+           title="Permalink to adb push error: remote couldn't create file: Operation not permitted">
+          adb push error: remote couldn't create file: Operation not permitted
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2022-01-02T23:20:00+08:00">
+    January 02, 2022
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2022/01/02/adb-push-error-operation-not-permitted%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p>When I tried to adb push file to Google Pixel 3 XL running Android 12. The
+following error occurred:</p>
+<div class="highlight"><pre><span></span>$ adb push story-2022-01-01T19:02:47+08:00-1641034967.mp4 /sdcard/DCIM/Camera/
+adb: error: failed to copy <span class="s1">&#39;story-2022-01-01T19:02:47+08:00-1641034967.mp4&#39;</span> to <span class="s1">&#39;/sdcard/DCIM/Camera/story-2022-01-01T19:02:47+08:00-1641034967.mp4&#39;</span>: remote couldn<span class="err">&#39;</span>t create file: Operation not permitted
+</pre></div>
+<p>I tried to Google search the error message but the posts I found told me to
+re-mount or root the phone, which did not work for me.</p>
+<p>Before this I have successfully adb pushed files to the phone so the probably
+the problem is not about mount or root. Then I tried to search
+<em>illegal character android file name</em> and found that the problem was the <tt class="docutils literal">:</tt>
+character is not allowed in the file name on Android 12. After replacing the
+<tt class="docutils literal">:</tt> with allowed character, I successfully pushed the file to the phone.</p>
+<hr class="docutils" />
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="footnote-1" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td><a class="reference external" href="https://stackoverflow.com/questions/2679699/what-characters-allowed-in-file-names-on-android">filenames - What characters allowed in file names on Android? - Stack Overflow</a></td></tr>
+</tbody>
+</table>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/bash.html">Bash</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/commandline.html">Commandline</a>
+,       <a href="/tag/android.html">Android</a>
+,       <a href="/tag/adb.html">adb</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>
