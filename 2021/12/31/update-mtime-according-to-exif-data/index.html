@@ -47,8 +47,8 @@
         </a>
       </h1>
     </header>
-<aside><time datetime="2021-12-31T00:28:00+08:00">
-    December 31, 2021
+<aside><time datetime="2022-01-02T22:51:00+08:00">
+    Updated: January 02, 2022
   </time></aside>
     <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2021/12/31/update-mtime-according-to-exif-data%25en.rst">Edit on Github</a></div></aside>
     <hr>
@@ -68,6 +68,13 @@ according to EXIF data.</blockquote>
 <div class="highlight"><pre><span></span>$ find . -type f -iregex <span class="s1">&#39;.*\.\(jpg\|gif\|png\|jpeg\|mov\|mp4\|heic\)$&#39;</span> <span class="p">|</span> xargs -I <span class="o">{}</span> exiftool <span class="s2">&quot;-DateTimeOriginal&gt;FileModifyDate&quot;</span> <span class="o">{}</span>
 </pre></div>
 <hr class="docutils" />
+<p>Instead of <em>exiftool</em>, you can also use <em>jhead</em> to update mtime.</p>
+<div class="highlight"><pre><span></span>$ sudo apt-get install jhead
+</pre></div>
+<p>Use <em>jhead</em> along with <em>find</em> command:</p>
+<div class="highlight"><pre><span></span>$ find . -type f -iregex <span class="s1">&#39;.*\.\(jpg\|gif\|png\|jpeg\|mov\|mp4\|heic\)$&#39;</span> -exec jhead -ft <span class="o">{}</span> +
+</pre></div>
+<hr class="docutils" />
 <p>References:</p>
 <table class="docutils footnote" frame="void" id="footnote-1" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
@@ -85,6 +92,12 @@ according to EXIF data.</blockquote>
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
 <tr><td class="label">[3]</td><td><a class="reference external" href="https://photo.stackexchange.com/questions/27245/is-there-a-free-program-to-batch-change-photo-files-date-to-match-exif">Is there a free program to (batch) change photo file's date to match EXIF? - Photography Stack Exchange</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="footnote-4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[4]</td><td><a class="reference external" href="https://askubuntu.com/questions/62492/how-can-i-change-the-date-modified-created-of-a-file">timestamp - How can I change the date modified/created of a file? - Ask Ubuntu</a></td></tr>
 </tbody>
 </table>
 </div>
