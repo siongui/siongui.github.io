@@ -66,7 +66,7 @@ actually the same question as the above.)</p>
               <a href="https://github.com/siongui/userpages">repository</a> |
               <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/code/javascript/single-callback-multiple-xhr/xhr.js">view raw</a>
             </figcaption><div class="code-file">
-            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
 <span class="normal"> 4</span>
@@ -136,33 +136,33 @@ actually the same question as the above.)</p>
 <span class="normal">68</span>
 <span class="normal">69</span>
 <span class="normal">70</span>
-<span class="normal">71</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cm">/**</span>
+<span class="normal">71</span></pre></div></td><td class="code"><div><pre><span></span><span class="cm">/**</span>
 <span class="cm"> * Cross-Browser AJAX request (XMLHttpRequest)</span>
 <span class="cm"> *</span>
 <span class="cm"> * @param {string} url The url of HTTP GET (AJAX) request.</span>
 <span class="cm"> * @param {function} callback The callback function if the request succeeds.</span>
 <span class="cm"> * @param {function} failCallback The callback function if the request fails.</span>
-<span class="cm"> */</span>
-<span class="nx">AjaxRequest</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span> <span class="nx">callback</span><span class="p">,</span> <span class="nx">failCallback</span><span class="p">)</span> <span class="p">{</span>
-  <span class="kd">var</span> <span class="nx">xmlhttp</span><span class="p">;</span>
+<span class="cm"> */</span><span class="w"></span>
+<span class="nx">AjaxRequest</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span><span class="w"> </span><span class="nx">callback</span><span class="p">,</span><span class="w"> </span><span class="nx">failCallback</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">xmlhttp</span><span class="p">;</span><span class="w"></span>
 
-  <span class="k">if</span> <span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">XMLHttpRequest</span><span class="p">)</span>
-    <span class="nx">xmlhttp</span><span class="o">=</span><span class="ow">new</span> <span class="nx">XMLHttpRequest</span><span class="p">();</span>
-  <span class="k">else</span>
-    <span class="nx">xmlhttp</span><span class="o">=</span><span class="ow">new</span> <span class="nx">ActiveXObject</span><span class="p">(</span><span class="s2">&quot;Microsoft.XMLHTTP&quot;</span><span class="p">);</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">XMLHttpRequest</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="nx">xmlhttp</span><span class="o">=</span><span class="ow">new</span><span class="w"> </span><span class="nx">XMLHttpRequest</span><span class="p">();</span><span class="w"></span>
+<span class="w">  </span><span class="k">else</span><span class="w"></span>
+<span class="w">    </span><span class="nx">xmlhttp</span><span class="o">=</span><span class="ow">new</span><span class="w"> </span><span class="nx">ActiveXObject</span><span class="p">(</span><span class="s2">&quot;Microsoft.XMLHTTP&quot;</span><span class="p">);</span><span class="w"></span>
 
-  <span class="nx">xmlhttp</span><span class="p">.</span><span class="nx">onreadystatechange</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-    <span class="k">if</span> <span class="p">(</span><span class="nx">xmlhttp</span><span class="p">.</span><span class="nx">readyState</span> <span class="o">==</span> <span class="mf">4</span><span class="p">)</span> <span class="p">{</span>
-      <span class="k">if</span> <span class="p">(</span><span class="nx">xmlhttp</span><span class="p">.</span><span class="nx">status</span> <span class="o">==</span> <span class="mf">200</span><span class="p">)</span>
-        <span class="nx">callback</span><span class="p">(</span><span class="nx">xmlhttp</span><span class="p">.</span><span class="nx">responseText</span><span class="p">,</span> <span class="nx">url</span><span class="p">);</span>
-      <span class="k">else</span>
-        <span class="nx">failCallback</span><span class="p">(</span><span class="nx">url</span><span class="p">);</span>
-    <span class="p">}</span>
-  <span class="p">};</span>
+<span class="w">  </span><span class="nx">xmlhttp</span><span class="p">.</span><span class="nx">onreadystatechange</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">xmlhttp</span><span class="p">.</span><span class="nx">readyState</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mf">4</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">xmlhttp</span><span class="p">.</span><span class="nx">status</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mf">200</span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="nx">callback</span><span class="p">(</span><span class="nx">xmlhttp</span><span class="p">.</span><span class="nx">responseText</span><span class="p">,</span><span class="w"> </span><span class="nx">url</span><span class="p">);</span><span class="w"></span>
+<span class="w">      </span><span class="k">else</span><span class="w"></span>
+<span class="w">        </span><span class="nx">failCallback</span><span class="p">(</span><span class="nx">url</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">  </span><span class="p">};</span><span class="w"></span>
 
-  <span class="nx">xmlhttp</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="nx">url</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
-  <span class="nx">xmlhttp</span><span class="p">.</span><span class="nx">send</span><span class="p">();</span>
-<span class="p">};</span>
+<span class="w">  </span><span class="nx">xmlhttp</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">url</span><span class="p">,</span><span class="w"> </span><span class="kc">true</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="nx">xmlhttp</span><span class="p">.</span><span class="nx">send</span><span class="p">();</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
 
 <span class="cm">/**</span>
 <span class="cm"> * Issue Multiple AJAX requests to get data, and a single callback is called</span>
@@ -175,40 +175,40 @@ actually the same question as the above.)</p>
 <span class="cm"> *                                 is data object of url-responseText pairs.</span>
 <span class="cm"> * @param {function} failCallbackMulti The callback function to be run if one of</span>
 <span class="cm"> *                                     the AJAX requests fails.</span>
-<span class="cm"> */</span>
-<span class="nx">AjaxRequestsMulti</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">urls</span><span class="p">,</span> <span class="nx">callbackMulti</span><span class="p">,</span> <span class="nx">failCallbackMulti</span><span class="p">)</span> <span class="p">{</span>
-  <span class="kd">var</span> <span class="nx">isAllCallsCompleted</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
-  <span class="kd">var</span> <span class="nx">isCallFailed</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
-  <span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="p">{};</span>
+<span class="cm"> */</span><span class="w"></span>
+<span class="nx">AjaxRequestsMulti</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">urls</span><span class="p">,</span><span class="w"> </span><span class="nx">callbackMulti</span><span class="p">,</span><span class="w"> </span><span class="nx">failCallbackMulti</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">isAllCallsCompleted</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">isCallFailed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{};</span><span class="w"></span>
 
-  <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mf">0</span><span class="p">;</span> <span class="nx">i</span><span class="o">&lt;</span><span class="nx">urls</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kd">var</span> <span class="nx">callback</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">responseText</span><span class="p">,</span> <span class="nx">url</span><span class="p">)</span> <span class="p">{</span>
-      <span class="k">if</span> <span class="p">(</span><span class="nx">isCallFailed</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">var</span><span class="w"> </span><span class="nx">i</span><span class="o">=</span><span class="mf">0</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="o">&lt;</span><span class="nx">urls</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">callback</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">responseText</span><span class="p">,</span><span class="w"> </span><span class="nx">url</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">isCallFailed</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="p">;</span><span class="w"></span>
 
-      <span class="nx">data</span><span class="p">[</span><span class="nx">url</span><span class="p">]</span> <span class="o">=</span> <span class="nx">responseText</span><span class="p">;</span>
+<span class="w">      </span><span class="nx">data</span><span class="p">[</span><span class="nx">url</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">responseText</span><span class="p">;</span><span class="w"></span>
 
-      <span class="c1">// get size of data</span>
-      <span class="kd">var</span> <span class="nx">size</span> <span class="o">=</span> <span class="mf">0</span><span class="p">;</span>
-      <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">index</span> <span class="ow">in</span> <span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">hasOwnProperty</span><span class="p">(</span><span class="nx">index</span><span class="p">))</span>
-          <span class="nx">size</span> <span class="o">++</span><span class="p">;</span>
-      <span class="p">}</span>
+<span class="w">      </span><span class="c1">// get size of data</span><span class="w"></span>
+<span class="w">      </span><span class="kd">var</span><span class="w"> </span><span class="nx">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0</span><span class="p">;</span><span class="w"></span>
+<span class="w">      </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">var</span><span class="w"> </span><span class="nx">index</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nx">data</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">hasOwnProperty</span><span class="p">(</span><span class="nx">index</span><span class="p">))</span><span class="w"></span>
+<span class="w">          </span><span class="nx">size</span><span class="w"> </span><span class="o">++</span><span class="p">;</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
 
-      <span class="k">if</span> <span class="p">(</span><span class="nx">size</span> <span class="o">==</span> <span class="nx">urls</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span>
-        <span class="c1">// all AJAX requests are completed successfully</span>
-        <span class="nx">callbackMulti</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
-    <span class="p">};</span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">size</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nx">urls</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// all AJAX requests are completed successfully</span><span class="w"></span>
+<span class="w">        </span><span class="nx">callbackMulti</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">};</span><span class="w"></span>
 
-    <span class="kd">var</span> <span class="nx">failCallback</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">url</span><span class="p">)</span> <span class="p">{</span>
-      <span class="nx">isCallFailed</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
-      <span class="nx">failCallbackMulti</span><span class="p">(</span><span class="nx">url</span><span class="p">);</span>
-    <span class="p">};</span>
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">failCallback</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">url</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nx">isCallFailed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span><span class="w"></span>
+<span class="w">      </span><span class="nx">failCallbackMulti</span><span class="p">(</span><span class="nx">url</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">};</span><span class="w"></span>
 
-    <span class="nx">AjaxRequest</span><span class="p">(</span><span class="nx">urls</span><span class="p">[</span><span class="nx">i</span><span class="p">],</span> <span class="nx">callback</span><span class="p">,</span> <span class="nx">failCallback</span><span class="p">);</span>
-  <span class="p">}</span>
-<span class="p">};</span>
-</pre></div>
-</td></tr></table></div></figure><p>There are two main functions in above code snippet. One is <em>AjaxRequest</em>, which
+<span class="w">    </span><span class="nx">AjaxRequest</span><span class="p">(</span><span class="nx">urls</span><span class="p">[</span><span class="nx">i</span><span class="p">],</span><span class="w"> </span><span class="nx">callback</span><span class="p">,</span><span class="w"> </span><span class="nx">failCallback</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
+</pre></div></td></tr></table></div>
+</div></figure><p>There are two main functions in above code snippet. One is <em>AjaxRequest</em>, which
 is the function to issue single AJAX request (XMLHttpRequest). The other is
 <em>AjaxRequestsMulti</em>, which is the function to issue multiple AJAX requests. I
 put a lot of comments in the code in order to trace the code easily.</p>
@@ -224,7 +224,7 @@ put a lot of comments in the code in order to trace the code easily.</p>
               <a href="https://github.com/siongui/userpages">repository</a> |
               <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/code/javascript/single-callback-multiple-xhr/usage.js">view raw</a>
             </figcaption><div class="code-file">
-            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
 <span class="normal"> 4</span>
@@ -250,35 +250,35 @@ put a lot of comments in the code in order to trace the code easily.</p>
 <span class="normal">24</span>
 <span class="normal">25</span>
 <span class="normal">26</span>
-<span class="normal">27</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cm">/**</span>
+<span class="normal">27</span></pre></div></td><td class="code"><div><pre><span></span><span class="cm">/**</span>
 <span class="cm"> * callback function after all AJAX requests ar completed successfully.</span>
 <span class="cm"> * @param {object} data The JavaScript object which contains url-responseText</span>
 <span class="cm"> *                      pairs.</span>
-<span class="cm"> */</span>
-<span class="nx">callbackMulti</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
-  <span class="c1">// write your own callbackMulti here.</span>
-  <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">index</span> <span class="ow">in</span> <span class="nx">data</span><span class="p">)</span>
-    <span class="nx">alert</span><span class="p">(</span><span class="nx">index</span> <span class="o">+</span> <span class="s1">&#39;:\n&#39;</span> <span class="o">+</span> <span class="nx">data</span><span class="p">[</span><span class="nx">index</span><span class="p">]);</span>
-<span class="p">};</span>
+<span class="cm"> */</span><span class="w"></span>
+<span class="nx">callbackMulti</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="c1">// write your own callbackMulti here.</span><span class="w"></span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">var</span><span class="w"> </span><span class="nx">index</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nx">data</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="nx">alert</span><span class="p">(</span><span class="nx">index</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s1">&#39;:\n&#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">data</span><span class="p">[</span><span class="nx">index</span><span class="p">]);</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
 
 <span class="cm">/**</span>
 <span class="cm"> * callback function if one of AJAX requests fails.</span>
 <span class="cm"> * @param {string} url The url of AJAX request that fails.</span>
-<span class="cm"> */</span>
-<span class="nx">failCallbackMulti</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">url</span><span class="p">)</span> <span class="p">{</span>
-  <span class="c1">// write your own failCallbackMulti here.</span>
-  <span class="nx">alert</span><span class="p">(</span><span class="nx">url</span> <span class="o">+</span> <span class="s1">&#39; failed&#39;</span><span class="p">);</span>
-<span class="p">};</span>
+<span class="cm"> */</span><span class="w"></span>
+<span class="nx">failCallbackMulti</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">url</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="c1">// write your own failCallbackMulti here.</span><span class="w"></span>
+<span class="w">  </span><span class="nx">alert</span><span class="p">(</span><span class="nx">url</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s1">&#39; failed&#39;</span><span class="p">);</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
 
-<span class="kd">var</span> <span class="nx">urls</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;https://golden-operator-130720.appspot.com/ekadesa.json&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;https://golden-operator-130720.appspot.com/caturassa.json&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;https://golden-operator-130720.appspot.com/buddho.json&#39;</span><span class="p">];</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">urls</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;https://golden-operator-130720.appspot.com/ekadesa.json&#39;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="s1">&#39;https://golden-operator-130720.appspot.com/caturassa.json&#39;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="s1">&#39;https://golden-operator-130720.appspot.com/buddho.json&#39;</span><span class="p">];</span><span class="w"></span>
 
-<span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;bt&#39;</span><span class="p">).</span><span class="nx">onclick</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-  <span class="nx">AjaxRequestsMulti</span><span class="p">(</span><span class="nx">urls</span><span class="p">,</span> <span class="nx">callbackMulti</span><span class="p">,</span> <span class="nx">failCallbackMulti</span><span class="p">);</span>
-<span class="p">};</span>
-</pre></div>
-</td></tr></table></div></figure>
+<span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;bt&#39;</span><span class="p">).</span><span class="nx">onclick</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nx">AjaxRequestsMulti</span><span class="p">(</span><span class="nx">urls</span><span class="p">,</span><span class="w"> </span><span class="nx">callbackMulti</span><span class="p">,</span><span class="w"> </span><span class="nx">failCallbackMulti</span><span class="p">);</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
+</pre></div></td></tr></table></div>
+</div></figure>
 <p>The variable <em>urls</em> contains the URLs of AJAX requests, overwrite this variable
 to fit your needs. The function <em>callbackMulti</em> is the callback function to be
 run after all AJAX requests are completed successfully, and <em>failCallbackMulti</em>
@@ -290,7 +290,7 @@ will be run if some requests fail.</p>
               <a href="https://github.com/siongui/userpages">repository</a> |
               <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/code/javascript/single-callback-multiple-xhr/asynchronous.html">view raw</a>
             </figcaption><div class="code-file">
-            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
 <span class="normal"> 4</span>
@@ -303,7 +303,7 @@ will be run if some requests fail.</p>
 <span class="normal">11</span>
 <span class="normal">12</span>
 <span class="normal">13</span>
-<span class="normal">14</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cp">&lt;!doctype html&gt;</span>
+<span class="normal">14</span></pre></div></td><td class="code"><div><pre><span></span><span class="cp">&lt;!doctype html&gt;</span>
 <span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
 <span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
   <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&quot;utf-8&quot;</span><span class="p">&gt;</span>
@@ -317,8 +317,8 @@ will be run if some requests fail.</p>
 <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;usage.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
 <span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
-</pre></div>
-</td></tr></table></div></figure><div class="admonition note">
+</pre></div></td></tr></table></div>
+</div></figure><div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">If you web page is served via HTTPS, the server that returns data also needs
 to serve via HTTPS. Otherwise browsers will block the request and make the

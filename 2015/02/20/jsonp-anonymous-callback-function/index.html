@@ -72,7 +72,7 @@ whole callback function is supplied in the HTTP request.</p>
               <a href="https://github.com/siongui/userpages">repository</a> |
               <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/code/jsonp-anonymous-gae/index.html">view raw</a>
             </figcaption><div class="code-file">
-            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
 <span class="normal"> 4</span>
@@ -95,7 +95,7 @@ whole callback function is supplied in the HTTP request.</p>
 <span class="normal">21</span>
 <span class="normal">22</span>
 <span class="normal">23</span>
-<span class="normal">24</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cp">&lt;!doctype html&gt;</span>
+<span class="normal">24</span></pre></div></td><td class="code"><div><pre><span></span><span class="cp">&lt;!doctype html&gt;</span>
 <span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
 <span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
   <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&quot;utf-8&quot;</span><span class="p">&gt;</span>
@@ -119,8 +119,8 @@ whole callback function is supplied in the HTTP request.</p>
 <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;jsonp.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
 <span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
-</pre></div>
-</td></tr></table></div></figure>
+</pre></div></td></tr></table></div>
+</div></figure>
 <p><em>jsonp.js</em> (run on client side, i.e., browser):</p>
 <figure class="github-file">
             <figcaption>
@@ -128,7 +128,7 @@ whole callback function is supplied in the HTTP request.</p>
               <a href="https://github.com/siongui/userpages">repository</a> |
               <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/code/jsonp-anonymous-gae/jsonp.js">view raw</a>
             </figcaption><div class="code-file">
-            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
 <span class="normal"> 4</span>
@@ -151,32 +151,32 @@ whole callback function is supplied in the HTTP request.</p>
 <span class="normal">21</span>
 <span class="normal">22</span>
 <span class="normal">23</span>
-<span class="normal">24</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cm">/* send data to GAE Python server */</span>
-<span class="kd">function</span> <span class="nx">jsonp</span><span class="p">()</span> <span class="p">{</span>
-  <span class="kd">var</span> <span class="nx">input1value</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;input1&#39;</span><span class="p">).</span><span class="nx">value</span><span class="p">;</span>
-  <span class="kd">var</span> <span class="nx">input2value</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;input2&#39;</span><span class="p">).</span><span class="nx">value</span><span class="p">;</span>
+<span class="normal">24</span></pre></div></td><td class="code"><div><pre><span></span><span class="cm">/* send data to GAE Python server */</span><span class="w"></span>
+<span class="kd">function</span><span class="w"> </span><span class="nx">jsonp</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">input1value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;input1&#39;</span><span class="p">).</span><span class="nx">value</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">input2value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;input2&#39;</span><span class="p">).</span><span class="nx">value</span><span class="p">;</span><span class="w"></span>
 
-  <span class="c1">// anonymous callback function to process JSON data returned from server.</span>
-  <span class="kd">var</span> <span class="nx">callback</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">JSONdata</span><span class="p">)</span> <span class="p">{</span>
-    <span class="cm">/* In order to parse data, we have to know the structure of data from server in advance */</span>
-    <span class="cm">/* show data returned from server */</span>
-    <span class="kd">var</span> <span class="nx">infoElem</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;info&#39;</span><span class="p">);</span>
-    <span class="nx">infoElem</span><span class="p">.</span><span class="nx">innerHTML</span>  <span class="o">=</span> <span class="s1">&#39;input1: &#39;</span> <span class="o">+</span> <span class="nx">JSONdata</span><span class="p">[</span><span class="mf">0</span><span class="p">][</span><span class="s1">&#39;input1&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;&lt;br /&gt;&#39;</span><span class="p">;</span>
-    <span class="nx">infoElem</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">+=</span> <span class="s1">&#39;input2: &#39;</span> <span class="o">+</span> <span class="nx">JSONdata</span><span class="p">[</span><span class="mf">1</span><span class="p">][</span><span class="s1">&#39;input2&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;&lt;br /&gt;&#39;</span><span class="p">;</span>
-    <span class="nx">infoElem</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">+=</span> <span class="nx">JSONdata</span><span class="p">[</span><span class="mf">2</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;&lt;br /&gt;&#39;</span><span class="p">;</span>
-    <span class="nx">infoElem</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">+=</span> <span class="nx">JSONdata</span><span class="p">[</span><span class="mf">3</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;&lt;br /&gt;&#39;</span><span class="p">;</span>
-  <span class="p">};</span>
+<span class="w">  </span><span class="c1">// anonymous callback function to process JSON data returned from server.</span><span class="w"></span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">callback</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">JSONdata</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="cm">/* In order to parse data, we have to know the structure of data from server in advance */</span><span class="w"></span>
+<span class="w">    </span><span class="cm">/* show data returned from server */</span><span class="w"></span>
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">infoElem</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;info&#39;</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="nx">infoElem</span><span class="p">.</span><span class="nx">innerHTML</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;input1: &#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">JSONdata</span><span class="p">[</span><span class="mf">0</span><span class="p">][</span><span class="s1">&#39;input1&#39;</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s1">&#39;&lt;br /&gt;&#39;</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="nx">infoElem</span><span class="p">.</span><span class="nx">innerHTML</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="s1">&#39;input2: &#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">JSONdata</span><span class="p">[</span><span class="mf">1</span><span class="p">][</span><span class="s1">&#39;input2&#39;</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s1">&#39;&lt;br /&gt;&#39;</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="nx">infoElem</span><span class="p">.</span><span class="nx">innerHTML</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="nx">JSONdata</span><span class="p">[</span><span class="mf">2</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s1">&#39;&lt;br /&gt;&#39;</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="nx">infoElem</span><span class="p">.</span><span class="nx">innerHTML</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="nx">JSONdata</span><span class="p">[</span><span class="mf">3</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s1">&#39;&lt;br /&gt;&#39;</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="p">};</span><span class="w"></span>
 
-  <span class="kd">var</span> <span class="nx">url</span> <span class="o">=</span> <span class="s1">&#39;/jsonp?callback=&#39;</span> <span class="o">+</span> <span class="nb">encodeURIComponent</span><span class="p">(</span><span class="nx">callback</span><span class="p">.</span><span class="nx">toString</span><span class="p">())</span> <span class="o">+</span>
-           <span class="s1">&#39;&amp;input1=&#39;</span> <span class="o">+</span> <span class="nb">encodeURIComponent</span><span class="p">(</span><span class="nx">input1value</span><span class="p">)</span> <span class="o">+</span>
-           <span class="s1">&#39;&amp;input2=&#39;</span> <span class="o">+</span> <span class="nb">encodeURIComponent</span><span class="p">(</span><span class="nx">input2value</span><span class="p">);</span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;/jsonp?callback=&#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">encodeURIComponent</span><span class="p">(</span><span class="nx">callback</span><span class="p">.</span><span class="nx">toString</span><span class="p">())</span><span class="w"> </span><span class="o">+</span><span class="w"></span>
+<span class="w">           </span><span class="s1">&#39;&amp;input1=&#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">encodeURIComponent</span><span class="p">(</span><span class="nx">input1value</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"></span>
+<span class="w">           </span><span class="s1">&#39;&amp;input2=&#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">encodeURIComponent</span><span class="p">(</span><span class="nx">input2value</span><span class="p">);</span><span class="w"></span>
 
-  <span class="kd">var</span> <span class="nx">ext</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;script&#39;</span><span class="p">);</span>
-  <span class="nx">ext</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s1">&#39;src&#39;</span><span class="p">,</span> <span class="nx">url</span><span class="p">);</span>
-  <span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="s2">&quot;head&quot;</span><span class="p">)[</span><span class="mf">0</span><span class="p">].</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">ext</span><span class="p">);</span>
-<span class="p">}</span>
-</pre></div>
-</td></tr></table></div></figure>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">ext</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;script&#39;</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="nx">ext</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s1">&#39;src&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">url</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="s2">&quot;head&quot;</span><span class="p">)[</span><span class="mf">0</span><span class="p">].</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">ext</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div></td></tr></table></div>
+</div></figure>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">In <code>'/jsonp?callback=' + encodeURIComponent(callback.toString())</code>, the
@@ -189,7 +189,7 @@ whole anonymous callback function is supplied in the HTTP request.</p>
               <a href="https://github.com/siongui/userpages">repository</a> |
               <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/code/jsonp-anonymous-gae/jsonp.py">view raw</a>
             </figcaption><div class="code-file">
-            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
 <span class="normal"> 4</span>
@@ -215,7 +215,7 @@ whole anonymous callback function is supplied in the HTTP request.</p>
 <span class="normal">24</span>
 <span class="normal">25</span>
 <span class="normal">26</span>
-<span class="normal">27</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
+<span class="normal">27</span></pre></div></td><td class="code"><div><pre><span></span><span class="ch">#!/usr/bin/env python</span>
 <span class="c1"># -*- coding:utf-8 -*-</span>
 
 <span class="kn">import</span> <span class="nn">webapp2</span>
@@ -242,8 +242,8 @@ whole anonymous callback function is supplied in the HTTP request.</p>
 <span class="n">application</span> <span class="o">=</span> <span class="n">webapp2</span><span class="o">.</span><span class="n">WSGIApplication</span><span class="p">([</span>
     <span class="p">(</span><span class="s1">&#39;/jsonp&#39;</span><span class="p">,</span> <span class="n">JSONPPage</span><span class="p">),</span>
 <span class="p">],</span> <span class="n">debug</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</pre></div>
-</td></tr></table></div></figure><div class="admonition note">
+</pre></div></td></tr></table></div>
+</div></figure><div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p>In the code:</p>
 <div class="highlight"><pre><span></span><span class="bp">self</span><span class="o">.</span><span class="n">response</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
@@ -266,7 +266,7 @@ anonymous callback function.</p>
               <a href="https://github.com/siongui/userpages">repository</a> |
               <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/code/jsonp-anonymous-gae/app.yaml">view raw</a>
             </figcaption><div class="code-file">
-            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
 <span class="normal"> 4</span>
@@ -282,7 +282,7 @@ anonymous callback function.</p>
 <span class="normal">14</span>
 <span class="normal">15</span>
 <span class="normal">16</span>
-<span class="normal">17</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="nt">application</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">jsonp-anonymous-callback-function-gae-python</span><span class="w"></span>
+<span class="normal">17</span></pre></div></td><td class="code"><div><pre><span></span><span class="nt">application</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">jsonp-anonymous-callback-function-gae-python</span><span class="w"></span>
 <span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w"></span>
 <span class="nt">runtime</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">python27</span><span class="w"></span>
 <span class="nt">api_version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w"></span>
@@ -299,8 +299,8 @@ anonymous callback function.</p>
 
 <span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/jsonp</span><span class="w"></span>
 <span class="w">  </span><span class="nt">script</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">jsonp.application</span><span class="w"></span>
-</pre></div>
-</td></tr></table></div></figure><div class="section" id="caveat">
+</pre></div></td></tr></table></div>
+</div></figure><div class="section" id="caveat">
 <h2>Caveat</h2>
 <p>The anonymous function is passed as argument in the URL. If the anonymous
 function is too long, this may exceed the length limit of URI, i.e., the server

@@ -84,29 +84,29 @@ displayed in the tooltip when the cursor hovers over the span element.</p>
 </pre></div>
 
 <p><strong>Dart</strong>:</p>
-<div class="highlight"><pre><span></span><span class="k">import</span> <span class="s1">&#39;dart:html&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><span class="k">import</span><span class="w"> </span><span class="s1">&#39;dart:html&#39;</span><span class="p">;</span><span class="w"></span>
 
-<span class="n">DivElement</span> <span class="n">tooltip</span> <span class="o">=</span> <span class="n">querySelector</span><span class="p">(</span><span class="s2">&quot;.tooltip&quot;</span><span class="p">);</span>
+<span class="n">DivElement</span><span class="w"> </span><span class="n">tooltip</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">querySelector</span><span class="p">(</span><span class="s2">&quot;.tooltip&quot;</span><span class="p">);</span><span class="w"></span>
 
-<span class="kt">void</span> <span class="n">ShowTooltip</span><span class="p">(</span><span class="n">Event</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span>
-  <span class="n">Element</span> <span class="n">elm</span> <span class="o">=</span> <span class="n">e</span><span class="p">.</span><span class="n">target</span><span class="p">;</span>
-  <span class="n">tooltip</span><span class="p">.</span><span class="n">style</span><span class="p">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">elm</span><span class="p">.</span><span class="n">offsetLeft</span><span class="p">.</span><span class="n">toString</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&quot;px&quot;</span><span class="p">;</span>
-  <span class="n">tooltip</span><span class="p">.</span><span class="n">style</span><span class="p">.</span><span class="n">top</span> <span class="o">=</span> <span class="p">(</span><span class="n">elm</span><span class="p">.</span><span class="n">offsetTop</span> <span class="o">+</span> <span class="n">elm</span><span class="p">.</span><span class="n">offsetHeight</span> <span class="o">+</span> <span class="m">5</span><span class="p">).</span><span class="n">toString</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&quot;px&quot;</span><span class="p">;</span>
-  <span class="n">tooltip</span><span class="p">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">elm</span><span class="p">.</span><span class="n">dataset</span><span class="p">[</span><span class="s2">&quot;text&quot;</span><span class="p">];</span>
-  <span class="n">tooltip</span><span class="p">.</span><span class="n">classes</span><span class="p">.</span><span class="n">remove</span><span class="p">(</span><span class="s2">&quot;invisible&quot;</span><span class="p">);</span>
-<span class="p">}</span>
+<span class="kt">void</span><span class="w"> </span><span class="n">ShowTooltip</span><span class="p">(</span><span class="n">Event</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="n">Element</span><span class="w"> </span><span class="n">elm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">target</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="n">tooltip</span><span class="p">.</span><span class="n">style</span><span class="p">.</span><span class="n">left</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">elm</span><span class="p">.</span><span class="n">offsetLeft</span><span class="p">.</span><span class="n">toString</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s2">&quot;px&quot;</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="n">tooltip</span><span class="p">.</span><span class="n">style</span><span class="p">.</span><span class="n">top</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">elm</span><span class="p">.</span><span class="n">offsetTop</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">elm</span><span class="p">.</span><span class="n">offsetHeight</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">5</span><span class="p">).</span><span class="n">toString</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s2">&quot;px&quot;</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="n">tooltip</span><span class="p">.</span><span class="n">text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">elm</span><span class="p">.</span><span class="n">dataset</span><span class="p">[</span><span class="s2">&quot;text&quot;</span><span class="p">];</span><span class="w"></span>
+<span class="w">  </span><span class="n">tooltip</span><span class="p">.</span><span class="n">classes</span><span class="p">.</span><span class="n">remove</span><span class="p">(</span><span class="s2">&quot;invisible&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kt">void</span> <span class="n">HideTooltip</span><span class="p">(</span><span class="n">Event</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span>
-  <span class="n">tooltip</span><span class="p">.</span><span class="n">classes</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="s2">&quot;invisible&quot;</span><span class="p">);</span>
-<span class="p">}</span>
+<span class="kt">void</span><span class="w"> </span><span class="n">HideTooltip</span><span class="p">(</span><span class="n">Event</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="n">tooltip</span><span class="p">.</span><span class="n">classes</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="s2">&quot;invisible&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kt">void</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
-  <span class="kd">var</span> <span class="n">spans</span> <span class="o">=</span> <span class="n">querySelectorAll</span><span class="p">(</span><span class="s1">&#39;span[data-text]&#39;</span><span class="p">);</span>
-  <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="n">span</span> <span class="k">in</span> <span class="n">spans</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">span</span><span class="p">.</span><span class="n">onMouseEnter</span><span class="p">.</span><span class="n">listen</span><span class="p">(</span><span class="n">ShowTooltip</span><span class="p">);</span>
-    <span class="n">span</span><span class="p">.</span><span class="n">onMouseLeave</span><span class="p">.</span><span class="n">listen</span><span class="p">(</span><span class="n">HideTooltip</span><span class="p">);</span>
-  <span class="p">}</span>
-<span class="p">}</span>
+<span class="kt">void</span><span class="w"> </span><span class="n">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="n">spans</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">querySelectorAll</span><span class="p">(</span><span class="s1">&#39;span[data-text]&#39;</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">var</span><span class="w"> </span><span class="n">span</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">spans</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">span</span><span class="p">.</span><span class="n">onMouseEnter</span><span class="p">.</span><span class="n">listen</span><span class="p">(</span><span class="n">ShowTooltip</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">span</span><span class="p">.</span><span class="n">onMouseLeave</span><span class="p">.</span><span class="n">listen</span><span class="p">(</span><span class="n">HideTooltip</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 <p>Use <a class="reference external" href="https://www.google.com/search?q=dartlang+querySelectorAll">querySelectorAll</a> to find all span elements with <em>data-text</em> attibute, and
 setup corresponding <a class="reference external" href="https://developer.mozilla.org/en/docs/Web/Events/mouseenter">mouseenter</a>/<a class="reference external" href="https://developer.mozilla.org/en/docs/Web/Events/mouseleave">mouseleave</a> event handlder to show/hide the

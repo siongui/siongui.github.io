@@ -116,34 +116,34 @@ https://golden-operator-130720.appspot.com/sukhada.json
 <p>If the user press the button or enter key in the input element, use the value of
 the input element as URL and make HTTP GET request by <em>xhr</em> method.</p>
 <p><strong>JavaScript</strong>:</p>
-<div class="highlight"><pre><span></span><span class="s1">&#39;use strict&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><span class="s1">&#39;use strict&#39;</span><span class="p">;</span><span class="w"></span>
 
-<span class="ow">new</span> <span class="nx">Vue</span><span class="p">({</span>
-  <span class="nx">el</span><span class="o">:</span> <span class="s1">&#39;#vueapp&#39;</span><span class="p">,</span>
-  <span class="nx">data</span><span class="o">:</span> <span class="p">{</span>
-    <span class="nx">url</span><span class="o">:</span> <span class="s2">&quot;https://siongui.github.io/xemaauj9k5qn34x88m4h/sukhada.json&quot;</span><span class="p">,</span>
-    <span class="nx">info</span><span class="o">:</span> <span class="s2">&quot;&quot;</span>
-  <span class="p">},</span>
-  <span class="nx">methods</span><span class="o">:</span> <span class="p">{</span>
-    <span class="nx">xhr</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-      <span class="k">this</span><span class="p">.</span><span class="nx">info</span> <span class="o">=</span> <span class="s2">&quot;Requesting ...&quot;</span><span class="p">;</span>
-      <span class="kd">var</span> <span class="nx">rq</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">XMLHttpRequest</span><span class="p">();</span>
+<span class="ow">new</span><span class="w"> </span><span class="nx">Vue</span><span class="p">({</span><span class="w"></span>
+<span class="w">  </span><span class="nx">el</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;#vueapp&#39;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nx">data</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">url</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;https://siongui.github.io/xemaauj9k5qn34x88m4h/sukhada.json&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nx">info</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="p">},</span><span class="w"></span>
+<span class="w">  </span><span class="nx">methods</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">xhr</span><span class="o">:</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="k">this</span><span class="p">.</span><span class="nx">info</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Requesting ...&quot;</span><span class="p">;</span><span class="w"></span>
+<span class="w">      </span><span class="kd">var</span><span class="w"> </span><span class="nx">rq</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">XMLHttpRequest</span><span class="p">();</span><span class="w"></span>
 
-      <span class="nx">rq</span><span class="p">.</span><span class="nx">onreadystatechange</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">vm</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">readyState</span> <span class="o">===</span> <span class="nx">XMLHttpRequest</span><span class="p">.</span><span class="nx">DONE</span><span class="p">)</span> <span class="p">{</span>
-          <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">status</span> <span class="o">===</span> <span class="mf">200</span><span class="p">)</span> <span class="p">{</span>
-            <span class="nx">vm</span><span class="p">.</span><span class="nx">info</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">responseText</span><span class="p">;</span>
-          <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-            <span class="nx">vm</span><span class="p">.</span><span class="nx">info</span> <span class="o">=</span> <span class="s2">&quot;Request Failed&quot;</span><span class="p">;</span>
-          <span class="p">}</span>
-        <span class="p">}</span>
-      <span class="p">}.</span><span class="nx">bind</span><span class="p">(</span><span class="nx">rq</span><span class="p">,</span> <span class="k">this</span><span class="p">);</span>
+<span class="w">      </span><span class="nx">rq</span><span class="p">.</span><span class="nx">onreadystatechange</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">vm</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">readyState</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="nx">XMLHttpRequest</span><span class="p">.</span><span class="nx">DONE</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">          </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">status</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="mf">200</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="nx">vm</span><span class="p">.</span><span class="nx">info</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">responseText</span><span class="p">;</span><span class="w"></span>
+<span class="w">          </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="nx">vm</span><span class="p">.</span><span class="nx">info</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Request Failed&quot;</span><span class="p">;</span><span class="w"></span>
+<span class="w">          </span><span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">      </span><span class="p">}.</span><span class="nx">bind</span><span class="p">(</span><span class="nx">rq</span><span class="p">,</span><span class="w"> </span><span class="k">this</span><span class="p">);</span><span class="w"></span>
 
-      <span class="nx">rq</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">url</span><span class="p">);</span>
-      <span class="nx">rq</span><span class="p">.</span><span class="nx">send</span><span class="p">();</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
-<span class="p">})</span>
+<span class="w">      </span><span class="nx">rq</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">url</span><span class="p">);</span><span class="w"></span>
+<span class="w">      </span><span class="nx">rq</span><span class="p">.</span><span class="nx">send</span><span class="p">();</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="p">})</span><span class="w"></span>
 </pre></div>
 <p>The implementation of <em>xhr</em> method is the same as the code in other tutorials,
 except that we use <a class="reference external" href="https://www.google.com/search?q=javascript+bind">bind</a> method to assign the value of <em>this</em> and pass the

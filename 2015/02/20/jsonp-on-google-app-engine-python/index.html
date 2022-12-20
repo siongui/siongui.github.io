@@ -70,7 +70,7 @@ and <a class="footnote-reference" href="#footnote-2" id="footnote-reference-2">[
               <a href="https://github.com/siongui/userpages">repository</a> |
               <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/code/jsonp-gae-python/index.html">view raw</a>
             </figcaption><div class="code-file">
-            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
 <span class="normal"> 4</span>
@@ -93,7 +93,7 @@ and <a class="footnote-reference" href="#footnote-2" id="footnote-reference-2">[
 <span class="normal">21</span>
 <span class="normal">22</span>
 <span class="normal">23</span>
-<span class="normal">24</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cp">&lt;!doctype html&gt;</span>
+<span class="normal">24</span></pre></div></td><td class="code"><div><pre><span></span><span class="cp">&lt;!doctype html&gt;</span>
 <span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
 <span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
   <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&quot;utf-8&quot;</span><span class="p">&gt;</span>
@@ -117,8 +117,8 @@ and <a class="footnote-reference" href="#footnote-2" id="footnote-reference-2">[
 <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;jsonp.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
 <span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
-</pre></div>
-</td></tr></table></div></figure>
+</pre></div></td></tr></table></div>
+</div></figure>
 <p><em>jsonp.js</em> (run on client side, i.e., browser):</p>
 <figure class="github-file">
             <figcaption>
@@ -126,7 +126,7 @@ and <a class="footnote-reference" href="#footnote-2" id="footnote-reference-2">[
               <a href="https://github.com/siongui/userpages">repository</a> |
               <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/code/jsonp-gae-python/jsonp.js">view raw</a>
             </figcaption><div class="code-file">
-            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
 <span class="normal"> 4</span>
@@ -148,31 +148,31 @@ and <a class="footnote-reference" href="#footnote-2" id="footnote-reference-2">[
 <span class="normal">20</span>
 <span class="normal">21</span>
 <span class="normal">22</span>
-<span class="normal">23</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cm">/* send data to GAE Python server */</span>
-<span class="kd">function</span> <span class="nx">jsonp</span><span class="p">()</span> <span class="p">{</span>
-  <span class="kd">var</span> <span class="nx">input1value</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;input1&#39;</span><span class="p">).</span><span class="nx">value</span><span class="p">;</span>
-  <span class="kd">var</span> <span class="nx">input2value</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;input2&#39;</span><span class="p">).</span><span class="nx">value</span><span class="p">;</span>
-  <span class="kd">var</span> <span class="nx">url</span> <span class="o">=</span> <span class="s1">&#39;/jsonp?callback=mycallback&#39;</span> <span class="o">+</span>
-           <span class="s1">&#39;&amp;input1=&#39;</span> <span class="o">+</span> <span class="nb">encodeURIComponent</span><span class="p">(</span><span class="nx">input1value</span><span class="p">)</span> <span class="o">+</span>
-           <span class="s1">&#39;&amp;input2=&#39;</span> <span class="o">+</span> <span class="nb">encodeURIComponent</span><span class="p">(</span><span class="nx">input2value</span><span class="p">);</span>
-  <span class="kd">var</span> <span class="nx">ext</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;script&#39;</span><span class="p">);</span>
-  <span class="nx">ext</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s1">&#39;src&#39;</span><span class="p">,</span> <span class="nx">url</span><span class="p">);</span>
-  <span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="s2">&quot;head&quot;</span><span class="p">)[</span><span class="mf">0</span><span class="p">].</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">ext</span><span class="p">);</span>
-<span class="p">}</span>
+<span class="normal">23</span></pre></div></td><td class="code"><div><pre><span></span><span class="cm">/* send data to GAE Python server */</span><span class="w"></span>
+<span class="kd">function</span><span class="w"> </span><span class="nx">jsonp</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">input1value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;input1&#39;</span><span class="p">).</span><span class="nx">value</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">input2value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;input2&#39;</span><span class="p">).</span><span class="nx">value</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;/jsonp?callback=mycallback&#39;</span><span class="w"> </span><span class="o">+</span><span class="w"></span>
+<span class="w">           </span><span class="s1">&#39;&amp;input1=&#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">encodeURIComponent</span><span class="p">(</span><span class="nx">input1value</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"></span>
+<span class="w">           </span><span class="s1">&#39;&amp;input2=&#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">encodeURIComponent</span><span class="p">(</span><span class="nx">input2value</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">ext</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;script&#39;</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="nx">ext</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s1">&#39;src&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">url</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="s2">&quot;head&quot;</span><span class="p">)[</span><span class="mf">0</span><span class="p">].</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">ext</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="cm">/* receive JSON data from GAE Python server */</span>
-<span class="kd">function</span> <span class="nx">mycallback</span><span class="p">(</span><span class="nx">JSONdata</span><span class="p">)</span> <span class="p">{</span>
-  <span class="cm">/* In order to parse data, we have to know the structure of data from server in advance */</span>
+<span class="cm">/* receive JSON data from GAE Python server */</span><span class="w"></span>
+<span class="kd">function</span><span class="w"> </span><span class="nx">mycallback</span><span class="p">(</span><span class="nx">JSONdata</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="cm">/* In order to parse data, we have to know the structure of data from server in advance */</span><span class="w"></span>
 
-  <span class="cm">/* show returned data */</span>
-  <span class="kd">var</span> <span class="nx">infoElm</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;info&#39;</span><span class="p">);</span>
-  <span class="nx">infoElm</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="s1">&#39;input1: &#39;</span> <span class="o">+</span> <span class="nx">JSONdata</span><span class="p">[</span><span class="mf">0</span><span class="p">][</span><span class="s1">&#39;input1&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;&lt;br /&gt;&#39;</span><span class="p">;</span>
-  <span class="nx">infoElm</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">+=</span> <span class="s1">&#39;input2: &#39;</span> <span class="o">+</span> <span class="nx">JSONdata</span><span class="p">[</span><span class="mf">1</span><span class="p">][</span><span class="s1">&#39;input2&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;&lt;br /&gt;&#39;</span><span class="p">;</span>
-  <span class="nx">infoElm</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">+=</span> <span class="nx">JSONdata</span><span class="p">[</span><span class="mf">2</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;&lt;br /&gt;&#39;</span><span class="p">;</span>
-  <span class="nx">infoElm</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">+=</span> <span class="nx">JSONdata</span><span class="p">[</span><span class="mf">3</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;&lt;br /&gt;&#39;</span><span class="p">;</span>
-<span class="p">}</span>
-</pre></div>
-</td></tr></table></div></figure>
+<span class="w">  </span><span class="cm">/* show returned data */</span><span class="w"></span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">infoElm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;info&#39;</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="nx">infoElm</span><span class="p">.</span><span class="nx">innerHTML</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;input1: &#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">JSONdata</span><span class="p">[</span><span class="mf">0</span><span class="p">][</span><span class="s1">&#39;input1&#39;</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s1">&#39;&lt;br /&gt;&#39;</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="nx">infoElm</span><span class="p">.</span><span class="nx">innerHTML</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="s1">&#39;input2: &#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">JSONdata</span><span class="p">[</span><span class="mf">1</span><span class="p">][</span><span class="s1">&#39;input2&#39;</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s1">&#39;&lt;br /&gt;&#39;</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="nx">infoElm</span><span class="p">.</span><span class="nx">innerHTML</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="nx">JSONdata</span><span class="p">[</span><span class="mf">2</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s1">&#39;&lt;br /&gt;&#39;</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="nx">infoElm</span><span class="p">.</span><span class="nx">innerHTML</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="nx">JSONdata</span><span class="p">[</span><span class="mf">3</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s1">&#39;&lt;br /&gt;&#39;</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div></td></tr></table></div>
+</div></figure>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">The name of callback function, <em>mycallback</em> in this case, must be consistent.
@@ -187,7 +187,7 @@ advance.</p>
               <a href="https://github.com/siongui/userpages">repository</a> |
               <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/code/jsonp-gae-python/jsonp.py">view raw</a>
             </figcaption><div class="code-file">
-            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
 <span class="normal"> 4</span>
@@ -213,7 +213,7 @@ advance.</p>
 <span class="normal">24</span>
 <span class="normal">25</span>
 <span class="normal">26</span>
-<span class="normal">27</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
+<span class="normal">27</span></pre></div></td><td class="code"><div><pre><span></span><span class="ch">#!/usr/bin/env python</span>
 <span class="c1"># -*- coding:utf-8 -*-</span>
 
 <span class="kn">import</span> <span class="nn">webapp2</span>
@@ -240,8 +240,8 @@ advance.</p>
 <span class="n">application</span> <span class="o">=</span> <span class="n">webapp2</span><span class="o">.</span><span class="n">WSGIApplication</span><span class="p">([</span>
     <span class="p">(</span><span class="s1">&#39;/jsonp&#39;</span><span class="p">,</span> <span class="n">JSONPPage</span><span class="p">),</span>
 <span class="p">],</span> <span class="n">debug</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</pre></div>
-</td></tr></table></div></figure><div class="admonition note">
+</pre></div></td></tr></table></div>
+</div></figure><div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p>The following code in <em>JSONPPage</em> class:</p>
 <div class="highlight"><pre><span></span><span class="bp">self</span><span class="o">.</span><span class="n">response</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
@@ -259,7 +259,7 @@ advance.</p>
               <a href="https://github.com/siongui/userpages">repository</a> |
               <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/code/jsonp-gae-python/app.yaml">view raw</a>
             </figcaption><div class="code-file">
-            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
 <span class="normal"> 4</span>
@@ -275,7 +275,7 @@ advance.</p>
 <span class="normal">14</span>
 <span class="normal">15</span>
 <span class="normal">16</span>
-<span class="normal">17</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="nt">application</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">jsonp-gae-python</span><span class="w"></span>
+<span class="normal">17</span></pre></div></td><td class="code"><div><pre><span></span><span class="nt">application</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">jsonp-gae-python</span><span class="w"></span>
 <span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w"></span>
 <span class="nt">runtime</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">python27</span><span class="w"></span>
 <span class="nt">api_version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w"></span>
@@ -292,8 +292,8 @@ advance.</p>
 
 <span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/jsonp</span><span class="w"></span>
 <span class="w">  </span><span class="nt">script</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">jsonp.application</span><span class="w"></span>
-</pre></div>
-</td></tr></table></div></figure><p>If you want to use JSONP with anonymous callback function, see <a class="footnote-reference" href="#footnote-4" id="footnote-reference-3">[4]</a>.</p>
+</pre></div></td></tr></table></div>
+</div></figure><p>If you want to use JSONP with anonymous callback function, see <a class="footnote-reference" href="#footnote-4" id="footnote-reference-3">[4]</a>.</p>
 <p>If you want to use JSONP with object instance function as callback function,
 see <a class="footnote-reference" href="#footnote-5" id="footnote-reference-4">[5]</a>.</p>
 <p>Tested on: <tt class="docutils literal">Ubuntu Linux 14.10</tt>, <tt class="docutils literal">Google App Engine Python SDK 1.9.18</tt></p>

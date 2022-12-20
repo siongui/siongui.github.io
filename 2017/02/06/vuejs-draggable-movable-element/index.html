@@ -71,7 +71,7 @@ registered event listener.</li>
               <a href="https://github.com/siongui/userpages">repository</a> |
               <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/code/vuejs/draggable-element/index.html">view raw</a>
             </figcaption><div class="code-file">
-            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
 <span class="normal"> 4</span>
@@ -86,7 +86,7 @@ registered event listener.</li>
 <span class="normal">13</span>
 <span class="normal">14</span>
 <span class="normal">15</span>
-<span class="normal">16</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cp">&lt;!doctype html&gt;</span>
+<span class="normal">16</span></pre></div></td><td class="code"><div><pre><span></span><span class="cp">&lt;!doctype html&gt;</span>
 <span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
 <span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
   <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&quot;utf-8&quot;</span><span class="p">&gt;</span>
@@ -102,15 +102,15 @@ registered event listener.</li>
 <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;app.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
 <span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
-</pre></div>
-</td></tr></table></div></figure>
+</pre></div></td></tr></table></div>
+</div></figure>
 <figure class="github-file">
             <figcaption>
               <a href="https://github.com/siongui/userpages/blob/master/content/code/vuejs/draggable-element/app.js">app.js</a> |
               <a href="https://github.com/siongui/userpages">repository</a> |
               <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/code/vuejs/draggable-element/app.js">view raw</a>
             </figcaption><div class="code-file">
-            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
 <span class="normal"> 4</span>
@@ -144,43 +144,43 @@ registered event listener.</li>
 <span class="normal">32</span>
 <span class="normal">33</span>
 <span class="normal">34</span>
-<span class="normal">35</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="s1">&#39;use strict&#39;</span><span class="p">;</span>
+<span class="normal">35</span></pre></div></td><td class="code"><div><pre><span></span><span class="s1">&#39;use strict&#39;</span><span class="p">;</span><span class="w"></span>
 
-<span class="nx">Vue</span><span class="p">.</span><span class="nx">directive</span><span class="p">(</span><span class="s1">&#39;draggable&#39;</span><span class="p">,</span> <span class="p">{</span>
-  <span class="nx">bind</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">el</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">el</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">position</span> <span class="o">=</span> <span class="s1">&#39;absolute&#39;</span><span class="p">;</span>
-    <span class="kd">var</span> <span class="nx">startX</span><span class="p">,</span> <span class="nx">startY</span><span class="p">,</span> <span class="nx">initialMouseX</span><span class="p">,</span> <span class="nx">initialMouseY</span><span class="p">;</span>
+<span class="nx">Vue</span><span class="p">.</span><span class="nx">directive</span><span class="p">(</span><span class="s1">&#39;draggable&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nx">bind</span><span class="o">:</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">(</span><span class="nx">el</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">el</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">position</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;absolute&#39;</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">startX</span><span class="p">,</span><span class="w"> </span><span class="nx">startY</span><span class="p">,</span><span class="w"> </span><span class="nx">initialMouseX</span><span class="p">,</span><span class="w"> </span><span class="nx">initialMouseY</span><span class="p">;</span><span class="w"></span>
 
-    <span class="kd">function</span> <span class="nx">mousemove</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
-      <span class="kd">var</span> <span class="nx">dx</span> <span class="o">=</span> <span class="nx">e</span><span class="p">.</span><span class="nx">clientX</span> <span class="o">-</span> <span class="nx">initialMouseX</span><span class="p">;</span>
-      <span class="kd">var</span> <span class="nx">dy</span> <span class="o">=</span> <span class="nx">e</span><span class="p">.</span><span class="nx">clientY</span> <span class="o">-</span> <span class="nx">initialMouseY</span><span class="p">;</span>
-      <span class="nx">el</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">top</span> <span class="o">=</span> <span class="nx">startY</span> <span class="o">+</span> <span class="nx">dy</span> <span class="o">+</span> <span class="s1">&#39;px&#39;</span><span class="p">;</span>
-      <span class="nx">el</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">left</span> <span class="o">=</span> <span class="nx">startX</span> <span class="o">+</span> <span class="nx">dx</span> <span class="o">+</span> <span class="s1">&#39;px&#39;</span><span class="p">;</span>
-      <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
-    <span class="p">}</span>
+<span class="w">    </span><span class="kd">function</span><span class="w"> </span><span class="nx">mousemove</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="kd">var</span><span class="w"> </span><span class="nx">dx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">e</span><span class="p">.</span><span class="nx">clientX</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nx">initialMouseX</span><span class="p">;</span><span class="w"></span>
+<span class="w">      </span><span class="kd">var</span><span class="w"> </span><span class="nx">dy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">e</span><span class="p">.</span><span class="nx">clientY</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nx">initialMouseY</span><span class="p">;</span><span class="w"></span>
+<span class="w">      </span><span class="nx">el</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">top</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">startY</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">dy</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s1">&#39;px&#39;</span><span class="p">;</span><span class="w"></span>
+<span class="w">      </span><span class="nx">el</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">left</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">startX</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">dx</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s1">&#39;px&#39;</span><span class="p">;</span><span class="w"></span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
 
-    <span class="kd">function</span> <span class="nx">mouseup</span><span class="p">()</span> <span class="p">{</span>
-      <span class="nb">document</span><span class="p">.</span><span class="nx">removeEventListener</span><span class="p">(</span><span class="s1">&#39;mousemove&#39;</span><span class="p">,</span> <span class="nx">mousemove</span><span class="p">);</span>
-      <span class="nb">document</span><span class="p">.</span><span class="nx">removeEventListener</span><span class="p">(</span><span class="s1">&#39;mouseup&#39;</span><span class="p">,</span> <span class="nx">mouseup</span><span class="p">);</span>
-    <span class="p">}</span>
+<span class="w">    </span><span class="kd">function</span><span class="w"> </span><span class="nx">mouseup</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nb">document</span><span class="p">.</span><span class="nx">removeEventListener</span><span class="p">(</span><span class="s1">&#39;mousemove&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">mousemove</span><span class="p">);</span><span class="w"></span>
+<span class="w">      </span><span class="nb">document</span><span class="p">.</span><span class="nx">removeEventListener</span><span class="p">(</span><span class="s1">&#39;mouseup&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">mouseup</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
 
-    <span class="nx">el</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;mousedown&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
-      <span class="nx">startX</span> <span class="o">=</span> <span class="nx">el</span><span class="p">.</span><span class="nx">offsetLeft</span><span class="p">;</span>
-      <span class="nx">startY</span> <span class="o">=</span> <span class="nx">el</span><span class="p">.</span><span class="nx">offsetTop</span><span class="p">;</span>
-      <span class="nx">initialMouseX</span> <span class="o">=</span> <span class="nx">e</span><span class="p">.</span><span class="nx">clientX</span><span class="p">;</span>
-      <span class="nx">initialMouseY</span> <span class="o">=</span> <span class="nx">e</span><span class="p">.</span><span class="nx">clientY</span><span class="p">;</span>
-      <span class="nb">document</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;mousemove&#39;</span><span class="p">,</span> <span class="nx">mousemove</span><span class="p">);</span>
-      <span class="nb">document</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;mouseup&#39;</span><span class="p">,</span> <span class="nx">mouseup</span><span class="p">);</span>
-      <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
-    <span class="p">});</span>
-  <span class="p">}</span>
-<span class="p">})</span>
+<span class="w">    </span><span class="nx">el</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;mousedown&#39;</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nx">startX</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">el</span><span class="p">.</span><span class="nx">offsetLeft</span><span class="p">;</span><span class="w"></span>
+<span class="w">      </span><span class="nx">startY</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">el</span><span class="p">.</span><span class="nx">offsetTop</span><span class="p">;</span><span class="w"></span>
+<span class="w">      </span><span class="nx">initialMouseX</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">e</span><span class="p">.</span><span class="nx">clientX</span><span class="p">;</span><span class="w"></span>
+<span class="w">      </span><span class="nx">initialMouseY</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">e</span><span class="p">.</span><span class="nx">clientY</span><span class="p">;</span><span class="w"></span>
+<span class="w">      </span><span class="nb">document</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;mousemove&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">mousemove</span><span class="p">);</span><span class="w"></span>
+<span class="w">      </span><span class="nb">document</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;mouseup&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">mouseup</span><span class="p">);</span><span class="w"></span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">});</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="p">})</span><span class="w"></span>
 
-<span class="ow">new</span> <span class="nx">Vue</span><span class="p">({</span>
-  <span class="nx">el</span><span class="o">:</span> <span class="s1">&#39;#app&#39;</span>
-<span class="p">})</span>
-</pre></div>
-</td></tr></table></div></figure>
+<span class="ow">new</span><span class="w"> </span><span class="nx">Vue</span><span class="p">({</span><span class="w"></span>
+<span class="w">  </span><span class="nx">el</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;#app&#39;</span><span class="w"></span>
+<span class="p">})</span><span class="w"></span>
+</pre></div></td></tr></table></div>
+</div></figure>
 <hr class="docutils" />
 <p>Tested on:</p>
 <ul class="simple">

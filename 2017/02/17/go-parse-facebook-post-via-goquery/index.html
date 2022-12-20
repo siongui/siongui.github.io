@@ -92,7 +92,7 @@ extract <em>{{POST_HTML}}</em>:</p>
               <a href="https://github.com/siongui/userpages">repository</a> |
               <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/code/go/scrape-facebook-post/fb.go">view raw</a>
             </figcaption><div class="code-file">
-            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
 <span class="normal"> 4</span>
@@ -111,7 +111,7 @@ extract <em>{{POST_HTML}}</em>:</p>
 <span class="normal">17</span>
 <span class="normal">18</span>
 <span class="normal">19</span>
-<span class="normal">20</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">parsefb</span><span class="w"></span>
+<span class="normal">20</span></pre></div></td><td class="code"><div><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">parsefb</span><span class="w"></span>
 
 <span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
 <span class="w">	</span><span class="s">&quot;github.com/PuerkitoBio/goquery&quot;</span><span class="w"></span>
@@ -131,8 +131,8 @@ extract <em>{{POST_HTML}}</em>:</p>
 <span class="w">	</span><span class="nx">postHtml</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">cmt</span><span class="p">[</span><span class="mi">5</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="nx">cmt</span><span class="p">)</span><span class="o">-</span><span class="mi">4</span><span class="p">]</span><span class="w"></span>
 <span class="w">	</span><span class="k">return</span><span class="w"> </span><span class="nx">postHtml</span><span class="p">,</span><span class="w"> </span><span class="kc">nil</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
-</pre></div>
-</td></tr></table></div></figure><p>We can use <a class="reference external" href="https://github.com/PuerkitoBio/goquery">goquery</a> <a class="reference external" href="https://godoc.org/github.com/PuerkitoBio/goquery#Selection.Find">Find</a> function with <a class="reference external" href="https://www.google.com/search?q=CSS+selector">CSS selector</a>
+</pre></div></td></tr></table></div>
+</div></figure><p>We can use <a class="reference external" href="https://github.com/PuerkitoBio/goquery">goquery</a> <a class="reference external" href="https://godoc.org/github.com/PuerkitoBio/goquery#Selection.Find">Find</a> function with <a class="reference external" href="https://www.google.com/search?q=CSS+selector">CSS selector</a>
 <strong>div.hidden_elem &gt; code</strong>. There will be two elements match the above selector,
 the post is in first matched element, so we use <a class="reference external" href="https://godoc.org/github.com/PuerkitoBio/goquery#Selection.First">First</a> function to get the first
 matched element. Retrieve the <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/API/Element/innerHTML">innerHTML</a> of the first matched element by <a class="reference external" href="https://godoc.org/github.com/PuerkitoBio/goquery#Selection.Html">Html</a>
@@ -155,7 +155,7 @@ human-readable form:</p>
               <a href="https://github.com/siongui/userpages">repository</a> |
               <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/code/go/scrape-facebook-post/time.go">view raw</a>
             </figcaption><div class="code-file">
-            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
 <span class="normal"> 4</span>
@@ -187,7 +187,7 @@ human-readable form:</p>
 <span class="normal">30</span>
 <span class="normal">31</span>
 <span class="normal">32</span>
-<span class="normal">33</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">parsefb</span><span class="w"></span>
+<span class="normal">33</span></pre></div></td><td class="code"><div><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">parsefb</span><span class="w"></span>
 
 <span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
 <span class="w">	</span><span class="s">&quot;errors&quot;</span><span class="w"></span>
@@ -220,8 +220,8 @@ human-readable form:</p>
 
 <span class="w">	</span><span class="k">return</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">errors</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="s">&quot;cannot find timestamp&quot;</span><span class="p">)</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
-</pre></div>
-</td></tr></table></div></figure><p>See <a class="reference external" href="/2017/02/16/go-parse-utime-timestamp/">my post for parsing Unix time</a> <a class="footnote-reference" href="#footnote-4" id="footnote-reference-1">[4]</a> for more details.</p>
+</pre></div></td></tr></table></div>
+</div></figure><p>See <a class="reference external" href="/2017/02/16/go-parse-utime-timestamp/">my post for parsing Unix time</a> <a class="footnote-reference" href="#footnote-4" id="footnote-reference-1">[4]</a> for more details.</p>
 
 </div>
 <div class="section" id="post-profile-link">
@@ -233,7 +233,7 @@ human-readable form:</p>
               <a href="https://github.com/siongui/userpages">repository</a> |
               <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/code/go/scrape-facebook-post/profilelink.go">view raw</a>
             </figcaption><div class="code-file">
-            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
 <span class="normal"> 4</span>
@@ -271,7 +271,7 @@ human-readable form:</p>
 <span class="normal">36</span>
 <span class="normal">37</span>
 <span class="normal">38</span>
-<span class="normal">39</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">parsefb</span><span class="w"></span>
+<span class="normal">39</span></pre></div></td><td class="code"><div><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">parsefb</span><span class="w"></span>
 
 <span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
 <span class="w">	</span><span class="s">&quot;errors&quot;</span><span class="w"></span>
@@ -310,8 +310,8 @@ human-readable form:</p>
 
 <span class="w">	</span><span class="k">return</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">pl</span><span class="p">,</span><span class="w"> </span><span class="kc">nil</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
-</pre></div>
-</td></tr></table></div></figure><p>The logic in above code is the same. Just find the element which contains the
+</pre></div></td></tr></table></div>
+</div></figure><p>The logic in above code is the same. Just find the element which contains the
 data you are looking for, and use correct <a class="reference external" href="https://www.google.com/search?q=CSS+selector">CSS selector</a> to get the element we
 need.</p>
 
@@ -325,7 +325,7 @@ need.</p>
               <a href="https://github.com/siongui/userpages">repository</a> |
               <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/code/go/scrape-facebook-post/image.go">view raw</a>
             </figcaption><div class="code-file">
-            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
 <span class="normal"> 4</span>
@@ -350,7 +350,7 @@ need.</p>
 <span class="normal">23</span>
 <span class="normal">24</span>
 <span class="normal">25</span>
-<span class="normal">26</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">parsefb</span><span class="w"></span>
+<span class="normal">26</span></pre></div></td><td class="code"><div><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">parsefb</span><span class="w"></span>
 
 <span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
 <span class="w">	</span><span class="s">&quot;errors&quot;</span><span class="w"></span>
@@ -376,8 +376,8 @@ need.</p>
 
 <span class="w">	</span><span class="k">return</span><span class="w"> </span><span class="nx">url</span><span class="p">,</span><span class="w"> </span><span class="kc">nil</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
-</pre></div>
-</td></tr></table></div></figure></div>
+</pre></div></td></tr></table></div>
+</div></figure></div>
 <div class="section" id="post-content">
 <h2>Post Content</h2>
 <p>Get the content of the post:</p>
@@ -387,7 +387,7 @@ need.</p>
               <a href="https://github.com/siongui/userpages">repository</a> |
               <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/code/go/scrape-facebook-post/content.go">view raw</a>
             </figcaption><div class="code-file">
-            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
 <span class="normal"> 4</span>
@@ -411,7 +411,7 @@ need.</p>
 <span class="normal">22</span>
 <span class="normal">23</span>
 <span class="normal">24</span>
-<span class="normal">25</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">parsefb</span><span class="w"></span>
+<span class="normal">25</span></pre></div></td><td class="code"><div><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">parsefb</span><span class="w"></span>
 
 <span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
 <span class="w">	</span><span class="s">&quot;github.com/PuerkitoBio/goquery&quot;</span><span class="w"></span>
@@ -436,8 +436,8 @@ need.</p>
 
 <span class="w">	</span><span class="k">return</span><span class="w"> </span><span class="nx">content</span><span class="p">,</span><span class="w"> </span><span class="kc">nil</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
-</pre></div>
-</td></tr></table></div></figure></div>
+</pre></div></td></tr></table></div>
+</div></figure></div>
 <div class="section" id="summary">
 <h2>Summary</h2>
 <p>Use all the above code to extract data from post:</p>
@@ -447,7 +447,7 @@ need.</p>
               <a href="https://github.com/siongui/userpages">repository</a> |
               <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/code/go/scrape-facebook-post/fb_test.go">view raw</a>
             </figcaption><div class="code-file">
-            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
 <span class="normal"> 4</span>
@@ -490,7 +490,7 @@ need.</p>
 <span class="normal">41</span>
 <span class="normal">42</span>
 <span class="normal">43</span>
-<span class="normal">44</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">parsefb</span><span class="w"></span>
+<span class="normal">44</span></pre></div></td><td class="code"><div><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">parsefb</span><span class="w"></span>
 
 <span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
 <span class="w">	</span><span class="s">&quot;testing&quot;</span><span class="w"></span>
@@ -534,8 +534,8 @@ need.</p>
 <span class="w">	</span><span class="p">}</span><span class="w"></span>
 <span class="w">	</span><span class="nx">t</span><span class="p">.</span><span class="nx">Log</span><span class="p">(</span><span class="nx">content</span><span class="p">)</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
-</pre></div>
-</td></tr></table></div></figure><hr class="docutils" />
+</pre></div></td></tr></table></div>
+</div></figure><hr class="docutils" />
 <p>Tested on: <tt class="docutils literal">Ubuntu Linux 16.10</tt>, <tt class="docutils literal">Go 1.8</tt>.</p>
 <hr class="docutils" />
 

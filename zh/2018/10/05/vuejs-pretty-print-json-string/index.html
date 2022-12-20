@@ -93,19 +93,19 @@ new Vue({
 方法可以幫我們優美列印 JSON 字串，所以在 filter 裡頭，先用 <em>JSON.parse</em> 該字串，
 然後再 <em>JSON.stringify</em> 它。</p>
 <p><strong>JavaScript</strong>:</p>
-<div class="highlight"><pre><span></span><span class="s1">&#39;use strict&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><span class="s1">&#39;use strict&#39;</span><span class="p">;</span><span class="w"></span>
 
-<span class="ow">new</span> <span class="nx">Vue</span><span class="p">({</span>
-  <span class="nx">el</span><span class="o">:</span> <span class="s1">&#39;#vueapp&#39;</span><span class="p">,</span>
-  <span class="nx">data</span><span class="o">:</span> <span class="p">{</span>
-    <span class="nx">jsonstr</span><span class="o">:</span> <span class="s1">&#39;{&quot;id&quot;:1,&quot;name&quot;:&quot;A green door&quot;,&quot;price&quot;:12.50,&quot;tags&quot;:[&quot;home&quot;,&quot;green&quot;]}&#39;</span>
-  <span class="p">},</span>
-  <span class="nx">filters</span><span class="o">:</span> <span class="p">{</span>
-    <span class="nx">pretty</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
-      <span class="k">return</span> <span class="nb">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nb">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">value</span><span class="p">),</span> <span class="kc">null</span><span class="p">,</span> <span class="mf">2</span><span class="p">);</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
-<span class="p">})</span>
+<span class="ow">new</span><span class="w"> </span><span class="nx">Vue</span><span class="p">({</span><span class="w"></span>
+<span class="w">  </span><span class="nx">el</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;#vueapp&#39;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nx">data</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">jsonstr</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;{&quot;id&quot;:1,&quot;name&quot;:&quot;A green door&quot;,&quot;price&quot;:12.50,&quot;tags&quot;:[&quot;home&quot;,&quot;green&quot;]}&#39;</span><span class="w"></span>
+<span class="w">  </span><span class="p">},</span><span class="w"></span>
+<span class="w">  </span><span class="nx">filters</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">pretty</span><span class="o">:</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="nb">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nb">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">value</span><span class="p">),</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w"> </span><span class="mf">2</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="p">})</span><span class="w"></span>
 </pre></div>
 
 <hr class="docutils" />

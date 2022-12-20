@@ -68,7 +68,7 @@ use only small files and do not make any segmentation.</p>
               <a href="https://github.com/siongui/userpages">repository</a> |
               <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/code/go/file-qrcode/fileqrcode.go">view raw</a>
             </figcaption><div class="code-file">
-            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
 <span class="normal"> 4</span>
@@ -143,7 +143,7 @@ use only small files and do not make any segmentation.</p>
 <span class="normal">73</span>
 <span class="normal">74</span>
 <span class="normal">75</span>
-<span class="normal">76</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">fileqrcode</span><span class="w"></span>
+<span class="normal">76</span></pre></div></td><td class="code"><div><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">fileqrcode</span><span class="w"></span>
 
 <span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
 <span class="w">	</span><span class="s">&quot;encoding/base64&quot;</span><span class="w"></span>
@@ -219,8 +219,8 @@ use only small files and do not make any segmentation.</p>
 
 <span class="w">	</span><span class="k">return</span><span class="w"> </span><span class="nx">ioutil</span><span class="p">.</span><span class="nx">WriteFile</span><span class="p">(</span><span class="nx">oriFilename</span><span class="p">,</span><span class="w"> </span><span class="nx">content</span><span class="p">,</span><span class="w"> </span><span class="mo">0644</span><span class="p">)</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
-</pre></div>
-</td></tr></table></div></figure>
+</pre></div></td></tr></table></div>
+</div></figure>
 <p>It looks fine, but when I run the following test:</p>
 <p><strong>Example</strong>:</p>
 <figure class="github-file">
@@ -229,7 +229,7 @@ use only small files and do not make any segmentation.</p>
               <a href="https://github.com/siongui/userpages">repository</a> |
               <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/code/go/file-qrcode/fileqrcode_test.go">view raw</a>
             </figcaption><div class="code-file">
-            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
 <span class="normal"> 4</span>
@@ -247,7 +247,7 @@ use only small files and do not make any segmentation.</p>
 <span class="normal">16</span>
 <span class="normal">17</span>
 <span class="normal">18</span>
-<span class="normal">19</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">fileqrcode</span><span class="w"></span>
+<span class="normal">19</span></pre></div></td><td class="code"><div><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">fileqrcode</span><span class="w"></span>
 
 <span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
 <span class="w">	</span><span class="s">&quot;testing&quot;</span><span class="w"></span>
@@ -266,8 +266,8 @@ use only small files and do not make any segmentation.</p>
 <span class="w">		</span><span class="nx">t</span><span class="p">.</span><span class="nx">Error</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"></span>
 <span class="w">	</span><span class="p">}</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
-</pre></div>
-</td></tr></table></div></figure><p>The decoded string from the QR code image is not legal string. I tried to decode
+</pre></div></td></tr></table></div>
+</div></figure><p>The decoded string from the QR code image is not legal string. I tried to decode
 the QR code image from <a class="reference external" href="https://zxing.org/w/decode.jspx">online QR code decoder</a>, the decoded string is correct.
 So the implementation of <a class="reference external" href="https://github.com/tuotoo/qrcode">github.com/tuotoo/qrcode</a> is buggy. Anyway, this is
 an interesting experiment to embed files in the QR code.</p>

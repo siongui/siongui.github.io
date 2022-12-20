@@ -64,7 +64,7 @@
               <a href="https://github.com/siongui/userpages">repository</a> |
               <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/code/angularjs/dropdown-menu/ngdropdown.js">view raw</a>
             </figcaption><div class="code-file">
-            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
 <span class="normal"> 4</span>
@@ -99,44 +99,44 @@
 <span class="normal">33</span>
 <span class="normal">34</span>
 <span class="normal">35</span>
-<span class="normal">36</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="s1">&#39;use strict&#39;</span><span class="p">;</span>
+<span class="normal">36</span></pre></div></td><td class="code"><div><pre><span></span><span class="s1">&#39;use strict&#39;</span><span class="p">;</span><span class="w"></span>
 
-<span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">&#39;dropdown&#39;</span><span class="p">,</span> <span class="p">[]).</span>
-  <span class="nx">directive</span><span class="p">(</span><span class="s1">&#39;dropdown&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;</span><span class="nv">$document</span><span class="s1">&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nv">$document</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="p">{</span>
-      <span class="nx">restrict</span><span class="o">:</span> <span class="s1">&#39;A&#39;</span><span class="p">,</span>
-      <span class="nx">transclude</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
-      <span class="nx">scope</span><span class="o">:</span> <span class="p">{</span>
-        <span class="nx">classmenu</span><span class="o">:</span> <span class="s1">&#39;@&#39;</span><span class="p">,</span>
-        <span class="nx">classlink</span><span class="o">:</span> <span class="s1">&#39;@&#39;</span><span class="p">,</span>
-        <span class="nx">linktext</span><span class="o">:</span> <span class="s1">&#39;@&#39;</span>
-      <span class="p">},</span>
-      <span class="nx">template</span><span class="o">:</span> <span class="s1">&#39;&lt;span ng-init=&quot;isShowMenu = false&quot;&gt;&#39;</span> <span class="o">+</span>
-                  <span class="s1">&#39;&lt;a ng-click=&quot;isShowMenu = !isShowMenu&quot; ng-class=&quot;classlink&quot; href=&quot;javascript:void(0);&quot;&gt;{{ linktext }}&lt;/a&gt;&#39;</span> <span class="o">+</span>
-                  <span class="s1">&#39;&lt;span ng-show=&quot;isShowMenu&quot; ng-click=&quot;isShowMenu = false&quot; ng-class=&quot;classmenu&quot; ng-style=&quot;menuStyle&quot; ng-transclude&gt;&lt;/span&gt;&#39;</span> <span class="o">+</span>
-                <span class="s1">&#39;&lt;/span&gt;&#39;</span><span class="p">,</span>
-      <span class="nx">link</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">scope</span><span class="p">,</span> <span class="nx">elm</span><span class="p">,</span> <span class="nx">attrs</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nx">scope</span><span class="p">.</span><span class="nx">menuStyle</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;position&#39;</span><span class="o">:</span> <span class="s1">&#39;absolute&#39;</span> <span class="p">};</span>
+<span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">&#39;dropdown&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">[]).</span><span class="w"></span>
+<span class="w">  </span><span class="nx">directive</span><span class="p">(</span><span class="s1">&#39;dropdown&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;</span><span class="nv">$document</span><span class="s1">&#39;</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nv">$document</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nx">restrict</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;A&#39;</span><span class="p">,</span><span class="w"></span>
+<span class="w">      </span><span class="nx">transclude</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
+<span class="w">      </span><span class="nx">scope</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nx">classmenu</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;@&#39;</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nx">classlink</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;@&#39;</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nx">linktext</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;@&#39;</span><span class="w"></span>
+<span class="w">      </span><span class="p">},</span><span class="w"></span>
+<span class="w">      </span><span class="nx">template</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;&lt;span ng-init=&quot;isShowMenu = false&quot;&gt;&#39;</span><span class="w"> </span><span class="o">+</span><span class="w"></span>
+<span class="w">                  </span><span class="s1">&#39;&lt;a ng-click=&quot;isShowMenu = !isShowMenu&quot; ng-class=&quot;classlink&quot; href=&quot;javascript:void(0);&quot;&gt;{{ linktext }}&lt;/a&gt;&#39;</span><span class="w"> </span><span class="o">+</span><span class="w"></span>
+<span class="w">                  </span><span class="s1">&#39;&lt;span ng-show=&quot;isShowMenu&quot; ng-click=&quot;isShowMenu = false&quot; ng-class=&quot;classmenu&quot; ng-style=&quot;menuStyle&quot; ng-transclude&gt;&lt;/span&gt;&#39;</span><span class="w"> </span><span class="o">+</span><span class="w"></span>
+<span class="w">                </span><span class="s1">&#39;&lt;/span&gt;&#39;</span><span class="p">,</span><span class="w"></span>
+<span class="w">      </span><span class="nx">link</span><span class="o">:</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">scope</span><span class="p">,</span><span class="w"> </span><span class="nx">elm</span><span class="p">,</span><span class="w"> </span><span class="nx">attrs</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nx">scope</span><span class="p">.</span><span class="nx">menuStyle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s1">&#39;position&#39;</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;absolute&#39;</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
 
-        <span class="nx">elm</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="s1">&#39;mousedown&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-          <span class="c1">// mousedown event is called earlier than click event</span>
-          <span class="nx">scope</span><span class="p">.</span><span class="nx">menuStyle</span><span class="p">[</span><span class="s1">&#39;left&#39;</span><span class="p">]</span> <span class="o">=</span>  <span class="nx">elm</span><span class="p">.</span><span class="nx">prop</span><span class="p">(</span><span class="s1">&#39;offsetLeft&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;px&#39;</span><span class="p">;</span>
-          <span class="nx">scope</span><span class="p">.</span><span class="nx">menuStyle</span><span class="p">[</span><span class="s1">&#39;top&#39;</span><span class="p">]</span> <span class="o">=</span>  <span class="p">(</span><span class="nx">elm</span><span class="p">.</span><span class="nx">prop</span><span class="p">(</span><span class="s1">&#39;offsetTop&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="nx">elm</span><span class="p">.</span><span class="nx">prop</span><span class="p">(</span><span class="s1">&#39;offsetHeight&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="mf">5</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;px&#39;</span><span class="p">;</span>
-        <span class="p">});</span>
+<span class="w">        </span><span class="nx">elm</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="s1">&#39;mousedown&#39;</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">          </span><span class="c1">// mousedown event is called earlier than click event</span><span class="w"></span>
+<span class="w">          </span><span class="nx">scope</span><span class="p">.</span><span class="nx">menuStyle</span><span class="p">[</span><span class="s1">&#39;left&#39;</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w">  </span><span class="nx">elm</span><span class="p">.</span><span class="nx">prop</span><span class="p">(</span><span class="s1">&#39;offsetLeft&#39;</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s1">&#39;px&#39;</span><span class="p">;</span><span class="w"></span>
+<span class="w">          </span><span class="nx">scope</span><span class="p">.</span><span class="nx">menuStyle</span><span class="p">[</span><span class="s1">&#39;top&#39;</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w">  </span><span class="p">(</span><span class="nx">elm</span><span class="p">.</span><span class="nx">prop</span><span class="p">(</span><span class="s1">&#39;offsetTop&#39;</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">elm</span><span class="p">.</span><span class="nx">prop</span><span class="p">(</span><span class="s1">&#39;offsetHeight&#39;</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">5</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s1">&#39;px&#39;</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="p">});</span><span class="w"></span>
 
-        <span class="nx">elm</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
-          <span class="nx">event</span><span class="p">.</span><span class="nx">stopPropagation</span><span class="p">();</span>
-        <span class="p">});</span>
+<span class="w">        </span><span class="nx">elm</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">          </span><span class="nx">event</span><span class="p">.</span><span class="nx">stopPropagation</span><span class="p">();</span><span class="w"></span>
+<span class="w">        </span><span class="p">});</span><span class="w"></span>
 
-        <span class="nv">$document.bind</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
-          <span class="nx">scope</span><span class="p">.</span><span class="nx">isShowMenu</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
-          <span class="nx">scope</span><span class="p">.</span><span class="nv">$apply</span><span class="p">();</span>
-        <span class="p">});</span>
-      <span class="p">}</span>
-    <span class="p">};</span>
-  <span class="p">}]);</span>
-</pre></div>
-</td></tr></table></div></figure>
+<span class="w">        </span><span class="nv">$document.bind</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">          </span><span class="nx">scope</span><span class="p">.</span><span class="nx">isShowMenu</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span><span class="w"></span>
+<span class="w">          </span><span class="nx">scope</span><span class="p">.</span><span class="nv">$apply</span><span class="p">();</span><span class="w"></span>
+<span class="w">        </span><span class="p">});</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">};</span><span class="w"></span>
+<span class="w">  </span><span class="p">}]);</span><span class="w"></span>
+</pre></div></td></tr></table></div>
+</div></figure>
 <p><strong>HTML</strong>: From line 11 to 15, the menu is placed inside a <em>div</em> element, the
 name <tt class="docutils literal">dropdown</tt> of the custom directive is the attribute of the <em>div</em> element,
 and we use three other attributes (<em>classlink</em>, <em>linktext</em>, <em>classmenu</em>) to pass
@@ -147,7 +147,7 @@ CSS class names and link text to the dropdown menu template in custom directive.
               <a href="https://github.com/siongui/userpages">repository</a> |
               <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/code/angularjs/dropdown-menu/ngdropdown.html">view raw</a>
             </figcaption><div class="code-file">
-            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
 <span class="normal"> 4</span>
@@ -167,7 +167,7 @@ CSS class names and link text to the dropdown menu template in custom directive.
 <span class="normal">18</span>
 <span class="normal">19</span>
 <span class="normal">20</span>
-<span class="normal">21</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cp">&lt;!doctype html&gt;</span>
+<span class="normal">21</span></pre></div></td><td class="code"><div><pre><span></span><span class="cp">&lt;!doctype html&gt;</span>
 <span class="p">&lt;</span><span class="nt">html</span> <span class="na">ng-app</span><span class="o">=</span><span class="s">&quot;dropdown&quot;</span><span class="p">&gt;</span>
 <span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
   <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&quot;utf-8&quot;</span><span class="p">&gt;</span>
@@ -188,8 +188,8 @@ CSS class names and link text to the dropdown menu template in custom directive.
 <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;ngdropdown.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
 <span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
-</pre></div>
-</td></tr></table></div></figure>
+</pre></div></td></tr></table></div>
+</div></figure>
 <p><strong>CSS</strong>: Nothing special here. The same as you would do in a normal
 non-angularjs dropdown menu.</p>
 <figure class="github-file">
@@ -198,7 +198,7 @@ non-angularjs dropdown menu.</p>
               <a href="https://github.com/siongui/userpages">repository</a> |
               <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/code/angularjs/dropdown-menu/style.css">view raw</a>
             </figcaption><div class="code-file">
-            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
 <span class="normal"> 4</span>
@@ -233,7 +233,7 @@ non-angularjs dropdown menu.</p>
 <span class="normal">33</span>
 <span class="normal">34</span>
 <span class="normal">35</span>
-<span class="normal">36</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="p">.</span><span class="nc">dropdownLink</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="normal">36</span></pre></div></td><td class="code"><div><pre><span></span><span class="p">.</span><span class="nc">dropdownLink</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">  </span><span class="k">text-decoration</span><span class="p">:</span><span class="w"> </span><span class="kc">none</span><span class="p">;</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
 
@@ -269,8 +269,8 @@ non-angularjs dropdown menu.</p>
 <span class="w">  </span><span class="k">background</span><span class="p">:</span><span class="w"> </span><span class="mh">#00C</span><span class="p">;</span><span class="w"></span>
 <span class="w">  </span><span class="k">color</span><span class="p">:</span><span class="w"> </span><span class="kc">white</span><span class="p">;</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
-</pre></div>
-</td></tr></table></div></figure><p>Tested AngularJS version: <tt class="docutils literal">1.3.11</tt>, <tt class="docutils literal">1.1.5</tt>.</p>
+</pre></div></td></tr></table></div>
+</div></figure><p>Tested AngularJS version: <tt class="docutils literal">1.3.11</tt>, <tt class="docutils literal">1.1.5</tt>.</p>
 <hr class="docutils" />
 <p>References:</p>
 <table class="docutils footnote" frame="void" id="footnote-1" rules="none">

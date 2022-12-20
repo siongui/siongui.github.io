@@ -65,7 +65,7 @@ read my previous post <a class="footnote-reference" href="#footnote-1" id="footn
               <a href="https://github.com/siongui/userpages">repository</a> |
               <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/code/python-zhtw-to-zhcn-po-file/locale/zh_TW/LC_MESSAGES/messages.po">view raw</a>
             </figcaption><div class="code-file">
-            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
 <span class="normal"> 4</span>
@@ -102,7 +102,7 @@ read my previous post <a class="footnote-reference" href="#footnote-1" id="footn
 <span class="normal">35</span>
 <span class="normal">36</span>
 <span class="normal">37</span>
-<span class="normal">38</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1"># Chinese translations for PACKAGE package.</span>
+<span class="normal">38</span></pre></div></td><td class="code"><div><pre><span></span><span class="c1"># Chinese translations for PACKAGE package.</span>
 <span class="c1"># Copyright (C) 2013 THE PACKAGE&#39;S COPYRIGHT HOLDER</span>
 <span class="c1"># This file is distributed under the same license as the PACKAGE package.</span>
 <span class="c1"># Automatically generated, 2013.</span>
@@ -140,8 +140,8 @@ read my previous post <a class="footnote-reference" href="#footnote-1" id="footn
 
 <span class="nv">msgid</span> <span class="s">&quot;Translation&quot;</span>
 <span class="nv">msgstr</span> <span class="s">&quot;翻譯&quot;</span>
-</pre></div>
-</td></tr></table></div></figure>
+</pre></div></td></tr></table></div>
+</div></figure>
 <p>The Python script:</p>
 <figure class="github-file">
             <figcaption>
@@ -149,7 +149,7 @@ read my previous post <a class="footnote-reference" href="#footnote-1" id="footn
               <a href="https://github.com/siongui/userpages">repository</a> |
               <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/code/python-zhtw-to-zhcn-po-file/tw2cn.py">view raw</a>
             </figcaption><div class="code-file">
-            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
 <span class="normal"> 4</span>
@@ -169,7 +169,7 @@ read my previous post <a class="footnote-reference" href="#footnote-1" id="footn
 <span class="normal">18</span>
 <span class="normal">19</span>
 <span class="normal">20</span>
-<span class="normal">21</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
+<span class="normal">21</span></pre></div></td><td class="code"><div><pre><span></span><span class="ch">#!/usr/bin/env python</span>
 <span class="c1"># -*- coding:utf-8 -*-</span>
 
 <span class="kn">import</span> <span class="nn">re</span>
@@ -190,8 +190,8 @@ read my previous post <a class="footnote-reference" href="#footnote-1" id="footn
             <span class="n">fcn</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">&#39;msgstr &quot;(.+)&quot;&#39;</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">m</span><span class="p">:</span> <span class="s1">&#39;msgstr &quot;</span><span class="si">%s</span><span class="s1">&quot;&#39;</span> <span class="o">%</span> <span class="n">tw2cn</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)),</span> <span class="n">line</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">))</span>
         <span class="k">else</span><span class="p">:</span>
           <span class="n">fcn</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
-</pre></div>
-</td></tr></table></div></figure>
+</pre></div></td></tr></table></div>
+</div></figure>
 <p>Tested on: <tt class="docutils literal">Ubuntu Linux 15.10</tt>, <tt class="docutils literal">Python 2.7.10</tt>, <tt class="docutils literal">opencc <span class="pre">0.4.3-2build1</span></tt>,
 <tt class="docutils literal"><span class="pre">pyopencc-0.4.2.2</span></tt>.</p>
 <hr class="docutils" />

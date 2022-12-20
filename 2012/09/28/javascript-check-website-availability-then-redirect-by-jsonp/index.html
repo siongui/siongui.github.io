@@ -89,7 +89,7 @@ available for the visitor, and if available, the visitor will be redirect to
 <em>a.com</em>. To achieve this, insert the following JavaScript to the webpage of the
 website of <em>b.com</em> (Assume the JSONP URL of <em>a.com</em> is <em>/jsonp</em>).</p>
 
-<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
 <span class="normal">2</span>
 <span class="normal">3</span>
 <span class="normal">4</span>
@@ -97,17 +97,17 @@ website of <em>b.com</em> (Assume the JSONP URL of <em>a.com</em> is <em>/jsonp<
 <span class="normal">6</span>
 <span class="normal">7</span>
 <span class="normal">8</span>
-<span class="normal">9</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">host</span> <span class="o">==</span> <span class="s1">&#39;b.com&#39;</span><span class="p">)</span> <span class="p">{</span>
-  <span class="kd">var</span> <span class="nx">callback</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nb">window</span><span class="p">.</span><span class="nx">location</span> <span class="o">=</span> <span class="s1">&#39;http://a.com&#39;</span> <span class="o">+</span> <span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">pathname</span> <span class="o">+</span> <span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">search</span><span class="p">;</span>
-  <span class="p">};</span>
-  <span class="kd">var</span> <span class="nx">qry</span> <span class="o">=</span> <span class="s1">&#39;?callback=&#39;</span> <span class="o">+</span> <span class="nb">encodeURIComponent</span><span class="p">(</span><span class="s1">&#39;(&#39;</span><span class="o">+</span><span class="nx">callback</span><span class="p">.</span><span class="nx">toString</span><span class="p">()</span><span class="o">+</span><span class="s1">&#39;)&#39;</span><span class="p">);</span>
-  <span class="kd">var</span> <span class="nx">ext</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;script&#39;</span><span class="p">);</span>
-  <span class="nx">ext</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s1">&#39;src&#39;</span><span class="p">,</span> <span class="s1">&#39;http://a.com/jsonp&#39;</span> <span class="o">+</span> <span class="nx">qry</span><span class="p">);</span>
-  <span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="s2">&quot;head&quot;</span><span class="p">)[</span><span class="mf">0</span><span class="p">].</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">ext</span><span class="p">);</span>
-<span class="p">}</span>
-</pre></div>
-</td></tr></table><p>In line 2~4 is the JSONP callback function, which does only one thing: redirect
+<span class="normal">9</span></pre></div></td><td class="code"><div><pre><span></span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">host</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s1">&#39;b.com&#39;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">callback</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;http://a.com&#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">pathname</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">search</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="p">};</span><span class="w"></span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">qry</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;?callback=&#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">encodeURIComponent</span><span class="p">(</span><span class="s1">&#39;(&#39;</span><span class="o">+</span><span class="nx">callback</span><span class="p">.</span><span class="nx">toString</span><span class="p">()</span><span class="o">+</span><span class="s1">&#39;)&#39;</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">ext</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;script&#39;</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="nx">ext</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s1">&#39;src&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;http://a.com/jsonp&#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">qry</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="s2">&quot;head&quot;</span><span class="p">)[</span><span class="mf">0</span><span class="p">].</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">ext</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div></td></tr></table></div>
+<p>In line 2~4 is the JSONP callback function, which does only one thing: redirect
 the user to the website of <em>a.com</em>. If the website of <em>a.com</em> is down or not
 available, the callback function will not be executed and hence the visitor will
 still stay at the website of <em>b.com</em>. If the website of <em>a.com</em> is available,

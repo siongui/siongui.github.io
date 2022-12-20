@@ -67,16 +67,16 @@ periodically check if the node to which my nodes are appended is available. If
 the node is not ready, sleep for a while and check again until the node is
 available. I applied this trick to my case, and it worked!</p>
 <p>The following is key point of the trick:</p>
-<div class="highlight"><pre><span></span><span class="c1">// wait the node to be ready</span>
-<span class="c1">// check interval: 500ms</span>
-<span class="kd">var</span> <span class="nx">timerId</span> <span class="o">=</span> <span class="nx">setInterval</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-  <span class="kd">var</span> <span class="nx">n</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&quot;css-selector-of-node&quot;</span><span class="p">);</span>
-  <span class="k">if</span> <span class="p">(</span><span class="nx">n</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// now the node is available, do something here.</span>
-    <span class="c1">// and also clear the timer.</span>
-    <span class="nx">clearInterval</span><span class="p">(</span><span class="nx">timerId</span><span class="p">);</span>
-  <span class="p">}</span>
-<span class="p">},</span> <span class="mf">500</span><span class="p">);</span>
+<div class="highlight"><pre><span></span><span class="c1">// wait the node to be ready</span><span class="w"></span>
+<span class="c1">// check interval: 500ms</span><span class="w"></span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">timerId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">setInterval</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&quot;css-selector-of-node&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">n</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// now the node is available, do something here.</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// and also clear the timer.</span><span class="w"></span>
+<span class="w">    </span><span class="nx">clearInterval</span><span class="p">(</span><span class="nx">timerId</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="p">},</span><span class="w"> </span><span class="mf">500</span><span class="p">);</span><span class="w"></span>
 </pre></div>
 <p>Hope this would be helpful for those who have the same problem as me.</p>
 

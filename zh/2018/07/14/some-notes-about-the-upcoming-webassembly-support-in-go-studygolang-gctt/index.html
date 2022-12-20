@@ -104,13 +104,13 @@
 ~ cp example.wasm ~/wasmtest
 </pre></div>
 <p>然後編輯這個 <tt class="docutils literal">index.html</tt> 文件去運行正確的例子：</p>
-<div class="highlight"><pre><span></span><span class="c1">// ...</span>
-<span class="nx">WebAssembly</span><span class="p">.</span><span class="nx">instantiateStreaming</span><span class="p">(</span><span class="nx">fetch</span><span class="p">(</span><span class="s2">&quot;example.wasm&quot;</span><span class="p">),</span> <span class="nx">go</span><span class="p">.</span><span class="nx">importObject</span><span class="p">).</span><span class="nx">then</span><span class="p">((</span><span class="nx">result</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
-      <span class="nx">mod</span> <span class="o">=</span> <span class="nx">result</span><span class="p">.</span><span class="nx">module</span><span class="p">;</span>
-      <span class="nx">inst</span> <span class="o">=</span> <span class="nx">result</span><span class="p">.</span><span class="nx">instance</span><span class="p">;</span>
-      <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;runButton&quot;</span><span class="p">).</span><span class="nx">disabled</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
-<span class="p">});</span>
-<span class="c1">// ...</span>
+<div class="highlight"><pre><span></span><span class="c1">// ...</span><span class="w"></span>
+<span class="nx">WebAssembly</span><span class="p">.</span><span class="nx">instantiateStreaming</span><span class="p">(</span><span class="nx">fetch</span><span class="p">(</span><span class="s2">&quot;example.wasm&quot;</span><span class="p">),</span><span class="w"> </span><span class="nx">go</span><span class="p">.</span><span class="nx">importObject</span><span class="p">).</span><span class="nx">then</span><span class="p">((</span><span class="nx">result</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nx">mod</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">result</span><span class="p">.</span><span class="nx">module</span><span class="p">;</span><span class="w"></span>
+<span class="w">      </span><span class="nx">inst</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">result</span><span class="p">.</span><span class="nx">instance</span><span class="p">;</span><span class="w"></span>
+<span class="w">      </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;runButton&quot;</span><span class="p">).</span><span class="nx">disabled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span><span class="w"></span>
+<span class="p">});</span><span class="w"></span>
+<span class="c1">// ...</span><span class="w"></span>
 </pre></div>
 <p>理論上，任何 web 服務都可以運行它，但是當我們試著用 <tt class="docutils literal">caddy</tt> 運行它時遇到一個問題。這個 javascript 加載器需要服務發送這個 wasm 文件的正確 mime 類型給它。</p>
 <p>這有一個快速的破解方法來運行我們的測試：為我們的 wasm 文件寫個帶有特殊處理的 Go 服務。</p>

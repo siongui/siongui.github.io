@@ -113,19 +113,19 @@ message when clicking on the text. After some searches, I found the answer in
 
   <span class="cm">&lt;!-- https://github.com/golang/go/blob/master/misc/wasm/wasm_exec.js --&gt;</span>
   <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;wasm_exec.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
-  <span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
-      <span class="kd">const</span> <span class="nx">go</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">Go</span><span class="p">();</span>
-      <span class="kd">let</span> <span class="nx">mod</span><span class="p">,</span> <span class="nx">inst</span><span class="p">;</span>
-      <span class="nx">WebAssembly</span><span class="p">.</span><span class="nx">instantiateStreaming</span><span class="p">(</span>
-              <span class="nx">fetch</span><span class="p">(</span><span class="s2">&quot;click.wasm&quot;</span><span class="p">,</span> <span class="p">{</span><span class="nx">cache</span><span class="o">:</span> <span class="s1">&#39;no-cache&#39;</span><span class="p">}),</span> <span class="nx">go</span><span class="p">.</span><span class="nx">importObject</span><span class="p">).</span><span class="nx">then</span><span class="p">((</span><span class="nx">result</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
-              <span class="nx">mod</span> <span class="o">=</span> <span class="nx">result</span><span class="p">.</span><span class="nx">module</span><span class="p">;</span>
-              <span class="nx">inst</span> <span class="o">=</span> <span class="nx">result</span><span class="p">.</span><span class="nx">instance</span><span class="p">;</span>
-              <span class="nx">run</span><span class="p">();</span>
-      <span class="p">});</span>
-      <span class="k">async</span> <span class="kd">function</span> <span class="nx">run</span><span class="p">()</span> <span class="p">{</span>
-              <span class="k">await</span> <span class="nx">go</span><span class="p">.</span><span class="nx">run</span><span class="p">(</span><span class="nx">inst</span><span class="p">);</span>
-      <span class="p">};</span>
-  <span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span><span class="w"></span>
+<span class="w">      </span><span class="kd">const</span><span class="w"> </span><span class="nx">go</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Go</span><span class="p">();</span><span class="w"></span>
+<span class="w">      </span><span class="kd">let</span><span class="w"> </span><span class="nx">mod</span><span class="p">,</span><span class="w"> </span><span class="nx">inst</span><span class="p">;</span><span class="w"></span>
+<span class="w">      </span><span class="nx">WebAssembly</span><span class="p">.</span><span class="nx">instantiateStreaming</span><span class="p">(</span><span class="w"></span>
+<span class="w">              </span><span class="nx">fetch</span><span class="p">(</span><span class="s2">&quot;click.wasm&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="nx">cache</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;no-cache&#39;</span><span class="p">}),</span><span class="w"> </span><span class="nx">go</span><span class="p">.</span><span class="nx">importObject</span><span class="p">).</span><span class="nx">then</span><span class="p">((</span><span class="nx">result</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="nx">mod</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">result</span><span class="p">.</span><span class="nx">module</span><span class="p">;</span><span class="w"></span>
+<span class="w">              </span><span class="nx">inst</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">result</span><span class="p">.</span><span class="nx">instance</span><span class="p">;</span><span class="w"></span>
+<span class="w">              </span><span class="nx">run</span><span class="p">();</span><span class="w"></span>
+<span class="w">      </span><span class="p">});</span><span class="w"></span>
+<span class="w">      </span><span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">run</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="k">await</span><span class="w"> </span><span class="nx">go</span><span class="p">.</span><span class="nx">run</span><span class="p">(</span><span class="nx">inst</span><span class="p">);</span><span class="w"></span>
+<span class="w">      </span><span class="p">};</span><span class="w"></span>
+<span class="w">  </span><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
 <span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
 </pre></div>

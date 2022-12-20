@@ -95,34 +95,34 @@ button element with <em>data-dismiss</em> attribute in the modal to close the mo
 set the modal invisible in the beginning.</p>
 
 <p><strong>Dart</strong>:</p>
-<div class="highlight"><pre><span></span><span class="k">import</span> <span class="s1">&#39;dart:html&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><span class="k">import</span><span class="w"> </span><span class="s1">&#39;dart:html&#39;</span><span class="p">;</span><span class="w"></span>
 
-<span class="kt">void</span> <span class="n">launchModal</span><span class="p">(</span><span class="n">Event</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span>
-  <span class="c1">// when user click launch button, show modal.</span>
-  <span class="n">ButtonElement</span> <span class="n">elm</span> <span class="o">=</span> <span class="n">e</span><span class="p">.</span><span class="n">target</span><span class="p">;</span>
-  <span class="kd">var</span> <span class="n">selector</span> <span class="o">=</span> <span class="n">elm</span><span class="p">.</span><span class="n">dataset</span><span class="p">[</span><span class="s2">&quot;target&quot;</span><span class="p">];</span>
-  <span class="kd">var</span> <span class="n">modal</span> <span class="o">=</span> <span class="n">querySelector</span><span class="p">(</span><span class="n">selector</span><span class="p">);</span>
-  <span class="n">modal</span><span class="p">.</span><span class="n">style</span><span class="p">.</span><span class="n">display</span> <span class="o">=</span> <span class="s2">&quot;block&quot;</span><span class="p">;</span>
+<span class="kt">void</span><span class="w"> </span><span class="n">launchModal</span><span class="p">(</span><span class="n">Event</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="c1">// when user click launch button, show modal.</span><span class="w"></span>
+<span class="w">  </span><span class="n">ButtonElement</span><span class="w"> </span><span class="n">elm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">target</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="n">selector</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">elm</span><span class="p">.</span><span class="n">dataset</span><span class="p">[</span><span class="s2">&quot;target&quot;</span><span class="p">];</span><span class="w"></span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="n">modal</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">querySelector</span><span class="p">(</span><span class="n">selector</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="n">modal</span><span class="p">.</span><span class="n">style</span><span class="p">.</span><span class="n">display</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;block&quot;</span><span class="p">;</span><span class="w"></span>
 
-  <span class="k">if</span> <span class="p">(</span><span class="n">modal</span><span class="p">.</span><span class="n">dataset</span><span class="p">[</span><span class="s2">&quot;isSetClose&quot;</span><span class="p">]</span> <span class="o">!=</span> <span class="s2">&quot;true&quot;</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// when user click button with `data-dismiss=&quot;modal&quot;` in the modal,</span>
-    <span class="c1">// close the modal</span>
-    <span class="kd">var</span> <span class="n">closeBtns</span> <span class="o">=</span> <span class="n">modal</span><span class="p">.</span><span class="n">querySelectorAll</span><span class="p">(</span><span class="s2">&quot;button[data-dismiss=&#39;modal&#39;]&quot;</span><span class="p">);</span>
-    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="n">closeBtn</span> <span class="k">in</span> <span class="n">closeBtns</span><span class="p">)</span> <span class="p">{</span>
-      <span class="n">closeBtn</span><span class="p">.</span><span class="n">onClick</span><span class="p">.</span><span class="n">listen</span><span class="p">((</span><span class="n">e</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="n">modal</span><span class="p">.</span><span class="n">style</span><span class="p">.</span><span class="n">display</span> <span class="o">=</span> <span class="s2">&quot;none&quot;</span><span class="p">);</span>
-    <span class="p">}</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">modal</span><span class="p">.</span><span class="n">dataset</span><span class="p">[</span><span class="s2">&quot;isSetClose&quot;</span><span class="p">]</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="s2">&quot;true&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// when user click button with `data-dismiss=&quot;modal&quot;` in the modal,</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// close the modal</span><span class="w"></span>
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="n">closeBtns</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">modal</span><span class="p">.</span><span class="n">querySelectorAll</span><span class="p">(</span><span class="s2">&quot;button[data-dismiss=&#39;modal&#39;]&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">var</span><span class="w"> </span><span class="n">closeBtn</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">closeBtns</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="n">closeBtn</span><span class="p">.</span><span class="n">onClick</span><span class="p">.</span><span class="n">listen</span><span class="p">((</span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">modal</span><span class="p">.</span><span class="n">style</span><span class="p">.</span><span class="n">display</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;none&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
 
-    <span class="n">modal</span><span class="p">.</span><span class="n">dataset</span><span class="p">[</span><span class="s2">&quot;isSetClose&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;true&quot;</span><span class="p">;</span>
-  <span class="p">}</span>
-<span class="p">}</span>
+<span class="w">    </span><span class="n">modal</span><span class="p">.</span><span class="n">dataset</span><span class="p">[</span><span class="s2">&quot;isSetClose&quot;</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;true&quot;</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kt">void</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
-  <span class="kd">var</span> <span class="n">launchBtns</span> <span class="o">=</span> <span class="n">querySelectorAll</span><span class="p">(</span><span class="s2">&quot;button[data-toggle=&#39;modal&#39;]&quot;</span><span class="p">);</span>
+<span class="kt">void</span><span class="w"> </span><span class="n">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="n">launchBtns</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">querySelectorAll</span><span class="p">(</span><span class="s2">&quot;button[data-toggle=&#39;modal&#39;]&quot;</span><span class="p">);</span><span class="w"></span>
 
-  <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="n">launchBtn</span> <span class="k">in</span> <span class="n">launchBtns</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">launchBtn</span><span class="p">.</span><span class="n">onClick</span><span class="p">.</span><span class="n">listen</span><span class="p">(</span><span class="n">launchModal</span><span class="p">);</span>
-  <span class="p">}</span>
-<span class="p">}</span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">var</span><span class="w"> </span><span class="n">launchBtn</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">launchBtns</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">launchBtn</span><span class="p">.</span><span class="n">onClick</span><span class="p">.</span><span class="n">listen</span><span class="p">(</span><span class="n">launchModal</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 <p>First we search for button elements with <em>data-toggle=&quot;modal&quot;</em>. If users click
 on such buttons, show the modal referenced by <em>data-target</em> attribute of the

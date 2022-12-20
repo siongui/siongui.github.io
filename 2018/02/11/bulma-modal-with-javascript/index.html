@@ -59,57 +59,57 @@ just want to use the same code as that in <a class="reference external" href="ht
 <p>The JavaScript code comes from <em>main.js</em> used in the official site <a class="footnote-reference" href="#footnote-2" id="footnote-reference-2">[2]</a>.
 I put the code here in the post  for easy search by Google or other search
 engines.</p>
-<div class="highlight"><pre><span></span><span class="s1">&#39;use strict&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><span class="s1">&#39;use strict&#39;</span><span class="p">;</span><span class="w"></span>
 
-<span class="nb">document</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;DOMContentLoaded&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+<span class="nb">document</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;DOMContentLoaded&#39;</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 
-  <span class="c1">// Modals</span>
+<span class="w">  </span><span class="c1">// Modals</span><span class="w"></span>
 
-  <span class="kd">var</span> <span class="nx">rootEl</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">documentElement</span><span class="p">;</span>
-  <span class="kd">var</span> <span class="nx">$modals</span> <span class="o">=</span> <span class="nx">getAll</span><span class="p">(</span><span class="s1">&#39;.modal&#39;</span><span class="p">);</span>
-  <span class="kd">var</span> <span class="nx">$modalButtons</span> <span class="o">=</span> <span class="nx">getAll</span><span class="p">(</span><span class="s1">&#39;.modal-button&#39;</span><span class="p">);</span>
-  <span class="kd">var</span> <span class="nx">$modalCloses</span> <span class="o">=</span> <span class="nx">getAll</span><span class="p">(</span><span class="s1">&#39;.modal-background, .modal-close, .modal-card-head .delete, .modal-card-foot .button&#39;</span><span class="p">);</span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">rootEl</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">documentElement</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">$modals</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">getAll</span><span class="p">(</span><span class="s1">&#39;.modal&#39;</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">$modalButtons</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">getAll</span><span class="p">(</span><span class="s1">&#39;.modal-button&#39;</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">$modalCloses</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">getAll</span><span class="p">(</span><span class="s1">&#39;.modal-background, .modal-close, .modal-card-head .delete, .modal-card-foot .button&#39;</span><span class="p">);</span><span class="w"></span>
 
-  <span class="k">if</span> <span class="p">(</span><span class="nx">$modalButtons</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mf">0</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">$modalButtons</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">$el</span><span class="p">)</span> <span class="p">{</span>
-      <span class="nx">$el</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-        <span class="kd">var</span> <span class="nx">target</span> <span class="o">=</span> <span class="nx">$el</span><span class="p">.</span><span class="nx">dataset</span><span class="p">.</span><span class="nx">target</span><span class="p">;</span>
-        <span class="kd">var</span> <span class="nx">$target</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="nx">target</span><span class="p">);</span>
-        <span class="nx">rootEl</span><span class="p">.</span><span class="nx">classList</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="s1">&#39;is-clipped&#39;</span><span class="p">);</span>
-        <span class="nx">$target</span><span class="p">.</span><span class="nx">classList</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="s1">&#39;is-active&#39;</span><span class="p">);</span>
-      <span class="p">});</span>
-    <span class="p">});</span>
-  <span class="p">}</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">$modalButtons</span><span class="p">.</span><span class="nx">length</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">$modalButtons</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span><span class="w"> </span><span class="p">(</span><span class="nx">$el</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nx">$el</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="kd">var</span><span class="w"> </span><span class="nx">target</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">$el</span><span class="p">.</span><span class="nx">dataset</span><span class="p">.</span><span class="nx">target</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="kd">var</span><span class="w"> </span><span class="nx">$target</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="nx">target</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="nx">rootEl</span><span class="p">.</span><span class="nx">classList</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="s1">&#39;is-clipped&#39;</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="nx">$target</span><span class="p">.</span><span class="nx">classList</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="s1">&#39;is-active&#39;</span><span class="p">);</span><span class="w"></span>
+<span class="w">      </span><span class="p">});</span><span class="w"></span>
+<span class="w">    </span><span class="p">});</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
 
-  <span class="k">if</span> <span class="p">(</span><span class="nx">$modalCloses</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mf">0</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">$modalCloses</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">$el</span><span class="p">)</span> <span class="p">{</span>
-      <span class="nx">$el</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-        <span class="nx">closeModals</span><span class="p">();</span>
-      <span class="p">});</span>
-    <span class="p">});</span>
-  <span class="p">}</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">$modalCloses</span><span class="p">.</span><span class="nx">length</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">$modalCloses</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span><span class="w"> </span><span class="p">(</span><span class="nx">$el</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nx">$el</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nx">closeModals</span><span class="p">();</span><span class="w"></span>
+<span class="w">      </span><span class="p">});</span><span class="w"></span>
+<span class="w">    </span><span class="p">});</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
 
-  <span class="nb">document</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;keydown&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kd">var</span> <span class="nx">e</span> <span class="o">=</span> <span class="nx">event</span> <span class="o">||</span> <span class="nb">window</span><span class="p">.</span><span class="nx">event</span><span class="p">;</span>
-    <span class="k">if</span> <span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">keyCode</span> <span class="o">===</span> <span class="mf">27</span><span class="p">)</span> <span class="p">{</span>
-      <span class="nx">closeModals</span><span class="p">();</span>
-    <span class="p">}</span>
-  <span class="p">});</span>
+<span class="w">  </span><span class="nb">document</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;keydown&#39;</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">(</span><span class="nx">event</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">e</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">event</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">window</span><span class="p">.</span><span class="nx">event</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">keyCode</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="mf">27</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nx">closeModals</span><span class="p">();</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">  </span><span class="p">});</span><span class="w"></span>
 
-  <span class="kd">function</span> <span class="nx">closeModals</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nx">rootEl</span><span class="p">.</span><span class="nx">classList</span><span class="p">.</span><span class="nx">remove</span><span class="p">(</span><span class="s1">&#39;is-clipped&#39;</span><span class="p">);</span>
-    <span class="nx">$modals</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">$el</span><span class="p">)</span> <span class="p">{</span>
-      <span class="nx">$el</span><span class="p">.</span><span class="nx">classList</span><span class="p">.</span><span class="nx">remove</span><span class="p">(</span><span class="s1">&#39;is-active&#39;</span><span class="p">);</span>
-    <span class="p">});</span>
-  <span class="p">}</span>
+<span class="w">  </span><span class="kd">function</span><span class="w"> </span><span class="nx">closeModals</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">rootEl</span><span class="p">.</span><span class="nx">classList</span><span class="p">.</span><span class="nx">remove</span><span class="p">(</span><span class="s1">&#39;is-clipped&#39;</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="nx">$modals</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span><span class="w"> </span><span class="p">(</span><span class="nx">$el</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nx">$el</span><span class="p">.</span><span class="nx">classList</span><span class="p">.</span><span class="nx">remove</span><span class="p">(</span><span class="s1">&#39;is-active&#39;</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">});</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
 
-  <span class="c1">// Functions</span>
+<span class="w">  </span><span class="c1">// Functions</span><span class="w"></span>
 
-  <span class="kd">function</span> <span class="nx">getAll</span><span class="p">(</span><span class="nx">selector</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">slice</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">querySelectorAll</span><span class="p">(</span><span class="nx">selector</span><span class="p">),</span> <span class="mf">0</span><span class="p">);</span>
-  <span class="p">}</span>
+<span class="w">  </span><span class="kd">function</span><span class="w"> </span><span class="nx">getAll</span><span class="p">(</span><span class="nx">selector</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">slice</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">querySelectorAll</span><span class="p">(</span><span class="nx">selector</span><span class="p">),</span><span class="w"> </span><span class="mf">0</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
 
-<span class="p">});</span>
+<span class="p">});</span><span class="w"></span>
 </pre></div>
 <p><strong>Demo</strong>:</p>
 <br>

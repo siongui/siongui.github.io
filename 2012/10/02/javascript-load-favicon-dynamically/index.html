@@ -57,19 +57,19 @@
 external JavaScript or CSS dynamically. The same idea can be applied to load
 <a class="reference external" href="http://en.wikipedia.org/wiki/Favicon">favicon</a> dynamically. Give the URL or path of <a class="reference external" href="http://en.wikipedia.org/wiki/Favicon">favicon</a> to the following
 function, and then <a class="reference external" href="http://en.wikipedia.org/wiki/Favicon">favicon</a> will be loaded dynamically:</p>
-<div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">LoadFavicon</span><span class="p">(</span><span class="nx">url</span><span class="p">)</span> <span class="p">{</span>
-  <span class="kd">var</span> <span class="nx">ext</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;link&#39;</span><span class="p">);</span>
-  <span class="nx">ext</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">&quot;rel&quot;</span><span class="p">,</span> <span class="s2">&quot;shortcut icon&quot;</span><span class="p">);</span>
-  <span class="nx">ext</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">&quot;href&quot;</span><span class="p">,</span> <span class="nx">url</span><span class="p">);</span>
-  <span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="s2">&quot;head&quot;</span><span class="p">)[</span><span class="mf">0</span><span class="p">].</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">ext</span><span class="p">);</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">LoadFavicon</span><span class="p">(</span><span class="nx">url</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">ext</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;link&#39;</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="nx">ext</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">&quot;rel&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;shortcut icon&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="nx">ext</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">&quot;href&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">url</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="s2">&quot;head&quot;</span><span class="p">)[</span><span class="mf">0</span><span class="p">].</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">ext</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 
 <div class="section" id="example-usage-of-loadfavicon-function">
 <h2>Example Usage of LoadFavicon Function</h2>
 <p>Assume that the path of favicon is located at <em>/favicon.ico</em> under the domain of
 the website. You can call:</p>
-<div class="highlight"><pre><span></span><span class="nx">LoadFavicon</span><span class="p">(</span><span class="s1">&#39;/favicon.ico&#39;</span><span class="p">);</span>
+<div class="highlight"><pre><span></span><span class="nx">LoadFavicon</span><span class="p">(</span><span class="s1">&#39;/favicon.ico&#39;</span><span class="p">);</span><span class="w"></span>
 </pre></div>
 <p>to load favicon dynamically. Even if your favicon is located at a different
 domain, you can still pass the URL of favicon at the different domain to above

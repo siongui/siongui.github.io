@@ -76,7 +76,7 @@ $ go get -u honnef.co/go/js/dom
               <a href="https://github.com/siongui/userpages">repository</a> |
               <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/code/gopherjs-dom/src/demo/index.html">view raw</a>
             </figcaption><div class="code-file">
-            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
 <span class="normal"> 4</span>
@@ -85,7 +85,7 @@ $ go get -u honnef.co/go/js/dom
 <span class="normal"> 7</span>
 <span class="normal"> 8</span>
 <span class="normal"> 9</span>
-<span class="normal">10</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cp">&lt;!doctype html&gt;</span>
+<span class="normal">10</span></pre></div></td><td class="code"><div><pre><span></span><span class="cp">&lt;!doctype html&gt;</span>
 <span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
 <span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
   <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>GopherJS DOM example - getElementById() and innerHTML<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
@@ -95,8 +95,8 @@ $ go get -u honnef.co/go/js/dom
   <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;dom.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
 <span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
-</pre></div>
-</td></tr></table></div></figure>
+</pre></div></td></tr></table></div>
+</div></figure>
 <p>We will access the <em>div</em> element whose <em>id</em> is <em>foo</em>. Then add <em>Hello World</em>
 text to the <em>div</em>. Now write a <a class="reference external" href="https://golang.org/">Go</a> program to manipulate <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model">DOM</a>:</p>
 <figure class="github-file">
@@ -105,7 +105,7 @@ text to the <em>div</em>. Now write a <a class="reference external" href="https:
               <a href="https://github.com/siongui/userpages">repository</a> |
               <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/code/gopherjs-dom/src/demo/dom.go">view raw</a>
             </figcaption><div class="code-file">
-            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
 <span class="normal">2</span>
 <span class="normal">3</span>
 <span class="normal">4</span>
@@ -113,7 +113,7 @@ text to the <em>div</em>. Now write a <a class="reference external" href="https:
 <span class="normal">6</span>
 <span class="normal">7</span>
 <span class="normal">8</span>
-<span class="normal">9</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w"></span>
+<span class="normal">9</span></pre></div></td><td class="code"><div><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w"></span>
 
 <span class="kn">import</span><span class="w"> </span><span class="s">&quot;honnef.co/go/js/dom&quot;</span><span class="w"></span>
 
@@ -122,8 +122,8 @@ text to the <em>div</em>. Now write a <a class="reference external" href="https:
 <span class="w">	</span><span class="nx">h</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">d</span><span class="p">.</span><span class="nx">GetElementByID</span><span class="p">(</span><span class="s">&quot;foo&quot;</span><span class="p">)</span><span class="w"></span>
 <span class="w">	</span><span class="nx">h</span><span class="p">.</span><span class="nx">SetInnerHTML</span><span class="p">(</span><span class="s">&quot;Hello World&quot;</span><span class="p">)</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
-</pre></div>
-</td></tr></table></div></figure>
+</pre></div></td></tr></table></div>
+</div></figure>
 <p>It is very easy and intuitive. Compile the <a class="reference external" href="https://golang.org/">Go</a> code to <a class="reference external" href="https://en.wikipedia.org/wiki/JavaScript">JavaScript</a>:</p>
 <div class="highlight"><pre><span></span>$ gopherjs build dom.go -o dom.js
 </pre></div>

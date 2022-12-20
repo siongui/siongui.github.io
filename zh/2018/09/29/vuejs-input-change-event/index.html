@@ -77,17 +77,17 @@
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">Vue</span><span class="p">({</span>
-  <span class="nx">el</span><span class="o">:</span> <span class="s1">&#39;#app&#39;</span><span class="p">,</span>
-  <span class="nx">data</span><span class="o">:</span> <span class="p">{</span>
-    <span class="nx">userinput</span><span class="o">:</span> <span class="s1">&#39;&#39;</span>
-  <span class="p">},</span>
-  <span class="nx">methods</span><span class="o">:</span> <span class="p">{</span>
-    <span class="nx">changeHandler</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
-      <span class="c1">// change of userinput, do something</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
-<span class="p">})</span>
+<div class="highlight"><pre><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">app</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Vue</span><span class="p">({</span><span class="w"></span>
+<span class="w">  </span><span class="nx">el</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;#app&#39;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nx">data</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">userinput</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="w"></span>
+<span class="w">  </span><span class="p">},</span><span class="w"></span>
+<span class="w">  </span><span class="nx">methods</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">changeHandler</span><span class="o">:</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="c1">// change of userinput, do something</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="p">})</span><span class="w"></span>
 </pre></div>
 
 <p>但這個程式碼不能運作。 <em>changeHandler</em> 並沒有執行。接著我做了一些谷歌搜尋 <a class="footnote-reference" href="#footnote-1" id="footnote-reference-1">[1]</a>
@@ -100,17 +100,17 @@
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">Vue</span><span class="p">({</span>
-  <span class="nx">el</span><span class="o">:</span> <span class="s1">&#39;#app&#39;</span><span class="p">,</span>
-  <span class="nx">data</span><span class="o">:</span> <span class="p">{</span>
-    <span class="nx">userinput</span><span class="o">:</span> <span class="s1">&#39;&#39;</span>
-  <span class="p">},</span>
-  <span class="nx">watch</span><span class="o">:</span> <span class="p">{</span>
-    <span class="nx">userinput</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">val</span><span class="p">,</span> <span class="nx">oldVal</span><span class="p">)</span> <span class="p">{</span>
-      <span class="c1">// change of userinput, do something</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
-<span class="p">})</span>
+<div class="highlight"><pre><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">app</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Vue</span><span class="p">({</span><span class="w"></span>
+<span class="w">  </span><span class="nx">el</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;#app&#39;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nx">data</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">userinput</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="w"></span>
+<span class="w">  </span><span class="p">},</span><span class="w"></span>
+<span class="w">  </span><span class="nx">watch</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">userinput</span><span class="o">:</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">val</span><span class="p">,</span><span class="w"> </span><span class="nx">oldVal</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="c1">// change of userinput, do something</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="p">})</span><span class="w"></span>
 </pre></div>
 
 </div>
@@ -126,7 +126,7 @@
               <a href="https://github.com/siongui/userpages">repository</a> |
               <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/code/vuejs/input-change-event/index.html">view raw</a>
             </figcaption><div class="code-file">
-            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
 <span class="normal"> 4</span>
@@ -147,7 +147,7 @@
 <span class="normal">19</span>
 <span class="normal">20</span>
 <span class="normal">21</span>
-<span class="normal">22</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="normal">22</span></pre></div></td><td class="code"><div><pre><span></span><span class="cp">&lt;!DOCTYPE html&gt;</span>
 <span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
 <span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
   <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>[Vue.js] Input Change Event<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
@@ -169,15 +169,15 @@
 
 <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
 <span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
-</pre></div>
-</td></tr></table></div></figure>
+</pre></div></td></tr></table></div>
+</div></figure>
 <figure class="github-file">
             <figcaption>
               <a href="https://github.com/siongui/userpages/blob/master/content/code/vuejs/input-change-event/app.js">app.js</a> |
               <a href="https://github.com/siongui/userpages">repository</a> |
               <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/code/vuejs/input-change-event/app.js">view raw</a>
             </figcaption><div class="code-file">
-            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
 <span class="normal"> 4</span>
@@ -192,24 +192,24 @@
 <span class="normal">13</span>
 <span class="normal">14</span>
 <span class="normal">15</span>
-<span class="normal">16</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="s1">&#39;use strict&#39;</span><span class="p">;</span>
+<span class="normal">16</span></pre></div></td><td class="code"><div><pre><span></span><span class="s1">&#39;use strict&#39;</span><span class="p">;</span><span class="w"></span>
 
-<span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">Vue</span><span class="p">({</span>
-  <span class="nx">el</span><span class="o">:</span> <span class="s1">&#39;#app&#39;</span><span class="p">,</span>
-  <span class="nx">data</span><span class="o">:</span> <span class="p">{</span>
-    <span class="nx">userinput</span><span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
-    <span class="nx">value</span><span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
-    <span class="nx">oldValue</span><span class="o">:</span> <span class="s1">&#39;&#39;</span>
-  <span class="p">},</span>
-  <span class="nx">watch</span><span class="o">:</span> <span class="p">{</span>
-    <span class="nx">userinput</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">val</span><span class="p">,</span> <span class="nx">oldVal</span><span class="p">)</span> <span class="p">{</span>
-      <span class="k">this</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">val</span><span class="p">;</span>
-      <span class="k">this</span><span class="p">.</span><span class="nx">oldValue</span> <span class="o">=</span> <span class="nx">oldVal</span><span class="p">;</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
-<span class="p">})</span>
-</pre></div>
-</td></tr></table></div></figure><hr class="docutils" />
+<span class="kd">var</span><span class="w"> </span><span class="nx">app</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Vue</span><span class="p">({</span><span class="w"></span>
+<span class="w">  </span><span class="nx">el</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;#app&#39;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nx">data</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">userinput</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nx">value</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nx">oldValue</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="w"></span>
+<span class="w">  </span><span class="p">},</span><span class="w"></span>
+<span class="w">  </span><span class="nx">watch</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">userinput</span><span class="o">:</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">val</span><span class="p">,</span><span class="w"> </span><span class="nx">oldVal</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="k">this</span><span class="p">.</span><span class="nx">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">val</span><span class="p">;</span><span class="w"></span>
+<span class="w">      </span><span class="k">this</span><span class="p">.</span><span class="nx">oldValue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">oldVal</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="p">})</span><span class="w"></span>
+</pre></div></td></tr></table></div>
+</div></figure><hr class="docutils" />
 <p>Tested on:</p>
 <ul class="simple">
 <li><tt class="docutils literal">Chromium Version 55.0.2883.87 Built on Ubuntu , running on Ubuntu 16.10 <span class="pre">(64-bit)</span></tt></li>

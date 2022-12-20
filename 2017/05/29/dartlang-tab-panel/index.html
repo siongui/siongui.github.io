@@ -110,40 +110,40 @@ tab content.</p>
 The last two rules hide the tab contents except the tab content with <tt class="docutils literal">.active</tt>
 class.</p>
 <p><strong>Dart</strong>:</p>
-<div class="highlight"><pre><span></span><span class="k">import</span> <span class="s1">&#39;dart:html&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><span class="k">import</span><span class="w"> </span><span class="s1">&#39;dart:html&#39;</span><span class="p">;</span><span class="w"></span>
 
-<span class="kt">void</span> <span class="n">tabClick</span><span class="p">(</span><span class="n">Event</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span>
-  <span class="n">Element</span> <span class="n">elm</span> <span class="o">=</span> <span class="n">e</span><span class="p">.</span><span class="n">target</span><span class="p">;</span>
-  <span class="kd">var</span> <span class="n">id</span> <span class="o">=</span> <span class="n">elm</span><span class="p">.</span><span class="n">dataset</span><span class="p">[</span><span class="s2">&quot;target&quot;</span><span class="p">];</span>
-  <span class="kd">var</span> <span class="n">pane</span> <span class="o">=</span> <span class="n">querySelector</span><span class="p">(</span><span class="s2">&quot;#&quot;</span> <span class="o">+</span> <span class="n">id</span><span class="p">);</span>
-  <span class="n">pane</span><span class="p">.</span><span class="n">classes</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="s2">&quot;active&quot;</span><span class="p">);</span>
+<span class="kt">void</span><span class="w"> </span><span class="n">tabClick</span><span class="p">(</span><span class="n">Event</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="n">Element</span><span class="w"> </span><span class="n">elm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">target</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">elm</span><span class="p">.</span><span class="n">dataset</span><span class="p">[</span><span class="s2">&quot;target&quot;</span><span class="p">];</span><span class="w"></span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="n">pane</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">querySelector</span><span class="p">(</span><span class="s2">&quot;#&quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">id</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="n">pane</span><span class="p">.</span><span class="n">classes</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="s2">&quot;active&quot;</span><span class="p">);</span><span class="w"></span>
 
-  <span class="c1">// remove .active class of all sibling elements</span>
-  <span class="kd">var</span> <span class="n">el</span> <span class="o">=</span> <span class="n">pane</span><span class="p">.</span><span class="n">nextElementSibling</span><span class="p">;</span>
-  <span class="k">while</span> <span class="p">(</span><span class="n">el</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">el</span><span class="p">.</span><span class="n">classes</span><span class="p">.</span><span class="n">remove</span><span class="p">(</span><span class="s2">&quot;active&quot;</span><span class="p">);</span>
-    <span class="n">el</span> <span class="o">=</span> <span class="n">el</span><span class="p">.</span><span class="n">nextElementSibling</span><span class="p">;</span>
-  <span class="p">}</span>
-  <span class="n">el</span> <span class="o">=</span> <span class="n">pane</span><span class="p">.</span><span class="n">previousElementSibling</span><span class="p">;</span>
-  <span class="k">while</span> <span class="p">(</span><span class="n">el</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">el</span><span class="p">.</span><span class="n">classes</span><span class="p">.</span><span class="n">remove</span><span class="p">(</span><span class="s2">&quot;active&quot;</span><span class="p">);</span>
-    <span class="n">el</span> <span class="o">=</span> <span class="n">el</span><span class="p">.</span><span class="n">previousElementSibling</span><span class="p">;</span>
-  <span class="p">}</span>
-<span class="p">}</span>
+<span class="w">  </span><span class="c1">// remove .active class of all sibling elements</span><span class="w"></span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="n">el</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pane</span><span class="p">.</span><span class="n">nextElementSibling</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">el</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">el</span><span class="p">.</span><span class="n">classes</span><span class="p">.</span><span class="n">remove</span><span class="p">(</span><span class="s2">&quot;active&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">el</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">el</span><span class="p">.</span><span class="n">nextElementSibling</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="w">  </span><span class="n">el</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pane</span><span class="p">.</span><span class="n">previousElementSibling</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">el</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">el</span><span class="p">.</span><span class="n">classes</span><span class="p">.</span><span class="n">remove</span><span class="p">(</span><span class="s2">&quot;active&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">el</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">el</span><span class="p">.</span><span class="n">previousElementSibling</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kt">void</span> <span class="n">setupNavtab</span><span class="p">(</span><span class="n">Element</span> <span class="n">navtab</span><span class="p">)</span> <span class="p">{</span>
-  <span class="kd">var</span> <span class="n">tabs</span> <span class="o">=</span> <span class="n">navtab</span><span class="p">.</span><span class="n">querySelectorAll</span><span class="p">(</span><span class="s2">&quot;*[data-target]&quot;</span><span class="p">);</span>
-  <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="n">tab</span> <span class="k">in</span> <span class="n">tabs</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">tab</span><span class="p">.</span><span class="n">onClick</span><span class="p">.</span><span class="n">listen</span><span class="p">(</span><span class="n">tabClick</span><span class="p">);</span>
-  <span class="p">}</span>
-<span class="p">}</span>
+<span class="kt">void</span><span class="w"> </span><span class="n">setupNavtab</span><span class="p">(</span><span class="n">Element</span><span class="w"> </span><span class="n">navtab</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="n">tabs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">navtab</span><span class="p">.</span><span class="n">querySelectorAll</span><span class="p">(</span><span class="s2">&quot;*[data-target]&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">var</span><span class="w"> </span><span class="n">tab</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">tabs</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">tab</span><span class="p">.</span><span class="n">onClick</span><span class="p">.</span><span class="n">listen</span><span class="p">(</span><span class="n">tabClick</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="kt">void</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
-  <span class="kd">var</span> <span class="n">navtabs</span> <span class="o">=</span> <span class="n">querySelectorAll</span><span class="p">(</span><span class="s2">&quot;.nav-tabs&quot;</span><span class="p">);</span>
-  <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="n">navtab</span> <span class="k">in</span> <span class="n">navtabs</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">setupNavtab</span><span class="p">(</span><span class="n">navtab</span><span class="p">);</span>
-  <span class="p">}</span>
-<span class="p">}</span>
+<span class="kt">void</span><span class="w"> </span><span class="n">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="n">navtabs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">querySelectorAll</span><span class="p">(</span><span class="s2">&quot;.nav-tabs&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">var</span><span class="w"> </span><span class="n">navtab</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">navtabs</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">setupNavtab</span><span class="p">(</span><span class="n">navtab</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 <p>The Dart code here queries for elements with <tt class="docutils literal"><span class="pre">data-target</span></tt> attribute in
 element with <tt class="docutils literal"><span class="pre">.nav-tabs</span></tt>. When users click on the element with <tt class="docutils literal"><span class="pre">data-target</span></tt>

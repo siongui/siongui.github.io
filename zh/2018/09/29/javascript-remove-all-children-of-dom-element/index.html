@@ -57,21 +57,21 @@
     <div class="main-content"><p>這裡有一個有趣的問題：JavaScript如何移除一個DOM元素(element)的所有子節點(node)？</p>
 <p>假設我們有一個DOM元素（例如， <em>div</em> 或 <em>span</em> ），元素名是 <em>elm</em> ，
 移除所有子節點，最簡單而且直覺的方式如下：</p>
-<div class="highlight"><pre><span></span><span class="nx">elm</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><span class="nx">elm</span><span class="p">.</span><span class="nx">innerHTML</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">;</span><span class="w"></span>
 </pre></div>
 <p>這看起來很完美，而且應該不會有任何問題。事實上，
 我一開始使用這個方法來刪除所有子節點，而且也運作得沒問題。但有一次，
 我又在程式碼裡使用這個方法，在最新版的Chrome，Firefix和Opera沒問題，
 但在IE8卻沒辦法運作。IE8在下面這個程式碼片段出了出來：</p>
-<div class="highlight"><pre><span></span><span class="nx">elm</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
-<span class="nx">elm</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">childs</span><span class="p">);</span>
+<div class="highlight"><pre><span></span><span class="nx">elm</span><span class="p">.</span><span class="nx">innerHTML</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">;</span><span class="w"></span>
+<span class="nx">elm</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">childs</span><span class="p">);</span><span class="w"></span>
 </pre></div>
 <p>我不知道為何上面的代碼在IE8不能運作，
 所以我搜尋了一下並找到了更好的方式來移除所有子節點 <a class="footnote-reference" href="#footnote-1" id="footnote-reference-1">[1]</a> <a class="footnote-reference" href="#footnote-2" id="footnote-reference-2">[2]</a>。
 正統而且無臭蟲的方式如下：</p>
-<div class="highlight"><pre><span></span><span class="k">while</span> <span class="p">(</span><span class="nx">elm</span><span class="p">.</span><span class="nx">hasChildNodes</span><span class="p">())</span> <span class="p">{</span>
-  <span class="nx">elm</span><span class="p">.</span><span class="nx">removeChild</span><span class="p">(</span><span class="nx">elm</span><span class="p">.</span><span class="nx">lastChild</span><span class="p">);</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span></span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="nx">elm</span><span class="p">.</span><span class="nx">hasChildNodes</span><span class="p">())</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nx">elm</span><span class="p">.</span><span class="nx">removeChild</span><span class="p">(</span><span class="nx">elm</span><span class="p">.</span><span class="nx">lastChild</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 <p>也許對某些人而言正統的方式是顯而易見的，
 但這花了我一些時間去找臭蟲並領悟到有時簡單的方法不一定能用。
@@ -80,9 +80,9 @@
 <hr class="docutils" />
 <p><strong>附錄</strong></p>
 <p>JavaScript把陣列(array)清空的其中一個方法是： <a class="footnote-reference" href="#footnote-5" id="footnote-reference-3">[5]</a></p>
-<div class="highlight"><pre><span></span><span class="k">while</span><span class="p">(</span><span class="nx">A</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mf">0</span><span class="p">)</span> <span class="p">{</span>
-  <span class="nx">A</span><span class="p">.</span><span class="nx">pop</span><span class="p">();</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span></span><span class="k">while</span><span class="p">(</span><span class="nx">A</span><span class="p">.</span><span class="nx">length</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nx">A</span><span class="p">.</span><span class="nx">pop</span><span class="p">();</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 <p>就如所見，這裡 <em>清空陣列</em> 的作法跟 <em>移除所有子節點</em> 是一樣的。
 這蠻有趣的所以我把此放在附錄。</p>

@@ -74,7 +74,7 @@ DevTools console).</p>
               <a href="https://github.com/siongui/userpages">repository</a> |
               <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/code/javascript/fb-url-change/manifest.json">view raw</a>
             </figcaption><div class="code-file">
-            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
 <span class="normal"> 4</span>
@@ -88,7 +88,7 @@ DevTools console).</p>
 <span class="normal">12</span>
 <span class="normal">13</span>
 <span class="normal">14</span>
-<span class="normal">15</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
+<span class="normal">15</span></pre></div></td><td class="code"><div><pre><span></span><span class="p">{</span><span class="w"></span>
 <span class="w">  </span><span class="nt">&quot;manifest_version&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"></span>
 
 <span class="w">  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;FBUrlId&quot;</span><span class="p">,</span><span class="w"></span>
@@ -103,15 +103,15 @@ DevTools console).</p>
 <span class="w">    </span><span class="s2">&quot;tabs&quot;</span><span class="w"></span>
 <span class="w">  </span><span class="p">]</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
-</pre></div>
-</td></tr></table></div></figure><p><strong>background.js</strong>:</p>
+</pre></div></td></tr></table></div>
+</div></figure><p><strong>background.js</strong>:</p>
 <figure class="github-file">
             <figcaption>
               <a href="https://github.com/siongui/userpages/blob/master/content/code/javascript/fb-url-change/eventPage.js">eventPage.js</a> |
               <a href="https://github.com/siongui/userpages">repository</a> |
               <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/code/javascript/fb-url-change/eventPage.js">view raw</a>
             </figcaption><div class="code-file">
-            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
 <span class="normal"> 4</span>
@@ -141,39 +141,39 @@ DevTools console).</p>
 <span class="normal">28</span>
 <span class="normal">29</span>
 <span class="normal">30</span>
-<span class="normal">31</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">reId</span> <span class="o">=</span> <span class="sr">/^https:\/\/www\.facebook\.com\/profile\.php\?id=(\d+)$/</span><span class="p">;</span>
-<span class="kd">var</span> <span class="nx">reUser</span> <span class="o">=</span> <span class="sr">/^https:\/\/www\.facebook\.com\/([a-zA-Z0-9.]+)$/</span><span class="p">;</span>
-<span class="kd">var</span> <span class="nx">lastUrlIsId</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+<span class="normal">31</span></pre></div></td><td class="code"><div><pre><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">reId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sr">/^https:\/\/www\.facebook\.com\/profile\.php\?id=(\d+)$/</span><span class="p">;</span><span class="w"></span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">reUser</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sr">/^https:\/\/www\.facebook\.com\/([a-zA-Z0-9.]+)$/</span><span class="p">;</span><span class="w"></span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">lastUrlIsId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span><span class="w"></span>
 
-<span class="nx">chrome</span><span class="p">.</span><span class="nx">tabs</span><span class="p">.</span><span class="nx">onUpdated</span><span class="p">.</span><span class="nx">addListener</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">tabId</span><span class="p">,</span> <span class="nx">changeInfo</span><span class="p">,</span> <span class="nx">tab</span><span class="p">)</span> <span class="p">{</span>
-  <span class="k">if</span> <span class="p">(</span><span class="nx">changeInfo</span><span class="p">.</span><span class="nx">hasOwnProperty</span><span class="p">(</span><span class="s1">&#39;url&#39;</span><span class="p">))</span> <span class="p">{</span>
+<span class="nx">chrome</span><span class="p">.</span><span class="nx">tabs</span><span class="p">.</span><span class="nx">onUpdated</span><span class="p">.</span><span class="nx">addListener</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">tabId</span><span class="p">,</span><span class="w"> </span><span class="nx">changeInfo</span><span class="p">,</span><span class="w"> </span><span class="nx">tab</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">changeInfo</span><span class="p">.</span><span class="nx">hasOwnProperty</span><span class="p">(</span><span class="s1">&#39;url&#39;</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">changeInfo</span><span class="p">.</span><span class="nx">url</span><span class="p">);</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">changeInfo</span><span class="p">.</span><span class="nx">url</span><span class="p">);</span><span class="w"></span>
 
-    <span class="c1">// check if URL consists of username</span>
-    <span class="kd">var</span> <span class="nx">resultUser</span> <span class="o">=</span> <span class="nx">changeInfo</span><span class="p">.</span><span class="nx">url</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="nx">reUser</span><span class="p">);</span>
-    <span class="k">if</span> <span class="p">(</span><span class="nx">resultUser</span><span class="p">)</span> <span class="p">{</span>
-      <span class="c1">//console.log(resultUser[1]); // username</span>
-      <span class="k">if</span> <span class="p">(</span><span class="nx">lastUrlIsId</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">resultUser</span><span class="p">[</span><span class="mf">1</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot; : &quot;</span> <span class="o">+</span> <span class="nx">id</span><span class="p">);</span>
-      <span class="p">}</span>
-    <span class="p">}</span>
+<span class="w">    </span><span class="c1">// check if URL consists of username</span><span class="w"></span>
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">resultUser</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">changeInfo</span><span class="p">.</span><span class="nx">url</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="nx">reUser</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">resultUser</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="c1">//console.log(resultUser[1]); // username</span><span class="w"></span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">lastUrlIsId</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">resultUser</span><span class="p">[</span><span class="mf">1</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s2">&quot; : &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">id</span><span class="p">);</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
 
-    <span class="c1">// check if URL consists of Id</span>
-    <span class="kd">var</span> <span class="nx">resultId</span> <span class="o">=</span> <span class="nx">changeInfo</span><span class="p">.</span><span class="nx">url</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="nx">reId</span><span class="p">);</span>
-    <span class="k">if</span> <span class="p">(</span><span class="nx">resultId</span><span class="p">)</span> <span class="p">{</span>
-      <span class="c1">//console.log(resultId[0]); // URL</span>
-      <span class="c1">//console.log(resultId[1]); // id</span>
-      <span class="nx">id</span> <span class="o">=</span> <span class="nx">resultId</span><span class="p">[</span><span class="mf">1</span><span class="p">];</span>
-      <span class="nx">lastUrlIsId</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
-    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-      <span class="nx">lastUrlIsId</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
-    <span class="p">}</span>
+<span class="w">    </span><span class="c1">// check if URL consists of Id</span><span class="w"></span>
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">resultId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">changeInfo</span><span class="p">.</span><span class="nx">url</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="nx">reId</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">resultId</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="c1">//console.log(resultId[0]); // URL</span><span class="w"></span>
+<span class="w">      </span><span class="c1">//console.log(resultId[1]); // id</span><span class="w"></span>
+<span class="w">      </span><span class="nx">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">resultId</span><span class="p">[</span><span class="mf">1</span><span class="p">];</span><span class="w"></span>
+<span class="w">      </span><span class="nx">lastUrlIsId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nx">lastUrlIsId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
 
-  <span class="p">}</span>
-<span class="p">});</span>
-</pre></div>
-</td></tr></table></div></figure><hr class="docutils" />
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="p">});</span><span class="w"></span>
+</pre></div></td></tr></table></div>
+</div></figure><hr class="docutils" />
 
 <p>References:</p>
 <table class="docutils footnote" frame="void" id="footnote-1" rules="none">

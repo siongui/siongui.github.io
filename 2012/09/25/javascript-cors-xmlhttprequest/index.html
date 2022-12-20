@@ -67,7 +67,7 @@ enable CORS on your server.</p>
               <a href="https://github.com/siongui/userpages">repository</a> |
               <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/code/javascript/xmlhttprequest-cors/crossDomainXHR.html">view raw</a>
             </figcaption><div class="code-file">
-            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
 <span class="normal"> 4</span>
@@ -79,7 +79,7 @@ enable CORS on your server.</p>
 <span class="normal">10</span>
 <span class="normal">11</span>
 <span class="normal">12</span>
-<span class="normal">13</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cp">&lt;!doctype html&gt;</span>
+<span class="normal">13</span></pre></div></td><td class="code"><div><pre><span></span><span class="cp">&lt;!doctype html&gt;</span>
 <span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
 <span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
   <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&quot;utf-8&quot;</span><span class="p">&gt;</span>
@@ -92,8 +92,8 @@ enable CORS on your server.</p>
 <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;xhr.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
 <span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
-</pre></div>
-</td></tr></table></div></figure>
+</pre></div></td></tr></table></div>
+</div></figure>
 <p>Source Code for Demo (<em>JavaScript</em>):</p>
 <figure class="github-file">
             <figcaption>
@@ -101,7 +101,7 @@ enable CORS on your server.</p>
               <a href="https://github.com/siongui/userpages">repository</a> |
               <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/code/javascript/xmlhttprequest-cors/xhr.js">view raw</a>
             </figcaption><div class="code-file">
-            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
 <span class="normal"> 4</span>
@@ -161,69 +161,69 @@ enable CORS on your server.</p>
 <span class="normal">58</span>
 <span class="normal">59</span>
 <span class="normal">60</span>
-<span class="normal">61</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cm">/**</span>
+<span class="normal">61</span></pre></div></td><td class="code"><div><pre><span></span><span class="cm">/**</span>
 <span class="cm"> * Cross-Browser Cross-Domain XMLHttpRequest (XDomainRequest in IE)</span>
 <span class="cm"> *</span>
 <span class="cm"> * @param {string} url The url of HTTP GET (AJAX) request.</span>
 <span class="cm"> * @param {function} callback The callback function if the request succeeds.</span>
 <span class="cm"> * @param {function} failCallback The callback function if the request fails.</span>
-<span class="cm"> */</span>
-<span class="nx">AJAXRequest</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span> <span class="nx">callback</span><span class="p">,</span> <span class="nx">failCallback</span><span class="p">)</span> <span class="p">{</span>
-  <span class="kd">var</span> <span class="nx">xmlhttp</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">XMLHttpRequest</span><span class="p">();</span>
+<span class="cm"> */</span><span class="w"></span>
+<span class="nx">AJAXRequest</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span><span class="w"> </span><span class="nx">callback</span><span class="p">,</span><span class="w"> </span><span class="nx">failCallback</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">xmlhttp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">XMLHttpRequest</span><span class="p">();</span><span class="w"></span>
 
-  <span class="c1">// @see http://blogs.msdn.com/b/ie/archive/2012/02/09/cors-for-xhr-in-ie10.aspx</span>
-  <span class="c1">// @see http://bionicspirit.com/blog/2011/03/24/cross-domain-requests.html</span>
-  <span class="c1">// @see http://msdn.microsoft.com/en-us/library/ie/cc288060(v=vs.85).aspx</span>
-  <span class="k">if</span> <span class="p">(</span><span class="s2">&quot;withCredentials&quot;</span> <span class="ow">in</span> <span class="nx">xmlhttp</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// for Chrome, Firefox, Opera</span>
-    <span class="nx">xmlhttp</span><span class="p">.</span><span class="nx">onreadystatechange</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-      <span class="k">if</span> <span class="p">(</span><span class="nx">xmlhttp</span><span class="p">.</span><span class="nx">readyState</span> <span class="o">==</span> <span class="mf">4</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="p">(</span><span class="nx">xmlhttp</span><span class="p">.</span><span class="nx">status</span> <span class="o">==</span> <span class="mf">200</span> <span class="o">||</span> <span class="nx">xmlhttp</span><span class="p">.</span><span class="nx">status</span> <span class="o">==</span> <span class="mf">304</span><span class="p">)</span> <span class="p">{</span>
-          <span class="nx">callback</span><span class="p">(</span><span class="nx">xmlhttp</span><span class="p">.</span><span class="nx">responseText</span><span class="p">);</span>
-        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-          <span class="nx">setTimeout</span><span class="p">(</span><span class="nx">failCallback</span><span class="p">,</span> <span class="mf">0</span><span class="p">);</span>
-        <span class="p">}</span>
-      <span class="p">}</span>
-    <span class="p">}</span>
+<span class="w">  </span><span class="c1">// @see http://blogs.msdn.com/b/ie/archive/2012/02/09/cors-for-xhr-in-ie10.aspx</span><span class="w"></span>
+<span class="w">  </span><span class="c1">// @see http://bionicspirit.com/blog/2011/03/24/cross-domain-requests.html</span><span class="w"></span>
+<span class="w">  </span><span class="c1">// @see http://msdn.microsoft.com/en-us/library/ie/cc288060(v=vs.85).aspx</span><span class="w"></span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="s2">&quot;withCredentials&quot;</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nx">xmlhttp</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// for Chrome, Firefox, Opera</span><span class="w"></span>
+<span class="w">    </span><span class="nx">xmlhttp</span><span class="p">.</span><span class="nx">onreadystatechange</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">xmlhttp</span><span class="p">.</span><span class="nx">readyState</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mf">4</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">xmlhttp</span><span class="p">.</span><span class="nx">status</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mf">200</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nx">xmlhttp</span><span class="p">.</span><span class="nx">status</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mf">304</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">          </span><span class="nx">callback</span><span class="p">(</span><span class="nx">xmlhttp</span><span class="p">.</span><span class="nx">responseText</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">          </span><span class="nx">setTimeout</span><span class="p">(</span><span class="nx">failCallback</span><span class="p">,</span><span class="w"> </span><span class="mf">0</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
 
-    <span class="nx">xmlhttp</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="nx">url</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
-    <span class="nx">xmlhttp</span><span class="p">.</span><span class="nx">send</span><span class="p">();</span>
-  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-    <span class="c1">// for IE</span>
-    <span class="kd">var</span> <span class="nx">xdr</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">XDomainRequest</span><span class="p">();</span>
-    <span class="nx">xdr</span><span class="p">.</span><span class="nx">onerror</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span><span class="nx">setTimeout</span><span class="p">(</span><span class="nx">failCallback</span><span class="p">,</span> <span class="mf">0</span><span class="p">);};</span>
-    <span class="nx">xdr</span><span class="p">.</span><span class="nx">ontimeout</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span><span class="nx">setTimeout</span><span class="p">(</span><span class="nx">failCallback</span><span class="p">,</span> <span class="mf">0</span><span class="p">);};</span>
-    <span class="nx">xdr</span><span class="p">.</span><span class="nx">onload</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-      <span class="nx">callback</span><span class="p">(</span><span class="nx">xdr</span><span class="p">.</span><span class="nx">responseText</span><span class="p">);</span>
-    <span class="p">};</span>
+<span class="w">    </span><span class="nx">xmlhttp</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">url</span><span class="p">,</span><span class="w"> </span><span class="kc">true</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="nx">xmlhttp</span><span class="p">.</span><span class="nx">send</span><span class="p">();</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// for IE</span><span class="w"></span>
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">xdr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">XDomainRequest</span><span class="p">();</span><span class="w"></span>
+<span class="w">    </span><span class="nx">xdr</span><span class="p">.</span><span class="nx">onerror</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">(){</span><span class="nx">setTimeout</span><span class="p">(</span><span class="nx">failCallback</span><span class="p">,</span><span class="w"> </span><span class="mf">0</span><span class="p">);};</span><span class="w"></span>
+<span class="w">    </span><span class="nx">xdr</span><span class="p">.</span><span class="nx">ontimeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">(){</span><span class="nx">setTimeout</span><span class="p">(</span><span class="nx">failCallback</span><span class="p">,</span><span class="w"> </span><span class="mf">0</span><span class="p">);};</span><span class="w"></span>
+<span class="w">    </span><span class="nx">xdr</span><span class="p">.</span><span class="nx">onload</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nx">callback</span><span class="p">(</span><span class="nx">xdr</span><span class="p">.</span><span class="nx">responseText</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">};</span><span class="w"></span>
 
-    <span class="nx">xdr</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="s2">&quot;get&quot;</span><span class="p">,</span> <span class="nx">url</span><span class="p">);</span>
-    <span class="nx">xdr</span><span class="p">.</span><span class="nx">send</span><span class="p">();</span>
-  <span class="p">}</span>
-<span class="p">};</span>
+<span class="w">    </span><span class="nx">xdr</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="s2">&quot;get&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">url</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="nx">xdr</span><span class="p">.</span><span class="nx">send</span><span class="p">();</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
 
 <span class="cm">/**</span>
 <span class="cm"> * Callback function of AJAX request if the request succeeds.</span>
-<span class="cm"> */</span>
-<span class="nx">callback</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">responseText</span><span class="p">)</span> <span class="p">{</span>
-  <span class="c1">// write your own handler here.</span>
-  <span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;result from https://golden-operator-130720.appspot.com/sukhada.json\n&#39;</span> <span class="o">+</span> <span class="nx">responseText</span><span class="p">);</span>
-<span class="p">};</span>
+<span class="cm"> */</span><span class="w"></span>
+<span class="nx">callback</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">responseText</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="c1">// write your own handler here.</span><span class="w"></span>
+<span class="w">  </span><span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;result from https://golden-operator-130720.appspot.com/sukhada.json\n&#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">responseText</span><span class="p">);</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
 
 <span class="cm">/**</span>
 <span class="cm"> * Callback function of AJAX request if the request fails.</span>
-<span class="cm"> */</span>
-<span class="nx">failCallback</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-  <span class="c1">// write your own failure handler here.</span>
-  <span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;AJAXRequest failure!&#39;</span><span class="p">);</span>
-<span class="p">};</span>
+<span class="cm"> */</span><span class="w"></span>
+<span class="nx">failCallback</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="c1">// write your own failure handler here.</span><span class="w"></span>
+<span class="w">  </span><span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;AJAXRequest failure!&#39;</span><span class="p">);</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
 
 
-<span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;bt&#39;</span><span class="p">).</span><span class="nx">onclick</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-  <span class="nx">AJAXRequest</span><span class="p">(</span><span class="s1">&#39;https://golden-operator-130720.appspot.com/sukhada.json&#39;</span><span class="p">,</span> <span class="nx">callback</span><span class="p">,</span> <span class="nx">failCallback</span><span class="p">);</span>
-<span class="p">};</span>
-</pre></div>
-</td></tr></table></div></figure>
+<span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;bt&#39;</span><span class="p">).</span><span class="nx">onclick</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nx">AJAXRequest</span><span class="p">(</span><span class="s1">&#39;https://golden-operator-130720.appspot.com/sukhada.json&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">callback</span><span class="p">,</span><span class="w"> </span><span class="nx">failCallback</span><span class="p">);</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
+</pre></div></td></tr></table></div>
+</div></figure>
 <p>The <em>AJAXRequest</em> function provides the Cross-Domain, Cross-Browser XHR. Put the
 function in your code and re-write the content of <em>callback</em> and <em>failCallback</em>
 to fit your needs.</p>

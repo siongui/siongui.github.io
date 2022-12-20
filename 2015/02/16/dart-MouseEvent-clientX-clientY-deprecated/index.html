@@ -53,14 +53,14 @@
     <hr>
 
     <div class="main-content"><p>Recently I am porting JavaScript code to Dart. When I write the following code:</p>
-<div class="highlight"><pre><span></span><span class="kt">int</span> <span class="n">dx</span> <span class="o">=</span> <span class="n">e</span><span class="p">.</span><span class="n">clientX</span> <span class="o">-</span> <span class="n">initialMouseX</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="n">dx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">clientX</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">initialMouseX</span><span class="p">;</span><span class="w"></span>
 </pre></div>
 <p>It works on <a class="reference external" href="https://www.dartlang.org/tools/dartium/">Dartium</a>. Then I compiled the code to JavaScript by <a class="reference external" href="https://www.dartlang.org/tools/dart2js/">dart2js</a>. The
 compiled JavaScript code failed to run on <a class="reference external" href="http://www.chromium.org/">Chromium</a>. After some Googling, I
 found <em>Dart MouseEvent clientX and clientY</em> <strong>deprecated</strong> (<a class="footnote-reference" href="#footnote-1" id="footnote-reference-1">[1]</a>, <a class="footnote-reference" href="#footnote-2" id="footnote-reference-2">[2]</a>, <a class="footnote-reference" href="#footnote-4" id="footnote-reference-3">[4]</a>).
 And I also found someone got the same problem as me (<a class="footnote-reference" href="#footnote-3" id="footnote-reference-4">[3]</a>). The correct way to
 get <em>clientX</em> and <em>clientY</em> in Dart should be:</p>
-<div class="highlight"><pre><span></span><span class="kt">int</span> <span class="n">dx</span> <span class="o">=</span> <span class="n">e</span><span class="p">.</span><span class="n">client</span><span class="p">.</span><span class="n">x</span> <span class="o">-</span> <span class="n">initialMouseX</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="n">dx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">client</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">initialMouseX</span><span class="p">;</span><span class="w"></span>
 </pre></div>
 <p>Then the compiled JavaScript code runs on <a class="reference external" href="http://www.chromium.org/">Chromium</a> without trouble.</p>
 <p>PS: Tested on <tt class="docutils literal">Dart 1.8</tt></p>

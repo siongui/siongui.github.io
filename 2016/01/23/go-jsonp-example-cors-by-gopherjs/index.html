@@ -94,7 +94,7 @@ cross-domain request.</p>
               <a href="https://github.com/siongui/userpages">repository</a> |
               <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/code/gopherjs-dom/src/jsonp/jsonp.go">view raw</a>
             </figcaption><div class="code-file">
-            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
 <span class="normal"> 4</span>
@@ -113,7 +113,7 @@ cross-domain request.</p>
 <span class="normal">17</span>
 <span class="normal">18</span>
 <span class="normal">19</span>
-<span class="normal">20</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w"></span>
+<span class="normal">20</span></pre></div></td><td class="code"><div><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w"></span>
 
 <span class="kn">import</span><span class="w"> </span><span class="s">&quot;github.com/gopherjs/gopherjs/js&quot;</span><span class="w"></span>
 <span class="kn">import</span><span class="w"> </span><span class="s">&quot;honnef.co/go/js/dom&quot;</span><span class="w"></span>
@@ -133,8 +133,8 @@ cross-domain request.</p>
 <span class="w">	</span><span class="nx">head</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">d</span><span class="p">.</span><span class="nx">GetElementsByTagName</span><span class="p">(</span><span class="s">&quot;head&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">].(</span><span class="o">*</span><span class="nx">dom</span><span class="p">.</span><span class="nx">HTMLHeadElement</span><span class="p">)</span><span class="w"></span>
 <span class="w">	</span><span class="nx">head</span><span class="p">.</span><span class="nx">AppendChild</span><span class="p">(</span><span class="nx">ext</span><span class="p">)</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
-</pre></div>
-</td></tr></table></div></figure>
+</pre></div></td></tr></table></div>
+</div></figure>
 <p>The server receive the name of the callback function and data from the client.
 Then encode the data in <a class="reference external" href="http://www.w3schools.com/json/">JSON</a> format, and send the <a class="reference external" href="http://www.w3schools.com/json/">JSON</a> data to the callback
 function.</p>
@@ -144,7 +144,7 @@ function.</p>
               <a href="https://github.com/siongui/userpages">repository</a> |
               <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/code/gopherjs-dom/src/jsonp/server.go">view raw</a>
             </figcaption><div class="code-file">
-            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
 <span class="normal"> 4</span>
@@ -168,7 +168,7 @@ function.</p>
 <span class="normal">22</span>
 <span class="normal">23</span>
 <span class="normal">24</span>
-<span class="normal">25</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w"></span>
+<span class="normal">25</span></pre></div></td><td class="code"><div><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w"></span>
 
 <span class="kn">import</span><span class="w"> </span><span class="s">&quot;net/http&quot;</span><span class="w"></span>
 <span class="kn">import</span><span class="w"> </span><span class="s">&quot;fmt&quot;</span><span class="w"></span>
@@ -193,8 +193,8 @@ function.</p>
 <span class="w">	</span><span class="nx">http</span><span class="p">.</span><span class="nx">HandleFunc</span><span class="p">(</span><span class="s">&quot;/jsonp&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">jsonpHandler</span><span class="p">)</span><span class="w"></span>
 <span class="w">	</span><span class="nx">http</span><span class="p">.</span><span class="nx">ListenAndServe</span><span class="p">(</span><span class="s">&quot;:8000&quot;</span><span class="p">,</span><span class="w"> </span><span class="kc">nil</span><span class="p">)</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
-</pre></div>
-</td></tr></table></div></figure>
+</pre></div></td></tr></table></div>
+</div></figure>
 <p>Compile the <a class="reference external" href="https://golang.org/">Go</a> code to <a class="reference external" href="https://en.wikipedia.org/wiki/JavaScript">JavaScript</a> by:</p>
 <div class="highlight"><pre><span></span>$ gopherjs build jsonp.go -o demo.js
 </pre></div>

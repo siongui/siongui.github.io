@@ -80,7 +80,7 @@ demonstrate the solution:</p>
               <a href="https://github.com/siongui/userpages">repository</a> |
               <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/code/javascript-oninput-event-alternative/polling.html">view raw</a>
             </figcaption><div class="code-file">
-            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
 <span class="normal"> 4</span>
@@ -100,7 +100,7 @@ demonstrate the solution:</p>
 <span class="normal">18</span>
 <span class="normal">19</span>
 <span class="normal">20</span>
-<span class="normal">21</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cp">&lt;!doctype html&gt;</span>
+<span class="normal">21</span></pre></div></td><td class="code"><div><pre><span></span><span class="cp">&lt;!doctype html&gt;</span>
 <span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
 <span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
   <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&quot;utf-8&quot;</span><span class="p">&gt;</span>
@@ -112,24 +112,24 @@ demonstrate the solution:</p>
 <span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;info&quot;</span><span class="p">&gt;</span>Type something in above input.<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
 
 <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;polling.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/javascript&quot;</span><span class="p">&gt;</span>
-  <span class="c1">// focus to input element.</span>
-  <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;input&#39;</span><span class="p">).</span><span class="nx">focus</span><span class="p">();</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/javascript&quot;</span><span class="p">&gt;</span><span class="w"></span>
+<span class="w">  </span><span class="c1">// focus to input element.</span><span class="w"></span>
+<span class="w">  </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;input&#39;</span><span class="p">).</span><span class="nx">focus</span><span class="p">();</span><span class="w"></span>
 
-  <span class="c1">// start to polling input element</span>
-  <span class="nx">polling</span><span class="p">();</span>
+<span class="w">  </span><span class="c1">// start to polling input element</span><span class="w"></span>
+<span class="w">  </span><span class="nx">polling</span><span class="p">();</span><span class="w"></span>
 <span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
 <span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
-</pre></div>
-</td></tr></table></div></figure>
+</pre></div></td></tr></table></div>
+</div></figure>
 <figure class="github-file">
             <figcaption>
               <a href="https://github.com/siongui/userpages/blob/master/content/code/javascript-oninput-event-alternative/polling.js">polling.js</a> |
               <a href="https://github.com/siongui/userpages">repository</a> |
               <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/code/javascript-oninput-event-alternative/polling.js">view raw</a>
             </figcaption><div class="code-file">
-            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
 <span class="normal"> 4</span>
@@ -157,37 +157,37 @@ demonstrate the solution:</p>
 <span class="normal">26</span>
 <span class="normal">27</span>
 <span class="normal">28</span>
-<span class="normal">29</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cm">/**</span>
+<span class="normal">29</span></pre></div></td><td class="code"><div><pre><span></span><span class="cm">/**</span>
 <span class="cm"> * event handler to be fired if the content of input element have changed.</span>
-<span class="cm"> */</span>
-<span class="kd">function</span> <span class="nx">eventHandler</span><span class="p">()</span> <span class="p">{</span>
-  <span class="c1">// write your own event handler here.</span>
-  <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;info&#39;</span><span class="p">).</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="s1">&#39;input content changed to &#39;</span> <span class="o">+</span>
-    <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;input&#39;</span><span class="p">).</span><span class="nx">value</span><span class="p">;</span>
-<span class="p">}</span>
+<span class="cm"> */</span><span class="w"></span>
+<span class="kd">function</span><span class="w"> </span><span class="nx">eventHandler</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="c1">// write your own event handler here.</span><span class="w"></span>
+<span class="w">  </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;info&#39;</span><span class="p">).</span><span class="nx">innerHTML</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;input content changed to &#39;</span><span class="w"> </span><span class="o">+</span><span class="w"></span>
+<span class="w">    </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;input&#39;</span><span class="p">).</span><span class="nx">value</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
 <span class="cm">/**</span>
 <span class="cm"> * Variable which keeps track of the content of input element</span>
 <span class="cm"> * @type {string}</span>
-<span class="cm"> */</span>
-<span class="nx">INPUT_CONTENT</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
+<span class="cm"> */</span><span class="w"></span>
+<span class="nx">INPUT_CONTENT</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">;</span><span class="w"></span>
 
 <span class="cm">/**</span>
 <span class="cm"> * Check input element periodically.</span>
-<span class="cm"> */</span>
-<span class="nx">polling</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-  <span class="k">if</span> <span class="p">(</span><span class="nx">INPUT_CONTENT</span> <span class="o">!=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;input&#39;</span><span class="p">).</span><span class="nx">value</span><span class="p">)</span>
-    <span class="nx">eventHandler</span><span class="p">();</span>
+<span class="cm"> */</span><span class="w"></span>
+<span class="nx">polling</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">INPUT_CONTENT</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;input&#39;</span><span class="p">).</span><span class="nx">value</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="nx">eventHandler</span><span class="p">();</span><span class="w"></span>
 
-  <span class="c1">// update INPUT_CONTENT</span>
-  <span class="nx">INPUT_CONTENT</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;input&#39;</span><span class="p">).</span><span class="nx">value</span><span class="p">;</span>
+<span class="w">  </span><span class="c1">// update INPUT_CONTENT</span><span class="w"></span>
+<span class="w">  </span><span class="nx">INPUT_CONTENT</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;input&#39;</span><span class="p">).</span><span class="nx">value</span><span class="p">;</span><span class="w"></span>
 
-  <span class="c1">// polling interval: 500ms.</span>
-  <span class="c1">// you can change the polling interval to fit your need.</span>
-  <span class="nx">setTimeout</span><span class="p">(</span><span class="nx">polling</span><span class="p">,</span> <span class="mf">500</span><span class="p">);</span>
-<span class="p">};</span>
-</pre></div>
-</td></tr></table></div></figure><hr class="docutils" />
+<span class="w">  </span><span class="c1">// polling interval: 500ms.</span><span class="w"></span>
+<span class="w">  </span><span class="c1">// you can change the polling interval to fit your need.</span><span class="w"></span>
+<span class="w">  </span><span class="nx">setTimeout</span><span class="p">(</span><span class="nx">polling</span><span class="p">,</span><span class="w"> </span><span class="mf">500</span><span class="p">);</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
+</pre></div></td></tr></table></div>
+</div></figure><hr class="docutils" />
 <p>References:</p>
 <table class="docutils footnote" frame="void" id="footnote-1" rules="none">
 <colgroup><col class="label" /><col /></colgroup>

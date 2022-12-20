@@ -61,8 +61,8 @@
 <div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">audio</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;audioElm&quot;</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;Wat_Metta_Buddha_Qualities.mp3&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">audio</span><span class="p">&gt;</span>
 </pre></div>
 <p>And then access the audio element via <a class="reference external" href="https://www.google.com/search?q=getElementById">getElementById</a> in JavaScript:</p>
-<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">myAudio</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;audioElm&quot;</span><span class="p">);</span>
-<span class="c1">// do something with myAudio</span>
+<div class="highlight"><pre><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">myAudio</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;audioElm&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="c1">// do something with myAudio</span><span class="w"></span>
 </pre></div>
 <p>But this seems not an elegant and canonical way to reference a DOM element in
 <a class="reference external" href="https://vuejs.org/">Vue.js</a>. So I tried some googling <a class="footnote-reference" href="#footnote-1" id="footnote-reference-1">[1]</a>, and found no working answer for my Vue
@@ -76,10 +76,10 @@ exactly what I need.</p>
 <p>Inside the <a class="reference external" href="https://vuejs.org/v2/guide/instance.html">Vue instance</a>, access the <a class="reference external" href="https://www.google.com/search?q=DOM+element">DOM element</a> by <tt class="docutils literal"><span class="pre">this.$refs.audioElm</span></tt>
 (<a class="reference external" href="https://www.google.com/search?q=javascript+this">this</a> here is the Vue instance). For example, you can play the audio in
 JavaScript code by:</p>
-<div class="highlight"><pre><span></span><span class="k">this</span><span class="p">.</span><span class="nx">$refs</span><span class="p">.</span><span class="nx">audioElm</span><span class="p">.</span><span class="nx">play</span><span class="p">();</span>
+<div class="highlight"><pre><span></span><span class="k">this</span><span class="p">.</span><span class="nx">$refs</span><span class="p">.</span><span class="nx">audioElm</span><span class="p">.</span><span class="nx">play</span><span class="p">();</span><span class="w"></span>
 </pre></div>
 <p>Or stop playing by:</p>
-<div class="highlight"><pre><span></span><span class="k">this</span><span class="p">.</span><span class="nx">$refs</span><span class="p">.</span><span class="nx">audioElm</span><span class="p">.</span><span class="nx">pause</span><span class="p">();</span>
+<div class="highlight"><pre><span></span><span class="k">this</span><span class="p">.</span><span class="nx">$refs</span><span class="p">.</span><span class="nx">audioElm</span><span class="p">.</span><span class="nx">pause</span><span class="p">();</span><span class="w"></span>
 </pre></div>
 <p>The instance property <a class="reference external" href="https://vuejs.org/v2/api/#vm-refs">$refs</a> holds the DOM elements that have <a class="reference external" href="https://vuejs.org/v2/api/#ref">ref</a> registered.</p>
 <p>If you need complete examples of getting DOM elements in <a class="reference external" href="https://vuejs.org/">Vue.js</a>, see my posts

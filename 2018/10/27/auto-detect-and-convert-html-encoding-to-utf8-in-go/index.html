@@ -69,7 +69,7 @@ the URL, and convert the encoding to utf8 if it is not utf8 encoded:</p>
               <a href="https://github.com/siongui/userpages">repository</a> |
               <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/code/go/utf8-encoding/url.go">view raw</a>
             </figcaption><div class="code-file">
-            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
 <span class="normal"> 4</span>
@@ -117,7 +117,7 @@ the URL, and convert the encoding to utf8 if it is not utf8 encoded:</p>
 <span class="normal">46</span>
 <span class="normal">47</span>
 <span class="normal">48</span>
-<span class="normal">49</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">toutf8</span><span class="w"></span>
+<span class="normal">49</span></pre></div></td><td class="code"><div><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">toutf8</span><span class="w"></span>
 
 <span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
 <span class="w">	</span><span class="s">&quot;bufio&quot;</span><span class="w"></span>
@@ -166,8 +166,8 @@ the URL, and convert the encoding to utf8 if it is not utf8 encoded:</p>
 <span class="w">	</span><span class="nx">e</span><span class="p">,</span><span class="w"> </span><span class="nx">name</span><span class="p">,</span><span class="w"> </span><span class="nx">certain</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">charset</span><span class="p">.</span><span class="nx">DetermineEncoding</span><span class="p">(</span><span class="nx">b</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="p">)</span><span class="w"></span>
 <span class="w">	</span><span class="k">return</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
-</pre></div>
-</td></tr></table></div></figure><p>Note that <em>resp.Body</em> stream cannot be read twice, so it is read into bytes
+</pre></div></td></tr></table></div>
+</div></figure><p>Note that <em>resp.Body</em> stream cannot be read twice, so it is read into bytes
 first and used later for detection and conversion. See <a class="footnote-reference" href="#footnote-4" id="footnote-reference-1">[4]</a> for more details.</p>
 <p>Usage of the above code:</p>
 <figure class="github-file">
@@ -176,7 +176,7 @@ first and used later for detection and conversion. See <a class="footnote-refere
               <a href="https://github.com/siongui/userpages">repository</a> |
               <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/code/go/utf8-encoding/url_test.go">view raw</a>
             </figcaption><div class="code-file">
-            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
 <span class="normal"> 4</span>
@@ -207,7 +207,7 @@ first and used later for detection and conversion. See <a class="footnote-refere
 <span class="normal">29</span>
 <span class="normal">30</span>
 <span class="normal">31</span>
-<span class="normal">32</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">toutf8</span><span class="w"></span>
+<span class="normal">32</span></pre></div></td><td class="code"><div><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">toutf8</span><span class="w"></span>
 
 <span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
 <span class="w">	</span><span class="s">&quot;io/ioutil&quot;</span><span class="w"></span>
@@ -239,8 +239,8 @@ first and used later for detection and conversion. See <a class="footnote-refere
 <span class="w">	</span><span class="nx">b</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">ioutil</span><span class="p">.</span><span class="nx">ReadAll</span><span class="p">(</span><span class="nx">r</span><span class="p">)</span><span class="w"></span>
 <span class="w">	</span><span class="nx">t</span><span class="p">.</span><span class="nx">Log</span><span class="p">(</span><span class="nb">string</span><span class="p">(</span><span class="nx">b</span><span class="p">))</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
-</pre></div>
-</td></tr></table></div></figure><hr class="docutils" />
+</pre></div></td></tr></table></div>
+</div></figure><hr class="docutils" />
 <p>Tested on: <tt class="docutils literal">Ubuntu 18.04</tt>, <tt class="docutils literal">Go 1.11.1</tt></p>
 <hr class="docutils" />
 
