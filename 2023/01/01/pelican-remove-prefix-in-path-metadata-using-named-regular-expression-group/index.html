@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>[Pelican] Remove Prefix in PATH_METADATA Using Named Regex Group</title>
+  <meta name="keywords" content="Python,Pelican,Regular Expression,String Manipulation"/>
+  <meta name="description" content="Remove prefix of Pelican PATH_METADATA using Python named regular expression group."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="[Pelican] Remove Prefix in PATH_METADATA Using Named Regex Group" /><meta property="og:image" content="https://i.ytimg.com/vi/WcT6MSLLE-M/maxresdefault.jpg" />
+<meta property="og:description" content="Remove prefix of Pelican PATH_METADATA using Python named regular expression group." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2023/01/01/pelican-remove-prefix-in-path-metadata-using-named-regular-expression-group/"
+           rel="bookmark"
+           title="Permalink to [Pelican] Remove Prefix in PATH_METADATA Using Named Regex Group">
+          [Pelican] Remove Prefix in PATH_METADATA Using Named Regex Group
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2023-01-01T01:57:00+07:00">
+    January 01, 2023
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2023/01/01/pelican-remove-prefix-in-path-metadata-using-named-regular-expression-group%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p><strong>Question</strong></p>
+<p>In Pelican static website, we have the following pages under <em>content</em>
+directory.</p>
+<blockquote>
+<ol class="arabic simple">
+<li>pages/index%zh-hant.rst</li>
+<li>pages/about-us%zh-hant.rst</li>
+<li>pages/talk/thai-forest-tradition%zh-hant.rst</li>
+<li>pages/talk/thanissaro/how-to-fall%zh-hant.rst</li>
+</ol>
+</blockquote>
+<p>We want to extract 3 metadata: <em>urlpath</em>, <em>slug</em>, and <em>lang</em> from the path of
+the pages such that</p>
+<blockquote>
+<ol class="arabic">
+<li><div class="first line-block">
+<div class="line"><em>urlpath</em>: <strong>empty string</strong></div>
+<div class="line"><em>slug</em>: <strong>index</strong></div>
+<div class="line"><em>lang</em>: <strong>zh-hant</strong></div>
+</div>
+</li>
+<li><div class="first line-block">
+<div class="line"><em>urlpath</em>: empty string</div>
+<div class="line"><em>slug</em>: <strong>about-us</strong></div>
+<div class="line"><em>lang</em>: <strong>zh-hant</strong></div>
+</div>
+</li>
+<li><div class="first line-block">
+<div class="line"><em>urlpath</em>: <strong>talk/</strong></div>
+<div class="line"><em>slug</em>: <strong>thai-forest-tradition</strong></div>
+<div class="line"><em>lang</em>: <strong>zh-hant</strong></div>
+</div>
+</li>
+<li><div class="first line-block">
+<div class="line"><em>urlpath</em>: <strong>talk/thanissaro/</strong></div>
+<div class="line"><em>slug</em>: <strong>how-to-fall</strong></div>
+<div class="line"><em>lang</em>: <strong>zh-hant</strong></div>
+</div>
+</li>
+</ol>
+</blockquote>
+<p>As you can see, the prefix <strong>pages/</strong> are removed from <em>urlpath</em></p>
+<hr class="docutils" />
+<p><strong>Solution</strong></p>
+<p>In <em>pelicanconf.py</em></p>
+<div class="highlight"><pre><span></span><span class="n">PATH_METADATA</span> <span class="o">=</span> <span class="s1">&#39;pages/(?P&lt;urlpath&gt;[-a-zA-Z0-9/]*/|)(?P&lt;slug&gt;[-a-zA-Z0-9]*)%(?P&lt;lang&gt;[-_a-zA-Z]{2,7})\.rst&#39;</span>
+<span class="n">PAGE_URL</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{urlpath}{slug}</span><span class="s1">/&#39;</span>
+<span class="n">PAGE_SAVE_AS</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{urlpath}{slug}</span><span class="s1">/index.html&#39;</span>
+</pre></div>
+<hr class="docutils" />
+<p>Tested on: <tt class="docutils literal">Ubuntu Linux 22.04</tt>, <tt class="docutils literal">Python 3.10.6</tt>.</p>
+<hr class="docutils" />
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="footnote-1" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td><a class="reference external" href="https://docs.getpelican.com/en/latest/settings.html#metadata">Settings - Pelican 4.8.0</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="footnote-2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[2]</td><td><a class="reference external" href="https://stackoverflow.com/a/57893349">Regex: match an empty string instead of nothing - Stack Overflow</a></td></tr>
+</tbody>
+</table>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/python.html">Python</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/python.html">Python</a>
+,       <a href="/tag/pelican.html">Pelican</a>
+,       <a href="/tag/regular-expression.html">Regular Expression</a>
+,       <a href="/tag/string-manipulation.html">String Manipulation</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>
