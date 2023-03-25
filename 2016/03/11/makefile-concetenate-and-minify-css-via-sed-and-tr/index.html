@@ -53,22 +53,22 @@
     <hr>
 
     <div class="main-content"><p>Concatenate and Minify CSS via <a class="reference external" href="http://www.grymoire.com/Unix/Sed.html">sed</a> and <a class="reference external" href="http://www.linfo.org/tr.html">tr</a> command in <a class="reference external" href="https://www.google.com/search?q=Makefile">Makefile</a>.</p>
-<div class="highlight"><pre><span></span><span class="nv">SOURCE_CSS_FILES</span><span class="o">=</span><span class="k">$(</span>filter-out %.min.css, <span class="k">$(</span>wildcard *.css<span class="k">))</span>
+<div class="highlight"><pre><span></span><span class="nv">SOURCE_CSS_FILES</span><span class="o">=</span><span class="k">$(</span>filter-out<span class="w"> </span>%.min.css,<span class="w"> </span><span class="k">$(</span>wildcard<span class="w"> </span>*.css<span class="k">))</span>
 <span class="nv">MINIFIED_CSS</span><span class="o">=</span>app.min.css
 
-minify: concat
-      @# remove css comments
-      sed -r <span class="s1">&#39;:a; s%(.*)/\*.*\*/%\1%; ta; /\/\*/ !b; N; ba&#39;</span> -i <span class="k">$(</span>MINIFIED_CSS<span class="k">)</span>
-      @# remove leading spaces and tabs
-      sed <span class="s1">&#39;s/^\s*//&#39;</span> -i <span class="k">$(</span>MINIFIED_CSS<span class="k">)</span>
-      @# remove trailing spaces, tabs, and newline
-      sed <span class="s1">&#39;s/\s*$$//&#39;</span> -i <span class="k">$(</span>MINIFIED_CSS<span class="k">)</span>
-      @# remove newline
-      tr --delete <span class="s1">&#39;\n&#39;</span> &lt; <span class="k">$(</span>MINIFIED_CSS<span class="k">)</span> &gt; tmp.css
-      mv tmp.css <span class="k">$(</span>MINIFIED_CSS<span class="k">)</span>
+minify:<span class="w"> </span>concat
+<span class="w">      </span>@#<span class="w"> </span>remove<span class="w"> </span>css<span class="w"> </span>comments
+<span class="w">      </span>sed<span class="w"> </span>-r<span class="w"> </span><span class="s1">&#39;:a; s%(.*)/\*.*\*/%\1%; ta; /\/\*/ !b; N; ba&#39;</span><span class="w"> </span>-i<span class="w"> </span><span class="k">$(</span>MINIFIED_CSS<span class="k">)</span>
+<span class="w">      </span>@#<span class="w"> </span>remove<span class="w"> </span>leading<span class="w"> </span>spaces<span class="w"> </span>and<span class="w"> </span>tabs
+<span class="w">      </span>sed<span class="w"> </span><span class="s1">&#39;s/^\s*//&#39;</span><span class="w"> </span>-i<span class="w"> </span><span class="k">$(</span>MINIFIED_CSS<span class="k">)</span>
+<span class="w">      </span>@#<span class="w"> </span>remove<span class="w"> </span>trailing<span class="w"> </span>spaces,<span class="w"> </span>tabs,<span class="w"> </span>and<span class="w"> </span>newline
+<span class="w">      </span>sed<span class="w"> </span><span class="s1">&#39;s/\s*$$//&#39;</span><span class="w"> </span>-i<span class="w"> </span><span class="k">$(</span>MINIFIED_CSS<span class="k">)</span>
+<span class="w">      </span>@#<span class="w"> </span>remove<span class="w"> </span>newline
+<span class="w">      </span>tr<span class="w"> </span>--delete<span class="w"> </span><span class="s1">&#39;\n&#39;</span><span class="w"> </span>&lt;<span class="w"> </span><span class="k">$(</span>MINIFIED_CSS<span class="k">)</span><span class="w"> </span>&gt;<span class="w"> </span>tmp.css
+<span class="w">      </span>mv<span class="w"> </span>tmp.css<span class="w"> </span><span class="k">$(</span>MINIFIED_CSS<span class="k">)</span>
 
 concat:
-      cat <span class="k">$(</span>SOURCE_CSS_FILES<span class="k">)</span> &gt; <span class="k">$(</span>MINIFIED_CSS<span class="k">)</span>
+<span class="w">      </span>cat<span class="w"> </span><span class="k">$(</span>SOURCE_CSS_FILES<span class="k">)</span><span class="w"> </span>&gt;<span class="w"> </span><span class="k">$(</span>MINIFIED_CSS<span class="k">)</span>
 </pre></div>
 
 <hr class="docutils" />

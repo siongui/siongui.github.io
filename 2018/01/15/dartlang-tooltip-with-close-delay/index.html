@@ -73,22 +73,22 @@ just like the following HTML code used in the demo:</p>
 </pre></div>
 <p>Next, add the following rules to your CSS code:</p>
 <p><strong>CSS</strong>:</p>
-<div class="highlight"><pre><span></span><span class="o">*[</span><span class="nt">data-descr</span><span class="o">]</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="k">text-decoration</span><span class="p">:</span><span class="w"> </span><span class="kc">underline</span><span class="p">;</span><span class="w"></span>
-<span class="w">  </span><span class="k">color</span><span class="p">:</span><span class="w"> </span><span class="kc">blue</span><span class="p">;</span><span class="w"></span>
-<span class="w">  </span><span class="k">cursor</span><span class="p">:</span><span class="w"> </span><span class="kc">help</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="o">*[</span><span class="nt">data-descr</span><span class="o">]</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">text-decoration</span><span class="p">:</span><span class="w"> </span><span class="kc">underline</span><span class="p">;</span>
+<span class="w">  </span><span class="k">color</span><span class="p">:</span><span class="w"> </span><span class="kc">blue</span><span class="p">;</span>
+<span class="w">  </span><span class="k">cursor</span><span class="p">:</span><span class="w"> </span><span class="kc">help</span><span class="p">;</span>
+<span class="p">}</span>
 
-<span class="p">.</span><span class="nc">invisible</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="k">display</span><span class="p">:</span><span class="w"> </span><span class="kc">none</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="p">.</span><span class="nc">invisible</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">display</span><span class="p">:</span><span class="w"> </span><span class="kc">none</span><span class="p">;</span>
+<span class="p">}</span>
 
-<span class="p">.</span><span class="nc">tooltip</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="k">position</span><span class="p">:</span><span class="w"> </span><span class="kc">absolute</span><span class="p">;</span><span class="w"></span>
-<span class="w">  </span><span class="k">border</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="kt">px</span><span class="w"> </span><span class="kc">gray</span><span class="w"> </span><span class="kc">solid</span><span class="p">;</span><span class="w"></span>
-<span class="w">  </span><span class="k">border-radius</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="kt">px</span><span class="p">;</span><span class="w"></span>
-<span class="w">  </span><span class="k">padding</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="kt">px</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="p">.</span><span class="nc">tooltip</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">position</span><span class="p">:</span><span class="w"> </span><span class="kc">absolute</span><span class="p">;</span>
+<span class="w">  </span><span class="k">border</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="kt">px</span><span class="w"> </span><span class="kc">gray</span><span class="w"> </span><span class="kc">solid</span><span class="p">;</span>
+<span class="w">  </span><span class="k">border-radius</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="kt">px</span><span class="p">;</span>
+<span class="w">  </span><span class="k">padding</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="kt">px</span><span class="p">;</span>
+<span class="p">}</span>
 </pre></div>
 <ol class="arabic simple">
 <li>First rule says add underline to the text wrapped in the element with
@@ -101,58 +101,58 @@ text.</li>
 
 <p>Then add the following to your Dart code:</p>
 <p><strong>Dart</strong>:</p>
-<div class="highlight"><pre><span></span><span class="k">import</span><span class="w"> </span><span class="s1">&#39;dart:html&#39;</span><span class="p">;</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="s1">&#39;dart:async&#39;</span><span class="p">;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="k">import</span><span class="w"> </span><span class="s1">&#39;dart:html&#39;</span><span class="p">;</span>
+<span class="k">import</span><span class="w"> </span><span class="s1">&#39;dart:async&#39;</span><span class="p">;</span>
 
-<span class="n">DivElement</span><span class="w"> </span><span class="n">tooltip</span><span class="p">;</span><span class="w"></span>
+<span class="n">DivElement</span><span class="w"> </span><span class="n">tooltip</span><span class="p">;</span>
 
-<span class="c1">// indicate if the mouse cursor is in the tooltip</span><span class="w"></span>
-<span class="kt">bool</span><span class="w"> </span><span class="n">isCursorInTooltip</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span><span class="w"></span>
+<span class="c1">// indicate if the mouse cursor is in the tooltip</span>
+<span class="kt">bool</span><span class="w"> </span><span class="n">isCursorInTooltip</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span>
 
-<span class="c1">// when cursor leaves the text, the delay time to close the tooltip if the</span><span class="w"></span>
-<span class="c1">// cursor is not in the tooltip. (milisecond)</span><span class="w"></span>
-<span class="k">const</span><span class="w"> </span><span class="n">delay</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">Duration</span><span class="p">(</span><span class="nl">milliseconds:</span><span class="w"> </span><span class="m">250</span><span class="p">);</span><span class="w"></span>
+<span class="c1">// when cursor leaves the text, the delay time to close the tooltip if the</span>
+<span class="c1">// cursor is not in the tooltip. (milisecond)</span>
+<span class="k">const</span><span class="w"> </span><span class="n">delay</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">Duration</span><span class="p">(</span><span class="nl">milliseconds:</span><span class="w"> </span><span class="m">250</span><span class="p">);</span>
 
-<span class="c1">// event handler for mouseenter event of elements with data-descr attribute</span><span class="w"></span>
-<span class="kt">void</span><span class="w"> </span><span class="n">ShowTooltip</span><span class="p">(</span><span class="n">Event</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="n">Element</span><span class="w"> </span><span class="n">elm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">target</span><span class="p">;</span><span class="w"></span>
-<span class="w">  </span><span class="n">tooltip</span><span class="p">.</span><span class="n">style</span><span class="p">.</span><span class="n">left</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">elm</span><span class="p">.</span><span class="n">offsetLeft</span><span class="p">.</span><span class="n">toString</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s2">&quot;px&quot;</span><span class="p">;</span><span class="w"></span>
-<span class="w">  </span><span class="n">tooltip</span><span class="p">.</span><span class="n">style</span><span class="p">.</span><span class="n">top</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">elm</span><span class="p">.</span><span class="n">offsetTop</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">elm</span><span class="p">.</span><span class="n">offsetHeight</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">5</span><span class="p">).</span><span class="n">toString</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s2">&quot;px&quot;</span><span class="p">;</span><span class="w"></span>
-<span class="w">  </span><span class="n">tooltip</span><span class="p">.</span><span class="n">text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">elm</span><span class="p">.</span><span class="n">dataset</span><span class="p">[</span><span class="s2">&quot;descr&quot;</span><span class="p">];</span><span class="w"></span>
-<span class="w">  </span><span class="n">tooltip</span><span class="p">.</span><span class="n">classes</span><span class="p">.</span><span class="n">remove</span><span class="p">(</span><span class="s2">&quot;invisible&quot;</span><span class="p">);</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="c1">// event handler for mouseenter event of elements with data-descr attribute</span>
+<span class="kt">void</span><span class="w"> </span><span class="n">ShowTooltip</span><span class="p">(</span><span class="n">Event</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">Element</span><span class="w"> </span><span class="n">elm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">target</span><span class="p">;</span>
+<span class="w">  </span><span class="n">tooltip</span><span class="p">.</span><span class="n">style</span><span class="p">.</span><span class="n">left</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">elm</span><span class="p">.</span><span class="n">offsetLeft</span><span class="p">.</span><span class="n">toString</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s2">&quot;px&quot;</span><span class="p">;</span>
+<span class="w">  </span><span class="n">tooltip</span><span class="p">.</span><span class="n">style</span><span class="p">.</span><span class="n">top</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">elm</span><span class="p">.</span><span class="n">offsetTop</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">elm</span><span class="p">.</span><span class="n">offsetHeight</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">5</span><span class="p">).</span><span class="n">toString</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s2">&quot;px&quot;</span><span class="p">;</span>
+<span class="w">  </span><span class="n">tooltip</span><span class="p">.</span><span class="n">text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">elm</span><span class="p">.</span><span class="n">dataset</span><span class="p">[</span><span class="s2">&quot;descr&quot;</span><span class="p">];</span>
+<span class="w">  </span><span class="n">tooltip</span><span class="p">.</span><span class="n">classes</span><span class="p">.</span><span class="n">remove</span><span class="p">(</span><span class="s2">&quot;invisible&quot;</span><span class="p">);</span>
+<span class="p">}</span>
 
-<span class="c1">// event handler for mouseleave event of elements with data-descr attribute</span><span class="w"></span>
-<span class="kt">void</span><span class="w"> </span><span class="n">HideTooltip</span><span class="p">(</span><span class="n">Event</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="k">new</span><span class="w"> </span><span class="n">Timer</span><span class="p">(</span><span class="n">delay</span><span class="p">,</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">isCursorInTooltip</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">      </span><span class="n">tooltip</span><span class="p">.</span><span class="n">classes</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="s2">&quot;invisible&quot;</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="w">  </span><span class="p">});</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="c1">// event handler for mouseleave event of elements with data-descr attribute</span>
+<span class="kt">void</span><span class="w"> </span><span class="n">HideTooltip</span><span class="p">(</span><span class="n">Event</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">new</span><span class="w"> </span><span class="n">Timer</span><span class="p">(</span><span class="n">delay</span><span class="p">,</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">isCursorInTooltip</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="n">tooltip</span><span class="p">.</span><span class="n">classes</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="s2">&quot;invisible&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">});</span>
+<span class="p">}</span>
 
-<span class="kt">void</span><span class="w"> </span><span class="n">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="c1">// create and append invisible tooltip to DOM tree</span><span class="w"></span>
-<span class="w">  </span><span class="n">tooltip</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">document</span><span class="p">.</span><span class="n">createElement</span><span class="p">(</span><span class="s2">&quot;div&quot;</span><span class="p">);</span><span class="w"></span>
-<span class="w">  </span><span class="n">tooltip</span><span class="p">.</span><span class="n">classes</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="s2">&quot;tooltip&quot;</span><span class="p">);</span><span class="w"></span>
-<span class="w">  </span><span class="n">tooltip</span><span class="p">.</span><span class="n">classes</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="s2">&quot;invisible&quot;</span><span class="p">);</span><span class="w"></span>
-<span class="w">  </span><span class="n">tooltip</span><span class="p">.</span><span class="n">onMouseEnter</span><span class="p">.</span><span class="n">listen</span><span class="p">((</span><span class="n">Event</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="n">isCursorInTooltip</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span><span class="w"></span>
-<span class="w">  </span><span class="p">});</span><span class="w"></span>
-<span class="w">  </span><span class="n">tooltip</span><span class="p">.</span><span class="n">onMouseLeave</span><span class="p">.</span><span class="n">listen</span><span class="p">((</span><span class="n">Event</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="n">isCursorInTooltip</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="n">tooltip</span><span class="p">.</span><span class="n">classes</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="s2">&quot;invisible&quot;</span><span class="p">);</span><span class="w"></span>
-<span class="w">  </span><span class="p">});</span><span class="w"></span>
-<span class="w">  </span><span class="n">document</span><span class="p">.</span><span class="n">body</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">tooltip</span><span class="p">);</span><span class="w"></span>
+<span class="kt">void</span><span class="w"> </span><span class="n">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">// create and append invisible tooltip to DOM tree</span>
+<span class="w">  </span><span class="n">tooltip</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">document</span><span class="p">.</span><span class="n">createElement</span><span class="p">(</span><span class="s2">&quot;div&quot;</span><span class="p">);</span>
+<span class="w">  </span><span class="n">tooltip</span><span class="p">.</span><span class="n">classes</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="s2">&quot;tooltip&quot;</span><span class="p">);</span>
+<span class="w">  </span><span class="n">tooltip</span><span class="p">.</span><span class="n">classes</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="s2">&quot;invisible&quot;</span><span class="p">);</span>
+<span class="w">  </span><span class="n">tooltip</span><span class="p">.</span><span class="n">onMouseEnter</span><span class="p">.</span><span class="n">listen</span><span class="p">((</span><span class="n">Event</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">isCursorInTooltip</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span>
+<span class="w">  </span><span class="p">});</span>
+<span class="w">  </span><span class="n">tooltip</span><span class="p">.</span><span class="n">onMouseLeave</span><span class="p">.</span><span class="n">listen</span><span class="p">((</span><span class="n">Event</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">isCursorInTooltip</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span>
+<span class="w">    </span><span class="n">tooltip</span><span class="p">.</span><span class="n">classes</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="s2">&quot;invisible&quot;</span><span class="p">);</span>
+<span class="w">  </span><span class="p">});</span>
+<span class="w">  </span><span class="n">document</span><span class="p">.</span><span class="n">body</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">tooltip</span><span class="p">);</span>
 
-<span class="w">  </span><span class="c1">// select all elements with data-descr attribute</span><span class="w"></span>
-<span class="w">  </span><span class="c1">// and attach mouseenter and mouseleave event handler</span><span class="w"></span>
-<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="n">els</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">querySelectorAll</span><span class="p">(</span><span class="s1">&#39;*[data-descr]&#39;</span><span class="p">);</span><span class="w"></span>
-<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">var</span><span class="w"> </span><span class="n">el</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">els</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="n">el</span><span class="p">.</span><span class="n">onMouseEnter</span><span class="p">.</span><span class="n">listen</span><span class="p">(</span><span class="n">ShowTooltip</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="n">el</span><span class="p">.</span><span class="n">onMouseLeave</span><span class="p">.</span><span class="n">listen</span><span class="p">(</span><span class="n">HideTooltip</span><span class="p">);</span><span class="w"></span>
-<span class="w">  </span><span class="p">}</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">  </span><span class="c1">// select all elements with data-descr attribute</span>
+<span class="w">  </span><span class="c1">// and attach mouseenter and mouseleave event handler</span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="n">els</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">querySelectorAll</span><span class="p">(</span><span class="s1">&#39;*[data-descr]&#39;</span><span class="p">);</span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">var</span><span class="w"> </span><span class="n">el</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">els</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">el</span><span class="p">.</span><span class="n">onMouseEnter</span><span class="p">.</span><span class="n">listen</span><span class="p">(</span><span class="n">ShowTooltip</span><span class="p">);</span>
+<span class="w">    </span><span class="n">el</span><span class="p">.</span><span class="n">onMouseLeave</span><span class="p">.</span><span class="n">listen</span><span class="p">(</span><span class="n">HideTooltip</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 <p>In the Dart code:</p>
 <ol class="arabic simple">

@@ -54,27 +54,27 @@
 
     <div class="main-content"><p><a class="reference external" href="https://golang.org/">Go</a> 語言 <a class="reference external" href="https://en.wikipedia.org/wiki/Enumerated_type">列舉</a> 型態 寫法
 （來自官網 <a class="reference external" href="https://golang.org/ref/spec#Iota">Iota</a> ）：</p>
-<div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="c1">// iota is reset to 0</span><span class="w"></span>
-<span class="w">      </span><span class="nx">c0</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kc">iota</span><span class="w">  </span><span class="c1">// c0 == 0</span><span class="w"></span>
-<span class="w">      </span><span class="nx">c1</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kc">iota</span><span class="w">  </span><span class="c1">// c1 == 1</span><span class="w"></span>
-<span class="w">      </span><span class="nx">c2</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kc">iota</span><span class="w">  </span><span class="c1">// c2 == 2</span><span class="w"></span>
-<span class="p">)</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="c1">// iota is reset to 0</span>
+<span class="w">      </span><span class="nx">c0</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kc">iota</span><span class="w">  </span><span class="c1">// c0 == 0</span>
+<span class="w">      </span><span class="nx">c1</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kc">iota</span><span class="w">  </span><span class="c1">// c1 == 1</span>
+<span class="w">      </span><span class="nx">c2</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kc">iota</span><span class="w">  </span><span class="c1">// c2 == 2</span>
+<span class="p">)</span>
 
-<span class="kd">const</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="c1">// iota is reset to 0</span><span class="w"></span>
-<span class="w">      </span><span class="nx">a</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="kc">iota</span><span class="w">  </span><span class="c1">// a == 1</span><span class="w"></span>
-<span class="w">      </span><span class="nx">b</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="kc">iota</span><span class="w">  </span><span class="c1">// b == 2</span><span class="w"></span>
-<span class="w">      </span><span class="nx">c</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">3</span><span class="w">          </span><span class="c1">// c == 3  (iota is not used but still incremented)</span><span class="w"></span>
-<span class="w">      </span><span class="nx">d</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="kc">iota</span><span class="w">  </span><span class="c1">// d == 8</span><span class="w"></span>
-<span class="p">)</span><span class="w"></span>
+<span class="kd">const</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="c1">// iota is reset to 0</span>
+<span class="w">      </span><span class="nx">a</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="kc">iota</span><span class="w">  </span><span class="c1">// a == 1</span>
+<span class="w">      </span><span class="nx">b</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="kc">iota</span><span class="w">  </span><span class="c1">// b == 2</span>
+<span class="w">      </span><span class="nx">c</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">3</span><span class="w">          </span><span class="c1">// c == 3  (iota is not used but still incremented)</span>
+<span class="w">      </span><span class="nx">d</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="kc">iota</span><span class="w">  </span><span class="c1">// d == 8</span>
+<span class="p">)</span>
 
-<span class="kd">const</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="c1">// iota is reset to 0</span><span class="w"></span>
-<span class="w">      </span><span class="nx">u</span><span class="w">         </span><span class="p">=</span><span class="w"> </span><span class="kc">iota</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">42</span><span class="w">  </span><span class="c1">// u == 0     (untyped integer constant)</span><span class="w"></span>
-<span class="w">      </span><span class="nx">v</span><span class="w"> </span><span class="kt">float64</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kc">iota</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">42</span><span class="w">  </span><span class="c1">// v == 42.0  (float64 constant)</span><span class="w"></span>
-<span class="w">      </span><span class="nx">w</span><span class="w">         </span><span class="p">=</span><span class="w"> </span><span class="kc">iota</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">42</span><span class="w">  </span><span class="c1">// w == 84    (untyped integer constant)</span><span class="w"></span>
-<span class="p">)</span><span class="w"></span>
+<span class="kd">const</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="c1">// iota is reset to 0</span>
+<span class="w">      </span><span class="nx">u</span><span class="w">         </span><span class="p">=</span><span class="w"> </span><span class="kc">iota</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">42</span><span class="w">  </span><span class="c1">// u == 0     (untyped integer constant)</span>
+<span class="w">      </span><span class="nx">v</span><span class="w"> </span><span class="kt">float64</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kc">iota</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">42</span><span class="w">  </span><span class="c1">// v == 42.0  (float64 constant)</span>
+<span class="w">      </span><span class="nx">w</span><span class="w">         </span><span class="p">=</span><span class="w"> </span><span class="kc">iota</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">42</span><span class="w">  </span><span class="c1">// w == 84    (untyped integer constant)</span>
+<span class="p">)</span>
 
-<span class="kd">const</span><span class="w"> </span><span class="nx">x</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kc">iota</span><span class="w">  </span><span class="c1">// x == 0  (iota has been reset)</span><span class="w"></span>
-<span class="kd">const</span><span class="w"> </span><span class="nx">y</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kc">iota</span><span class="w">  </span><span class="c1">// y == 0  (iota has been reset)</span><span class="w"></span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">x</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kc">iota</span><span class="w">  </span><span class="c1">// x == 0  (iota has been reset)</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">y</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kc">iota</span><span class="w">  </span><span class="c1">// y == 0  (iota has been reset)</span>
 </pre></div>
 
 <hr class="docutils" />

@@ -93,41 +93,41 @@ we do in <a class="reference external" href="https://golang.org/">Go</a> program
 <span class="normal">21</span>
 <span class="normal">22</span>
 <span class="normal">23</span>
-<span class="normal">24</span></pre></div></td><td class="code"><div><pre><span></span><span class="c1">// http://golang.org/pkg/io/ioutil/</span><span class="w"></span>
-<span class="c1">// http://golang.org/pkg/encoding/xml/</span><span class="w"></span>
-<span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w"></span>
+<span class="normal">24</span></pre></div></td><td class="code"><div><pre><span></span><span class="c1">// http://golang.org/pkg/io/ioutil/</span>
+<span class="c1">// http://golang.org/pkg/encoding/xml/</span>
+<span class="kn">package</span><span class="w"> </span><span class="nx">main</span>
 
-<span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
-<span class="w">	</span><span class="s">&quot;io/ioutil&quot;</span><span class="w"></span>
-<span class="w">	</span><span class="s">&quot;encoding/xml&quot;</span><span class="w"></span>
-<span class="w">	</span><span class="s">&quot;fmt&quot;</span><span class="w"></span>
-<span class="p">)</span><span class="w"></span>
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span>
+<span class="w">	</span><span class="s">&quot;io/ioutil&quot;</span>
+<span class="w">	</span><span class="s">&quot;encoding/xml&quot;</span>
+<span class="w">	</span><span class="s">&quot;fmt&quot;</span>
+<span class="p">)</span>
 
-<span class="kd">type</span><span class="w"> </span><span class="nx">div</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">	</span><span class="nx">XMLName</span><span class="w">	</span><span class="nx">xml</span><span class="p">.</span><span class="nx">Name</span><span class="w">	</span><span class="s">`xml:&quot;div&quot;`</span><span class="w"></span>
-<span class="w">	</span><span class="c1">// First letter must be capital. Cannot use `content`</span><span class="w"></span>
-<span class="w">	</span><span class="nx">Content</span><span class="w">	</span><span class="kt">string</span><span class="w">		</span><span class="s">`xml:&quot;,chardata&quot;`</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="kd">type</span><span class="w"> </span><span class="nx">div</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">	</span><span class="nx">XMLName</span><span class="w">	</span><span class="nx">xml</span><span class="p">.</span><span class="nx">Name</span><span class="w">	</span><span class="s">`xml:&quot;div&quot;`</span>
+<span class="w">	</span><span class="c1">// First letter must be capital. Cannot use `content`</span>
+<span class="w">	</span><span class="nx">Content</span><span class="w">	</span><span class="kt">string</span><span class="w">		</span><span class="s">`xml:&quot;,chardata&quot;`</span>
+<span class="p">}</span>
 
-<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">	</span><span class="nx">d</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">div</span><span class="p">{}</span><span class="w"></span>
-<span class="w">	</span><span class="nx">xmlContent</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">ioutil</span><span class="p">.</span><span class="nx">ReadFile</span><span class="p">(</span><span class="s">&quot;example-1.xml&quot;</span><span class="p">)</span><span class="w"></span>
-<span class="w">	</span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">xml</span><span class="p">.</span><span class="nx">Unmarshal</span><span class="p">(</span><span class="nx">xmlContent</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">d</span><span class="p">)</span><span class="w"></span>
-<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
-<span class="w">	</span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;XMLName:&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">d</span><span class="p">.</span><span class="nx">XMLName</span><span class="p">)</span><span class="w"></span>
-<span class="w">	</span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;Content:&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">d</span><span class="p">.</span><span class="nx">Content</span><span class="p">)</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">	</span><span class="nx">d</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">div</span><span class="p">{}</span>
+<span class="w">	</span><span class="nx">xmlContent</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">ioutil</span><span class="p">.</span><span class="nx">ReadFile</span><span class="p">(</span><span class="s">&quot;example-1.xml&quot;</span><span class="p">)</span>
+<span class="w">	</span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">xml</span><span class="p">.</span><span class="nx">Unmarshal</span><span class="p">(</span><span class="nx">xmlContent</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">d</span><span class="p">)</span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
+<span class="w">	</span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;XMLName:&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">d</span><span class="p">.</span><span class="nx">XMLName</span><span class="p">)</span>
+<span class="w">	</span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;Content:&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">d</span><span class="p">.</span><span class="nx">Content</span><span class="p">)</span>
+<span class="p">}</span>
 </pre></div></td></tr></table></div>
 </div></figure>
 <p>Put the above two files on the same directory and run the code. The ouput will
 be:</p>
-<div class="highlight"><pre><span></span>XMLName: <span class="o">{</span> div<span class="o">}</span>
-Content: Example
+<div class="highlight"><pre><span></span>XMLName:<span class="w"> </span><span class="o">{</span><span class="w"> </span>div<span class="o">}</span>
+Content:<span class="w"> </span>Example
 </pre></div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p>In the line:</p>
-<div class="highlight"><pre><span></span><span class="nx">XMLName</span><span class="w">     </span><span class="nx">xml</span><span class="p">.</span><span class="nx">Name</span><span class="w">        </span><span class="s">`xml:&quot;div&quot;`</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="nx">XMLName</span><span class="w">     </span><span class="nx">xml</span><span class="p">.</span><span class="nx">Name</span><span class="w">        </span><span class="s">`xml:&quot;div&quot;`</span>
 </pre></div>
 <p class="last"><code>XMLName</code> and <code>xml.Name</code> are fixed syntax for reading <tt class="docutils literal">div</tt>
 element, you can not change them at will.</p>
@@ -135,7 +135,7 @@ element, you can not change them at will.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p>Also in the line:</p>
-<div class="highlight"><pre><span></span><span class="nx">Content</span><span class="w">     </span><span class="kt">string</span><span class="w">          </span><span class="s">`xml:&quot;,chardata&quot;`</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="nx">Content</span><span class="w">     </span><span class="kt">string</span><span class="w">          </span><span class="s">`xml:&quot;,chardata&quot;`</span>
 </pre></div>
 <p class="last">The first letter of the variable <code>Content</code> must be capital. If you use
 <code>content</code>, the <a class="reference external" href="https://golang.org/">Go</a> parser will fail to read the content in <em>div</em>
@@ -146,10 +146,10 @@ letter is capital.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p>If you replace the line:</p>
-<div class="highlight"><pre><span></span><span class="nx">Content</span><span class="w">     </span><span class="kt">string</span><span class="w">          </span><span class="s">`xml:&quot;,chardata&quot;`</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="nx">Content</span><span class="w">     </span><span class="kt">string</span><span class="w">          </span><span class="s">`xml:&quot;,chardata&quot;`</span>
 </pre></div>
 <p>with</p>
-<div class="highlight"><pre><span></span><span class="nx">Content</span><span class="w">     </span><span class="kt">string</span><span class="w">          </span><span class="s">`xml:&quot;,innerxml&quot;`</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="nx">Content</span><span class="w">     </span><span class="kt">string</span><span class="w">          </span><span class="s">`xml:&quot;,innerxml&quot;`</span>
 </pre></div>
 <p class="last">i.e., replace <em>,chardata</em> with <em>,innerxml</em>. The output result will be the same
 because the raw XML nested inside the <em>div</em> element is the same as the
@@ -207,45 +207,45 @@ character data of the <em>div</em> element in this case.</p>
 <span class="normal">42</span></pre></div></td><td class="code"><div><pre><span></span><span class="c"># cannot use relative path in GOROOT, otherwise 6g not found. For example,</span>
 <span class="c">#   export GOROOT=../go  (=&gt; 6g not found)</span>
 <span class="c"># it is also not allowed to use relative path in GOPATH</span>
-<span class="k">export </span><span class="nv">GOROOT</span><span class="o">=</span><span class="k">$(</span>realpath ../../../../../go<span class="k">)</span>
-<span class="k">export </span><span class="nv">GOPATH</span><span class="o">=</span><span class="k">$(</span>realpath .<span class="k">)</span>
-<span class="k">export </span><span class="nv">PATH</span> <span class="o">:=</span> <span class="k">$(</span>GOROOT<span class="k">)</span>/bin:<span class="k">$(</span>PATH<span class="k">)</span>
+<span class="k">export </span><span class="nv">GOROOT</span><span class="o">=</span><span class="k">$(</span>realpath<span class="w"> </span>../../../../../go<span class="k">)</span>
+<span class="k">export </span><span class="nv">GOPATH</span><span class="o">=</span><span class="k">$(</span>realpath<span class="w"> </span>.<span class="k">)</span>
+<span class="k">export </span><span class="nv">PATH</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">$(</span>GOROOT<span class="k">)</span>/bin:<span class="k">$(</span>PATH<span class="k">)</span>
 
-<span class="nf">all</span><span class="o">:</span> <span class="n">parseFeed</span>
+<span class="nf">all</span><span class="o">:</span><span class="w"> </span><span class="n">parseFeed</span>
 
 <span class="nf">example1</span><span class="o">:</span>
 <span class="c">	@# http://stackoverflow.com/questions/9967105/suppress-echo-of-command-invocation-in-makefile</span>
-	@go run parse-1.go
+<span class="w">	</span>@go<span class="w"> </span>run<span class="w"> </span>parse-1.go
 
 <span class="nf">example2</span><span class="o">:</span>
-	@go run parse-2.go
+<span class="w">	</span>@go<span class="w"> </span>run<span class="w"> </span>parse-2.go
 
 <span class="nf">example3</span><span class="o">:</span>
-	@go run parse-3.go
+<span class="w">	</span>@go<span class="w"> </span>run<span class="w"> </span>parse-3.go
 
 <span class="nf">example4</span><span class="o">:</span>
-	@go run parse-4.go
+<span class="w">	</span>@go<span class="w"> </span>run<span class="w"> </span>parse-4.go
 
 <span class="nf">example5</span><span class="o">:</span>
-	@go run parse-5.go
+<span class="w">	</span>@go<span class="w"> </span>run<span class="w"> </span>parse-5.go
 
 <span class="nf">example5_2</span><span class="o">:</span>
-	@go run parse-5_2.go
+<span class="w">	</span>@go<span class="w"> </span>run<span class="w"> </span>parse-5_2.go
 
 <span class="nf">example6</span><span class="o">:</span>
-	@go run parse-6.go
+<span class="w">	</span>@go<span class="w"> </span>run<span class="w"> </span>parse-6.go
 
 <span class="nf">example7</span><span class="o">:</span>
-	@go run parse-7.go
+<span class="w">	</span>@go<span class="w"> </span>run<span class="w"> </span>parse-7.go
 
 <span class="nf">atom2rss</span><span class="o">:</span>
-	@go run atom2rss.go
+<span class="w">	</span>@go<span class="w"> </span>run<span class="w"> </span>atom2rss.go
 
 <span class="nf">parseFeed</span><span class="o">:</span>
-	@go run parseFeed.go
+<span class="w">	</span>@go<span class="w"> </span>run<span class="w"> </span>parseFeed.go
 
 <span class="nf">help</span><span class="o">:</span>
-	go <span class="nb">help</span>
+<span class="w">	</span>go<span class="w"> </span><span class="nb">help</span>
 </pre></div></td></tr></table></div>
 </div></figure><p>Tested on: <tt class="docutils literal">Ubuntu Linux 14.10</tt>, <tt class="docutils literal">Go 1.4</tt>.</p>
 <hr class="docutils" />

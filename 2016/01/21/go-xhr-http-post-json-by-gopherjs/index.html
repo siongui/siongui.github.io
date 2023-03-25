@@ -64,7 +64,7 @@ applications in both front-end (runs on browsers) and backend (runs on servers).
 <div class="section" id="install-gopherjs">
 <h2>Install <a class="reference external" href="http://www.gopherjs.org/">GopherJS</a></h2>
 <p>Run the following command to install <a class="reference external" href="http://www.gopherjs.org/">GopherJS</a>:</p>
-<div class="highlight"><pre><span></span>$ go get -u github.com/gopherjs/gopherjs
+<div class="highlight"><pre><span></span>$<span class="w"> </span>go<span class="w"> </span>get<span class="w"> </span>-u<span class="w"> </span>github.com/gopherjs/gopherjs
 </pre></div>
 </div>
 <div class="section" id="source-code">
@@ -103,20 +103,20 @@ care of all the rests for you!</p>
 <span class="normal">11</span>
 <span class="normal">12</span>
 <span class="normal">13</span>
-<span class="normal">14</span></pre></div></td><td class="code"><div><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w"></span>
+<span class="normal">14</span></pre></div></td><td class="code"><div><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span>
 
-<span class="kn">import</span><span class="w"> </span><span class="s">&quot;net/http&quot;</span><span class="w"></span>
-<span class="kn">import</span><span class="w"> </span><span class="s">&quot;strings&quot;</span><span class="w"></span>
+<span class="kn">import</span><span class="w"> </span><span class="s">&quot;net/http&quot;</span>
+<span class="kn">import</span><span class="w"> </span><span class="s">&quot;strings&quot;</span>
 
-<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">	</span><span class="nx">jsonStr</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="s">`{&quot;title&quot;:&quot;test&quot;,&quot;data&quot;:&quot;none&quot;}`</span><span class="w"></span>
-<span class="w">	</span><span class="nx">resp</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">http</span><span class="p">.</span><span class="nx">Post</span><span class="p">(</span><span class="s">&quot;/post&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;application/json&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">strings</span><span class="p">.</span><span class="nx">NewReader</span><span class="p">(</span><span class="nx">jsonStr</span><span class="p">))</span><span class="w"></span>
-<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">		</span><span class="c1">// handle error</span><span class="w"></span>
-<span class="w">		</span><span class="nb">println</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"></span>
-<span class="w">	</span><span class="p">}</span><span class="w"></span>
-<span class="w">	</span><span class="k">defer</span><span class="w"> </span><span class="nx">resp</span><span class="p">.</span><span class="nx">Body</span><span class="p">.</span><span class="nx">Close</span><span class="p">()</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">	</span><span class="nx">jsonStr</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="s">`{&quot;title&quot;:&quot;test&quot;,&quot;data&quot;:&quot;none&quot;}`</span>
+<span class="w">	</span><span class="nx">resp</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">http</span><span class="p">.</span><span class="nx">Post</span><span class="p">(</span><span class="s">&quot;/post&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;application/json&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">strings</span><span class="p">.</span><span class="nx">NewReader</span><span class="p">(</span><span class="nx">jsonStr</span><span class="p">))</span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">		</span><span class="c1">// handle error</span>
+<span class="w">		</span><span class="nb">println</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+<span class="w">	</span><span class="p">}</span>
+<span class="w">	</span><span class="k">defer</span><span class="w"> </span><span class="nx">resp</span><span class="p">.</span><span class="nx">Body</span><span class="p">.</span><span class="nx">Close</span><span class="p">()</span>
+<span class="p">}</span>
 </pre></div></td></tr></table></div>
 </div></figure>
 <p>The following is backend <a class="reference external" href="https://golang.org/">Go</a> code for receiving <a class="reference external" href="http://www.w3schools.com/json/">JSON</a> data from front-end by
@@ -160,49 +160,49 @@ care of all the rests for you!</p>
 <span class="normal">31</span>
 <span class="normal">32</span>
 <span class="normal">33</span>
-<span class="normal">34</span></pre></div></td><td class="code"><div><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w"></span>
+<span class="normal">34</span></pre></div></td><td class="code"><div><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span>
 
-<span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
-<span class="w">	</span><span class="s">&quot;encoding/json&quot;</span><span class="w"></span>
-<span class="w">	</span><span class="s">&quot;net/http&quot;</span><span class="w"></span>
-<span class="p">)</span><span class="w"></span>
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span>
+<span class="w">	</span><span class="s">&quot;encoding/json&quot;</span>
+<span class="w">	</span><span class="s">&quot;net/http&quot;</span>
+<span class="p">)</span>
 
-<span class="kd">type</span><span class="w"> </span><span class="nx">TestData</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">	</span><span class="nx">Title</span><span class="w"> </span><span class="kt">string</span><span class="w"></span>
-<span class="w">	</span><span class="nx">Data</span><span class="w">  </span><span class="kt">string</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="kd">type</span><span class="w"> </span><span class="nx">TestData</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">	</span><span class="nx">Title</span><span class="w"> </span><span class="kt">string</span>
+<span class="w">	</span><span class="nx">Data</span><span class="w">  </span><span class="kt">string</span>
+<span class="p">}</span>
 
-<span class="kd">func</span><span class="w"> </span><span class="nx">postHandler</span><span class="p">(</span><span class="nx">w</span><span class="w"> </span><span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span><span class="w"> </span><span class="nx">r</span><span class="w"> </span><span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">r</span><span class="p">.</span><span class="nx">Method</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="s">&quot;POST&quot;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">		</span><span class="k">return</span><span class="w"></span>
-<span class="w">	</span><span class="p">}</span><span class="w"></span>
-<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="s">&quot;/post&quot;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">		</span><span class="k">return</span><span class="w"></span>
-<span class="w">	</span><span class="p">}</span><span class="w"></span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">postHandler</span><span class="p">(</span><span class="nx">w</span><span class="w"> </span><span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span><span class="w"> </span><span class="nx">r</span><span class="w"> </span><span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">r</span><span class="p">.</span><span class="nx">Method</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="s">&quot;POST&quot;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">		</span><span class="k">return</span>
+<span class="w">	</span><span class="p">}</span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="s">&quot;/post&quot;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">		</span><span class="k">return</span>
+<span class="w">	</span><span class="p">}</span>
 
-<span class="w">	</span><span class="nx">decoder</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">json</span><span class="p">.</span><span class="nx">NewDecoder</span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">Body</span><span class="p">)</span><span class="w"></span>
-<span class="w">	</span><span class="nx">d</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">TestData</span><span class="p">{}</span><span class="w"></span>
+<span class="w">	</span><span class="nx">decoder</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">json</span><span class="p">.</span><span class="nx">NewDecoder</span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">Body</span><span class="p">)</span>
+<span class="w">	</span><span class="nx">d</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">TestData</span><span class="p">{}</span>
 
-<span class="w">	</span><span class="c1">// should handle error here</span><span class="w"></span>
-<span class="w">	</span><span class="nx">decoder</span><span class="p">.</span><span class="nx">Decode</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">d</span><span class="p">)</span><span class="w"></span>
-<span class="w">	</span><span class="nb">print</span><span class="p">(</span><span class="nx">d</span><span class="p">.</span><span class="nx">Title</span><span class="p">)</span><span class="w"></span>
-<span class="w">	</span><span class="nb">print</span><span class="p">(</span><span class="nx">d</span><span class="p">.</span><span class="nx">Data</span><span class="p">)</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">	</span><span class="c1">// should handle error here</span>
+<span class="w">	</span><span class="nx">decoder</span><span class="p">.</span><span class="nx">Decode</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">d</span><span class="p">)</span>
+<span class="w">	</span><span class="nb">print</span><span class="p">(</span><span class="nx">d</span><span class="p">.</span><span class="nx">Title</span><span class="p">)</span>
+<span class="w">	</span><span class="nb">print</span><span class="p">(</span><span class="nx">d</span><span class="p">.</span><span class="nx">Data</span><span class="p">)</span>
+<span class="p">}</span>
 
-<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">	</span><span class="nx">http</span><span class="p">.</span><span class="nx">Handle</span><span class="p">(</span><span class="s">&quot;/&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">http</span><span class="p">.</span><span class="nx">FileServer</span><span class="p">(</span><span class="nx">http</span><span class="p">.</span><span class="nx">Dir</span><span class="p">(</span><span class="s">&quot;./src&quot;</span><span class="p">)))</span><span class="w"></span>
-<span class="w">	</span><span class="nx">http</span><span class="p">.</span><span class="nx">HandleFunc</span><span class="p">(</span><span class="s">&quot;/post&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">postHandler</span><span class="p">)</span><span class="w"></span>
-<span class="w">	</span><span class="nx">http</span><span class="p">.</span><span class="nx">ListenAndServe</span><span class="p">(</span><span class="s">&quot;:8000&quot;</span><span class="p">,</span><span class="w"> </span><span class="kc">nil</span><span class="p">)</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">	</span><span class="nx">http</span><span class="p">.</span><span class="nx">Handle</span><span class="p">(</span><span class="s">&quot;/&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">http</span><span class="p">.</span><span class="nx">FileServer</span><span class="p">(</span><span class="nx">http</span><span class="p">.</span><span class="nx">Dir</span><span class="p">(</span><span class="s">&quot;./src&quot;</span><span class="p">)))</span>
+<span class="w">	</span><span class="nx">http</span><span class="p">.</span><span class="nx">HandleFunc</span><span class="p">(</span><span class="s">&quot;/post&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">postHandler</span><span class="p">)</span>
+<span class="w">	</span><span class="nx">http</span><span class="p">.</span><span class="nx">ListenAndServe</span><span class="p">(</span><span class="s">&quot;:8000&quot;</span><span class="p">,</span><span class="w"> </span><span class="kc">nil</span><span class="p">)</span>
+<span class="p">}</span>
 </pre></div></td></tr></table></div>
 </div></figure>
 <p>Compile the <a class="reference external" href="https://golang.org/">Go</a> code to <a class="reference external" href="https://en.wikipedia.org/wiki/JavaScript">JavaScript</a> by:</p>
-<div class="highlight"><pre><span></span>$ gopherjs build xhrpost.go -o demo.js
+<div class="highlight"><pre><span></span>$<span class="w"> </span>gopherjs<span class="w"> </span>build<span class="w"> </span>xhrpost.go<span class="w"> </span>-o<span class="w"> </span>demo.js
 </pre></div>
 <p>Put <em>demo.js</em> together with the <em>index.html</em> and in the same directory. Modify
 the path in <em>server.go</em> to the path where you place <em>demo.js</em> and <em>index.html</em>.
 Run the server by:</p>
-<div class="highlight"><pre><span></span>$ go run server.go
+<div class="highlight"><pre><span></span>$<span class="w"> </span>go<span class="w"> </span>run<span class="w"> </span>server.go
 </pre></div>
 <p>Open your browser with URL <a class="reference external" href="http://localhost:8000/">localhost:8000</a>. You will
 see the console running <em>server.go</em> prints out data received from front-end.</p>

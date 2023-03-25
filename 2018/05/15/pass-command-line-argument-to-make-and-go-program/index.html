@@ -59,26 +59,26 @@ to Go program in <em>Makefile</em>.</p>
 <em>Makefile</em> to manage my workflow so the arguments are passed twice.</p>
 <p><strong>Makefile</strong>:</p>
 <div class="highlight"><pre><span></span><span class="nf">target</span><span class="o">:</span>
-      @go run argument.go -argument<span class="o">=</span><span class="k">$(</span>arg<span class="k">)</span>
+<span class="w">      </span>@go<span class="w"> </span>run<span class="w"> </span>argument.go<span class="w"> </span>-argument<span class="o">=</span><span class="k">$(</span>arg<span class="k">)</span>
 </pre></div>
 <p><strong>Go</strong>: <em>argument.go</em></p>
-<div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span>
 
-<span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
-<span class="w">      </span><span class="s">&quot;flag&quot;</span><span class="w"></span>
-<span class="w">      </span><span class="s">&quot;fmt&quot;</span><span class="w"></span>
-<span class="p">)</span><span class="w"></span>
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span>
+<span class="w">      </span><span class="s">&quot;flag&quot;</span>
+<span class="w">      </span><span class="s">&quot;fmt&quot;</span>
+<span class="p">)</span>
 
-<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">      </span><span class="nx">arg</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">flag</span><span class="p">.</span><span class="nx">String</span><span class="p">(</span><span class="s">&quot;argument&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;argument from Makefile&quot;</span><span class="p">)</span><span class="w"></span>
-<span class="w">      </span><span class="nx">flag</span><span class="p">.</span><span class="nx">Parse</span><span class="p">()</span><span class="w"></span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">arg</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">flag</span><span class="p">.</span><span class="nx">String</span><span class="p">(</span><span class="s">&quot;argument&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;argument from Makefile&quot;</span><span class="p">)</span>
+<span class="w">      </span><span class="nx">flag</span><span class="p">.</span><span class="nx">Parse</span><span class="p">()</span>
 
-<span class="w">      </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;argument:&quot;</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="nx">arg</span><span class="p">)</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">      </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;argument:&quot;</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="nx">arg</span><span class="p">)</span>
+<span class="p">}</span>
 </pre></div>
 <p><strong>Example</strong>:</p>
-<div class="highlight"><pre><span></span>$ make target <span class="nv">arg</span><span class="o">=</span>hello
-argument: hello
+<div class="highlight"><pre><span></span>$<span class="w"> </span>make<span class="w"> </span>target<span class="w"> </span><span class="nv">arg</span><span class="o">=</span>hello
+argument:<span class="w"> </span>hello
 </pre></div>
 
 <hr class="docutils" />

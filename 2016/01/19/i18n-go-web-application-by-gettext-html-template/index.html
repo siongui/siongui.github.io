@@ -222,7 +222,7 @@ locale/vi_VN/LC_MESSAGES/messages.mo
 <h2>Source Code</h2>
 <p>Next, we need the <a class="reference external" href="https://github.com/chai2010/gettext-go">gettext-go</a> package to handle the <a class="reference external" href="https://www.gnu.org/software/gettext/manual/html_node/PO-Files.html">PO</a> and <a class="reference external" href="https://www.gnu.org/software/gettext/manual/html_node/MO-Files.html">MO</a> files for
 us. Install <a class="reference external" href="https://github.com/chai2010/gettext-go">gettext-go</a> by:</p>
-<div class="highlight"><pre><span></span>$ go get github.com/chai2010/gettext-go/gettext
+<div class="highlight"><pre><span></span>$<span class="w"> </span>go<span class="w"> </span>get<span class="w"> </span>github.com/chai2010/gettext-go/gettext
 </pre></div>
 <p>Now we can let <a class="reference external" href="https://golang.org/">Go</a> application speak local language:</p>
 <figure class="github-file">
@@ -274,28 +274,28 @@ us. Install <a class="reference external" href="https://github.com/chai2010/gett
 <span class="normal">41</span>
 <span class="normal">42</span>
 <span class="normal">43</span>
-<span class="normal">44</span></pre></div></td><td class="code"><div><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w"></span>
+<span class="normal">44</span></pre></div></td><td class="code"><div><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span>
 
-<span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
-<span class="w">	</span><span class="s">&quot;github.com/chai2010/gettext-go/gettext&quot;</span><span class="w"></span>
-<span class="w">	</span><span class="s">&quot;html/template&quot;</span><span class="w"></span>
-<span class="w">	</span><span class="s">&quot;os&quot;</span><span class="w"></span>
-<span class="p">)</span><span class="w"></span>
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span>
+<span class="w">	</span><span class="s">&quot;github.com/chai2010/gettext-go/gettext&quot;</span>
+<span class="w">	</span><span class="s">&quot;html/template&quot;</span>
+<span class="w">	</span><span class="s">&quot;os&quot;</span>
+<span class="p">)</span>
 
-<span class="kd">func</span><span class="w"> </span><span class="nx">setup</span><span class="p">(</span><span class="nx">locale</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">domain</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">dir</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">	</span><span class="nx">gettext</span><span class="p">.</span><span class="nx">SetLocale</span><span class="p">(</span><span class="nx">locale</span><span class="p">)</span><span class="w"></span>
-<span class="w">	</span><span class="nx">gettext</span><span class="p">.</span><span class="nx">Textdomain</span><span class="p">(</span><span class="nx">domain</span><span class="p">)</span><span class="w"></span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">setup</span><span class="p">(</span><span class="nx">locale</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">domain</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">dir</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">	</span><span class="nx">gettext</span><span class="p">.</span><span class="nx">SetLocale</span><span class="p">(</span><span class="nx">locale</span><span class="p">)</span>
+<span class="w">	</span><span class="nx">gettext</span><span class="p">.</span><span class="nx">Textdomain</span><span class="p">(</span><span class="nx">domain</span><span class="p">)</span>
 
-<span class="w">	</span><span class="nx">gettext</span><span class="p">.</span><span class="nx">BindTextdomain</span><span class="p">(</span><span class="nx">domain</span><span class="p">,</span><span class="w"> </span><span class="nx">dir</span><span class="p">,</span><span class="w"> </span><span class="kc">nil</span><span class="p">)</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">	</span><span class="nx">gettext</span><span class="p">.</span><span class="nx">BindTextdomain</span><span class="p">(</span><span class="nx">domain</span><span class="p">,</span><span class="w"> </span><span class="nx">dir</span><span class="p">,</span><span class="w"> </span><span class="kc">nil</span><span class="p">)</span>
+<span class="p">}</span>
 
-<span class="kd">func</span><span class="w"> </span><span class="nx">changeLocale</span><span class="p">(</span><span class="nx">locale</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">	</span><span class="nx">gettext</span><span class="p">.</span><span class="nx">SetLocale</span><span class="p">(</span><span class="nx">locale</span><span class="p">)</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">changeLocale</span><span class="p">(</span><span class="nx">locale</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">	</span><span class="nx">gettext</span><span class="p">.</span><span class="nx">SetLocale</span><span class="p">(</span><span class="nx">locale</span><span class="p">)</span>
+<span class="p">}</span>
 
-<span class="kd">func</span><span class="w"> </span><span class="nx">translate</span><span class="p">(</span><span class="nx">input</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">	</span><span class="k">return</span><span class="w"> </span><span class="nx">gettext</span><span class="p">.</span><span class="nx">PGettext</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">input</span><span class="p">)</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">translate</span><span class="p">(</span><span class="nx">input</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="p">{</span>
+<span class="w">	</span><span class="k">return</span><span class="w"> </span><span class="nx">gettext</span><span class="p">.</span><span class="nx">PGettext</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">input</span><span class="p">)</span>
+<span class="p">}</span>
 
 <span class="kd">const</span><span class="w"> </span><span class="nx">tmpl</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">`</span>
 <span class="s">&lt;span&gt;{{gettext &quot;Home&quot;}}&lt;/span&gt;</span>
@@ -303,28 +303,28 @@ us. Install <a class="reference external" href="https://github.com/chai2010/gett
 <span class="s">&lt;span&gt;{{gettext &quot;About&quot;}}&lt;/span&gt;</span>
 <span class="s">&lt;span&gt;{{gettext &quot;Setting&quot;}}&lt;/span&gt;</span>
 <span class="s">&lt;span&gt;{{gettext &quot;Translation&quot;}}&lt;/span&gt;</span>
-<span class="s">`</span><span class="w"></span>
+<span class="s">`</span>
 
-<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">	</span><span class="nx">setup</span><span class="p">(</span><span class="s">&quot;zh_TW&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;messages&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;locale&quot;</span><span class="p">)</span><span class="w"></span>
-<span class="w">	</span><span class="nx">setup</span><span class="p">(</span><span class="s">&quot;vi_VN&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;messages&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;locale&quot;</span><span class="p">)</span><span class="w"></span>
-<span class="w">	</span><span class="nx">funcMap</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">template</span><span class="p">.</span><span class="nx">FuncMap</span><span class="p">{</span><span class="w"></span>
-<span class="w">		</span><span class="s">&quot;gettext&quot;</span><span class="p">:</span><span class="w"> </span><span class="nx">translate</span><span class="p">,</span><span class="w"></span>
-<span class="w">	</span><span class="p">}</span><span class="w"></span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">	</span><span class="nx">setup</span><span class="p">(</span><span class="s">&quot;zh_TW&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;messages&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;locale&quot;</span><span class="p">)</span>
+<span class="w">	</span><span class="nx">setup</span><span class="p">(</span><span class="s">&quot;vi_VN&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;messages&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;locale&quot;</span><span class="p">)</span>
+<span class="w">	</span><span class="nx">funcMap</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">template</span><span class="p">.</span><span class="nx">FuncMap</span><span class="p">{</span>
+<span class="w">		</span><span class="s">&quot;gettext&quot;</span><span class="p">:</span><span class="w"> </span><span class="nx">translate</span><span class="p">,</span>
+<span class="w">	</span><span class="p">}</span>
 
-<span class="w">	</span><span class="nx">t</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">template</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="s">&quot;foo&quot;</span><span class="p">).</span><span class="nx">Funcs</span><span class="p">(</span><span class="nx">funcMap</span><span class="p">).</span><span class="nx">Parse</span><span class="p">(</span><span class="nx">tmpl</span><span class="p">)</span><span class="w"></span>
-<span class="w">	</span><span class="nx">changeLocale</span><span class="p">(</span><span class="s">&quot;zh_TW&quot;</span><span class="p">)</span><span class="w"></span>
-<span class="w">	</span><span class="nx">t</span><span class="p">.</span><span class="nx">Execute</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">Stdout</span><span class="p">,</span><span class="w"> </span><span class="kc">nil</span><span class="p">)</span><span class="w"></span>
-<span class="w">	</span><span class="nx">changeLocale</span><span class="p">(</span><span class="s">&quot;vi_VN&quot;</span><span class="p">)</span><span class="w"></span>
-<span class="w">	</span><span class="nx">t</span><span class="p">.</span><span class="nx">Execute</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">Stdout</span><span class="p">,</span><span class="w"> </span><span class="kc">nil</span><span class="p">)</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">	</span><span class="nx">t</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">template</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="s">&quot;foo&quot;</span><span class="p">).</span><span class="nx">Funcs</span><span class="p">(</span><span class="nx">funcMap</span><span class="p">).</span><span class="nx">Parse</span><span class="p">(</span><span class="nx">tmpl</span><span class="p">)</span>
+<span class="w">	</span><span class="nx">changeLocale</span><span class="p">(</span><span class="s">&quot;zh_TW&quot;</span><span class="p">)</span>
+<span class="w">	</span><span class="nx">t</span><span class="p">.</span><span class="nx">Execute</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">Stdout</span><span class="p">,</span><span class="w"> </span><span class="kc">nil</span><span class="p">)</span>
+<span class="w">	</span><span class="nx">changeLocale</span><span class="p">(</span><span class="s">&quot;vi_VN&quot;</span><span class="p">)</span>
+<span class="w">	</span><span class="nx">t</span><span class="p">.</span><span class="nx">Execute</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">Stdout</span><span class="p">,</span><span class="w"> </span><span class="kc">nil</span><span class="p">)</span>
+<span class="p">}</span>
 </pre></div></td></tr></table></div>
 </div></figure>
 <p>Note that <a class="reference external" href="https://www.gnu.org/software/gettext/manual/html_node/xgettext-Invocation.html">xgettext</a> cannot extract translatable strings directly from
 <tt class="docutils literal">{{gettext <span class="pre">&quot;Home&quot;}}</span></tt>. We can use the method similar to <a class="footnote-reference" href="#footnote-4" id="footnote-reference-3">[4]</a> by using <a class="reference external" href="http://www.grymoire.com/Unix/Sed.html">sed</a> to
 handle input files first and then feed the output to <a class="reference external" href="https://www.gnu.org/software/gettext/manual/html_node/xgettext-Invocation.html">xgettext</a> to extract
 translatable strings (read <a class="footnote-reference" href="#footnote-7" id="footnote-reference-4">[7]</a> for further details):</p>
-<div class="highlight"><pre><span></span>sed <span class="s2">&quot;s/{{gettext \(&quot;</span>.*<span class="s2">&quot;\)}}/{{gettext(\1)}}/g&quot;</span> html.go <span class="p">|</span> xgettext --no-wrap --language<span class="o">=</span>c --from-code<span class="o">=</span>UTF-8 --output<span class="o">=</span>locale/messages.pot -
+<div class="highlight"><pre><span></span>sed<span class="w"> </span><span class="s2">&quot;s/{{gettext \(&quot;</span>.*<span class="s2">&quot;\)}}/{{gettext(\1)}}/g&quot;</span><span class="w"> </span>html.go<span class="w"> </span><span class="p">|</span><span class="w"> </span>xgettext<span class="w"> </span>--no-wrap<span class="w"> </span>--language<span class="o">=</span>c<span class="w"> </span>--from-code<span class="o">=</span>UTF-8<span class="w"> </span>--output<span class="o">=</span>locale/messages.pot<span class="w"> </span>-
 </pre></div>
 </div>
 <div class="section" id="output-of-above-code">

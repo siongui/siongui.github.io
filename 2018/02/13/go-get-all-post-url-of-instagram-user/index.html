@@ -187,117 +187,117 @@ code for more details.</p>
 <span class="normal">108</span>
 <span class="normal">109</span>
 <span class="normal">110</span>
-<span class="normal">111</span></pre></div></td><td class="code"><div><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">igpost</span><span class="w"></span>
+<span class="normal">111</span></pre></div></td><td class="code"><div><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">igpost</span>
 
-<span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
-<span class="w">	</span><span class="s">&quot;encoding/json&quot;</span><span class="w"></span>
-<span class="w">	</span><span class="s">&quot;errors&quot;</span><span class="w"></span>
-<span class="w">	</span><span class="s">&quot;fmt&quot;</span><span class="w"></span>
-<span class="w">	</span><span class="s">&quot;io/ioutil&quot;</span><span class="w"></span>
-<span class="w">	</span><span class="s">&quot;net/http&quot;</span><span class="w"></span>
-<span class="w">	</span><span class="s">&quot;strconv&quot;</span><span class="w"></span>
-<span class="w">	</span><span class="s">&quot;strings&quot;</span><span class="w"></span>
-<span class="p">)</span><span class="w"></span>
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span>
+<span class="w">	</span><span class="s">&quot;encoding/json&quot;</span>
+<span class="w">	</span><span class="s">&quot;errors&quot;</span>
+<span class="w">	</span><span class="s">&quot;fmt&quot;</span>
+<span class="w">	</span><span class="s">&quot;io/ioutil&quot;</span>
+<span class="w">	</span><span class="s">&quot;net/http&quot;</span>
+<span class="w">	</span><span class="s">&quot;strconv&quot;</span>
+<span class="w">	</span><span class="s">&quot;strings&quot;</span>
+<span class="p">)</span>
 
-<span class="c1">// no need to login or cookie to access this URL. But if login to Instagram,</span><span class="w"></span>
-<span class="c1">// private account will return private data if you are allowed to view the</span><span class="w"></span>
-<span class="c1">// private account.</span><span class="w"></span>
-<span class="kd">const</span><span class="w"> </span><span class="nx">urlUserInfo</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">`https://www.instagram.com/{{USERNAME}}/?__a=1`</span><span class="w"></span>
+<span class="c1">// no need to login or cookie to access this URL. But if login to Instagram,</span>
+<span class="c1">// private account will return private data if you are allowed to view the</span>
+<span class="c1">// private account.</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">urlUserInfo</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">`https://www.instagram.com/{{USERNAME}}/?__a=1`</span>
 
-<span class="kd">const</span><span class="w"> </span><span class="nx">userAgent</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;Instagram 10.3.2 (iPhone7,2; iPhone OS 9_3_3; en_US; en-US; scale=2.00; 750x1334) AppleWebKit/420+&quot;</span><span class="w"></span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">userAgent</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;Instagram 10.3.2 (iPhone7,2; iPhone OS 9_3_3; en_US; en-US; scale=2.00; 750x1334) AppleWebKit/420+&quot;</span>
 
-<span class="c1">// used to decode the JSON data</span><span class="w"></span>
-<span class="kd">type</span><span class="w"> </span><span class="nx">RawUserResp</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">	</span><span class="nx">User</span><span class="w"> </span><span class="nx">UserInfo</span><span class="w"> </span><span class="s">`json:&quot;user&quot;`</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="c1">// used to decode the JSON data</span>
+<span class="kd">type</span><span class="w"> </span><span class="nx">RawUserResp</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">	</span><span class="nx">User</span><span class="w"> </span><span class="nx">UserInfo</span><span class="w"> </span><span class="s">`json:&quot;user&quot;`</span>
+<span class="p">}</span>
 
-<span class="c1">// You can add more fields in the struct to get more information</span><span class="w"></span>
-<span class="c1">// See response/types.go in github.com/ahmdrz/goinsta</span><span class="w"></span>
-<span class="kd">type</span><span class="w"> </span><span class="nx">UserInfo</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">	</span><span class="nx">Biography</span><span class="w">       </span><span class="kt">string</span><span class="w"> </span><span class="s">`json:&quot;biography&quot;`</span><span class="w"></span>
-<span class="w">	</span><span class="nx">ExternalUrl</span><span class="w">     </span><span class="kt">string</span><span class="w"> </span><span class="s">`json:&quot;external_url&quot;`</span><span class="w"></span>
-<span class="w">	</span><span class="nx">FullName</span><span class="w">        </span><span class="kt">string</span><span class="w"> </span><span class="s">`json:&quot;full_name&quot;`</span><span class="w"></span>
-<span class="w">	</span><span class="nx">Id</span><span class="w">              </span><span class="kt">string</span><span class="w"> </span><span class="s">`json:&quot;id&quot;`</span><span class="w"></span>
-<span class="w">	</span><span class="nx">IsPrivate</span><span class="w">       </span><span class="kt">bool</span><span class="w">   </span><span class="s">`json:&quot;is_private&quot;`</span><span class="w"></span>
-<span class="w">	</span><span class="nx">ProfilePicUrlHd</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="s">`json:&quot;profile_pic_url_hd&quot;`</span><span class="w"></span>
-<span class="w">	</span><span class="nx">Username</span><span class="w">        </span><span class="kt">string</span><span class="w"> </span><span class="s">`json:&quot;username&quot;`</span><span class="w"></span>
-<span class="w">	</span><span class="nx">Media</span><span class="w">           </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">		</span><span class="nx">Nodes</span><span class="w">    </span><span class="p">[]</span><span class="nx">MediaNode</span><span class="w"> </span><span class="s">`json:&quot;nodes&quot;`</span><span class="w"></span>
-<span class="w">		</span><span class="nx">Count</span><span class="w">    </span><span class="kt">int64</span><span class="w">       </span><span class="s">`json:&quot;count&quot;`</span><span class="w"></span>
-<span class="w">		</span><span class="nx">PageInfo</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">			</span><span class="nx">HasNextPage</span><span class="w"> </span><span class="kt">bool</span><span class="w">   </span><span class="s">`json:&quot;has_next_page&quot;`</span><span class="w"></span>
-<span class="w">			</span><span class="nx">EndCursor</span><span class="w">   </span><span class="kt">string</span><span class="w"> </span><span class="s">`json:&quot;end_cursor&quot;`</span><span class="w"></span>
-<span class="w">		</span><span class="p">}</span><span class="w"> </span><span class="s">`json:&quot;page_info&quot;`</span><span class="w"></span>
-<span class="w">	</span><span class="p">}</span><span class="w"> </span><span class="s">`json:&quot;media&quot;`</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="c1">// You can add more fields in the struct to get more information</span>
+<span class="c1">// See response/types.go in github.com/ahmdrz/goinsta</span>
+<span class="kd">type</span><span class="w"> </span><span class="nx">UserInfo</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">	</span><span class="nx">Biography</span><span class="w">       </span><span class="kt">string</span><span class="w"> </span><span class="s">`json:&quot;biography&quot;`</span>
+<span class="w">	</span><span class="nx">ExternalUrl</span><span class="w">     </span><span class="kt">string</span><span class="w"> </span><span class="s">`json:&quot;external_url&quot;`</span>
+<span class="w">	</span><span class="nx">FullName</span><span class="w">        </span><span class="kt">string</span><span class="w"> </span><span class="s">`json:&quot;full_name&quot;`</span>
+<span class="w">	</span><span class="nx">Id</span><span class="w">              </span><span class="kt">string</span><span class="w"> </span><span class="s">`json:&quot;id&quot;`</span>
+<span class="w">	</span><span class="nx">IsPrivate</span><span class="w">       </span><span class="kt">bool</span><span class="w">   </span><span class="s">`json:&quot;is_private&quot;`</span>
+<span class="w">	</span><span class="nx">ProfilePicUrlHd</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="s">`json:&quot;profile_pic_url_hd&quot;`</span>
+<span class="w">	</span><span class="nx">Username</span><span class="w">        </span><span class="kt">string</span><span class="w"> </span><span class="s">`json:&quot;username&quot;`</span>
+<span class="w">	</span><span class="nx">Media</span><span class="w">           </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">		</span><span class="nx">Nodes</span><span class="w">    </span><span class="p">[]</span><span class="nx">MediaNode</span><span class="w"> </span><span class="s">`json:&quot;nodes&quot;`</span>
+<span class="w">		</span><span class="nx">Count</span><span class="w">    </span><span class="kt">int64</span><span class="w">       </span><span class="s">`json:&quot;count&quot;`</span>
+<span class="w">		</span><span class="nx">PageInfo</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">			</span><span class="nx">HasNextPage</span><span class="w"> </span><span class="kt">bool</span><span class="w">   </span><span class="s">`json:&quot;has_next_page&quot;`</span>
+<span class="w">			</span><span class="nx">EndCursor</span><span class="w">   </span><span class="kt">string</span><span class="w"> </span><span class="s">`json:&quot;end_cursor&quot;`</span>
+<span class="w">		</span><span class="p">}</span><span class="w"> </span><span class="s">`json:&quot;page_info&quot;`</span>
+<span class="w">	</span><span class="p">}</span><span class="w"> </span><span class="s">`json:&quot;media&quot;`</span>
+<span class="p">}</span>
 
-<span class="kd">type</span><span class="w"> </span><span class="nx">MediaNode</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">	</span><span class="nx">Code</span><span class="w">    </span><span class="kt">string</span><span class="w"> </span><span class="s">`json:&quot;code&quot;`</span><span class="w"> </span><span class="c1">// url of the post</span><span class="w"></span>
-<span class="w">	</span><span class="nx">Date</span><span class="w">    </span><span class="kt">int64</span><span class="w">  </span><span class="s">`json:&quot;date&quot;`</span><span class="w"></span>
-<span class="w">	</span><span class="nx">Caption</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="s">`json:&quot;caption&quot;`</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="kd">type</span><span class="w"> </span><span class="nx">MediaNode</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">	</span><span class="nx">Code</span><span class="w">    </span><span class="kt">string</span><span class="w"> </span><span class="s">`json:&quot;code&quot;`</span><span class="w"> </span><span class="c1">// url of the post</span>
+<span class="w">	</span><span class="nx">Date</span><span class="w">    </span><span class="kt">int64</span><span class="w">  </span><span class="s">`json:&quot;date&quot;`</span>
+<span class="w">	</span><span class="nx">Caption</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="s">`json:&quot;caption&quot;`</span>
+<span class="p">}</span>
 
-<span class="c1">// Send HTTP request and get http response on behalf of a specific Instagram</span><span class="w"></span>
-<span class="c1">// user. After login to Instagram, you can get the cookies of *ds_user_id*,</span><span class="w"></span>
-<span class="c1">// *sessionid*, *csrftoken* in Chrome Developer Tools.</span><span class="w"></span>
-<span class="c1">// See https://stackoverflow.com/a/44773079</span><span class="w"></span>
-<span class="c1">// or</span><span class="w"></span>
-<span class="c1">// https://github.com/hoschiCZ/instastories-backup#obtain-cookies</span><span class="w"></span>
-<span class="kd">func</span><span class="w"> </span><span class="nx">getHTTPResponse</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span><span class="w"> </span><span class="nx">ds_user_id</span><span class="p">,</span><span class="w"> </span><span class="nx">sessionid</span><span class="p">,</span><span class="w"> </span><span class="nx">csrftoken</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nx">b</span><span class="w"> </span><span class="p">[]</span><span class="kt">byte</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">	</span><span class="nx">req</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">http</span><span class="p">.</span><span class="nx">NewRequest</span><span class="p">(</span><span class="s">&quot;GET&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">url</span><span class="p">,</span><span class="w"> </span><span class="kc">nil</span><span class="p">)</span><span class="w"></span>
-<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">		</span><span class="k">return</span><span class="w"></span>
-<span class="w">	</span><span class="p">}</span><span class="w"></span>
+<span class="c1">// Send HTTP request and get http response on behalf of a specific Instagram</span>
+<span class="c1">// user. After login to Instagram, you can get the cookies of *ds_user_id*,</span>
+<span class="c1">// *sessionid*, *csrftoken* in Chrome Developer Tools.</span>
+<span class="c1">// See https://stackoverflow.com/a/44773079</span>
+<span class="c1">// or</span>
+<span class="c1">// https://github.com/hoschiCZ/instastories-backup#obtain-cookies</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">getHTTPResponse</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span><span class="w"> </span><span class="nx">ds_user_id</span><span class="p">,</span><span class="w"> </span><span class="nx">sessionid</span><span class="p">,</span><span class="w"> </span><span class="nx">csrftoken</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nx">b</span><span class="w"> </span><span class="p">[]</span><span class="kt">byte</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">	</span><span class="nx">req</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">http</span><span class="p">.</span><span class="nx">NewRequest</span><span class="p">(</span><span class="s">&quot;GET&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">url</span><span class="p">,</span><span class="w"> </span><span class="kc">nil</span><span class="p">)</span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">		</span><span class="k">return</span>
+<span class="w">	</span><span class="p">}</span>
 
-<span class="w">	</span><span class="nx">req</span><span class="p">.</span><span class="nx">AddCookie</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">http</span><span class="p">.</span><span class="nx">Cookie</span><span class="p">{</span><span class="nx">Name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ds_user_id&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">Value</span><span class="p">:</span><span class="w"> </span><span class="nx">ds_user_id</span><span class="p">})</span><span class="w"></span>
-<span class="w">	</span><span class="nx">req</span><span class="p">.</span><span class="nx">AddCookie</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">http</span><span class="p">.</span><span class="nx">Cookie</span><span class="p">{</span><span class="nx">Name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;sessionid&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">Value</span><span class="p">:</span><span class="w"> </span><span class="nx">sessionid</span><span class="p">})</span><span class="w"></span>
-<span class="w">	</span><span class="nx">req</span><span class="p">.</span><span class="nx">AddCookie</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">http</span><span class="p">.</span><span class="nx">Cookie</span><span class="p">{</span><span class="nx">Name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;csrftoken&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">Value</span><span class="p">:</span><span class="w"> </span><span class="nx">csrftoken</span><span class="p">})</span><span class="w"></span>
+<span class="w">	</span><span class="nx">req</span><span class="p">.</span><span class="nx">AddCookie</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">http</span><span class="p">.</span><span class="nx">Cookie</span><span class="p">{</span><span class="nx">Name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ds_user_id&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">Value</span><span class="p">:</span><span class="w"> </span><span class="nx">ds_user_id</span><span class="p">})</span>
+<span class="w">	</span><span class="nx">req</span><span class="p">.</span><span class="nx">AddCookie</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">http</span><span class="p">.</span><span class="nx">Cookie</span><span class="p">{</span><span class="nx">Name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;sessionid&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">Value</span><span class="p">:</span><span class="w"> </span><span class="nx">sessionid</span><span class="p">})</span>
+<span class="w">	</span><span class="nx">req</span><span class="p">.</span><span class="nx">AddCookie</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">http</span><span class="p">.</span><span class="nx">Cookie</span><span class="p">{</span><span class="nx">Name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;csrftoken&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">Value</span><span class="p">:</span><span class="w"> </span><span class="nx">csrftoken</span><span class="p">})</span>
 
-<span class="w">	</span><span class="nx">req</span><span class="p">.</span><span class="nx">Header</span><span class="p">.</span><span class="nx">Set</span><span class="p">(</span><span class="s">&quot;User-Agent&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">userAgent</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="nx">req</span><span class="p">.</span><span class="nx">Header</span><span class="p">.</span><span class="nx">Set</span><span class="p">(</span><span class="s">&quot;User-Agent&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">userAgent</span><span class="p">)</span>
 
-<span class="w">	</span><span class="nx">client</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">http</span><span class="p">.</span><span class="nx">Client</span><span class="p">{}</span><span class="w"></span>
-<span class="w">	</span><span class="nx">resp</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">client</span><span class="p">.</span><span class="nx">Do</span><span class="p">(</span><span class="nx">req</span><span class="p">)</span><span class="w"></span>
-<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">		</span><span class="k">return</span><span class="w"></span>
-<span class="w">	</span><span class="p">}</span><span class="w"></span>
-<span class="w">	</span><span class="k">defer</span><span class="w"> </span><span class="nx">resp</span><span class="p">.</span><span class="nx">Body</span><span class="p">.</span><span class="nx">Close</span><span class="p">()</span><span class="w"></span>
+<span class="w">	</span><span class="nx">client</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">http</span><span class="p">.</span><span class="nx">Client</span><span class="p">{}</span>
+<span class="w">	</span><span class="nx">resp</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">client</span><span class="p">.</span><span class="nx">Do</span><span class="p">(</span><span class="nx">req</span><span class="p">)</span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">		</span><span class="k">return</span>
+<span class="w">	</span><span class="p">}</span>
+<span class="w">	</span><span class="k">defer</span><span class="w"> </span><span class="nx">resp</span><span class="p">.</span><span class="nx">Body</span><span class="p">.</span><span class="nx">Close</span><span class="p">()</span>
 
-<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">resp</span><span class="p">.</span><span class="nx">StatusCode</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">200</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">		</span><span class="nx">err</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">errors</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="w"></span>
-<span class="w">			</span><span class="s">&quot;resp.StatusCode: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"></span>
-<span class="w">				</span><span class="nx">strconv</span><span class="p">.</span><span class="nx">Itoa</span><span class="p">(</span><span class="nx">resp</span><span class="p">.</span><span class="nx">StatusCode</span><span class="p">))</span><span class="w"></span>
-<span class="w">		</span><span class="k">return</span><span class="w"></span>
-<span class="w">	</span><span class="p">}</span><span class="w"></span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">resp</span><span class="p">.</span><span class="nx">StatusCode</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">200</span><span class="w"> </span><span class="p">{</span>
+<span class="w">		</span><span class="nx">err</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">errors</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span>
+<span class="w">			</span><span class="s">&quot;resp.StatusCode: &quot;</span><span class="w"> </span><span class="o">+</span>
+<span class="w">				</span><span class="nx">strconv</span><span class="p">.</span><span class="nx">Itoa</span><span class="p">(</span><span class="nx">resp</span><span class="p">.</span><span class="nx">StatusCode</span><span class="p">))</span>
+<span class="w">		</span><span class="k">return</span>
+<span class="w">	</span><span class="p">}</span>
 
-<span class="w">	</span><span class="k">return</span><span class="w"> </span><span class="nx">ioutil</span><span class="p">.</span><span class="nx">ReadAll</span><span class="p">(</span><span class="nx">resp</span><span class="p">.</span><span class="nx">Body</span><span class="p">)</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">	</span><span class="k">return</span><span class="w"> </span><span class="nx">ioutil</span><span class="p">.</span><span class="nx">ReadAll</span><span class="p">(</span><span class="nx">resp</span><span class="p">.</span><span class="nx">Body</span><span class="p">)</span>
+<span class="p">}</span>
 
-<span class="c1">// Given user name, return codes of all posts of the user.</span><span class="w"></span>
-<span class="kd">func</span><span class="w"> </span><span class="nx">GetAllPostCode</span><span class="p">(</span><span class="nx">username</span><span class="p">,</span><span class="w"> </span><span class="nx">ds_user_id</span><span class="p">,</span><span class="w"> </span><span class="nx">sessionid</span><span class="p">,</span><span class="w"> </span><span class="nx">csrftoken</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nx">codes</span><span class="w"> </span><span class="p">[]</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">	</span><span class="nx">r</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">RawUserResp</span><span class="p">{}</span><span class="w"></span>
-<span class="w">	</span><span class="nx">r</span><span class="p">.</span><span class="nx">User</span><span class="p">.</span><span class="nx">Media</span><span class="p">.</span><span class="nx">PageInfo</span><span class="p">.</span><span class="nx">HasNextPage</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kc">true</span><span class="w"></span>
-<span class="w">	</span><span class="k">for</span><span class="w"> </span><span class="nx">r</span><span class="p">.</span><span class="nx">User</span><span class="p">.</span><span class="nx">Media</span><span class="p">.</span><span class="nx">PageInfo</span><span class="p">.</span><span class="nx">HasNextPage</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">		</span><span class="nx">url</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">strings</span><span class="p">.</span><span class="nx">Replace</span><span class="p">(</span><span class="nx">urlUserInfo</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;{{USERNAME}}&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">username</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"></span>
-<span class="w">		</span><span class="k">if</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="nx">codes</span><span class="p">)</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">			</span><span class="nx">url</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">url</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot;&amp;max_id=&quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">r</span><span class="p">.</span><span class="nx">User</span><span class="p">.</span><span class="nx">Media</span><span class="p">.</span><span class="nx">PageInfo</span><span class="p">.</span><span class="nx">EndCursor</span><span class="w"></span>
-<span class="w">		</span><span class="p">}</span><span class="w"></span>
+<span class="c1">// Given user name, return codes of all posts of the user.</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">GetAllPostCode</span><span class="p">(</span><span class="nx">username</span><span class="p">,</span><span class="w"> </span><span class="nx">ds_user_id</span><span class="p">,</span><span class="w"> </span><span class="nx">sessionid</span><span class="p">,</span><span class="w"> </span><span class="nx">csrftoken</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nx">codes</span><span class="w"> </span><span class="p">[]</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">	</span><span class="nx">r</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">RawUserResp</span><span class="p">{}</span>
+<span class="w">	</span><span class="nx">r</span><span class="p">.</span><span class="nx">User</span><span class="p">.</span><span class="nx">Media</span><span class="p">.</span><span class="nx">PageInfo</span><span class="p">.</span><span class="nx">HasNextPage</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">	</span><span class="k">for</span><span class="w"> </span><span class="nx">r</span><span class="p">.</span><span class="nx">User</span><span class="p">.</span><span class="nx">Media</span><span class="p">.</span><span class="nx">PageInfo</span><span class="p">.</span><span class="nx">HasNextPage</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="p">{</span>
+<span class="w">		</span><span class="nx">url</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">strings</span><span class="p">.</span><span class="nx">Replace</span><span class="p">(</span><span class="nx">urlUserInfo</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;{{USERNAME}}&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">username</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span>
+<span class="w">		</span><span class="k">if</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="nx">codes</span><span class="p">)</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">{</span>
+<span class="w">			</span><span class="nx">url</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">url</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot;&amp;max_id=&quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">r</span><span class="p">.</span><span class="nx">User</span><span class="p">.</span><span class="nx">Media</span><span class="p">.</span><span class="nx">PageInfo</span><span class="p">.</span><span class="nx">EndCursor</span>
+<span class="w">		</span><span class="p">}</span>
 
-<span class="w">		</span><span class="nx">b</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">getHTTPResponse</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span><span class="w"> </span><span class="nx">ds_user_id</span><span class="p">,</span><span class="w"> </span><span class="nx">sessionid</span><span class="p">,</span><span class="w"> </span><span class="nx">csrftoken</span><span class="p">)</span><span class="w"></span>
-<span class="w">		</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">			</span><span class="k">return</span><span class="w"> </span><span class="nx">codes</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"></span>
-<span class="w">		</span><span class="p">}</span><span class="w"></span>
+<span class="w">		</span><span class="nx">b</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">getHTTPResponse</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span><span class="w"> </span><span class="nx">ds_user_id</span><span class="p">,</span><span class="w"> </span><span class="nx">sessionid</span><span class="p">,</span><span class="w"> </span><span class="nx">csrftoken</span><span class="p">)</span>
+<span class="w">		</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">			</span><span class="k">return</span><span class="w"> </span><span class="nx">codes</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span>
+<span class="w">		</span><span class="p">}</span>
 
-<span class="w">		</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">json</span><span class="p">.</span><span class="nx">Unmarshal</span><span class="p">(</span><span class="nx">b</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">r</span><span class="p">);</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">			</span><span class="k">return</span><span class="w"> </span><span class="nx">codes</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"></span>
-<span class="w">		</span><span class="p">}</span><span class="w"></span>
+<span class="w">		</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">json</span><span class="p">.</span><span class="nx">Unmarshal</span><span class="p">(</span><span class="nx">b</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">r</span><span class="p">);</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">			</span><span class="k">return</span><span class="w"> </span><span class="nx">codes</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span>
+<span class="w">		</span><span class="p">}</span>
 
-<span class="w">		</span><span class="k">for</span><span class="w"> </span><span class="nx">_</span><span class="p">,</span><span class="w"> </span><span class="nx">node</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="nx">r</span><span class="p">.</span><span class="nx">User</span><span class="p">.</span><span class="nx">Media</span><span class="p">.</span><span class="nx">Nodes</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">			</span><span class="nx">codes</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">append</span><span class="p">(</span><span class="nx">codes</span><span class="p">,</span><span class="w"> </span><span class="nx">node</span><span class="p">.</span><span class="nx">Code</span><span class="p">)</span><span class="w"></span>
-<span class="w">		</span><span class="p">}</span><span class="w"></span>
-<span class="w">		</span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&quot;Getting %d from %s ...\n&quot;</span><span class="p">,</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="nx">codes</span><span class="p">),</span><span class="w"> </span><span class="nx">url</span><span class="p">)</span><span class="w"></span>
-<span class="w">	</span><span class="p">}</span><span class="w"></span>
-<span class="w">	</span><span class="k">return</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">		</span><span class="k">for</span><span class="w"> </span><span class="nx">_</span><span class="p">,</span><span class="w"> </span><span class="nx">node</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="nx">r</span><span class="p">.</span><span class="nx">User</span><span class="p">.</span><span class="nx">Media</span><span class="p">.</span><span class="nx">Nodes</span><span class="w"> </span><span class="p">{</span>
+<span class="w">			</span><span class="nx">codes</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">append</span><span class="p">(</span><span class="nx">codes</span><span class="p">,</span><span class="w"> </span><span class="nx">node</span><span class="p">.</span><span class="nx">Code</span><span class="p">)</span>
+<span class="w">		</span><span class="p">}</span>
+<span class="w">		</span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&quot;Getting %d from %s ...\n&quot;</span><span class="p">,</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="nx">codes</span><span class="p">),</span><span class="w"> </span><span class="nx">url</span><span class="p">)</span>
+<span class="w">	</span><span class="p">}</span>
+<span class="w">	</span><span class="k">return</span>
+<span class="p">}</span>
 </pre></div></td></tr></table></div>
 </div></figure>
 <p><strong>Example</strong>:</p>
@@ -328,28 +328,28 @@ code for more details.</p>
 <span class="normal">19</span>
 <span class="normal">20</span>
 <span class="normal">21</span>
-<span class="normal">22</span></pre></div></td><td class="code"><div><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">igpost</span><span class="w"></span>
+<span class="normal">22</span></pre></div></td><td class="code"><div><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">igpost</span>
 
-<span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
-<span class="w">	</span><span class="s">&quot;fmt&quot;</span><span class="w"></span>
-<span class="w">	</span><span class="s">&quot;os&quot;</span><span class="w"></span>
-<span class="w">	</span><span class="s">&quot;testing&quot;</span><span class="w"></span>
-<span class="p">)</span><span class="w"></span>
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span>
+<span class="w">	</span><span class="s">&quot;fmt&quot;</span>
+<span class="w">	</span><span class="s">&quot;os&quot;</span>
+<span class="w">	</span><span class="s">&quot;testing&quot;</span>
+<span class="p">)</span>
 
-<span class="kd">func</span><span class="w"> </span><span class="nx">ExampleGetAllPostCode</span><span class="p">(</span><span class="nx">t</span><span class="w"> </span><span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">	</span><span class="nx">codes</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">GetAllPostCode</span><span class="p">(</span><span class="w"></span>
-<span class="w">		</span><span class="nx">os</span><span class="p">.</span><span class="nx">Getenv</span><span class="p">(</span><span class="s">&quot;IG_TEST_USERNAME&quot;</span><span class="p">),</span><span class="w"></span>
-<span class="w">		</span><span class="nx">os</span><span class="p">.</span><span class="nx">Getenv</span><span class="p">(</span><span class="s">&quot;IG_DS_USER_ID&quot;</span><span class="p">),</span><span class="w"></span>
-<span class="w">		</span><span class="nx">os</span><span class="p">.</span><span class="nx">Getenv</span><span class="p">(</span><span class="s">&quot;IG_SESSIONID&quot;</span><span class="p">),</span><span class="w"></span>
-<span class="w">		</span><span class="nx">os</span><span class="p">.</span><span class="nx">Getenv</span><span class="p">(</span><span class="s">&quot;IG_CSRFTOKEN&quot;</span><span class="p">))</span><span class="w"></span>
-<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">		</span><span class="nx">t</span><span class="p">.</span><span class="nx">Error</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"></span>
-<span class="w">		</span><span class="k">return</span><span class="w"></span>
-<span class="w">	</span><span class="p">}</span><span class="w"></span>
-<span class="w">	</span><span class="k">for</span><span class="w"> </span><span class="nx">_</span><span class="p">,</span><span class="w"> </span><span class="nx">code</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="nx">codes</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">		</span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&quot;URL: https://www.instagram.com/p/%s/\n&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">code</span><span class="p">)</span><span class="w"></span>
-<span class="w">	</span><span class="p">}</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">ExampleGetAllPostCode</span><span class="p">(</span><span class="nx">t</span><span class="w"> </span><span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">	</span><span class="nx">codes</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">GetAllPostCode</span><span class="p">(</span>
+<span class="w">		</span><span class="nx">os</span><span class="p">.</span><span class="nx">Getenv</span><span class="p">(</span><span class="s">&quot;IG_TEST_USERNAME&quot;</span><span class="p">),</span>
+<span class="w">		</span><span class="nx">os</span><span class="p">.</span><span class="nx">Getenv</span><span class="p">(</span><span class="s">&quot;IG_DS_USER_ID&quot;</span><span class="p">),</span>
+<span class="w">		</span><span class="nx">os</span><span class="p">.</span><span class="nx">Getenv</span><span class="p">(</span><span class="s">&quot;IG_SESSIONID&quot;</span><span class="p">),</span>
+<span class="w">		</span><span class="nx">os</span><span class="p">.</span><span class="nx">Getenv</span><span class="p">(</span><span class="s">&quot;IG_CSRFTOKEN&quot;</span><span class="p">))</span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">		</span><span class="nx">t</span><span class="p">.</span><span class="nx">Error</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+<span class="w">		</span><span class="k">return</span>
+<span class="w">	</span><span class="p">}</span>
+<span class="w">	</span><span class="k">for</span><span class="w"> </span><span class="nx">_</span><span class="p">,</span><span class="w"> </span><span class="nx">code</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="nx">codes</span><span class="w"> </span><span class="p">{</span>
+<span class="w">		</span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&quot;URL: https://www.instagram.com/p/%s/\n&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">code</span><span class="p">)</span>
+<span class="w">	</span><span class="p">}</span>
+<span class="p">}</span>
 </pre></div></td></tr></table></div>
 </div></figure>
 <p>The full code is also available on my GitHub repo <a class="footnote-reference" href="#footnote-1" id="footnote-reference-1">[1]</a>.</p>

@@ -55,32 +55,32 @@
     <div class="main-content"><p>Call a function (<a class="reference external" href="https://tour.golang.org/methods/1">method</a>) of a <a class="reference external" href="https://tour.golang.org/moretypes/2">struct</a> by name during run-time in <a class="reference external" href="https://golang.org/">Golang</a>.
 (<a class="reference external" href="http://blog.golang.org/laws-of-reflection">run-time reflection</a>)</p>
 <p><a class="reference external" href="https://play.golang.org/p/xeKdS7sh8E">Run Code on Go Playground</a></p>
-<div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span>
 
-<span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
-<span class="w">        </span><span class="s">&quot;fmt&quot;</span><span class="w"></span>
-<span class="w">        </span><span class="s">&quot;math&quot;</span><span class="w"></span>
-<span class="w">        </span><span class="s">&quot;reflect&quot;</span><span class="w"></span>
-<span class="p">)</span><span class="w"></span>
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span>
+<span class="w">        </span><span class="s">&quot;fmt&quot;</span>
+<span class="w">        </span><span class="s">&quot;math&quot;</span>
+<span class="w">        </span><span class="s">&quot;reflect&quot;</span>
+<span class="p">)</span>
 
-<span class="kd">type</span><span class="w"> </span><span class="nx">Circle</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="nx">r</span><span class="w"> </span><span class="kt">float64</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="kd">type</span><span class="w"> </span><span class="nx">Circle</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">r</span><span class="w"> </span><span class="kt">float64</span>
+<span class="p">}</span>
 
-<span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">c</span><span class="w"> </span><span class="o">*</span><span class="nx">Circle</span><span class="p">)</span><span class="w"> </span><span class="nx">Area</span><span class="p">()</span><span class="w"> </span><span class="kt">float64</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nx">math</span><span class="p">.</span><span class="nx">Pi</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nx">c</span><span class="p">.</span><span class="nx">r</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nx">c</span><span class="p">.</span><span class="nx">r</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">c</span><span class="w"> </span><span class="o">*</span><span class="nx">Circle</span><span class="p">)</span><span class="w"> </span><span class="nx">Area</span><span class="p">()</span><span class="w"> </span><span class="kt">float64</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nx">math</span><span class="p">.</span><span class="nx">Pi</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nx">c</span><span class="p">.</span><span class="nx">r</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nx">c</span><span class="p">.</span><span class="nx">r</span>
+<span class="p">}</span>
 
-<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="nx">c</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">Circle</span><span class="p">{</span><span class="mf">1.2</span><span class="p">}</span><span class="w"></span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">c</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">Circle</span><span class="p">{</span><span class="mf">1.2</span><span class="p">}</span>
 
-<span class="w">        </span><span class="c1">// call Area() method</span><span class="w"></span>
-<span class="w">        </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">c</span><span class="p">.</span><span class="nx">Area</span><span class="p">())</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// call Area() method</span>
+<span class="w">        </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">c</span><span class="p">.</span><span class="nx">Area</span><span class="p">())</span>
 
-<span class="w">        </span><span class="c1">// call Area() method by Name</span><span class="w"></span>
-<span class="w">        </span><span class="nx">v</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">reflect</span><span class="p">.</span><span class="nx">ValueOf</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">c</span><span class="p">).</span><span class="nx">MethodByName</span><span class="p">(</span><span class="s">&quot;Area&quot;</span><span class="p">).</span><span class="nx">Call</span><span class="p">([]</span><span class="nx">reflect</span><span class="p">.</span><span class="nx">Value</span><span class="p">{})</span><span class="w"></span>
-<span class="w">        </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">v</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">Float</span><span class="p">())</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// call Area() method by Name</span>
+<span class="w">        </span><span class="nx">v</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">reflect</span><span class="p">.</span><span class="nx">ValueOf</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">c</span><span class="p">).</span><span class="nx">MethodByName</span><span class="p">(</span><span class="s">&quot;Area&quot;</span><span class="p">).</span><span class="nx">Call</span><span class="p">([]</span><span class="nx">reflect</span><span class="p">.</span><span class="nx">Value</span><span class="p">{})</span>
+<span class="w">        </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">v</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">Float</span><span class="p">())</span>
+<span class="p">}</span>
 </pre></div>
 
 <hr class="docutils" />

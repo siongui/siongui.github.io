@@ -55,12 +55,12 @@
     <div class="main-content"><p>Example for <a class="reference external" href="https://golang.org/pkg/text/template/#hdr-Actions">block action</a> in <a class="reference external" href="https://golang.org/">Golang</a> <a class="reference external" href="https://golang.org/pkg/text/template/">text/template</a> and <a class="reference external" href="https://golang.org/pkg/html/template/">html/template</a>
 packages.</p>
 <p><a class="reference external" href="https://play.golang.org/p/WfJ6Yha9Ew">Run Code on Go Playground</a></p>
-<div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span>
 
-<span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
-<span class="w">        </span><span class="s">&quot;os&quot;</span><span class="w"></span>
-<span class="w">        </span><span class="s">&quot;text/template&quot;</span><span class="w"></span>
-<span class="p">)</span><span class="w"></span>
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span>
+<span class="w">        </span><span class="s">&quot;os&quot;</span>
+<span class="w">        </span><span class="s">&quot;text/template&quot;</span>
+<span class="p">)</span>
 
 <span class="kd">var</span><span class="w"> </span><span class="nx">layout</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">`</span>
 <span class="s">&lt;!DOCTYPE html&gt;</span>
@@ -72,17 +72,17 @@ packages.</p>
 <span class="s">&lt;body&gt;</span>
 <span class="s">&lt;/body&gt;</span>
 <span class="s">&lt;/html&gt;</span>
-<span class="s">`</span><span class="w"></span>
+<span class="s">`</span>
 
 <span class="kd">var</span><span class="w"> </span><span class="nx">index</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">`</span>
 <span class="s">{{define &quot;title&quot;}}My Site Name{{end}}</span>
-<span class="s">`</span><span class="w"></span>
+<span class="s">`</span>
 
-<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="nx">layoutTmpl</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">template</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="s">&quot;layout&quot;</span><span class="p">).</span><span class="nx">Parse</span><span class="p">(</span><span class="nx">layout</span><span class="p">)</span><span class="w"></span>
-<span class="w">        </span><span class="nx">indexTmpl</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">layoutTmpl</span><span class="p">.</span><span class="nx">Parse</span><span class="p">(</span><span class="nx">index</span><span class="p">)</span><span class="w"></span>
-<span class="w">        </span><span class="nx">indexTmpl</span><span class="p">.</span><span class="nx">Execute</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">Stdout</span><span class="p">,</span><span class="w"> </span><span class="kc">nil</span><span class="p">)</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">layoutTmpl</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">template</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="s">&quot;layout&quot;</span><span class="p">).</span><span class="nx">Parse</span><span class="p">(</span><span class="nx">layout</span><span class="p">)</span>
+<span class="w">        </span><span class="nx">indexTmpl</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">layoutTmpl</span><span class="p">.</span><span class="nx">Parse</span><span class="p">(</span><span class="nx">index</span><span class="p">)</span>
+<span class="w">        </span><span class="nx">indexTmpl</span><span class="p">.</span><span class="nx">Execute</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">Stdout</span><span class="p">,</span><span class="w"> </span><span class="kc">nil</span><span class="p">)</span>
+<span class="p">}</span>
 </pre></div>
 
 <hr class="docutils" />

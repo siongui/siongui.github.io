@@ -84,23 +84,23 @@ var t = document.querySelector(".line-block");
 TextToLink(t);
 </script><p>The following is the source code of the demo.</p>
 <p><strong>JavaScript</strong>:</p>
-<div class="highlight"><pre><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">textToUrlMapping</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="s2">&quot;世尊譯詞的探討&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;http://agama.buddhason.org/book/bb/bb21.htm&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="p">};</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">textToUrlMapping</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="s2">&quot;世尊譯詞的探討&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;http://agama.buddhason.org/book/bb/bb21.htm&quot;</span><span class="p">,</span>
+<span class="p">};</span>
 
-<span class="kd">function</span><span class="w"> </span><span class="nx">TextToLink</span><span class="p">(</span><span class="nx">elm</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="nx">elm</span><span class="p">.</span><span class="nx">innerHTML</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">elm</span><span class="p">.</span><span class="nx">innerHTML</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/〈(.+)〉/g</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">text</span><span class="p">,</span><span class="w"> </span><span class="nx">str1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">textToUrlMapping</span><span class="p">.</span><span class="nx">hasOwnProperty</span><span class="p">(</span><span class="nx">str1</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="s1">&#39;〈&lt;a href=&quot;&#39;</span><span class="o">+</span><span class="w"> </span><span class="nx">textToUrlMapping</span><span class="p">[</span><span class="nx">str1</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"></span>
-<span class="w">             </span><span class="s1">&#39;&quot; target=&quot;_blank&quot;&gt;&#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">str1</span><span class="w"> </span><span class="o">+</span><span class="w"></span>
-<span class="w">             </span><span class="s1">&#39;&lt;/a&gt;〉&#39;</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">str1</span><span class="p">;</span><span class="w"></span>
-<span class="w">  </span><span class="p">});</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="kd">function</span><span class="w"> </span><span class="nx">TextToLink</span><span class="p">(</span><span class="nx">elm</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">elm</span><span class="p">.</span><span class="nx">innerHTML</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">elm</span><span class="p">.</span><span class="nx">innerHTML</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/〈(.+)〉/g</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">text</span><span class="p">,</span><span class="w"> </span><span class="nx">str1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">textToUrlMapping</span><span class="p">.</span><span class="nx">hasOwnProperty</span><span class="p">(</span><span class="nx">str1</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="s1">&#39;〈&lt;a href=&quot;&#39;</span><span class="o">+</span><span class="w"> </span><span class="nx">textToUrlMapping</span><span class="p">[</span><span class="nx">str1</span><span class="p">]</span><span class="w"> </span><span class="o">+</span>
+<span class="w">             </span><span class="s1">&#39;&quot; target=&quot;_blank&quot;&gt;&#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">str1</span><span class="w"> </span><span class="o">+</span>
+<span class="w">             </span><span class="s1">&#39;&lt;/a&gt;〉&#39;</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">str1</span><span class="p">;</span>
+<span class="w">  </span><span class="p">});</span>
+<span class="p">}</span>
 
-<span class="kd">var</span><span class="w"> </span><span class="nx">t</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&quot;.line-block&quot;</span><span class="p">);</span><span class="w"></span>
-<span class="nx">TextToLink</span><span class="p">(</span><span class="nx">t</span><span class="p">);</span><span class="w"></span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">t</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&quot;.line-block&quot;</span><span class="p">);</span>
+<span class="nx">TextToLink</span><span class="p">(</span><span class="nx">t</span><span class="p">);</span>
 </pre></div>
 <ul class="simple">
 <li>Use <a class="reference external" href="https://www.google.com/search?q=querySelector">querySelector</a> to select the element which contains the texts.</li>

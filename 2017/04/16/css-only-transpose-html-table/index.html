@@ -108,8 +108,8 @@ label[for=element-toggle] {
 
 </div><p>To invert (transpose) the rows and columns of an HTML table, we can use the
 following CSS rules <a class="footnote-reference" href="#footnote-2" id="footnote-reference-1">[2]</a>:</p>
-<div class="highlight"><pre><span></span><span class="nt">tr</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">display</span><span class="p">:</span><span class="w"> </span><span class="kc">block</span><span class="p">;</span><span class="w"> </span><span class="k">float</span><span class="p">:</span><span class="w"> </span><span class="kc">left</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
-<span class="nt">th</span><span class="o">,</span><span class="w"> </span><span class="nt">td</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">display</span><span class="p">:</span><span class="w"> </span><span class="kc">block</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="nt">tr</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">display</span><span class="p">:</span><span class="w"> </span><span class="kc">block</span><span class="p">;</span><span class="w"> </span><span class="k">float</span><span class="p">:</span><span class="w"> </span><span class="kc">left</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="nt">th</span><span class="o">,</span><span class="w"> </span><span class="nt">td</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">display</span><span class="p">:</span><span class="w"> </span><span class="kc">block</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 </pre></div>
 <p>To toggle (original/transposed) the HTML table, we can use the technique
 described in <a class="footnote-reference" href="#footnote-3" id="footnote-reference-2">[3]</a> and <a class="footnote-reference" href="#footnote-4" id="footnote-reference-3">[4]</a>.</p>
@@ -144,22 +144,22 @@ described in <a class="footnote-reference" href="#footnote-3" id="footnote-refer
 </pre></div>
 
 <p><strong>CSS</strong></p>
-<div class="highlight"><pre><span></span><span class="nt">label</span><span class="o">[</span><span class="nt">for</span><span class="o">=</span><span class="nt">element-toggle</span><span class="o">]</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="k">cursor</span><span class="p">:</span><span class="w"> </span><span class="kc">pointer</span><span class="p">;</span><span class="w"></span>
-<span class="w">  </span><span class="k">color</span><span class="p">:</span><span class="w"> </span><span class="kc">red</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
-<span class="p">#</span><span class="nn">element-toggle</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="k">display</span><span class="p">:</span><span class="w"> </span><span class="kc">none</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="nt">label</span><span class="o">[</span><span class="nt">for</span><span class="o">=</span><span class="nt">element-toggle</span><span class="o">]</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">cursor</span><span class="p">:</span><span class="w"> </span><span class="kc">pointer</span><span class="p">;</span>
+<span class="w">  </span><span class="k">color</span><span class="p">:</span><span class="w"> </span><span class="kc">red</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="p">#</span><span class="nn">element-toggle</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">display</span><span class="p">:</span><span class="w"> </span><span class="kc">none</span><span class="p">;</span>
+<span class="p">}</span>
 
-<span class="p">#</span><span class="nn">element-toggle</span><span class="p">:</span><span class="nd">checked</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="p">#</span><span class="nn">toggled-element</span><span class="w"> </span><span class="nt">tr</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="k">display</span><span class="p">:</span><span class="w"> </span><span class="kc">block</span><span class="p">;</span><span class="w"></span>
-<span class="w">  </span><span class="k">float</span><span class="p">:</span><span class="w"> </span><span class="kc">left</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
-<span class="p">#</span><span class="nn">element-toggle</span><span class="p">:</span><span class="nd">checked</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="p">#</span><span class="nn">toggled-element</span><span class="w"> </span><span class="nt">th</span><span class="o">,</span><span class="w"></span>
-<span class="p">#</span><span class="nn">element-toggle</span><span class="p">:</span><span class="nd">checked</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="p">#</span><span class="nn">toggled-element</span><span class="w"> </span><span class="nt">td</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="k">display</span><span class="p">:</span><span class="w"> </span><span class="kc">block</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="p">#</span><span class="nn">element-toggle</span><span class="p">:</span><span class="nd">checked</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="p">#</span><span class="nn">toggled-element</span><span class="w"> </span><span class="nt">tr</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">display</span><span class="p">:</span><span class="w"> </span><span class="kc">block</span><span class="p">;</span>
+<span class="w">  </span><span class="k">float</span><span class="p">:</span><span class="w"> </span><span class="kc">left</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="p">#</span><span class="nn">element-toggle</span><span class="p">:</span><span class="nd">checked</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="p">#</span><span class="nn">toggled-element</span><span class="w"> </span><span class="nt">th</span><span class="o">,</span>
+<span class="p">#</span><span class="nn">element-toggle</span><span class="p">:</span><span class="nd">checked</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="p">#</span><span class="nn">toggled-element</span><span class="w"> </span><span class="nt">td</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">display</span><span class="p">:</span><span class="w"> </span><span class="kc">block</span><span class="p">;</span>
+<span class="p">}</span>
 </pre></div>
 <hr class="docutils" />
 <p>References:</p>

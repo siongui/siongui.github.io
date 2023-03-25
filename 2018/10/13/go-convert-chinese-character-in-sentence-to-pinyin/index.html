@@ -63,38 +63,38 @@ string to <a class="reference external" href="https://en.wikipedia.org/wiki/Piny
 </pre></div>
 <p>To do this, we need <a class="reference external" href="https://github.com/mozillazg/go-pinyin">go-pinyin</a> package to convert Chinese characters to
 Pinyin. Install the package first:</p>
-<div class="highlight"><pre><span></span>$ go get -u github.com/mozillazg/go-pinyin
+<div class="highlight"><pre><span></span>$<span class="w"> </span>go<span class="w"> </span>get<span class="w"> </span>-u<span class="w"> </span>github.com/mozillazg/go-pinyin
 </pre></div>
 <p>Now we can convert Chinese characters to Pinyin in the string as follows:</p>
-<div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
-<span class="w">      </span><span class="s">&quot;unicode&quot;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="p">(</span>
+<span class="w">      </span><span class="s">&quot;unicode&quot;</span>
 
-<span class="w">      </span><span class="s">&quot;github.com/mozillazg/go-pinyin&quot;</span><span class="w"></span>
-<span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="s">&quot;github.com/mozillazg/go-pinyin&quot;</span>
+<span class="p">)</span>
 
-<span class="kd">var</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">pinyin</span><span class="p">.</span><span class="nx">NewArgs</span><span class="p">()</span><span class="w"></span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">pinyin</span><span class="p">.</span><span class="nx">NewArgs</span><span class="p">()</span>
 
-<span class="kd">func</span><span class="w"> </span><span class="nx">zhCharToPinyin</span><span class="p">(</span><span class="nx">p</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nx">s</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">      </span><span class="k">for</span><span class="w"> </span><span class="nx">_</span><span class="p">,</span><span class="w"> </span><span class="nx">r</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="nx">p</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">              </span><span class="k">if</span><span class="w"> </span><span class="nx">unicode</span><span class="p">.</span><span class="nx">Is</span><span class="p">(</span><span class="nx">unicode</span><span class="p">.</span><span class="nx">Han</span><span class="p">,</span><span class="w"> </span><span class="nx">r</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">                      </span><span class="nx">s</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="nb">string</span><span class="p">(</span><span class="nx">pinyin</span><span class="p">.</span><span class="nx">Pinyin</span><span class="p">(</span><span class="nb">string</span><span class="p">(</span><span class="nx">r</span><span class="p">),</span><span class="w"> </span><span class="nx">a</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span><span class="w"></span>
-<span class="w">              </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">                      </span><span class="nx">s</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="nb">string</span><span class="p">(</span><span class="nx">r</span><span class="p">)</span><span class="w"></span>
-<span class="w">              </span><span class="p">}</span><span class="w"></span>
-<span class="w">      </span><span class="p">}</span><span class="w"></span>
-<span class="w">      </span><span class="k">return</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">zhCharToPinyin</span><span class="p">(</span><span class="nx">p</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nx">s</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">for</span><span class="w"> </span><span class="nx">_</span><span class="p">,</span><span class="w"> </span><span class="nx">r</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="nx">p</span><span class="w"> </span><span class="p">{</span>
+<span class="w">              </span><span class="k">if</span><span class="w"> </span><span class="nx">unicode</span><span class="p">.</span><span class="nx">Is</span><span class="p">(</span><span class="nx">unicode</span><span class="p">.</span><span class="nx">Han</span><span class="p">,</span><span class="w"> </span><span class="nx">r</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                      </span><span class="nx">s</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="nb">string</span><span class="p">(</span><span class="nx">pinyin</span><span class="p">.</span><span class="nx">Pinyin</span><span class="p">(</span><span class="nb">string</span><span class="p">(</span><span class="nx">r</span><span class="p">),</span><span class="w"> </span><span class="nx">a</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+<span class="w">              </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                      </span><span class="nx">s</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="nb">string</span><span class="p">(</span><span class="nx">r</span><span class="p">)</span>
+<span class="w">              </span><span class="p">}</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">      </span><span class="k">return</span>
+<span class="p">}</span>
 </pre></div>
 
 <p>Example:</p>
-<div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
-<span class="w">      </span><span class="s">&quot;fmt&quot;</span><span class="w"></span>
-<span class="p">)</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="p">(</span>
+<span class="w">      </span><span class="s">&quot;fmt&quot;</span>
+<span class="p">)</span>
 
-<span class="kd">func</span><span class="w"> </span><span class="nx">ExampleZhCharToPinyin</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">      </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">zhCharToPinyin</span><span class="p">(</span><span class="s">&quot;Hello 世界&quot;</span><span class="p">))</span><span class="w"></span>
-<span class="w">      </span><span class="c1">// Output: Hello shijie</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">ExampleZhCharToPinyin</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">zhCharToPinyin</span><span class="p">(</span><span class="s">&quot;Hello 世界&quot;</span><span class="p">))</span>
+<span class="w">      </span><span class="c1">// Output: Hello shijie</span>
+<span class="p">}</span>
 </pre></div>
 <p>Tones can be included in Pinyin by configuring Args. See README of <a class="reference external" href="https://github.com/mozillazg/go-pinyin">go-pinyin</a>
 package for more details.</p>

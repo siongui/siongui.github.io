@@ -59,46 +59,46 @@ directly in Go, so I searched <em>golang os.Move</em> <a class="footnote-referen
 the method I need. Let's try to see how it works.</p>
 <p>I have one file and one directory as follows:</p>
 <div class="highlight"><pre><span></span>.
-├── hello.txt
-└── testdir/
+├──<span class="w"> </span>hello.txt
+└──<span class="w"> </span>testdir/
 </pre></div>
 <p>I want to move <em>hello.txt</em> to <em>testdir/</em>, so I write the following code:</p>
-<div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span>
 
-<span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
-<span class="w">      </span><span class="s">&quot;os&quot;</span><span class="w"></span>
-<span class="p">)</span><span class="w"></span>
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span>
+<span class="w">      </span><span class="s">&quot;os&quot;</span>
+<span class="p">)</span>
 
-<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">      </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">os</span><span class="p">.</span><span class="nx">Rename</span><span class="p">(</span><span class="s">&quot;hello.txt&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;testdir/&quot;</span><span class="p">)</span><span class="w"></span>
-<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">              </span><span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"></span>
-<span class="w">      </span><span class="p">}</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">os</span><span class="p">.</span><span class="nx">Rename</span><span class="p">(</span><span class="s">&quot;hello.txt&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;testdir/&quot;</span><span class="p">)</span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">              </span><span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 <p>Seems reasonable, because this is how we use <a class="reference external" href="https://linux.die.net/man/1/mv">mv</a> command under Linux shell.
 When I run the Go code, panic happened:</p>
-<div class="highlight"><pre><span></span>panic: rename hello.txt testdir/: file exists
+<div class="highlight"><pre><span></span>panic:<span class="w"> </span>rename<span class="w"> </span>hello.txt<span class="w"> </span>testdir/:<span class="w"> </span>file<span class="w"> </span>exists
 </pre></div>
 <p>So we cannot just put the name of <em>testdir/</em> in the new path of <a class="reference external" href="https://golang.org/pkg/os/#Rename">os.Rename</a>. We
 have to specify the whole new path, including the file name:</p>
-<div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span>
 
-<span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
-<span class="w">      </span><span class="s">&quot;os&quot;</span><span class="w"></span>
-<span class="p">)</span><span class="w"></span>
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span>
+<span class="w">      </span><span class="s">&quot;os&quot;</span>
+<span class="p">)</span>
 
-<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">      </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">os</span><span class="p">.</span><span class="nx">Rename</span><span class="p">(</span><span class="s">&quot;hello.txt&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;testdir/hello.txt&quot;</span><span class="p">)</span><span class="w"></span>
-<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">              </span><span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"></span>
-<span class="w">      </span><span class="p">}</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">os</span><span class="p">.</span><span class="nx">Rename</span><span class="p">(</span><span class="s">&quot;hello.txt&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;testdir/hello.txt&quot;</span><span class="p">)</span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">              </span><span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 <p>And we get the result as expected:</p>
 <div class="highlight"><pre><span></span>.
-└── testdir/
-    └── hello.txt
+└──<span class="w"> </span>testdir/
+<span class="w">    </span>└──<span class="w"> </span>hello.txt
 </pre></div>
 
 <hr class="docutils" />

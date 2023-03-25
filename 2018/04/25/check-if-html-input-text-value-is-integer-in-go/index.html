@@ -72,27 +72,27 @@ invalid.</p>
 before compiling this file using GopherJS.</p>
 <p>We use <a class="reference external" href="https://golang.org/pkg/strconv/#Atoi">strconv.Atoi</a> in Go standard library to convert the string to integer
 for us. If the input is not integer, <em>error</em> will be returned.</p>
-<div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span>
 
-<span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
-<span class="w">      </span><span class="p">.</span><span class="w"> </span><span class="s">&quot;github.com/siongui/godom&quot;</span><span class="w"></span>
-<span class="w">      </span><span class="s">&quot;strconv&quot;</span><span class="w"></span>
-<span class="p">)</span><span class="w"></span>
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span>
+<span class="w">      </span><span class="p">.</span><span class="w"> </span><span class="s">&quot;github.com/siongui/godom&quot;</span>
+<span class="w">      </span><span class="s">&quot;strconv&quot;</span>
+<span class="p">)</span>
 
-<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">      </span><span class="nx">elmn</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">Document</span><span class="p">.</span><span class="nx">QuerySelector</span><span class="p">(</span><span class="s">&quot;input[name=&#39;n&#39;]&quot;</span><span class="p">)</span><span class="w"></span>
-<span class="w">      </span><span class="nx">btn</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">Document</span><span class="p">.</span><span class="nx">QuerySelector</span><span class="p">(</span><span class="s">&quot;#check&quot;</span><span class="p">)</span><span class="w"></span>
-<span class="w">      </span><span class="nx">info</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">Document</span><span class="p">.</span><span class="nx">QuerySelector</span><span class="p">(</span><span class="s">&quot;#result&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">elmn</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">Document</span><span class="p">.</span><span class="nx">QuerySelector</span><span class="p">(</span><span class="s">&quot;input[name=&#39;n&#39;]&quot;</span><span class="p">)</span>
+<span class="w">      </span><span class="nx">btn</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">Document</span><span class="p">.</span><span class="nx">QuerySelector</span><span class="p">(</span><span class="s">&quot;#check&quot;</span><span class="p">)</span>
+<span class="w">      </span><span class="nx">info</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">Document</span><span class="p">.</span><span class="nx">QuerySelector</span><span class="p">(</span><span class="s">&quot;#result&quot;</span><span class="p">)</span>
 
-<span class="w">      </span><span class="nx">btn</span><span class="p">.</span><span class="nx">AddEventListener</span><span class="p">(</span><span class="s">&quot;click&quot;</span><span class="p">,</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="nx">e</span><span class="w"> </span><span class="nx">Event</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">              </span><span class="nx">_</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">strconv</span><span class="p">.</span><span class="nx">Atoi</span><span class="p">(</span><span class="nx">elmn</span><span class="p">.</span><span class="nx">Value</span><span class="p">())</span><span class="w"></span>
-<span class="w">              </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">                      </span><span class="nx">info</span><span class="p">.</span><span class="nx">SetInnerHTML</span><span class="p">(</span><span class="nx">err</span><span class="p">.</span><span class="nx">Error</span><span class="p">())</span><span class="w"></span>
-<span class="w">                      </span><span class="k">return</span><span class="w"></span>
-<span class="w">              </span><span class="p">}</span><span class="w"></span>
-<span class="w">              </span><span class="nx">info</span><span class="p">.</span><span class="nx">SetInnerHTML</span><span class="p">(</span><span class="s">&quot;input is integer&quot;</span><span class="p">)</span><span class="w"></span>
-<span class="w">      </span><span class="p">})</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">      </span><span class="nx">btn</span><span class="p">.</span><span class="nx">AddEventListener</span><span class="p">(</span><span class="s">&quot;click&quot;</span><span class="p">,</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="nx">e</span><span class="w"> </span><span class="nx">Event</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">              </span><span class="nx">_</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">strconv</span><span class="p">.</span><span class="nx">Atoi</span><span class="p">(</span><span class="nx">elmn</span><span class="p">.</span><span class="nx">Value</span><span class="p">())</span>
+<span class="w">              </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                      </span><span class="nx">info</span><span class="p">.</span><span class="nx">SetInnerHTML</span><span class="p">(</span><span class="nx">err</span><span class="p">.</span><span class="nx">Error</span><span class="p">())</span>
+<span class="w">                      </span><span class="k">return</span>
+<span class="w">              </span><span class="p">}</span>
+<span class="w">              </span><span class="nx">info</span><span class="p">.</span><span class="nx">SetInnerHTML</span><span class="p">(</span><span class="s">&quot;input is integer&quot;</span><span class="p">)</span>
+<span class="w">      </span><span class="p">})</span>
+<span class="p">}</span>
 </pre></div>
 <p>The link of full source code is available <a class="reference external" href="https://github.com/siongui/frontend-programming-in-go/tree/master/029-input-text-integer-check">on my GitHub repo</a>.</p>
 

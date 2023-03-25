@@ -66,12 +66,12 @@ one, or more arguments for that parameter according to
 <a class="reference external" href="https://golang.org/ref/spec#Function_types">Function types in Go spec</a>, and the function of such kind is usually called
 <a class="reference external" href="https://www.google.com/search?q=variadic+function">variadic function</a>.</p>
 <p>For example, assume we have the following function:</p>
-<div class="highlight"><pre><span></span><span class="kd">func</span><span class="w"> </span><span class="nx">giveMeString</span><span class="p">(</span><span class="nx">s</span><span class="w"> </span><span class="o">...</span><span class="kt">string</span><span class="p">)</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="kd">func</span><span class="w"> </span><span class="nx">giveMeString</span><span class="p">(</span><span class="nx">s</span><span class="w"> </span><span class="o">...</span><span class="kt">string</span><span class="p">)</span>
 </pre></div>
 <p>We can invoke the function by:</p>
-<div class="highlight"><pre><span></span><span class="nx">giveMeString</span><span class="p">()</span><span class="w"></span>
-<span class="nx">giveMeString</span><span class="p">(</span><span class="s">&quot;hello&quot;</span><span class="p">)</span><span class="w"></span>
-<span class="nx">giveMeString</span><span class="p">(</span><span class="s">&quot;hello&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;world&quot;</span><span class="p">)</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="nx">giveMeString</span><span class="p">()</span>
+<span class="nx">giveMeString</span><span class="p">(</span><span class="s">&quot;hello&quot;</span><span class="p">)</span>
+<span class="nx">giveMeString</span><span class="p">(</span><span class="s">&quot;hello&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;world&quot;</span><span class="p">)</span>
 </pre></div>
 <p>The function can be invoked with more <em>string</em> arguments as you like. You can
 <a class="reference external" href="https://play.golang.org/p/Qk2A6LbZfQ">run above example in Go Playground</a> to fiddle the code by yourself.</p>
@@ -82,19 +82,19 @@ try it in <a class="reference external" href="https://play.golang.org/">Go Playg
 <div class="section" id="pass-slice-or-array-as-variadic-parameter-1">
 <h2><a class="toc-backref" href="#toc-entry-2">Pass Slice or Array as Variadic Parameter <a class="footnote-reference" href="#footnote-1" id="footnote-reference-2">[1]</a></a></h2>
 <p>Continue the above example. Assune we have a slice of <em>[]string</em> as follows:</p>
-<div class="highlight"><pre><span></span><span class="nx">myStrSlice</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&quot;hello&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;world&quot;</span><span class="p">}</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="nx">myStrSlice</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&quot;hello&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;world&quot;</span><span class="p">}</span>
 </pre></div>
 <p>How to pass the slice to the following function?</p>
-<div class="highlight"><pre><span></span><span class="kd">func</span><span class="w"> </span><span class="nx">giveMeString</span><span class="p">(</span><span class="nx">s</span><span class="w"> </span><span class="o">...</span><span class="kt">string</span><span class="p">)</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="kd">func</span><span class="w"> </span><span class="nx">giveMeString</span><span class="p">(</span><span class="nx">s</span><span class="w"> </span><span class="o">...</span><span class="kt">string</span><span class="p">)</span>
 </pre></div>
 <p>Answer: append ... after the name of the slice.</p>
-<div class="highlight"><pre><span></span><span class="nx">giveMeString</span><span class="p">(</span><span class="nx">myStrSlice</span><span class="o">...</span><span class="p">)</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="nx">giveMeString</span><span class="p">(</span><span class="nx">myStrSlice</span><span class="o">...</span><span class="p">)</span>
 </pre></div>
 <p>The same if we have the following array:</p>
-<div class="highlight"><pre><span></span><span class="nx">myStrArray</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="kt">string</span><span class="p">{</span><span class="s">&quot;hello&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;world&quot;</span><span class="p">}</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="nx">myStrArray</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="kt">string</span><span class="p">{</span><span class="s">&quot;hello&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;world&quot;</span><span class="p">}</span>
 </pre></div>
 <p>Pass it to the above variadic function via:</p>
-<div class="highlight"><pre><span></span><span class="nx">giveMeString</span><span class="p">(</span><span class="nx">myStrArray</span><span class="p">[:]</span><span class="o">...</span><span class="p">)</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="nx">giveMeString</span><span class="p">(</span><span class="nx">myStrArray</span><span class="p">[:]</span><span class="o">...</span><span class="p">)</span>
 </pre></div>
 <p>You can try to <a class="reference external" href="https://play.golang.org/p/UkXlDi0Lou">pass slice or array of above example on Go Playground</a>.</p>
 

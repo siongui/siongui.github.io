@@ -56,15 +56,15 @@
     <div class="main-content"><p>Remove last character of UTF-8 string via <a class="reference external" href="https://golang.org/pkg/unicode/utf8/#DecodeLastRuneInString">utf8.DecodeLastRuneInString</a> in <a class="reference external" href="https://golang.org/">Go</a>.
 The code is modified from official example in <cite>unicode/utf8</cite> package <a class="footnote-reference" href="#footnote-2" id="footnote-reference-1">[2]</a>.</p>
 <p><a class="reference external" href="https://play.golang.org/p/Y1yCZ4wU05t">Run Code on Go Playground</a></p>
-<div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="s">&quot;unicode/utf8&quot;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="s">&quot;unicode/utf8&quot;</span>
 
-<span class="kd">func</span><span class="w"> </span><span class="nx">RemoveLastChar</span><span class="p">(</span><span class="nx">str</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">      </span><span class="k">for</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="nx">str</span><span class="p">)</span><span class="w"> </span><span class="p">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">              </span><span class="nx">_</span><span class="p">,</span><span class="w"> </span><span class="nx">size</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">utf8</span><span class="p">.</span><span class="nx">DecodeLastRuneInString</span><span class="p">(</span><span class="nx">str</span><span class="p">)</span><span class="w"></span>
-<span class="w">              </span><span class="k">return</span><span class="w"> </span><span class="nx">str</span><span class="p">[:</span><span class="nb">len</span><span class="p">(</span><span class="nx">str</span><span class="p">)</span><span class="o">-</span><span class="nx">size</span><span class="p">]</span><span class="w"></span>
-<span class="w">      </span><span class="p">}</span><span class="w"></span>
-<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="nx">str</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">RemoveLastChar</span><span class="p">(</span><span class="nx">str</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">for</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="nx">str</span><span class="p">)</span><span class="w"> </span><span class="p">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">{</span>
+<span class="w">              </span><span class="nx">_</span><span class="p">,</span><span class="w"> </span><span class="nx">size</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">utf8</span><span class="p">.</span><span class="nx">DecodeLastRuneInString</span><span class="p">(</span><span class="nx">str</span><span class="p">)</span>
+<span class="w">              </span><span class="k">return</span><span class="w"> </span><span class="nx">str</span><span class="p">[:</span><span class="nb">len</span><span class="p">(</span><span class="nx">str</span><span class="p">)</span><span class="o">-</span><span class="nx">size</span><span class="p">]</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="nx">str</span>
+<span class="p">}</span>
 </pre></div>
 <p>If you do not want to import <em>unicode/utf8</em> package, you can use <em>for</em> keyword
 to range the string to remove last character. On how to range strings, see <a class="footnote-reference" href="#footnote-3" id="footnote-reference-2">[3]</a>

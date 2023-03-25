@@ -55,41 +55,41 @@
 
     <div class="main-content"><p>In this post, we will show you how to use <a class="reference external" href="https://duckduckgo.com/?q=addEventListener">addEventListener</a> method in Go wasm.</p>
 <p>First install <a class="reference external" href="https://github.com/siongui/godom">godom</a> to help DOM manipulation:</p>
-<div class="highlight"><pre><span></span><span class="err">$</span><span class="w"> </span><span class="nx">GOARCH</span><span class="p">=</span><span class="nx">wasm</span><span class="w"> </span><span class="nx">GOOS</span><span class="p">=</span><span class="nx">js</span><span class="w"> </span><span class="k">go</span><span class="w"> </span><span class="nx">get</span><span class="w"> </span><span class="o">-</span><span class="nx">u</span><span class="w"> </span><span class="nx">github</span><span class="p">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">siongui</span><span class="o">/</span><span class="nx">godom</span><span class="o">/</span><span class="nx">wasm</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="err">$</span><span class="w"> </span><span class="nx">GOARCH</span><span class="p">=</span><span class="nx">wasm</span><span class="w"> </span><span class="nx">GOOS</span><span class="p">=</span><span class="nx">js</span><span class="w"> </span><span class="k">go</span><span class="w"> </span><span class="nx">get</span><span class="w"> </span><span class="o">-</span><span class="nx">u</span><span class="w"> </span><span class="nx">github</span><span class="p">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">siongui</span><span class="o">/</span><span class="nx">godom</span><span class="o">/</span><span class="nx">wasm</span>
 </pre></div>
 <p>Click the text in the following demo several times to see what happens.</p>
 <p class="align-center rubric"><a class="reference external" href="https://siongui.github.io/frontend-programming-in-go/wasm/004-addEventListener/demo/">Go Wasm addEventListener Demo</a></p>
 <p>The following is source code of demo:</p>
 <p><strong>Go</strong>:</p>
-<div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span>
 
-<span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
-<span class="w">      </span><span class="s">&quot;fmt&quot;</span><span class="w"></span>
-<span class="w">      </span><span class="s">&quot;syscall/js&quot;</span><span class="w"></span>
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span>
+<span class="w">      </span><span class="s">&quot;fmt&quot;</span>
+<span class="w">      </span><span class="s">&quot;syscall/js&quot;</span>
 
-<span class="w">      </span><span class="p">.</span><span class="w"> </span><span class="s">&quot;github.com/siongui/godom/wasm&quot;</span><span class="w"></span>
-<span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="p">.</span><span class="w"> </span><span class="s">&quot;github.com/siongui/godom/wasm&quot;</span>
+<span class="p">)</span>
 
-<span class="kd">var</span><span class="w"> </span><span class="nx">signal</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">make</span><span class="p">(</span><span class="kd">chan</span><span class="w"> </span><span class="kt">int</span><span class="p">)</span><span class="w"></span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">signal</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">make</span><span class="p">(</span><span class="kd">chan</span><span class="w"> </span><span class="kt">int</span><span class="p">)</span>
 
-<span class="kd">func</span><span class="w"> </span><span class="nx">keepAlive</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">      </span><span class="k">for</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">              </span><span class="o">&lt;-</span><span class="nx">signal</span><span class="w"></span>
-<span class="w">      </span><span class="p">}</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">keepAlive</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">for</span><span class="w"> </span><span class="p">{</span>
+<span class="w">              </span><span class="o">&lt;-</span><span class="nx">signal</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="p">}</span>
 
-<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">      </span><span class="nx">foo</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">Document</span><span class="p">.</span><span class="nx">GetElementById</span><span class="p">(</span><span class="s">&quot;foo&quot;</span><span class="p">)</span><span class="w"></span>
-<span class="w">      </span><span class="nx">count</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">0</span><span class="w"></span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">foo</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">Document</span><span class="p">.</span><span class="nx">GetElementById</span><span class="p">(</span><span class="s">&quot;foo&quot;</span><span class="p">)</span>
+<span class="w">      </span><span class="nx">count</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">0</span>
 
-<span class="w">      </span><span class="nx">cb</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">js</span><span class="p">.</span><span class="nx">NewCallback</span><span class="p">(</span><span class="kd">func</span><span class="p">(</span><span class="nx">args</span><span class="w"> </span><span class="p">[]</span><span class="nx">js</span><span class="p">.</span><span class="nx">Value</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">              </span><span class="nx">count</span><span class="o">++</span><span class="w"></span>
-<span class="w">              </span><span class="nx">foo</span><span class="p">.</span><span class="nx">Set</span><span class="p">(</span><span class="s">&quot;textContent&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Sprintf</span><span class="p">(</span><span class="s">&quot;I am clicked %d time&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">count</span><span class="p">))</span><span class="w"></span>
-<span class="w">      </span><span class="p">})</span><span class="w"></span>
-<span class="w">      </span><span class="nx">foo</span><span class="p">.</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;addEventListener&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;click&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">cb</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="nx">cb</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">js</span><span class="p">.</span><span class="nx">NewCallback</span><span class="p">(</span><span class="kd">func</span><span class="p">(</span><span class="nx">args</span><span class="w"> </span><span class="p">[]</span><span class="nx">js</span><span class="p">.</span><span class="nx">Value</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">              </span><span class="nx">count</span><span class="o">++</span>
+<span class="w">              </span><span class="nx">foo</span><span class="p">.</span><span class="nx">Set</span><span class="p">(</span><span class="s">&quot;textContent&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Sprintf</span><span class="p">(</span><span class="s">&quot;I am clicked %d time&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">count</span><span class="p">))</span>
+<span class="w">      </span><span class="p">})</span>
+<span class="w">      </span><span class="nx">foo</span><span class="p">.</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;addEventListener&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;click&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">cb</span><span class="p">)</span>
 
-<span class="w">      </span><span class="nx">keepAlive</span><span class="p">()</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">      </span><span class="nx">keepAlive</span><span class="p">()</span>
+<span class="p">}</span>
 </pre></div>
 <p>We use <a class="reference external" href="https://godoc.org/syscall/js#NewCallback">NewCallback</a> method in <a class="reference external" href="https://tip.golang.org/pkg/syscall/js/">syscall/js</a> package to create the callback for
 the click event of the <em>div</em> element. The most tricky and strange part of the
@@ -113,18 +113,18 @@ message when clicking on the text. After some searches, I found the answer in
 
   <span class="cm">&lt;!-- https://github.com/golang/go/blob/master/misc/wasm/wasm_exec.js --&gt;</span>
   <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;wasm_exec.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
-  <span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span><span class="w"></span>
-<span class="w">      </span><span class="kd">const</span><span class="w"> </span><span class="nx">go</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Go</span><span class="p">();</span><span class="w"></span>
-<span class="w">      </span><span class="kd">let</span><span class="w"> </span><span class="nx">mod</span><span class="p">,</span><span class="w"> </span><span class="nx">inst</span><span class="p">;</span><span class="w"></span>
-<span class="w">      </span><span class="nx">WebAssembly</span><span class="p">.</span><span class="nx">instantiateStreaming</span><span class="p">(</span><span class="w"></span>
-<span class="w">              </span><span class="nx">fetch</span><span class="p">(</span><span class="s2">&quot;click.wasm&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="nx">cache</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;no-cache&#39;</span><span class="p">}),</span><span class="w"> </span><span class="nx">go</span><span class="p">.</span><span class="nx">importObject</span><span class="p">).</span><span class="nx">then</span><span class="p">((</span><span class="nx">result</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">              </span><span class="nx">mod</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">result</span><span class="p">.</span><span class="nx">module</span><span class="p">;</span><span class="w"></span>
-<span class="w">              </span><span class="nx">inst</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">result</span><span class="p">.</span><span class="nx">instance</span><span class="p">;</span><span class="w"></span>
-<span class="w">              </span><span class="nx">run</span><span class="p">();</span><span class="w"></span>
-<span class="w">      </span><span class="p">});</span><span class="w"></span>
-<span class="w">      </span><span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">run</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">              </span><span class="k">await</span><span class="w"> </span><span class="nx">go</span><span class="p">.</span><span class="nx">run</span><span class="p">(</span><span class="nx">inst</span><span class="p">);</span><span class="w"></span>
-<span class="w">      </span><span class="p">};</span><span class="w"></span>
+  <span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="w">      </span><span class="kd">const</span><span class="w"> </span><span class="nx">go</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Go</span><span class="p">();</span>
+<span class="w">      </span><span class="kd">let</span><span class="w"> </span><span class="nx">mod</span><span class="p">,</span><span class="w"> </span><span class="nx">inst</span><span class="p">;</span>
+<span class="w">      </span><span class="nx">WebAssembly</span><span class="p">.</span><span class="nx">instantiateStreaming</span><span class="p">(</span>
+<span class="w">              </span><span class="nx">fetch</span><span class="p">(</span><span class="s2">&quot;click.wasm&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="nx">cache</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;no-cache&#39;</span><span class="p">}),</span><span class="w"> </span><span class="nx">go</span><span class="p">.</span><span class="nx">importObject</span><span class="p">).</span><span class="nx">then</span><span class="p">((</span><span class="nx">result</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">              </span><span class="nx">mod</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">result</span><span class="p">.</span><span class="nx">module</span><span class="p">;</span>
+<span class="w">              </span><span class="nx">inst</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">result</span><span class="p">.</span><span class="nx">instance</span><span class="p">;</span>
+<span class="w">              </span><span class="nx">run</span><span class="p">();</span>
+<span class="w">      </span><span class="p">});</span>
+<span class="w">      </span><span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">run</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">              </span><span class="k">await</span><span class="w"> </span><span class="nx">go</span><span class="p">.</span><span class="nx">run</span><span class="p">(</span><span class="nx">inst</span><span class="p">);</span>
+<span class="w">      </span><span class="p">};</span>
 <span class="w">  </span><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
 <span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>

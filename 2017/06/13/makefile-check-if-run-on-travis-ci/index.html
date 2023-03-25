@@ -61,9 +61,9 @@ is Travis CI or not. If it is, do not export these variables.</p>
 is set to <em>true</em> in Travis CI build. We can export variables only on Travis CI
 build as follows:</p>
 <div class="highlight"><pre><span></span><span class="cp">ifndef TRAVIS</span>
-      <span class="nb">export</span> <span class="nv">GOROOT</span><span class="o">=</span><span class="k">$(</span>realpath ../go<span class="k">)</span>
-      <span class="nb">export</span> <span class="nv">GOPATH</span><span class="o">=</span><span class="k">$(</span>realpath .<span class="k">)</span>
-      <span class="nb">export</span> PATH :<span class="o">=</span> <span class="k">$(</span>GOROOT<span class="k">)</span>/bin:<span class="k">$(</span>GOPATH<span class="k">)</span>/bin:<span class="k">$(</span>PATH<span class="k">)</span>
+<span class="w">      </span><span class="nb">export</span><span class="w"> </span><span class="nv">GOROOT</span><span class="o">=</span><span class="k">$(</span>realpath<span class="w"> </span>../go<span class="k">)</span>
+<span class="w">      </span><span class="nb">export</span><span class="w"> </span><span class="nv">GOPATH</span><span class="o">=</span><span class="k">$(</span>realpath<span class="w"> </span>.<span class="k">)</span>
+<span class="w">      </span><span class="nb">export</span><span class="w"> </span>PATH<span class="w"> </span>:<span class="o">=</span><span class="w"> </span><span class="k">$(</span>GOROOT<span class="k">)</span>/bin:<span class="k">$(</span>GOPATH<span class="k">)</span>/bin:<span class="k">$(</span>PATH<span class="k">)</span>
 <span class="cp">endif</span>
 </pre></div>
 <p><em>ifndef</em> means <em>if not defined</em>, so if <em>TRAVIS</em> is not defined, which means it's

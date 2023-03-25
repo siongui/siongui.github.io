@@ -59,42 +59,42 @@ provides a method to handle non-utf8 html pages if the character encoding
 encoding to utf8 first. I re-write the code in the wiki and make it more
 modular.</p>
 <p>Install goquery and <a class="reference external" href="https://github.com/djimenez/iconv-go">Go iconv binding</a>:</p>
-<div class="highlight"><pre><span></span>$ go get -u github.com/PuerkitoBio/goquery
-$ go get -u github.com/djimenez/iconv-go
+<div class="highlight"><pre><span></span>$<span class="w"> </span>go<span class="w"> </span>get<span class="w"> </span>-u<span class="w"> </span>github.com/PuerkitoBio/goquery
+$<span class="w"> </span>go<span class="w"> </span>get<span class="w"> </span>-u<span class="w"> </span>github.com/djimenez/iconv-go
 </pre></div>
 <p><strong>Source code</strong></p>
-<div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
-<span class="w">      </span><span class="s">&quot;net/http&quot;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="p">(</span>
+<span class="w">      </span><span class="s">&quot;net/http&quot;</span>
 
-<span class="w">      </span><span class="s">&quot;github.com/PuerkitoBio/goquery&quot;</span><span class="w"></span>
-<span class="w">      </span><span class="nx">iconv</span><span class="w"> </span><span class="s">&quot;github.com/djimenez/iconv-go&quot;</span><span class="w"></span>
-<span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="s">&quot;github.com/PuerkitoBio/goquery&quot;</span>
+<span class="w">      </span><span class="nx">iconv</span><span class="w"> </span><span class="s">&quot;github.com/djimenez/iconv-go&quot;</span>
+<span class="p">)</span>
 
-<span class="kd">func</span><span class="w"> </span><span class="nx">NewDocumentFromNonUtf8Url</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span><span class="w"> </span><span class="nx">charset</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nx">doc</span><span class="w"> </span><span class="o">*</span><span class="nx">goquery</span><span class="p">.</span><span class="nx">Document</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">      </span><span class="nx">resp</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">http</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="nx">url</span><span class="p">)</span><span class="w"></span>
-<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">              </span><span class="k">return</span><span class="w"></span>
-<span class="w">      </span><span class="p">}</span><span class="w"></span>
-<span class="w">      </span><span class="k">defer</span><span class="w"> </span><span class="nx">resp</span><span class="p">.</span><span class="nx">Body</span><span class="p">.</span><span class="nx">Close</span><span class="p">()</span><span class="w"></span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">NewDocumentFromNonUtf8Url</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span><span class="w"> </span><span class="nx">charset</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nx">doc</span><span class="w"> </span><span class="o">*</span><span class="nx">goquery</span><span class="p">.</span><span class="nx">Document</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">resp</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">http</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="nx">url</span><span class="p">)</span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">              </span><span class="k">return</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">      </span><span class="k">defer</span><span class="w"> </span><span class="nx">resp</span><span class="p">.</span><span class="nx">Body</span><span class="p">.</span><span class="nx">Close</span><span class="p">()</span>
 
-<span class="w">      </span><span class="nx">utfBody</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">iconv</span><span class="p">.</span><span class="nx">NewReader</span><span class="p">(</span><span class="nx">resp</span><span class="p">.</span><span class="nx">Body</span><span class="p">,</span><span class="w"> </span><span class="nx">charset</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;utf-8&quot;</span><span class="p">)</span><span class="w"></span>
-<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">              </span><span class="k">return</span><span class="w"></span>
-<span class="w">      </span><span class="p">}</span><span class="w"></span>
+<span class="w">      </span><span class="nx">utfBody</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">iconv</span><span class="p">.</span><span class="nx">NewReader</span><span class="p">(</span><span class="nx">resp</span><span class="p">.</span><span class="nx">Body</span><span class="p">,</span><span class="w"> </span><span class="nx">charset</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;utf-8&quot;</span><span class="p">)</span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">              </span><span class="k">return</span>
+<span class="w">      </span><span class="p">}</span>
 
-<span class="w">      </span><span class="nx">doc</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">goquery</span><span class="p">.</span><span class="nx">NewDocumentFromReader</span><span class="p">(</span><span class="nx">utfBody</span><span class="p">)</span><span class="w"></span>
-<span class="w">      </span><span class="k">return</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">      </span><span class="nx">doc</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">goquery</span><span class="p">.</span><span class="nx">NewDocumentFromReader</span><span class="p">(</span><span class="nx">utfBody</span><span class="p">)</span>
+<span class="w">      </span><span class="k">return</span>
+<span class="p">}</span>
 </pre></div>
 <p><strong>Example</strong>: Read <a class="reference external" href="https://en.wikipedia.org/wiki/Big5">Big5</a> webpage</p>
-<div class="highlight"><pre><span></span><span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">      </span><span class="nx">doc</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">NewDocumentFromNonUtf8Url</span><span class="p">(</span><span class="s">&quot;http://shenfang.com.tw/product.htm&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;big5&quot;</span><span class="p">)</span><span class="w"></span>
-<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">              </span><span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"></span>
-<span class="w">      </span><span class="p">}</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">doc</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">NewDocumentFromNonUtf8Url</span><span class="p">(</span><span class="s">&quot;http://shenfang.com.tw/product.htm&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;big5&quot;</span><span class="p">)</span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">              </span><span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+<span class="w">      </span><span class="p">}</span>
 
-<span class="w">      </span><span class="c1">// do something with the doc</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">      </span><span class="c1">// do something with the doc</span>
+<span class="p">}</span>
 </pre></div>
 
 <hr class="docutils" />

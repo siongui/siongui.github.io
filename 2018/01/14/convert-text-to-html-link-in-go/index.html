@@ -61,36 +61,36 @@ Please read my previous post and see the demo first.
 Here I only show the Go code of the implementation. The HTML code is the same as
 that in my previous post.
 The full code example of this post is <a class="reference external" href="https://github.com/siongui/frontend-programming-in-go/tree/master/020-convert-text-to-link">on my GitHub</a>.</p>
-<div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span>
 
-<span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
-<span class="w">      </span><span class="p">.</span><span class="w"> </span><span class="s">&quot;github.com/siongui/godom&quot;</span><span class="w"></span>
-<span class="w">      </span><span class="s">&quot;regexp&quot;</span><span class="w"></span>
-<span class="p">)</span><span class="w"></span>
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span>
+<span class="w">      </span><span class="p">.</span><span class="w"> </span><span class="s">&quot;github.com/siongui/godom&quot;</span>
+<span class="w">      </span><span class="s">&quot;regexp&quot;</span>
+<span class="p">)</span>
 
-<span class="kd">var</span><span class="w"> </span><span class="nx">textUrl</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">{</span><span class="w"></span>
-<span class="w">      </span><span class="s">&quot;世尊譯詞的探討&quot;</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;http://agama.buddhason.org/book/bb/bb21.htm&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">textUrl</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">{</span>
+<span class="w">      </span><span class="s">&quot;世尊譯詞的探討&quot;</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;http://agama.buddhason.org/book/bb/bb21.htm&quot;</span><span class="p">,</span>
+<span class="p">}</span>
 
-<span class="kd">var</span><span class="w"> </span><span class="nx">text</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">regexp</span><span class="p">.</span><span class="nx">MustCompile</span><span class="p">(</span><span class="s">`〈.+〉`</span><span class="p">)</span><span class="w"></span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">text</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">regexp</span><span class="p">.</span><span class="nx">MustCompile</span><span class="p">(</span><span class="s">`〈.+〉`</span><span class="p">)</span>
 
-<span class="kd">func</span><span class="w"> </span><span class="nx">TextToLink</span><span class="p">(</span><span class="nx">elm</span><span class="w"> </span><span class="o">*</span><span class="nx">Object</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">      </span><span class="nx">h</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">text</span><span class="p">.</span><span class="nx">ReplaceAllStringFunc</span><span class="p">(</span><span class="nx">elm</span><span class="p">.</span><span class="nx">InnerHTML</span><span class="p">(),</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="nx">match</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">              </span><span class="nx">key</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">match</span><span class="p">[</span><span class="mi">3</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="nx">match</span><span class="p">)</span><span class="o">-</span><span class="mi">3</span><span class="p">]</span><span class="w"></span>
-<span class="w">              </span><span class="nx">url</span><span class="p">,</span><span class="w"> </span><span class="nx">ok</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">textUrl</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span><span class="w"></span>
-<span class="w">              </span><span class="k">if</span><span class="w"> </span><span class="nx">ok</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">                      </span><span class="k">return</span><span class="w"> </span><span class="s">`〈&lt;a href=&quot;`</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">url</span><span class="w"> </span><span class="o">+</span><span class="w"></span>
-<span class="w">                              </span><span class="s">`&quot; target=&quot;_blank&quot;&gt;`</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">key</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">`&lt;/a&gt;〉`</span><span class="w"></span>
-<span class="w">              </span><span class="p">}</span><span class="w"></span>
-<span class="w">              </span><span class="k">return</span><span class="w"> </span><span class="nx">match</span><span class="w"></span>
-<span class="w">      </span><span class="p">})</span><span class="w"></span>
-<span class="w">      </span><span class="nx">elm</span><span class="p">.</span><span class="nx">SetInnerHTML</span><span class="p">(</span><span class="nx">h</span><span class="p">)</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">TextToLink</span><span class="p">(</span><span class="nx">elm</span><span class="w"> </span><span class="o">*</span><span class="nx">Object</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">h</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">text</span><span class="p">.</span><span class="nx">ReplaceAllStringFunc</span><span class="p">(</span><span class="nx">elm</span><span class="p">.</span><span class="nx">InnerHTML</span><span class="p">(),</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="nx">match</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="p">{</span>
+<span class="w">              </span><span class="nx">key</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">match</span><span class="p">[</span><span class="mi">3</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="nx">match</span><span class="p">)</span><span class="o">-</span><span class="mi">3</span><span class="p">]</span>
+<span class="w">              </span><span class="nx">url</span><span class="p">,</span><span class="w"> </span><span class="nx">ok</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">textUrl</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span>
+<span class="w">              </span><span class="k">if</span><span class="w"> </span><span class="nx">ok</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                      </span><span class="k">return</span><span class="w"> </span><span class="s">`〈&lt;a href=&quot;`</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">url</span><span class="w"> </span><span class="o">+</span>
+<span class="w">                              </span><span class="s">`&quot; target=&quot;_blank&quot;&gt;`</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">key</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">`&lt;/a&gt;〉`</span>
+<span class="w">              </span><span class="p">}</span>
+<span class="w">              </span><span class="k">return</span><span class="w"> </span><span class="nx">match</span>
+<span class="w">      </span><span class="p">})</span>
+<span class="w">      </span><span class="nx">elm</span><span class="p">.</span><span class="nx">SetInnerHTML</span><span class="p">(</span><span class="nx">h</span><span class="p">)</span>
+<span class="p">}</span>
 
-<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">      </span><span class="nx">b</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">Document</span><span class="p">.</span><span class="nx">QuerySelector</span><span class="p">(</span><span class="s">&quot;.line-block&quot;</span><span class="p">)</span><span class="w"></span>
-<span class="w">      </span><span class="nx">TextToLink</span><span class="p">(</span><span class="nx">b</span><span class="p">)</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">b</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">Document</span><span class="p">.</span><span class="nx">QuerySelector</span><span class="p">(</span><span class="s">&quot;.line-block&quot;</span><span class="p">)</span>
+<span class="w">      </span><span class="nx">TextToLink</span><span class="p">(</span><span class="nx">b</span><span class="p">)</span>
+<span class="p">}</span>
 </pre></div>
 <p>The above code use <a class="reference external" href="https://github.com/siongui/godom">godom</a> package to make the code more readable.</p>
 

@@ -62,23 +62,23 @@ from 000 to 094.</blockquote>
 <h2>Answer</h2>
 <p>Install <a class="reference external" href="https://www.google.com/search?q=ffmpeg">ffmpeg</a>:</p>
 <div class="highlight"><pre><span></span><span class="c1"># install ffmpeg on Ubuntu Linux 15.10</span>
-$ sudo apt-get install ffmpeg
+$<span class="w"> </span>sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>ffmpeg
 </pre></div>
 <p>The <a class="reference external" href="https://www.google.com/search?q=bash">bash</a> script to convert wav to mp3 via <a class="reference external" href="https://www.google.com/search?q=ffmpeg">ffmpeg</a>:</p>
 <div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 
 <span class="nv">OUTPUTDIR</span><span class="o">=</span><span class="s2">&quot;output&quot;</span>
 
-mkdir -p <span class="nv">$OUTPUTDIR</span>
-<span class="k">for</span> i <span class="k">in</span> <span class="o">{</span><span class="m">000</span>..094<span class="o">}</span>
+mkdir<span class="w"> </span>-p<span class="w"> </span><span class="nv">$OUTPUTDIR</span>
+<span class="k">for</span><span class="w"> </span>i<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="o">{</span><span class="m">000</span>..094<span class="o">}</span>
 <span class="k">do</span>
-  ffmpeg -i 9dt/9dt<span class="nv">$i</span>.wav <span class="nv">$OUTPUTDIR</span>/9dt<span class="nv">$i</span>.mp3
+<span class="w">  </span>ffmpeg<span class="w"> </span>-i<span class="w"> </span>9dt/9dt<span class="nv">$i</span>.wav<span class="w"> </span><span class="nv">$OUTPUTDIR</span>/9dt<span class="nv">$i</span>.mp3
 <span class="k">done</span>
 </pre></div>
 
 <p>Save the above <a class="reference external" href="https://www.google.com/search?q=bash">bash</a> script as <em>wav2mp3.sh</em></p>
 <p>Run the script by:</p>
-<div class="highlight"><pre><span></span>$ bash wav2mp3.sh
+<div class="highlight"><pre><span></span>$<span class="w"> </span>bash<span class="w"> </span>wav2mp3.sh
 </pre></div>
 <hr class="docutils" />
 <p>Tested on <tt class="docutils literal">Ubuntu Linux 15.10</tt></p>

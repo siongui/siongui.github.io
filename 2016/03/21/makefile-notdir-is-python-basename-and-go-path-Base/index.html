@@ -55,10 +55,10 @@
     <div class="main-content"><p><a class="reference external" href="https://www.google.com/search?q=Makefile">Makefile</a>'s <a class="reference external" href="https://www.gnu.org/software/make/manual/html_node/File-Name-Functions.html">notdir</a> = <a class="reference external" href="https://docs.python.org/2/library/os.path.html#os.path.basename">Python basename</a> / <a class="reference external" href="https://golang.org/pkg/path/#Base">Go path.Base</a>.</p>
 <p>Example:</p>
 <div class="highlight"><pre><span></span><span class="nv">URL</span><span class="o">=</span>http://nanda.online-dhamma.net/Tipitaka/Sutta/Khuddaka/Dhammapada/DhP_Story016.htm
-<span class="nv">UTF8HTML</span><span class="o">=</span>/tmp/utf8-<span class="k">$(</span>notdir <span class="si">${</span><span class="nv">URL</span><span class="si">}</span><span class="k">)</span>
+<span class="nv">UTF8HTML</span><span class="o">=</span>/tmp/utf8-<span class="k">$(</span>notdir<span class="w"> </span><span class="si">${</span><span class="nv">URL</span><span class="si">}</span><span class="k">)</span>
 
 default:
-      @go run big5ToUTF8.go -input<span class="o">=</span><span class="k">$(</span>notdir <span class="si">${</span><span class="nv">URL</span><span class="si">}</span><span class="k">)</span> -output<span class="o">=</span><span class="si">${</span><span class="nv">UTF8HTML</span><span class="si">}</span>
+<span class="w">      </span>@go<span class="w"> </span>run<span class="w"> </span>big5ToUTF8.go<span class="w"> </span>-input<span class="o">=</span><span class="k">$(</span>notdir<span class="w"> </span><span class="si">${</span><span class="nv">URL</span><span class="si">}</span><span class="k">)</span><span class="w"> </span>-output<span class="o">=</span><span class="si">${</span><span class="nv">UTF8HTML</span><span class="si">}</span>
 </pre></div>
 <p>In above <a class="reference external" href="https://www.google.com/search?q=Makefile">Makefile</a>,</p>
 <div class="line-block">

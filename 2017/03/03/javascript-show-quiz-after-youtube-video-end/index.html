@@ -108,41 +108,41 @@ getElementById will return null.</p>
 </pre></div>
 <p><a class="reference external" href="https://www.google.com/search?q=CSS">CSS</a>: the class <tt class="docutils literal">.invisible</tt> is used to hide the quiz initially. After the end
 of YouTube video, this class will be removed from the <em>div</em> of quiz.</p>
-<div class="highlight"><pre><span></span><span class="p">.</span><span class="nc">invisible</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">display</span><span class="p">:</span><span class="w"> </span><span class="kc">none</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
-<span class="p">#</span><span class="nn">quiz</span><span class="w"> </span><span class="p">{</span><span class="k">color</span><span class="p">:</span><span class="w"> </span><span class="kc">red</span><span class="p">;</span><span class="w"> </span><span class="k">font-size</span><span class="p">:</span><span class="w"> </span><span class="kc">larger</span><span class="p">;</span><span class="w"> </span><span class="k">margin-top</span><span class="p">:</span><span class="w"> </span><span class="mf">1.25</span><span class="kt">em</span><span class="p">;}</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="p">.</span><span class="nc">invisible</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">display</span><span class="p">:</span><span class="w"> </span><span class="kc">none</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="p">#</span><span class="nn">quiz</span><span class="w"> </span><span class="p">{</span><span class="k">color</span><span class="p">:</span><span class="w"> </span><span class="kc">red</span><span class="p">;</span><span class="w"> </span><span class="k">font-size</span><span class="p">:</span><span class="w"> </span><span class="kc">larger</span><span class="p">;</span><span class="w"> </span><span class="k">margin-top</span><span class="p">:</span><span class="w"> </span><span class="mf">1.25</span><span class="kt">em</span><span class="p">;}</span>
 </pre></div>
 <p><a class="reference external" href="https://www.google.com/search?q=JavaScript">JavaScript</a>: Basically the same as the example of YouTube API reference <a class="footnote-reference" href="#footnote-1" id="footnote-reference-1">[1]</a>,
 except that check if the video is ended in <em>onPlayerStateChange</em>, and show the
 quiz if the video is ended.</p>
-<div class="highlight"><pre><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">quiz</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;quiz&quot;</span><span class="p">);</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">quiz</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;quiz&quot;</span><span class="p">);</span>
 
-<span class="kd">var</span><span class="w"> </span><span class="nx">tag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;script&#39;</span><span class="p">);</span><span class="w"></span>
-<span class="nx">tag</span><span class="p">.</span><span class="nx">src</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;https://www.youtube.com/iframe_api&quot;</span><span class="p">;</span><span class="w"></span>
-<span class="kd">var</span><span class="w"> </span><span class="nx">firstScriptTag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="s1">&#39;script&#39;</span><span class="p">)[</span><span class="mf">0</span><span class="p">];</span><span class="w"></span>
-<span class="nx">firstScriptTag</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">.</span><span class="nx">insertBefore</span><span class="p">(</span><span class="nx">tag</span><span class="p">,</span><span class="w"> </span><span class="nx">firstScriptTag</span><span class="p">);</span><span class="w"></span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">tag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;script&#39;</span><span class="p">);</span>
+<span class="nx">tag</span><span class="p">.</span><span class="nx">src</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;https://www.youtube.com/iframe_api&quot;</span><span class="p">;</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">firstScriptTag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="s1">&#39;script&#39;</span><span class="p">)[</span><span class="mf">0</span><span class="p">];</span>
+<span class="nx">firstScriptTag</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">.</span><span class="nx">insertBefore</span><span class="p">(</span><span class="nx">tag</span><span class="p">,</span><span class="w"> </span><span class="nx">firstScriptTag</span><span class="p">);</span>
 
-<span class="kd">var</span><span class="w"> </span><span class="nx">player</span><span class="p">;</span><span class="w"></span>
-<span class="kd">function</span><span class="w"> </span><span class="nx">onYouTubeIframeAPIReady</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="nx">player</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">YT</span><span class="p">.</span><span class="nx">Player</span><span class="p">(</span><span class="s1">&#39;player&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nx">height</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;390&#39;</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nx">width</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;640&#39;</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nx">videoId</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;hS5CfP8n_js&#39;</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nx">events</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">      </span><span class="s1">&#39;onReady&#39;</span><span class="o">:</span><span class="w"> </span><span class="nx">onPlayerReady</span><span class="p">,</span><span class="w"></span>
-<span class="w">      </span><span class="s1">&#39;onStateChange&#39;</span><span class="o">:</span><span class="w"> </span><span class="nx">onPlayerStateChange</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="w">  </span><span class="p">});</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">player</span><span class="p">;</span>
+<span class="kd">function</span><span class="w"> </span><span class="nx">onYouTubeIframeAPIReady</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">player</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">YT</span><span class="p">.</span><span class="nx">Player</span><span class="p">(</span><span class="s1">&#39;player&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">height</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;390&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">width</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;640&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">videoId</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;hS5CfP8n_js&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">events</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="s1">&#39;onReady&#39;</span><span class="o">:</span><span class="w"> </span><span class="nx">onPlayerReady</span><span class="p">,</span>
+<span class="w">      </span><span class="s1">&#39;onStateChange&#39;</span><span class="o">:</span><span class="w"> </span><span class="nx">onPlayerStateChange</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">});</span>
+<span class="p">}</span>
 
-<span class="kd">function</span><span class="w"> </span><span class="nx">onPlayerReady</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="nx">event</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">playVideo</span><span class="p">();</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="kd">function</span><span class="w"> </span><span class="nx">onPlayerReady</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">event</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">playVideo</span><span class="p">();</span>
+<span class="p">}</span>
 
-<span class="kd">function</span><span class="w"> </span><span class="nx">onPlayerStateChange</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">data</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nx">YT</span><span class="p">.</span><span class="nx">PlayerState</span><span class="p">.</span><span class="nx">ENDED</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nx">quiz</span><span class="p">.</span><span class="nx">classList</span><span class="p">.</span><span class="nx">remove</span><span class="p">(</span><span class="s2">&quot;invisible&quot;</span><span class="p">);</span><span class="w"></span>
-<span class="w">  </span><span class="p">}</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="kd">function</span><span class="w"> </span><span class="nx">onPlayerStateChange</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">data</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nx">YT</span><span class="p">.</span><span class="nx">PlayerState</span><span class="p">.</span><span class="nx">ENDED</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">quiz</span><span class="p">.</span><span class="nx">classList</span><span class="p">.</span><span class="nx">remove</span><span class="p">(</span><span class="s2">&quot;invisible&quot;</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 
 <p>You can force the user to watch the full YouTube video by the trick <a class="footnote-reference" href="#footnote-2" id="footnote-reference-2">[2]</a>. But

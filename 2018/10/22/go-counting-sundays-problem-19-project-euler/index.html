@@ -67,70 +67,70 @@ And on leap years, twenty-nine.</li>
 <blockquote>
 171</blockquote>
 <p class="align-center rubric"><a class="reference external" href="https://play.golang.org/p/jWhYZ8bZTqj">Run Code on Go Playground</a></p>
-<div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span>
 
-<span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
-<span class="w">      </span><span class="s">&quot;fmt&quot;</span><span class="w"></span>
-<span class="p">)</span><span class="w"></span>
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span>
+<span class="w">      </span><span class="s">&quot;fmt&quot;</span>
+<span class="p">)</span>
 
-<span class="kd">func</span><span class="w"> </span><span class="nx">monthDays</span><span class="p">(</span><span class="nx">year</span><span class="p">,</span><span class="w"> </span><span class="nx">month</span><span class="w"> </span><span class="kt">int</span><span class="p">)</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">      </span><span class="k">switch</span><span class="w"> </span><span class="nx">month</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">      </span><span class="k">case</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="mi">12</span><span class="p">:</span><span class="w"></span>
-<span class="w">              </span><span class="k">return</span><span class="w"> </span><span class="mi">31</span><span class="w"></span>
-<span class="w">      </span><span class="k">case</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w"> </span><span class="mi">9</span><span class="p">,</span><span class="w"> </span><span class="mi">11</span><span class="p">:</span><span class="w"></span>
-<span class="w">              </span><span class="k">return</span><span class="w"> </span><span class="mi">30</span><span class="w"></span>
-<span class="w">      </span><span class="k">case</span><span class="w"> </span><span class="mi">2</span><span class="p">:</span><span class="w"></span>
-<span class="w">              </span><span class="k">if</span><span class="w"> </span><span class="nx">year</span><span class="o">%</span><span class="mi">400</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">                      </span><span class="k">return</span><span class="w"> </span><span class="mi">29</span><span class="w"></span>
-<span class="w">              </span><span class="p">}</span><span class="w"></span>
-<span class="w">              </span><span class="k">if</span><span class="w"> </span><span class="nx">year</span><span class="o">%</span><span class="mi">100</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">                      </span><span class="k">return</span><span class="w"> </span><span class="mi">28</span><span class="w"></span>
-<span class="w">              </span><span class="p">}</span><span class="w"></span>
-<span class="w">              </span><span class="k">if</span><span class="w"> </span><span class="nx">year</span><span class="o">%</span><span class="mi">4</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">                      </span><span class="k">return</span><span class="w"> </span><span class="mi">29</span><span class="w"></span>
-<span class="w">              </span><span class="p">}</span><span class="w"></span>
-<span class="w">              </span><span class="k">return</span><span class="w"> </span><span class="mi">28</span><span class="w"></span>
-<span class="w">      </span><span class="p">}</span><span class="w"></span>
-<span class="w">      </span><span class="nb">panic</span><span class="p">(</span><span class="s">&quot;not correct month&quot;</span><span class="p">)</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">monthDays</span><span class="p">(</span><span class="nx">year</span><span class="p">,</span><span class="w"> </span><span class="nx">month</span><span class="w"> </span><span class="kt">int</span><span class="p">)</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">switch</span><span class="w"> </span><span class="nx">month</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">case</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="mi">12</span><span class="p">:</span>
+<span class="w">              </span><span class="k">return</span><span class="w"> </span><span class="mi">31</span>
+<span class="w">      </span><span class="k">case</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w"> </span><span class="mi">9</span><span class="p">,</span><span class="w"> </span><span class="mi">11</span><span class="p">:</span>
+<span class="w">              </span><span class="k">return</span><span class="w"> </span><span class="mi">30</span>
+<span class="w">      </span><span class="k">case</span><span class="w"> </span><span class="mi">2</span><span class="p">:</span>
+<span class="w">              </span><span class="k">if</span><span class="w"> </span><span class="nx">year</span><span class="o">%</span><span class="mi">400</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                      </span><span class="k">return</span><span class="w"> </span><span class="mi">29</span>
+<span class="w">              </span><span class="p">}</span>
+<span class="w">              </span><span class="k">if</span><span class="w"> </span><span class="nx">year</span><span class="o">%</span><span class="mi">100</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                      </span><span class="k">return</span><span class="w"> </span><span class="mi">28</span>
+<span class="w">              </span><span class="p">}</span>
+<span class="w">              </span><span class="k">if</span><span class="w"> </span><span class="nx">year</span><span class="o">%</span><span class="mi">4</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                      </span><span class="k">return</span><span class="w"> </span><span class="mi">29</span>
+<span class="w">              </span><span class="p">}</span>
+<span class="w">              </span><span class="k">return</span><span class="w"> </span><span class="mi">28</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">      </span><span class="nb">panic</span><span class="p">(</span><span class="s">&quot;not correct month&quot;</span><span class="p">)</span>
+<span class="p">}</span>
 
-<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">      </span><span class="nx">year</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">1900</span><span class="w"></span>
-<span class="w">      </span><span class="nx">month</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">1</span><span class="w"></span>
-<span class="w">      </span><span class="nx">day</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">1</span><span class="w"></span>
-<span class="w">      </span><span class="nx">weekDay</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="c1">// 1: Monday ... 7: Sunday</span><span class="w"></span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">year</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">1900</span>
+<span class="w">      </span><span class="nx">month</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">      </span><span class="nx">day</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">      </span><span class="nx">weekDay</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="c1">// 1: Monday ... 7: Sunday</span>
 
-<span class="w">      </span><span class="nx">count</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">0</span><span class="w"></span>
-<span class="w">      </span><span class="k">for</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">              </span><span class="nx">day</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mi">1</span><span class="w"></span>
-<span class="w">              </span><span class="k">if</span><span class="w"> </span><span class="nx">day</span><span class="w"> </span><span class="p">&gt;</span><span class="w"> </span><span class="nx">monthDays</span><span class="p">(</span><span class="nx">year</span><span class="p">,</span><span class="w"> </span><span class="nx">month</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">                      </span><span class="nx">day</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">1</span><span class="w"></span>
-<span class="w">                      </span><span class="nx">month</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mi">1</span><span class="w"></span>
-<span class="w">              </span><span class="p">}</span><span class="w"></span>
-<span class="w">              </span><span class="k">if</span><span class="w"> </span><span class="nx">month</span><span class="w"> </span><span class="p">&gt;</span><span class="w"> </span><span class="mi">12</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">                      </span><span class="nx">month</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">1</span><span class="w"></span>
-<span class="w">                      </span><span class="nx">year</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mi">1</span><span class="w"></span>
-<span class="w">              </span><span class="p">}</span><span class="w"></span>
+<span class="w">      </span><span class="nx">count</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">      </span><span class="k">for</span><span class="w"> </span><span class="p">{</span>
+<span class="w">              </span><span class="nx">day</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">              </span><span class="k">if</span><span class="w"> </span><span class="nx">day</span><span class="w"> </span><span class="p">&gt;</span><span class="w"> </span><span class="nx">monthDays</span><span class="p">(</span><span class="nx">year</span><span class="p">,</span><span class="w"> </span><span class="nx">month</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                      </span><span class="nx">day</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">                      </span><span class="nx">month</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">              </span><span class="p">}</span>
+<span class="w">              </span><span class="k">if</span><span class="w"> </span><span class="nx">month</span><span class="w"> </span><span class="p">&gt;</span><span class="w"> </span><span class="mi">12</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                      </span><span class="nx">month</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">                      </span><span class="nx">year</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">              </span><span class="p">}</span>
 
-<span class="w">              </span><span class="nx">weekDay</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mi">1</span><span class="w"></span>
-<span class="w">              </span><span class="k">if</span><span class="w"> </span><span class="nx">weekDay</span><span class="w"> </span><span class="p">&gt;</span><span class="w"> </span><span class="mi">7</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">                      </span><span class="nx">weekDay</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">1</span><span class="w"></span>
-<span class="w">              </span><span class="p">}</span><span class="w"></span>
+<span class="w">              </span><span class="nx">weekDay</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">              </span><span class="k">if</span><span class="w"> </span><span class="nx">weekDay</span><span class="w"> </span><span class="p">&gt;</span><span class="w"> </span><span class="mi">7</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                      </span><span class="nx">weekDay</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">              </span><span class="p">}</span>
 
-<span class="w">              </span><span class="c1">// first day of the month is Sunday</span><span class="w"></span>
-<span class="w">              </span><span class="k">if</span><span class="w"> </span><span class="nx">day</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">weekDay</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">7</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">year</span><span class="w"> </span><span class="p">&gt;</span><span class="w"> </span><span class="mi">1900</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">                      </span><span class="c1">//fmt.Printf(&quot;%d %d 1st is Sunday\n&quot;, year, month)</span><span class="w"></span>
-<span class="w">                      </span><span class="nx">count</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mi">1</span><span class="w"></span>
-<span class="w">              </span><span class="p">}</span><span class="w"></span>
+<span class="w">              </span><span class="c1">// first day of the month is Sunday</span>
+<span class="w">              </span><span class="k">if</span><span class="w"> </span><span class="nx">day</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">weekDay</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">7</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">year</span><span class="w"> </span><span class="p">&gt;</span><span class="w"> </span><span class="mi">1900</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                      </span><span class="c1">//fmt.Printf(&quot;%d %d 1st is Sunday\n&quot;, year, month)</span>
+<span class="w">                      </span><span class="nx">count</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">              </span><span class="p">}</span>
 
-<span class="w">              </span><span class="c1">// termination condition</span><span class="w"></span>
-<span class="w">              </span><span class="k">if</span><span class="w"> </span><span class="nx">year</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">2000</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">month</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">12</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">day</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">31</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">                      </span><span class="k">break</span><span class="w"></span>
-<span class="w">              </span><span class="p">}</span><span class="w"></span>
-<span class="w">      </span><span class="p">}</span><span class="w"></span>
+<span class="w">              </span><span class="c1">// termination condition</span>
+<span class="w">              </span><span class="k">if</span><span class="w"> </span><span class="nx">year</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">2000</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">month</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">12</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">day</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">31</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                      </span><span class="k">break</span>
+<span class="w">              </span><span class="p">}</span>
+<span class="w">      </span><span class="p">}</span>
 
-<span class="w">      </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&quot;total %d Sunday&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">count</span><span class="p">)</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">      </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&quot;total %d Sunday&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">count</span><span class="p">)</span>
+<span class="p">}</span>
 </pre></div>
 
 <hr class="docutils" />

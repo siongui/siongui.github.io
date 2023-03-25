@@ -94,30 +94,30 @@ following <em>HTTPGET</em> function demonstrates how to make such AJAX request:<
 <span class="cm"> * @param {string} url The url of HTTP GET request</span>
 <span class="cm"> * @param {function} callback The callback function if HTTP GET succeeds</span>
 <span class="cm"> * @param {function} failCallback The callback function if HTTP GET fails</span>
-<span class="cm"> */</span><span class="w"></span>
-<span class="nx">HTTPGET</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span><span class="w"> </span><span class="nx">callback</span><span class="p">,</span><span class="w"> </span><span class="nx">failCallback</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">xmlhttp</span><span class="p">;</span><span class="w"></span>
+<span class="cm"> */</span>
+<span class="nx">HTTPGET</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span><span class="w"> </span><span class="nx">callback</span><span class="p">,</span><span class="w"> </span><span class="nx">failCallback</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">xmlhttp</span><span class="p">;</span>
 
-<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">XMLHttpRequest</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="c1">// code for IE7+, Firefox, Chrome, Opera, Safari</span><span class="w"></span>
-<span class="w">    </span><span class="nx">xmlhttp</span><span class="o">=</span><span class="ow">new</span><span class="w"> </span><span class="nx">XMLHttpRequest</span><span class="p">();</span><span class="w"></span>
-<span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="c1">// code for IE6, IE5</span><span class="w"></span>
-<span class="w">    </span><span class="nx">xmlhttp</span><span class="o">=</span><span class="ow">new</span><span class="w"> </span><span class="nx">ActiveXObject</span><span class="p">(</span><span class="s2">&quot;Microsoft.XMLHTTP&quot;</span><span class="p">);</span><span class="w"></span>
-<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">XMLHttpRequest</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// code for IE7+, Firefox, Chrome, Opera, Safari</span>
+<span class="w">    </span><span class="nx">xmlhttp</span><span class="o">=</span><span class="ow">new</span><span class="w"> </span><span class="nx">XMLHttpRequest</span><span class="p">();</span>
+<span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// code for IE6, IE5</span>
+<span class="w">    </span><span class="nx">xmlhttp</span><span class="o">=</span><span class="ow">new</span><span class="w"> </span><span class="nx">ActiveXObject</span><span class="p">(</span><span class="s2">&quot;Microsoft.XMLHTTP&quot;</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
 
-<span class="w">  </span><span class="nx">xmlhttp</span><span class="p">.</span><span class="nx">onreadystatechange</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">xmlhttp</span><span class="p">.</span><span class="nx">readyState</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mf">4</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">xmlhttp</span><span class="p">.</span><span class="nx">status</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mf">200</span><span class="p">)</span><span class="w"></span>
-<span class="w">        </span><span class="nx">callback</span><span class="p">(</span><span class="nx">xmlhttp</span><span class="p">.</span><span class="nx">responseText</span><span class="p">,</span><span class="w"> </span><span class="nx">url</span><span class="p">);</span><span class="w"></span>
-<span class="w">      </span><span class="k">else</span><span class="w"></span>
-<span class="w">        </span><span class="nx">failCallback</span><span class="p">(</span><span class="nx">url</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="w">  </span><span class="p">};</span><span class="w"></span>
+<span class="w">  </span><span class="nx">xmlhttp</span><span class="p">.</span><span class="nx">onreadystatechange</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">xmlhttp</span><span class="p">.</span><span class="nx">readyState</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mf">4</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">xmlhttp</span><span class="p">.</span><span class="nx">status</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mf">200</span><span class="p">)</span>
+<span class="w">        </span><span class="nx">callback</span><span class="p">(</span><span class="nx">xmlhttp</span><span class="p">.</span><span class="nx">responseText</span><span class="p">,</span><span class="w"> </span><span class="nx">url</span><span class="p">);</span>
+<span class="w">      </span><span class="k">else</span>
+<span class="w">        </span><span class="nx">failCallback</span><span class="p">(</span><span class="nx">url</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">};</span>
 
-<span class="w">  </span><span class="nx">xmlhttp</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">url</span><span class="p">,</span><span class="w"> </span><span class="kc">true</span><span class="p">);</span><span class="w"></span>
-<span class="w">  </span><span class="nx">xmlhttp</span><span class="p">.</span><span class="nx">send</span><span class="p">();</span><span class="w"></span>
-<span class="p">};</span><span class="w"></span>
+<span class="w">  </span><span class="nx">xmlhttp</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">url</span><span class="p">,</span><span class="w"> </span><span class="kc">true</span><span class="p">);</span>
+<span class="w">  </span><span class="nx">xmlhttp</span><span class="p">.</span><span class="nx">send</span><span class="p">();</span>
+<span class="p">};</span>
 </pre></div></td></tr></table></div>
 </div></figure>
 <div class="section" id="usage">
@@ -141,20 +141,20 @@ following <em>HTTPGET</em> function demonstrates how to make such AJAX request:<
 <span class="normal">11</span>
 <span class="normal">12</span>
 <span class="normal">13</span>
-<span class="normal">14</span></pre></div></td><td class="code"><div><pre><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;/demo/path?a=1&amp;b=2&#39;</span><span class="p">;</span><span class="w"></span>
+<span class="normal">14</span></pre></div></td><td class="code"><div><pre><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;/demo/path?a=1&amp;b=2&#39;</span><span class="p">;</span>
 
-<span class="kd">var</span><span class="w"> </span><span class="nx">callback</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">responseText</span><span class="p">,</span><span class="w"> </span><span class="nx">url</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="c1">// write your own handler for success of HTTP GET</span><span class="w"></span>
-<span class="w">  </span><span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;responseText from url &#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">url</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s1">&#39;:\n&#39;</span><span class="w"></span>
-<span class="w">        </span><span class="o">+</span><span class="w"> </span><span class="nx">responseText</span><span class="p">);</span><span class="w"></span>
-<span class="p">};</span><span class="w"></span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">callback</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">responseText</span><span class="p">,</span><span class="w"> </span><span class="nx">url</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">// write your own handler for success of HTTP GET</span>
+<span class="w">  </span><span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;responseText from url &#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">url</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s1">&#39;:\n&#39;</span>
+<span class="w">        </span><span class="o">+</span><span class="w"> </span><span class="nx">responseText</span><span class="p">);</span>
+<span class="p">};</span>
 
-<span class="kd">var</span><span class="w"> </span><span class="nx">failCallback</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">url</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="c1">// write your own handler for failure of HTTP GET</span><span class="w"></span>
-<span class="w">  </span><span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;fail to get &#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">url</span><span class="p">);</span><span class="w"></span>
-<span class="p">};</span><span class="w"></span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">failCallback</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">url</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">// write your own handler for failure of HTTP GET</span>
+<span class="w">  </span><span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;fail to get &#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">url</span><span class="p">);</span>
+<span class="p">};</span>
 
-<span class="nx">HTTPGET</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span><span class="w"> </span><span class="nx">callback</span><span class="p">,</span><span class="w"> </span><span class="nx">failCallback</span><span class="p">);</span><span class="w"></span>
+<span class="nx">HTTPGET</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span><span class="w"> </span><span class="nx">callback</span><span class="p">,</span><span class="w"> </span><span class="nx">failCallback</span><span class="p">);</span>
 </pre></div></td></tr></table></div>
 </div></figure>
 <p>Note that you can only make requests in the same domain. To make cross-domain

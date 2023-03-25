@@ -53,24 +53,24 @@
     <hr>
 
     <div class="main-content"><p>In <a class="reference external" href="https://www.google.com/search?q=JavaScript">JavaScript</a>, the <a class="reference external" href="http://www.w3schools.com/tags/att_a_href.asp">href</a> value of <a class="reference external" href="http://www.w3schools.com/tags/tag_a.asp">anchor</a> element/tag (&lt;a&gt;) can be accessed by:</p>
-<div class="highlight"><pre><span></span><span class="c1">// assume your website is:</span><span class="w"></span>
-<span class="c1">//   https://example.com/</span><span class="w"></span>
-<span class="c1">// assume the a tag is:</span><span class="w"></span>
-<span class="c1">//   &lt;a id=&quot;atag&quot; href=&quot;/about/&quot;&gt;About&lt;/a&gt;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="c1">// assume your website is:</span>
+<span class="c1">//   https://example.com/</span>
+<span class="c1">// assume the a tag is:</span>
+<span class="c1">//   &lt;a id=&quot;atag&quot; href=&quot;/about/&quot;&gt;About&lt;/a&gt;</span>
 
-<span class="kd">var</span><span class="w"> </span><span class="nx">elm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;atag&quot;</span><span class="p">);</span><span class="w"></span>
-<span class="c1">// return &quot;/about/&quot;</span><span class="w"></span>
-<span class="kd">var</span><span class="w"> </span><span class="nx">href</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">elm</span><span class="p">.</span><span class="nx">getAttribute</span><span class="p">(</span><span class="s2">&quot;href&quot;</span><span class="p">);</span><span class="w"></span>
-<span class="c1">// return &quot;https://example.com/about/&quot;</span><span class="w"></span>
-<span class="kd">var</span><span class="w"> </span><span class="nx">href</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">elm</span><span class="p">.</span><span class="nx">href</span><span class="p">;</span><span class="w"></span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">elm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;atag&quot;</span><span class="p">);</span>
+<span class="c1">// return &quot;/about/&quot;</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">href</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">elm</span><span class="p">.</span><span class="nx">getAttribute</span><span class="p">(</span><span class="s2">&quot;href&quot;</span><span class="p">);</span>
+<span class="c1">// return &quot;https://example.com/about/&quot;</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">href</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">elm</span><span class="p">.</span><span class="nx">href</span><span class="p">;</span>
 </pre></div>
 
 <p>In <a class="reference external" href="http://www.gopherjs.org/">GopherJS</a>, the equivalent is:</p>
-<div class="highlight"><pre><span></span><span class="nx">elm</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">js</span><span class="p">.</span><span class="nx">Global</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;document&quot;</span><span class="p">)..</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;getElementById&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;atag&quot;</span><span class="p">)</span><span class="w"></span>
-<span class="c1">// return &quot;/about/&quot;</span><span class="w"></span>
-<span class="nx">href</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">elm</span><span class="p">.</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;getAttribute&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;href&quot;</span><span class="p">).</span><span class="nx">String</span><span class="p">()</span><span class="w"></span>
-<span class="c1">// return &quot;https://example.com/about/&quot;</span><span class="w"></span>
-<span class="nx">href</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">elm</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;href&quot;</span><span class="p">).</span><span class="nx">String</span><span class="p">()</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="nx">elm</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">js</span><span class="p">.</span><span class="nx">Global</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;document&quot;</span><span class="p">)..</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;getElementById&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;atag&quot;</span><span class="p">)</span>
+<span class="c1">// return &quot;/about/&quot;</span>
+<span class="nx">href</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">elm</span><span class="p">.</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;getAttribute&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;href&quot;</span><span class="p">).</span><span class="nx">String</span><span class="p">()</span>
+<span class="c1">// return &quot;https://example.com/about/&quot;</span>
+<span class="nx">href</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">elm</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;href&quot;</span><span class="p">).</span><span class="nx">String</span><span class="p">()</span>
 </pre></div>
 <hr class="docutils" />
 <p>Tested on:</p>

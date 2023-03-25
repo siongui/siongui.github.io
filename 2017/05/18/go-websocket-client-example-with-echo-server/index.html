@@ -59,31 +59,31 @@ clients.</p>
 <p>The WebSocket echo server is provided by <em>websocket.org</em> and the address is
 <em>wss://echo.websocket.org</em>.</p>
 <p class="align-center rubric"><a class="reference external" href="https://gopherjs.github.io/playground/#/huwdaAE0aJ">Run Code on GopherJS Playground</a></p>
-<div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span>
 
-<span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
-<span class="w">      </span><span class="s">&quot;fmt&quot;</span><span class="w"></span>
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span>
+<span class="w">      </span><span class="s">&quot;fmt&quot;</span>
 
-<span class="w">      </span><span class="s">&quot;github.com/gopherjs/gopherjs/js&quot;</span><span class="w"></span>
-<span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="s">&quot;github.com/gopherjs/gopherjs/js&quot;</span>
+<span class="p">)</span>
 
-<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">      </span><span class="nx">ws</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">js</span><span class="p">.</span><span class="nx">Global</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;WebSocket&quot;</span><span class="p">).</span><span class="nx">New</span><span class="p">(</span><span class="s">&quot;wss://echo.websocket.org&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">ws</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">js</span><span class="p">.</span><span class="nx">Global</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;WebSocket&quot;</span><span class="p">).</span><span class="nx">New</span><span class="p">(</span><span class="s">&quot;wss://echo.websocket.org&quot;</span><span class="p">)</span>
 
-<span class="w">      </span><span class="nx">ws</span><span class="p">.</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;addEventListener&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;open&quot;</span><span class="p">,</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="nx">e</span><span class="w"> </span><span class="o">*</span><span class="nx">js</span><span class="p">.</span><span class="nx">Object</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">              </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;Connection open ...&quot;</span><span class="p">)</span><span class="w"></span>
-<span class="w">              </span><span class="nx">ws</span><span class="p">.</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;send&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Hello WebSockets!&quot;</span><span class="p">)</span><span class="w"></span>
-<span class="w">      </span><span class="p">})</span><span class="w"></span>
+<span class="w">      </span><span class="nx">ws</span><span class="p">.</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;addEventListener&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;open&quot;</span><span class="p">,</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="nx">e</span><span class="w"> </span><span class="o">*</span><span class="nx">js</span><span class="p">.</span><span class="nx">Object</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">              </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;Connection open ...&quot;</span><span class="p">)</span>
+<span class="w">              </span><span class="nx">ws</span><span class="p">.</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;send&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Hello WebSockets!&quot;</span><span class="p">)</span>
+<span class="w">      </span><span class="p">})</span>
 
-<span class="w">      </span><span class="nx">ws</span><span class="p">.</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;addEventListener&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;message&quot;</span><span class="p">,</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="nx">e</span><span class="w"> </span><span class="o">*</span><span class="nx">js</span><span class="p">.</span><span class="nx">Object</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">              </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;Received Message: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">e</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;data&quot;</span><span class="p">).</span><span class="nx">String</span><span class="p">())</span><span class="w"></span>
-<span class="w">              </span><span class="nx">ws</span><span class="p">.</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;close&quot;</span><span class="p">)</span><span class="w"></span>
-<span class="w">      </span><span class="p">})</span><span class="w"></span>
+<span class="w">      </span><span class="nx">ws</span><span class="p">.</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;addEventListener&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;message&quot;</span><span class="p">,</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="nx">e</span><span class="w"> </span><span class="o">*</span><span class="nx">js</span><span class="p">.</span><span class="nx">Object</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">              </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;Received Message: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">e</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;data&quot;</span><span class="p">).</span><span class="nx">String</span><span class="p">())</span>
+<span class="w">              </span><span class="nx">ws</span><span class="p">.</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;close&quot;</span><span class="p">)</span>
+<span class="w">      </span><span class="p">})</span>
 
-<span class="w">      </span><span class="nx">ws</span><span class="p">.</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;addEventListener&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;close&quot;</span><span class="p">,</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="nx">e</span><span class="w"> </span><span class="o">*</span><span class="nx">js</span><span class="p">.</span><span class="nx">Object</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">              </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;Connection closed.&quot;</span><span class="p">)</span><span class="w"></span>
-<span class="w">      </span><span class="p">})</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">      </span><span class="nx">ws</span><span class="p">.</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;addEventListener&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;close&quot;</span><span class="p">,</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="nx">e</span><span class="w"> </span><span class="o">*</span><span class="nx">js</span><span class="p">.</span><span class="nx">Object</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">              </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;Connection closed.&quot;</span><span class="p">)</span>
+<span class="w">      </span><span class="p">})</span>
+<span class="p">}</span>
 </pre></div>
 <p>Console output:</p>
 <div class="highlight"><pre><span></span>Connection open ...

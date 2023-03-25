@@ -86,19 +86,19 @@ I have a lot of files under <em>content/articles</em> directory. The filenames a
 <span class="c1"># list-files-recursively-rename.sh</span>
 <span class="c1"># List All Files in Directory Recursively and Rename</span>
 
-<span class="nv">count</span><span class="o">=</span><span class="m">0</span> <span class="c1"># count the number of processed files</span>
+<span class="nv">count</span><span class="o">=</span><span class="m">0</span><span class="w"> </span><span class="c1"># count the number of processed files</span>
 
 <span class="c1"># list all files recursively</span>
-<span class="k">for</span> file <span class="k">in</span> <span class="k">$(</span>find content/articles -type f<span class="k">)</span>
+<span class="k">for</span><span class="w"> </span>file<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="k">$(</span>find<span class="w"> </span>content/articles<span class="w"> </span>-type<span class="w"> </span>f<span class="k">)</span>
 <span class="k">do</span>
-  <span class="c1"># rename the file by replacing # with %</span>
-  <span class="nv">new</span><span class="o">=</span><span class="sb">`</span><span class="nb">echo</span> <span class="nv">$file</span> <span class="p">|</span> sed <span class="s1">&#39;s/#/%/g&#39;</span><span class="sb">`</span>
-  <span class="k">if</span> <span class="o">[</span> <span class="nv">$file</span> !<span class="o">=</span> <span class="nv">$new</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
-    <span class="nv">count</span><span class="o">=</span><span class="k">$((</span><span class="nv">count</span><span class="o">+=</span><span class="m">1</span><span class="k">))</span>
-    <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$count</span><span class="s2"> . </span><span class="nv">$file</span><span class="s2"> =&gt; </span><span class="nv">$new</span><span class="s2">&quot;</span>
-    <span class="c1"># files are version controlled by Git, so use git mv</span>
-    git mv <span class="nv">$file</span> <span class="nv">$new</span>
-  <span class="k">fi</span>
+<span class="w">  </span><span class="c1"># rename the file by replacing # with %</span>
+<span class="w">  </span><span class="nv">new</span><span class="o">=</span><span class="sb">`</span><span class="nb">echo</span><span class="w"> </span><span class="nv">$file</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sed<span class="w"> </span><span class="s1">&#39;s/#/%/g&#39;</span><span class="sb">`</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="nv">$file</span><span class="w"> </span>!<span class="o">=</span><span class="w"> </span><span class="nv">$new</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span><span class="nv">count</span><span class="o">=</span><span class="k">$((</span><span class="nv">count</span><span class="o">+=</span><span class="m">1</span><span class="k">))</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$count</span><span class="s2"> . </span><span class="nv">$file</span><span class="s2"> =&gt; </span><span class="nv">$new</span><span class="s2">&quot;</span>
+<span class="w">    </span><span class="c1"># files are version controlled by Git, so use git mv</span>
+<span class="w">    </span>git<span class="w"> </span>mv<span class="w"> </span><span class="nv">$file</span><span class="w"> </span><span class="nv">$new</span>
+<span class="w">  </span><span class="k">fi</span>
 <span class="k">done</span>
 </pre></div></td></tr></table></div>
 </div></figure>

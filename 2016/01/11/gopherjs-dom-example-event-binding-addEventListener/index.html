@@ -63,8 +63,8 @@ simple example of <a class="reference external" href="https://developer.mozilla.
 <h2>Install <a class="reference external" href="http://www.gopherjs.org/">GopherJS</a> and <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model">DOM</a> bindings</h2>
 <p>Run the following command to install <a class="reference external" href="http://www.gopherjs.org/">GopherJS</a> and
 <a class="reference external" href="https://godoc.org/honnef.co/go/js/dom">GopherJS bindings for the JavaScript DOM APIs</a>:</p>
-<div class="highlight"><pre><span></span>$ go get -u github.com/gopherjs/gopherjs
-$ go get -u honnef.co/go/js/dom
+<div class="highlight"><pre><span></span>$<span class="w"> </span>go<span class="w"> </span>get<span class="w"> </span>-u<span class="w"> </span>github.com/gopherjs/gopherjs
+$<span class="w"> </span>go<span class="w"> </span>get<span class="w"> </span>-u<span class="w"> </span>honnef.co/go/js/dom
 </pre></div>
 </div>
 <div class="section" id="source-code">
@@ -119,26 +119,26 @@ be changed, and print a message on the browser console.</p>
 <span class="normal">11</span>
 <span class="normal">12</span>
 <span class="normal">13</span>
-<span class="normal">14</span></pre></div></td><td class="code"><div><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w"></span>
+<span class="normal">14</span></pre></div></td><td class="code"><div><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span>
 
-<span class="kn">import</span><span class="w"> </span><span class="s">&quot;honnef.co/go/js/dom&quot;</span><span class="w"></span>
+<span class="kn">import</span><span class="w"> </span><span class="s">&quot;honnef.co/go/js/dom&quot;</span>
 
-<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">	</span><span class="nx">d</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">dom</span><span class="p">.</span><span class="nx">GetWindow</span><span class="p">().</span><span class="nx">Document</span><span class="p">()</span><span class="w"></span>
-<span class="w">	</span><span class="nx">h</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">d</span><span class="p">.</span><span class="nx">GetElementByID</span><span class="p">(</span><span class="s">&quot;foo&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">	</span><span class="nx">d</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">dom</span><span class="p">.</span><span class="nx">GetWindow</span><span class="p">().</span><span class="nx">Document</span><span class="p">()</span>
+<span class="w">	</span><span class="nx">h</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">d</span><span class="p">.</span><span class="nx">GetElementByID</span><span class="p">(</span><span class="s">&quot;foo&quot;</span><span class="p">)</span>
 
-<span class="w">	</span><span class="nx">h</span><span class="p">.</span><span class="nx">AddEventListener</span><span class="p">(</span><span class="s">&quot;click&quot;</span><span class="p">,</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="nx">event</span><span class="w"> </span><span class="nx">dom</span><span class="p">.</span><span class="nx">Event</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">		</span><span class="nx">event</span><span class="p">.</span><span class="nx">PreventDefault</span><span class="p">()</span><span class="w"></span>
-<span class="w">		</span><span class="nx">h</span><span class="p">.</span><span class="nx">SetInnerHTML</span><span class="p">(</span><span class="s">&quot;I am Clicked&quot;</span><span class="p">)</span><span class="w"></span>
-<span class="w">		</span><span class="nb">println</span><span class="p">(</span><span class="s">&quot;This message is printed in browser console&quot;</span><span class="p">)</span><span class="w"></span>
-<span class="w">	</span><span class="p">})</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">	</span><span class="nx">h</span><span class="p">.</span><span class="nx">AddEventListener</span><span class="p">(</span><span class="s">&quot;click&quot;</span><span class="p">,</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="nx">event</span><span class="w"> </span><span class="nx">dom</span><span class="p">.</span><span class="nx">Event</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">		</span><span class="nx">event</span><span class="p">.</span><span class="nx">PreventDefault</span><span class="p">()</span>
+<span class="w">		</span><span class="nx">h</span><span class="p">.</span><span class="nx">SetInnerHTML</span><span class="p">(</span><span class="s">&quot;I am Clicked&quot;</span><span class="p">)</span>
+<span class="w">		</span><span class="nb">println</span><span class="p">(</span><span class="s">&quot;This message is printed in browser console&quot;</span><span class="p">)</span>
+<span class="w">	</span><span class="p">})</span>
+<span class="p">}</span>
 </pre></div></td></tr></table></div>
 </div></figure>
 <p>As the above code show, the event registration is almost the same as JavaScript
 counterpart. The <em>println</em> will print messages on browser console, which is the
 same as <em>console.log</em> in JavaScript. Now compile the <a class="reference external" href="https://golang.org/">Go</a> code to <a class="reference external" href="https://en.wikipedia.org/wiki/JavaScript">JavaScript</a> by:</p>
-<div class="highlight"><pre><span></span>$ gopherjs build bind.go -o demo.js
+<div class="highlight"><pre><span></span>$<span class="w"> </span>gopherjs<span class="w"> </span>build<span class="w"> </span>bind.go<span class="w"> </span>-o<span class="w"> </span>demo.js
 </pre></div>
 <p>Put <em>demo.js</em> together with the <em>index.html</em> in the same directory and open the
 <em>index.html</em> with your browser. You will see the text <tt class="docutils literal">Click Me</tt> in the

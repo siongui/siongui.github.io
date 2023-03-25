@@ -62,24 +62,24 @@ devices.</p>
 <a class="reference external" href="https://developer.android.com/studio/command-line/adb">adb</a> push to keep timestamp because the filesystem is changed from FUSE to
 SDCardFS.</p>
 <p>On Ubuntu system, it is easy to install adb: <a class="footnote-reference" href="#footnote-3" id="footnote-reference-2">[3]</a></p>
-<div class="highlight"><pre><span></span>$ sudo apt-get install android-tools-adb android-tools-fastboot
+<div class="highlight"><pre><span></span>$<span class="w"> </span>sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>android-tools-adb<span class="w"> </span>android-tools-fastboot
 </pre></div>
 <p>Enable USB Debugging on Google Pixel XL <a class="footnote-reference" href="#footnote-4" id="footnote-reference-3">[4]</a>. Open a terminal and use USB cable
 to connect your phone and Ubuntu machine. Allow USB debugging on your phone,
 in the Ubuntu terminal, we can see the Android device by:</p>
-<div class="highlight"><pre><span></span>$ adb devices
+<div class="highlight"><pre><span></span>$<span class="w"> </span>adb<span class="w"> </span>devices
 </pre></div>
 <p>You can see your phone in the list. Push the files to Android phone by:</p>
-<div class="highlight"><pre><span></span>$ adb push myfolder /sdcard/Download
+<div class="highlight"><pre><span></span>$<span class="w"> </span>adb<span class="w"> </span>push<span class="w"> </span>myfolder<span class="w"> </span>/sdcard/Download
 </pre></div>
 <p>After pushing files finished, we can use adb shell to check the files on Android
 phone:</p>
 <div class="highlight"><pre><span></span><span class="c1"># Login to Android shell</span>
-$ adb shell
+$<span class="w"> </span>adb<span class="w"> </span>shell
 <span class="c1"># Go to the Download folder</span>
-$ <span class="nb">cd</span> /sdcard/Download
+$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>/sdcard/Download
 <span class="c1"># See the timestamp of files</span>
-$ ls -al
+$<span class="w"> </span>ls<span class="w"> </span>-al
 </pre></div>
 <p>If you are running Android 10 on Google Pixel XL, you can see the timestamp of
 files is preserved after the push!</p>

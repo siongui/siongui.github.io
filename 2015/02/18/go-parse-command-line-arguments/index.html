@@ -74,47 +74,47 @@ command-line arguments in <a class="reference external" href="https://golang.org
 <span class="normal">11</span>
 <span class="normal">12</span>
 <span class="normal">13</span>
-<span class="normal">14</span></pre></div></td><td class="code"><div><pre><span></span><span class="c1">// http://golang.org/pkg/flag/</span><span class="w"></span>
-<span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w"></span>
+<span class="normal">14</span></pre></div></td><td class="code"><div><pre><span></span><span class="c1">// http://golang.org/pkg/flag/</span>
+<span class="kn">package</span><span class="w"> </span><span class="nx">main</span>
 
-<span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
-<span class="w">	</span><span class="s">&quot;flag&quot;</span><span class="w"></span>
-<span class="w">	</span><span class="s">&quot;fmt&quot;</span><span class="w"></span>
-<span class="p">)</span><span class="w"></span>
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span>
+<span class="w">	</span><span class="s">&quot;flag&quot;</span>
+<span class="w">	</span><span class="s">&quot;fmt&quot;</span>
+<span class="p">)</span>
 
-<span class="kd">var</span><span class="w"> </span><span class="nx">isProductonServer</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">flag</span><span class="p">.</span><span class="nx">Bool</span><span class="p">(</span><span class="s">&quot;production&quot;</span><span class="p">,</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;if run in production mode&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">isProductonServer</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">flag</span><span class="p">.</span><span class="nx">Bool</span><span class="p">(</span><span class="s">&quot;production&quot;</span><span class="p">,</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;if run in production mode&quot;</span><span class="p">)</span>
 
-<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">	</span><span class="nx">flag</span><span class="p">.</span><span class="nx">Parse</span><span class="p">()</span><span class="w"></span>
-<span class="w">	</span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;Production Mode:&quot;</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="nx">isProductonServer</span><span class="p">)</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">	</span><span class="nx">flag</span><span class="p">.</span><span class="nx">Parse</span><span class="p">()</span>
+<span class="w">	</span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;Production Mode:&quot;</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="nx">isProductonServer</span><span class="p">)</span>
+<span class="p">}</span>
 </pre></div></td></tr></table></div>
 </div></figure><p>In the example we define a boolean flag <em>production</em>, which indicates whether
 the program runs in production mode. The default value is <em>false</em>, and the usage
 string is <cite>if run in production mode</cite>.</p>
 
 <p>Now we build our program <cite>cmd.go</cite> by:</p>
-<div class="highlight"><pre><span></span>$ go build cmd.go
+<div class="highlight"><pre><span></span>$<span class="w"> </span>go<span class="w"> </span>build<span class="w"> </span>cmd.go
 </pre></div>
 <p>A binary program named <tt class="docutils literal">cmd</tt> will be under the same directory. Try to run the
 binary without arguments:</p>
-<div class="highlight"><pre><span></span>$ ./cmd
-Production Mode: <span class="nb">false</span>
+<div class="highlight"><pre><span></span>$<span class="w"> </span>./cmd
+Production<span class="w"> </span>Mode:<span class="w"> </span><span class="nb">false</span>
 </pre></div>
 <p>Next run the binary with <cite>-production=true</cite>:</p>
-<div class="highlight"><pre><span></span>$ ./cmd -production<span class="o">=</span><span class="nb">true</span>
-Production Mode: <span class="nb">true</span>
+<div class="highlight"><pre><span></span>$<span class="w"> </span>./cmd<span class="w"> </span>-production<span class="o">=</span><span class="nb">true</span>
+Production<span class="w"> </span>Mode:<span class="w"> </span><span class="nb">true</span>
 </pre></div>
 
 <p>We can also read usage of the program by:</p>
-<div class="highlight"><pre><span></span>$ ./cmd -h
-Usage of ./cmd:
-  -production<span class="o">=</span>false: <span class="k">if</span> run <span class="k">in</span> production mode
+<div class="highlight"><pre><span></span>$<span class="w"> </span>./cmd<span class="w"> </span>-h
+Usage<span class="w"> </span>of<span class="w"> </span>./cmd:
+<span class="w">  </span>-production<span class="o">=</span>false:<span class="w"> </span><span class="k">if</span><span class="w"> </span>run<span class="w"> </span><span class="k">in</span><span class="w"> </span>production<span class="w"> </span>mode
 </pre></div>
 <p>You can also read usage by <cite>--help</cite>:</p>
-<div class="highlight"><pre><span></span>$ ./cmd --help
-Usage of ./cmd:
-  -production<span class="o">=</span>false: <span class="k">if</span> run <span class="k">in</span> production mode
+<div class="highlight"><pre><span></span>$<span class="w"> </span>./cmd<span class="w"> </span>--help
+Usage<span class="w"> </span>of<span class="w"> </span>./cmd:
+<span class="w">  </span>-production<span class="o">=</span>false:<span class="w"> </span><span class="k">if</span><span class="w"> </span>run<span class="w"> </span><span class="k">in</span><span class="w"> </span>production<span class="w"> </span>mode
 </pre></div>
 <p>There is another example for reading argument as <em>string</em>. See <a class="footnote-reference" href="#footnote-3" id="footnote-reference-1">[3]</a>.</p>
 <p>Source code tested on: <tt class="docutils literal">Ubuntu Linux 14.10</tt>, <tt class="docutils literal">Go 1.4</tt>.</p>

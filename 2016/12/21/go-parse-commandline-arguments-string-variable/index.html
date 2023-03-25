@@ -76,18 +76,18 @@
 <span class="normal">15</span></pre></div></td><td class="code"><div><pre><span></span><span class="c"># cannot use relative path in GOROOT, otherwise 6g not found. For example,</span>
 <span class="c">#   export GOROOT=../go  (=&gt; 6g not found)</span>
 <span class="c"># it is also not allowed to use relative path in GOPATH</span>
-<span class="k">export </span><span class="nv">GOROOT</span><span class="o">=</span><span class="k">$(</span>realpath ../go<span class="k">)</span>
-<span class="k">export </span><span class="nv">GOPATH</span><span class="o">=</span><span class="k">$(</span>realpath .<span class="k">)</span>
-<span class="k">export </span><span class="nv">PATH</span> <span class="o">:=</span> <span class="k">$(</span>GOROOT<span class="k">)</span>/bin:<span class="k">$(</span>GOPATH<span class="k">)</span>/bin:<span class="k">$(</span>PATH<span class="k">)</span>
+<span class="k">export </span><span class="nv">GOROOT</span><span class="o">=</span><span class="k">$(</span>realpath<span class="w"> </span>../go<span class="k">)</span>
+<span class="k">export </span><span class="nv">GOPATH</span><span class="o">=</span><span class="k">$(</span>realpath<span class="w"> </span>.<span class="k">)</span>
+<span class="k">export </span><span class="nv">PATH</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">$(</span>GOROOT<span class="k">)</span>/bin:<span class="k">$(</span>GOPATH<span class="k">)</span>/bin:<span class="k">$(</span>PATH<span class="k">)</span>
 
 
 <span class="nv">INPUT</span><span class="o">=</span>abc
 
-<span class="nf">default</span><span class="o">:</span> <span class="n">fmt</span>
-	@go run demo.go -input<span class="o">=</span><span class="k">$(</span>INPUT<span class="k">)</span>
+<span class="nf">default</span><span class="o">:</span><span class="w"> </span><span class="n">fmt</span>
+<span class="w">	</span>@go<span class="w"> </span>run<span class="w"> </span>demo.go<span class="w"> </span>-input<span class="o">=</span><span class="k">$(</span>INPUT<span class="k">)</span>
 
 <span class="nf">fmt</span><span class="o">:</span>
-	@go fmt demo.go
+<span class="w">	</span>@go<span class="w"> </span>fmt<span class="w"> </span>demo.go
 </pre></div></td></tr></table></div>
 </div></figure>
 <figure class="github-file">
@@ -107,18 +107,18 @@
 <span class="normal"> 9</span>
 <span class="normal">10</span>
 <span class="normal">11</span>
-<span class="normal">12</span></pre></div></td><td class="code"><div><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w"></span>
+<span class="normal">12</span></pre></div></td><td class="code"><div><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span>
 
-<span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
-<span class="w">	</span><span class="s">&quot;flag&quot;</span><span class="w"></span>
-<span class="w">	</span><span class="s">&quot;fmt&quot;</span><span class="w"></span>
-<span class="p">)</span><span class="w"></span>
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span>
+<span class="w">	</span><span class="s">&quot;flag&quot;</span>
+<span class="w">	</span><span class="s">&quot;fmt&quot;</span>
+<span class="p">)</span>
 
-<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">	</span><span class="nx">arg</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">flag</span><span class="p">.</span><span class="nx">String</span><span class="p">(</span><span class="s">&quot;input&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;defaultValue&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Command line argument&quot;</span><span class="p">)</span><span class="w"></span>
-<span class="w">	</span><span class="nx">flag</span><span class="p">.</span><span class="nx">Parse</span><span class="p">()</span><span class="w"></span>
-<span class="w">	</span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="o">*</span><span class="nx">arg</span><span class="p">)</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">	</span><span class="nx">arg</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">flag</span><span class="p">.</span><span class="nx">String</span><span class="p">(</span><span class="s">&quot;input&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;defaultValue&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Command line argument&quot;</span><span class="p">)</span>
+<span class="w">	</span><span class="nx">flag</span><span class="p">.</span><span class="nx">Parse</span><span class="p">()</span>
+<span class="w">	</span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="o">*</span><span class="nx">arg</span><span class="p">)</span>
+<span class="p">}</span>
 </pre></div></td></tr></table></div>
 </div></figure><p>Don't forget to call <a class="reference external" href="https://golang.org/pkg/flag/#Parse">flag.Parse()</a> in your code. If you do, your variable will
 always be default value.</p>

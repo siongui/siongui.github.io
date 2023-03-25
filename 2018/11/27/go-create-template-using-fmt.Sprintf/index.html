@@ -58,23 +58,23 @@ But for short pieces of templates, I think <a class="reference external" href="h
 <p>For example, I want to create <a class="reference external" href="http://docutils.sourceforge.net/docs/ref/rst/directives.html#images">reStructuredText image</a> code template according
 to image url. We can use <a class="reference external" href="https://golang.org/pkg/fmt/#Sprintf">fmt.Sprintf</a> as follows:</p>
 <p class="align-center rubric"><a class="reference external" href="https://play.golang.org/p/IPrz4EgskEJ">Run Code on Go Playground</a></p>
-<div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span>
 
-<span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
-<span class="w">      </span><span class="s">&quot;fmt&quot;</span><span class="w"></span>
-<span class="p">)</span><span class="w"></span>
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span>
+<span class="w">      </span><span class="s">&quot;fmt&quot;</span>
+<span class="p">)</span>
 
-<span class="kd">func</span><span class="w"> </span><span class="nx">rstImage</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span><span class="w"> </span><span class="nx">alt</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">      </span><span class="nx">rst</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w"></span>
-<span class="w">      </span><span class="nx">rst</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Sprintf</span><span class="p">(</span><span class="s">&quot;.. image:: %s\n&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">url</span><span class="p">)</span><span class="w"></span>
-<span class="w">      </span><span class="nx">rst</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Sprintf</span><span class="p">(</span><span class="s">&quot;   :alt: %s\n&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">alt</span><span class="p">)</span><span class="w"></span>
-<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="nx">rst</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">rstImage</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span><span class="w"> </span><span class="nx">alt</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">rst</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="s">&quot;&quot;</span>
+<span class="w">      </span><span class="nx">rst</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Sprintf</span><span class="p">(</span><span class="s">&quot;.. image:: %s\n&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">url</span><span class="p">)</span>
+<span class="w">      </span><span class="nx">rst</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Sprintf</span><span class="p">(</span><span class="s">&quot;   :alt: %s\n&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">alt</span><span class="p">)</span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="nx">rst</span>
+<span class="p">}</span>
 
-<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">      </span><span class="nx">rstimg</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">rstImage</span><span class="p">(</span><span class="s">&quot;https://golang.org/doc/gopher/pencil/gopherswrench.jpg&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;gopherswrench&quot;</span><span class="p">)</span><span class="w"></span>
-<span class="w">      </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">rstimg</span><span class="p">)</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">rstimg</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">rstImage</span><span class="p">(</span><span class="s">&quot;https://golang.org/doc/gopher/pencil/gopherswrench.jpg&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;gopherswrench&quot;</span><span class="p">)</span>
+<span class="w">      </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">rstimg</span><span class="p">)</span>
+<span class="p">}</span>
 </pre></div>
 <p>As you can see, the code is still easy to read and modify, without the need to
 define struct for the standard templating packages.</p>

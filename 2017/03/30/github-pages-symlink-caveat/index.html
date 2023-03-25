@@ -59,9 +59,9 @@ name that the symlink references to.</p>
 <div class="highlight"><pre><span></span>/browse/s/sacca
 </pre></div>
 <p>I want this url linked to <tt class="docutils literal">/</tt>, so I make a symlink as follows:</p>
-<div class="highlight"><pre><span></span>$ <span class="nb">cd</span> <span class="o">{{</span>root of websit<span class="o">}}</span>
-$ mkdir -p browse/s/
-$ ln -sf ../../index.html browse/s/sacca
+<div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span><span class="o">{{</span>root<span class="w"> </span>of<span class="w"> </span>websit<span class="o">}}</span>
+$<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span>browse/s/
+$<span class="w"> </span>ln<span class="w"> </span>-sf<span class="w"> </span>../../index.html<span class="w"> </span>browse/s/sacca
 </pre></div>
 <p>But this does not work as expected. When I open <tt class="docutils literal">/browse/s/sacca</tt>, my browser
 downloads the file instead of rendering it as HTML, because the <em>Content-Type</em>
@@ -70,9 +70,9 @@ is not <tt class="docutils literal">text/html</tt>.</p>
 <div class="highlight"><pre><span></span>/browse/s/sacca/
 </pre></div>
 <p>And make symlink as follows:</p>
-<div class="highlight"><pre><span></span>$ <span class="nb">cd</span> <span class="o">{{</span>root of websit<span class="o">}}</span>
-$ mkdir -p browse/s/sacca/
-$ ln -sf ../../../index.html browse/s/sacca/index.html
+<div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span><span class="o">{{</span>root<span class="w"> </span>of<span class="w"> </span>websit<span class="o">}}</span>
+$<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span>browse/s/sacca/
+$<span class="w"> </span>ln<span class="w"> </span>-sf<span class="w"> </span>../../../index.html<span class="w"> </span>browse/s/sacca/index.html
 </pre></div>
 <p>I open <tt class="docutils literal">/browse/s/sacca/</tt>, and my browser renders it as HTML!</p>
 

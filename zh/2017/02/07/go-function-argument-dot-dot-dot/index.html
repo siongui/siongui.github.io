@@ -55,12 +55,12 @@
     <div class="main-content"><p><a class="reference external" href="https://golang.org/">Go語言</a> 函數參數(<a class="reference external" href="https://www.google.com/search?q=function+argument">function argument</a>) 點點點(...)意義是，此函數可以傳入零個，
 一個，或多個參數，此函數稱為 <a class="reference external" href="https://zh.wikipedia.org/wiki/%E5%8F%AF%E8%AE%8A%E5%8F%83%E6%95%B8%E5%87%BD%E6%95%B8">可變參數函數</a> (<a class="reference external" href="https://en.wikipedia.org/wiki/Variadic_function">variadic function</a>)。</p>
 <p>舉例來說，假設有一個函數：</p>
-<div class="highlight"><pre><span></span><span class="kd">func</span><span class="w"> </span><span class="nx">giveMeString</span><span class="p">(</span><span class="nx">s</span><span class="w"> </span><span class="o">...</span><span class="kt">string</span><span class="p">)</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="kd">func</span><span class="w"> </span><span class="nx">giveMeString</span><span class="p">(</span><span class="nx">s</span><span class="w"> </span><span class="o">...</span><span class="kt">string</span><span class="p">)</span>
 </pre></div>
 <p>則我們在呼叫此函數時，可以這樣呼叫：</p>
-<div class="highlight"><pre><span></span><span class="nx">giveMeString</span><span class="p">()</span><span class="w"></span>
-<span class="nx">giveMeString</span><span class="p">(</span><span class="s">&quot;hello&quot;</span><span class="p">)</span><span class="w"></span>
-<span class="nx">giveMeString</span><span class="p">(</span><span class="s">&quot;hello&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;world&quot;</span><span class="p">)</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="nx">giveMeString</span><span class="p">()</span>
+<span class="nx">giveMeString</span><span class="p">(</span><span class="s">&quot;hello&quot;</span><span class="p">)</span>
+<span class="nx">giveMeString</span><span class="p">(</span><span class="s">&quot;hello&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;world&quot;</span><span class="p">)</span>
 </pre></div>
 <p>以上呼叫函數的方式皆可，再多傳幾個 <em>string</em> 型態的參數都可以。
 在Go語言標準函式庫裡，最有名的例子是 <a class="reference external" href="https://golang.org/pkg/fmt/#Printf">fmt.Printf</a> ，相信大家都有用過。</p>
@@ -71,11 +71,11 @@
 <p>延續上面的例子，假設有一個 <em>[]string</em> 型態的變數想要傳入上面的函數，
 該怎樣做呢？</p>
 <p>比方說：</p>
-<div class="highlight"><pre><span></span><span class="nx">s</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&quot;hello&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;world&quot;</span><span class="p">}</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="nx">s</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&quot;hello&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;world&quot;</span><span class="p">}</span>
 </pre></div>
 <p>上面這個變數該如何傳入呢？ 答案：</p>
-<div class="highlight"><pre><span></span><span class="nx">s</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&quot;hello&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;world&quot;</span><span class="p">}</span><span class="w"></span>
-<span class="nx">giveMeString</span><span class="p">(</span><span class="nx">s</span><span class="o">...</span><span class="p">)</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="nx">s</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&quot;hello&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;world&quot;</span><span class="p">}</span>
+<span class="nx">giveMeString</span><span class="p">(</span><span class="nx">s</span><span class="o">...</span><span class="p">)</span>
 </pre></div>
 <p>在變數名稱後一樣加三個點就可以傳入。</p>
 

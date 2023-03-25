@@ -116,59 +116,59 @@
 <span class="normal">50</span>
 <span class="normal">51</span>
 <span class="normal">52</span>
-<span class="normal">53</span></pre></div></td><td class="code"><div><pre><span></span><span class="c1">// http://www.tutorialspoint.com/rss/what-is-atom.htm</span><span class="w"></span>
-<span class="c1">// http://stackoverflow.com/questions/16309944/atom-to-rss-feeds-converter</span><span class="w"></span>
-<span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w"></span>
+<span class="normal">53</span></pre></div></td><td class="code"><div><pre><span></span><span class="c1">// http://www.tutorialspoint.com/rss/what-is-atom.htm</span>
+<span class="c1">// http://stackoverflow.com/questions/16309944/atom-to-rss-feeds-converter</span>
+<span class="kn">package</span><span class="w"> </span><span class="nx">main</span>
 
-<span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
-<span class="w">	</span><span class="s">&quot;io/ioutil&quot;</span><span class="w"></span>
-<span class="w">	</span><span class="s">&quot;encoding/xml&quot;</span><span class="w"></span>
-<span class="w">	</span><span class="s">&quot;fmt&quot;</span><span class="w"></span>
-<span class="p">)</span><span class="w"></span>
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span>
+<span class="w">	</span><span class="s">&quot;io/ioutil&quot;</span>
+<span class="w">	</span><span class="s">&quot;encoding/xml&quot;</span>
+<span class="w">	</span><span class="s">&quot;fmt&quot;</span>
+<span class="p">)</span>
 
 
-<span class="c1">// http://en.wikipedia.org/wiki/Atom_%28standard%29</span><span class="w"></span>
-<span class="c1">// http://golang.org/src/pkg/encoding/xml/</span><span class="w"></span>
-<span class="kd">type</span><span class="w"> </span><span class="nx">Atom1</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">	</span><span class="nx">XMLName</span><span class="w">		</span><span class="nx">xml</span><span class="p">.</span><span class="nx">Name</span><span class="w">	</span><span class="s">`xml:&quot;http://www.w3.org/2005/Atom feed&quot;`</span><span class="w"></span>
-<span class="w">	</span><span class="nx">Title</span><span class="w">		</span><span class="kt">string</span><span class="w">		</span><span class="s">`xml:&quot;title&quot;`</span><span class="w"></span>
-<span class="w">	</span><span class="nx">Subtitle</span><span class="w">	</span><span class="kt">string</span><span class="w">		</span><span class="s">`xml:&quot;subtitle&quot;`</span><span class="w"></span>
-<span class="w">	</span><span class="nx">Id</span><span class="w">		</span><span class="kt">string</span><span class="w">		</span><span class="s">`xml:&quot;id&quot;`</span><span class="w"></span>
-<span class="w">	</span><span class="nx">Updated</span><span class="w">		</span><span class="kt">string</span><span class="w">		</span><span class="s">`xml:&quot;updated&quot;`</span><span class="w"></span>
-<span class="w">	</span><span class="nx">Rights</span><span class="w">		</span><span class="kt">string</span><span class="w">		</span><span class="s">`xml:&quot;rights&quot;`</span><span class="w"></span>
-<span class="w">	</span><span class="nx">Link</span><span class="w">		</span><span class="nx">Link</span><span class="w">		</span><span class="s">`xml:&quot;link&quot;`</span><span class="w"></span>
-<span class="w">	</span><span class="nx">Author</span><span class="w">		</span><span class="nx">Author</span><span class="w">		</span><span class="s">`xml:&quot;author&quot;`</span><span class="w"></span>
-<span class="w">	</span><span class="nx">EntryList</span><span class="w">	</span><span class="p">[]</span><span class="nx">Entry</span><span class="w">		</span><span class="s">`xml:&quot;entry&quot;`</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="c1">// http://en.wikipedia.org/wiki/Atom_%28standard%29</span>
+<span class="c1">// http://golang.org/src/pkg/encoding/xml/</span>
+<span class="kd">type</span><span class="w"> </span><span class="nx">Atom1</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">	</span><span class="nx">XMLName</span><span class="w">		</span><span class="nx">xml</span><span class="p">.</span><span class="nx">Name</span><span class="w">	</span><span class="s">`xml:&quot;http://www.w3.org/2005/Atom feed&quot;`</span>
+<span class="w">	</span><span class="nx">Title</span><span class="w">		</span><span class="kt">string</span><span class="w">		</span><span class="s">`xml:&quot;title&quot;`</span>
+<span class="w">	</span><span class="nx">Subtitle</span><span class="w">	</span><span class="kt">string</span><span class="w">		</span><span class="s">`xml:&quot;subtitle&quot;`</span>
+<span class="w">	</span><span class="nx">Id</span><span class="w">		</span><span class="kt">string</span><span class="w">		</span><span class="s">`xml:&quot;id&quot;`</span>
+<span class="w">	</span><span class="nx">Updated</span><span class="w">		</span><span class="kt">string</span><span class="w">		</span><span class="s">`xml:&quot;updated&quot;`</span>
+<span class="w">	</span><span class="nx">Rights</span><span class="w">		</span><span class="kt">string</span><span class="w">		</span><span class="s">`xml:&quot;rights&quot;`</span>
+<span class="w">	</span><span class="nx">Link</span><span class="w">		</span><span class="nx">Link</span><span class="w">		</span><span class="s">`xml:&quot;link&quot;`</span>
+<span class="w">	</span><span class="nx">Author</span><span class="w">		</span><span class="nx">Author</span><span class="w">		</span><span class="s">`xml:&quot;author&quot;`</span>
+<span class="w">	</span><span class="nx">EntryList</span><span class="w">	</span><span class="p">[]</span><span class="nx">Entry</span><span class="w">		</span><span class="s">`xml:&quot;entry&quot;`</span>
+<span class="p">}</span>
 
-<span class="kd">type</span><span class="w"> </span><span class="nx">Link</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">	</span><span class="nx">Href</span><span class="w">		</span><span class="kt">string</span><span class="w">		</span><span class="s">`xml:&quot;href,attr&quot;`</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="kd">type</span><span class="w"> </span><span class="nx">Link</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">	</span><span class="nx">Href</span><span class="w">		</span><span class="kt">string</span><span class="w">		</span><span class="s">`xml:&quot;href,attr&quot;`</span>
+<span class="p">}</span>
 
-<span class="kd">type</span><span class="w"> </span><span class="nx">Author</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">	</span><span class="nx">Name</span><span class="w">		</span><span class="kt">string</span><span class="w">		</span><span class="s">`xml:&quot;name&quot;`</span><span class="w"></span>
-<span class="w">	</span><span class="nx">Email</span><span class="w">		</span><span class="kt">string</span><span class="w">		</span><span class="s">`xml:&quot;email&quot;`</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="kd">type</span><span class="w"> </span><span class="nx">Author</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">	</span><span class="nx">Name</span><span class="w">		</span><span class="kt">string</span><span class="w">		</span><span class="s">`xml:&quot;name&quot;`</span>
+<span class="w">	</span><span class="nx">Email</span><span class="w">		</span><span class="kt">string</span><span class="w">		</span><span class="s">`xml:&quot;email&quot;`</span>
+<span class="p">}</span>
 
-<span class="kd">type</span><span class="w"> </span><span class="nx">Entry</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">	</span><span class="nx">Title</span><span class="w">		</span><span class="kt">string</span><span class="w">		</span><span class="s">`xml:&quot;title&quot;`</span><span class="w"></span>
-<span class="w">	</span><span class="nx">Summary</span><span class="w">		</span><span class="kt">string</span><span class="w">		</span><span class="s">`xml:&quot;summary&quot;`</span><span class="w"></span>
-<span class="w">	</span><span class="nx">Content</span><span class="w">		</span><span class="kt">string</span><span class="w">		</span><span class="s">`xml:&quot;content&quot;`</span><span class="w"></span>
-<span class="w">	</span><span class="nx">Id</span><span class="w">		</span><span class="kt">string</span><span class="w">		</span><span class="s">`xml:&quot;id&quot;`</span><span class="w"></span>
-<span class="w">	</span><span class="nx">Updated</span><span class="w">		</span><span class="kt">string</span><span class="w">		</span><span class="s">`xml:&quot;updated&quot;`</span><span class="w"></span>
-<span class="w">	</span><span class="nx">Link</span><span class="w">		</span><span class="nx">Link</span><span class="w">		</span><span class="s">`xml:&quot;link&quot;`</span><span class="w"></span>
-<span class="w">	</span><span class="nx">Author</span><span class="w">		</span><span class="nx">Author</span><span class="w">		</span><span class="s">`xml:&quot;author&quot;`</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="kd">type</span><span class="w"> </span><span class="nx">Entry</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">	</span><span class="nx">Title</span><span class="w">		</span><span class="kt">string</span><span class="w">		</span><span class="s">`xml:&quot;title&quot;`</span>
+<span class="w">	</span><span class="nx">Summary</span><span class="w">		</span><span class="kt">string</span><span class="w">		</span><span class="s">`xml:&quot;summary&quot;`</span>
+<span class="w">	</span><span class="nx">Content</span><span class="w">		</span><span class="kt">string</span><span class="w">		</span><span class="s">`xml:&quot;content&quot;`</span>
+<span class="w">	</span><span class="nx">Id</span><span class="w">		</span><span class="kt">string</span><span class="w">		</span><span class="s">`xml:&quot;id&quot;`</span>
+<span class="w">	</span><span class="nx">Updated</span><span class="w">		</span><span class="kt">string</span><span class="w">		</span><span class="s">`xml:&quot;updated&quot;`</span>
+<span class="w">	</span><span class="nx">Link</span><span class="w">		</span><span class="nx">Link</span><span class="w">		</span><span class="s">`xml:&quot;link&quot;`</span>
+<span class="w">	</span><span class="nx">Author</span><span class="w">		</span><span class="nx">Author</span><span class="w">		</span><span class="s">`xml:&quot;author&quot;`</span>
+<span class="p">}</span>
 
-<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">	</span><span class="nx">a</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">Atom1</span><span class="p">{}</span><span class="w"></span>
-<span class="w">	</span><span class="nx">xmlContent</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">ioutil</span><span class="p">.</span><span class="nx">ReadFile</span><span class="p">(</span><span class="s">&quot;example-7.xml&quot;</span><span class="p">)</span><span class="w"></span>
-<span class="w">	</span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">xml</span><span class="p">.</span><span class="nx">Unmarshal</span><span class="p">(</span><span class="nx">xmlContent</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">a</span><span class="p">)</span><span class="w"></span>
-<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
-<span class="w">	</span><span class="k">for</span><span class="w"> </span><span class="nx">_</span><span class="p">,</span><span class="w"> </span><span class="nx">entry</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="nx">a</span><span class="p">.</span><span class="nx">EntryList</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">		</span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">entry</span><span class="p">)</span><span class="w"></span>
-<span class="w">	</span><span class="p">}</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">	</span><span class="nx">a</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">Atom1</span><span class="p">{}</span>
+<span class="w">	</span><span class="nx">xmlContent</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">ioutil</span><span class="p">.</span><span class="nx">ReadFile</span><span class="p">(</span><span class="s">&quot;example-7.xml&quot;</span><span class="p">)</span>
+<span class="w">	</span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">xml</span><span class="p">.</span><span class="nx">Unmarshal</span><span class="p">(</span><span class="nx">xmlContent</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">a</span><span class="p">)</span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
+<span class="w">	</span><span class="k">for</span><span class="w"> </span><span class="nx">_</span><span class="p">,</span><span class="w"> </span><span class="nx">entry</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="nx">a</span><span class="p">.</span><span class="nx">EntryList</span><span class="w"> </span><span class="p">{</span>
+<span class="w">		</span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">entry</span><span class="p">)</span>
+<span class="w">	</span><span class="p">}</span>
+<span class="p">}</span>
 </pre></div></td></tr></table></div>
 </div></figure>
 <p>Tested on: <tt class="docutils literal">Ubuntu Linux 14.10</tt>, <tt class="docutils literal">Go 1.4</tt>.</p>

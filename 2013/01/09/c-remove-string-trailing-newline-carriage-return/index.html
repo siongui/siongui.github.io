@@ -69,16 +69,16 @@ string in <a class="reference external" href="https://www.google.com/search?q=C+
 <span class="normal"> 7</span>
 <span class="normal"> 8</span>
 <span class="normal"> 9</span>
-<span class="normal">10</span></pre></div></td><td class="code"><div><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;string.h&gt;</span><span class="cp"></span>
+<span class="normal">10</span></pre></div></td><td class="code"><div><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;string.h&gt;</span>
 
-<span class="kt">void</span><span class="w"> </span><span class="nf">removeStringTrailingNewline</span><span class="p">(</span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">str</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">str</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">NULL</span><span class="p">)</span><span class="w"></span>
-<span class="w">    </span><span class="k">return</span><span class="p">;</span><span class="w"></span>
-<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">length</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">strlen</span><span class="p">(</span><span class="n">str</span><span class="p">);</span><span class="w"></span>
-<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">str</span><span class="p">[</span><span class="n">length</span><span class="mi">-1</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="sc">&#39;\n&#39;</span><span class="p">)</span><span class="w"></span>
-<span class="w">    </span><span class="n">str</span><span class="p">[</span><span class="n">length</span><span class="mi">-1</span><span class="p">]</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="sc">&#39;\0&#39;</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">removeStringTrailingNewline</span><span class="p">(</span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">str</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">str</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">NULL</span><span class="p">)</span>
+<span class="w">    </span><span class="k">return</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">length</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">strlen</span><span class="p">(</span><span class="n">str</span><span class="p">);</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">str</span><span class="p">[</span><span class="n">length</span><span class="mi">-1</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="sc">&#39;\n&#39;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">str</span><span class="p">[</span><span class="n">length</span><span class="mi">-1</span><span class="p">]</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="sc">&#39;\0&#39;</span><span class="p">;</span>
+<span class="p">}</span>
 </pre></div></td></tr></table></div>
 </div></figure>
 <p>The following test code shows how to use above function:</p>
@@ -98,17 +98,17 @@ string in <a class="reference external" href="https://www.google.com/search?q=C+
 <span class="normal"> 8</span>
 <span class="normal"> 9</span>
 <span class="normal">10</span>
-<span class="normal">11</span></pre></div></td><td class="code"><div><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;string.h&gt;</span><span class="cp"></span>
+<span class="normal">11</span></pre></div></td><td class="code"><div><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;string.h&gt;</span>
 
-<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">argv</span><span class="p">[])</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="kt">char</span><span class="w"> </span><span class="n">ptr</span><span class="p">[</span><span class="mi">100</span><span class="p">];</span><span class="w"></span>
-<span class="w">  </span><span class="n">strcpy</span><span class="p">(</span><span class="n">ptr</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;abcd</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span><span class="w"></span>
-<span class="w">  </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%s&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">ptr</span><span class="p">);</span><span class="w"></span>
-<span class="w">  </span><span class="n">removeStringTrailingNewline</span><span class="p">(</span><span class="n">ptr</span><span class="p">);</span><span class="w"></span>
-<span class="w">  </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%s&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">ptr</span><span class="p">);</span><span class="w"></span>
-<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">argv</span><span class="p">[])</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kt">char</span><span class="w"> </span><span class="n">ptr</span><span class="p">[</span><span class="mi">100</span><span class="p">];</span>
+<span class="w">  </span><span class="n">strcpy</span><span class="p">(</span><span class="n">ptr</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;abcd</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="w">  </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%s&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">ptr</span><span class="p">);</span>
+<span class="w">  </span><span class="n">removeStringTrailingNewline</span><span class="p">(</span><span class="n">ptr</span><span class="p">);</span>
+<span class="w">  </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%s&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">ptr</span><span class="p">);</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
 </pre></div></td></tr></table></div>
 </div></figure>
 <p><a class="reference external" href="https://www.google.com/search?q=Makefile">Makefile</a> for building above code:</p>
@@ -132,21 +132,21 @@ string in <a class="reference external" href="https://www.google.com/search?q=C+
 <span class="normal">12</span>
 <span class="normal">13</span></pre></div></td><td class="code"><div><pre><span></span><span class="nv">CC</span><span class="o">=</span>gcc
 
-<span class="nf">main</span><span class="o">:</span> <span class="n">func</span> <span class="n">test</span>
-	<span class="k">$(</span>CC<span class="k">)</span> -o main remove-string-trailing-newline.o test-remove-string-trailing-newline.o
+<span class="nf">main</span><span class="o">:</span><span class="w"> </span><span class="n">func</span> <span class="n">test</span>
+<span class="w">	</span><span class="k">$(</span>CC<span class="k">)</span><span class="w"> </span>-o<span class="w"> </span>main<span class="w"> </span>remove-string-trailing-newline.o<span class="w"> </span>test-remove-string-trailing-newline.o
 
-<span class="nf">func</span><span class="o">:</span> <span class="n">remove</span>-<span class="n">string</span>-<span class="n">trailing</span>-<span class="n">newline</span>.<span class="n">c</span>
-	<span class="k">$(</span>CC<span class="k">)</span> -c remove-string-trailing-newline.c
+<span class="nf">func</span><span class="o">:</span><span class="w"> </span><span class="n">remove</span>-<span class="n">string</span>-<span class="n">trailing</span>-<span class="n">newline</span>.<span class="n">c</span>
+<span class="w">	</span><span class="k">$(</span>CC<span class="k">)</span><span class="w"> </span>-c<span class="w"> </span>remove-string-trailing-newline.c
 
-<span class="nf">test</span><span class="o">:</span> <span class="n">test</span>-<span class="n">remove</span>-<span class="n">string</span>-<span class="n">trailing</span>-<span class="n">newline</span>.<span class="n">c</span>
-	<span class="k">$(</span>CC<span class="k">)</span> -c test-remove-string-trailing-newline.c
+<span class="nf">test</span><span class="o">:</span><span class="w"> </span><span class="n">test</span>-<span class="n">remove</span>-<span class="n">string</span>-<span class="n">trailing</span>-<span class="n">newline</span>.<span class="n">c</span>
+<span class="w">	</span><span class="k">$(</span>CC<span class="k">)</span><span class="w"> </span>-c<span class="w"> </span>test-remove-string-trailing-newline.c
 
 <span class="nf">clean</span><span class="o">:</span>
-	rm *.o main
+<span class="w">	</span>rm<span class="w"> </span>*.o<span class="w"> </span>main
 </pre></div></td></tr></table></div>
 </div></figure><p>Run <strong>make</strong> to build the executable <tt class="docutils literal">main</tt>. Then run the executable <tt class="docutils literal">main</tt>
 in your terminal and the output will be like:</p>
-<div class="highlight"><pre><span></span>$ ./main
+<div class="highlight"><pre><span></span>$<span class="w"> </span>./main
 abcd
 abcd$
 </pre></div>

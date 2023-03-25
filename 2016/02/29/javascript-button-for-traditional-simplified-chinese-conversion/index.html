@@ -60,15 +60,15 @@
 <div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;zh-convert&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;zh-convert&quot;</span> <span class="na">data-zh</span><span class="o">=</span><span class="s">&quot;tw&quot;</span><span class="p">&gt;</span>简体<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
 </pre></div>
 <p><em>SCSS</em></p>
-<div class="highlight"><pre><span></span><span class="nc">.zh-convert</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="k">&amp;</span><span class="nd">:hover</span><span class="w"> </span><span class="p">{</span><span class="nt">cursor</span><span class="nd">:</span><span class="w"> </span><span class="nt">pointer</span><span class="o">;</span><span class="p">}</span><span class="w"></span>
-<span class="w">  </span><span class="nt">float</span><span class="nd">:</span><span class="w"> </span><span class="nt">right</span><span class="o">;</span><span class="w"></span>
-<span class="w">  </span><span class="nt">margin-right</span><span class="nd">:</span><span class="w"> </span><span class="nt">3px</span><span class="o">;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="nc">.zh-convert</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">&amp;</span><span class="nd">:hover</span><span class="w"> </span><span class="p">{</span><span class="nt">cursor</span><span class="nd">:</span><span class="w"> </span><span class="nt">pointer</span><span class="o">;</span><span class="p">}</span>
+<span class="w">  </span><span class="nt">float</span><span class="nd">:</span><span class="w"> </span><span class="nt">right</span><span class="o">;</span>
+<span class="w">  </span><span class="nt">margin-right</span><span class="nd">:</span><span class="w"> </span><span class="nt">3px</span><span class="o">;</span>
 
-<span class="w">  </span><span class="nt">padding</span><span class="nd">:</span><span class="w"> </span><span class="nt">5px</span><span class="w"> </span><span class="nt">5px</span><span class="o">;</span><span class="w"></span>
-<span class="w">  </span><span class="nt">background</span><span class="nd">:</span><span class="w"> </span><span class="nn">#fff</span><span class="o">;</span><span class="w"></span>
-<span class="w">  </span><span class="nt">border-radius</span><span class="nd">:</span><span class="w"> </span><span class="nt">4px</span><span class="o">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">  </span><span class="nt">padding</span><span class="nd">:</span><span class="w"> </span><span class="nt">5px</span><span class="w"> </span><span class="nt">5px</span><span class="o">;</span>
+<span class="w">  </span><span class="nt">background</span><span class="nd">:</span><span class="w"> </span><span class="nn">#fff</span><span class="o">;</span>
+<span class="w">  </span><span class="nt">border-radius</span><span class="nd">:</span><span class="w"> </span><span class="nt">4px</span><span class="o">;</span>
+<span class="p">}</span>
 </pre></div>
 
 <p>We need <a class="reference external" href="http://tongwen.openfoundry.org/">New Tong Wen Tang</a>
@@ -86,18 +86,18 @@ Chinese.
 When users click on <tt class="docutils literal">繁體</tt>, the whole website will be converted to Traditional
 Chinese.</p>
 <p><em>JavaScript</em></p>
-<div class="highlight"><pre><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">zhconvert</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;zh-convert&quot;</span><span class="p">);</span><span class="w"></span>
-<span class="nx">zhconvert</span><span class="p">.</span><span class="nx">onclick</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">zhconvert</span><span class="p">.</span><span class="nx">dataset</span><span class="p">.</span><span class="nx">zh</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;tw&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nx">TongWen</span><span class="p">.</span><span class="nx">trans2Simp</span><span class="p">(</span><span class="nb">document</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="nx">zhconvert</span><span class="p">.</span><span class="nx">dataset</span><span class="p">.</span><span class="nx">zh</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;cn&quot;</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="nx">zhconvert</span><span class="p">.</span><span class="nx">textContent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;繁體&quot;</span><span class="p">;},</span><span class="w"> </span><span class="mf">500</span><span class="p">);</span><span class="w"></span>
-<span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nx">TongWen</span><span class="p">.</span><span class="nx">trans2Trad</span><span class="p">(</span><span class="nb">document</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="nx">zhconvert</span><span class="p">.</span><span class="nx">dataset</span><span class="p">.</span><span class="nx">zh</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;tw&quot;</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="nx">zhconvert</span><span class="p">.</span><span class="nx">textContent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;简体&quot;</span><span class="p">;},</span><span class="w"> </span><span class="mf">500</span><span class="p">);</span><span class="w"></span>
-<span class="w">  </span><span class="p">}</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">zhconvert</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;zh-convert&quot;</span><span class="p">);</span>
+<span class="nx">zhconvert</span><span class="p">.</span><span class="nx">onclick</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">zhconvert</span><span class="p">.</span><span class="nx">dataset</span><span class="p">.</span><span class="nx">zh</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;tw&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">TongWen</span><span class="p">.</span><span class="nx">trans2Simp</span><span class="p">(</span><span class="nb">document</span><span class="p">);</span>
+<span class="w">    </span><span class="nx">zhconvert</span><span class="p">.</span><span class="nx">dataset</span><span class="p">.</span><span class="nx">zh</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;cn&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="nx">zhconvert</span><span class="p">.</span><span class="nx">textContent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;繁體&quot;</span><span class="p">;},</span><span class="w"> </span><span class="mf">500</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">TongWen</span><span class="p">.</span><span class="nx">trans2Trad</span><span class="p">(</span><span class="nb">document</span><span class="p">);</span>
+<span class="w">    </span><span class="nx">zhconvert</span><span class="p">.</span><span class="nx">dataset</span><span class="p">.</span><span class="nx">zh</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;tw&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="nx">zhconvert</span><span class="p">.</span><span class="nx">textContent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;简体&quot;</span><span class="p">;},</span><span class="w"> </span><span class="mf">500</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 
 <hr class="docutils" />

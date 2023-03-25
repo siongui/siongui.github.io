@@ -62,25 +62,25 @@ found out the solution.</p>
 <p>To load and run compiled Go wasm module, we need a JavaScript loader provided in
 Go source. We can copy the JavaScript loader to current directory by the
 following shell command:</p>
-<div class="highlight"><pre><span></span>$ cp <span class="s2">&quot;</span><span class="k">$(</span>go env GOROOT<span class="k">)</span><span class="s2">/misc/wasm/wasm_exec.js&quot;</span> .
+<div class="highlight"><pre><span></span>$<span class="w"> </span>cp<span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span>go<span class="w"> </span>env<span class="w"> </span>GOROOT<span class="k">)</span><span class="s2">/misc/wasm/wasm_exec.js&quot;</span><span class="w"> </span>.
 </pre></div>
 <p>You can also download <em>wasm_exec.js</em> from <a class="reference external" href="https://github.com/golang/go/blob/master/misc/wasm/wasm_exec.js">Go GitHub repo</a>.</p>
 <p>Next, put <em>wasm_exec.js</em>, compiled Go wasm module (assume the name of the module
 is <em>mymodule.wasm</em>) and HTML file in the same directory. Insert the following
 code in the HTML file.</p>
 <div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;wasm_exec.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span><span class="w"></span>
-<span class="w">      </span><span class="kd">const</span><span class="w"> </span><span class="nx">go</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Go</span><span class="p">();</span><span class="w"></span>
-<span class="w">      </span><span class="kd">let</span><span class="w"> </span><span class="nx">mod</span><span class="p">,</span><span class="w"> </span><span class="nx">inst</span><span class="p">;</span><span class="w"></span>
-<span class="w">      </span><span class="nx">WebAssembly</span><span class="p">.</span><span class="nx">instantiateStreaming</span><span class="p">(</span><span class="w"></span>
-<span class="w">              </span><span class="nx">fetch</span><span class="p">(</span><span class="s2">&quot;mymodule.wasm&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="nx">cache</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;no-cache&#39;</span><span class="p">}),</span><span class="w"> </span><span class="nx">go</span><span class="p">.</span><span class="nx">importObject</span><span class="p">).</span><span class="nx">then</span><span class="p">((</span><span class="nx">result</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">              </span><span class="nx">mod</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">result</span><span class="p">.</span><span class="nx">module</span><span class="p">;</span><span class="w"></span>
-<span class="w">              </span><span class="nx">inst</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">result</span><span class="p">.</span><span class="nx">instance</span><span class="p">;</span><span class="w"></span>
-<span class="w">              </span><span class="nx">run</span><span class="p">();</span><span class="w"></span>
-<span class="w">      </span><span class="p">});</span><span class="w"></span>
-<span class="w">      </span><span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">run</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">              </span><span class="k">await</span><span class="w"> </span><span class="nx">go</span><span class="p">.</span><span class="nx">run</span><span class="p">(</span><span class="nx">inst</span><span class="p">);</span><span class="w"></span>
-<span class="w">      </span><span class="p">};</span><span class="w"></span>
+<span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="w">      </span><span class="kd">const</span><span class="w"> </span><span class="nx">go</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Go</span><span class="p">();</span>
+<span class="w">      </span><span class="kd">let</span><span class="w"> </span><span class="nx">mod</span><span class="p">,</span><span class="w"> </span><span class="nx">inst</span><span class="p">;</span>
+<span class="w">      </span><span class="nx">WebAssembly</span><span class="p">.</span><span class="nx">instantiateStreaming</span><span class="p">(</span>
+<span class="w">              </span><span class="nx">fetch</span><span class="p">(</span><span class="s2">&quot;mymodule.wasm&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="nx">cache</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;no-cache&#39;</span><span class="p">}),</span><span class="w"> </span><span class="nx">go</span><span class="p">.</span><span class="nx">importObject</span><span class="p">).</span><span class="nx">then</span><span class="p">((</span><span class="nx">result</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">              </span><span class="nx">mod</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">result</span><span class="p">.</span><span class="nx">module</span><span class="p">;</span>
+<span class="w">              </span><span class="nx">inst</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">result</span><span class="p">.</span><span class="nx">instance</span><span class="p">;</span>
+<span class="w">              </span><span class="nx">run</span><span class="p">();</span>
+<span class="w">      </span><span class="p">});</span>
+<span class="w">      </span><span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">run</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">              </span><span class="k">await</span><span class="w"> </span><span class="nx">go</span><span class="p">.</span><span class="nx">run</span><span class="p">(</span><span class="nx">inst</span><span class="p">);</span>
+<span class="w">      </span><span class="p">};</span>
 <span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 </pre></div>
 <p>Open the HTML with your browser and now you will see Go wasm code loaded and

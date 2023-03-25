@@ -55,33 +55,33 @@
     <div class="main-content"><p><em>[Update]: This issue has been fixed by package maintainer now.</em></p>
 <p>When I upgrade Ubuntu Linux from 16.04 to 16.10, the <a class="reference external" href="http://opencc.byvoid.com/">OpenCC</a> version jump from
 0.4.3 to 1.0.4. It is ok to install OpenCC:</p>
-<div class="highlight"><pre><span></span>$ sudo apt-get update
-$ apt-cache search opencc
-libopencc-dbg - simplified-traditional chinese conversion library - debug
-libopencc-dev - simplified-traditional Chinese conversion library - development
-libopencc2 - simplified-traditional Chinese conversion library - runtime
-libopencc2-data - simplified-traditional Chinese conversion library - data files
-opencc - simplified-traditional Chinese conversion tool
-$ sudo apt-get install opencc
+<div class="highlight"><pre><span></span>$<span class="w"> </span>sudo<span class="w"> </span>apt-get<span class="w"> </span>update
+$<span class="w"> </span>apt-cache<span class="w"> </span>search<span class="w"> </span>opencc
+libopencc-dbg<span class="w"> </span>-<span class="w"> </span>simplified-traditional<span class="w"> </span>chinese<span class="w"> </span>conversion<span class="w"> </span>library<span class="w"> </span>-<span class="w"> </span>debug
+libopencc-dev<span class="w"> </span>-<span class="w"> </span>simplified-traditional<span class="w"> </span>Chinese<span class="w"> </span>conversion<span class="w"> </span>library<span class="w"> </span>-<span class="w"> </span>development
+libopencc2<span class="w"> </span>-<span class="w"> </span>simplified-traditional<span class="w"> </span>Chinese<span class="w"> </span>conversion<span class="w"> </span>library<span class="w"> </span>-<span class="w"> </span>runtime
+libopencc2-data<span class="w"> </span>-<span class="w"> </span>simplified-traditional<span class="w"> </span>Chinese<span class="w"> </span>conversion<span class="w"> </span>library<span class="w"> </span>-<span class="w"> </span>data<span class="w"> </span>files
+opencc<span class="w"> </span>-<span class="w"> </span>simplified-traditional<span class="w"> </span>Chinese<span class="w"> </span>conversion<span class="w"> </span>tool
+$<span class="w"> </span>sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>opencc
 </pre></div>
 <p>Then I tried to install <tt class="docutils literal"><span class="pre">libopencc-dev</span></tt> to compile <em>OpenCC Go binding/wrapper</em>
 <a class="footnote-reference" href="#footnote-2" id="footnote-reference-1">[2]</a>, I got the following error message:</p>
-<div class="highlight"><pre><span></span>$ sudo apt-get install libopencc-dev
+<div class="highlight"><pre><span></span>$<span class="w"> </span>sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>libopencc-dev
 ...
-The following packages have unmet dependencies:
- libopencc-dev : Depends: libopencc2 <span class="o">(=</span> <span class="m">1</span>.0.4-1ubuntu0.16.10.1<span class="o">)</span> but it is not going to be installed
+The<span class="w"> </span>following<span class="w"> </span>packages<span class="w"> </span>have<span class="w"> </span>unmet<span class="w"> </span>dependencies:
+<span class="w"> </span>libopencc-dev<span class="w"> </span>:<span class="w"> </span>Depends:<span class="w"> </span>libopencc2<span class="w"> </span><span class="o">(=</span><span class="w"> </span><span class="m">1</span>.0.4-1ubuntu0.16.10.1<span class="o">)</span><span class="w"> </span>but<span class="w"> </span>it<span class="w"> </span>is<span class="w"> </span>not<span class="w"> </span>going<span class="w"> </span>to<span class="w"> </span>be<span class="w"> </span>installed
 </pre></div>
 
 <p>After some googling, I manually download and install <tt class="docutils literal"><span class="pre">libopencc-dev</span></tt>:</p>
-<div class="highlight"><pre><span></span>$ wget https://launchpad.net/ubuntu/+archive/primary/+files/libopencc-dev_1.0.4-1ubuntu0.16.10.1_amd64.deb
-$ sudo dpkg -i libopencc-dev_1.0.4-1ubuntu0.16.10.1_amd64.deb
+<div class="highlight"><pre><span></span>$<span class="w"> </span>wget<span class="w"> </span>https://launchpad.net/ubuntu/+archive/primary/+files/libopencc-dev_1.0.4-1ubuntu0.16.10.1_amd64.deb
+$<span class="w"> </span>sudo<span class="w"> </span>dpkg<span class="w"> </span>-i<span class="w"> </span>libopencc-dev_1.0.4-1ubuntu0.16.10.1_amd64.deb
 </pre></div>
 <p>And finally I successfully compile the <em>OpenCC Go binding/wrapper</em>:</p>
-<div class="highlight"><pre><span></span>$ go get -u github.com/stevenyao/go-opencc
+<div class="highlight"><pre><span></span>$<span class="w"> </span>go<span class="w"> </span>get<span class="w"> </span>-u<span class="w"> </span>github.com/stevenyao/go-opencc
 </pre></div>
 <p>But after you finish to use the <em>OpenCC Go binding/wrapper</em>, remove
 <tt class="docutils literal"><span class="pre">libopencc-dev</span></tt> manually:</p>
-<div class="highlight"><pre><span></span>$ sudo dpkg -r libopencc-dev
+<div class="highlight"><pre><span></span>$<span class="w"> </span>sudo<span class="w"> </span>dpkg<span class="w"> </span>-r<span class="w"> </span>libopencc-dev
 </pre></div>
 <p>If you keep <tt class="docutils literal"><span class="pre">libopencc-dev</span></tt>, you cannot use <tt class="docutils literal"><span class="pre">apt-get</span></tt> to update and upgrade
 your system.</p>

@@ -62,29 +62,29 @@ current active tab.</p>
 <li><a class="reference external" href="https://github.com/siongui/godom">godom</a>: <a class="reference external" href="https://www.google.com/search?q=DOM+manipulation">DOM manipulation</a> in Go.</li>
 </ul>
 <p>Install the packages:</p>
-<div class="highlight"><pre><span></span>$ go get -u github.com/gopherjs/gopherjs
-$ go get -u github.com/fabioberger/chrome
-$ go get -u github.com/siongui/godom
+<div class="highlight"><pre><span></span>$<span class="w"> </span>go<span class="w"> </span>get<span class="w"> </span>-u<span class="w"> </span>github.com/gopherjs/gopherjs
+$<span class="w"> </span>go<span class="w"> </span>get<span class="w"> </span>-u<span class="w"> </span>github.com/fabioberger/chrome
+$<span class="w"> </span>go<span class="w"> </span>get<span class="w"> </span>-u<span class="w"> </span>github.com/siongui/godom
 </pre></div>
 <p>To build the extension, we need three files: <tt class="docutils literal">manifest.json</tt>, <tt class="docutils literal">popup.go</tt>,
 <tt class="docutils literal">popup.html</tt>. We will explain one by one.</p>
 <hr class="docutils" />
 <p><strong>manifest.json</strong>:</p>
-<div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="nt">&quot;manifest_version&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;manifest_version&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span>
 
-<span class="w">  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;tab url&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">  </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;print url of current active tab&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">  </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0.1&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;tab url&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;print url of current active tab&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0.1&quot;</span><span class="p">,</span>
 
-<span class="w">  </span><span class="nt">&quot;browser_action&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;default_title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;tab url&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;default_popup&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;popup.html&quot;</span><span class="w"></span>
-<span class="w">  </span><span class="p">},</span><span class="w"></span>
-<span class="w">  </span><span class="nt">&quot;permissions&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
-<span class="w">    </span><span class="s2">&quot;tabs&quot;</span><span class="w"></span>
-<span class="w">  </span><span class="p">]</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;browser_action&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;default_title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;tab url&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;default_popup&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;popup.html&quot;</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;permissions&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="s2">&quot;tabs&quot;</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
 </pre></div>
 <p>This <a class="reference external" href="https://developer.chrome.com/extensions/manifest">manifest json</a> tells Chrome the information of our extension.</p>
 <p>The above manifest says that when users click on the icon of our extension, a
@@ -99,32 +99,32 @@ information of Chrome tabs.</p>
 the tab URL here via <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/API/Document/write">document.write</a> method.</p>
 <hr class="docutils" />
 <p><strong>popup.go</strong>: compiled to <em>popup.js</em> via GopherJS.</p>
-<div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span>
 
-<span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
-<span class="w">      </span><span class="s">&quot;github.com/fabioberger/chrome&quot;</span><span class="w"></span>
-<span class="w">      </span><span class="p">.</span><span class="w"> </span><span class="s">&quot;github.com/siongui/godom&quot;</span><span class="w"></span>
-<span class="p">)</span><span class="w"></span>
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span>
+<span class="w">      </span><span class="s">&quot;github.com/fabioberger/chrome&quot;</span>
+<span class="w">      </span><span class="p">.</span><span class="w"> </span><span class="s">&quot;github.com/siongui/godom&quot;</span>
+<span class="p">)</span>
 
-<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">      </span><span class="nx">c</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">chrome</span><span class="p">.</span><span class="nx">NewChrome</span><span class="p">()</span><span class="w"></span>
-<span class="w">      </span><span class="nx">queryInfo</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">chrome</span><span class="p">.</span><span class="nx">Object</span><span class="p">{</span><span class="w"></span>
-<span class="w">              </span><span class="s">&quot;active&quot;</span><span class="p">:</span><span class="w">        </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
-<span class="w">              </span><span class="s">&quot;currentWindow&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
-<span class="w">      </span><span class="p">}</span><span class="w"></span>
-<span class="w">      </span><span class="nx">c</span><span class="p">.</span><span class="nx">Tabs</span><span class="p">.</span><span class="nx">Query</span><span class="p">(</span><span class="nx">queryInfo</span><span class="p">,</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="nx">tabs</span><span class="w"> </span><span class="p">[]</span><span class="nx">chrome</span><span class="p">.</span><span class="nx">Tab</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">              </span><span class="nx">tab</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">tabs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"></span>
-<span class="w">              </span><span class="nx">Document</span><span class="p">.</span><span class="nx">Write</span><span class="p">(</span><span class="nx">tab</span><span class="p">.</span><span class="nx">Url</span><span class="p">)</span><span class="w"></span>
-<span class="w">      </span><span class="p">})</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">c</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">chrome</span><span class="p">.</span><span class="nx">NewChrome</span><span class="p">()</span>
+<span class="w">      </span><span class="nx">queryInfo</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">chrome</span><span class="p">.</span><span class="nx">Object</span><span class="p">{</span>
+<span class="w">              </span><span class="s">&quot;active&quot;</span><span class="p">:</span><span class="w">        </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">              </span><span class="s">&quot;currentWindow&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">      </span><span class="nx">c</span><span class="p">.</span><span class="nx">Tabs</span><span class="p">.</span><span class="nx">Query</span><span class="p">(</span><span class="nx">queryInfo</span><span class="p">,</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="nx">tabs</span><span class="w"> </span><span class="p">[]</span><span class="nx">chrome</span><span class="p">.</span><span class="nx">Tab</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">              </span><span class="nx">tab</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">tabs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="w">              </span><span class="nx">Document</span><span class="p">.</span><span class="nx">Write</span><span class="p">(</span><span class="nx">tab</span><span class="p">.</span><span class="nx">Url</span><span class="p">)</span>
+<span class="w">      </span><span class="p">})</span>
+<span class="p">}</span>
 </pre></div>
 <p>The above code gets the current active tab, and then print the URL of the tab
 via <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/API/Document/write">document.write</a> method.</p>
 <p>The above Go code is equivalent to the following JavaScript code:</p>
-<div class="highlight"><pre><span></span><span class="nx">chrome</span><span class="p">.</span><span class="nx">tabs</span><span class="p">.</span><span class="nx">query</span><span class="p">({</span><span class="s1">&#39;active&#39;</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;currentWindow&#39;</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">},</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">(</span><span class="nx">tabs</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">tab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">tabs</span><span class="p">[</span><span class="mf">0</span><span class="p">];</span><span class="w"></span>
-<span class="w">    </span><span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="nx">tab</span><span class="p">.</span><span class="nx">url</span><span class="p">);</span><span class="w"></span>
-<span class="p">});</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="nx">chrome</span><span class="p">.</span><span class="nx">tabs</span><span class="p">.</span><span class="nx">query</span><span class="p">({</span><span class="s1">&#39;active&#39;</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;currentWindow&#39;</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">},</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">(</span><span class="nx">tabs</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">tab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">tabs</span><span class="p">[</span><span class="mf">0</span><span class="p">];</span>
+<span class="w">    </span><span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="nx">tab</span><span class="p">.</span><span class="nx">url</span><span class="p">);</span>
+<span class="p">});</span>
 </pre></div>
 <p>The full code example, including JavaScript counterpart, of this post is
 <a class="reference external" href="https://github.com/siongui/frontend-programming-in-go/tree/master/025-tab-url-chrome-extension">on my GitHub</a>.</p>

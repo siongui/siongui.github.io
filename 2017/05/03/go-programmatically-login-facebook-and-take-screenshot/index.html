@@ -60,10 +60,10 @@ to programmatically login a website before <a class="footnote-reference" href="#
 <em>chromedp</em> package to login Facebook and take screenshot programmatically.</p>
 <p>Install Go <em>chromedp</em> package for programmatically drive the browser and
 simulate human user actions:</p>
-<div class="highlight"><pre><span></span>$ go get -u github.com/knq/chromedp
+<div class="highlight"><pre><span></span>$<span class="w"> </span>go<span class="w"> </span>get<span class="w"> </span>-u<span class="w"> </span>github.com/knq/chromedp
 </pre></div>
 <p>Install Go package for read password from console <a class="footnote-reference" href="#footnote-5" id="footnote-reference-5">[5]</a>:</p>
-<div class="highlight"><pre><span></span>$ go get -u golang.org/x/crypto/ssh/terminal
+<div class="highlight"><pre><span></span>$<span class="w"> </span>go<span class="w"> </span>get<span class="w"> </span>-u<span class="w"> </span>golang.org/x/crypto/ssh/terminal
 </pre></div>
 <p><strong>Login Facebook and Take Screenshot</strong>:</p>
 <figure class="github-file">
@@ -153,88 +153,88 @@ simulate human user actions:</p>
 <span class="normal">79</span>
 <span class="normal">80</span>
 <span class="normal">81</span>
-<span class="normal">82</span></pre></div></td><td class="code"><div><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w"></span>
+<span class="normal">82</span></pre></div></td><td class="code"><div><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span>
 
-<span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
-<span class="w">	</span><span class="s">&quot;context&quot;</span><span class="w"></span>
-<span class="w">	</span><span class="s">&quot;fmt&quot;</span><span class="w"></span>
-<span class="w">	</span><span class="s">&quot;io/ioutil&quot;</span><span class="w"></span>
-<span class="w">	</span><span class="s">&quot;log&quot;</span><span class="w"></span>
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span>
+<span class="w">	</span><span class="s">&quot;context&quot;</span>
+<span class="w">	</span><span class="s">&quot;fmt&quot;</span>
+<span class="w">	</span><span class="s">&quot;io/ioutil&quot;</span>
+<span class="w">	</span><span class="s">&quot;log&quot;</span>
 
-<span class="w">	</span><span class="nx">cdp</span><span class="w"> </span><span class="s">&quot;github.com/knq/chromedp&quot;</span><span class="w"></span>
-<span class="w">	</span><span class="nx">cdptypes</span><span class="w"> </span><span class="s">&quot;github.com/knq/chromedp/cdp&quot;</span><span class="w"></span>
+<span class="w">	</span><span class="nx">cdp</span><span class="w"> </span><span class="s">&quot;github.com/knq/chromedp&quot;</span>
+<span class="w">	</span><span class="nx">cdptypes</span><span class="w"> </span><span class="s">&quot;github.com/knq/chromedp/cdp&quot;</span>
 
-<span class="w">	</span><span class="s">&quot;golang.org/x/crypto/ssh/terminal&quot;</span><span class="w"></span>
-<span class="w">	</span><span class="s">&quot;syscall&quot;</span><span class="w"></span>
-<span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="s">&quot;golang.org/x/crypto/ssh/terminal&quot;</span>
+<span class="w">	</span><span class="s">&quot;syscall&quot;</span>
+<span class="p">)</span>
 
-<span class="kd">func</span><span class="w"> </span><span class="nx">getCredentials</span><span class="p">()</span><span class="w"> </span><span class="p">(</span><span class="nx">u</span><span class="p">,</span><span class="w"> </span><span class="nx">p</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">	</span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Print</span><span class="p">(</span><span class="s">&quot;Username: &quot;</span><span class="p">)</span><span class="w"></span>
-<span class="w">	</span><span class="nx">_</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Scan</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">u</span><span class="p">)</span><span class="w"></span>
-<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">		</span><span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"></span>
-<span class="w">	</span><span class="p">}</span><span class="w"></span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">getCredentials</span><span class="p">()</span><span class="w"> </span><span class="p">(</span><span class="nx">u</span><span class="p">,</span><span class="w"> </span><span class="nx">p</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">	</span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Print</span><span class="p">(</span><span class="s">&quot;Username: &quot;</span><span class="p">)</span>
+<span class="w">	</span><span class="nx">_</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Scan</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">u</span><span class="p">)</span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">		</span><span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+<span class="w">	</span><span class="p">}</span>
 
-<span class="w">	</span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Print</span><span class="p">(</span><span class="s">&quot;Password: &quot;</span><span class="p">)</span><span class="w"></span>
-<span class="w">	</span><span class="nx">password</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">terminal</span><span class="p">.</span><span class="nx">ReadPassword</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="nx">syscall</span><span class="p">.</span><span class="nx">Stdin</span><span class="p">))</span><span class="w"></span>
-<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">		</span><span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"></span>
-<span class="w">	</span><span class="p">}</span><span class="w"></span>
-<span class="w">	</span><span class="nx">p</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">string</span><span class="p">(</span><span class="nx">password</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Print</span><span class="p">(</span><span class="s">&quot;Password: &quot;</span><span class="p">)</span>
+<span class="w">	</span><span class="nx">password</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">terminal</span><span class="p">.</span><span class="nx">ReadPassword</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="nx">syscall</span><span class="p">.</span><span class="nx">Stdin</span><span class="p">))</span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">		</span><span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+<span class="w">	</span><span class="p">}</span>
+<span class="w">	</span><span class="nx">p</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">string</span><span class="p">(</span><span class="nx">password</span><span class="p">)</span>
 
-<span class="w">	</span><span class="k">return</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">	</span><span class="k">return</span>
+<span class="p">}</span>
 
-<span class="kd">func</span><span class="w"> </span><span class="nx">facebookLogin</span><span class="p">(</span><span class="nx">username</span><span class="p">,</span><span class="w"> </span><span class="nx">password</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="nx">cdp</span><span class="p">.</span><span class="nx">Tasks</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">	</span><span class="nx">selname</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="s">`//input[@id=&quot;email&quot;]`</span><span class="w"></span>
-<span class="w">	</span><span class="nx">selpass</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="s">`//input[@id=&quot;pass&quot;]`</span><span class="w"></span>
-<span class="w">	</span><span class="kd">var</span><span class="w"> </span><span class="nx">buf</span><span class="w"> </span><span class="p">[]</span><span class="kt">byte</span><span class="w"></span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">facebookLogin</span><span class="p">(</span><span class="nx">username</span><span class="p">,</span><span class="w"> </span><span class="nx">password</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="nx">cdp</span><span class="p">.</span><span class="nx">Tasks</span><span class="w"> </span><span class="p">{</span>
+<span class="w">	</span><span class="nx">selname</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="s">`//input[@id=&quot;email&quot;]`</span>
+<span class="w">	</span><span class="nx">selpass</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="s">`//input[@id=&quot;pass&quot;]`</span>
+<span class="w">	</span><span class="kd">var</span><span class="w"> </span><span class="nx">buf</span><span class="w"> </span><span class="p">[]</span><span class="kt">byte</span>
 
-<span class="w">	</span><span class="k">return</span><span class="w"> </span><span class="nx">cdp</span><span class="p">.</span><span class="nx">Tasks</span><span class="p">{</span><span class="w"></span>
-<span class="w">		</span><span class="nx">cdp</span><span class="p">.</span><span class="nx">Navigate</span><span class="p">(</span><span class="s">`https://www.facebook.com`</span><span class="p">),</span><span class="w"></span>
-<span class="w">		</span><span class="nx">cdp</span><span class="p">.</span><span class="nx">WaitVisible</span><span class="p">(</span><span class="nx">selpass</span><span class="p">),</span><span class="w"></span>
-<span class="w">		</span><span class="nx">cdp</span><span class="p">.</span><span class="nx">SendKeys</span><span class="p">(</span><span class="nx">selname</span><span class="p">,</span><span class="w"> </span><span class="nx">username</span><span class="p">),</span><span class="w"></span>
-<span class="w">		</span><span class="nx">cdp</span><span class="p">.</span><span class="nx">SendKeys</span><span class="p">(</span><span class="nx">selpass</span><span class="p">,</span><span class="w"> </span><span class="nx">password</span><span class="p">),</span><span class="w"></span>
-<span class="w">		</span><span class="nx">cdp</span><span class="p">.</span><span class="nx">Submit</span><span class="p">(</span><span class="nx">selpass</span><span class="p">),</span><span class="w"></span>
-<span class="w">		</span><span class="nx">cdp</span><span class="p">.</span><span class="nx">WaitVisible</span><span class="p">(</span><span class="s">`//a[@title=&quot;Profile&quot;]`</span><span class="p">),</span><span class="w"></span>
-<span class="w">		</span><span class="nx">cdp</span><span class="p">.</span><span class="nx">CaptureScreenshot</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">buf</span><span class="p">),</span><span class="w"></span>
-<span class="w">		</span><span class="nx">cdp</span><span class="p">.</span><span class="nx">ActionFunc</span><span class="p">(</span><span class="kd">func</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span><span class="w"> </span><span class="nx">cdptypes</span><span class="p">.</span><span class="nx">Handler</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">			</span><span class="k">return</span><span class="w"> </span><span class="nx">ioutil</span><span class="p">.</span><span class="nx">WriteFile</span><span class="p">(</span><span class="s">&quot;myfb.png&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">buf</span><span class="p">,</span><span class="w"> </span><span class="mo">0644</span><span class="p">)</span><span class="w"></span>
-<span class="w">		</span><span class="p">}),</span><span class="w"></span>
-<span class="w">	</span><span class="p">}</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">	</span><span class="k">return</span><span class="w"> </span><span class="nx">cdp</span><span class="p">.</span><span class="nx">Tasks</span><span class="p">{</span>
+<span class="w">		</span><span class="nx">cdp</span><span class="p">.</span><span class="nx">Navigate</span><span class="p">(</span><span class="s">`https://www.facebook.com`</span><span class="p">),</span>
+<span class="w">		</span><span class="nx">cdp</span><span class="p">.</span><span class="nx">WaitVisible</span><span class="p">(</span><span class="nx">selpass</span><span class="p">),</span>
+<span class="w">		</span><span class="nx">cdp</span><span class="p">.</span><span class="nx">SendKeys</span><span class="p">(</span><span class="nx">selname</span><span class="p">,</span><span class="w"> </span><span class="nx">username</span><span class="p">),</span>
+<span class="w">		</span><span class="nx">cdp</span><span class="p">.</span><span class="nx">SendKeys</span><span class="p">(</span><span class="nx">selpass</span><span class="p">,</span><span class="w"> </span><span class="nx">password</span><span class="p">),</span>
+<span class="w">		</span><span class="nx">cdp</span><span class="p">.</span><span class="nx">Submit</span><span class="p">(</span><span class="nx">selpass</span><span class="p">),</span>
+<span class="w">		</span><span class="nx">cdp</span><span class="p">.</span><span class="nx">WaitVisible</span><span class="p">(</span><span class="s">`//a[@title=&quot;Profile&quot;]`</span><span class="p">),</span>
+<span class="w">		</span><span class="nx">cdp</span><span class="p">.</span><span class="nx">CaptureScreenshot</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">buf</span><span class="p">),</span>
+<span class="w">		</span><span class="nx">cdp</span><span class="p">.</span><span class="nx">ActionFunc</span><span class="p">(</span><span class="kd">func</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span><span class="w"> </span><span class="nx">cdptypes</span><span class="p">.</span><span class="nx">Handler</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span><span class="w"> </span><span class="p">{</span>
+<span class="w">			</span><span class="k">return</span><span class="w"> </span><span class="nx">ioutil</span><span class="p">.</span><span class="nx">WriteFile</span><span class="p">(</span><span class="s">&quot;myfb.png&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">buf</span><span class="p">,</span><span class="w"> </span><span class="mo">0644</span><span class="p">)</span>
+<span class="w">		</span><span class="p">}),</span>
+<span class="w">	</span><span class="p">}</span>
+<span class="p">}</span>
 
-<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">	</span><span class="kd">var</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="kt">error</span><span class="w"></span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">	</span><span class="kd">var</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="kt">error</span>
 
-<span class="w">	</span><span class="c1">// create context</span><span class="w"></span>
-<span class="w">	</span><span class="nx">ctxt</span><span class="p">,</span><span class="w"> </span><span class="nx">cancel</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">context</span><span class="p">.</span><span class="nx">WithCancel</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nx">Background</span><span class="p">())</span><span class="w"></span>
-<span class="w">	</span><span class="k">defer</span><span class="w"> </span><span class="nx">cancel</span><span class="p">()</span><span class="w"></span>
+<span class="w">	</span><span class="c1">// create context</span>
+<span class="w">	</span><span class="nx">ctxt</span><span class="p">,</span><span class="w"> </span><span class="nx">cancel</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">context</span><span class="p">.</span><span class="nx">WithCancel</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nx">Background</span><span class="p">())</span>
+<span class="w">	</span><span class="k">defer</span><span class="w"> </span><span class="nx">cancel</span><span class="p">()</span>
 
-<span class="w">	</span><span class="c1">// create chrome instance</span><span class="w"></span>
-<span class="w">	</span><span class="nx">c</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">cdp</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="nx">ctxt</span><span class="p">,</span><span class="w"> </span><span class="nx">cdp</span><span class="p">.</span><span class="nx">WithLog</span><span class="p">(</span><span class="nx">log</span><span class="p">.</span><span class="nx">Printf</span><span class="p">))</span><span class="w"></span>
-<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">		</span><span class="nx">log</span><span class="p">.</span><span class="nx">Fatal</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"></span>
-<span class="w">	</span><span class="p">}</span><span class="w"></span>
+<span class="w">	</span><span class="c1">// create chrome instance</span>
+<span class="w">	</span><span class="nx">c</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">cdp</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="nx">ctxt</span><span class="p">,</span><span class="w"> </span><span class="nx">cdp</span><span class="p">.</span><span class="nx">WithLog</span><span class="p">(</span><span class="nx">log</span><span class="p">.</span><span class="nx">Printf</span><span class="p">))</span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">		</span><span class="nx">log</span><span class="p">.</span><span class="nx">Fatal</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+<span class="w">	</span><span class="p">}</span>
 
-<span class="w">	</span><span class="c1">// run task list</span><span class="w"></span>
-<span class="w">	</span><span class="nx">err</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">c</span><span class="p">.</span><span class="nx">Run</span><span class="p">(</span><span class="nx">ctxt</span><span class="p">,</span><span class="w"> </span><span class="nx">facebookLogin</span><span class="p">(</span><span class="nx">getCredentials</span><span class="p">()))</span><span class="w"></span>
-<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">		</span><span class="nx">log</span><span class="p">.</span><span class="nx">Fatal</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"></span>
-<span class="w">	</span><span class="p">}</span><span class="w"></span>
+<span class="w">	</span><span class="c1">// run task list</span>
+<span class="w">	</span><span class="nx">err</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">c</span><span class="p">.</span><span class="nx">Run</span><span class="p">(</span><span class="nx">ctxt</span><span class="p">,</span><span class="w"> </span><span class="nx">facebookLogin</span><span class="p">(</span><span class="nx">getCredentials</span><span class="p">()))</span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">		</span><span class="nx">log</span><span class="p">.</span><span class="nx">Fatal</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+<span class="w">	</span><span class="p">}</span>
 
-<span class="w">	</span><span class="c1">// shutdown chrome</span><span class="w"></span>
-<span class="w">	</span><span class="nx">err</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">c</span><span class="p">.</span><span class="nx">Shutdown</span><span class="p">(</span><span class="nx">ctxt</span><span class="p">)</span><span class="w"></span>
-<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">		</span><span class="nx">log</span><span class="p">.</span><span class="nx">Fatal</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"></span>
-<span class="w">	</span><span class="p">}</span><span class="w"></span>
+<span class="w">	</span><span class="c1">// shutdown chrome</span>
+<span class="w">	</span><span class="nx">err</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">c</span><span class="p">.</span><span class="nx">Shutdown</span><span class="p">(</span><span class="nx">ctxt</span><span class="p">)</span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">		</span><span class="nx">log</span><span class="p">.</span><span class="nx">Fatal</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+<span class="w">	</span><span class="p">}</span>
 
-<span class="w">	</span><span class="c1">// wait for chrome to finish</span><span class="w"></span>
-<span class="w">	</span><span class="nx">err</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">c</span><span class="p">.</span><span class="nx">Wait</span><span class="p">()</span><span class="w"></span>
-<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">		</span><span class="nx">log</span><span class="p">.</span><span class="nx">Fatal</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"></span>
-<span class="w">	</span><span class="p">}</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">	</span><span class="c1">// wait for chrome to finish</span>
+<span class="w">	</span><span class="nx">err</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">c</span><span class="p">.</span><span class="nx">Wait</span><span class="p">()</span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">		</span><span class="nx">log</span><span class="p">.</span><span class="nx">Fatal</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+<span class="w">	</span><span class="p">}</span>
+<span class="p">}</span>
 </pre></div></td></tr></table></div>
 </div></figure>
 <hr class="docutils" />

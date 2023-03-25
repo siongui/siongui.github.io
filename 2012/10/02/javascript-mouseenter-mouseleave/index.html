@@ -154,16 +154,16 @@ same time, this post shows how to do it.</p>
 <span class="cm"> * @param {DOM element} element The element to add event listener.</span>
 <span class="cm"> * @param {string} evt The event to be listened.</span>
 <span class="cm"> * @param {function} fn The callback function when event occurs.</span>
-<span class="cm"> */</span><span class="w"></span>
-<span class="nx">addEventListener_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">element</span><span class="p">,</span><span class="w"> </span><span class="nx">evt</span><span class="p">,</span><span class="w"> </span><span class="nx">fn</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="cm">/* W3C compliant browser */</span><span class="w"></span>
-<span class="w">    </span><span class="nx">element</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="nx">evt</span><span class="p">,</span><span class="w"> </span><span class="nx">fn</span><span class="p">,</span><span class="w"> </span><span class="kc">false</span><span class="p">);</span><span class="w"></span>
-<span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="cm">/* IE */</span><span class="w"></span>
-<span class="w">    </span><span class="nx">element</span><span class="p">.</span><span class="nx">attachEvent</span><span class="p">(</span><span class="s1">&#39;on&#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">evt</span><span class="p">,</span><span class="w"> </span><span class="nx">fn</span><span class="p">);</span><span class="w"></span>
-<span class="w">  </span><span class="p">}</span><span class="w"></span>
-<span class="p">};</span><span class="w"></span>
+<span class="cm"> */</span>
+<span class="nx">addEventListener_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">element</span><span class="p">,</span><span class="w"> </span><span class="nx">evt</span><span class="p">,</span><span class="w"> </span><span class="nx">fn</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="cm">/* W3C compliant browser */</span>
+<span class="w">    </span><span class="nx">element</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="nx">evt</span><span class="p">,</span><span class="w"> </span><span class="nx">fn</span><span class="p">,</span><span class="w"> </span><span class="kc">false</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="cm">/* IE */</span>
+<span class="w">    </span><span class="nx">element</span><span class="p">.</span><span class="nx">attachEvent</span><span class="p">(</span><span class="s1">&#39;on&#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">evt</span><span class="p">,</span><span class="w"> </span><span class="nx">fn</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">};</span>
 
 <span class="cm">/**</span>
 <span class="cm"> * check if element is targer or the parent of target</span>
@@ -171,19 +171,19 @@ same time, this post shows how to do it.</p>
 <span class="cm"> * @param {DOM Element} element</span>
 <span class="cm"> * @return {boolean} Return true if element is target or the parent of target</span>
 <span class="cm"> *                   else return false.</span>
-<span class="cm"> */</span><span class="w"></span>
-<span class="nx">checkParent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span><span class="w"> </span><span class="nx">element</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="c1">// Chrome and Firefox use parentNode, while Opera use offsetParent</span><span class="w"></span>
-<span class="w">  </span><span class="k">while</span><span class="p">(</span><span class="nx">target</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="w"> </span><span class="nx">target</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nx">element</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="nx">target</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">target</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">;</span><span class="w"></span>
-<span class="w">  </span><span class="p">}</span><span class="w"></span>
-<span class="w">  </span><span class="k">while</span><span class="p">(</span><span class="nx">target</span><span class="p">.</span><span class="nx">offsetParent</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="w"> </span><span class="nx">target</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nx">element</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="nx">target</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">target</span><span class="p">.</span><span class="nx">offsetParent</span><span class="p">;</span><span class="w"></span>
-<span class="w">  </span><span class="p">}</span><span class="w"></span>
-<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span><span class="w"></span>
-<span class="p">};</span><span class="w"></span>
+<span class="cm"> */</span>
+<span class="nx">checkParent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span><span class="w"> </span><span class="nx">element</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">// Chrome and Firefox use parentNode, while Opera use offsetParent</span>
+<span class="w">  </span><span class="k">while</span><span class="p">(</span><span class="nx">target</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="w"> </span><span class="nx">target</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nx">element</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span>
+<span class="w">    </span><span class="nx">target</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">target</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="k">while</span><span class="p">(</span><span class="nx">target</span><span class="p">.</span><span class="nx">offsetParent</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="w"> </span><span class="nx">target</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nx">element</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span>
+<span class="w">    </span><span class="nx">target</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">target</span><span class="p">.</span><span class="nx">offsetParent</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span>
+<span class="p">};</span>
 
 
 <span class="cm">/**</span>
@@ -193,21 +193,21 @@ same time, this post shows how to do it.</p>
 <span class="cm"> *</span>
 <span class="cm"> * @param {DOM element} element The element to add mouse enter event listener.</span>
 <span class="cm"> * @param {function} fn The callback function when the mouse enter event occurs.</span>
-<span class="cm"> */</span><span class="w"></span>
-<span class="nx">addMouseEnterEventListener</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">element</span><span class="p">,</span><span class="w"> </span><span class="nx">fn</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">wrapper</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">evt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">e</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">window</span><span class="p">.</span><span class="nx">event</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">targetElement</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">evt</span><span class="p">.</span><span class="nx">target</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nx">evt</span><span class="p">.</span><span class="nx">srcElement</span><span class="p">;</span><span class="w"></span>
+<span class="cm"> */</span>
+<span class="nx">addMouseEnterEventListener</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">element</span><span class="p">,</span><span class="w"> </span><span class="nx">fn</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">wrapper</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">evt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">e</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">window</span><span class="p">.</span><span class="nx">event</span><span class="p">;</span>
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">targetElement</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">evt</span><span class="p">.</span><span class="nx">target</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nx">evt</span><span class="p">.</span><span class="nx">srcElement</span><span class="p">;</span>
 
-<span class="w">    </span><span class="c1">// check if mouse moves inside the element, if yes, return.</span><span class="w"></span>
-<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">relTarg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">evt</span><span class="p">.</span><span class="nx">relatedTarget</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nx">evt</span><span class="p">.</span><span class="nx">fromElement</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">checkParent</span><span class="p">(</span><span class="nx">relTarg</span><span class="p">,</span><span class="w"> </span><span class="nx">element</span><span class="p">))</span><span class="w"> </span><span class="k">return</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// check if mouse moves inside the element, if yes, return.</span>
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">relTarg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">evt</span><span class="p">.</span><span class="nx">relatedTarget</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nx">evt</span><span class="p">.</span><span class="nx">fromElement</span><span class="p">;</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">checkParent</span><span class="p">(</span><span class="nx">relTarg</span><span class="p">,</span><span class="w"> </span><span class="nx">element</span><span class="p">))</span><span class="w"> </span><span class="k">return</span><span class="p">;</span>
 
-<span class="w">    </span><span class="nx">setTimeout</span><span class="p">(</span><span class="nx">fn</span><span class="p">,</span><span class="w"> </span><span class="mf">0</span><span class="p">);</span><span class="w"></span>
-<span class="w">  </span><span class="p">};</span><span class="w"></span>
+<span class="w">    </span><span class="nx">setTimeout</span><span class="p">(</span><span class="nx">fn</span><span class="p">,</span><span class="w"> </span><span class="mf">0</span><span class="p">);</span>
+<span class="w">  </span><span class="p">};</span>
 
-<span class="w">  </span><span class="nx">addEventListener_</span><span class="p">(</span><span class="nx">element</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;mouseover&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">wrapper</span><span class="p">);</span><span class="w"></span>
-<span class="p">};</span><span class="w"></span>
+<span class="w">  </span><span class="nx">addEventListener_</span><span class="p">(</span><span class="nx">element</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;mouseover&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">wrapper</span><span class="p">);</span>
+<span class="p">};</span>
 
 
 <span class="cm">/**</span>
@@ -217,21 +217,21 @@ same time, this post shows how to do it.</p>
 <span class="cm"> *</span>
 <span class="cm"> * @param {DOM element} element The element to add mouse leave event listener.</span>
 <span class="cm"> * @param {function} fn The callback function when the mouse leave event occurs.</span>
-<span class="cm"> */</span><span class="w"></span>
-<span class="nx">addMouseLeaveEventListener</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">element</span><span class="p">,</span><span class="w"> </span><span class="nx">fn</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">wrapper</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">evt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">e</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">window</span><span class="p">.</span><span class="nx">event</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">targetElement</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">evt</span><span class="p">.</span><span class="nx">target</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nx">evt</span><span class="p">.</span><span class="nx">srcElement</span><span class="p">;</span><span class="w"></span>
+<span class="cm"> */</span>
+<span class="nx">addMouseLeaveEventListener</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">element</span><span class="p">,</span><span class="w"> </span><span class="nx">fn</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">wrapper</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">evt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">e</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">window</span><span class="p">.</span><span class="nx">event</span><span class="p">;</span>
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">targetElement</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">evt</span><span class="p">.</span><span class="nx">target</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nx">evt</span><span class="p">.</span><span class="nx">srcElement</span><span class="p">;</span>
 
-<span class="w">    </span><span class="c1">// check if mouse moves inside the element, if yes, return.</span><span class="w"></span>
-<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">relTarg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">evt</span><span class="p">.</span><span class="nx">relatedTarget</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nx">evt</span><span class="p">.</span><span class="nx">toElement</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">checkParent</span><span class="p">(</span><span class="nx">relTarg</span><span class="p">,</span><span class="w"> </span><span class="nx">element</span><span class="p">))</span><span class="w"> </span><span class="k">return</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// check if mouse moves inside the element, if yes, return.</span>
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">relTarg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">evt</span><span class="p">.</span><span class="nx">relatedTarget</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nx">evt</span><span class="p">.</span><span class="nx">toElement</span><span class="p">;</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">checkParent</span><span class="p">(</span><span class="nx">relTarg</span><span class="p">,</span><span class="w"> </span><span class="nx">element</span><span class="p">))</span><span class="w"> </span><span class="k">return</span><span class="p">;</span>
 
-<span class="w">    </span><span class="nx">setTimeout</span><span class="p">(</span><span class="nx">fn</span><span class="p">,</span><span class="w"> </span><span class="mf">0</span><span class="p">);</span><span class="w"></span>
-<span class="w">  </span><span class="p">};</span><span class="w"></span>
+<span class="w">    </span><span class="nx">setTimeout</span><span class="p">(</span><span class="nx">fn</span><span class="p">,</span><span class="w"> </span><span class="mf">0</span><span class="p">);</span>
+<span class="w">  </span><span class="p">};</span>
 
-<span class="w">  </span><span class="nx">addEventListener_</span><span class="p">(</span><span class="nx">element</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;mouseout&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">wrapper</span><span class="p">);</span><span class="w"></span>
-<span class="p">};</span><span class="w"></span>
+<span class="w">  </span><span class="nx">addEventListener_</span><span class="p">(</span><span class="nx">element</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;mouseout&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">wrapper</span><span class="p">);</span>
+<span class="p">};</span>
 </pre></div></td></tr></table></div>
 </div></figure>
 </div>
@@ -240,11 +240,11 @@ same time, this post shows how to do it.</p>
 <p>Put the above code snippet in your JavaScript.</p>
 <p>Register <a class="reference external" href="http://www.w3schools.com/jsref/event_onmouseenter.asp">onmouseenter</a> event handler <em>sampleHandler</em> to element <em>sampleElement</em>
 by:</p>
-<div class="highlight"><pre><span></span><span class="nx">addMouseEnterEventListener</span><span class="p">(</span><span class="nx">sampleElement</span><span class="p">,</span><span class="w"> </span><span class="nx">sampleHandler</span><span class="p">);</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="nx">addMouseEnterEventListener</span><span class="p">(</span><span class="nx">sampleElement</span><span class="p">,</span><span class="w"> </span><span class="nx">sampleHandler</span><span class="p">);</span>
 </pre></div>
 <p>Register <a class="reference external" href="http://www.w3schools.com/jsref/event_onmouseleave.asp">onmouseleave</a> event handler <em>sampleHandler</em> to element <em>sampleElement</em>
 by:</p>
-<div class="highlight"><pre><span></span><span class="nx">addMouseLeaveEventListener</span><span class="p">(</span><span class="nx">sampleElement</span><span class="p">,</span><span class="w"> </span><span class="nx">sampleHandler</span><span class="p">);</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="nx">addMouseLeaveEventListener</span><span class="p">(</span><span class="nx">sampleElement</span><span class="p">,</span><span class="w"> </span><span class="nx">sampleHandler</span><span class="p">);</span>
 </pre></div>
 
 <hr class="docutils" />

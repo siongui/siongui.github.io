@@ -63,42 +63,42 @@ matched element.</p>
 </div>
 <div class="section" id="install-goquery-package">
 <h2>Install <a class="reference external" href="https://github.com/PuerkitoBio/goquery">goquery</a> Package</h2>
-<div class="highlight"><pre><span></span>$ go get -u github.com/PuerkitoBio/goquery
+<div class="highlight"><pre><span></span>$<span class="w"> </span>go<span class="w"> </span>get<span class="w"> </span>-u<span class="w"> </span>github.com/PuerkitoBio/goquery
 </pre></div>
 </div>
 <div class="section" id="source-code">
 <h2>Source Code</h2>
 <div class="section" id="implementation">
 <h3>Implementation</h3>
-<div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
-<span class="w">      </span><span class="s">&quot;github.com/PuerkitoBio/goquery&quot;</span><span class="w"></span>
-<span class="p">)</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="p">(</span>
+<span class="w">      </span><span class="s">&quot;github.com/PuerkitoBio/goquery&quot;</span>
+<span class="p">)</span>
 
-<span class="kd">type</span><span class="w"> </span><span class="nx">object</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">      </span><span class="nx">Find</span><span class="p">(</span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="nx">goquery</span><span class="p">.</span><span class="nx">Selection</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="kd">type</span><span class="w"> </span><span class="nx">object</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">Find</span><span class="p">(</span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="nx">goquery</span><span class="p">.</span><span class="nx">Selection</span>
+<span class="p">}</span>
 
-<span class="kd">func</span><span class="w"> </span><span class="nx">QuerySelector</span><span class="p">(</span><span class="nx">s</span><span class="w"> </span><span class="nx">object</span><span class="p">,</span><span class="w"> </span><span class="nx">selector</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="nx">goquery</span><span class="p">.</span><span class="nx">Selection</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="nx">s</span><span class="p">.</span><span class="nx">Find</span><span class="p">(</span><span class="nx">selector</span><span class="p">).</span><span class="nx">First</span><span class="p">()</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">QuerySelector</span><span class="p">(</span><span class="nx">s</span><span class="w"> </span><span class="nx">object</span><span class="p">,</span><span class="w"> </span><span class="nx">selector</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="nx">goquery</span><span class="p">.</span><span class="nx">Selection</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="nx">s</span><span class="p">.</span><span class="nx">Find</span><span class="p">(</span><span class="nx">selector</span><span class="p">).</span><span class="nx">First</span><span class="p">()</span>
+<span class="p">}</span>
 </pre></div>
 
 </div>
 <div class="section" id="usage">
 <h3>Usage</h3>
-<div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
-<span class="w">      </span><span class="s">&quot;github.com/PuerkitoBio/goquery&quot;</span><span class="w"></span>
-<span class="p">)</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="p">(</span>
+<span class="w">      </span><span class="s">&quot;github.com/PuerkitoBio/goquery&quot;</span>
+<span class="p">)</span>
 
-<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">      </span><span class="nx">doc</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">goquery</span><span class="p">.</span><span class="nx">NewDocument</span><span class="p">(</span><span class="s">&quot;https://siongui.github.io/&quot;</span><span class="p">)</span><span class="w"></span>
-<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">              </span><span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"></span>
-<span class="w">      </span><span class="p">}</span><span class="w"></span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">doc</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">goquery</span><span class="p">.</span><span class="nx">NewDocument</span><span class="p">(</span><span class="s">&quot;https://siongui.github.io/&quot;</span><span class="p">)</span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">              </span><span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+<span class="w">      </span><span class="p">}</span>
 
-<span class="w">      </span><span class="nx">s</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">QuerySelector</span><span class="p">(</span><span class="nx">doc</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;meta&quot;</span><span class="p">)</span><span class="w"></span>
-<span class="w">      </span><span class="c1">// do something with s, which contains only one matched element</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">      </span><span class="nx">s</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">QuerySelector</span><span class="p">(</span><span class="nx">doc</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;meta&quot;</span><span class="p">)</span>
+<span class="w">      </span><span class="c1">// do something with s, which contains only one matched element</span>
+<span class="p">}</span>
 </pre></div>
 <hr class="docutils" />
 <p>Tested on: <tt class="docutils literal">Ubuntu Linux 16.10</tt>, <tt class="docutils literal">Go 1.7.5</tt>.</p>

@@ -246,171 +246,171 @@ following is my patch for the closure library (under <a class="reference externa
 <span class="normal">163</span>
 <span class="normal">164</span>
 <span class="normal">165</span>
-<span class="normal">166</span></pre></div></td><td class="code"><div><pre><span></span><span class="gh">Index: ui/equation/imagerenderer.js</span><span class="w"></span>
-<span class="gh">===================================================================</span><span class="w"></span>
-<span class="gd">--- ui/equation/imagerenderer.js (revision 2021)</span><span class="w"></span>
-<span class="gi">+++ ui/equation/imagerenderer.js (working copy)</span><span class="w"></span>
-<span class="gu">@@ -104,7 +104,7 @@</span><span class="w"></span>
-<span class="w"> </span>  if (!equation) {<span class="w"></span>
-<span class="w"> </span>    return &#39;&#39;;<span class="w"></span>
-<span class="w"> </span>  }<span class="w"></span>
-<span class="gd">-</span><span class="w"></span>
-<span class="gi">+/*</span><span class="w"></span>
-<span class="w"> </span>  var url = goog.ui.equation.ImageRenderer.SERVER_NAME_ +<span class="w"></span>
-<span class="w"> </span>      &#39;/chart?cht=tx&#39; +<span class="w"></span>
-<span class="w"> </span>      &#39;&amp;chf=bg,s,&#39; +<span class="w"></span>
-<span class="gu">@@ -113,6 +113,10 @@</span><span class="w"></span>
-<span class="w"> </span>      goog.ui.equation.ImageRenderer.FOREGROUND_COLOR +<span class="w"></span>
-<span class="w"> </span>      &#39;&amp;chl=&#39; +<span class="w"></span>
-<span class="w"> </span>      encodeURIComponent(equation);<span class="w"></span>
-<span class="gi">+*/</span><span class="w"></span>
-<span class="gi">+  var url = &#39;http://latex.codecogs.com/gif.latex?&#39; +</span><span class="w"></span>
-<span class="gi">+      encodeURIComponent(equation);</span><span class="w"></span>
-<span class="gi">+</span><span class="w"></span>
-<span class="w"> </span>  return url;<span class="w"></span>
-<span class="w"> </span>};<span class="w"></span>
+<span class="normal">166</span></pre></div></td><td class="code"><div><pre><span></span><span class="gh">Index: ui/equation/imagerenderer.js</span>
+<span class="gh">===================================================================</span>
+<span class="gd">--- ui/equation/imagerenderer.js (revision 2021)</span>
+<span class="gi">+++ ui/equation/imagerenderer.js (working copy)</span>
+<span class="gu">@@ -104,7 +104,7 @@</span>
+<span class="w"> </span>  if (!equation) {
+<span class="w"> </span>    return &#39;&#39;;
+<span class="w"> </span>  }
+<span class="gd">-</span>
+<span class="gi">+/*</span>
+<span class="w"> </span>  var url = goog.ui.equation.ImageRenderer.SERVER_NAME_ +
+<span class="w"> </span>      &#39;/chart?cht=tx&#39; +
+<span class="w"> </span>      &#39;&amp;chf=bg,s,&#39; +
+<span class="gu">@@ -113,6 +113,10 @@</span>
+<span class="w"> </span>      goog.ui.equation.ImageRenderer.FOREGROUND_COLOR +
+<span class="w"> </span>      &#39;&amp;chl=&#39; +
+<span class="w"> </span>      encodeURIComponent(equation);
+<span class="gi">+*/</span>
+<span class="gi">+  var url = &#39;http://latex.codecogs.com/gif.latex?&#39; +</span>
+<span class="gi">+      encodeURIComponent(equation);</span>
+<span class="gi">+</span>
+<span class="w"> </span>  return url;
+<span class="w"> </span>};
 <span class="w"> </span>
-<span class="gu">@@ -123,7 +127,8 @@</span><span class="w"></span>
-<span class="w"> </span> * @return {string?} The equation string, null if imageUrl cannot be parsed.<span class="w"></span>
-<span class="w"> </span> */<span class="w"></span>
-<span class="w"> </span>goog.ui.equation.ImageRenderer.getEquationFromImageUrl = function(imageUrl) {<span class="w"></span>
-<span class="gd">-  return goog.uri.utils.getParamValue(imageUrl, &#39;chl&#39;);</span><span class="w"></span>
-<span class="gi">+//  return goog.uri.utils.getParamValue(imageUrl, &#39;chl&#39;);</span><span class="w"></span>
-<span class="gi">+  return decodeURIComponent(goog.uri.utils.getQueryData(imageUrl));</span><span class="w"></span>
-<span class="w"> </span>};<span class="w"></span>
-<span class="w"> </span>
-<span class="w"> </span>
-<span class="gh">Index: ui/editor/defaulttoolbar.js</span><span class="w"></span>
-<span class="gh">===================================================================</span><span class="w"></span>
-<span class="gd">--- ui/editor/defaulttoolbar.js (revision 2021)</span><span class="w"></span>
-<span class="gi">+++ ui/editor/defaulttoolbar.js (working copy)</span><span class="w"></span>
-<span class="gu">@@ -797,6 +797,10 @@</span><span class="w"></span>
-<span class="w"> </span>goog.ui.editor.DefaultToolbar.MSG_IMAGE_TITLE = goog.getMsg(&#39;Insert image&#39;);<span class="w"></span>
+<span class="gu">@@ -123,7 +127,8 @@</span>
+<span class="w"> </span> * @return {string?} The equation string, null if imageUrl cannot be parsed.
+<span class="w"> </span> */
+<span class="w"> </span>goog.ui.equation.ImageRenderer.getEquationFromImageUrl = function(imageUrl) {
+<span class="gd">-  return goog.uri.utils.getParamValue(imageUrl, &#39;chl&#39;);</span>
+<span class="gi">+//  return goog.uri.utils.getParamValue(imageUrl, &#39;chl&#39;);</span>
+<span class="gi">+  return decodeURIComponent(goog.uri.utils.getQueryData(imageUrl));</span>
+<span class="w"> </span>};
 <span class="w"> </span>
 <span class="w"> </span>
-<span class="gi">+/** @desc Insert image button tooltip. */</span><span class="w"></span>
-<span class="gi">+goog.ui.editor.DefaultToolbar.MSG_EQUATION_TITLE = goog.getMsg(&#39;Insert equation&#39;);</span><span class="w"></span>
-<span class="gi">+</span><span class="w"></span>
-<span class="gi">+</span><span class="w"></span>
-<span class="w"> </span>/** @desc Strike through button tooltip. */<span class="w"></span>
-<span class="w"> </span>goog.ui.editor.DefaultToolbar.MSG_STRIKE_THROUGH_TITLE =<span class="w"></span>
-<span class="w"> </span>    goog.getMsg(&#39;Strikethrough&#39;);<span class="w"></span>
-<span class="gu">@@ -1000,6 +1004,11 @@</span><span class="w"></span>
-<span class="w"> </span>  classes: goog.getCssName(&#39;tr-icon&#39;) + &#39; &#39; + goog.getCssName(&#39;tr-image&#39;),<span class="w"></span>
-<span class="w"> </span>  factory: goog.ui.editor.ToolbarFactory.makeButton<span class="w"></span>
-<span class="w"> </span>}, {<span class="w"></span>
-<span class="gi">+  command: goog.editor.Command.EQUATION,</span><span class="w"></span>
-<span class="gi">+  tooltip: goog.ui.editor.DefaultToolbar.MSG_EQUATION_TITLE,</span><span class="w"></span>
-<span class="gi">+  classes: goog.getCssName(&#39;tr-icon&#39;) + &#39; &#39; + goog.getCssName(&#39;tr-equation&#39;),</span><span class="w"></span>
-<span class="gi">+  factory: goog.ui.editor.ToolbarFactory.makeButton</span><span class="w"></span>
-<span class="gi">+}, {</span><span class="w"></span>
-<span class="w"> </span>  command: goog.editor.Command.STRIKE_THROUGH,<span class="w"></span>
-<span class="w"> </span>  tooltip: goog.ui.editor.DefaultToolbar.MSG_STRIKE_THROUGH_TITLE,<span class="w"></span>
-<span class="w"> </span>  classes: goog.getCssName(&#39;tr-icon&#39;) + &#39; &#39; +<span class="w"></span>
-<span class="gh">Index: demos/editor/editor.html</span><span class="w"></span>
-<span class="gh">===================================================================</span><span class="w"></span>
-<span class="gd">--- demos/editor/editor.html (revision 2021)</span><span class="w"></span>
-<span class="gi">+++ demos/editor/editor.html (working copy)</span><span class="w"></span>
-<span class="gu">@@ -27,6 +27,8 @@</span><span class="w"></span>
-<span class="w"> </span>    goog.require(&#39;goog.editor.plugins.UndoRedo&#39;);<span class="w"></span>
-<span class="w"> </span>    goog.require(&#39;goog.ui.editor.DefaultToolbar&#39;);<span class="w"></span>
-<span class="w"> </span>    goog.require(&#39;goog.ui.editor.ToolbarController&#39;);<span class="w"></span>
-<span class="gi">+    goog.require(&#39;goog.editor.plugins.EquationEditorPlugin&#39;);</span><span class="w"></span>
-<span class="gi">+    goog.require(&#39;goog.editor.plugins.equation.EquationBubble&#39;);</span><span class="w"></span>
-<span class="w"> </span>  &lt;/script&gt;<span class="w"></span>
-<span class="w"> </span>
-<span class="w"> </span>  &lt;link rel=&quot;stylesheet&quot; href=&quot;../css/demo.css&quot;&gt;<span class="w"></span>
-<span class="gu">@@ -49,6 +51,8 @@</span><span class="w"></span>
-<span class="w"> </span>  &lt;link rel=&quot;stylesheet&quot; href=&quot;../../css/editor/linkdialog.css&quot; /&gt;<span class="w"></span>
-<span class="w"> </span>  &lt;link rel=&quot;stylesheet&quot; href=&quot;../../css/editortoolbar.css&quot; /&gt;<span class="w"></span>
-<span class="w"> </span>
-<span class="gi">+  &lt;link rel=&quot;stylesheet&quot; href=&quot;../../css/dialog.css&quot; /&gt;</span><span class="w"></span>
-<span class="gi">+  &lt;link rel=&quot;stylesheet&quot; href=&quot;../../css/editor/equationeditor.css&quot; /&gt;</span><span class="w"></span>
-<span class="w"> </span>  &lt;style&gt;<span class="w"></span>
-<span class="w"> </span>    #editMe {<span class="w"></span>
-<span class="w"> </span>      width: 600px;<span class="w"></span>
-<span class="gu">@@ -96,6 +100,10 @@</span><span class="w"></span>
-<span class="w"> </span>  myField.registerPlugin(<span class="w"></span>
-<span class="w"> </span>      new goog.editor.plugins.LinkDialogPlugin());<span class="w"></span>
-<span class="w"> </span>  myField.registerPlugin(new goog.editor.plugins.LinkBubble());<span class="w"></span>
-<span class="gi">+  myField.registerPlugin(</span><span class="w"></span>
-<span class="gi">+      new goog.editor.plugins.EquationEditorPlugin());</span><span class="w"></span>
-<span class="gi">+  myField.registerPlugin(</span><span class="w"></span>
-<span class="gi">+      new goog.editor.plugins.equation.EquationBubble());</span><span class="w"></span>
-<span class="w"> </span>
-<span class="w"> </span>  // Specify the buttons to add to the toolbar, using built in default buttons.<span class="w"></span>
-<span class="w"> </span>  var buttons = [<span class="w"></span>
-<span class="gu">@@ -116,6 +124,7 @@</span><span class="w"></span>
-<span class="w"> </span>    goog.editor.Command.JUSTIFY_LEFT,<span class="w"></span>
-<span class="w"> </span>    goog.editor.Command.JUSTIFY_CENTER,<span class="w"></span>
-<span class="w"> </span>    goog.editor.Command.JUSTIFY_RIGHT,<span class="w"></span>
-<span class="gi">+    goog.editor.Command.EQUATION,</span><span class="w"></span>
-<span class="w"> </span>    goog.editor.Command.SUBSCRIPT,<span class="w"></span>
-<span class="w"> </span>    goog.editor.Command.SUPERSCRIPT,<span class="w"></span>
-<span class="w"> </span>    goog.editor.Command.STRIKE_THROUGH,<span class="w"></span>
-<span class="gh">Index: editor/plugins/equationeditorbubble.js</span><span class="w"></span>
-<span class="gh">===================================================================</span><span class="w"></span>
-<span class="gd">--- editor/plugins/equationeditorbubble.js (revision 2021)</span><span class="w"></span>
-<span class="gi">+++ editor/plugins/equationeditorbubble.js (working copy)</span><span class="w"></span>
-<span class="gu">@@ -94,14 +94,15 @@</span><span class="w"></span>
-<span class="w"> </span>    function(bubbleContainer) {<span class="w"></span>
-<span class="w"> </span>  goog.dom.appendChild(bubbleContainer,<span class="w"></span>
-<span class="w"> </span>      bubbleContainer.ownerDocument.createTextNode(<span class="w"></span>
-<span class="gd">-      MSG_EE_BUBBLE_EQUATION + goog.string.Unicode.NBSP));</span><span class="w"></span>
-<span class="gi">+      MSG_EE_BUBBLE_EQUATION + &#39; $&#39; +</span><span class="w"></span>
-<span class="gi">+      (this.getTargetElement().getAttribute(&#39;alt&#39;) || &#39;&#39;) +</span><span class="w"></span>
-<span class="gi">+      &#39;$ &#39; + goog.string.Unicode.NBSP));</span><span class="w"></span>
-<span class="w"> </span>
-<span class="w"> </span>  this.createLink(goog.editor.plugins.equation.EquationBubble.EDIT_ID_,<span class="w"></span>
-<span class="w"> </span>      MSG_EE_BUBBLE_EDIT, this.editEquation_, bubbleContainer);<span class="w"></span>
-<span class="w"> </span>
-<span class="w"> </span>  goog.dom.appendChild(bubbleContainer,<span class="w"></span>
-<span class="w"> </span>      bubbleContainer.ownerDocument.createTextNode(<span class="w"></span>
-<span class="gd">-      MSG_EE_BUBBLE_EQUATION +</span><span class="w"></span>
-<span class="w"> </span>      goog.editor.plugins.AbstractBubblePlugin.DASH_NBSP_STRING));<span class="w"></span>
-<span class="w"> </span>
-<span class="w"> </span>  this.createLink(goog.editor.plugins.equation.EquationBubble.REMOVE_ID_,<span class="w"></span>
-<span class="gh">Index: editor/plugins/equationeditorplugin.js</span><span class="w"></span>
-<span class="gh">===================================================================</span><span class="w"></span>
-<span class="gd">--- editor/plugins/equationeditorplugin.js (revision 2021)</span><span class="w"></span>
-<span class="gi">+++ editor/plugins/equationeditorplugin.js (working copy)</span><span class="w"></span>
-<span class="gu">@@ -137,11 +137,13 @@</span><span class="w"></span>
-<span class="w"> </span>goog.editor.plugins.EquationEditorPlugin.prototype.enable =<span class="w"></span>
-<span class="w"> </span>    function(fieldObject) {<span class="w"></span>
-<span class="w"> </span>  goog.base(this, &#39;enable&#39;, fieldObject);<span class="w"></span>
-<span class="gi">+/*</span><span class="w"></span>
-<span class="w"> </span>  if (this.isEnabled(fieldObject)) {<span class="w"></span>
-<span class="w"> </span>    this.dblClickKey_ = goog.events.listen(fieldObject.getElement(),<span class="w"></span>
-<span class="w"> </span>        goog.events.EventType.DBLCLICK,<span class="w"></span>
-<span class="w"> </span>        goog.bind(this.handleDoubleClick_, this), false, this);<span class="w"></span>
-<span class="w"> </span>  }<span class="w"></span>
-<span class="gi">+*/</span><span class="w"></span>
-<span class="w"> </span>};<span class="w"></span>
+<span class="gh">Index: ui/editor/defaulttoolbar.js</span>
+<span class="gh">===================================================================</span>
+<span class="gd">--- ui/editor/defaulttoolbar.js (revision 2021)</span>
+<span class="gi">+++ ui/editor/defaulttoolbar.js (working copy)</span>
+<span class="gu">@@ -797,6 +797,10 @@</span>
+<span class="w"> </span>goog.ui.editor.DefaultToolbar.MSG_IMAGE_TITLE = goog.getMsg(&#39;Insert image&#39;);
 <span class="w"> </span>
 <span class="w"> </span>
-<span class="gu">@@ -149,9 +151,11 @@</span><span class="w"></span>
-<span class="w"> </span>goog.editor.plugins.EquationEditorPlugin.prototype.disable =<span class="w"></span>
-<span class="w"> </span>    function(fieldObject) {<span class="w"></span>
-<span class="w"> </span>  goog.base(this, &#39;disable&#39;, fieldObject);<span class="w"></span>
-<span class="gi">+/*</span><span class="w"></span>
-<span class="w"> </span>  if (!this.isEnabled(fieldObject)) {<span class="w"></span>
-<span class="w"> </span>    goog.events.unlistenByKey(this.dblClickKey_);<span class="w"></span>
-<span class="w"> </span>  }<span class="w"></span>
-<span class="gi">+*/</span><span class="w"></span>
-<span class="w"> </span>};<span class="w"></span>
+<span class="gi">+/** @desc Insert image button tooltip. */</span>
+<span class="gi">+goog.ui.editor.DefaultToolbar.MSG_EQUATION_TITLE = goog.getMsg(&#39;Insert equation&#39;);</span>
+<span class="gi">+</span>
+<span class="gi">+</span>
+<span class="w"> </span>/** @desc Strike through button tooltip. */
+<span class="w"> </span>goog.ui.editor.DefaultToolbar.MSG_STRIKE_THROUGH_TITLE =
+<span class="w"> </span>    goog.getMsg(&#39;Strikethrough&#39;);
+<span class="gu">@@ -1000,6 +1004,11 @@</span>
+<span class="w"> </span>  classes: goog.getCssName(&#39;tr-icon&#39;) + &#39; &#39; + goog.getCssName(&#39;tr-image&#39;),
+<span class="w"> </span>  factory: goog.ui.editor.ToolbarFactory.makeButton
+<span class="w"> </span>}, {
+<span class="gi">+  command: goog.editor.Command.EQUATION,</span>
+<span class="gi">+  tooltip: goog.ui.editor.DefaultToolbar.MSG_EQUATION_TITLE,</span>
+<span class="gi">+  classes: goog.getCssName(&#39;tr-icon&#39;) + &#39; &#39; + goog.getCssName(&#39;tr-equation&#39;),</span>
+<span class="gi">+  factory: goog.ui.editor.ToolbarFactory.makeButton</span>
+<span class="gi">+}, {</span>
+<span class="w"> </span>  command: goog.editor.Command.STRIKE_THROUGH,
+<span class="w"> </span>  tooltip: goog.ui.editor.DefaultToolbar.MSG_STRIKE_THROUGH_TITLE,
+<span class="w"> </span>  classes: goog.getCssName(&#39;tr-icon&#39;) + &#39; &#39; +
+<span class="gh">Index: demos/editor/editor.html</span>
+<span class="gh">===================================================================</span>
+<span class="gd">--- demos/editor/editor.html (revision 2021)</span>
+<span class="gi">+++ demos/editor/editor.html (working copy)</span>
+<span class="gu">@@ -27,6 +27,8 @@</span>
+<span class="w"> </span>    goog.require(&#39;goog.editor.plugins.UndoRedo&#39;);
+<span class="w"> </span>    goog.require(&#39;goog.ui.editor.DefaultToolbar&#39;);
+<span class="w"> </span>    goog.require(&#39;goog.ui.editor.ToolbarController&#39;);
+<span class="gi">+    goog.require(&#39;goog.editor.plugins.EquationEditorPlugin&#39;);</span>
+<span class="gi">+    goog.require(&#39;goog.editor.plugins.equation.EquationBubble&#39;);</span>
+<span class="w"> </span>  &lt;/script&gt;
+<span class="w"> </span>
+<span class="w"> </span>  &lt;link rel=&quot;stylesheet&quot; href=&quot;../css/demo.css&quot;&gt;
+<span class="gu">@@ -49,6 +51,8 @@</span>
+<span class="w"> </span>  &lt;link rel=&quot;stylesheet&quot; href=&quot;../../css/editor/linkdialog.css&quot; /&gt;
+<span class="w"> </span>  &lt;link rel=&quot;stylesheet&quot; href=&quot;../../css/editortoolbar.css&quot; /&gt;
+<span class="w"> </span>
+<span class="gi">+  &lt;link rel=&quot;stylesheet&quot; href=&quot;../../css/dialog.css&quot; /&gt;</span>
+<span class="gi">+  &lt;link rel=&quot;stylesheet&quot; href=&quot;../../css/editor/equationeditor.css&quot; /&gt;</span>
+<span class="w"> </span>  &lt;style&gt;
+<span class="w"> </span>    #editMe {
+<span class="w"> </span>      width: 600px;
+<span class="gu">@@ -96,6 +100,10 @@</span>
+<span class="w"> </span>  myField.registerPlugin(
+<span class="w"> </span>      new goog.editor.plugins.LinkDialogPlugin());
+<span class="w"> </span>  myField.registerPlugin(new goog.editor.plugins.LinkBubble());
+<span class="gi">+  myField.registerPlugin(</span>
+<span class="gi">+      new goog.editor.plugins.EquationEditorPlugin());</span>
+<span class="gi">+  myField.registerPlugin(</span>
+<span class="gi">+      new goog.editor.plugins.equation.EquationBubble());</span>
+<span class="w"> </span>
+<span class="w"> </span>  // Specify the buttons to add to the toolbar, using built in default buttons.
+<span class="w"> </span>  var buttons = [
+<span class="gu">@@ -116,6 +124,7 @@</span>
+<span class="w"> </span>    goog.editor.Command.JUSTIFY_LEFT,
+<span class="w"> </span>    goog.editor.Command.JUSTIFY_CENTER,
+<span class="w"> </span>    goog.editor.Command.JUSTIFY_RIGHT,
+<span class="gi">+    goog.editor.Command.EQUATION,</span>
+<span class="w"> </span>    goog.editor.Command.SUBSCRIPT,
+<span class="w"> </span>    goog.editor.Command.SUPERSCRIPT,
+<span class="w"> </span>    goog.editor.Command.STRIKE_THROUGH,
+<span class="gh">Index: editor/plugins/equationeditorbubble.js</span>
+<span class="gh">===================================================================</span>
+<span class="gd">--- editor/plugins/equationeditorbubble.js (revision 2021)</span>
+<span class="gi">+++ editor/plugins/equationeditorbubble.js (working copy)</span>
+<span class="gu">@@ -94,14 +94,15 @@</span>
+<span class="w"> </span>    function(bubbleContainer) {
+<span class="w"> </span>  goog.dom.appendChild(bubbleContainer,
+<span class="w"> </span>      bubbleContainer.ownerDocument.createTextNode(
+<span class="gd">-      MSG_EE_BUBBLE_EQUATION + goog.string.Unicode.NBSP));</span>
+<span class="gi">+      MSG_EE_BUBBLE_EQUATION + &#39; $&#39; +</span>
+<span class="gi">+      (this.getTargetElement().getAttribute(&#39;alt&#39;) || &#39;&#39;) +</span>
+<span class="gi">+      &#39;$ &#39; + goog.string.Unicode.NBSP));</span>
+<span class="w"> </span>
+<span class="w"> </span>  this.createLink(goog.editor.plugins.equation.EquationBubble.EDIT_ID_,
+<span class="w"> </span>      MSG_EE_BUBBLE_EDIT, this.editEquation_, bubbleContainer);
+<span class="w"> </span>
+<span class="w"> </span>  goog.dom.appendChild(bubbleContainer,
+<span class="w"> </span>      bubbleContainer.ownerDocument.createTextNode(
+<span class="gd">-      MSG_EE_BUBBLE_EQUATION +</span>
+<span class="w"> </span>      goog.editor.plugins.AbstractBubblePlugin.DASH_NBSP_STRING));
+<span class="w"> </span>
+<span class="w"> </span>  this.createLink(goog.editor.plugins.equation.EquationBubble.REMOVE_ID_,
+<span class="gh">Index: editor/plugins/equationeditorplugin.js</span>
+<span class="gh">===================================================================</span>
+<span class="gd">--- editor/plugins/equationeditorplugin.js (revision 2021)</span>
+<span class="gi">+++ editor/plugins/equationeditorplugin.js (working copy)</span>
+<span class="gu">@@ -137,11 +137,13 @@</span>
+<span class="w"> </span>goog.editor.plugins.EquationEditorPlugin.prototype.enable =
+<span class="w"> </span>    function(fieldObject) {
+<span class="w"> </span>  goog.base(this, &#39;enable&#39;, fieldObject);
+<span class="gi">+/*</span>
+<span class="w"> </span>  if (this.isEnabled(fieldObject)) {
+<span class="w"> </span>    this.dblClickKey_ = goog.events.listen(fieldObject.getElement(),
+<span class="w"> </span>        goog.events.EventType.DBLCLICK,
+<span class="w"> </span>        goog.bind(this.handleDoubleClick_, this), false, this);
+<span class="w"> </span>  }
+<span class="gi">+*/</span>
+<span class="w"> </span>};
 <span class="w"> </span>
 <span class="w"> </span>
-<span class="gh">Index: editor/command.js</span><span class="w"></span>
-<span class="gh">===================================================================</span><span class="w"></span>
-<span class="gd">--- editor/command.js (revision 2021)</span><span class="w"></span>
-<span class="gi">+++ editor/command.js (working copy)</span><span class="w"></span>
-<span class="gu">@@ -58,6 +58,7 @@</span><span class="w"></span>
-<span class="w"> </span>  DIR_LTR: &#39;ltr&#39;, // should be exactly &#39;ltr&#39; as it becomes dir attribute value<span class="w"></span>
-<span class="w"> </span>  DIR_RTL: &#39;rtl&#39;, // same here<span class="w"></span>
-<span class="w"> </span>  IMAGE: &#39;image&#39;,<span class="w"></span>
-<span class="gi">+  EQUATION: &#39;equation&#39;,</span><span class="w"></span>
-<span class="w"> </span>  EDIT_HTML: &#39;editHtml&#39;,<span class="w"></span>
-<span class="w"> </span>  UPDATE_LINK_BUBBLE: &#39;updateLinkBubble&#39;,<span class="w"></span>
+<span class="gu">@@ -149,9 +151,11 @@</span>
+<span class="w"> </span>goog.editor.plugins.EquationEditorPlugin.prototype.disable =
+<span class="w"> </span>    function(fieldObject) {
+<span class="w"> </span>  goog.base(this, &#39;disable&#39;, fieldObject);
+<span class="gi">+/*</span>
+<span class="w"> </span>  if (!this.isEnabled(fieldObject)) {
+<span class="w"> </span>    goog.events.unlistenByKey(this.dblClickKey_);
+<span class="w"> </span>  }
+<span class="gi">+*/</span>
+<span class="w"> </span>};
+<span class="w"> </span>
+<span class="w"> </span>
+<span class="gh">Index: editor/command.js</span>
+<span class="gh">===================================================================</span>
+<span class="gd">--- editor/command.js (revision 2021)</span>
+<span class="gi">+++ editor/command.js (working copy)</span>
+<span class="gu">@@ -58,6 +58,7 @@</span>
+<span class="w"> </span>  DIR_LTR: &#39;ltr&#39;, // should be exactly &#39;ltr&#39; as it becomes dir attribute value
+<span class="w"> </span>  DIR_RTL: &#39;rtl&#39;, // same here
+<span class="w"> </span>  IMAGE: &#39;image&#39;,
+<span class="gi">+  EQUATION: &#39;equation&#39;,</span>
+<span class="w"> </span>  EDIT_HTML: &#39;editHtml&#39;,
+<span class="w"> </span>  UPDATE_LINK_BUBBLE: &#39;updateLinkBubble&#39;,
 <span class="w"> </span>
 </pre></div></td></tr></table></div>
 </div></figure>

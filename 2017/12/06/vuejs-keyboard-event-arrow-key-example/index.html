@@ -90,32 +90,32 @@ When textarea element is focused and users press any arrow key, the keyCode of
 the arrow key will be shown in the textarea.</p>
 
 <p><strong>JavaScript</strong>:</p>
-<div class="highlight"><pre><span></span><span class="s1">&#39;use strict&#39;</span><span class="p">;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="s1">&#39;use strict&#39;</span><span class="p">;</span>
 
-<span class="nx">Vue</span><span class="p">.</span><span class="nx">config</span><span class="p">.</span><span class="nx">keyCodes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="s2">&quot;arrow-keys&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="mf">37</span><span class="p">,</span><span class="w"> </span><span class="mf">38</span><span class="p">,</span><span class="w"> </span><span class="mf">39</span><span class="p">,</span><span class="w"> </span><span class="mf">40</span><span class="p">]</span><span class="w"></span>
-<span class="p">};</span><span class="w"></span>
+<span class="nx">Vue</span><span class="p">.</span><span class="nx">config</span><span class="p">.</span><span class="nx">keyCodes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="s2">&quot;arrow-keys&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="mf">37</span><span class="p">,</span><span class="w"> </span><span class="mf">38</span><span class="p">,</span><span class="w"> </span><span class="mf">39</span><span class="p">,</span><span class="w"> </span><span class="mf">40</span><span class="p">]</span>
+<span class="p">};</span>
 
-<span class="kd">var</span><span class="w"> </span><span class="nx">app</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Vue</span><span class="p">({</span><span class="w"></span>
-<span class="w">  </span><span class="nx">el</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;#vueapp&#39;</span><span class="p">,</span><span class="w"></span>
-<span class="w">  </span><span class="nx">data</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nx">keypressed</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="w"></span>
-<span class="w">  </span><span class="p">},</span><span class="w"></span>
-<span class="w">  </span><span class="nx">methods</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nx">show</span><span class="o">:</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">(</span><span class="nx">event</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">      </span><span class="k">this</span><span class="p">.</span><span class="nx">keypressed</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="nx">event</span><span class="p">.</span><span class="nx">keyCode</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="w">  </span><span class="p">}</span><span class="w"></span>
-<span class="p">});</span><span class="w"></span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">app</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Vue</span><span class="p">({</span>
+<span class="w">  </span><span class="nx">el</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;#vueapp&#39;</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">data</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">keypressed</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nx">methods</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">show</span><span class="o">:</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">(</span><span class="nx">event</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">this</span><span class="p">.</span><span class="nx">keypressed</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="nx">event</span><span class="p">.</span><span class="nx">keyCode</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">});</span>
 </pre></div>
 <p>There are four arrow keys on the keyboard. We need to define custom key alias
 for the arrow keys in the <a class="reference external" href="https://vuejs.org/v2/api/#keyCodes">keyCodes in Vue.config</a>. The keyCodes of arrow keys
 are from 37~40, so we use array of numbers to define key alias.</p>
 <p>Note that the following syntax in <cite>Vue.config</cite> does not work:</p>
-<div class="highlight"><pre><span></span><span class="nx">arrowKeys</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="mf">37</span><span class="p">,</span><span class="w"> </span><span class="mf">38</span><span class="p">,</span><span class="w"> </span><span class="mf">39</span><span class="p">,</span><span class="w"> </span><span class="mf">40</span><span class="p">]</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="nx">arrowKeys</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="mf">37</span><span class="p">,</span><span class="w"> </span><span class="mf">38</span><span class="p">,</span><span class="w"> </span><span class="mf">39</span><span class="p">,</span><span class="w"> </span><span class="mf">40</span><span class="p">]</span>
 </pre></div>
 <p>The correct syntax is:</p>
-<div class="highlight"><pre><span></span><span class="s2">&quot;arrow-keys&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="mf">37</span><span class="p">,</span><span class="w"> </span><span class="mf">38</span><span class="p">,</span><span class="w"> </span><span class="mf">39</span><span class="p">,</span><span class="w"> </span><span class="mf">40</span><span class="p">]</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="s2">&quot;arrow-keys&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="mf">37</span><span class="p">,</span><span class="w"> </span><span class="mf">38</span><span class="p">,</span><span class="w"> </span><span class="mf">39</span><span class="p">,</span><span class="w"> </span><span class="mf">40</span><span class="p">]</span>
 </pre></div>
 <p>When users press arrow key in textarea element, the <em>show</em> method will be
 executed and the <a class="reference external" href="https://www.google.com/search?q=keycode+javascript">keyCode</a> of the corresponding arrow key will be appended to the

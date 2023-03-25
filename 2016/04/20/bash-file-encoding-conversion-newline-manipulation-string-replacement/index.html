@@ -57,19 +57,19 @@ file <a class="footnote-reference" href="#footnote-2" id="footnote-reference-2">
 <a class="reference external" href="https://en.wikipedia.org/wiki/Newline">UNIX newline</a> to end of file. <a class="footnote-reference" href="#footnote-3" id="footnote-reference-3">[3]</a></p>
 <div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 
-<span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">: big5 to utf-8&quot;</span>
-iconv -f big5 -t utf-8 <span class="nv">$1</span> &gt; tmp.html
-mv tmp.html <span class="nv">$1</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">: big5 to utf-8&quot;</span>
+iconv<span class="w"> </span>-f<span class="w"> </span>big5<span class="w"> </span>-t<span class="w"> </span>utf-8<span class="w"> </span><span class="nv">$1</span><span class="w"> </span>&gt;<span class="w"> </span>tmp.html
+mv<span class="w"> </span>tmp.html<span class="w"> </span><span class="nv">$1</span>
 
-<span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">: remove dos newline&quot;</span>
-tr -d <span class="s1">&#39;\015&#39;</span> &lt;<span class="nv">$1</span> &gt; tmp.html
-mv tmp.html <span class="nv">$1</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">: remove dos newline&quot;</span>
+tr<span class="w"> </span>-d<span class="w"> </span><span class="s1">&#39;\015&#39;</span><span class="w"> </span>&lt;<span class="nv">$1</span><span class="w"> </span>&gt;<span class="w"> </span>tmp.html
+mv<span class="w"> </span>tmp.html<span class="w"> </span><span class="nv">$1</span>
 
-<span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">: html meta big5 to UTF-8&quot;</span>
-sed <span class="s1">&#39;s/big5/UTF-8/&#39;</span> -i <span class="nv">$1</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">: html meta big5 to UTF-8&quot;</span>
+sed<span class="w"> </span><span class="s1">&#39;s/big5/UTF-8/&#39;</span><span class="w"> </span>-i<span class="w"> </span><span class="nv">$1</span>
 
-<span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">: append newline to end of file&quot;</span>
-sed -i -e <span class="s1">&#39;$a\&#39;</span> <span class="nv">$1</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">: append newline to end of file&quot;</span>
+sed<span class="w"> </span>-i<span class="w"> </span>-e<span class="w"> </span><span class="s1">&#39;$a\&#39;</span><span class="w"> </span><span class="nv">$1</span>
 </pre></div>
 
 <hr class="docutils" />

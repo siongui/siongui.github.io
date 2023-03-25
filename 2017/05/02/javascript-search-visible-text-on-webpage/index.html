@@ -59,55 +59,55 @@ the code and make it an independent post for search engine friendliness.</p>
 visible texts on Simplified Chinese website and convert them to Traditional
 Chinese. I write a Chrome extension in Go to do this job <a class="footnote-reference" href="#footnote-2" id="footnote-reference-2">[2]</a>.</p>
 <p>The following is the JavaScript code for finding out visible texts on web page:</p>
-<div class="highlight"><pre><span></span><span class="s2">&quot;use strict&quot;</span><span class="p">;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="s2">&quot;use strict&quot;</span><span class="p">;</span>
 
-<span class="kd">function</span><span class="w"> </span><span class="nx">isExcluded</span><span class="p">(</span><span class="nx">elm</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">elm</span><span class="p">.</span><span class="nx">tagName</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;STYLE&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span><span class="w"></span>
-<span class="w">  </span><span class="p">}</span><span class="w"></span>
-<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">elm</span><span class="p">.</span><span class="nx">tagName</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;SCRIPT&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span><span class="w"></span>
-<span class="w">  </span><span class="p">}</span><span class="w"></span>
-<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">elm</span><span class="p">.</span><span class="nx">tagName</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;NOSCRIPT&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span><span class="w"></span>
-<span class="w">  </span><span class="p">}</span><span class="w"></span>
-<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">elm</span><span class="p">.</span><span class="nx">tagName</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;IFRAME&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span><span class="w"></span>
-<span class="w">  </span><span class="p">}</span><span class="w"></span>
-<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">elm</span><span class="p">.</span><span class="nx">tagName</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;OBJECT&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span><span class="w"></span>
-<span class="w">  </span><span class="p">}</span><span class="w"></span>
-<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="kc">false</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="kd">function</span><span class="w"> </span><span class="nx">isExcluded</span><span class="p">(</span><span class="nx">elm</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">elm</span><span class="p">.</span><span class="nx">tagName</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;STYLE&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">elm</span><span class="p">.</span><span class="nx">tagName</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;SCRIPT&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">elm</span><span class="p">.</span><span class="nx">tagName</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;NOSCRIPT&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">elm</span><span class="p">.</span><span class="nx">tagName</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;IFRAME&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">elm</span><span class="p">.</span><span class="nx">tagName</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;OBJECT&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="kc">false</span>
+<span class="p">}</span>
 
-<span class="kd">function</span><span class="w"> </span><span class="nx">traverse</span><span class="p">(</span><span class="nx">elm</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">elm</span><span class="p">.</span><span class="nx">nodeType</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nx">Node</span><span class="p">.</span><span class="nx">ELEMENT_NODE</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nx">elm</span><span class="p">.</span><span class="nx">nodeType</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nx">Node</span><span class="p">.</span><span class="nx">DOCUMENT_NODE</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="kd">function</span><span class="w"> </span><span class="nx">traverse</span><span class="p">(</span><span class="nx">elm</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">elm</span><span class="p">.</span><span class="nx">nodeType</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nx">Node</span><span class="p">.</span><span class="nx">ELEMENT_NODE</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nx">elm</span><span class="p">.</span><span class="nx">nodeType</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nx">Node</span><span class="p">.</span><span class="nx">DOCUMENT_NODE</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 
-<span class="w">    </span><span class="c1">// exclude elements with invisible text nodes</span><span class="w"></span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">isExcluded</span><span class="p">(</span><span class="nx">elm</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">      </span><span class="k">return</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// exclude elements with invisible text nodes</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">isExcluded</span><span class="p">(</span><span class="nx">elm</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">return</span>
+<span class="w">    </span><span class="p">}</span>
 
-<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">var</span><span class="w"> </span><span class="nx">i</span><span class="o">=</span><span class="mf">0</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="nx">elm</span><span class="p">.</span><span class="nx">childNodes</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">      </span><span class="c1">// recursively call to traverse</span><span class="w"></span>
-<span class="w">      </span><span class="nx">traverse</span><span class="p">(</span><span class="nx">elm</span><span class="p">.</span><span class="nx">childNodes</span><span class="p">[</span><span class="nx">i</span><span class="p">]);</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">var</span><span class="w"> </span><span class="nx">i</span><span class="o">=</span><span class="mf">0</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="nx">elm</span><span class="p">.</span><span class="nx">childNodes</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="c1">// recursively call to traverse</span>
+<span class="w">      </span><span class="nx">traverse</span><span class="p">(</span><span class="nx">elm</span><span class="p">.</span><span class="nx">childNodes</span><span class="p">[</span><span class="nx">i</span><span class="p">]);</span>
+<span class="w">    </span><span class="p">}</span>
 
-<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span>
 
-<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">elm</span><span class="p">.</span><span class="nx">nodeType</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nx">Node</span><span class="p">.</span><span class="nx">TEXT_NODE</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">elm</span><span class="p">.</span><span class="nx">nodeType</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nx">Node</span><span class="p">.</span><span class="nx">TEXT_NODE</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 
-<span class="w">    </span><span class="c1">// exclude text node consisting of only spaces</span><span class="w"></span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">elm</span><span class="p">.</span><span class="nx">nodeValue</span><span class="p">.</span><span class="nx">trim</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">      </span><span class="k">return</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// exclude text node consisting of only spaces</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">elm</span><span class="p">.</span><span class="nx">nodeValue</span><span class="p">.</span><span class="nx">trim</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">return</span>
+<span class="w">    </span><span class="p">}</span>
 
-<span class="w">    </span><span class="c1">// elm.nodeValue here is visible text we need.</span><span class="w"></span>
-<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">elm</span><span class="p">.</span><span class="nx">nodeValue</span><span class="p">);</span><span class="w"></span>
-<span class="w">  </span><span class="p">}</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// elm.nodeValue here is visible text we need.</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">elm</span><span class="p">.</span><span class="nx">nodeValue</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
 
-<span class="nx">traverse</span><span class="p">(</span><span class="nb">document</span><span class="p">);</span><span class="w"></span>
+<span class="nx">traverse</span><span class="p">(</span><span class="nb">document</span><span class="p">);</span>
 </pre></div>
 <p><a class="reference external" href="https://www.google.com/search?q=Traverse+DOM+Tree">Traverse DOM tree</a> to find out all text nodes. Recursive call to <em>traverse</em>
 function to visit all nodes in the DOM tree. In <em>traverse</em> function, we check

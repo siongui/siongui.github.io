@@ -208,144 +208,144 @@
 <span class="normal">135</span>
 <span class="normal">136</span>
 <span class="normal">137</span>
-<span class="normal">138</span></pre></div></td><td class="code"><div><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w"></span>
+<span class="normal">138</span></pre></div></td><td class="code"><div><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span>
 
-<span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
-<span class="w">	</span><span class="s">&quot;errors&quot;</span><span class="w"></span>
-<span class="w">	</span><span class="s">&quot;github.com/PuerkitoBio/goquery&quot;</span><span class="w"></span>
-<span class="w">	</span><span class="s">&quot;strings&quot;</span><span class="w"></span>
-<span class="p">)</span><span class="w"></span>
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span>
+<span class="w">	</span><span class="s">&quot;errors&quot;</span>
+<span class="w">	</span><span class="s">&quot;github.com/PuerkitoBio/goquery&quot;</span>
+<span class="w">	</span><span class="s">&quot;strings&quot;</span>
+<span class="p">)</span>
 
-<span class="kd">type</span><span class="w"> </span><span class="nx">PostData</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">	</span><span class="nx">PostUrl</span><span class="w">   </span><span class="kt">string</span><span class="w"></span>
-<span class="w">	</span><span class="nx">Title</span><span class="w">     </span><span class="kt">string</span><span class="w"></span>
-<span class="w">	</span><span class="nx">TimeStamp</span><span class="w"> </span><span class="kt">string</span><span class="w"></span>
-<span class="w">	</span><span class="nx">Author</span><span class="w">    </span><span class="kt">string</span><span class="w"></span>
-<span class="w">	</span><span class="nx">Summary</span><span class="w">   </span><span class="kt">string</span><span class="w"></span>
-<span class="w">	</span><span class="nx">Content</span><span class="w">   </span><span class="kt">string</span><span class="w"></span>
-<span class="w">	</span><span class="nx">Tags</span><span class="w">      </span><span class="kt">string</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="kd">type</span><span class="w"> </span><span class="nx">PostData</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">	</span><span class="nx">PostUrl</span><span class="w">   </span><span class="kt">string</span>
+<span class="w">	</span><span class="nx">Title</span><span class="w">     </span><span class="kt">string</span>
+<span class="w">	</span><span class="nx">TimeStamp</span><span class="w"> </span><span class="kt">string</span>
+<span class="w">	</span><span class="nx">Author</span><span class="w">    </span><span class="kt">string</span>
+<span class="w">	</span><span class="nx">Summary</span><span class="w">   </span><span class="kt">string</span>
+<span class="w">	</span><span class="nx">Content</span><span class="w">   </span><span class="kt">string</span>
+<span class="w">	</span><span class="nx">Tags</span><span class="w">      </span><span class="kt">string</span>
+<span class="p">}</span>
 
-<span class="kd">func</span><span class="w"> </span><span class="nx">GetBlogspotTimeStamp</span><span class="p">(</span><span class="nx">doc</span><span class="w"> </span><span class="o">*</span><span class="nx">goquery</span><span class="p">.</span><span class="nx">Document</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">	</span><span class="nx">abbr</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">doc</span><span class="p">.</span><span class="nx">Find</span><span class="p">(</span><span class="s">&quot;a.timestamp-link &gt; abbr&quot;</span><span class="p">).</span><span class="nx">First</span><span class="p">()</span><span class="w"></span>
-<span class="w">	</span><span class="nx">t</span><span class="p">,</span><span class="w"> </span><span class="nx">ok</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">abbr</span><span class="p">.</span><span class="nx">Attr</span><span class="p">(</span><span class="s">&quot;title&quot;</span><span class="p">)</span><span class="w"></span>
-<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">ok</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">		</span><span class="k">return</span><span class="w"> </span><span class="nx">t</span><span class="p">,</span><span class="w"> </span><span class="kc">nil</span><span class="w"></span>
-<span class="w">	</span><span class="p">}</span><span class="w"></span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">GetBlogspotTimeStamp</span><span class="p">(</span><span class="nx">doc</span><span class="w"> </span><span class="o">*</span><span class="nx">goquery</span><span class="p">.</span><span class="nx">Document</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">	</span><span class="nx">abbr</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">doc</span><span class="p">.</span><span class="nx">Find</span><span class="p">(</span><span class="s">&quot;a.timestamp-link &gt; abbr&quot;</span><span class="p">).</span><span class="nx">First</span><span class="p">()</span>
+<span class="w">	</span><span class="nx">t</span><span class="p">,</span><span class="w"> </span><span class="nx">ok</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">abbr</span><span class="p">.</span><span class="nx">Attr</span><span class="p">(</span><span class="s">&quot;title&quot;</span><span class="p">)</span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">ok</span><span class="w"> </span><span class="p">{</span>
+<span class="w">		</span><span class="k">return</span><span class="w"> </span><span class="nx">t</span><span class="p">,</span><span class="w"> </span><span class="kc">nil</span>
+<span class="w">	</span><span class="p">}</span>
 
-<span class="w">	</span><span class="k">return</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">errors</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="s">&quot;cannot find timestamp&quot;</span><span class="p">)</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">	</span><span class="k">return</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">errors</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="s">&quot;cannot find timestamp&quot;</span><span class="p">)</span>
+<span class="p">}</span>
 
-<span class="kd">func</span><span class="w"> </span><span class="nx">GetBlogspotTitle</span><span class="p">(</span><span class="nx">doc</span><span class="w"> </span><span class="o">*</span><span class="nx">goquery</span><span class="p">.</span><span class="nx">Document</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">	</span><span class="nx">t</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">doc</span><span class="p">.</span><span class="nx">Find</span><span class="p">(</span><span class="s">&quot;h3.post-title&quot;</span><span class="p">).</span><span class="nx">First</span><span class="p">()</span><span class="w"></span>
-<span class="w">	</span><span class="k">return</span><span class="w"> </span><span class="nx">strings</span><span class="p">.</span><span class="nx">TrimSpace</span><span class="p">(</span><span class="nx">t</span><span class="p">.</span><span class="nx">Text</span><span class="p">()),</span><span class="w"> </span><span class="kc">nil</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">GetBlogspotTitle</span><span class="p">(</span><span class="nx">doc</span><span class="w"> </span><span class="o">*</span><span class="nx">goquery</span><span class="p">.</span><span class="nx">Document</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">	</span><span class="nx">t</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">doc</span><span class="p">.</span><span class="nx">Find</span><span class="p">(</span><span class="s">&quot;h3.post-title&quot;</span><span class="p">).</span><span class="nx">First</span><span class="p">()</span>
+<span class="w">	</span><span class="k">return</span><span class="w"> </span><span class="nx">strings</span><span class="p">.</span><span class="nx">TrimSpace</span><span class="p">(</span><span class="nx">t</span><span class="p">.</span><span class="nx">Text</span><span class="p">()),</span><span class="w"> </span><span class="kc">nil</span>
+<span class="p">}</span>
 
-<span class="kd">func</span><span class="w"> </span><span class="nx">GetBlogspotContent</span><span class="p">(</span><span class="nx">doc</span><span class="w"> </span><span class="o">*</span><span class="nx">goquery</span><span class="p">.</span><span class="nx">Document</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">	</span><span class="nx">c</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">doc</span><span class="p">.</span><span class="nx">Find</span><span class="p">(</span><span class="s">&quot;div.post-body&quot;</span><span class="p">).</span><span class="nx">First</span><span class="p">()</span><span class="w"></span>
-<span class="w">	</span><span class="k">return</span><span class="w"> </span><span class="nx">c</span><span class="p">.</span><span class="nx">Html</span><span class="p">()</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">GetBlogspotContent</span><span class="p">(</span><span class="nx">doc</span><span class="w"> </span><span class="o">*</span><span class="nx">goquery</span><span class="p">.</span><span class="nx">Document</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">	</span><span class="nx">c</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">doc</span><span class="p">.</span><span class="nx">Find</span><span class="p">(</span><span class="s">&quot;div.post-body&quot;</span><span class="p">).</span><span class="nx">First</span><span class="p">()</span>
+<span class="w">	</span><span class="k">return</span><span class="w"> </span><span class="nx">c</span><span class="p">.</span><span class="nx">Html</span><span class="p">()</span>
+<span class="p">}</span>
 
-<span class="kd">func</span><span class="w"> </span><span class="nx">GetBlogspotUrl</span><span class="p">(</span><span class="nx">doc</span><span class="w"> </span><span class="o">*</span><span class="nx">goquery</span><span class="p">.</span><span class="nx">Document</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">	</span><span class="nx">meta</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">doc</span><span class="p">.</span><span class="nx">Find</span><span class="p">(</span><span class="s">&quot;meta[property=&#39;og:url&#39;]&quot;</span><span class="p">).</span><span class="nx">First</span><span class="p">()</span><span class="w"></span>
-<span class="w">	</span><span class="nx">u</span><span class="p">,</span><span class="w"> </span><span class="nx">ok</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">meta</span><span class="p">.</span><span class="nx">Attr</span><span class="p">(</span><span class="s">&quot;content&quot;</span><span class="p">)</span><span class="w"></span>
-<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">ok</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">		</span><span class="k">return</span><span class="w"> </span><span class="nx">u</span><span class="p">,</span><span class="w"> </span><span class="kc">nil</span><span class="w"></span>
-<span class="w">	</span><span class="p">}</span><span class="w"></span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">GetBlogspotUrl</span><span class="p">(</span><span class="nx">doc</span><span class="w"> </span><span class="o">*</span><span class="nx">goquery</span><span class="p">.</span><span class="nx">Document</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">	</span><span class="nx">meta</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">doc</span><span class="p">.</span><span class="nx">Find</span><span class="p">(</span><span class="s">&quot;meta[property=&#39;og:url&#39;]&quot;</span><span class="p">).</span><span class="nx">First</span><span class="p">()</span>
+<span class="w">	</span><span class="nx">u</span><span class="p">,</span><span class="w"> </span><span class="nx">ok</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">meta</span><span class="p">.</span><span class="nx">Attr</span><span class="p">(</span><span class="s">&quot;content&quot;</span><span class="p">)</span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">ok</span><span class="w"> </span><span class="p">{</span>
+<span class="w">		</span><span class="k">return</span><span class="w"> </span><span class="nx">u</span><span class="p">,</span><span class="w"> </span><span class="kc">nil</span>
+<span class="w">	</span><span class="p">}</span>
 
-<span class="w">	</span><span class="k">return</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">errors</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="s">&quot;cannot find url&quot;</span><span class="p">)</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">	</span><span class="k">return</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">errors</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="s">&quot;cannot find url&quot;</span><span class="p">)</span>
+<span class="p">}</span>
 
-<span class="kd">func</span><span class="w"> </span><span class="nx">GetBlogspotSummary</span><span class="p">(</span><span class="nx">doc</span><span class="w"> </span><span class="o">*</span><span class="nx">goquery</span><span class="p">.</span><span class="nx">Document</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">	</span><span class="nx">meta</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">doc</span><span class="p">.</span><span class="nx">Find</span><span class="p">(</span><span class="s">&quot;meta[property=&#39;og:description&#39;]&quot;</span><span class="p">).</span><span class="nx">First</span><span class="p">()</span><span class="w"></span>
-<span class="w">	</span><span class="nx">d</span><span class="p">,</span><span class="w"> </span><span class="nx">ok</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">meta</span><span class="p">.</span><span class="nx">Attr</span><span class="p">(</span><span class="s">&quot;content&quot;</span><span class="p">)</span><span class="w"></span>
-<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">ok</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">		</span><span class="k">return</span><span class="w"> </span><span class="nx">d</span><span class="p">,</span><span class="w"> </span><span class="kc">nil</span><span class="w"></span>
-<span class="w">	</span><span class="p">}</span><span class="w"></span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">GetBlogspotSummary</span><span class="p">(</span><span class="nx">doc</span><span class="w"> </span><span class="o">*</span><span class="nx">goquery</span><span class="p">.</span><span class="nx">Document</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">	</span><span class="nx">meta</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">doc</span><span class="p">.</span><span class="nx">Find</span><span class="p">(</span><span class="s">&quot;meta[property=&#39;og:description&#39;]&quot;</span><span class="p">).</span><span class="nx">First</span><span class="p">()</span>
+<span class="w">	</span><span class="nx">d</span><span class="p">,</span><span class="w"> </span><span class="nx">ok</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">meta</span><span class="p">.</span><span class="nx">Attr</span><span class="p">(</span><span class="s">&quot;content&quot;</span><span class="p">)</span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">ok</span><span class="w"> </span><span class="p">{</span>
+<span class="w">		</span><span class="k">return</span><span class="w"> </span><span class="nx">d</span><span class="p">,</span><span class="w"> </span><span class="kc">nil</span>
+<span class="w">	</span><span class="p">}</span>
 
-<span class="w">	</span><span class="k">return</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">errors</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="s">&quot;cannot find summary&quot;</span><span class="p">)</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">	</span><span class="k">return</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">errors</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="s">&quot;cannot find summary&quot;</span><span class="p">)</span>
+<span class="p">}</span>
 
-<span class="kd">func</span><span class="w"> </span><span class="nx">GetBlogspotAuthor</span><span class="p">(</span><span class="nx">doc</span><span class="w"> </span><span class="o">*</span><span class="nx">goquery</span><span class="p">.</span><span class="nx">Document</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">	</span><span class="nx">a</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">doc</span><span class="p">.</span><span class="nx">Find</span><span class="p">(</span><span class="s">&quot;span.post-author &gt; span.fn&quot;</span><span class="p">).</span><span class="nx">First</span><span class="p">()</span><span class="w"></span>
-<span class="w">	</span><span class="k">return</span><span class="w"> </span><span class="nx">a</span><span class="p">.</span><span class="nx">Text</span><span class="p">(),</span><span class="w"> </span><span class="kc">nil</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">GetBlogspotAuthor</span><span class="p">(</span><span class="nx">doc</span><span class="w"> </span><span class="o">*</span><span class="nx">goquery</span><span class="p">.</span><span class="nx">Document</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">	</span><span class="nx">a</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">doc</span><span class="p">.</span><span class="nx">Find</span><span class="p">(</span><span class="s">&quot;span.post-author &gt; span.fn&quot;</span><span class="p">).</span><span class="nx">First</span><span class="p">()</span>
+<span class="w">	</span><span class="k">return</span><span class="w"> </span><span class="nx">a</span><span class="p">.</span><span class="nx">Text</span><span class="p">(),</span><span class="w"> </span><span class="kc">nil</span>
+<span class="p">}</span>
 
-<span class="kd">func</span><span class="w"> </span><span class="nx">GetBlogspotTags</span><span class="p">(</span><span class="nx">doc</span><span class="w"> </span><span class="o">*</span><span class="nx">goquery</span><span class="p">.</span><span class="nx">Document</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">	</span><span class="nx">s</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">doc</span><span class="p">.</span><span class="nx">Find</span><span class="p">(</span><span class="s">&quot;span.post-labels &gt; a&quot;</span><span class="p">)</span><span class="w"></span>
-<span class="w">	</span><span class="nx">labels</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w"></span>
-<span class="w">	</span><span class="nx">s</span><span class="p">.</span><span class="nx">Each</span><span class="p">(</span><span class="kd">func</span><span class="p">(</span><span class="nx">_</span><span class="w"> </span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="nx">l</span><span class="w"> </span><span class="o">*</span><span class="nx">goquery</span><span class="p">.</span><span class="nx">Selection</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">		</span><span class="k">if</span><span class="w"> </span><span class="nx">labels</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">			</span><span class="nx">labels</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="s">&quot;, &quot;</span><span class="w"></span>
-<span class="w">		</span><span class="p">}</span><span class="w"></span>
-<span class="w">		</span><span class="nx">labels</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="nx">l</span><span class="p">.</span><span class="nx">Text</span><span class="p">()</span><span class="w"></span>
-<span class="w">	</span><span class="p">})</span><span class="w"></span>
-<span class="w">	</span><span class="k">return</span><span class="w"> </span><span class="nx">labels</span><span class="p">,</span><span class="w"> </span><span class="kc">nil</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">GetBlogspotTags</span><span class="p">(</span><span class="nx">doc</span><span class="w"> </span><span class="o">*</span><span class="nx">goquery</span><span class="p">.</span><span class="nx">Document</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">	</span><span class="nx">s</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">doc</span><span class="p">.</span><span class="nx">Find</span><span class="p">(</span><span class="s">&quot;span.post-labels &gt; a&quot;</span><span class="p">)</span>
+<span class="w">	</span><span class="nx">labels</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="s">&quot;&quot;</span>
+<span class="w">	</span><span class="nx">s</span><span class="p">.</span><span class="nx">Each</span><span class="p">(</span><span class="kd">func</span><span class="p">(</span><span class="nx">_</span><span class="w"> </span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="nx">l</span><span class="w"> </span><span class="o">*</span><span class="nx">goquery</span><span class="p">.</span><span class="nx">Selection</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">		</span><span class="k">if</span><span class="w"> </span><span class="nx">labels</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">			</span><span class="nx">labels</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="s">&quot;, &quot;</span>
+<span class="w">		</span><span class="p">}</span>
+<span class="w">		</span><span class="nx">labels</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="nx">l</span><span class="p">.</span><span class="nx">Text</span><span class="p">()</span>
+<span class="w">	</span><span class="p">})</span>
+<span class="w">	</span><span class="k">return</span><span class="w"> </span><span class="nx">labels</span><span class="p">,</span><span class="w"> </span><span class="kc">nil</span>
+<span class="p">}</span>
 
-<span class="kd">func</span><span class="w"> </span><span class="nx">ParseBlogspotPost</span><span class="p">(</span><span class="nx">doc</span><span class="w"> </span><span class="o">*</span><span class="nx">goquery</span><span class="p">.</span><span class="nx">Document</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="nx">PostData</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">	</span><span class="nx">bs</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">PostData</span><span class="p">{}</span><span class="w"></span>
-<span class="w">	</span><span class="kd">var</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="kt">error</span><span class="w"></span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">ParseBlogspotPost</span><span class="p">(</span><span class="nx">doc</span><span class="w"> </span><span class="o">*</span><span class="nx">goquery</span><span class="p">.</span><span class="nx">Document</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="nx">PostData</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">	</span><span class="nx">bs</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">PostData</span><span class="p">{}</span>
+<span class="w">	</span><span class="kd">var</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="kt">error</span>
 
-<span class="w">	</span><span class="nx">bs</span><span class="p">.</span><span class="nx">TimeStamp</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">GetBlogspotTimeStamp</span><span class="p">(</span><span class="nx">doc</span><span class="p">)</span><span class="w"></span>
-<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">		</span><span class="k">return</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">bs</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"></span>
-<span class="w">	</span><span class="p">}</span><span class="w"></span>
+<span class="w">	</span><span class="nx">bs</span><span class="p">.</span><span class="nx">TimeStamp</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">GetBlogspotTimeStamp</span><span class="p">(</span><span class="nx">doc</span><span class="p">)</span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">		</span><span class="k">return</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">bs</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span>
+<span class="w">	</span><span class="p">}</span>
 
-<span class="w">	</span><span class="nx">bs</span><span class="p">.</span><span class="nx">Title</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">GetBlogspotTitle</span><span class="p">(</span><span class="nx">doc</span><span class="p">)</span><span class="w"></span>
-<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">		</span><span class="k">return</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">bs</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"></span>
-<span class="w">	</span><span class="p">}</span><span class="w"></span>
+<span class="w">	</span><span class="nx">bs</span><span class="p">.</span><span class="nx">Title</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">GetBlogspotTitle</span><span class="p">(</span><span class="nx">doc</span><span class="p">)</span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">		</span><span class="k">return</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">bs</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span>
+<span class="w">	</span><span class="p">}</span>
 
-<span class="w">	</span><span class="nx">bs</span><span class="p">.</span><span class="nx">Content</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">GetBlogspotContent</span><span class="p">(</span><span class="nx">doc</span><span class="p">)</span><span class="w"></span>
-<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">		</span><span class="k">return</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">bs</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"></span>
-<span class="w">	</span><span class="p">}</span><span class="w"></span>
+<span class="w">	</span><span class="nx">bs</span><span class="p">.</span><span class="nx">Content</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">GetBlogspotContent</span><span class="p">(</span><span class="nx">doc</span><span class="p">)</span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">		</span><span class="k">return</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">bs</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span>
+<span class="w">	</span><span class="p">}</span>
 
-<span class="w">	</span><span class="nx">bs</span><span class="p">.</span><span class="nx">PostUrl</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">GetBlogspotUrl</span><span class="p">(</span><span class="nx">doc</span><span class="p">)</span><span class="w"></span>
-<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">		</span><span class="k">return</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">bs</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"></span>
-<span class="w">	</span><span class="p">}</span><span class="w"></span>
+<span class="w">	</span><span class="nx">bs</span><span class="p">.</span><span class="nx">PostUrl</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">GetBlogspotUrl</span><span class="p">(</span><span class="nx">doc</span><span class="p">)</span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">		</span><span class="k">return</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">bs</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span>
+<span class="w">	</span><span class="p">}</span>
 
-<span class="w">	</span><span class="nx">bs</span><span class="p">.</span><span class="nx">Summary</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">GetBlogspotSummary</span><span class="p">(</span><span class="nx">doc</span><span class="p">)</span><span class="w"></span>
-<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">		</span><span class="k">return</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">bs</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"></span>
-<span class="w">	</span><span class="p">}</span><span class="w"></span>
+<span class="w">	</span><span class="nx">bs</span><span class="p">.</span><span class="nx">Summary</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">GetBlogspotSummary</span><span class="p">(</span><span class="nx">doc</span><span class="p">)</span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">		</span><span class="k">return</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">bs</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span>
+<span class="w">	</span><span class="p">}</span>
 
-<span class="w">	</span><span class="nx">bs</span><span class="p">.</span><span class="nx">Author</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">GetBlogspotAuthor</span><span class="p">(</span><span class="nx">doc</span><span class="p">)</span><span class="w"></span>
-<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">		</span><span class="k">return</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">bs</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"></span>
-<span class="w">	</span><span class="p">}</span><span class="w"></span>
+<span class="w">	</span><span class="nx">bs</span><span class="p">.</span><span class="nx">Author</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">GetBlogspotAuthor</span><span class="p">(</span><span class="nx">doc</span><span class="p">)</span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">		</span><span class="k">return</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">bs</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span>
+<span class="w">	</span><span class="p">}</span>
 
-<span class="w">	</span><span class="nx">bs</span><span class="p">.</span><span class="nx">Tags</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">GetBlogspotTags</span><span class="p">(</span><span class="nx">doc</span><span class="p">)</span><span class="w"></span>
-<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">		</span><span class="k">return</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">bs</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"></span>
-<span class="w">	</span><span class="p">}</span><span class="w"></span>
+<span class="w">	</span><span class="nx">bs</span><span class="p">.</span><span class="nx">Tags</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">GetBlogspotTags</span><span class="p">(</span><span class="nx">doc</span><span class="p">)</span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">		</span><span class="k">return</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">bs</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span>
+<span class="w">	</span><span class="p">}</span>
 
-<span class="w">	</span><span class="k">return</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">bs</span><span class="p">,</span><span class="w"> </span><span class="kc">nil</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">	</span><span class="k">return</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">bs</span><span class="p">,</span><span class="w"> </span><span class="kc">nil</span>
+<span class="p">}</span>
 
-<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">	</span><span class="c1">//url := &quot;https://oathbystyx.blogspot.tw/2018/01/descartes-rules-of-signs.html&quot;</span><span class="w"></span>
-<span class="w">	</span><span class="nx">url</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="s">&quot;https://timrau.blogspot.com/2017/11/avoid-vim-overwriting-indention-settings.html&quot;</span><span class="w"></span>
-<span class="w">	</span><span class="nx">doc</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">goquery</span><span class="p">.</span><span class="nx">NewDocument</span><span class="p">(</span><span class="nx">url</span><span class="p">)</span><span class="w"></span>
-<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">		</span><span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"></span>
-<span class="w">	</span><span class="p">}</span><span class="w"></span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">	</span><span class="c1">//url := &quot;https://oathbystyx.blogspot.tw/2018/01/descartes-rules-of-signs.html&quot;</span>
+<span class="w">	</span><span class="nx">url</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="s">&quot;https://timrau.blogspot.com/2017/11/avoid-vim-overwriting-indention-settings.html&quot;</span>
+<span class="w">	</span><span class="nx">doc</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">goquery</span><span class="p">.</span><span class="nx">NewDocument</span><span class="p">(</span><span class="nx">url</span><span class="p">)</span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">		</span><span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+<span class="w">	</span><span class="p">}</span>
 
-<span class="w">	</span><span class="nx">post</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">ParseBlogspotPost</span><span class="p">(</span><span class="nx">doc</span><span class="p">)</span><span class="w"></span>
-<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">		</span><span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"></span>
-<span class="w">	</span><span class="p">}</span><span class="w"></span>
+<span class="w">	</span><span class="nx">post</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">ParseBlogspotPost</span><span class="p">(</span><span class="nx">doc</span><span class="p">)</span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">		</span><span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+<span class="w">	</span><span class="p">}</span>
 
-<span class="w">	</span><span class="nb">println</span><span class="p">(</span><span class="nx">post</span><span class="p">.</span><span class="nx">TimeStamp</span><span class="p">)</span><span class="w"></span>
-<span class="w">	</span><span class="nb">println</span><span class="p">(</span><span class="nx">post</span><span class="p">.</span><span class="nx">Title</span><span class="p">)</span><span class="w"></span>
-<span class="w">	</span><span class="nb">println</span><span class="p">(</span><span class="nx">post</span><span class="p">.</span><span class="nx">Content</span><span class="p">)</span><span class="w"></span>
-<span class="w">	</span><span class="nb">println</span><span class="p">(</span><span class="nx">post</span><span class="p">.</span><span class="nx">PostUrl</span><span class="p">)</span><span class="w"></span>
-<span class="w">	</span><span class="nb">println</span><span class="p">(</span><span class="nx">post</span><span class="p">.</span><span class="nx">Summary</span><span class="p">)</span><span class="w"></span>
-<span class="w">	</span><span class="nb">println</span><span class="p">(</span><span class="nx">post</span><span class="p">.</span><span class="nx">Author</span><span class="p">)</span><span class="w"></span>
-<span class="w">	</span><span class="nb">println</span><span class="p">(</span><span class="nx">post</span><span class="p">.</span><span class="nx">Tags</span><span class="p">)</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">	</span><span class="nb">println</span><span class="p">(</span><span class="nx">post</span><span class="p">.</span><span class="nx">TimeStamp</span><span class="p">)</span>
+<span class="w">	</span><span class="nb">println</span><span class="p">(</span><span class="nx">post</span><span class="p">.</span><span class="nx">Title</span><span class="p">)</span>
+<span class="w">	</span><span class="nb">println</span><span class="p">(</span><span class="nx">post</span><span class="p">.</span><span class="nx">Content</span><span class="p">)</span>
+<span class="w">	</span><span class="nb">println</span><span class="p">(</span><span class="nx">post</span><span class="p">.</span><span class="nx">PostUrl</span><span class="p">)</span>
+<span class="w">	</span><span class="nb">println</span><span class="p">(</span><span class="nx">post</span><span class="p">.</span><span class="nx">Summary</span><span class="p">)</span>
+<span class="w">	</span><span class="nb">println</span><span class="p">(</span><span class="nx">post</span><span class="p">.</span><span class="nx">Author</span><span class="p">)</span>
+<span class="w">	</span><span class="nb">println</span><span class="p">(</span><span class="nx">post</span><span class="p">.</span><span class="nx">Tags</span><span class="p">)</span>
+<span class="p">}</span>
 </pre></div></td></tr></table></div>
 </div></figure>
 <hr class="docutils" />

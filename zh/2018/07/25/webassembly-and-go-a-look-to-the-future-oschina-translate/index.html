@@ -72,28 +72,28 @@
 <div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">section</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;main&quot;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;thing&quot;</span> <span class="p">&gt;</span>Please wait...<span class="p">&lt;/</span><span class="nt">section</span><span class="p">&gt;</span>
 </pre></div>
 <p>我在 HTML 文件底部的腳本標簽上面插入了這個。接下來，我知道我想程序化地替換這個節點，所以我查找了 Go 的 wasm 庫中與 DOM 交互的語法。為 Go 添加了一個 syscall/js 包，允許與 DOM 進行交互。我使用了這段 Go 代碼得到了一個 HTML 帶有 thing 作為 ID 的節點的引用：</p>
-<div class="highlight"><pre><span></span><span class="nx">el</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">js</span><span class="p">.</span><span class="nx">Global</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;document&quot;</span><span class="p">).</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;getElementById&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;thing&quot;</span><span class="p">)</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="nx">el</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">js</span><span class="p">.</span><span class="nx">Global</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;document&quot;</span><span class="p">).</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;getElementById&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;thing&quot;</span><span class="p">)</span>
 </pre></div>
 <p>現在我有一個空DOM節點的引用，我可以使用渲染的HTML來填充。因此下一步其實就是創建一些HTML並將其填充進去。</p>
 <p>我將著名的TodoMVC應用作為靈感。首先我創建兩個文件：todo.go和todolist.go。這些文件包含一些Go結構來表示Todo事項，和Todo事項列表。</p>
-<div class="highlight"><pre><span></span><span class="kd">type</span><span class="w"> </span><span class="nx">Todo</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">      </span><span class="nx">Title</span><span class="w">     </span><span class="kt">string</span><span class="w"></span>
-<span class="w">      </span><span class="nx">Completed</span><span class="w"> </span><span class="kt">bool</span><span class="w"></span>
-<span class="w">      </span><span class="c1">//Root      js.Value</span><span class="w"></span>
-<span class="w">      </span><span class="nx">tree</span><span class="w"> </span><span class="o">*</span><span class="nx">vdom</span><span class="p">.</span><span class="nx">Tree</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="kd">type</span><span class="w"> </span><span class="nx">Todo</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">Title</span><span class="w">     </span><span class="kt">string</span>
+<span class="w">      </span><span class="nx">Completed</span><span class="w"> </span><span class="kt">bool</span>
+<span class="w">      </span><span class="c1">//Root      js.Value</span>
+<span class="w">      </span><span class="nx">tree</span><span class="w"> </span><span class="o">*</span><span class="nx">vdom</span><span class="p">.</span><span class="nx">Tree</span>
+<span class="p">}</span>
 
-<span class="kd">type</span><span class="w"> </span><span class="nx">TodoList</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">      </span><span class="nx">Todos</span><span class="w"> </span><span class="p">[]</span><span class="nx">Todo</span><span class="w"></span>
-<span class="w">      </span><span class="nx">Component</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="kd">type</span><span class="w"> </span><span class="nx">TodoList</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">Todos</span><span class="w"> </span><span class="p">[]</span><span class="nx">Todo</span>
+<span class="w">      </span><span class="nx">Component</span>
+<span class="p">}</span>
 
-<span class="kd">type</span><span class="w"> </span><span class="nx">Component</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">      </span><span class="nx">Name</span><span class="w">     </span><span class="kt">string</span><span class="w"></span>
-<span class="w">      </span><span class="nx">Root</span><span class="w">     </span><span class="nx">js</span><span class="p">.</span><span class="nx">Value</span><span class="w"></span>
-<span class="w">      </span><span class="nx">Tree</span><span class="w">     </span><span class="o">*</span><span class="nx">vdom</span><span class="p">.</span><span class="nx">Tree</span><span class="w"></span>
-<span class="w">      </span><span class="nx">Template</span><span class="w"> </span><span class="kt">string</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="kd">type</span><span class="w"> </span><span class="nx">Component</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">Name</span><span class="w">     </span><span class="kt">string</span>
+<span class="w">      </span><span class="nx">Root</span><span class="w">     </span><span class="nx">js</span><span class="p">.</span><span class="nx">Value</span>
+<span class="w">      </span><span class="nx">Tree</span><span class="w">     </span><span class="o">*</span><span class="nx">vdom</span><span class="p">.</span><span class="nx">Tree</span>
+<span class="w">      </span><span class="nx">Template</span><span class="w"> </span><span class="kt">string</span>
+<span class="p">}</span>
 </pre></div>
 <p>我也有點自大，開始將東西提取到Component類型中，並認為我可以將它嵌入到我的自定義類型中，以便向它們提供Web 組件功能。 <em>我沒有完成這個想法。。。在後文你會看到原因。</em></p>
 <p>這些自定義Go類型每一個都有一個Render()方法和模板：</p>
@@ -101,69 +101,69 @@
 <span class="s">{{range $i, $x := $.Todos}}</span>
 <span class="s">      {{$x.Render}}</span>
 <span class="s">{{end}}</span>
-<span class="s">&lt;/ul&gt;`</span><span class="w"></span>
+<span class="s">&lt;/ul&gt;`</span>
 </pre></div>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<div class="highlight"><pre><span></span><span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">todoList</span><span class="w"> </span><span class="o">*</span><span class="nx">TodoList</span><span class="p">)</span><span class="w"> </span><span class="nx">Render</span><span class="p">()</span><span class="w"> </span><span class="kt">error</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">todoList</span><span class="w"> </span><span class="o">*</span><span class="nx">TodoList</span><span class="p">)</span><span class="w"> </span><span class="nx">Render</span><span class="p">()</span><span class="w"> </span><span class="kt">error</span><span class="w"> </span><span class="p">{</span>
 
-<span class="w">      </span><span class="nx">tmpl</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">template</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="s">&quot;todolist&quot;</span><span class="p">).</span><span class="nx">Parse</span><span class="p">(</span><span class="nx">todoList</span><span class="p">.</span><span class="nx">Template</span><span class="p">)</span><span class="w"></span>
-<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">              </span><span class="k">return</span><span class="w"> </span><span class="nx">err</span><span class="w"></span>
-<span class="w">      </span><span class="p">}</span><span class="w"></span>
-<span class="w">      </span><span class="c1">// Execute the template with the given todo and write to a buffer</span><span class="w"></span>
-<span class="w">      </span><span class="nx">buf</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">bytes</span><span class="p">.</span><span class="nx">NewBuffer</span><span class="p">([]</span><span class="kt">byte</span><span class="p">{})</span><span class="w"></span>
-<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">tmpl</span><span class="p">.</span><span class="nx">Execute</span><span class="p">(</span><span class="nx">buf</span><span class="p">,</span><span class="w"> </span><span class="nx">todoList</span><span class="p">);</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">              </span><span class="k">return</span><span class="w"> </span><span class="nx">err</span><span class="w"></span>
-<span class="w">      </span><span class="p">}</span><span class="w"></span>
-<span class="w">      </span><span class="c1">// Parse the resulting html into a virtual tree</span><span class="w"></span>
-<span class="w">      </span><span class="nx">newTree</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">vdom</span><span class="p">.</span><span class="nx">Parse</span><span class="p">(</span><span class="nx">buf</span><span class="p">.</span><span class="nx">Bytes</span><span class="p">())</span><span class="w"></span>
-<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">              </span><span class="k">return</span><span class="w"> </span><span class="nx">err</span><span class="w"></span>
-<span class="w">      </span><span class="p">}</span><span class="w"></span>
+<span class="w">      </span><span class="nx">tmpl</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">template</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="s">&quot;todolist&quot;</span><span class="p">).</span><span class="nx">Parse</span><span class="p">(</span><span class="nx">todoList</span><span class="p">.</span><span class="nx">Template</span><span class="p">)</span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">              </span><span class="k">return</span><span class="w"> </span><span class="nx">err</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">      </span><span class="c1">// Execute the template with the given todo and write to a buffer</span>
+<span class="w">      </span><span class="nx">buf</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">bytes</span><span class="p">.</span><span class="nx">NewBuffer</span><span class="p">([]</span><span class="kt">byte</span><span class="p">{})</span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">tmpl</span><span class="p">.</span><span class="nx">Execute</span><span class="p">(</span><span class="nx">buf</span><span class="p">,</span><span class="w"> </span><span class="nx">todoList</span><span class="p">);</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">              </span><span class="k">return</span><span class="w"> </span><span class="nx">err</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">      </span><span class="c1">// Parse the resulting html into a virtual tree</span>
+<span class="w">      </span><span class="nx">newTree</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">vdom</span><span class="p">.</span><span class="nx">Parse</span><span class="p">(</span><span class="nx">buf</span><span class="p">.</span><span class="nx">Bytes</span><span class="p">())</span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">              </span><span class="k">return</span><span class="w"> </span><span class="nx">err</span>
+<span class="w">      </span><span class="p">}</span>
 
-<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="nx">todoList</span><span class="p">.</span><span class="nx">Tree</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">              </span><span class="c1">// Calculate the diff between this render and the last render</span><span class="w"></span>
-<span class="w">              </span><span class="c1">//      patches, err := vdom.Diff(todo.tree, newTree)</span><span class="w"></span>
-<span class="p">}</span><span class="w">             </span><span class="c1">//      if err != nil {</span><span class="w"></span>
-<span class="w">              </span><span class="c1">//              return err</span><span class="w"></span>
-<span class="w">              </span><span class="c1">//      }</span><span class="w"></span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="nx">todoList</span><span class="p">.</span><span class="nx">Tree</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">              </span><span class="c1">// Calculate the diff between this render and the last render</span>
+<span class="w">              </span><span class="c1">//      patches, err := vdom.Diff(todo.tree, newTree)</span>
+<span class="p">}</span><span class="w">             </span><span class="c1">//      if err != nil {</span>
+<span class="w">              </span><span class="c1">//              return err</span>
+<span class="w">              </span><span class="c1">//      }</span>
 
-<span class="w">              </span><span class="c1">// Effeciently apply changes to the actual DOM</span><span class="w"></span>
-<span class="w">              </span><span class="c1">//              if err := patches.Patch(todo.Root); err != nil {</span><span class="w"></span>
-<span class="w">              </span><span class="c1">//                      return err</span><span class="w"></span>
-<span class="w">              </span><span class="c1">//              }</span><span class="w"></span>
-<span class="w">      </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="c1">// Effeciently apply changes to the actual DOM</span>
+<span class="w">              </span><span class="c1">//              if err := patches.Patch(todo.Root); err != nil {</span>
+<span class="w">              </span><span class="c1">//                      return err</span>
+<span class="w">              </span><span class="c1">//              }</span>
+<span class="w">      </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
 
-<span class="w">              </span><span class="nx">todoList</span><span class="p">.</span><span class="nx">Tree</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">newTree</span><span class="w"></span>
-<span class="w">      </span><span class="p">}</span><span class="w"></span>
-<span class="w">      </span><span class="c1">// Remember the virtual DOM state for the next render to diff against</span><span class="w"></span>
-<span class="w">      </span><span class="nx">todoList</span><span class="p">.</span><span class="nx">Tree</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">newTree</span><span class="w"></span>
+<span class="w">              </span><span class="nx">todoList</span><span class="p">.</span><span class="nx">Tree</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">newTree</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">      </span><span class="c1">// Remember the virtual DOM state for the next render to diff against</span>
+<span class="w">      </span><span class="nx">todoList</span><span class="p">.</span><span class="nx">Tree</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">newTree</span>
 
-<span class="w">      </span><span class="nx">todoList</span><span class="p">.</span><span class="nx">Root</span><span class="p">.</span><span class="nx">Set</span><span class="p">(</span><span class="s">&quot;innerHTML&quot;</span><span class="p">,</span><span class="w"> </span><span class="nb">string</span><span class="p">(</span><span class="nx">newTree</span><span class="p">.</span><span class="nx">HTML</span><span class="p">()))</span><span class="w"></span>
-<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="kc">nil</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">      </span><span class="nx">todoList</span><span class="p">.</span><span class="nx">Root</span><span class="p">.</span><span class="nx">Set</span><span class="p">(</span><span class="s">&quot;innerHTML&quot;</span><span class="p">,</span><span class="w"> </span><span class="nb">string</span><span class="p">(</span><span class="nx">newTree</span><span class="p">.</span><span class="nx">HTML</span><span class="p">()))</span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="kc">nil</span>
+<span class="p">}</span>
 </pre></div>
 <p>我的想法是用我找到的 <a class="reference external" href="https://github.com/albrow/vdom">vdom</a> 包來做這些渲染，這樣的話渲染的效率會更高一些。這就是我遇到的第一個問題。</p>
 <div class="section" id="gopherjsgo-wasm">
 <h2>GopherJS和Go/wasm之間的區別</h2>
 <p>vdom包專為 <a class="reference external" href="https://gopherjs.org/">GopherJS</a> 而寫，而GopherJS是一個從Go到Javascript的轉譯器。基於便捷，GopherJS使用js.Object類型。Go的新wasm庫syscall/js使用js.Value類型。它們精神上是相似的，但在實現上大為不同。這意味著我使用vdom渲染的想法是行不通的，除非我將vdom使用的js.Object移植到使用js.Value。盡管vdom的tree.HTML()函數在不用修改的情況下就可以運行，因此我可以將HTML節點的內部HTML設置為vdom解析出的內容。Render()函數解析Go結構模板，將Go結構的實例作為上下文來傳值。然後它用vdom庫創建一個解析dom樹，而且在函數的最後一行渲染樹：</p>
-<div class="highlight"><pre><span></span><span class="nx">todoList</span><span class="p">.</span><span class="nx">Root</span><span class="p">.</span><span class="nx">Set</span><span class="p">(</span><span class="s">&quot;innerHTML&quot;</span><span class="p">,</span><span class="w"> </span><span class="nb">string</span><span class="p">(</span><span class="nx">newTree</span><span class="p">.</span><span class="nx">HTML</span><span class="p">()))</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="nx">todoList</span><span class="p">.</span><span class="nx">Root</span><span class="p">.</span><span class="nx">Set</span><span class="p">(</span><span class="s">&quot;innerHTML&quot;</span><span class="p">,</span><span class="w"> </span><span class="nb">string</span><span class="p">(</span><span class="nx">newTree</span><span class="p">.</span><span class="nx">HTML</span><span class="p">()))</span>
 </pre></div>
 <p>此時，我已經有了一個可以運行的Go/wasm原型，沒有連接任何事件。但是它確實可以渲染成dom並顯示在瀏覽器。這是巨大的一步；我當時很興奮。</p>
 <p>我創建了一個Makefile，這樣我就不用一次又一次的輸入冗長的編譯命令：</p>
 <div class="highlight"><pre><span></span><span class="nf">wasm2</span><span class="o">:</span>
-      <span class="nv">GOROOT</span><span class="o">=</span>~/gowasm <span class="nv">GOARCH</span><span class="o">=</span>wasm <span class="nv">GOOS</span><span class="o">=</span>js ~/gowasm/bin/go build -o example.wasm markdown.go
+<span class="w">      </span><span class="nv">GOROOT</span><span class="o">=</span>~/gowasm<span class="w"> </span><span class="nv">GOARCH</span><span class="o">=</span>wasm<span class="w"> </span><span class="nv">GOOS</span><span class="o">=</span>js<span class="w"> </span>~/gowasm/bin/go<span class="w"> </span>build<span class="w"> </span>-o<span class="w"> </span>example.wasm<span class="w"> </span>markdown.go
 
 <span class="nf">wasm</span><span class="o">:</span>
-      <span class="nv">GOROOT</span><span class="o">=</span>~/gowasm <span class="nv">GOARCH</span><span class="o">=</span>wasm <span class="nv">GOOS</span><span class="o">=</span>js ~/gowasm/bin/go build -o example.wasm .
+<span class="w">      </span><span class="nv">GOROOT</span><span class="o">=</span>~/gowasm<span class="w"> </span><span class="nv">GOARCH</span><span class="o">=</span>wasm<span class="w"> </span><span class="nv">GOOS</span><span class="o">=</span>js<span class="w"> </span>~/gowasm/bin/go<span class="w"> </span>build<span class="w"> </span>-o<span class="w"> </span>example.wasm<span class="w"> </span>.
 
 <span class="nf">build-server</span><span class="o">:</span>
-      go build -o server-app server/server.go
+<span class="w">      </span>go<span class="w"> </span>build<span class="w"> </span>-o<span class="w"> </span>server-app<span class="w"> </span>server/server.go
 
-<span class="nf">run</span><span class="o">:</span> <span class="n">build</span>-<span class="n">server</span> <span class="n">wasm</span>
-      ./server-app
+<span class="nf">run</span><span class="o">:</span><span class="w"> </span><span class="n">build</span>-<span class="n">server</span> <span class="n">wasm</span>
+<span class="w">      </span>./server-app
 </pre></div>
 <p>基於現在的Web Assembly狀態，這個makefile也指出了一個至關重要的問題。新型瀏覽器會忽略WASM文件，除非給他們提供合適的MIME類型。 <a class="reference external" href="https://blog.owulveryck.info/2018/06/08/some-notes-about-the-upcoming-webassembly-support-in-go.html">這篇文章</a> 有一個簡單的HTTP文件服務器，它為web assembly文件設置了正確的MIME類型。我將其複製到我的項目，並將其用於應用中。如果你的web服務器確實為.wasm文件配置好了，那麼你就不需要自定義服務器。</p>
 </div>

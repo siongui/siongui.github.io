@@ -88,37 +88,37 @@ files to CSS via <a class="reference external" href="https://github.com/sass/lib
 <span class="normal">25</span></pre></div></td><td class="code"><div><pre><span></span><span class="c"># cannot use relative path in GOROOT, otherwise 6g not found. For example,</span>
 <span class="c">#   export GOROOT=../go  (=&gt; 6g not found)</span>
 <span class="c"># it is also not allowed to use relative path in GOPATH</span>
-<span class="k">export </span><span class="nv">GOROOT</span><span class="o">=</span><span class="k">$(</span>realpath ../go<span class="k">)</span>
-<span class="k">export </span><span class="nv">GOPATH</span><span class="o">=</span><span class="k">$(</span>realpath .<span class="k">)</span>
-<span class="k">export </span><span class="nv">PATH</span> <span class="o">:=</span> <span class="k">$(</span>GOROOT<span class="k">)</span>/bin:<span class="k">$(</span>GOPATH<span class="k">)</span>/bin:<span class="k">$(</span>PATH<span class="k">)</span>
+<span class="k">export </span><span class="nv">GOROOT</span><span class="o">=</span><span class="k">$(</span>realpath<span class="w"> </span>../go<span class="k">)</span>
+<span class="k">export </span><span class="nv">GOPATH</span><span class="o">=</span><span class="k">$(</span>realpath<span class="w"> </span>.<span class="k">)</span>
+<span class="k">export </span><span class="nv">PATH</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">$(</span>GOROOT<span class="k">)</span>/bin:<span class="k">$(</span>GOPATH<span class="k">)</span>/bin:<span class="k">$(</span>PATH<span class="k">)</span>
 <span class="nv">FILE</span><span class="o">=</span>testsass
 <span class="nv">SCSSDIR</span><span class="o">=</span>src/style
 
 
 <span class="nf">default</span><span class="o">:</span>
-	@go run <span class="k">$(</span>FILE<span class="k">)</span>.go
+<span class="w">	</span>@go<span class="w"> </span>run<span class="w"> </span><span class="k">$(</span>FILE<span class="k">)</span>.go
 
 <span class="nf">fmt</span><span class="o">:</span>
-	@go fmt <span class="k">$(</span>FILE<span class="k">)</span>.go
+<span class="w">	</span>@go<span class="w"> </span>fmt<span class="w"> </span><span class="k">$(</span>FILE<span class="k">)</span>.go
 
 <span class="nf">download</span><span class="o">:</span>
-	@<span class="o">[</span> -d <span class="k">$(</span>SCSSDIR<span class="k">)</span> <span class="o">]</span> <span class="o">||</span> mkdir -p <span class="k">$(</span>SCSSDIR<span class="k">)</span>
-	@<span class="o">[</span> -e <span class="k">$(</span>SCSSDIR<span class="k">)</span>/_normalize302.scss <span class="o">]</span> <span class="o">||</span> wget -O <span class="k">$(</span>SCSSDIR<span class="k">)</span>/_normalize302.scss http://necolas.github.com/normalize.css/3.0.2/normalize.css
-	@<span class="o">[</span> -e <span class="k">$(</span>SCSSDIR<span class="k">)</span>/_css4rst.scss <span class="o">]</span> <span class="o">||</span> wget -O <span class="k">$(</span>SCSSDIR<span class="k">)</span>/_css4rst.scss https://github.com/siongui/userpages/raw/master/theme/styling/_css4rst.scss
-	@<span class="o">[</span> -e <span class="k">$(</span>SCSSDIR<span class="k">)</span>/_pygments.scss <span class="o">]</span> <span class="o">||</span> wget -O <span class="k">$(</span>SCSSDIR<span class="k">)</span>/_pygments.scss https://github.com/siongui/userpages/raw/master/theme/styling/_pygments.scss
-	@<span class="o">[</span> -e <span class="k">$(</span>SCSSDIR<span class="k">)</span>/style.scss <span class="o">]</span> <span class="o">||</span> wget -O <span class="k">$(</span>SCSSDIR<span class="k">)</span>/style.scss https://github.com/siongui/userpages/raw/master/theme/styling/style.scss
+<span class="w">	</span>@<span class="o">[</span><span class="w"> </span>-d<span class="w"> </span><span class="k">$(</span>SCSSDIR<span class="k">)</span><span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="o">||</span><span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span><span class="k">$(</span>SCSSDIR<span class="k">)</span>
+<span class="w">	</span>@<span class="o">[</span><span class="w"> </span>-e<span class="w"> </span><span class="k">$(</span>SCSSDIR<span class="k">)</span>/_normalize302.scss<span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="o">||</span><span class="w"> </span>wget<span class="w"> </span>-O<span class="w"> </span><span class="k">$(</span>SCSSDIR<span class="k">)</span>/_normalize302.scss<span class="w"> </span>http://necolas.github.com/normalize.css/3.0.2/normalize.css
+<span class="w">	</span>@<span class="o">[</span><span class="w"> </span>-e<span class="w"> </span><span class="k">$(</span>SCSSDIR<span class="k">)</span>/_css4rst.scss<span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="o">||</span><span class="w"> </span>wget<span class="w"> </span>-O<span class="w"> </span><span class="k">$(</span>SCSSDIR<span class="k">)</span>/_css4rst.scss<span class="w"> </span>https://github.com/siongui/userpages/raw/master/theme/styling/_css4rst.scss
+<span class="w">	</span>@<span class="o">[</span><span class="w"> </span>-e<span class="w"> </span><span class="k">$(</span>SCSSDIR<span class="k">)</span>/_pygments.scss<span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="o">||</span><span class="w"> </span>wget<span class="w"> </span>-O<span class="w"> </span><span class="k">$(</span>SCSSDIR<span class="k">)</span>/_pygments.scss<span class="w"> </span>https://github.com/siongui/userpages/raw/master/theme/styling/_pygments.scss
+<span class="w">	</span>@<span class="o">[</span><span class="w"> </span>-e<span class="w"> </span><span class="k">$(</span>SCSSDIR<span class="k">)</span>/style.scss<span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="o">||</span><span class="w"> </span>wget<span class="w"> </span>-O<span class="w"> </span><span class="k">$(</span>SCSSDIR<span class="k">)</span>/style.scss<span class="w"> </span>https://github.com/siongui/userpages/raw/master/theme/styling/style.scss
 
 <span class="nf">install</span><span class="o">:</span>
-	go get -u github.com/wellington/go-libsass
+<span class="w">	</span>go<span class="w"> </span>get<span class="w"> </span>-u<span class="w"> </span>github.com/wellington/go-libsass
 </pre></div></td></tr></table></div>
 </div></figure>
 <p>Install <a class="reference external" href="https://github.com/wellington/go-libsass">go-libsass</a> (You do not need to install <a class="reference external" href="https://github.com/sass/libsass">libsass</a>):</p>
 <div class="highlight"><pre><span></span><span class="c1"># cd to the directory where you put Makefile</span>
-$ make install
+$<span class="w"> </span>make<span class="w"> </span>install
 </pre></div>
 <p>Download demo <a class="reference external" href="http://sass-lang.com/documentation/file.SCSS_FOR_SASS_USERS.html">SCSS</a> files:</p>
 <div class="highlight"><pre><span></span><span class="c1"># cd to the directory where you put Makefile</span>
-$ make download
+$<span class="w"> </span>make<span class="w"> </span>download
 </pre></div>
 <p>Now we write a <a class="reference external" href="https://golang.org/">Go</a> program to compile SCSS files to CSS (Put this Go file in the
 same directory as Makefile):</p>
@@ -166,50 +166,50 @@ same directory as Makefile):</p>
 <span class="normal">36</span>
 <span class="normal">37</span>
 <span class="normal">38</span>
-<span class="normal">39</span></pre></div></td><td class="code"><div><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w"></span>
+<span class="normal">39</span></pre></div></td><td class="code"><div><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span>
 
-<span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
-<span class="w">	</span><span class="nx">libsass</span><span class="w"> </span><span class="s">&quot;github.com/wellington/go-libsass&quot;</span><span class="w"></span>
-<span class="w">	</span><span class="s">&quot;os&quot;</span><span class="w"></span>
-<span class="p">)</span><span class="w"></span>
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span>
+<span class="w">	</span><span class="nx">libsass</span><span class="w"> </span><span class="s">&quot;github.com/wellington/go-libsass&quot;</span>
+<span class="w">	</span><span class="s">&quot;os&quot;</span>
+<span class="p">)</span>
 
-<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">	</span><span class="kd">const</span><span class="w"> </span><span class="nx">sassdir</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;src/style/&quot;</span><span class="w"></span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">	</span><span class="kd">const</span><span class="w"> </span><span class="nx">sassdir</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;src/style/&quot;</span>
 
-<span class="w">	</span><span class="c1">// open input sass/scss file to be compiled</span><span class="w"></span>
-<span class="w">	</span><span class="nx">fi</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">os</span><span class="p">.</span><span class="nx">Open</span><span class="p">(</span><span class="nx">sassdir</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot;style.scss&quot;</span><span class="p">)</span><span class="w"></span>
-<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">		</span><span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"></span>
-<span class="w">	</span><span class="p">}</span><span class="w"></span>
-<span class="w">	</span><span class="k">defer</span><span class="w"> </span><span class="nx">fi</span><span class="p">.</span><span class="nx">Close</span><span class="p">()</span><span class="w"></span>
+<span class="w">	</span><span class="c1">// open input sass/scss file to be compiled</span>
+<span class="w">	</span><span class="nx">fi</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">os</span><span class="p">.</span><span class="nx">Open</span><span class="p">(</span><span class="nx">sassdir</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot;style.scss&quot;</span><span class="p">)</span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">		</span><span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+<span class="w">	</span><span class="p">}</span>
+<span class="w">	</span><span class="k">defer</span><span class="w"> </span><span class="nx">fi</span><span class="p">.</span><span class="nx">Close</span><span class="p">()</span>
 
-<span class="w">	</span><span class="c1">// create output css file</span><span class="w"></span>
-<span class="w">	</span><span class="nx">fo</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">os</span><span class="p">.</span><span class="nx">Create</span><span class="p">(</span><span class="s">&quot;style.css&quot;</span><span class="p">)</span><span class="w"></span>
-<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">		</span><span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"></span>
-<span class="w">	</span><span class="p">}</span><span class="w"></span>
-<span class="w">	</span><span class="k">defer</span><span class="w"> </span><span class="nx">fo</span><span class="p">.</span><span class="nx">Close</span><span class="p">()</span><span class="w"></span>
+<span class="w">	</span><span class="c1">// create output css file</span>
+<span class="w">	</span><span class="nx">fo</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">os</span><span class="p">.</span><span class="nx">Create</span><span class="p">(</span><span class="s">&quot;style.css&quot;</span><span class="p">)</span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">		</span><span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+<span class="w">	</span><span class="p">}</span>
+<span class="w">	</span><span class="k">defer</span><span class="w"> </span><span class="nx">fo</span><span class="p">.</span><span class="nx">Close</span><span class="p">()</span>
 
-<span class="w">	</span><span class="c1">// options for compilation</span><span class="w"></span>
-<span class="w">	</span><span class="nx">p</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">libsass</span><span class="p">.</span><span class="nx">IncludePaths</span><span class="p">([]</span><span class="kt">string</span><span class="p">{</span><span class="nx">sassdir</span><span class="p">})</span><span class="w"></span>
-<span class="w">	</span><span class="nx">s</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">libsass</span><span class="p">.</span><span class="nx">OutputStyle</span><span class="p">(</span><span class="nx">libsass</span><span class="p">.</span><span class="nx">COMPRESSED_STYLE</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="c1">// options for compilation</span>
+<span class="w">	</span><span class="nx">p</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">libsass</span><span class="p">.</span><span class="nx">IncludePaths</span><span class="p">([]</span><span class="kt">string</span><span class="p">{</span><span class="nx">sassdir</span><span class="p">})</span>
+<span class="w">	</span><span class="nx">s</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">libsass</span><span class="p">.</span><span class="nx">OutputStyle</span><span class="p">(</span><span class="nx">libsass</span><span class="p">.</span><span class="nx">COMPRESSED_STYLE</span><span class="p">)</span>
 
-<span class="w">	</span><span class="c1">// create a new compiler with options</span><span class="w"></span>
-<span class="w">	</span><span class="nx">comp</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">libsass</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="nx">fo</span><span class="p">,</span><span class="w"> </span><span class="nx">fi</span><span class="p">,</span><span class="w"> </span><span class="nx">p</span><span class="p">,</span><span class="w"> </span><span class="nx">s</span><span class="p">)</span><span class="w"></span>
-<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">		</span><span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"></span>
-<span class="w">	</span><span class="p">}</span><span class="w"></span>
+<span class="w">	</span><span class="c1">// create a new compiler with options</span>
+<span class="w">	</span><span class="nx">comp</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">libsass</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="nx">fo</span><span class="p">,</span><span class="w"> </span><span class="nx">fi</span><span class="p">,</span><span class="w"> </span><span class="nx">p</span><span class="p">,</span><span class="w"> </span><span class="nx">s</span><span class="p">)</span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">		</span><span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+<span class="w">	</span><span class="p">}</span>
 
-<span class="w">	</span><span class="c1">// start compile</span><span class="w"></span>
-<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">comp</span><span class="p">.</span><span class="nx">Run</span><span class="p">();</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">		</span><span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"></span>
-<span class="w">	</span><span class="p">}</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">	</span><span class="c1">// start compile</span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">comp</span><span class="p">.</span><span class="nx">Run</span><span class="p">();</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">		</span><span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+<span class="w">	</span><span class="p">}</span>
+<span class="p">}</span>
 </pre></div></td></tr></table></div>
 </div></figure>
 <p>Run the <a class="reference external" href="https://golang.org/">Go</a> program:</p>
 <div class="highlight"><pre><span></span><span class="c1"># cd to the directory where you put Makefile</span>
-$ make
+$<span class="w"> </span>make
 </pre></div>
 <p>The output file will be <em>style.css</em> in the same directory.</p>
 <hr class="docutils" />

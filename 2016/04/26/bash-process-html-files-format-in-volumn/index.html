@@ -58,26 +58,26 @@ of HTML files in directory via <a class="reference external" href="https://www.g
 <div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 
 <span class="c1"># $1 is the directory in which files to be processed</span>
-<span class="k">for</span> path <span class="k">in</span> <span class="k">$(</span>find <span class="nv">$1</span> -type f<span class="k">)</span>
+<span class="k">for</span><span class="w"> </span>path<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="k">$(</span>find<span class="w"> </span><span class="nv">$1</span><span class="w"> </span>-type<span class="w"> </span>f<span class="k">)</span>
 <span class="k">do</span>
-  <span class="nb">echo</span> -e <span class="s2">&quot;\033[92mProcessing </span><span class="si">${</span><span class="nv">path</span><span class="si">}</span><span class="s2"> ...\033[0m&quot;</span>
-  <span class="c1"># big5 to utf8</span>
-  iconv -f big5 -t utf-8 <span class="si">${</span><span class="nv">path</span><span class="si">}</span> &gt; tmp.html
-  <span class="k">if</span> <span class="o">[</span> <span class="nv">$?</span> -ne <span class="m">0</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
-    <span class="c1"># fail to convert big5 to UTF-8</span>
-    <span class="k">continue</span>
-  <span class="k">fi</span>
-  mv tmp.html <span class="si">${</span><span class="nv">path</span><span class="si">}</span>
+<span class="w">  </span><span class="nb">echo</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;\033[92mProcessing </span><span class="si">${</span><span class="nv">path</span><span class="si">}</span><span class="s2"> ...\033[0m&quot;</span>
+<span class="w">  </span><span class="c1"># big5 to utf8</span>
+<span class="w">  </span>iconv<span class="w"> </span>-f<span class="w"> </span>big5<span class="w"> </span>-t<span class="w"> </span>utf-8<span class="w"> </span><span class="si">${</span><span class="nv">path</span><span class="si">}</span><span class="w"> </span>&gt;<span class="w"> </span>tmp.html
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="nv">$?</span><span class="w"> </span>-ne<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span><span class="c1"># fail to convert big5 to UTF-8</span>
+<span class="w">    </span><span class="k">continue</span>
+<span class="w">  </span><span class="k">fi</span>
+<span class="w">  </span>mv<span class="w"> </span>tmp.html<span class="w"> </span><span class="si">${</span><span class="nv">path</span><span class="si">}</span>
 
-  <span class="c1"># remove dos newline</span>
-  tr -d <span class="s1">&#39;\015&#39;</span> &lt;<span class="si">${</span><span class="nv">path</span><span class="si">}</span> &gt; tmp.html
-  mv tmp.html <span class="si">${</span><span class="nv">path</span><span class="si">}</span>
+<span class="w">  </span><span class="c1"># remove dos newline</span>
+<span class="w">  </span>tr<span class="w"> </span>-d<span class="w"> </span><span class="s1">&#39;\015&#39;</span><span class="w"> </span>&lt;<span class="si">${</span><span class="nv">path</span><span class="si">}</span><span class="w"> </span>&gt;<span class="w"> </span>tmp.html
+<span class="w">  </span>mv<span class="w"> </span>tmp.html<span class="w"> </span><span class="si">${</span><span class="nv">path</span><span class="si">}</span>
 
-  <span class="c1"># html meta big5 to UTF-8</span>
-  sed <span class="s1">&#39;s/big5/UTF-8/&#39;</span> -i <span class="si">${</span><span class="nv">path</span><span class="si">}</span>
+<span class="w">  </span><span class="c1"># html meta big5 to UTF-8</span>
+<span class="w">  </span>sed<span class="w"> </span><span class="s1">&#39;s/big5/UTF-8/&#39;</span><span class="w"> </span>-i<span class="w"> </span><span class="si">${</span><span class="nv">path</span><span class="si">}</span>
 
-  <span class="c1"># append newline to end of file</span>
-  sed -i -e <span class="s1">&#39;$a\&#39;</span> <span class="si">${</span><span class="nv">path</span><span class="si">}</span>
+<span class="w">  </span><span class="c1"># append newline to end of file</span>
+<span class="w">  </span>sed<span class="w"> </span>-i<span class="w"> </span>-e<span class="w"> </span><span class="s1">&#39;$a\&#39;</span><span class="w"> </span><span class="si">${</span><span class="nv">path</span><span class="si">}</span>
 <span class="k">done</span>
 </pre></div>
 

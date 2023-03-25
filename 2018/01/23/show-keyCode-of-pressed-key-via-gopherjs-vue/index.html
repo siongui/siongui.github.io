@@ -66,48 +66,48 @@
 the pressed key will be shown below the <em>input</em> element.</p>
 <p>The following is the Go code for above HTML code:</p>
 <p><strong>Go</strong></p>
-<div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span>
 
-<span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
-<span class="w">      </span><span class="s">&quot;github.com/gopherjs/gopherjs/js&quot;</span><span class="w"></span>
-<span class="w">      </span><span class="s">&quot;github.com/oskca/gopherjs-vue&quot;</span><span class="w"></span>
-<span class="p">)</span><span class="w"></span>
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span>
+<span class="w">      </span><span class="s">&quot;github.com/gopherjs/gopherjs/js&quot;</span>
+<span class="w">      </span><span class="s">&quot;github.com/oskca/gopherjs-vue&quot;</span>
+<span class="p">)</span>
 
-<span class="kd">type</span><span class="w"> </span><span class="nx">Model</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">      </span><span class="o">*</span><span class="nx">js</span><span class="p">.</span><span class="nx">Object</span><span class="w">        </span><span class="c1">// this is needed for bidirectional data bindings</span><span class="w"></span>
-<span class="w">      </span><span class="nx">Keypressed</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="s">`js:&quot;keypressed&quot;`</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="kd">type</span><span class="w"> </span><span class="nx">Model</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="o">*</span><span class="nx">js</span><span class="p">.</span><span class="nx">Object</span><span class="w">        </span><span class="c1">// this is needed for bidirectional data bindings</span>
+<span class="w">      </span><span class="nx">Keypressed</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="s">`js:&quot;keypressed&quot;`</span>
+<span class="p">}</span>
 
-<span class="c1">// this would be recognized as Show in html</span><span class="w"></span>
-<span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">m</span><span class="w"> </span><span class="o">*</span><span class="nx">Model</span><span class="p">)</span><span class="w"> </span><span class="nx">ShowKeyCode</span><span class="p">(</span><span class="nx">event</span><span class="w"> </span><span class="o">*</span><span class="nx">js</span><span class="p">.</span><span class="nx">Object</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">      </span><span class="nx">m</span><span class="p">.</span><span class="nx">Keypressed</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">event</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;keyCode&quot;</span><span class="p">).</span><span class="nx">String</span><span class="p">()</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="c1">// this would be recognized as Show in html</span>
+<span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">m</span><span class="w"> </span><span class="o">*</span><span class="nx">Model</span><span class="p">)</span><span class="w"> </span><span class="nx">ShowKeyCode</span><span class="p">(</span><span class="nx">event</span><span class="w"> </span><span class="o">*</span><span class="nx">js</span><span class="p">.</span><span class="nx">Object</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">m</span><span class="p">.</span><span class="nx">Keypressed</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">event</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;keyCode&quot;</span><span class="p">).</span><span class="nx">String</span><span class="p">()</span>
+<span class="p">}</span>
 
-<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">      </span><span class="nx">m</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">Model</span><span class="p">{</span><span class="w"></span>
-<span class="w">              </span><span class="nx">Object</span><span class="p">:</span><span class="w"> </span><span class="nx">js</span><span class="p">.</span><span class="nx">Global</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;Object&quot;</span><span class="p">).</span><span class="nx">New</span><span class="p">(),</span><span class="w"></span>
-<span class="w">      </span><span class="p">}</span><span class="w"></span>
-<span class="w">      </span><span class="c1">// field assignment is required in this way to make data passing works</span><span class="w"></span>
-<span class="w">      </span><span class="nx">m</span><span class="p">.</span><span class="nx">Keypressed</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w"></span>
-<span class="w">      </span><span class="c1">// create the VueJS viewModel using a struct pointer</span><span class="w"></span>
-<span class="w">      </span><span class="nx">vue</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="s">&quot;#vueapp&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">m</span><span class="p">)</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">m</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">Model</span><span class="p">{</span>
+<span class="w">              </span><span class="nx">Object</span><span class="p">:</span><span class="w"> </span><span class="nx">js</span><span class="p">.</span><span class="nx">Global</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;Object&quot;</span><span class="p">).</span><span class="nx">New</span><span class="p">(),</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">      </span><span class="c1">// field assignment is required in this way to make data passing works</span>
+<span class="w">      </span><span class="nx">m</span><span class="p">.</span><span class="nx">Keypressed</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;&quot;</span>
+<span class="w">      </span><span class="c1">// create the VueJS viewModel using a struct pointer</span>
+<span class="w">      </span><span class="nx">vue</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="s">&quot;#vueapp&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">m</span><span class="p">)</span>
+<span class="p">}</span>
 </pre></div>
 <p>The above Go code is equivalent to the following JavaScript code:</p>
 <p><strong>JavaScript</strong></p>
-<div class="highlight"><pre><span></span><span class="s1">&#39;use strict&#39;</span><span class="p">;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="s1">&#39;use strict&#39;</span><span class="p">;</span>
 
-<span class="ow">new</span><span class="w"> </span><span class="nx">Vue</span><span class="p">({</span><span class="w"></span>
-<span class="w">  </span><span class="nx">el</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;#vueapp&#39;</span><span class="p">,</span><span class="w"></span>
-<span class="w">  </span><span class="nx">data</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nx">keypressed</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="w"></span>
-<span class="w">  </span><span class="p">},</span><span class="w"></span>
-<span class="w">  </span><span class="nx">methods</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nx">ShowKeyCode</span><span class="o">:</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">(</span><span class="nx">event</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">      </span><span class="k">this</span><span class="p">.</span><span class="nx">keypressed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">event</span><span class="p">.</span><span class="nx">keyCode</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="w">  </span><span class="p">}</span><span class="w"></span>
-<span class="p">});</span><span class="w"></span>
+<span class="ow">new</span><span class="w"> </span><span class="nx">Vue</span><span class="p">({</span>
+<span class="w">  </span><span class="nx">el</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;#vueapp&#39;</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">data</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">keypressed</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nx">methods</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">ShowKeyCode</span><span class="o">:</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">(</span><span class="nx">event</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">this</span><span class="p">.</span><span class="nx">keypressed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">event</span><span class="p">.</span><span class="nx">keyCode</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">});</span>
 </pre></div>
 <p>The full code example can be found <a class="reference external" href="https://github.com/siongui/frontend-programming-in-go/tree/master/023-keyboard-event-keyCode-gopherjs-vue">on my GitHub</a>.</p>
 

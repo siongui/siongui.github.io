@@ -54,30 +54,30 @@
 
     <div class="main-content"><p>Access URL, path, query string, etc. of current URL via <a class="reference external" href="http://www.w3schools.com/jsref/obj_location.asp">window.location</a> and
 <a class="reference external" href="http://www.gopherjs.org/">GopherJS</a>.</p>
-<div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="s">&quot;github.com/gopherjs/gopherjs/js&quot;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="s">&quot;github.com/gopherjs/gopherjs/js&quot;</span>
 
-<span class="kd">var</span><span class="w"> </span><span class="nx">location</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">js</span><span class="p">.</span><span class="nx">Global</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;location&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">location</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">js</span><span class="p">.</span><span class="nx">Global</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;location&quot;</span><span class="p">)</span>
 
-<span class="kd">func</span><span class="w"> </span><span class="nx">accessURL</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">      </span><span class="c1">// current URL: http://localhost:8000/code/gopherjs/window-location/index.html?a=1</span><span class="w"></span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">accessURL</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="c1">// current URL: http://localhost:8000/code/gopherjs/window-location/index.html?a=1</span>
 
-<span class="w">      </span><span class="c1">// return - http://localhost:8000/code/gopherjs/window-location/index.html?a=1</span><span class="w"></span>
-<span class="w">      </span><span class="nx">location</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;href&quot;</span><span class="p">).</span><span class="nx">String</span><span class="p">()</span><span class="w"></span>
-<span class="w">      </span><span class="c1">// return - localhost:8000</span><span class="w"></span>
-<span class="w">      </span><span class="nx">location</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;host&quot;</span><span class="p">).</span><span class="nx">String</span><span class="p">()</span><span class="w"></span>
-<span class="w">      </span><span class="c1">// return - localhost</span><span class="w"></span>
-<span class="w">      </span><span class="nx">location</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;hostname&quot;</span><span class="p">).</span><span class="nx">String</span><span class="p">()</span><span class="w"></span>
-<span class="w">      </span><span class="c1">// return - /code/gopherjs/window-location/index.html</span><span class="w"></span>
-<span class="w">      </span><span class="nx">location</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;pathname&quot;</span><span class="p">).</span><span class="nx">String</span><span class="p">()</span><span class="w"></span>
-<span class="w">      </span><span class="c1">// return - http:</span><span class="w"></span>
-<span class="w">      </span><span class="nx">location</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;protocol&quot;</span><span class="p">).</span><span class="nx">String</span><span class="p">()</span><span class="w"></span>
-<span class="w">      </span><span class="c1">// return - http://localhost:8000</span><span class="w"></span>
-<span class="w">      </span><span class="nx">location</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;origin&quot;</span><span class="p">).</span><span class="nx">String</span><span class="p">()</span><span class="w"></span>
-<span class="w">      </span><span class="c1">// return - 8000</span><span class="w"></span>
-<span class="w">      </span><span class="nx">location</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;port&quot;</span><span class="p">).</span><span class="nx">String</span><span class="p">()</span><span class="w"></span>
-<span class="w">      </span><span class="c1">// return - ?a=1</span><span class="w"></span>
-<span class="w">      </span><span class="nx">location</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;search&quot;</span><span class="p">).</span><span class="nx">String</span><span class="p">()</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">      </span><span class="c1">// return - http://localhost:8000/code/gopherjs/window-location/index.html?a=1</span>
+<span class="w">      </span><span class="nx">location</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;href&quot;</span><span class="p">).</span><span class="nx">String</span><span class="p">()</span>
+<span class="w">      </span><span class="c1">// return - localhost:8000</span>
+<span class="w">      </span><span class="nx">location</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;host&quot;</span><span class="p">).</span><span class="nx">String</span><span class="p">()</span>
+<span class="w">      </span><span class="c1">// return - localhost</span>
+<span class="w">      </span><span class="nx">location</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;hostname&quot;</span><span class="p">).</span><span class="nx">String</span><span class="p">()</span>
+<span class="w">      </span><span class="c1">// return - /code/gopherjs/window-location/index.html</span>
+<span class="w">      </span><span class="nx">location</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;pathname&quot;</span><span class="p">).</span><span class="nx">String</span><span class="p">()</span>
+<span class="w">      </span><span class="c1">// return - http:</span>
+<span class="w">      </span><span class="nx">location</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;protocol&quot;</span><span class="p">).</span><span class="nx">String</span><span class="p">()</span>
+<span class="w">      </span><span class="c1">// return - http://localhost:8000</span>
+<span class="w">      </span><span class="nx">location</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;origin&quot;</span><span class="p">).</span><span class="nx">String</span><span class="p">()</span>
+<span class="w">      </span><span class="c1">// return - 8000</span>
+<span class="w">      </span><span class="nx">location</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;port&quot;</span><span class="p">).</span><span class="nx">String</span><span class="p">()</span>
+<span class="w">      </span><span class="c1">// return - ?a=1</span>
+<span class="w">      </span><span class="nx">location</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;search&quot;</span><span class="p">).</span><span class="nx">String</span><span class="p">()</span>
+<span class="p">}</span>
 </pre></div>
 
 <p>For <a class="reference external" href="https://www.google.com/search?q=JavaScript">JavaScript</a> equivalent, see <a class="footnote-reference" href="#footnote-2" id="footnote-reference-1">[2]</a>.</p>

@@ -62,7 +62,7 @@ requests to retrieve <a class="reference external" href="http://www.w3schools.co
 <div class="section" id="install-gopherjs">
 <h2>Install <a class="reference external" href="http://www.gopherjs.org/">GopherJS</a></h2>
 <p>Run the following command to install <a class="reference external" href="http://www.gopherjs.org/">GopherJS</a>:</p>
-<div class="highlight"><pre><span></span>$ go get -u github.com/gopherjs/gopherjs
+<div class="highlight"><pre><span></span>$<span class="w"> </span>go<span class="w"> </span>get<span class="w"> </span>-u<span class="w"> </span>github.com/gopherjs/gopherjs
 </pre></div>
 </div>
 <div class="section" id="source-code">
@@ -86,7 +86,7 @@ requests to retrieve <a class="reference external" href="http://www.w3schools.co
               <a href="https://github.com/siongui/userpages">repository</a> |
               <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/code/gopherjs-dom/src/xhrget/sukhada.json">view raw</a>
             </figcaption><div class="code-file">
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><span class="p">{</span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[[</span><span class="s2">&quot;\u25ce\u3000\u300aConcise Pali-English Dictionary\u300b by A.P. Buddhadatta Mahathera&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;sukhada&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;: [adj.] producing happiness.&quot;</span><span class="p">]],</span><span class="w"> </span><span class="nt">&quot;word&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;sukhada&quot;</span><span class="p">}</span><span class="w"></span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><span class="p">{</span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[[</span><span class="s2">&quot;\u25ce\u3000\u300aConcise Pali-English Dictionary\u300b by A.P. Buddhadatta Mahathera&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;sukhada&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;: [adj.] producing happiness.&quot;</span><span class="p">]],</span><span class="w"> </span><span class="nt">&quot;word&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;sukhada&quot;</span><span class="p">}</span>
 </pre></div></td></tr></table></div>
 </div></figure><p>It is surprising easy to send <a class="reference external" href="http://www.w3schools.com/tags/ref_httpmethods.asp">HTTP GET</a> <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest">XHR</a> request: Use <a class="reference external" href="https://golang.org/">Golang</a> built-in
 <a class="reference external" href="https://golang.org/pkg/net/http/">net/http</a> package! You just use <em>Get</em> method as usual, and GopherJS will take
@@ -125,39 +125,39 @@ care of all the rests for you!</p>
 <span class="normal">26</span>
 <span class="normal">27</span>
 <span class="normal">28</span>
-<span class="normal">29</span></pre></div></td><td class="code"><div><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w"></span>
+<span class="normal">29</span></pre></div></td><td class="code"><div><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span>
 
-<span class="kn">import</span><span class="w"> </span><span class="s">&quot;net/http&quot;</span><span class="w"></span>
-<span class="kn">import</span><span class="w"> </span><span class="s">&quot;encoding/json&quot;</span><span class="w"></span>
+<span class="kn">import</span><span class="w"> </span><span class="s">&quot;net/http&quot;</span>
+<span class="kn">import</span><span class="w"> </span><span class="s">&quot;encoding/json&quot;</span>
 
-<span class="kd">type</span><span class="w"> </span><span class="nx">Exp</span><span class="w"> </span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="kt">string</span><span class="w"></span>
+<span class="kd">type</span><span class="w"> </span><span class="nx">Exp</span><span class="w"> </span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="kt">string</span>
 
-<span class="kd">type</span><span class="w"> </span><span class="nx">Def</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">	</span><span class="nx">Data</span><span class="w"> </span><span class="p">[]</span><span class="nx">Exp</span><span class="w"></span>
-<span class="w">	</span><span class="nx">Word</span><span class="w"> </span><span class="kt">string</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="kd">type</span><span class="w"> </span><span class="nx">Def</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">	</span><span class="nx">Data</span><span class="w"> </span><span class="p">[]</span><span class="nx">Exp</span>
+<span class="w">	</span><span class="nx">Word</span><span class="w"> </span><span class="kt">string</span>
+<span class="p">}</span>
 
-<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">	</span><span class="nx">resp</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">http</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;/sukhada.json&quot;</span><span class="p">)</span><span class="w"></span>
-<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">		</span><span class="c1">// handle error</span><span class="w"></span>
-<span class="w">		</span><span class="nb">println</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"></span>
-<span class="w">	</span><span class="p">}</span><span class="w"></span>
-<span class="w">	</span><span class="k">defer</span><span class="w"> </span><span class="nx">resp</span><span class="p">.</span><span class="nx">Body</span><span class="p">.</span><span class="nx">Close</span><span class="p">()</span><span class="w"></span>
-<span class="w">	</span><span class="nx">w</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">Def</span><span class="p">{}</span><span class="w"></span>
-<span class="w">	</span><span class="nx">dec</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">json</span><span class="p">.</span><span class="nx">NewDecoder</span><span class="p">(</span><span class="nx">resp</span><span class="p">.</span><span class="nx">Body</span><span class="p">)</span><span class="w"></span>
-<span class="w">	</span><span class="nx">err2</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">dec</span><span class="p">.</span><span class="nx">Decode</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">w</span><span class="p">)</span><span class="w"></span>
-<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err2</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">		</span><span class="c1">// handle error</span><span class="w"></span>
-<span class="w">		</span><span class="nb">println</span><span class="p">(</span><span class="nx">err2</span><span class="p">)</span><span class="w"></span>
-<span class="w">	</span><span class="p">}</span><span class="w"></span>
-<span class="w">	</span><span class="nb">println</span><span class="p">(</span><span class="nx">w</span><span class="p">.</span><span class="nx">Word</span><span class="p">)</span><span class="w"></span>
-<span class="w">	</span><span class="nb">println</span><span class="p">(</span><span class="nx">w</span><span class="p">.</span><span class="nx">Data</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">	</span><span class="nx">resp</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">http</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;/sukhada.json&quot;</span><span class="p">)</span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">		</span><span class="c1">// handle error</span>
+<span class="w">		</span><span class="nb">println</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+<span class="w">	</span><span class="p">}</span>
+<span class="w">	</span><span class="k">defer</span><span class="w"> </span><span class="nx">resp</span><span class="p">.</span><span class="nx">Body</span><span class="p">.</span><span class="nx">Close</span><span class="p">()</span>
+<span class="w">	</span><span class="nx">w</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">Def</span><span class="p">{}</span>
+<span class="w">	</span><span class="nx">dec</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">json</span><span class="p">.</span><span class="nx">NewDecoder</span><span class="p">(</span><span class="nx">resp</span><span class="p">.</span><span class="nx">Body</span><span class="p">)</span>
+<span class="w">	</span><span class="nx">err2</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">dec</span><span class="p">.</span><span class="nx">Decode</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">w</span><span class="p">)</span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err2</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">		</span><span class="c1">// handle error</span>
+<span class="w">		</span><span class="nb">println</span><span class="p">(</span><span class="nx">err2</span><span class="p">)</span>
+<span class="w">	</span><span class="p">}</span>
+<span class="w">	</span><span class="nb">println</span><span class="p">(</span><span class="nx">w</span><span class="p">.</span><span class="nx">Word</span><span class="p">)</span>
+<span class="w">	</span><span class="nb">println</span><span class="p">(</span><span class="nx">w</span><span class="p">.</span><span class="nx">Data</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="p">}</span>
 </pre></div></td></tr></table></div>
 </div></figure>
 <p>Compile the <a class="reference external" href="https://golang.org/">Go</a> code to <a class="reference external" href="https://en.wikipedia.org/wiki/JavaScript">JavaScript</a> by:</p>
-<div class="highlight"><pre><span></span>$ gopherjs build xhrget.go -o demo.js
+<div class="highlight"><pre><span></span>$<span class="w"> </span>gopherjs<span class="w"> </span>build<span class="w"> </span>xhrget.go<span class="w"> </span>-o<span class="w"> </span>demo.js
 </pre></div>
 <p>Put <em>demo.js</em> together with the <em>index.html</em> and <em>sukhada.json</em> in the same
 directory. You need a simple HTTP server to run this demo. Use

@@ -159,56 +159,56 @@
 <span class="normal">47</span>
 <span class="normal">48</span>
 <span class="normal">49</span>
-<span class="normal">50</span></pre></div></td><td class="code"><div><pre><span></span><span class="s2">&quot;use strict&quot;</span><span class="p">;</span><span class="w"></span>
+<span class="normal">50</span></pre></div></td><td class="code"><div><pre><span></span><span class="s2">&quot;use strict&quot;</span><span class="p">;</span>
 
-<span class="kd">function</span><span class="w"> </span><span class="nx">SaveSetting</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="nx">localStorage</span><span class="p">.</span><span class="nx">mySetting</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">s</span><span class="p">);</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="kd">function</span><span class="w"> </span><span class="nx">SaveSetting</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">localStorage</span><span class="p">.</span><span class="nx">mySetting</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">s</span><span class="p">);</span>
+<span class="p">}</span>
 
-<span class="kd">function</span><span class="w"> </span><span class="nx">LoadSetting</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nb">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">localStorage</span><span class="p">.</span><span class="nx">mySetting</span><span class="p">);</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="kd">function</span><span class="w"> </span><span class="nx">LoadSetting</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nb">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">localStorage</span><span class="p">.</span><span class="nx">mySetting</span><span class="p">);</span>
+<span class="p">}</span>
 
-<span class="kd">function</span><span class="w"> </span><span class="nx">SetupSetting</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">enElm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;en&quot;</span><span class="p">);</span><span class="w"></span>
-<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">jaElm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;ja&quot;</span><span class="p">);</span><span class="w"></span>
-<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">orderElm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;order&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="kd">function</span><span class="w"> </span><span class="nx">SetupSetting</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">enElm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;en&quot;</span><span class="p">);</span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">jaElm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;ja&quot;</span><span class="p">);</span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">orderElm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;order&quot;</span><span class="p">);</span>
 
-<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">setting</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nx">en</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nx">ja</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nx">order</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;eng&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">  </span><span class="p">};</span><span class="w"></span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">setting</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">en</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">ja</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">order</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;eng&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="p">};</span>
 
-<span class="w">  </span><span class="c1">// check if there is saved setting in user browser</span><span class="w"></span>
-<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="ow">typeof</span><span class="w"> </span><span class="nx">localStorage</span><span class="p">.</span><span class="nx">mySetting</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="s1">&#39;undefined&#39;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nx">setting</span><span class="p">.</span><span class="nx">en</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">enElm</span><span class="p">.</span><span class="nx">checked</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="nx">setting</span><span class="p">.</span><span class="nx">ja</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">jaElm</span><span class="p">.</span><span class="nx">checked</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="nx">setting</span><span class="p">.</span><span class="nx">order</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">orderElm</span><span class="p">.</span><span class="nx">options</span><span class="p">[</span><span class="nx">orderElm</span><span class="p">.</span><span class="nx">selectedIndex</span><span class="p">].</span><span class="nx">value</span><span class="p">;</span><span class="w"></span>
-<span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nx">setting</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">LoadSetting</span><span class="p">();</span><span class="w"></span>
-<span class="w">    </span><span class="nx">enElm</span><span class="p">.</span><span class="nx">checked</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">setting</span><span class="p">.</span><span class="nx">en</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="nx">jaElm</span><span class="p">.</span><span class="nx">checked</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">setting</span><span class="p">.</span><span class="nx">ja</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="nx">orderElm</span><span class="p">.</span><span class="nx">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">setting</span><span class="p">.</span><span class="nx">order</span><span class="p">;</span><span class="w"></span>
-<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="w">  </span><span class="c1">// check if there is saved setting in user browser</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="ow">typeof</span><span class="w"> </span><span class="nx">localStorage</span><span class="p">.</span><span class="nx">mySetting</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="s1">&#39;undefined&#39;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">setting</span><span class="p">.</span><span class="nx">en</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">enElm</span><span class="p">.</span><span class="nx">checked</span><span class="p">;</span>
+<span class="w">    </span><span class="nx">setting</span><span class="p">.</span><span class="nx">ja</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">jaElm</span><span class="p">.</span><span class="nx">checked</span><span class="p">;</span>
+<span class="w">    </span><span class="nx">setting</span><span class="p">.</span><span class="nx">order</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">orderElm</span><span class="p">.</span><span class="nx">options</span><span class="p">[</span><span class="nx">orderElm</span><span class="p">.</span><span class="nx">selectedIndex</span><span class="p">].</span><span class="nx">value</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">setting</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">LoadSetting</span><span class="p">();</span>
+<span class="w">    </span><span class="nx">enElm</span><span class="p">.</span><span class="nx">checked</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">setting</span><span class="p">.</span><span class="nx">en</span><span class="p">;</span>
+<span class="w">    </span><span class="nx">jaElm</span><span class="p">.</span><span class="nx">checked</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">setting</span><span class="p">.</span><span class="nx">ja</span><span class="p">;</span>
+<span class="w">    </span><span class="nx">orderElm</span><span class="p">.</span><span class="nx">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">setting</span><span class="p">.</span><span class="nx">order</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
 
-<span class="w">  </span><span class="nx">enElm</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;click&quot;</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nx">setting</span><span class="p">.</span><span class="nx">en</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">enElm</span><span class="p">.</span><span class="nx">checked</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="nx">SaveSetting</span><span class="p">(</span><span class="nx">setting</span><span class="p">);</span><span class="w"></span>
-<span class="w">  </span><span class="p">});</span><span class="w"></span>
+<span class="w">  </span><span class="nx">enElm</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;click&quot;</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">setting</span><span class="p">.</span><span class="nx">en</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">enElm</span><span class="p">.</span><span class="nx">checked</span><span class="p">;</span>
+<span class="w">    </span><span class="nx">SaveSetting</span><span class="p">(</span><span class="nx">setting</span><span class="p">);</span>
+<span class="w">  </span><span class="p">});</span>
 
-<span class="w">  </span><span class="nx">jaElm</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;click&quot;</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nx">setting</span><span class="p">.</span><span class="nx">ja</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">jaElm</span><span class="p">.</span><span class="nx">checked</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="nx">SaveSetting</span><span class="p">(</span><span class="nx">setting</span><span class="p">);</span><span class="w"></span>
-<span class="w">  </span><span class="p">});</span><span class="w"></span>
+<span class="w">  </span><span class="nx">jaElm</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;click&quot;</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">setting</span><span class="p">.</span><span class="nx">ja</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">jaElm</span><span class="p">.</span><span class="nx">checked</span><span class="p">;</span>
+<span class="w">    </span><span class="nx">SaveSetting</span><span class="p">(</span><span class="nx">setting</span><span class="p">);</span>
+<span class="w">  </span><span class="p">});</span>
 
-<span class="w">  </span><span class="nx">orderElm</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;change&quot;</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nx">setting</span><span class="p">.</span><span class="nx">order</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">orderElm</span><span class="p">.</span><span class="nx">options</span><span class="p">[</span><span class="nx">orderElm</span><span class="p">.</span><span class="nx">selectedIndex</span><span class="p">].</span><span class="nx">value</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="nx">SaveSetting</span><span class="p">(</span><span class="nx">setting</span><span class="p">);</span><span class="w"></span>
-<span class="w">  </span><span class="p">});</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">  </span><span class="nx">orderElm</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;change&quot;</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">setting</span><span class="p">.</span><span class="nx">order</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">orderElm</span><span class="p">.</span><span class="nx">options</span><span class="p">[</span><span class="nx">orderElm</span><span class="p">.</span><span class="nx">selectedIndex</span><span class="p">].</span><span class="nx">value</span><span class="p">;</span>
+<span class="w">    </span><span class="nx">SaveSetting</span><span class="p">(</span><span class="nx">setting</span><span class="p">);</span>
+<span class="w">  </span><span class="p">});</span>
+<span class="p">}</span>
 
-<span class="nx">SetupSetting</span><span class="p">();</span><span class="w"></span>
+<span class="nx">SetupSetting</span><span class="p">();</span>
 </pre></div></td></tr></table></div>
 </div></figure><p>To implement setting feature via <a class="reference external" href="http://www.gopherjs.org/">GopherJS</a>, see <a class="footnote-reference" href="#footnote-2" id="footnote-reference-1">[2]</a>.</p>
 

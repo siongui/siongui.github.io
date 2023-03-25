@@ -132,27 +132,27 @@ complete source code:</p>
 <span class="normal">18</span>
 <span class="normal">19</span>
 <span class="normal">20</span>
-<span class="normal">21</span></pre></div></td><td class="code"><div><pre><span></span><span class="c1">// tested on AngularJS 1.3.11 and 1.0.4</span><span class="w"></span>
-<span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">&#39;demo&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">[])</span><span class="w"></span>
-<span class="w">  </span><span class="p">.</span><span class="nx">directive</span><span class="p">(</span><span class="s1">&#39;datepicker&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;$parse&#39;</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">$parse</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">directiveDefinitionObject</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">      </span><span class="nx">restrict</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;A&#39;</span><span class="p">,</span><span class="w"></span>
-<span class="w">      </span><span class="nx">link</span><span class="o">:</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">postLink</span><span class="p">(</span><span class="nx">scope</span><span class="p">,</span><span class="w"> </span><span class="nx">iElement</span><span class="p">,</span><span class="w"> </span><span class="nx">iAttrs</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="nx">iElement</span><span class="p">.</span><span class="nx">datepicker</span><span class="p">({</span><span class="w"></span>
-<span class="w">          </span><span class="nx">dateFormat</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;yy-mm-dd&#39;</span><span class="p">,</span><span class="w"></span>
-<span class="w">          </span><span class="nx">onSelect</span><span class="o">:</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">dateText</span><span class="p">,</span><span class="w"> </span><span class="nx">inst</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">            </span><span class="nx">scope</span><span class="p">.</span><span class="nx">$apply</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">scope</span><span class="p">){</span><span class="w"></span>
-<span class="w">              </span><span class="nx">$parse</span><span class="p">(</span><span class="nx">iAttrs</span><span class="p">.</span><span class="nx">ngModel</span><span class="p">).</span><span class="nx">assign</span><span class="p">(</span><span class="nx">scope</span><span class="p">,</span><span class="w"> </span><span class="nx">dateText</span><span class="p">);</span><span class="w"></span>
-<span class="w">            </span><span class="p">});</span><span class="w"></span>
-<span class="w">          </span><span class="p">}</span><span class="w"></span>
-<span class="w">        </span><span class="p">});</span><span class="w"></span>
-<span class="w">      </span><span class="p">}</span><span class="w"></span>
-<span class="w">    </span><span class="p">};</span><span class="w"></span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">directiveDefinitionObject</span><span class="p">;</span><span class="w"></span>
-<span class="w">  </span><span class="p">}])</span><span class="w"></span>
-<span class="w">  </span><span class="p">.</span><span class="nx">controller</span><span class="p">(</span><span class="s1">&#39;myCtrl&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;$scope&#39;</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">$scope</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nx">$scope</span><span class="p">.</span><span class="nx">date</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;1212-12-12&quot;</span><span class="p">;</span><span class="w"></span>
-<span class="w">  </span><span class="p">}]);</span><span class="w"></span>
+<span class="normal">21</span></pre></div></td><td class="code"><div><pre><span></span><span class="c1">// tested on AngularJS 1.3.11 and 1.0.4</span>
+<span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">&#39;demo&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">[])</span>
+<span class="w">  </span><span class="p">.</span><span class="nx">directive</span><span class="p">(</span><span class="s1">&#39;datepicker&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;$parse&#39;</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">$parse</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">directiveDefinitionObject</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">restrict</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;A&#39;</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">link</span><span class="o">:</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">postLink</span><span class="p">(</span><span class="nx">scope</span><span class="p">,</span><span class="w"> </span><span class="nx">iElement</span><span class="p">,</span><span class="w"> </span><span class="nx">iAttrs</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">iElement</span><span class="p">.</span><span class="nx">datepicker</span><span class="p">({</span>
+<span class="w">          </span><span class="nx">dateFormat</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;yy-mm-dd&#39;</span><span class="p">,</span>
+<span class="w">          </span><span class="nx">onSelect</span><span class="o">:</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">dateText</span><span class="p">,</span><span class="w"> </span><span class="nx">inst</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nx">scope</span><span class="p">.</span><span class="nx">$apply</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">scope</span><span class="p">){</span>
+<span class="w">              </span><span class="nx">$parse</span><span class="p">(</span><span class="nx">iAttrs</span><span class="p">.</span><span class="nx">ngModel</span><span class="p">).</span><span class="nx">assign</span><span class="p">(</span><span class="nx">scope</span><span class="p">,</span><span class="w"> </span><span class="nx">dateText</span><span class="p">);</span>
+<span class="w">            </span><span class="p">});</span>
+<span class="w">          </span><span class="p">}</span>
+<span class="w">        </span><span class="p">});</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">};</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">directiveDefinitionObject</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}])</span>
+<span class="w">  </span><span class="p">.</span><span class="nx">controller</span><span class="p">(</span><span class="s1">&#39;myCtrl&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;$scope&#39;</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">$scope</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">$scope</span><span class="p">.</span><span class="nx">date</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;1212-12-12&quot;</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}]);</span>
 </pre></div></td></tr></table></div>
 </div></figure>
 <p>Sample code tested on <a class="reference external" href="https://angularjs.org/">AngularJS</a> <tt class="docutils literal">1.0.4</tt> and <tt class="docutils literal">1.3.11</tt></p>

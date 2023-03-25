@@ -78,22 +78,22 @@ the same directory.</p>
 <span class="normal">13</span>
 <span class="normal">14</span>
 <span class="normal">15</span>
-<span class="normal">16</span></pre></div></td><td class="code"><div><pre><span></span><span class="nv">SOURCE_JS_FILES</span><span class="o">=</span><span class="k">$(</span>filter-out %.min.js, <span class="k">$(</span>wildcard *.js<span class="k">))</span>
+<span class="normal">16</span></pre></div></td><td class="code"><div><pre><span></span><span class="nv">SOURCE_JS_FILES</span><span class="o">=</span><span class="k">$(</span>filter-out<span class="w"> </span>%.min.js,<span class="w"> </span><span class="k">$(</span>wildcard<span class="w"> </span>*.js<span class="k">))</span>
 <span class="nv">CONCAT_JS</span><span class="o">=</span>/tmp/tmp.js
 <span class="nv">MINIFIED_JS</span><span class="o">=</span>app.min.js
 
-<span class="nf">minjs</span><span class="o">:</span> <span class="n">concat</span>
-	curl <span class="se">\</span>
-	-d <span class="nv">compilation_level</span><span class="o">=</span>SIMPLE_OPTIMIZATIONS <span class="se">\</span>
-	-d <span class="nv">language</span><span class="o">=</span>ECMASCRIPT5 <span class="se">\</span>
-	-d <span class="nv">output_format</span><span class="o">=</span>text <span class="se">\</span>
-	-d <span class="nv">output_info</span><span class="o">=</span>compiled_code <span class="se">\</span>
-	--data-urlencode <span class="s2">&quot;js_code@</span><span class="k">$(</span>CONCAT_JS<span class="k">)</span><span class="s2">&quot;</span> <span class="se">\</span>
-	https://closure-compiler.appspot.com/compile <span class="se">\</span>
-	&gt; <span class="k">$(</span>MINIFIED_JS<span class="k">)</span>
+<span class="nf">minjs</span><span class="o">:</span><span class="w"> </span><span class="n">concat</span>
+<span class="w">	</span>curl<span class="w"> </span><span class="se">\</span>
+<span class="w">	</span>-d<span class="w"> </span><span class="nv">compilation_level</span><span class="o">=</span>SIMPLE_OPTIMIZATIONS<span class="w"> </span><span class="se">\</span>
+<span class="w">	</span>-d<span class="w"> </span><span class="nv">language</span><span class="o">=</span>ECMASCRIPT5<span class="w"> </span><span class="se">\</span>
+<span class="w">	</span>-d<span class="w"> </span><span class="nv">output_format</span><span class="o">=</span>text<span class="w"> </span><span class="se">\</span>
+<span class="w">	</span>-d<span class="w"> </span><span class="nv">output_info</span><span class="o">=</span>compiled_code<span class="w"> </span><span class="se">\</span>
+<span class="w">	</span>--data-urlencode<span class="w"> </span><span class="s2">&quot;js_code@</span><span class="k">$(</span>CONCAT_JS<span class="k">)</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">	</span>https://closure-compiler.appspot.com/compile<span class="w"> </span><span class="se">\</span>
+<span class="w">	</span>&gt;<span class="w"> </span><span class="k">$(</span>MINIFIED_JS<span class="k">)</span>
 
 <span class="nf">concat</span><span class="o">:</span>
-	@cat <span class="k">$(</span>SOURCE_JS_FILES<span class="k">)</span> &gt; <span class="k">$(</span>CONCAT_JS<span class="k">)</span>
+<span class="w">	</span>@cat<span class="w"> </span><span class="k">$(</span>SOURCE_JS_FILES<span class="k">)</span><span class="w"> </span>&gt;<span class="w"> </span><span class="k">$(</span>CONCAT_JS<span class="k">)</span>
 </pre></div></td></tr></table></div>
 </div></figure>
 <hr class="docutils" />

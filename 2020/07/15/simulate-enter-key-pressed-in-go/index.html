@@ -58,34 +58,34 @@ key event in browsers without user intervention.</p>
 <div class="section" id="javascript">
 <h2>JavaScript</h2>
 <p>From <a class="footnote-reference" href="#footnote-2" id="footnote-reference-1">[2]</a> we know JavaScript code for firing enter keyevent would be:</p>
-<div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">ke</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">KeyboardEvent</span><span class="p">(</span><span class="s2">&quot;keyup&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="nx">keyCode</span><span class="o">:</span><span class="w"> </span><span class="mf">13</span><span class="p">});</span><span class="w"></span>
-<span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">dispatchEvent</span><span class="p">(</span><span class="nx">ke</span><span class="p">);</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">ke</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">KeyboardEvent</span><span class="p">(</span><span class="s2">&quot;keyup&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="nx">keyCode</span><span class="o">:</span><span class="w"> </span><span class="mf">13</span><span class="p">});</span>
+<span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">dispatchEvent</span><span class="p">(</span><span class="nx">ke</span><span class="p">);</span>
 </pre></div>
 </div>
 <div class="section" id="gopherjs">
 <h2>GopherJS</h2>
 <p>The above code in Go/GopherJS is as follows:</p>
-<div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
-<span class="w">      </span><span class="s">&quot;github.com/gopherjs/gopherjs/js&quot;</span><span class="w"></span>
-<span class="p">)</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="p">(</span>
+<span class="w">      </span><span class="s">&quot;github.com/gopherjs/gopherjs/js&quot;</span>
+<span class="p">)</span>
 
-<span class="nx">option</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">js</span><span class="p">.</span><span class="nx">Global</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;Object&quot;</span><span class="p">).</span><span class="nx">New</span><span class="p">()</span><span class="w"></span>
-<span class="nx">option</span><span class="p">.</span><span class="nx">Set</span><span class="p">(</span><span class="s">&quot;keyCode&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">13</span><span class="p">)</span><span class="w"></span>
-<span class="nx">ke</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">js</span><span class="p">.</span><span class="nx">Global</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;KeyboardEvent&quot;</span><span class="p">).</span><span class="nx">New</span><span class="p">(</span><span class="s">&quot;keyup&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">option</span><span class="p">)</span><span class="w"></span>
-<span class="nx">js</span><span class="p">.</span><span class="nx">Global</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;document&quot;</span><span class="p">).</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;body&quot;</span><span class="p">).</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;dispatchEvent&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">ke</span><span class="p">)</span><span class="w"></span>
+<span class="nx">option</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">js</span><span class="p">.</span><span class="nx">Global</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;Object&quot;</span><span class="p">).</span><span class="nx">New</span><span class="p">()</span>
+<span class="nx">option</span><span class="p">.</span><span class="nx">Set</span><span class="p">(</span><span class="s">&quot;keyCode&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">13</span><span class="p">)</span>
+<span class="nx">ke</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">js</span><span class="p">.</span><span class="nx">Global</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;KeyboardEvent&quot;</span><span class="p">).</span><span class="nx">New</span><span class="p">(</span><span class="s">&quot;keyup&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">option</span><span class="p">)</span>
+<span class="nx">js</span><span class="p">.</span><span class="nx">Global</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;document&quot;</span><span class="p">).</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;body&quot;</span><span class="p">).</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;dispatchEvent&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">ke</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="section" id="gopherjs-godom">
 <h2>GopherJS + godom</h2>
 <p>To make your code more readable, we can prettify the above code with <a class="reference external" href="https://github.com/siongui/godom">godom</a>:</p>
-<div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
-<span class="w">      </span><span class="p">.</span><span class="w"> </span><span class="s">&quot;github.com/siongui/godom&quot;</span><span class="w"></span>
-<span class="p">)</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="p">(</span>
+<span class="w">      </span><span class="p">.</span><span class="w"> </span><span class="s">&quot;github.com/siongui/godom&quot;</span>
+<span class="p">)</span>
 
-<span class="nx">option</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">Window</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;Object&quot;</span><span class="p">).</span><span class="nx">New</span><span class="p">()</span><span class="w"></span>
-<span class="nx">option</span><span class="p">.</span><span class="nx">Set</span><span class="p">(</span><span class="s">&quot;keyCode&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">13</span><span class="p">)</span><span class="w"></span>
-<span class="nx">ke</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">Window</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;KeyboardEvent&quot;</span><span class="p">).</span><span class="nx">New</span><span class="p">(</span><span class="s">&quot;keyup&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">option</span><span class="p">)</span><span class="w"></span>
-<span class="nx">Document</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;body&quot;</span><span class="p">).</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;dispatchEvent&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">ke</span><span class="p">)</span><span class="w"></span>
+<span class="nx">option</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">Window</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;Object&quot;</span><span class="p">).</span><span class="nx">New</span><span class="p">()</span>
+<span class="nx">option</span><span class="p">.</span><span class="nx">Set</span><span class="p">(</span><span class="s">&quot;keyCode&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">13</span><span class="p">)</span>
+<span class="nx">ke</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">Window</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;KeyboardEvent&quot;</span><span class="p">).</span><span class="nx">New</span><span class="p">(</span><span class="s">&quot;keyup&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">option</span><span class="p">)</span>
+<span class="nx">Document</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;body&quot;</span><span class="p">).</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;dispatchEvent&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">ke</span><span class="p">)</span>
 </pre></div>
 <hr class="docutils" />
 <p>References:</p>

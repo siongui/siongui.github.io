@@ -53,16 +53,16 @@
     <hr>
 
     <div class="main-content"><p>In <a class="reference external" href="https://en.wikipedia.org/wiki/JavaScript">JavaScript</a>, we can remove all child nodes of a DOM element <a class="footnote-reference" href="#footnote-4" id="footnote-reference-1">[4]</a> by:</p>
-<div class="highlight"><pre><span></span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="nx">elm</span><span class="p">.</span><span class="nx">hasChildNodes</span><span class="p">())</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="nx">elm</span><span class="p">.</span><span class="nx">removeChild</span><span class="p">(</span><span class="nx">elm</span><span class="p">.</span><span class="nx">lastChild</span><span class="p">);</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="nx">elm</span><span class="p">.</span><span class="nx">hasChildNodes</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">elm</span><span class="p">.</span><span class="nx">removeChild</span><span class="p">(</span><span class="nx">elm</span><span class="p">.</span><span class="nx">lastChild</span><span class="p">);</span>
+<span class="p">}</span>
 </pre></div>
 <p>In <a class="reference external" href="https://golang.org/">Golang</a>, we can do the same by <a class="reference external" href="http://www.gopherjs.org/">GopherJS</a>:</p>
-<div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="s">&quot;github.com/gopherjs/gopherjs/js&quot;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="s">&quot;github.com/gopherjs/gopherjs/js&quot;</span>
 
-<span class="k">for</span><span class="w"> </span><span class="nx">elm</span><span class="p">.</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;hasChildNodes&quot;</span><span class="p">).</span><span class="nx">Bool</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="nx">elm</span><span class="p">.</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;removeChild&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">elm</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;lastChild&quot;</span><span class="p">))</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="k">for</span><span class="w"> </span><span class="nx">elm</span><span class="p">.</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;hasChildNodes&quot;</span><span class="p">).</span><span class="nx">Bool</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">elm</span><span class="p">.</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;removeChild&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">elm</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;lastChild&quot;</span><span class="p">))</span>
+<span class="p">}</span>
 </pre></div>
 <hr class="docutils" />
 <p>Tested on: <tt class="docutils literal">Ubuntu Linux 15.10</tt>, <tt class="docutils literal">Go 1.5.3</tt>,

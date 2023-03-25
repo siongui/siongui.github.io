@@ -56,7 +56,7 @@
 googling, I found <a class="footnote-reference" href="#footnote-3" id="footnote-reference-1">[3]</a> and <a class="footnote-reference" href="#footnote-4" id="footnote-reference-2">[4]</a>, it seems only <a class="footnote-reference" href="#footnote-3" id="footnote-reference-3">[3]</a> provides rst-to-HTML
 conversion, so I tried <a class="footnote-reference" href="#footnote-3" id="footnote-reference-4">[3]</a> only.</p>
 <p>Install the package:</p>
-<div class="highlight"><pre><span></span>$ go get -u github.com/hhatto/gorst
+<div class="highlight"><pre><span></span>$<span class="w"> </span>go<span class="w"> </span>get<span class="w"> </span>-u<span class="w"> </span>github.com/hhatto/gorst
 </pre></div>
 <div class="section" id="test-code">
 <h2>Test Code</h2>
@@ -84,24 +84,24 @@ conversion, so I tried <a class="footnote-reference" href="#footnote-3" id="foot
 <span class="normal">15</span>
 <span class="normal">16</span>
 <span class="normal">17</span>
-<span class="normal">18</span></pre></div></td><td class="code"><div><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w"></span>
+<span class="normal">18</span></pre></div></td><td class="code"><div><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span>
 
-<span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
-<span class="w">	</span><span class="s">&quot;bufio&quot;</span><span class="w"></span>
-<span class="w">	</span><span class="s">&quot;bytes&quot;</span><span class="w"></span>
-<span class="w">	</span><span class="s">&quot;github.com/hhatto/gorst&quot;</span><span class="w"></span>
-<span class="w">	</span><span class="s">&quot;io/ioutil&quot;</span><span class="w"></span>
-<span class="w">	</span><span class="s">&quot;os&quot;</span><span class="w"></span>
-<span class="p">)</span><span class="w"></span>
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span>
+<span class="w">	</span><span class="s">&quot;bufio&quot;</span>
+<span class="w">	</span><span class="s">&quot;bytes&quot;</span>
+<span class="w">	</span><span class="s">&quot;github.com/hhatto/gorst&quot;</span>
+<span class="w">	</span><span class="s">&quot;io/ioutil&quot;</span>
+<span class="w">	</span><span class="s">&quot;os&quot;</span>
+<span class="p">)</span>
 
-<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">	</span><span class="nx">p</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">rst</span><span class="p">.</span><span class="nx">NewParser</span><span class="p">(</span><span class="kc">nil</span><span class="p">)</span><span class="w"></span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">	</span><span class="nx">p</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">rst</span><span class="p">.</span><span class="nx">NewParser</span><span class="p">(</span><span class="kc">nil</span><span class="p">)</span>
 
-<span class="w">	</span><span class="nx">w</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">bufio</span><span class="p">.</span><span class="nx">NewWriter</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">Stdout</span><span class="p">)</span><span class="w"></span>
-<span class="w">	</span><span class="nx">d</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">ioutil</span><span class="p">.</span><span class="nx">ReadFile</span><span class="p">(</span><span class="s">&quot;test.rst&quot;</span><span class="p">)</span><span class="w"></span>
-<span class="w">	</span><span class="nx">p</span><span class="p">.</span><span class="nx">ReStructuredText</span><span class="p">(</span><span class="nx">bytes</span><span class="p">.</span><span class="nx">NewReader</span><span class="p">(</span><span class="nx">d</span><span class="p">),</span><span class="w"> </span><span class="nx">rst</span><span class="p">.</span><span class="nx">ToHTML</span><span class="p">(</span><span class="nx">w</span><span class="p">))</span><span class="w"></span>
-<span class="w">	</span><span class="nx">w</span><span class="p">.</span><span class="nx">Flush</span><span class="p">()</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">	</span><span class="nx">w</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">bufio</span><span class="p">.</span><span class="nx">NewWriter</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">Stdout</span><span class="p">)</span>
+<span class="w">	</span><span class="nx">d</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">ioutil</span><span class="p">.</span><span class="nx">ReadFile</span><span class="p">(</span><span class="s">&quot;test.rst&quot;</span><span class="p">)</span>
+<span class="w">	</span><span class="nx">p</span><span class="p">.</span><span class="nx">ReStructuredText</span><span class="p">(</span><span class="nx">bytes</span><span class="p">.</span><span class="nx">NewReader</span><span class="p">(</span><span class="nx">d</span><span class="p">),</span><span class="w"> </span><span class="nx">rst</span><span class="p">.</span><span class="nx">ToHTML</span><span class="p">(</span><span class="nx">w</span><span class="p">))</span>
+<span class="w">	</span><span class="nx">w</span><span class="p">.</span><span class="nx">Flush</span><span class="p">()</span>
+<span class="p">}</span>
 </pre></div></td></tr></table></div>
 </div></figure>
 <p>Test rst file:</p>

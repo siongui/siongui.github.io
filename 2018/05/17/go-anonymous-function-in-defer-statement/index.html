@@ -54,15 +54,15 @@
     <hr>
 
     <div class="main-content"><p><strong>TL;DR</strong>: Syntax for using anonymous function in Go <a class="reference external" href="https://tour.golang.org/flowcontrol/12">defer statement</a></p>
-<div class="highlight"><pre><span></span><span class="k">defer</span><span class="w"> </span><span class="kd">func</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">      </span><span class="c1">// do something here after surrounding function returns</span><span class="w"></span>
-<span class="p">}()</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="k">defer</span><span class="w"> </span><span class="kd">func</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="c1">// do something here after surrounding function returns</span>
+<span class="p">}()</span>
 </pre></div>
 <p><strong>Explanation</strong></p>
 <p>I want to execute <tt class="docutils literal">c &lt;- 1</tt> right after surrounding function returns <a class="footnote-reference" href="#footnote-1" id="footnote-reference-1">[1]</a> <a class="footnote-reference" href="#footnote-2" id="footnote-reference-2">[2]</a>.
 In the beginning I thought it was easy to do this with <em>defer</em>, so I write the
 following code:</p>
-<div class="highlight"><pre><span></span><span class="k">defer</span><span class="w"> </span><span class="nx">c</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="mi">1</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="k">defer</span><span class="w"> </span><span class="nx">c</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="mi">1</span>
 </pre></div>
 <p>But the code cannot be compiled successfully. The compiler complained that
 <em>expression in defer must be function call</em>. So I searched and found this on
@@ -73,11 +73,11 @@ function returns.</blockquote>
 <p>It looks like <em>defer</em> must be followed by a function, so I thought I can use
 anonymous function in this case. Then I tried again and wrote the following
 code:</p>
-<div class="highlight"><pre><span></span><span class="k">defer</span><span class="w"> </span><span class="kd">func</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">c</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="k">defer</span><span class="w"> </span><span class="kd">func</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">c</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="p">}</span>
 </pre></div>
 <p>I still got the same complaint from compiler. After more searches, I found that
 the correct way to do this is:</p>
-<div class="highlight"><pre><span></span><span class="k">defer</span><span class="w"> </span><span class="kd">func</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">c</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="p">}()</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="k">defer</span><span class="w"> </span><span class="kd">func</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">c</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="p">}()</span>
 </pre></div>
 <p>The <em>()</em> means call and execute the anonymous function. If you write only
 <em>func() { c &lt;- 1 }</em> without <em>()</em>, you only declare the anonymous function
@@ -85,36 +85,36 @@ without calling it. That's why I got the same error while compiling.</p>
 <p>The following are complete example for using anonymous function in defer
 statement.</p>
 <p class="align-center rubric"><a class="reference external" href="https://play.golang.org/p/dHYMGZNbnj5">Run Code on Go Playground</a></p>
-<div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span>
 
-<span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
-<span class="w">      </span><span class="s">&quot;fmt&quot;</span><span class="w"></span>
-<span class="p">)</span><span class="w"></span>
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span>
+<span class="w">      </span><span class="s">&quot;fmt&quot;</span>
+<span class="p">)</span>
 
-<span class="kd">func</span><span class="w"> </span><span class="nx">routine</span><span class="p">(</span><span class="nx">site</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">c</span><span class="w"> </span><span class="kd">chan</span><span class="w"> </span><span class="kt">int</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">      </span><span class="k">defer</span><span class="w"> </span><span class="kd">func</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">c</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="p">}()</span><span class="w"></span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">routine</span><span class="p">(</span><span class="nx">site</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">c</span><span class="w"> </span><span class="kd">chan</span><span class="w"> </span><span class="kt">int</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">defer</span><span class="w"> </span><span class="kd">func</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">c</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="p">}()</span>
 
-<span class="w">      </span><span class="c1">// do something</span><span class="w"></span>
-<span class="w">      </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">site</span><span class="p">)</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">      </span><span class="c1">// do something</span>
+<span class="w">      </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">site</span><span class="p">)</span>
+<span class="p">}</span>
 
-<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">      </span><span class="nx">c</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">make</span><span class="p">(</span><span class="kd">chan</span><span class="w"> </span><span class="kt">int</span><span class="p">)</span><span class="w"></span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">c</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">make</span><span class="p">(</span><span class="kd">chan</span><span class="w"> </span><span class="kt">int</span><span class="p">)</span>
 
-<span class="w">      </span><span class="nx">sites</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="w"></span>
-<span class="w">              </span><span class="s">&quot;https://www.google.com/&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">              </span><span class="s">&quot;https://duckduckgo.com/&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">              </span><span class="s">&quot;https://www.bing.com/&quot;</span><span class="p">}</span><span class="w"></span>
+<span class="w">      </span><span class="nx">sites</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="p">[]</span><span class="kt">string</span><span class="p">{</span>
+<span class="w">              </span><span class="s">&quot;https://www.google.com/&quot;</span><span class="p">,</span>
+<span class="w">              </span><span class="s">&quot;https://duckduckgo.com/&quot;</span><span class="p">,</span>
+<span class="w">              </span><span class="s">&quot;https://www.bing.com/&quot;</span><span class="p">}</span>
 
-<span class="w">      </span><span class="k">for</span><span class="w"> </span><span class="nx">_</span><span class="p">,</span><span class="w"> </span><span class="nx">site</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="nx">sites</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">              </span><span class="k">go</span><span class="w"> </span><span class="nx">routine</span><span class="p">(</span><span class="nx">site</span><span class="p">,</span><span class="w"> </span><span class="nx">c</span><span class="p">)</span><span class="w"></span>
-<span class="w">      </span><span class="p">}</span><span class="w"></span>
+<span class="w">      </span><span class="k">for</span><span class="w"> </span><span class="nx">_</span><span class="p">,</span><span class="w"> </span><span class="nx">site</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="nx">sites</span><span class="w"> </span><span class="p">{</span>
+<span class="w">              </span><span class="k">go</span><span class="w"> </span><span class="nx">routine</span><span class="p">(</span><span class="nx">site</span><span class="p">,</span><span class="w"> </span><span class="nx">c</span><span class="p">)</span>
+<span class="w">      </span><span class="p">}</span>
 
-<span class="w">      </span><span class="c1">// wait all goroutines to finish</span><span class="w"></span>
-<span class="w">      </span><span class="k">for</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="p">&lt;</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="nx">sites</span><span class="p">);</span><span class="w"> </span><span class="nx">i</span><span class="o">++</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">              </span><span class="o">&lt;-</span><span class="nx">c</span><span class="w"></span>
-<span class="w">      </span><span class="p">}</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">      </span><span class="c1">// wait all goroutines to finish</span>
+<span class="w">      </span><span class="k">for</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="p">&lt;</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="nx">sites</span><span class="p">);</span><span class="w"> </span><span class="nx">i</span><span class="o">++</span><span class="w"> </span><span class="p">{</span>
+<span class="w">              </span><span class="o">&lt;-</span><span class="nx">c</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 
 <hr class="docutils" />

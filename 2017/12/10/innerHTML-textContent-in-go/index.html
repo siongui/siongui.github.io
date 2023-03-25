@@ -81,45 +81,45 @@ The full code example of this post is <a class="reference external" href="https:
 <p>We will show how to set/get the <em>innerHTML</em> property of the <em>div</em> element.</p>
 <div class="section" id="javascript">
 <h3><a class="toc-backref" href="#toc-entry-2">JavaScript</a></h3>
-<div class="highlight"><pre><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">f</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&quot;#foo&quot;</span><span class="p">);</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">f</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&quot;#foo&quot;</span><span class="p">);</span>
 
-<span class="c1">// set innerHTML</span><span class="w"></span>
-<span class="nx">f</span><span class="p">.</span><span class="nx">innerHTML</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;&lt;strong&gt;Hello World&lt;/strong&gt;&quot;</span><span class="p">;</span><span class="w"></span>
+<span class="c1">// set innerHTML</span>
+<span class="nx">f</span><span class="p">.</span><span class="nx">innerHTML</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;&lt;strong&gt;Hello World&lt;/strong&gt;&quot;</span><span class="p">;</span>
 
-<span class="c1">// get innerHTML</span><span class="w"></span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">f</span><span class="p">.</span><span class="nx">innerHTML</span><span class="p">);</span><span class="w"></span>
+<span class="c1">// get innerHTML</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">f</span><span class="p">.</span><span class="nx">innerHTML</span><span class="p">);</span>
 </pre></div>
 </div>
 <div class="section" id="gopherjs">
 <h3><a class="toc-backref" href="#toc-entry-3">GopherJS</a></h3>
 <p>The above code in Go/GopherJS is as follows:</p>
-<div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
-<span class="w">      </span><span class="s">&quot;github.com/gopherjs/gopherjs/js&quot;</span><span class="w"></span>
-<span class="p">)</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="p">(</span>
+<span class="w">      </span><span class="s">&quot;github.com/gopherjs/gopherjs/js&quot;</span>
+<span class="p">)</span>
 
-<span class="nx">f</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">js</span><span class="p">.</span><span class="nx">Global</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;document&quot;</span><span class="p">).</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;querySelector&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;#foo&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="nx">f</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">js</span><span class="p">.</span><span class="nx">Global</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;document&quot;</span><span class="p">).</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;querySelector&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;#foo&quot;</span><span class="p">)</span>
 
-<span class="c1">// set innerHTML</span><span class="w"></span>
-<span class="nx">f</span><span class="p">.</span><span class="nx">Set</span><span class="p">(</span><span class="s">&quot;innerHTML&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;&lt;strong&gt;Hello World&lt;/strong&gt;&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="c1">// set innerHTML</span>
+<span class="nx">f</span><span class="p">.</span><span class="nx">Set</span><span class="p">(</span><span class="s">&quot;innerHTML&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;&lt;strong&gt;Hello World&lt;/strong&gt;&quot;</span><span class="p">)</span>
 
-<span class="c1">// get innerHTML</span><span class="w"></span>
-<span class="nb">println</span><span class="p">(</span><span class="nx">f</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;innerHTML&quot;</span><span class="p">).</span><span class="nx">String</span><span class="p">())</span><span class="w"></span>
+<span class="c1">// get innerHTML</span>
+<span class="nb">println</span><span class="p">(</span><span class="nx">f</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;innerHTML&quot;</span><span class="p">).</span><span class="nx">String</span><span class="p">())</span>
 </pre></div>
 </div>
 <div class="section" id="gopherjs-godom">
 <h3><a class="toc-backref" href="#toc-entry-4">GopherJS + godom</a></h3>
 <p>To make your code more readable, we can prettify the above code with <a class="reference external" href="https://github.com/siongui/godom">godom</a>:</p>
-<div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
-<span class="w">      </span><span class="p">.</span><span class="w"> </span><span class="s">&quot;github.com/siongui/godom&quot;</span><span class="w"></span>
-<span class="p">)</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="p">(</span>
+<span class="w">      </span><span class="p">.</span><span class="w"> </span><span class="s">&quot;github.com/siongui/godom&quot;</span>
+<span class="p">)</span>
 
-<span class="nx">f</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">Document</span><span class="p">.</span><span class="nx">QuerySelector</span><span class="p">(</span><span class="s">&quot;#foo&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="nx">f</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">Document</span><span class="p">.</span><span class="nx">QuerySelector</span><span class="p">(</span><span class="s">&quot;#foo&quot;</span><span class="p">)</span>
 
-<span class="c1">// set innerHTML</span><span class="w"></span>
-<span class="nx">f</span><span class="p">.</span><span class="nx">SetInnerHTML</span><span class="p">(</span><span class="s">&quot;&lt;strong&gt;Hello World&lt;/strong&gt;&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="c1">// set innerHTML</span>
+<span class="nx">f</span><span class="p">.</span><span class="nx">SetInnerHTML</span><span class="p">(</span><span class="s">&quot;&lt;strong&gt;Hello World&lt;/strong&gt;&quot;</span><span class="p">)</span>
 
-<span class="c1">// get innerHTML</span><span class="w"></span>
-<span class="nb">println</span><span class="p">(</span><span class="nx">f</span><span class="p">.</span><span class="nx">InnerHTML</span><span class="p">())</span><span class="w"></span>
+<span class="c1">// get innerHTML</span>
+<span class="nb">println</span><span class="p">(</span><span class="nx">f</span><span class="p">.</span><span class="nx">InnerHTML</span><span class="p">())</span>
 </pre></div>
 
 </div>
@@ -133,45 +133,45 @@ The full code example of this post is <a class="reference external" href="https:
 <p>We will show how to set/get the <em>textContent</em> property of the <em>div</em> element.</p>
 <div class="section" id="javascript-1">
 <h3><a class="toc-backref" href="#toc-entry-6">JavaScript</a></h3>
-<div class="highlight"><pre><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">f</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&quot;#foo&quot;</span><span class="p">);</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">f</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&quot;#foo&quot;</span><span class="p">);</span>
 
-<span class="c1">// set textContent</span><span class="w"></span>
-<span class="nx">f</span><span class="p">.</span><span class="nx">textContent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Hello World2&quot;</span><span class="p">;</span><span class="w"></span>
+<span class="c1">// set textContent</span>
+<span class="nx">f</span><span class="p">.</span><span class="nx">textContent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Hello World2&quot;</span><span class="p">;</span>
 
-<span class="c1">// get textContent</span><span class="w"></span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">f</span><span class="p">.</span><span class="nx">textContent</span><span class="p">);</span><span class="w"></span>
+<span class="c1">// get textContent</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">f</span><span class="p">.</span><span class="nx">textContent</span><span class="p">);</span>
 </pre></div>
 </div>
 <div class="section" id="gopherjs-1">
 <h3><a class="toc-backref" href="#toc-entry-7">GopherJS</a></h3>
 <p>The above code in Go/GopherJS is as follows:</p>
-<div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
-<span class="w">      </span><span class="s">&quot;github.com/gopherjs/gopherjs/js&quot;</span><span class="w"></span>
-<span class="p">)</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="p">(</span>
+<span class="w">      </span><span class="s">&quot;github.com/gopherjs/gopherjs/js&quot;</span>
+<span class="p">)</span>
 
-<span class="nx">f</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">js</span><span class="p">.</span><span class="nx">Global</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;document&quot;</span><span class="p">).</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;querySelector&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;#foo&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="nx">f</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">js</span><span class="p">.</span><span class="nx">Global</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;document&quot;</span><span class="p">).</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;querySelector&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;#foo&quot;</span><span class="p">)</span>
 
-<span class="c1">// set textContent</span><span class="w"></span>
-<span class="nx">f</span><span class="p">.</span><span class="nx">Set</span><span class="p">(</span><span class="s">&quot;textContent&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Hello World2&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="c1">// set textContent</span>
+<span class="nx">f</span><span class="p">.</span><span class="nx">Set</span><span class="p">(</span><span class="s">&quot;textContent&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Hello World2&quot;</span><span class="p">)</span>
 
-<span class="c1">// get textContent</span><span class="w"></span>
-<span class="nb">println</span><span class="p">(</span><span class="nx">f</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;textContent&quot;</span><span class="p">).</span><span class="nx">String</span><span class="p">())</span><span class="w"></span>
+<span class="c1">// get textContent</span>
+<span class="nb">println</span><span class="p">(</span><span class="nx">f</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;textContent&quot;</span><span class="p">).</span><span class="nx">String</span><span class="p">())</span>
 </pre></div>
 </div>
 <div class="section" id="gopherjs-godom-1">
 <h3><a class="toc-backref" href="#toc-entry-8">GopherJS + godom</a></h3>
 <p>To make your code more readable, we can prettify the above code with <a class="reference external" href="https://github.com/siongui/godom">godom</a>:</p>
-<div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
-<span class="w">      </span><span class="p">.</span><span class="w"> </span><span class="s">&quot;github.com/siongui/godom&quot;</span><span class="w"></span>
-<span class="p">)</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="p">(</span>
+<span class="w">      </span><span class="p">.</span><span class="w"> </span><span class="s">&quot;github.com/siongui/godom&quot;</span>
+<span class="p">)</span>
 
-<span class="nx">f</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">Document</span><span class="p">.</span><span class="nx">QuerySelector</span><span class="p">(</span><span class="s">&quot;#foo&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="nx">f</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">Document</span><span class="p">.</span><span class="nx">QuerySelector</span><span class="p">(</span><span class="s">&quot;#foo&quot;</span><span class="p">)</span>
 
-<span class="c1">// set textContent</span><span class="w"></span>
-<span class="nx">f</span><span class="p">.</span><span class="nx">SetTextContent</span><span class="p">(</span><span class="s">&quot;Hello World2&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="c1">// set textContent</span>
+<span class="nx">f</span><span class="p">.</span><span class="nx">SetTextContent</span><span class="p">(</span><span class="s">&quot;Hello World2&quot;</span><span class="p">)</span>
 
-<span class="c1">// get textContent</span><span class="w"></span>
-<span class="nb">println</span><span class="p">(</span><span class="nx">f</span><span class="p">.</span><span class="nx">TextContent</span><span class="p">())</span><span class="w"></span>
+<span class="c1">// get textContent</span>
+<span class="nb">println</span><span class="p">(</span><span class="nx">f</span><span class="p">.</span><span class="nx">TextContent</span><span class="p">())</span>
 </pre></div>
 
 <hr class="docutils" />

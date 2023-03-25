@@ -52,24 +52,24 @@
     <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2017/01/22/dartlang-generate-random-string%25en.rst">Edit on Github</a></div></aside>
     <hr>
 
-    <div class="main-content"><div class="highlight"><pre><span></span><span class="k">import</span><span class="w"> </span><span class="s1">&#39;dart:core&#39;</span><span class="p">;</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="s1">&#39;dart:math&#39;</span><span class="p">;</span><span class="w"></span>
+    <div class="main-content"><div class="highlight"><pre><span></span><span class="k">import</span><span class="w"> </span><span class="s1">&#39;dart:core&#39;</span><span class="p">;</span>
+<span class="k">import</span><span class="w"> </span><span class="s1">&#39;dart:math&#39;</span><span class="p">;</span>
 
-<span class="k">const</span><span class="w"> </span><span class="n">chars</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;abcdefghijklmnopqrstuvwxyz0123456789&quot;</span><span class="p">;</span><span class="w"></span>
+<span class="k">const</span><span class="w"> </span><span class="n">chars</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;abcdefghijklmnopqrstuvwxyz0123456789&quot;</span><span class="p">;</span>
 
-<span class="kt">String</span><span class="w"> </span><span class="n">RandomString</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">strlen</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="n">Random</span><span class="w"> </span><span class="n">rnd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Random</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">DateTime</span><span class="p">.</span><span class="n">now</span><span class="p">().</span><span class="n">millisecondsSinceEpoch</span><span class="p">);</span><span class="w"></span>
-<span class="w">  </span><span class="kt">String</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">;</span><span class="w"></span>
-<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">var</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">strlen</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="n">result</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">chars</span><span class="p">[</span><span class="n">rnd</span><span class="p">.</span><span class="n">nextInt</span><span class="p">(</span><span class="n">chars</span><span class="p">.</span><span class="n">length</span><span class="p">)];</span><span class="w"></span>
-<span class="w">  </span><span class="p">}</span><span class="w"></span>
-<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">result</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="kt">String</span><span class="w"> </span><span class="n">RandomString</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">strlen</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">Random</span><span class="w"> </span><span class="n">rnd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Random</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">DateTime</span><span class="p">.</span><span class="n">now</span><span class="p">().</span><span class="n">millisecondsSinceEpoch</span><span class="p">);</span>
+<span class="w">  </span><span class="kt">String</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">;</span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">var</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">strlen</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">result</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">chars</span><span class="p">[</span><span class="n">rnd</span><span class="p">.</span><span class="n">nextInt</span><span class="p">(</span><span class="n">chars</span><span class="p">.</span><span class="n">length</span><span class="p">)];</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">result</span><span class="p">;</span>
+<span class="p">}</span>
 
-<span class="kt">void</span><span class="w"> </span><span class="n">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="n">print</span><span class="p">(</span><span class="n">RandomString</span><span class="p">(</span><span class="m">10</span><span class="p">));</span><span class="w"></span>
-<span class="w">  </span><span class="n">print</span><span class="p">(</span><span class="n">RandomString</span><span class="p">(</span><span class="m">20</span><span class="p">));</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="kt">void</span><span class="w"> </span><span class="n">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">print</span><span class="p">(</span><span class="n">RandomString</span><span class="p">(</span><span class="m">10</span><span class="p">));</span>
+<span class="w">  </span><span class="n">print</span><span class="p">(</span><span class="n">RandomString</span><span class="p">(</span><span class="m">20</span><span class="p">));</span>
+<span class="p">}</span>
 </pre></div>
 
 <p>Run <a class="reference external" href="https://dartpad.dartlang.org/d6ed1551b254f04e41161abed5dae486">code</a> on <a class="reference external" href="https://dartpad.dartlang.org/">DartPad</a>:</p>

@@ -82,131 +82,131 @@ digits?</p>
 We use large number addition <a class="footnote-reference" href="#footnote-2" id="footnote-reference-2">[2]</a> to calcualte Fibonacci number. The answer
 is 4782.</blockquote>
 <p class="align-center rubric"><a class="reference external" href="https://play.golang.org/p/PmfGBlWx5FN">Run Code on Go Playground</a></p>
-<div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span>
 
-<span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
-<span class="w">      </span><span class="s">&quot;fmt&quot;</span><span class="w"></span>
-<span class="p">)</span><span class="w"></span>
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span>
+<span class="w">      </span><span class="s">&quot;fmt&quot;</span>
+<span class="p">)</span>
 
-<span class="kd">const</span><span class="w"> </span><span class="nx">MaxDigits</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">1200</span><span class="w"></span>
-<span class="kd">const</span><span class="w"> </span><span class="nx">BASE</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">10</span><span class="w"></span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">MaxDigits</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">1200</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">BASE</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">10</span>
 
-<span class="kd">func</span><span class="w"> </span><span class="nx">MakePositiveInt</span><span class="p">(</span><span class="nx">s</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nx">n</span><span class="w"> </span><span class="p">[</span><span class="nx">MaxDigits</span><span class="p">]</span><span class="kt">int</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">      </span><span class="c1">// make n zero</span><span class="w"></span>
-<span class="w">      </span><span class="k">for</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="p">&lt;</span><span class="w"> </span><span class="nx">MaxDigits</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="o">++</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">              </span><span class="nx">n</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">0</span><span class="w"></span>
-<span class="w">      </span><span class="p">}</span><span class="w"></span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">MakePositiveInt</span><span class="p">(</span><span class="nx">s</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nx">n</span><span class="w"> </span><span class="p">[</span><span class="nx">MaxDigits</span><span class="p">]</span><span class="kt">int</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="c1">// make n zero</span>
+<span class="w">      </span><span class="k">for</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="p">&lt;</span><span class="w"> </span><span class="nx">MaxDigits</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="o">++</span><span class="w"> </span><span class="p">{</span>
+<span class="w">              </span><span class="nx">n</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">      </span><span class="p">}</span>
 
-<span class="w">      </span><span class="k">for</span><span class="w"> </span><span class="nx">index</span><span class="p">,</span><span class="w"> </span><span class="nx">digit</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="nx">s</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">              </span><span class="nx">i</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nx">index</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="w"></span>
-<span class="w">              </span><span class="k">switch</span><span class="w"> </span><span class="nx">digit</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">              </span><span class="k">case</span><span class="w"> </span><span class="sc">&#39;0&#39;</span><span class="p">:</span><span class="w"></span>
-<span class="w">                      </span><span class="nx">n</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">0</span><span class="w"></span>
-<span class="w">              </span><span class="k">case</span><span class="w"> </span><span class="sc">&#39;1&#39;</span><span class="p">:</span><span class="w"></span>
-<span class="w">                      </span><span class="nx">n</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">1</span><span class="w"></span>
-<span class="w">              </span><span class="k">case</span><span class="w"> </span><span class="sc">&#39;2&#39;</span><span class="p">:</span><span class="w"></span>
-<span class="w">                      </span><span class="nx">n</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">2</span><span class="w"></span>
-<span class="w">              </span><span class="k">case</span><span class="w"> </span><span class="sc">&#39;3&#39;</span><span class="p">:</span><span class="w"></span>
-<span class="w">                      </span><span class="nx">n</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">3</span><span class="w"></span>
-<span class="w">              </span><span class="k">case</span><span class="w"> </span><span class="sc">&#39;4&#39;</span><span class="p">:</span><span class="w"></span>
-<span class="w">                      </span><span class="nx">n</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">4</span><span class="w"></span>
-<span class="w">              </span><span class="k">case</span><span class="w"> </span><span class="sc">&#39;5&#39;</span><span class="p">:</span><span class="w"></span>
-<span class="w">                      </span><span class="nx">n</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">5</span><span class="w"></span>
-<span class="w">              </span><span class="k">case</span><span class="w"> </span><span class="sc">&#39;6&#39;</span><span class="p">:</span><span class="w"></span>
-<span class="w">                      </span><span class="nx">n</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">6</span><span class="w"></span>
-<span class="w">              </span><span class="k">case</span><span class="w"> </span><span class="sc">&#39;7&#39;</span><span class="p">:</span><span class="w"></span>
-<span class="w">                      </span><span class="nx">n</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">7</span><span class="w"></span>
-<span class="w">              </span><span class="k">case</span><span class="w"> </span><span class="sc">&#39;8&#39;</span><span class="p">:</span><span class="w"></span>
-<span class="w">                      </span><span class="nx">n</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">8</span><span class="w"></span>
-<span class="w">              </span><span class="k">case</span><span class="w"> </span><span class="sc">&#39;9&#39;</span><span class="p">:</span><span class="w"></span>
-<span class="w">                      </span><span class="nx">n</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">9</span><span class="w"></span>
-<span class="w">              </span><span class="k">default</span><span class="p">:</span><span class="w"></span>
-<span class="w">                      </span><span class="nb">panic</span><span class="p">(</span><span class="s">&quot;invalid digit in number string&quot;</span><span class="p">)</span><span class="w"></span>
-<span class="w">              </span><span class="p">}</span><span class="w"></span>
-<span class="w">      </span><span class="p">}</span><span class="w"></span>
+<span class="w">      </span><span class="k">for</span><span class="w"> </span><span class="nx">index</span><span class="p">,</span><span class="w"> </span><span class="nx">digit</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="nx">s</span><span class="w"> </span><span class="p">{</span>
+<span class="w">              </span><span class="nx">i</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nx">index</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">              </span><span class="k">switch</span><span class="w"> </span><span class="nx">digit</span><span class="w"> </span><span class="p">{</span>
+<span class="w">              </span><span class="k">case</span><span class="w"> </span><span class="sc">&#39;0&#39;</span><span class="p">:</span>
+<span class="w">                      </span><span class="nx">n</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">              </span><span class="k">case</span><span class="w"> </span><span class="sc">&#39;1&#39;</span><span class="p">:</span>
+<span class="w">                      </span><span class="nx">n</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">              </span><span class="k">case</span><span class="w"> </span><span class="sc">&#39;2&#39;</span><span class="p">:</span>
+<span class="w">                      </span><span class="nx">n</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">2</span>
+<span class="w">              </span><span class="k">case</span><span class="w"> </span><span class="sc">&#39;3&#39;</span><span class="p">:</span>
+<span class="w">                      </span><span class="nx">n</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">3</span>
+<span class="w">              </span><span class="k">case</span><span class="w"> </span><span class="sc">&#39;4&#39;</span><span class="p">:</span>
+<span class="w">                      </span><span class="nx">n</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">4</span>
+<span class="w">              </span><span class="k">case</span><span class="w"> </span><span class="sc">&#39;5&#39;</span><span class="p">:</span>
+<span class="w">                      </span><span class="nx">n</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">5</span>
+<span class="w">              </span><span class="k">case</span><span class="w"> </span><span class="sc">&#39;6&#39;</span><span class="p">:</span>
+<span class="w">                      </span><span class="nx">n</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">6</span>
+<span class="w">              </span><span class="k">case</span><span class="w"> </span><span class="sc">&#39;7&#39;</span><span class="p">:</span>
+<span class="w">                      </span><span class="nx">n</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">7</span>
+<span class="w">              </span><span class="k">case</span><span class="w"> </span><span class="sc">&#39;8&#39;</span><span class="p">:</span>
+<span class="w">                      </span><span class="nx">n</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">8</span>
+<span class="w">              </span><span class="k">case</span><span class="w"> </span><span class="sc">&#39;9&#39;</span><span class="p">:</span>
+<span class="w">                      </span><span class="nx">n</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">9</span>
+<span class="w">              </span><span class="k">default</span><span class="p">:</span>
+<span class="w">                      </span><span class="nb">panic</span><span class="p">(</span><span class="s">&quot;invalid digit in number string&quot;</span><span class="p">)</span>
+<span class="w">              </span><span class="p">}</span>
+<span class="w">      </span><span class="p">}</span>
 
-<span class="w">      </span><span class="k">return</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">      </span><span class="k">return</span>
+<span class="p">}</span>
 
-<span class="kd">func</span><span class="w"> </span><span class="nx">AddPositiveInt</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span><span class="w"> </span><span class="nx">b</span><span class="w"> </span><span class="p">[</span><span class="nx">MaxDigits</span><span class="p">]</span><span class="kt">int</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nx">c</span><span class="w"> </span><span class="p">[</span><span class="nx">MaxDigits</span><span class="p">]</span><span class="kt">int</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">      </span><span class="kd">var</span><span class="w"> </span><span class="nx">carry</span><span class="p">,</span><span class="w"> </span><span class="nx">sum</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="w"></span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">AddPositiveInt</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span><span class="w"> </span><span class="nx">b</span><span class="w"> </span><span class="p">[</span><span class="nx">MaxDigits</span><span class="p">]</span><span class="kt">int</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nx">c</span><span class="w"> </span><span class="p">[</span><span class="nx">MaxDigits</span><span class="p">]</span><span class="kt">int</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="kd">var</span><span class="w"> </span><span class="nx">carry</span><span class="p">,</span><span class="w"> </span><span class="nx">sum</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span>
 
-<span class="w">      </span><span class="c1">// make c zero</span><span class="w"></span>
-<span class="w">      </span><span class="k">for</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="p">&lt;</span><span class="w"> </span><span class="nx">MaxDigits</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="o">++</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">              </span><span class="nx">c</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">0</span><span class="w"></span>
-<span class="w">      </span><span class="p">}</span><span class="w"></span>
+<span class="w">      </span><span class="c1">// make c zero</span>
+<span class="w">      </span><span class="k">for</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="p">&lt;</span><span class="w"> </span><span class="nx">MaxDigits</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="o">++</span><span class="w"> </span><span class="p">{</span>
+<span class="w">              </span><span class="nx">c</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">      </span><span class="p">}</span>
 
-<span class="w">      </span><span class="k">for</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="p">&lt;</span><span class="w"> </span><span class="nx">MaxDigits</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="o">++</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">              </span><span class="nx">sum</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">a</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">b</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">carry</span><span class="w"></span>
+<span class="w">      </span><span class="k">for</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="p">&lt;</span><span class="w"> </span><span class="nx">MaxDigits</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="o">++</span><span class="w"> </span><span class="p">{</span>
+<span class="w">              </span><span class="nx">sum</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">a</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">b</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">carry</span>
 
-<span class="w">              </span><span class="k">if</span><span class="w"> </span><span class="nx">sum</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="nx">BASE</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">                      </span><span class="nx">carry</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">1</span><span class="w"></span>
-<span class="w">                      </span><span class="nx">sum</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span><span class="nx">BASE</span><span class="w"></span>
-<span class="w">              </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">                      </span><span class="nx">carry</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">0</span><span class="w"></span>
-<span class="w">              </span><span class="p">}</span><span class="w"></span>
+<span class="w">              </span><span class="k">if</span><span class="w"> </span><span class="nx">sum</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="nx">BASE</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                      </span><span class="nx">carry</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">                      </span><span class="nx">sum</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span><span class="nx">BASE</span>
+<span class="w">              </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                      </span><span class="nx">carry</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">              </span><span class="p">}</span>
 
-<span class="w">              </span><span class="nx">c</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">sum</span><span class="w"></span>
-<span class="w">      </span><span class="p">}</span><span class="w"></span>
+<span class="w">              </span><span class="nx">c</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">sum</span>
+<span class="w">      </span><span class="p">}</span>
 
-<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="nx">carry</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">              </span><span class="nb">panic</span><span class="p">(</span><span class="s">&quot;overflow in addition&quot;</span><span class="p">)</span><span class="w"></span>
-<span class="w">      </span><span class="p">}</span><span class="w"></span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="nx">carry</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">{</span>
+<span class="w">              </span><span class="nb">panic</span><span class="p">(</span><span class="s">&quot;overflow in addition&quot;</span><span class="p">)</span>
+<span class="w">      </span><span class="p">}</span>
 
-<span class="w">      </span><span class="k">return</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">      </span><span class="k">return</span>
+<span class="p">}</span>
 
-<span class="kd">func</span><span class="w"> </span><span class="nx">PositiveIntToString</span><span class="p">(</span><span class="nx">a</span><span class="w"> </span><span class="p">[</span><span class="nx">MaxDigits</span><span class="p">]</span><span class="kt">int</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nx">result</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">      </span><span class="nx">isLeadingZero</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="kc">true</span><span class="w"></span>
-<span class="w">      </span><span class="k">for</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">MaxDigits</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="o">--</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">              </span><span class="k">if</span><span class="w"> </span><span class="nx">isLeadingZero</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">a</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">                      </span><span class="k">continue</span><span class="w"></span>
-<span class="w">              </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">                      </span><span class="nx">isLeadingZero</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kc">false</span><span class="w"></span>
-<span class="w">                      </span><span class="k">switch</span><span class="w"> </span><span class="nx">a</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">                      </span><span class="k">case</span><span class="w"> </span><span class="mi">0</span><span class="p">:</span><span class="w"></span>
-<span class="w">                              </span><span class="nx">result</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="s">&quot;0&quot;</span><span class="w"></span>
-<span class="w">                      </span><span class="k">case</span><span class="w"> </span><span class="mi">1</span><span class="p">:</span><span class="w"></span>
-<span class="w">                              </span><span class="nx">result</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="s">&quot;1&quot;</span><span class="w"></span>
-<span class="w">                      </span><span class="k">case</span><span class="w"> </span><span class="mi">2</span><span class="p">:</span><span class="w"></span>
-<span class="w">                              </span><span class="nx">result</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="s">&quot;2&quot;</span><span class="w"></span>
-<span class="w">                      </span><span class="k">case</span><span class="w"> </span><span class="mi">3</span><span class="p">:</span><span class="w"></span>
-<span class="w">                              </span><span class="nx">result</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="s">&quot;3&quot;</span><span class="w"></span>
-<span class="w">                      </span><span class="k">case</span><span class="w"> </span><span class="mi">4</span><span class="p">:</span><span class="w"></span>
-<span class="w">                              </span><span class="nx">result</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="s">&quot;4&quot;</span><span class="w"></span>
-<span class="w">                      </span><span class="k">case</span><span class="w"> </span><span class="mi">5</span><span class="p">:</span><span class="w"></span>
-<span class="w">                              </span><span class="nx">result</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="s">&quot;5&quot;</span><span class="w"></span>
-<span class="w">                      </span><span class="k">case</span><span class="w"> </span><span class="mi">6</span><span class="p">:</span><span class="w"></span>
-<span class="w">                              </span><span class="nx">result</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="s">&quot;6&quot;</span><span class="w"></span>
-<span class="w">                      </span><span class="k">case</span><span class="w"> </span><span class="mi">7</span><span class="p">:</span><span class="w"></span>
-<span class="w">                              </span><span class="nx">result</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="s">&quot;7&quot;</span><span class="w"></span>
-<span class="w">                      </span><span class="k">case</span><span class="w"> </span><span class="mi">8</span><span class="p">:</span><span class="w"></span>
-<span class="w">                              </span><span class="nx">result</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="s">&quot;8&quot;</span><span class="w"></span>
-<span class="w">                      </span><span class="k">case</span><span class="w"> </span><span class="mi">9</span><span class="p">:</span><span class="w"></span>
-<span class="w">                              </span><span class="nx">result</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="s">&quot;9&quot;</span><span class="w"></span>
-<span class="w">                      </span><span class="k">default</span><span class="p">:</span><span class="w"></span>
-<span class="w">                              </span><span class="nb">panic</span><span class="p">(</span><span class="s">&quot;invalid digit in int array&quot;</span><span class="p">)</span><span class="w"></span>
-<span class="w">                      </span><span class="p">}</span><span class="w"></span>
-<span class="w">              </span><span class="p">}</span><span class="w"></span>
-<span class="w">      </span><span class="p">}</span><span class="w"></span>
-<span class="w">      </span><span class="k">return</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">PositiveIntToString</span><span class="p">(</span><span class="nx">a</span><span class="w"> </span><span class="p">[</span><span class="nx">MaxDigits</span><span class="p">]</span><span class="kt">int</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nx">result</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">isLeadingZero</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">      </span><span class="k">for</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">MaxDigits</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="o">--</span><span class="w"> </span><span class="p">{</span>
+<span class="w">              </span><span class="k">if</span><span class="w"> </span><span class="nx">isLeadingZero</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">a</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                      </span><span class="k">continue</span>
+<span class="w">              </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                      </span><span class="nx">isLeadingZero</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kc">false</span>
+<span class="w">                      </span><span class="k">switch</span><span class="w"> </span><span class="nx">a</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                      </span><span class="k">case</span><span class="w"> </span><span class="mi">0</span><span class="p">:</span>
+<span class="w">                              </span><span class="nx">result</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="s">&quot;0&quot;</span>
+<span class="w">                      </span><span class="k">case</span><span class="w"> </span><span class="mi">1</span><span class="p">:</span>
+<span class="w">                              </span><span class="nx">result</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="s">&quot;1&quot;</span>
+<span class="w">                      </span><span class="k">case</span><span class="w"> </span><span class="mi">2</span><span class="p">:</span>
+<span class="w">                              </span><span class="nx">result</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="s">&quot;2&quot;</span>
+<span class="w">                      </span><span class="k">case</span><span class="w"> </span><span class="mi">3</span><span class="p">:</span>
+<span class="w">                              </span><span class="nx">result</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="s">&quot;3&quot;</span>
+<span class="w">                      </span><span class="k">case</span><span class="w"> </span><span class="mi">4</span><span class="p">:</span>
+<span class="w">                              </span><span class="nx">result</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="s">&quot;4&quot;</span>
+<span class="w">                      </span><span class="k">case</span><span class="w"> </span><span class="mi">5</span><span class="p">:</span>
+<span class="w">                              </span><span class="nx">result</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="s">&quot;5&quot;</span>
+<span class="w">                      </span><span class="k">case</span><span class="w"> </span><span class="mi">6</span><span class="p">:</span>
+<span class="w">                              </span><span class="nx">result</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="s">&quot;6&quot;</span>
+<span class="w">                      </span><span class="k">case</span><span class="w"> </span><span class="mi">7</span><span class="p">:</span>
+<span class="w">                              </span><span class="nx">result</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="s">&quot;7&quot;</span>
+<span class="w">                      </span><span class="k">case</span><span class="w"> </span><span class="mi">8</span><span class="p">:</span>
+<span class="w">                              </span><span class="nx">result</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="s">&quot;8&quot;</span>
+<span class="w">                      </span><span class="k">case</span><span class="w"> </span><span class="mi">9</span><span class="p">:</span>
+<span class="w">                              </span><span class="nx">result</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="s">&quot;9&quot;</span>
+<span class="w">                      </span><span class="k">default</span><span class="p">:</span>
+<span class="w">                              </span><span class="nb">panic</span><span class="p">(</span><span class="s">&quot;invalid digit in int array&quot;</span><span class="p">)</span>
+<span class="w">                      </span><span class="p">}</span>
+<span class="w">              </span><span class="p">}</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">      </span><span class="k">return</span>
+<span class="p">}</span>
 
-<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">      </span><span class="nx">Fn1</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">MakePositiveInt</span><span class="p">(</span><span class="s">`1`</span><span class="p">)</span><span class="w"></span>
-<span class="w">      </span><span class="nx">Fn2</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">MakePositiveInt</span><span class="p">(</span><span class="s">`1`</span><span class="p">)</span><span class="w"></span>
-<span class="w">      </span><span class="nx">Fn</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">AddPositiveInt</span><span class="p">(</span><span class="nx">Fn1</span><span class="p">,</span><span class="w"> </span><span class="nx">Fn2</span><span class="p">)</span><span class="w"></span>
-<span class="w">      </span><span class="nx">index</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">3</span><span class="w"></span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">Fn1</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">MakePositiveInt</span><span class="p">(</span><span class="s">`1`</span><span class="p">)</span>
+<span class="w">      </span><span class="nx">Fn2</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">MakePositiveInt</span><span class="p">(</span><span class="s">`1`</span><span class="p">)</span>
+<span class="w">      </span><span class="nx">Fn</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">AddPositiveInt</span><span class="p">(</span><span class="nx">Fn1</span><span class="p">,</span><span class="w"> </span><span class="nx">Fn2</span><span class="p">)</span>
+<span class="w">      </span><span class="nx">index</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">3</span>
 
-<span class="w">      </span><span class="k">for</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="nx">PositiveIntToString</span><span class="p">(</span><span class="nx">Fn</span><span class="p">))</span><span class="w"> </span><span class="p">&lt;</span><span class="w"> </span><span class="mi">1000</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">              </span><span class="nx">Fn2</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">Fn1</span><span class="w"></span>
-<span class="w">              </span><span class="nx">Fn1</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">Fn</span><span class="w"></span>
-<span class="w">              </span><span class="nx">Fn</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">AddPositiveInt</span><span class="p">(</span><span class="nx">Fn1</span><span class="p">,</span><span class="w"> </span><span class="nx">Fn2</span><span class="p">)</span><span class="w"></span>
-<span class="w">              </span><span class="nx">index</span><span class="o">++</span><span class="w"></span>
-<span class="w">      </span><span class="p">}</span><span class="w"></span>
-<span class="w">      </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">PositiveIntToString</span><span class="p">(</span><span class="nx">Fn</span><span class="p">))</span><span class="w"></span>
-<span class="w">      </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;index: &quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">index</span><span class="p">)</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">      </span><span class="k">for</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="nx">PositiveIntToString</span><span class="p">(</span><span class="nx">Fn</span><span class="p">))</span><span class="w"> </span><span class="p">&lt;</span><span class="w"> </span><span class="mi">1000</span><span class="w"> </span><span class="p">{</span>
+<span class="w">              </span><span class="nx">Fn2</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">Fn1</span>
+<span class="w">              </span><span class="nx">Fn1</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">Fn</span>
+<span class="w">              </span><span class="nx">Fn</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">AddPositiveInt</span><span class="p">(</span><span class="nx">Fn1</span><span class="p">,</span><span class="w"> </span><span class="nx">Fn2</span><span class="p">)</span>
+<span class="w">              </span><span class="nx">index</span><span class="o">++</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">      </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">PositiveIntToString</span><span class="p">(</span><span class="nx">Fn</span><span class="p">))</span>
+<span class="w">      </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;index: &quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">index</span><span class="p">)</span>
+<span class="p">}</span>
 </pre></div>
 
 <p>Tested on: <a class="reference external" href="https://play.golang.org/">Go Playground</a></p>

@@ -53,12 +53,12 @@
     <hr>
 
     <div class="main-content"><p>First install <a class="reference external" href="https://github.com/davisp/ghp-import">ghp-import</a> via <a class="reference external" href="https://pypi.python.org/pypi/pip">pip</a> (<a class="reference external" href="http://releases.ubuntu.com/16.10/">Ubuntu Linux 16.10</a> as example):</p>
-<div class="highlight"><pre><span></span>$ sudo apt-get install python-pip
-$ sudo pip install ghp-import
+<div class="highlight"><pre><span></span>$<span class="w"> </span>sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>python-pip
+$<span class="w"> </span>sudo<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>ghp-import
 </pre></div>
 <p>Then in <a class="reference external" href="https://www.google.com/search?q=Makefile">Makefile</a> (assume your static website are located in <tt class="docutils literal">/home/usrname/dev/mywebsite/</tt>):</p>
 <div class="highlight"><pre><span></span><span class="nf">publish_to_github_project_pages</span><span class="o">:</span>
-      <span class="nb">cd</span> /home/usrname/dev/<span class="p">;</span> ghp-import mywebsite<span class="p">;</span> git push origin gh-pages
+<span class="w">      </span><span class="nb">cd</span><span class="w"> </span>/home/usrname/dev/<span class="p">;</span><span class="w"> </span>ghp-import<span class="w"> </span>mywebsite<span class="p">;</span><span class="w"> </span>git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>gh-pages
 </pre></div>
 
 <p>Note that I put several commands in one line.
@@ -66,9 +66,9 @@ If your Makefile is not located in <tt class="docutils literal">/home/usrname/de
 not work:</p>
 <div class="highlight"><pre><span></span><span class="nf">publish_to_github_project_pages</span><span class="o">:</span>
 <span class="c">      # wrong way</span>
-      <span class="nb">cd</span> /home/usrname/dev/
-      ghp-import mywebsite
-      git push origin gh-pages
+<span class="w">      </span><span class="nb">cd</span><span class="w"> </span>/home/usrname/dev/
+<span class="w">      </span>ghp-import<span class="w"> </span>mywebsite
+<span class="w">      </span>git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>gh-pages
 </pre></div>
 <p>Because when GNU make executes every line of command, it executes the command at
 current directory of of <a class="reference external" href="https://www.google.com/search?q=Makefile">Makefile</a>. So when <a class="reference external" href="https://github.com/davisp/ghp-import">ghp-import</a> try to find <tt class="docutils literal">mywebsite</tt>

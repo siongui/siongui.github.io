@@ -53,14 +53,14 @@
     <hr>
 
     <div class="main-content"><p>In pure JavaScript, the following way can be used to set HTML document title:</p>
-<div class="highlight"><pre><span></span><span class="nb">document</span><span class="p">.</span><span class="nx">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;myTitle&quot;</span><span class="p">;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="nb">document</span><span class="p">.</span><span class="nx">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;myTitle&quot;</span><span class="p">;</span>
 </pre></div>
 <p>However, this is not Angular way of doing programming, <a class="reference external" href="http://angularjs.org/">AngularJS</a> provide <a class="reference external" href="https://docs.angularjs.org/api/ng/service/$document">$document</a> for programmers to deal with HTML document. So I use the following syntax to set HTML document title:</p>
-<div class="highlight"><pre><span></span><span class="nx">$document</span><span class="p">.</span><span class="nx">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;myTitle&quot;</span><span class="p">;</span><span class="w"> </span><span class="c1">// this doesn&#39;t work</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="nx">$document</span><span class="p">.</span><span class="nx">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;myTitle&quot;</span><span class="p">;</span><span class="w"> </span><span class="c1">// this doesn&#39;t work</span>
 </pre></div>
 
 <p>But it does not work. Finally I found the correct way to set HTML document:</p>
-<div class="highlight"><pre><span></span><span class="nx">$document</span><span class="p">.</span><span class="nx">prop</span><span class="p">(</span><span class="s1">&#39;title&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;myTitle&#39;</span><span class="p">);</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="nx">$document</span><span class="p">.</span><span class="nx">prop</span><span class="p">(</span><span class="s1">&#39;title&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;myTitle&#39;</span><span class="p">);</span>
 </pre></div>
 <p>For those who has the same problem as me.</p>
 

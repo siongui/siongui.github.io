@@ -58,21 +58,21 @@ implementation and portable in all platforms. But if you do not care about
 portability and just want to use <a class="reference external" href="https://www.gnu.org/software/wget/">wget</a> on your Linux or Unix-like platform, we
 can use Go standard <a class="reference external" href="https://golang.org/pkg/os/exec/">os/exec</a> package to run <a class="reference external" href="https://www.gnu.org/software/wget/">wget</a> via shell command. The
 following is howto:</p>
-<div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
-<span class="w">      </span><span class="s">&quot;os&quot;</span><span class="w"></span>
-<span class="w">      </span><span class="s">&quot;os/exec&quot;</span><span class="w"></span>
-<span class="p">)</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="p">(</span>
+<span class="w">      </span><span class="s">&quot;os&quot;</span>
+<span class="w">      </span><span class="s">&quot;os/exec&quot;</span>
+<span class="p">)</span>
 
-<span class="c1">// Call shell command wget to download. The reason to use wget is that wget</span><span class="w"></span>
-<span class="c1">// supports automatically resume download. So this package only runs on Linux</span><span class="w"></span>
-<span class="c1">// systems.</span><span class="w"></span>
-<span class="kd">func</span><span class="w"> </span><span class="nx">wget</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span><span class="w"> </span><span class="nx">filepath</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">      </span><span class="c1">// run shell `wget URL -O filepath`</span><span class="w"></span>
-<span class="w">      </span><span class="nx">cmd</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">exec</span><span class="p">.</span><span class="nx">Command</span><span class="p">(</span><span class="s">&quot;wget&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">url</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;-O&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">filepath</span><span class="p">)</span><span class="w"></span>
-<span class="w">      </span><span class="nx">cmd</span><span class="p">.</span><span class="nx">Stdout</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">os</span><span class="p">.</span><span class="nx">Stdout</span><span class="w"></span>
-<span class="w">      </span><span class="nx">cmd</span><span class="p">.</span><span class="nx">Stderr</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">os</span><span class="p">.</span><span class="nx">Stderr</span><span class="w"></span>
-<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="nx">cmd</span><span class="p">.</span><span class="nx">Run</span><span class="p">()</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="c1">// Call shell command wget to download. The reason to use wget is that wget</span>
+<span class="c1">// supports automatically resume download. So this package only runs on Linux</span>
+<span class="c1">// systems.</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">wget</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span><span class="w"> </span><span class="nx">filepath</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="c1">// run shell `wget URL -O filepath`</span>
+<span class="w">      </span><span class="nx">cmd</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">exec</span><span class="p">.</span><span class="nx">Command</span><span class="p">(</span><span class="s">&quot;wget&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">url</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;-O&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">filepath</span><span class="p">)</span>
+<span class="w">      </span><span class="nx">cmd</span><span class="p">.</span><span class="nx">Stdout</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">os</span><span class="p">.</span><span class="nx">Stdout</span>
+<span class="w">      </span><span class="nx">cmd</span><span class="p">.</span><span class="nx">Stderr</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">os</span><span class="p">.</span><span class="nx">Stderr</span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="nx">cmd</span><span class="p">.</span><span class="nx">Run</span><span class="p">()</span>
+<span class="p">}</span>
 </pre></div>
 
 <hr class="docutils" />

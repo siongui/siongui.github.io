@@ -72,13 +72,13 @@ how to use <a class="reference external" href="https://www.gnu.org/software/gett
 <p>Next, we extract the marked strings in previous step by <a class="reference external" href="https://www.gnu.org/software/gettext/manual/html_node/xgettext-Invocation.html">xgettext</a>, which
 extracts translatable strings from given input files. Assume the marked strings
 are located in <em>html</em> files under <tt class="docutils literal">app/html/</tt> directory. Run <a class="reference external" href="https://www.gnu.org/software/gettext/manual/html_node/xgettext-Invocation.html">xgettext</a> by:</p>
-<div class="highlight"><pre><span></span>$ xgettext --no-wrap --from-code<span class="o">=</span>UTF-8 --keyword<span class="o">=</span>_ --output<span class="o">=</span>locale/messages.pot <span class="sb">`</span>find app/html/ -name <span class="s2">&quot;*.html&quot;</span><span class="sb">`</span>
+<div class="highlight"><pre><span></span>$<span class="w"> </span>xgettext<span class="w"> </span>--no-wrap<span class="w"> </span>--from-code<span class="o">=</span>UTF-8<span class="w"> </span>--keyword<span class="o">=</span>_<span class="w"> </span>--output<span class="o">=</span>locale/messages.pot<span class="w"> </span><span class="sb">`</span>find<span class="w"> </span>app/html/<span class="w"> </span>-name<span class="w"> </span><span class="s2">&quot;*.html&quot;</span><span class="sb">`</span>
 </pre></div>
 <p>A file named <em>messages.pot</em> will be created under <tt class="docutils literal">locale/</tt> directory. We will
 put all i18n-related stuff in <tt class="docutils literal">locale/</tt> directory.</p>
 <p>Next, we will set <em>charset</em> in <em>messages.pot</em>. You can open your editor to edit
 by hand. I use <a class="reference external" href="http://www.grymoire.com/Unix/Sed.html">sed</a> to automate the task:</p>
-<div class="highlight"><pre><span></span>$ sed -i <span class="s2">&quot;s/charset=CHARSET/charset=utf-8/g&quot;</span> locale/messages.pot
+<div class="highlight"><pre><span></span>$<span class="w"> </span>sed<span class="w"> </span>-i<span class="w"> </span><span class="s2">&quot;s/charset=CHARSET/charset=utf-8/g&quot;</span><span class="w"> </span>locale/messages.pot
 </pre></div>
 
 </div>
@@ -88,9 +88,9 @@ by hand. I use <a class="reference external" href="http://www.grymoire.com/Unix/
 and <em>Vietnamese</em>). We use <strong>en_US</strong> <a class="reference external" href="https://en.wikipedia.org/wiki/Locale">locale</a> for <em>English</em>, <strong>zh_TW</strong> for
 <em>Traditional Chinese</em>, and <strong>vi_VN</strong> for <em>Vietnamese</em>. <a class="reference external" href="https://www.gnu.org/software/gettext/manual/html_node/msginit-Invocation.html">msginit</a> is used to
 generate translation file for each supported language:</p>
-<div class="highlight"><pre><span></span>$ msginit --no-wrap --no-translator --input<span class="o">=</span>locale/messages.pot --locale<span class="o">=</span>en_US -o locale/en_US/LC_MESSAGES/messages.po
-$ msginit --no-wrap --no-translator --input<span class="o">=</span>locale/messages.pot --locale<span class="o">=</span>zh_TW -o locale/zh_TW/LC_MESSAGES/messages.po
-$ msginit --no-wrap --no-translator --input<span class="o">=</span>locale/messages.pot --locale<span class="o">=</span>vi_VN -o locale/vi_VN/LC_MESSAGES/messages.po
+<div class="highlight"><pre><span></span>$<span class="w"> </span>msginit<span class="w"> </span>--no-wrap<span class="w"> </span>--no-translator<span class="w"> </span>--input<span class="o">=</span>locale/messages.pot<span class="w"> </span>--locale<span class="o">=</span>en_US<span class="w"> </span>-o<span class="w"> </span>locale/en_US/LC_MESSAGES/messages.po
+$<span class="w"> </span>msginit<span class="w"> </span>--no-wrap<span class="w"> </span>--no-translator<span class="w"> </span>--input<span class="o">=</span>locale/messages.pot<span class="w"> </span>--locale<span class="o">=</span>zh_TW<span class="w"> </span>-o<span class="w"> </span>locale/zh_TW/LC_MESSAGES/messages.po
+$<span class="w"> </span>msginit<span class="w"> </span>--no-wrap<span class="w"> </span>--no-translator<span class="w"> </span>--input<span class="o">=</span>locale/messages.pot<span class="w"> </span>--locale<span class="o">=</span>vi_VN<span class="w"> </span>-o<span class="w"> </span>locale/vi_VN/LC_MESSAGES/messages.po
 </pre></div>
 <p>the input is the <em>messages.pot</em> in previous step, and three <strong>PO</strong> files are
 generated and put in respective directories. Then edit these <strong>PO</strong> files to
@@ -101,9 +101,9 @@ translate the strings in the files.</p>
 <p>Everytime you add or delete translatable strings in original <em>html</em> files,
 <a class="reference external" href="https://www.gnu.org/software/gettext/manual/html_node/msgmerge-Invocation.html">msgmerge</a> is used to help you update the <strong>PO</strong> files for each locale.
 Re-generate <strong>messages.pot</strong> again by <a class="reference external" href="https://www.gnu.org/software/gettext/manual/html_node/xgettext-Invocation.html">xgettext</a> and then run <a class="reference external" href="https://www.gnu.org/software/gettext/manual/html_node/msgmerge-Invocation.html">msgmerge</a>:</p>
-<div class="highlight"><pre><span></span>$ msgmerge --no-wrap --backup<span class="o">=</span>none --update locale/en_US/LC_MESSAGES/messages.po locale/messages.pot
-$ msgmerge --no-wrap --backup<span class="o">=</span>none --update locale/zh_TW/LC_MESSAGES/messages.po locale/messages.pot
-$ msgmerge --no-wrap --backup<span class="o">=</span>none --update locale/vi_VN/LC_MESSAGES/messages.po locale/messages.pot
+<div class="highlight"><pre><span></span>$<span class="w"> </span>msgmerge<span class="w"> </span>--no-wrap<span class="w"> </span>--backup<span class="o">=</span>none<span class="w"> </span>--update<span class="w"> </span>locale/en_US/LC_MESSAGES/messages.po<span class="w"> </span>locale/messages.pot
+$<span class="w"> </span>msgmerge<span class="w"> </span>--no-wrap<span class="w"> </span>--backup<span class="o">=</span>none<span class="w"> </span>--update<span class="w"> </span>locale/zh_TW/LC_MESSAGES/messages.po<span class="w"> </span>locale/messages.pot
+$<span class="w"> </span>msgmerge<span class="w"> </span>--no-wrap<span class="w"> </span>--backup<span class="o">=</span>none<span class="w"> </span>--update<span class="w"> </span>locale/vi_VN/LC_MESSAGES/messages.po<span class="w"> </span>locale/messages.pot
 </pre></div>
 <p>After the update, you maybe need to edit the <strong>PO</strong> files to translate the newly
 added strings.</p>
@@ -114,9 +114,9 @@ added strings.</p>
 used. Instead we will generate <strong>MO</strong> files from <strong>PO</strong> files in previous step
 for run-time application use. <strong>MO</strong> files are binary message catalog. We can
 generate <strong>MO</strong> files by <a class="reference external" href="https://www.gnu.org/software/gettext/manual/html_node/msgfmt-Invocation.html">msgfmt</a>:</p>
-<div class="highlight"><pre><span></span>msgfmt locale/en_US/LC_MESSAGES/messages.po -o locale/en_US/LC_MESSAGES/messages.mo
-msgfmt locale/zh_TW/LC_MESSAGES/messages.po -o locale/zh_TW/LC_MESSAGES/messages.mo
-msgfmt locale/vi_VN/LC_MESSAGES/messages.po -o locale/vi_VN/LC_MESSAGES/messages.mo
+<div class="highlight"><pre><span></span>msgfmt<span class="w"> </span>locale/en_US/LC_MESSAGES/messages.po<span class="w"> </span>-o<span class="w"> </span>locale/en_US/LC_MESSAGES/messages.mo
+msgfmt<span class="w"> </span>locale/zh_TW/LC_MESSAGES/messages.po<span class="w"> </span>-o<span class="w"> </span>locale/zh_TW/LC_MESSAGES/messages.mo
+msgfmt<span class="w"> </span>locale/vi_VN/LC_MESSAGES/messages.po<span class="w"> </span>-o<span class="w"> </span>locale/vi_VN/LC_MESSAGES/messages.mo
 </pre></div>
 <p>These <strong>MO</strong> files are the files we really need in our applications during
 run-time.</p>

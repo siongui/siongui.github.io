@@ -58,9 +58,9 @@ Event Handler Function</em> <a class="footnote-reference" href="#footnote-2" id=
 scope (context) of a JavaScript <a class="reference external" href="http://helephant.com/2008/08/23/javascript-anonymous-functions/">anonymous function</a>. The anonymous function in
 JavaScript has wide uses, for example, as an event handler function. See the
 following code snippet:</p>
-<div class="highlight"><pre><span></span><span class="nx">element</span><span class="p">.</span><span class="nx">onclick</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">);</span><span class="w"></span>
-<span class="p">};</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="nx">element</span><span class="p">.</span><span class="nx">onclick</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+<span class="p">};</span>
 </pre></div>
 <p>We use an anonymous function as the <a class="reference external" href="http://www.w3schools.com/jsref/event_onclick.asp">onclick</a> event handler of
 <a class="reference external" href="http://www.w3schools.com/jsref/dom_obj_all.asp">HTML DOM element</a>. If you register the event handler as above, <em>this</em> keyword
@@ -70,15 +70,15 @@ function to global scope (i.e., <em>window</em>) or other scope?</p>
 
 <p>The answer is <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind">Function.prototype.bind()</a> introduced in recent browsers. For
 example:</p>
-<div class="highlight"><pre><span></span><span class="nx">element</span><span class="p">.</span><span class="nx">onclick</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">);</span><span class="w"></span>
-<span class="p">}.</span><span class="nx">bind</span><span class="p">(</span><span class="nb">window</span><span class="p">);</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="nx">element</span><span class="p">.</span><span class="nx">onclick</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+<span class="p">}.</span><span class="nx">bind</span><span class="p">(</span><span class="nb">window</span><span class="p">);</span>
 </pre></div>
 <p>The above code changes the scope (context) of the anonymous function to global
 scope. Another example:</p>
-<div class="highlight"><pre><span></span><span class="nx">element</span><span class="p">.</span><span class="nx">onclick</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">);</span><span class="w"></span>
-<span class="p">}.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">);</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="nx">element</span><span class="p">.</span><span class="nx">onclick</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+<span class="p">}.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
 </pre></div>
 <p>Will bind the scope of the anonymous function to the scope when <a class="reference external" href="http://www.w3schools.com/jsref/event_onclick.asp">onclick</a> event
 of the element is registered.</p>

@@ -74,14 +74,14 @@ browser screen before JavaScript code is run.</p>
 before the end of <em>body</em> tag, here is an alternative - <em>Check the readiness
 of last element inside body tag</em>. The following JavaScript code snippet
 demonstrates how (assume the <em>id</em> of last element is <em>lastElement</em>):</p>
-<div class="highlight"><pre><span></span><span class="nx">checkDOMReady</span><span class="p">();</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="nx">checkDOMReady</span><span class="p">();</span>
 
-<span class="kd">function</span><span class="w"> </span><span class="nx">checkDOMReady</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;lastElement&#39;</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="c1">// DOM is ready now. Do something here.</span><span class="w"></span>
-<span class="w">  </span><span class="p">}</span><span class="w"></span>
-<span class="w">  </span><span class="k">else</span><span class="w"> </span><span class="nx">setTimeout</span><span class="p">(</span><span class="nx">checkDOMReady</span><span class="p">,</span><span class="w"> </span><span class="mf">50</span><span class="p">);</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="kd">function</span><span class="w"> </span><span class="nx">checkDOMReady</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;lastElement&#39;</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// DOM is ready now. Do something here.</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="k">else</span><span class="w"> </span><span class="nx">setTimeout</span><span class="p">(</span><span class="nx">checkDOMReady</span><span class="p">,</span><span class="w"> </span><span class="mf">50</span><span class="p">);</span>
+<span class="p">}</span>
 </pre></div>
 <p>As you can see, a function is setup to access the last element. If the last
 element is not accessible, then the function sleep 50 ms and checks again

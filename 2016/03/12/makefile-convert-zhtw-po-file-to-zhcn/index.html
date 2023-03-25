@@ -55,12 +55,12 @@
     <div class="main-content"><p>Convert Traditional Chinese PO file to Simplified Chinese via <a class="reference external" href="http://opencc.byvoid.com/">OpenCC</a> and <a class="reference external" href="http://www.grymoire.com/Unix/Sed.html">sed</a>
 in <a class="reference external" href="https://www.google.com/search?q=Makefile">Makefile</a>.</p>
 <div class="highlight"><pre><span></span>twpo2cn:
-      @echo <span class="s2">&quot;\033[92mCheck if OpenCC exists ...\033[0m&quot;</span>
-      @<span class="o">[</span> -x <span class="k">$(</span>shell <span class="nb">command</span> -v opencc <span class="m">2</span>&gt; /dev/null<span class="k">)</span> <span class="o">]</span> <span class="o">||</span> sudo apt-get install opencc
-      @echo <span class="s2">&quot;\033[92mCreating zh_CN PO from zh_TW PO ...\033[0m&quot;</span>
-      @<span class="o">[</span> -d <span class="k">$(</span>LOCALE_DIR<span class="k">)</span>/zh_CN/LC_MESSAGES/ <span class="o">]</span> <span class="o">||</span> mkdir -p <span class="k">$(</span>LOCALE_DIR<span class="k">)</span>/zh_CN/LC_MESSAGES/
-      @opencc -c zht2zhs.ini -i <span class="k">$(</span>LOCALE_DIR<span class="k">)</span>/zh_TW/LC_MESSAGES/messages.po -o <span class="k">$(</span>LOCALE_DIR<span class="k">)</span>/zh_CN/LC_MESSAGES/messages.po
-      @sed <span class="s1">&#39;s/zh_TW/zh_CN/&#39;</span> -i <span class="k">$(</span>LOCALE_DIR<span class="k">)</span>/zh_CN/LC_MESSAGES/messages.po
+<span class="w">      </span>@echo<span class="w"> </span><span class="s2">&quot;\033[92mCheck if OpenCC exists ...\033[0m&quot;</span>
+<span class="w">      </span>@<span class="o">[</span><span class="w"> </span>-x<span class="w"> </span><span class="k">$(</span>shell<span class="w"> </span><span class="nb">command</span><span class="w"> </span>-v<span class="w"> </span>opencc<span class="w"> </span><span class="m">2</span>&gt;<span class="w"> </span>/dev/null<span class="k">)</span><span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="o">||</span><span class="w"> </span>sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>opencc
+<span class="w">      </span>@echo<span class="w"> </span><span class="s2">&quot;\033[92mCreating zh_CN PO from zh_TW PO ...\033[0m&quot;</span>
+<span class="w">      </span>@<span class="o">[</span><span class="w"> </span>-d<span class="w"> </span><span class="k">$(</span>LOCALE_DIR<span class="k">)</span>/zh_CN/LC_MESSAGES/<span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="o">||</span><span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span><span class="k">$(</span>LOCALE_DIR<span class="k">)</span>/zh_CN/LC_MESSAGES/
+<span class="w">      </span>@opencc<span class="w"> </span>-c<span class="w"> </span>zht2zhs.ini<span class="w"> </span>-i<span class="w"> </span><span class="k">$(</span>LOCALE_DIR<span class="k">)</span>/zh_TW/LC_MESSAGES/messages.po<span class="w"> </span>-o<span class="w"> </span><span class="k">$(</span>LOCALE_DIR<span class="k">)</span>/zh_CN/LC_MESSAGES/messages.po
+<span class="w">      </span>@sed<span class="w"> </span><span class="s1">&#39;s/zh_TW/zh_CN/&#39;</span><span class="w"> </span>-i<span class="w"> </span><span class="k">$(</span>LOCALE_DIR<span class="k">)</span>/zh_CN/LC_MESSAGES/messages.po
 </pre></div>
 <hr class="docutils" />
 <p>Tested on <tt class="docutils literal">Ubuntu Linux 15.10</tt>, <tt class="docutils literal">opencc <span class="pre">0.4.3-2build1</span></tt>, <a class="reference external" href="http://packages.ubuntu.com/wily/make">GNU make 4.0-8.2</a>.</p>

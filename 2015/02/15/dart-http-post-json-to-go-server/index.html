@@ -129,67 +129,67 @@ type <tt class="docutils literal">make js</tt> before you type <tt class="docuti
 <span class="normal">58</span>
 <span class="normal">59</span>
 <span class="normal">60</span>
-<span class="normal">61</span></pre></div></td><td class="code"><div><pre><span></span><span class="c1">// Google search keyword: golang http template</span><span class="w"></span>
-<span class="c1">// https://golang.org/doc/articles/wiki/</span><span class="w"></span>
-<span class="c1">// http://golang.org/pkg/html/template/</span><span class="w"></span>
+<span class="normal">61</span></pre></div></td><td class="code"><div><pre><span></span><span class="c1">// Google search keyword: golang http template</span>
+<span class="c1">// https://golang.org/doc/articles/wiki/</span>
+<span class="c1">// http://golang.org/pkg/html/template/</span>
 
-<span class="c1">// Google search keyword: go serve static file</span><span class="w"></span>
-<span class="c1">// http://stackoverflow.com/questions/17690230/go-web-page-static-file-serving</span><span class="w"></span>
-<span class="c1">// http://stackoverflow.com/questions/25945538/go-golang-to-serve-a-specific-html-file</span><span class="w"></span>
+<span class="c1">// Google search keyword: go serve static file</span>
+<span class="c1">// http://stackoverflow.com/questions/17690230/go-web-page-static-file-serving</span>
+<span class="c1">// http://stackoverflow.com/questions/25945538/go-golang-to-serve-a-specific-html-file</span>
 
-<span class="c1">// Google search keyword: golang http minetype set</span><span class="w"></span>
-<span class="c1">// https://golang.org/src/net/http/pprof/pprof.go#L73</span><span class="w"></span>
-<span class="c1">// http://stackoverflow.com/questions/12830095/setting-http-headers-in-golang</span><span class="w"></span>
+<span class="c1">// Google search keyword: golang http minetype set</span>
+<span class="c1">// https://golang.org/src/net/http/pprof/pprof.go#L73</span>
+<span class="c1">// http://stackoverflow.com/questions/12830095/setting-http-headers-in-golang</span>
 
-<span class="c1">// Handling JSON Post Request in Go</span><span class="w"></span>
-<span class="c1">// http://stackoverflow.com/questions/15672556/handling-json-post-request-in-go</span><span class="w"></span>
-<span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w"></span>
+<span class="c1">// Handling JSON Post Request in Go</span>
+<span class="c1">// http://stackoverflow.com/questions/15672556/handling-json-post-request-in-go</span>
+<span class="kn">package</span><span class="w"> </span><span class="nx">main</span>
 
-<span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
-<span class="w">	</span><span class="s">&quot;html/template&quot;</span><span class="w"></span>
-<span class="w">	</span><span class="s">&quot;net/http&quot;</span><span class="w"></span>
-<span class="w">	</span><span class="s">&quot;encoding/json&quot;</span><span class="w"></span>
-<span class="w">	</span><span class="s">&quot;fmt&quot;</span><span class="w"></span>
-<span class="p">)</span><span class="w"></span>
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span>
+<span class="w">	</span><span class="s">&quot;html/template&quot;</span>
+<span class="w">	</span><span class="s">&quot;net/http&quot;</span>
+<span class="w">	</span><span class="s">&quot;encoding/json&quot;</span>
+<span class="w">	</span><span class="s">&quot;fmt&quot;</span>
+<span class="p">)</span>
 
-<span class="kd">type</span><span class="w"> </span><span class="nx">dataFromClient</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">	</span><span class="nx">Title</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="c1">// cannot use title (lower case will case json decode failure)</span><span class="w"></span>
-<span class="w">	</span><span class="nx">Url</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="c1">// cannot use url (lower case will case json decode failure)</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="kd">type</span><span class="w"> </span><span class="nx">dataFromClient</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">	</span><span class="nx">Title</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="c1">// cannot use title (lower case will case json decode failure)</span>
+<span class="w">	</span><span class="nx">Url</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="c1">// cannot use url (lower case will case json decode failure)</span>
+<span class="p">}</span>
 
-<span class="kd">func</span><span class="w"> </span><span class="nx">handler</span><span class="p">(</span><span class="nx">w</span><span class="w"> </span><span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span><span class="w"> </span><span class="nx">r</span><span class="w"> </span><span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s">&quot;/app.dart&quot;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">		</span><span class="nx">w</span><span class="p">.</span><span class="nx">Header</span><span class="p">().</span><span class="nx">Set</span><span class="p">(</span><span class="s">&quot;Content-Type&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;application/dart; charset=utf-8&quot;</span><span class="p">)</span><span class="w"></span>
-<span class="w">		</span><span class="nx">http</span><span class="p">.</span><span class="nx">ServeFile</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span><span class="w"> </span><span class="nx">r</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;./app.dart&quot;</span><span class="p">)</span><span class="w"></span>
-<span class="w">		</span><span class="k">return</span><span class="w"></span>
-<span class="w">	</span><span class="p">}</span><span class="w"></span>
-<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s">&quot;/app.js&quot;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">		</span><span class="nx">w</span><span class="p">.</span><span class="nx">Header</span><span class="p">().</span><span class="nx">Set</span><span class="p">(</span><span class="s">&quot;Content-Type&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;application/javascript; charset=utf-8&quot;</span><span class="p">)</span><span class="w"></span>
-<span class="w">		</span><span class="nx">http</span><span class="p">.</span><span class="nx">ServeFile</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span><span class="w"> </span><span class="nx">r</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;./app.js&quot;</span><span class="p">)</span><span class="w"></span>
-<span class="w">		</span><span class="k">return</span><span class="w"></span>
-<span class="w">	</span><span class="p">}</span><span class="w"></span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">handler</span><span class="p">(</span><span class="nx">w</span><span class="w"> </span><span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span><span class="w"> </span><span class="nx">r</span><span class="w"> </span><span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s">&quot;/app.dart&quot;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">		</span><span class="nx">w</span><span class="p">.</span><span class="nx">Header</span><span class="p">().</span><span class="nx">Set</span><span class="p">(</span><span class="s">&quot;Content-Type&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;application/dart; charset=utf-8&quot;</span><span class="p">)</span>
+<span class="w">		</span><span class="nx">http</span><span class="p">.</span><span class="nx">ServeFile</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span><span class="w"> </span><span class="nx">r</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;./app.dart&quot;</span><span class="p">)</span>
+<span class="w">		</span><span class="k">return</span>
+<span class="w">	</span><span class="p">}</span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s">&quot;/app.js&quot;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">		</span><span class="nx">w</span><span class="p">.</span><span class="nx">Header</span><span class="p">().</span><span class="nx">Set</span><span class="p">(</span><span class="s">&quot;Content-Type&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;application/javascript; charset=utf-8&quot;</span><span class="p">)</span>
+<span class="w">		</span><span class="nx">http</span><span class="p">.</span><span class="nx">ServeFile</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span><span class="w"> </span><span class="nx">r</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;./app.js&quot;</span><span class="p">)</span>
+<span class="w">		</span><span class="k">return</span>
+<span class="w">	</span><span class="p">}</span>
 
-<span class="w">	</span><span class="nx">t</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">template</span><span class="p">.</span><span class="nx">ParseFiles</span><span class="p">(</span><span class="s">&quot;index.html&quot;</span><span class="p">)</span><span class="w"></span>
-<span class="w">	</span><span class="nx">t</span><span class="p">.</span><span class="nx">Execute</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span><span class="w"> </span><span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span><span class="p">)</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">	</span><span class="nx">t</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">template</span><span class="p">.</span><span class="nx">ParseFiles</span><span class="p">(</span><span class="s">&quot;index.html&quot;</span><span class="p">)</span>
+<span class="w">	</span><span class="nx">t</span><span class="p">.</span><span class="nx">Execute</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span><span class="w"> </span><span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span><span class="p">)</span>
+<span class="p">}</span>
 
-<span class="kd">func</span><span class="w"> </span><span class="nx">postHandler</span><span class="p">(</span><span class="nx">w</span><span class="w"> </span><span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span><span class="w"> </span><span class="nx">r</span><span class="w"> </span><span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">r</span><span class="p">.</span><span class="nx">Method</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="s">&quot;POST&quot;</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
-<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="s">&quot;/post&quot;</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">postHandler</span><span class="p">(</span><span class="nx">w</span><span class="w"> </span><span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span><span class="w"> </span><span class="nx">r</span><span class="w"> </span><span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">r</span><span class="p">.</span><span class="nx">Method</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="s">&quot;POST&quot;</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="p">}</span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Path</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="s">&quot;/post&quot;</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="p">}</span>
 
-<span class="w">	</span><span class="nx">decoder</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">json</span><span class="p">.</span><span class="nx">NewDecoder</span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">Body</span><span class="p">)</span><span class="w"></span>
-<span class="w">	</span><span class="kd">var</span><span class="w"> </span><span class="nx">d</span><span class="w"> </span><span class="nx">dataFromClient</span><span class="w"></span>
+<span class="w">	</span><span class="nx">decoder</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">json</span><span class="p">.</span><span class="nx">NewDecoder</span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">Body</span><span class="p">)</span>
+<span class="w">	</span><span class="kd">var</span><span class="w"> </span><span class="nx">d</span><span class="w"> </span><span class="nx">dataFromClient</span>
 
-<span class="w">	</span><span class="c1">// should handle error here</span><span class="w"></span>
-<span class="w">	</span><span class="nx">decoder</span><span class="p">.</span><span class="nx">Decode</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">d</span><span class="p">)</span><span class="w"></span>
-<span class="w">	</span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Fprintf</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;&lt;a href=\&quot;%s\&quot;&gt;%s&lt;/a&gt;&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">d</span><span class="p">.</span><span class="nx">Url</span><span class="p">,</span><span class="w"> </span><span class="nx">d</span><span class="p">.</span><span class="nx">Title</span><span class="p">)</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">	</span><span class="c1">// should handle error here</span>
+<span class="w">	</span><span class="nx">decoder</span><span class="p">.</span><span class="nx">Decode</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">d</span><span class="p">)</span>
+<span class="w">	</span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Fprintf</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;&lt;a href=\&quot;%s\&quot;&gt;%s&lt;/a&gt;&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">d</span><span class="p">.</span><span class="nx">Url</span><span class="p">,</span><span class="w"> </span><span class="nx">d</span><span class="p">.</span><span class="nx">Title</span><span class="p">)</span>
+<span class="p">}</span>
 
-<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">	</span><span class="nx">http</span><span class="p">.</span><span class="nx">HandleFunc</span><span class="p">(</span><span class="s">&quot;/&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">handler</span><span class="p">)</span><span class="w"></span>
-<span class="w">	</span><span class="nx">http</span><span class="p">.</span><span class="nx">HandleFunc</span><span class="p">(</span><span class="s">&quot;/post&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">postHandler</span><span class="p">)</span><span class="w"></span>
-<span class="w">	</span><span class="nx">http</span><span class="p">.</span><span class="nx">ListenAndServe</span><span class="p">(</span><span class="s">&quot;:8000&quot;</span><span class="p">,</span><span class="w"> </span><span class="kc">nil</span><span class="p">)</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">	</span><span class="nx">http</span><span class="p">.</span><span class="nx">HandleFunc</span><span class="p">(</span><span class="s">&quot;/&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">handler</span><span class="p">)</span>
+<span class="w">	</span><span class="nx">http</span><span class="p">.</span><span class="nx">HandleFunc</span><span class="p">(</span><span class="s">&quot;/post&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">postHandler</span><span class="p">)</span>
+<span class="w">	</span><span class="nx">http</span><span class="p">.</span><span class="nx">ListenAndServe</span><span class="p">(</span><span class="s">&quot;:8000&quot;</span><span class="p">,</span><span class="w"> </span><span class="kc">nil</span><span class="p">)</span>
+<span class="p">}</span>
 </pre></div></td></tr></table></div>
 </div></figure>
 <p>Server side (<em>HTML</em> template for <a class="reference external" href="https://golang.org/">Go</a>):</p>
@@ -236,17 +236,17 @@ type <tt class="docutils literal">make js</tt> before you type <tt class="docuti
   <span class="p">&lt;</span><span class="nt">button</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;button&quot;</span> <span class="na">data-title</span><span class="o">=</span><span class="s">&quot;Google&quot;</span> <span class="na">data-url</span><span class="o">=</span><span class="s">&quot;https://www.google.com/&quot;</span><span class="p">&gt;</span>Google<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
   <span class="p">&lt;</span><span class="nt">button</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;button&quot;</span> <span class="na">data-title</span><span class="o">=</span><span class="s">&quot;Facebook&quot;</span> <span class="na">data-url</span><span class="o">=</span><span class="s">&quot;https://www.facebook.com/&quot;</span><span class="p">&gt;</span>Facebook<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
 
-<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#39;text/javascript&#39;</span><span class="p">&gt;</span><span class="w"></span>
-<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">script</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;script&#39;</span><span class="p">);</span><span class="w"></span>
-<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">navigator</span><span class="p">.</span><span class="nx">userAgent</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s1">&#39;(Dart)&#39;</span><span class="p">)</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="o">-</span><span class="mf">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="c1">// Browser doesn&#39;t support Dart</span><span class="w"></span>
-<span class="w">    </span><span class="nx">script</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">&quot;type&quot;</span><span class="p">,</span><span class="s2">&quot;text/javascript&quot;</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="nx">script</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">&quot;src&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;app.js&quot;</span><span class="p">);</span><span class="w"></span>
-<span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nx">script</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">&quot;type&quot;</span><span class="p">,</span><span class="s2">&quot;application/dart&quot;</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="nx">script</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">&quot;src&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;app.dart&quot;</span><span class="p">);</span><span class="w"></span>
-<span class="w">  </span><span class="p">}</span><span class="w"></span>
-<span class="w">  </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="s2">&quot;head&quot;</span><span class="p">)[</span><span class="mf">0</span><span class="p">].</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">script</span><span class="p">);</span><span class="w"></span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#39;text/javascript&#39;</span><span class="p">&gt;</span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">script</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;script&#39;</span><span class="p">);</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">navigator</span><span class="p">.</span><span class="nx">userAgent</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s1">&#39;(Dart)&#39;</span><span class="p">)</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="o">-</span><span class="mf">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Browser doesn&#39;t support Dart</span>
+<span class="w">    </span><span class="nx">script</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">&quot;type&quot;</span><span class="p">,</span><span class="s2">&quot;text/javascript&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="nx">script</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">&quot;src&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;app.js&quot;</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">script</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">&quot;type&quot;</span><span class="p">,</span><span class="s2">&quot;application/dart&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="nx">script</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">&quot;src&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;app.dart&quot;</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="s2">&quot;head&quot;</span><span class="p">)[</span><span class="mf">0</span><span class="p">].</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">script</span><span class="p">);</span>
 <span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
 <span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
@@ -289,37 +289,37 @@ type <tt class="docutils literal">make js</tt> before you type <tt class="docuti
 <span class="normal">28</span>
 <span class="normal">29</span>
 <span class="normal">30</span>
-<span class="normal">31</span></pre></div></td><td class="code"><div><pre><span></span><span class="k">import</span><span class="w"> </span><span class="s1">&#39;dart:html&#39;</span><span class="p">;</span><span class="w"></span>
-<span class="c1">// https://www.dartlang.org/articles/json-web-service/</span><span class="w"></span>
-<span class="k">import</span><span class="w"> </span><span class="s1">&#39;dart:convert&#39;</span><span class="p">;</span><span class="w"></span>
+<span class="normal">31</span></pre></div></td><td class="code"><div><pre><span></span><span class="k">import</span><span class="w"> </span><span class="s1">&#39;dart:html&#39;</span><span class="p">;</span>
+<span class="c1">// https://www.dartlang.org/articles/json-web-service/</span>
+<span class="k">import</span><span class="w"> </span><span class="s1">&#39;dart:convert&#39;</span><span class="p">;</span>
 
-<span class="kt">void</span><span class="w"> </span><span class="n">httpPostJSON</span><span class="p">(</span><span class="n">Event</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="n">ButtonElement</span><span class="w"> </span><span class="n">elm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">target</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">ButtonElement</span><span class="p">;</span><span class="w"></span>
+<span class="kt">void</span><span class="w"> </span><span class="n">httpPostJSON</span><span class="p">(</span><span class="n">Event</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">ButtonElement</span><span class="w"> </span><span class="n">elm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">target</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">ButtonElement</span><span class="p">;</span>
 
-<span class="w">  </span><span class="n">HttpRequest</span><span class="w"> </span><span class="n">request</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">HttpRequest</span><span class="p">();</span><span class="w"> </span><span class="c1">// create a new XHR</span><span class="w"></span>
+<span class="w">  </span><span class="n">HttpRequest</span><span class="w"> </span><span class="n">request</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">HttpRequest</span><span class="p">();</span><span class="w"> </span><span class="c1">// create a new XHR</span>
 
-<span class="w">  </span><span class="c1">// add an event handler that is called when the request finishes</span><span class="w"></span>
-<span class="w">  </span><span class="n">request</span><span class="p">.</span><span class="n">onReadyStateChange</span><span class="p">.</span><span class="n">listen</span><span class="p">((</span><span class="n">_</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">request</span><span class="p">.</span><span class="n">readyState</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">HttpRequest</span><span class="p">.</span><span class="n">DONE</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"></span>
-<span class="w">        </span><span class="p">(</span><span class="n">request</span><span class="p">.</span><span class="n">status</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">200</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">request</span><span class="p">.</span><span class="n">status</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">0</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">      </span><span class="c1">// data saved OK.</span><span class="w"></span>
-<span class="w">      </span><span class="c1">// http://stackoverflow.com/questions/12177970/how-do-i-add-arbitrary-html-to-an-element-in-dart</span><span class="w"></span>
-<span class="w">      </span><span class="n">querySelector</span><span class="p">(</span><span class="s2">&quot;body&quot;</span><span class="p">).</span><span class="n">appendHtml</span><span class="p">(</span><span class="n">request</span><span class="p">.</span><span class="n">responseText</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="w">  </span><span class="p">});</span><span class="w"></span>
+<span class="w">  </span><span class="c1">// add an event handler that is called when the request finishes</span>
+<span class="w">  </span><span class="n">request</span><span class="p">.</span><span class="n">onReadyStateChange</span><span class="p">.</span><span class="n">listen</span><span class="p">((</span><span class="n">_</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">request</span><span class="p">.</span><span class="n">readyState</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">HttpRequest</span><span class="p">.</span><span class="n">DONE</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">        </span><span class="p">(</span><span class="n">request</span><span class="p">.</span><span class="n">status</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">200</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">request</span><span class="p">.</span><span class="n">status</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">0</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="c1">// data saved OK.</span>
+<span class="w">      </span><span class="c1">// http://stackoverflow.com/questions/12177970/how-do-i-add-arbitrary-html-to-an-element-in-dart</span>
+<span class="w">      </span><span class="n">querySelector</span><span class="p">(</span><span class="s2">&quot;body&quot;</span><span class="p">).</span><span class="n">appendHtml</span><span class="p">(</span><span class="n">request</span><span class="p">.</span><span class="n">responseText</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">});</span>
 
-<span class="w">  </span><span class="c1">// POST the data to the server</span><span class="w"></span>
-<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="n">url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;/post&quot;</span><span class="p">;</span><span class="w"></span>
-<span class="w">  </span><span class="n">request</span><span class="p">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&quot;POST&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">url</span><span class="p">,</span><span class="w"> </span><span class="kd">async</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="c1">// POST the data to the server</span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="n">url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;/post&quot;</span><span class="p">;</span>
+<span class="w">  </span><span class="n">request</span><span class="p">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&quot;POST&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">url</span><span class="p">,</span><span class="w"> </span><span class="kd">async</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span><span class="p">);</span>
 
-<span class="w">  </span><span class="n">request</span><span class="p">.</span><span class="n">send</span><span class="p">(</span><span class="n">JSON</span><span class="p">.</span><span class="n">encode</span><span class="p">(</span><span class="n">elm</span><span class="p">.</span><span class="n">dataset</span><span class="p">));</span><span class="w"> </span><span class="c1">// perform the async POST</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">  </span><span class="n">request</span><span class="p">.</span><span class="n">send</span><span class="p">(</span><span class="n">JSON</span><span class="p">.</span><span class="n">encode</span><span class="p">(</span><span class="n">elm</span><span class="p">.</span><span class="n">dataset</span><span class="p">));</span><span class="w"> </span><span class="c1">// perform the async POST</span>
+<span class="p">}</span>
 
-<span class="kt">void</span><span class="w"> </span><span class="n">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="n">querySelectorAll</span><span class="p">(</span><span class="s2">&quot;button&quot;</span><span class="p">).</span><span class="n">forEach</span><span class="p">((</span><span class="n">Element</span><span class="w"> </span><span class="n">elm</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="n">elm</span><span class="p">.</span><span class="n">onClick</span><span class="p">.</span><span class="n">listen</span><span class="p">(</span><span class="n">httpPostJSON</span><span class="p">);</span><span class="w"></span>
-<span class="w">  </span><span class="p">});</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="kt">void</span><span class="w"> </span><span class="n">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">querySelectorAll</span><span class="p">(</span><span class="s2">&quot;button&quot;</span><span class="p">).</span><span class="n">forEach</span><span class="p">((</span><span class="n">Element</span><span class="w"> </span><span class="n">elm</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">elm</span><span class="p">.</span><span class="n">onClick</span><span class="p">.</span><span class="n">listen</span><span class="p">(</span><span class="n">httpPostJSON</span><span class="p">);</span>
+<span class="w">  </span><span class="p">});</span>
+<span class="p">}</span>
 </pre></div></td></tr></table></div>
 </div></figure><p>Makefile for automating the development:</p>
 <figure class="github-file">
@@ -366,9 +366,9 @@ type <tt class="docutils literal">make js</tt> before you type <tt class="docuti
 <span class="normal">36</span></pre></div></td><td class="code"><div><pre><span></span><span class="c"># cannot use relative path in GOROOT, otherwise 6g not found. For example,</span>
 <span class="c">#   export GOROOT=../go  (=&gt; 6g not found)</span>
 <span class="c"># it is also not allowed to use relative path in GOPATH</span>
-<span class="k">export </span><span class="nv">GOROOT</span><span class="o">=</span><span class="k">$(</span>realpath ../../../../../go<span class="k">)</span>
-<span class="k">export </span><span class="nv">GOPATH</span><span class="o">=</span><span class="k">$(</span>realpath .<span class="k">)</span>
-<span class="k">export </span><span class="nv">PATH</span> <span class="o">:=</span> <span class="k">$(</span>GOROOT<span class="k">)</span>/bin:<span class="k">$(</span>PATH<span class="k">)</span>
+<span class="k">export </span><span class="nv">GOROOT</span><span class="o">=</span><span class="k">$(</span>realpath<span class="w"> </span>../../../../../go<span class="k">)</span>
+<span class="k">export </span><span class="nv">GOPATH</span><span class="o">=</span><span class="k">$(</span>realpath<span class="w"> </span>.<span class="k">)</span>
+<span class="k">export </span><span class="nv">PATH</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">$(</span>GOROOT<span class="k">)</span>/bin:<span class="k">$(</span>PATH<span class="k">)</span>
 
 <span class="c"># path of Dart and utilities</span>
 <span class="nv">DART_DIR</span><span class="o">=</span>../../../../../dart
@@ -381,24 +381,24 @@ type <tt class="docutils literal">make js</tt> before you type <tt class="docuti
 
 
 <span class="nf">devserver</span><span class="o">:</span>
-	go run server.go
+<span class="w">	</span>go<span class="w"> </span>run<span class="w"> </span>server.go
 
 <span class="c"># Fix Dartium startup error:</span>
 <span class="c"># http://askubuntu.com/questions/369310/how-to-fix-missing-libudev-so-0-for-chrome-to-start-again</span>
 <span class="nf">dartium</span><span class="o">:</span>
-	<span class="nv">DART_FLAGS</span><span class="o">=</span><span class="s1">&#39;--checked&#39;</span> <span class="k">$(</span>DARTIUM<span class="k">)</span> --user-data-dir<span class="o">=</span>/tmp/data http://localhost:8000/ <span class="p">&amp;</span>
+<span class="w">	</span><span class="nv">DART_FLAGS</span><span class="o">=</span><span class="s1">&#39;--checked&#39;</span><span class="w"> </span><span class="k">$(</span>DARTIUM<span class="k">)</span><span class="w"> </span>--user-data-dir<span class="o">=</span>/tmp/data<span class="w"> </span>http://localhost:8000/<span class="w"> </span><span class="p">&amp;</span>
 
-<span class="nf">js</span><span class="o">:</span> <span class="n">app</span>.<span class="n">dart</span>
-	<span class="k">$(</span>DART2JS<span class="k">)</span> --minify --out<span class="o">=</span>app.js app.dart
+<span class="nf">js</span><span class="o">:</span><span class="w"> </span><span class="n">app</span>.<span class="n">dart</span>
+<span class="w">	</span><span class="k">$(</span>DART2JS<span class="k">)</span><span class="w"> </span>--minify<span class="w"> </span>--out<span class="o">=</span>app.js<span class="w"> </span>app.dart
 
 <span class="nf">clean</span><span class="o">:</span>
-	<span class="o">[</span> -e app.js.deps <span class="o">]</span> <span class="o">&amp;&amp;</span> rm app.js.deps
-	<span class="o">[</span> -e app.js.map  <span class="o">]</span> <span class="o">&amp;&amp;</span> rm app.js.map
-	<span class="o">[</span> -e app.js      <span class="o">]</span> <span class="o">&amp;&amp;</span> rm app.js
+<span class="w">	</span><span class="o">[</span><span class="w"> </span>-e<span class="w"> </span>app.js.deps<span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>rm<span class="w"> </span>app.js.deps
+<span class="w">	</span><span class="o">[</span><span class="w"> </span>-e<span class="w"> </span>app.js.map<span class="w">  </span><span class="o">]</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>rm<span class="w"> </span>app.js.map
+<span class="w">	</span><span class="o">[</span><span class="w"> </span>-e<span class="w"> </span>app.js<span class="w">      </span><span class="o">]</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>rm<span class="w"> </span>app.js
 
 <span class="nf">help</span><span class="o">:</span>
-	<span class="k">$(</span>DARTVM<span class="k">)</span> --print-flags
-	go <span class="nb">help</span>
+<span class="w">	</span><span class="k">$(</span>DARTVM<span class="k">)</span><span class="w"> </span>--print-flags
+<span class="w">	</span>go<span class="w"> </span><span class="nb">help</span>
 </pre></div></td></tr></table></div>
 </div></figure><hr class="docutils" />
 <p>References:</p>

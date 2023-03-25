@@ -55,14 +55,14 @@
 
     <div class="main-content"><p>List <em>.go</em> source files, excluding <em>_test.go</em> files via <a class="reference external" href="https://linux.die.net/man/1/find">find</a> and <a class="reference external" href="http://linuxcommand.org/lc3_man_pages/grep1.html">grep</a> command
 in <a class="reference external" href="https://www.google.com/search?q=Bash">Bash</a>.</p>
-<div class="highlight"><pre><span></span>$ find *.go <span class="p">|</span> grep -v _test.go
+<div class="highlight"><pre><span></span>$<span class="w"> </span>find<span class="w"> </span>*.go<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-v<span class="w"> </span>_test.go
 </pre></div>
 <p>Sometimes we just want to run one of the test files, but need all <em>.go</em> files to
 run the single test file. We can run as follows in our <a class="reference external" href="https://www.google.com/search?q=Makefile">Makefile</a>.</p>
-<div class="highlight"><pre><span></span><span class="nv">ALL_GO_SOURCES</span><span class="o">=</span><span class="k">$(</span>shell /bin/sh -c <span class="s2">&quot;find *.go | grep -v _test.go&quot;</span><span class="k">)</span>
+<div class="highlight"><pre><span></span><span class="nv">ALL_GO_SOURCES</span><span class="o">=</span><span class="k">$(</span>shell<span class="w"> </span>/bin/sh<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;find *.go | grep -v _test.go&quot;</span><span class="k">)</span>
 
 <span class="nf">default</span><span class="o">:</span>
-      @go <span class="nb">test</span> -v <span class="k">$(</span>ALL_GO_SOURCES<span class="k">)</span> oneofmy_test.go
+<span class="w">      </span>@go<span class="w"> </span><span class="nb">test</span><span class="w"> </span>-v<span class="w"> </span><span class="k">$(</span>ALL_GO_SOURCES<span class="k">)</span><span class="w"> </span>oneofmy_test.go
 </pre></div>
 
 <hr class="docutils" />

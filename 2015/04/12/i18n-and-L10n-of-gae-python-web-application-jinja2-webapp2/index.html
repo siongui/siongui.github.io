@@ -58,17 +58,17 @@ to achieve i18n of <a class="reference external" href="https://cloud.google.com/
 <div class="section" id="install-babel">
 <h2>Install <a class="reference external" href="http://babel.pocoo.org/">Babel</a></h2>
 <div class="highlight"><pre><span></span><span class="c1"># install babel</span>
-$ sudo pip install babel
+$<span class="w"> </span>sudo<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>babel
 
 <span class="c1"># download babel 1.3</span>
-$ wget https://github.com/mitsuhiko/babel/archive/1.3.zip
+$<span class="w"> </span>wget<span class="w"> </span>https://github.com/mitsuhiko/babel/archive/1.3.zip
 
 <span class="c1"># unzip and enter babel source directory</span>
-$ unzip <span class="m">1</span>.3.zip
-$ <span class="nb">cd</span> babel-1.3/
+$<span class="w"> </span>unzip<span class="w"> </span><span class="m">1</span>.3.zip
+$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>babel-1.3/
 
 <span class="c1"># create babel.zip for zipimport</span>
-$ zip -r babel.zip babel/*
+$<span class="w"> </span>zip<span class="w"> </span>-r<span class="w"> </span>babel.zip<span class="w"> </span>babel/*
 
 <span class="c1"># move babel.zip to your project root directory</span>
 </pre></div>
@@ -76,14 +76,14 @@ $ zip -r babel.zip babel/*
 <div class="section" id="install-pytz-use-gae-pytz-in-this-example">
 <h2>Install <a class="reference external" href="http://pytz.sourceforge.net/">pytz</a> (use <a class="reference external" href="https://code.google.com/p/gae-pytz/">gae-pytz</a> in this example)</h2>
 <div class="highlight"><pre><span></span><span class="c1"># download gaepytz 2011h</span>
-$ wget https://pypi.python.org/packages/source/g/gaepytz/gaepytz-2011h.tar.gz#md5<span class="o">=</span>b7abe173cd98b417fab3e91c1498cdd2
+$<span class="w"> </span>wget<span class="w"> </span>https://pypi.python.org/packages/source/g/gaepytz/gaepytz-2011h.tar.gz#md5<span class="o">=</span>b7abe173cd98b417fab3e91c1498cdd2
 
 <span class="c1"># unzip and enter gaepytz source directory</span>
-$ tar xvzf gaepytz-2011h.tar.gz
-$ <span class="nb">cd</span> gaepytz-2011h/
+$<span class="w"> </span>tar<span class="w"> </span>xvzf<span class="w"> </span>gaepytz-2011h.tar.gz
+$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>gaepytz-2011h/
 
 <span class="c1"># create pytz.zip for zipimport</span>
-$ zip -r pytz.zip pytz/*
+$<span class="w"> </span>zip<span class="w"> </span>-r<span class="w"> </span>pytz.zip<span class="w"> </span>pytz/*
 
 <span class="c1"># move pytz.zip to your project root directory</span>
 </pre></div>
@@ -226,21 +226,21 @@ $ zip -r pytz.zip pytz/*
 <span class="normal">12</span>
 <span class="normal">13</span>
 <span class="normal">14</span>
-<span class="normal">15</span></pre></div></td><td class="code"><div><pre><span></span><span class="nt">application</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">i18n-gae-python</span><span class="w"></span>
-<span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w"></span>
-<span class="nt">runtime</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">python27</span><span class="w"></span>
-<span class="nt">api_version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w"></span>
-<span class="nt">threadsafe</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
+<span class="normal">15</span></pre></div></td><td class="code"><div><pre><span></span><span class="nt">application</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">i18n-gae-python</span>
+<span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="nt">runtime</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">python27</span>
+<span class="nt">api_version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="nt">threadsafe</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 
-<span class="nt">handlers</span><span class="p">:</span><span class="w"></span>
-<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/.*</span><span class="w"></span>
-<span class="w">  </span><span class="nt">script</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">i18n.app</span><span class="w"></span>
+<span class="nt">handlers</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/.*</span>
+<span class="w">  </span><span class="nt">script</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">i18n.app</span>
 
-<span class="nt">libraries</span><span class="p">:</span><span class="w"></span>
-<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">webapp2</span><span class="w"></span>
-<span class="w">  </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">latest</span><span class="w"></span>
-<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">jinja2</span><span class="w"></span>
-<span class="w">  </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">latest</span><span class="w"></span>
+<span class="nt">libraries</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">webapp2</span>
+<span class="w">  </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">latest</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">jinja2</span>
+<span class="w">  </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">latest</span>
 </pre></div></td></tr></table></div>
 </div></figure><p><em>babel.cfg</em> (config for <a class="reference external" href="http://babel.pocoo.org/">Babel</a> extraction): This <em>babel.cfg</em> tells babel to
 extract all translations from all HTML files in your webapp and the encoding of
@@ -253,8 +253,8 @@ and <a class="footnote-reference" href="#footnote-17" id="footnote-reference-3">
               <a href="https://raw.githubusercontent.com/siongui/userpages/master/content/code/i18n-gae-python/babel.cfg">view raw</a>
             </figcaption><div class="code-file">
             <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
-<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><span class="k">[javascript: **.html]</span><span class="w"></span>
-<span class="na">encoding</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">utf-8</span><span class="w"></span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><span class="k">[javascript: **.html]</span>
+<span class="na">encoding</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">utf-8</span>
 </pre></div></td></tr></table></div>
 </div></figure></div>
 <div class="section" id="extract-and-compile-translations">
@@ -262,11 +262,11 @@ and <a class="footnote-reference" href="#footnote-17" id="footnote-reference-3">
 <p>By default, <a class="reference external" href="https://webapp-improved.appspot.com/">webapp2</a> looks for <em>pot</em> and <em>po</em> files in <em>locale</em> directory under
 your project root directory, so first create a directory named <em>locale</em>:</p>
 <div class="highlight"><pre><span></span><span class="c1"># in your project root directory:</span>
-$ mkdir locale
+$<span class="w"> </span>mkdir<span class="w"> </span>locale
 </pre></div>
 <p>Then extract all translations (create <em>pot</em> file).</p>
 <div class="highlight"><pre><span></span><span class="c1"># in your project root directory:</span>
-$ pybabel extract -F ./babel.cfg -o ./locale/messages.pot ./
+$<span class="w"> </span>pybabel<span class="w"> </span>extract<span class="w"> </span>-F<span class="w"> </span>./babel.cfg<span class="w"> </span>-o<span class="w"> </span>./locale/messages.pot<span class="w"> </span>./
 </pre></div>
 <p>The <em>pot</em> file looks like:</p>
 <div class="highlight"><pre><span></span># Translations template for PROJECT.
@@ -304,8 +304,8 @@ msgstr &quot;&quot;
 <em>en_US</em> and <em>zh_TW</em> are supported in our example. See <a class="footnote-reference" href="#footnote-19" id="footnote-reference-4">[19]</a> for table of
 locales.</p>
 <div class="highlight"><pre><span></span><span class="c1"># in your project root directory:</span>
-$ pybabel init -l en_US -d ./locale -i ./locale/messages.pot
-$ pybabel init -l zh_TW -d ./locale -i ./locale/messages.pot
+$<span class="w"> </span>pybabel<span class="w"> </span>init<span class="w"> </span>-l<span class="w"> </span>en_US<span class="w"> </span>-d<span class="w"> </span>./locale<span class="w"> </span>-i<span class="w"> </span>./locale/messages.pot
+$<span class="w"> </span>pybabel<span class="w"> </span>init<span class="w"> </span>-l<span class="w"> </span>zh_TW<span class="w"> </span>-d<span class="w"> </span>./locale<span class="w"> </span>-i<span class="w"> </span>./locale/messages.pot
 </pre></div>
 <p>Two <em>po</em> files (<tt class="docutils literal">locale/en_US/LC_MESSAGES/messages.po</tt> and
 <tt class="docutils literal">locale/zh_TW/LC_MESSAGES/messages.po</tt>) are created. You do not need to do
@@ -346,7 +346,7 @@ msgstr &quot;&#39;連結&#39;&quot;
 </pre></div>
 <p>After all translations done, compile <em>po</em> file with the following command:</p>
 <div class="highlight"><pre><span></span><span class="c1"># in your project root directory:</span>
-$ pybabel compile -f -d ./locale
+$<span class="w"> </span>pybabel<span class="w"> </span>compile<span class="w"> </span>-f<span class="w"> </span>-d<span class="w"> </span>./locale
 </pre></div>
 <p>Now we can run this GAE Python webapp, and then open the browser with URL:</p>
 <blockquote>
@@ -360,16 +360,16 @@ $ pybabel compile -f -d ./locale
 <h2>Update translations</h2>
 <p>When the strings to be translated change, re-create <em>pot</em> file:</p>
 <div class="highlight"><pre><span></span><span class="c1"># in your project root directory:</span>
-$ pybabel extract -F ./babel.cfg -o ./locale/messages.pot ./
+$<span class="w"> </span>pybabel<span class="w"> </span>extract<span class="w"> </span>-F<span class="w"> </span>./babel.cfg<span class="w"> </span>-o<span class="w"> </span>./locale/messages.pot<span class="w"> </span>./
 </pre></div>
 <p>Then update each <em>locale</em>:</p>
 <div class="highlight"><pre><span></span><span class="c1"># in your project root directory:</span>
-$ pybabel update -l en_US -d ./locale/ -i ./locale/messages.pot
-$ pybabel update -l zh_TW -d ./locale/ -i ./locale/messages.pot
+$<span class="w"> </span>pybabel<span class="w"> </span>update<span class="w"> </span>-l<span class="w"> </span>en_US<span class="w"> </span>-d<span class="w"> </span>./locale/<span class="w"> </span>-i<span class="w"> </span>./locale/messages.pot
+$<span class="w"> </span>pybabel<span class="w"> </span>update<span class="w"> </span>-l<span class="w"> </span>zh_TW<span class="w"> </span>-d<span class="w"> </span>./locale/<span class="w"> </span>-i<span class="w"> </span>./locale/messages.pot
 </pre></div>
 <p>Again, translate the strings in each <em>po</em> file, and then compile again:</p>
 <div class="highlight"><pre><span></span><span class="c1"># in your project root directory:</span>
-$ pybabel compile -f -d ./locale
+$<span class="w"> </span>pybabel<span class="w"> </span>compile<span class="w"> </span>-f<span class="w"> </span>-d<span class="w"> </span>./locale
 </pre></div>
 <hr class="docutils" />
 <p>References:</p>

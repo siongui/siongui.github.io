@@ -58,10 +58,10 @@ script. Please <a class="reference external" href="https://www.google.com/search
 
 <span class="c1"># $1 is the directory in which files to be processed</span>
 <span class="c1"># $2 is the css file</span>
-<span class="k">for</span> path <span class="k">in</span> <span class="k">$(</span>find <span class="nv">$1</span> -name <span class="s2">&quot;*.html&quot;</span><span class="k">)</span>
+<span class="k">for</span><span class="w"> </span>path<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="k">$(</span>find<span class="w"> </span><span class="nv">$1</span><span class="w"> </span>-name<span class="w"> </span><span class="s2">&quot;*.html&quot;</span><span class="k">)</span>
 <span class="k">do</span>
-  <span class="nb">echo</span> -e <span class="s2">&quot;\033[92mProcessing </span><span class="si">${</span><span class="nv">path</span><span class="si">}</span><span class="s2">\033[0m&quot;</span>
-  wkhtmltopdf <span class="si">${</span><span class="nv">path</span><span class="si">}</span> --disable-javascript --user-style-sheet <span class="nv">$2</span> <span class="s2">&quot;</span><span class="si">${</span><span class="nv">path</span><span class="p">%.html</span><span class="si">}</span><span class="s2">.pdf&quot;</span>
+<span class="w">  </span><span class="nb">echo</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;\033[92mProcessing </span><span class="si">${</span><span class="nv">path</span><span class="si">}</span><span class="s2">\033[0m&quot;</span>
+<span class="w">  </span>wkhtmltopdf<span class="w"> </span><span class="si">${</span><span class="nv">path</span><span class="si">}</span><span class="w"> </span>--disable-javascript<span class="w"> </span>--user-style-sheet<span class="w"> </span><span class="nv">$2</span><span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">path</span><span class="p">%.html</span><span class="si">}</span><span class="s2">.pdf&quot;</span>
 <span class="k">done</span>
 </pre></div>
 <p>If you get error message <tt class="docutils literal">wkhtmltopdf: cannot connect to X server</tt>, see

@@ -58,25 +58,25 @@
 <div class="section" id="create-user-account">
 <h2>Create User Account</h2>
 <div class="highlight"><pre><span></span><span class="c1"># login to EC2 running *Ubuntu 14.04*</span>
-$ ssh -i my_key.pem ubuntu@my_EC2_IP
+$<span class="w"> </span>ssh<span class="w"> </span>-i<span class="w"> </span>my_key.pem<span class="w"> </span>ubuntu@my_EC2_IP
 <span class="c1"># assume the name of the user account is *foo*</span>
-$ sudo adduser foo --disabled-password
+$<span class="w"> </span>sudo<span class="w"> </span>adduser<span class="w"> </span>foo<span class="w"> </span>--disabled-password
 <span class="c1"># su to *foo*</span>
-$ sudo su - foo
+$<span class="w"> </span>sudo<span class="w"> </span>su<span class="w"> </span>-<span class="w"> </span>foo
 <span class="c1"># Create a *.ssh* directory for the *authorized_keys* file</span>
-$ mkdir .ssh
-$ chmod <span class="m">700</span> .ssh
+$<span class="w"> </span>mkdir<span class="w"> </span>.ssh
+$<span class="w"> </span>chmod<span class="w"> </span><span class="m">700</span><span class="w"> </span>.ssh
 <span class="c1"># Create the public and private keys for ssh login</span>
 <span class="c1"># Don&#39;t use a paraphrase -- just hit enter</span>
-$ ssh-keygen -b <span class="m">1024</span> -f fookey -t dsa
+$<span class="w"> </span>ssh-keygen<span class="w"> </span>-b<span class="w"> </span><span class="m">1024</span><span class="w"> </span>-f<span class="w"> </span>fookey<span class="w"> </span>-t<span class="w"> </span>dsa
 <span class="c1"># After keygen finished,</span>
 <span class="c1"># two files named *fookey* and *fookey.pub* will be generated.</span>
 <span class="c1"># *fookey* is private key and *fookey.pub* is public key</span>
-$ cat fookey.pub &gt; .ssh/authorized_keys
-$ chmod <span class="m">600</span> .ssh/authorized_keys
+$<span class="w"> </span>cat<span class="w"> </span>fookey.pub<span class="w"> </span>&gt;<span class="w"> </span>.ssh/authorized_keys
+$<span class="w"> </span>chmod<span class="w"> </span><span class="m">600</span><span class="w"> </span>.ssh/authorized_keys
 </pre></div>
 <p>Download <em>fookey</em> to your local machine. Now you can SSH login as <em>foo</em>:</p>
-<div class="highlight"><pre><span></span>$ ssh -i fookey foo@my_EC2_IP
+<div class="highlight"><pre><span></span>$<span class="w"> </span>ssh<span class="w"> </span>-i<span class="w"> </span>fookey<span class="w"> </span>foo@my_EC2_IP
 </pre></div>
 <p>For more details, see <a class="footnote-reference" href="#footnote-2" id="footnote-reference-1">[2]</a>, <a class="footnote-reference" href="#footnote-4" id="footnote-reference-2">[4]</a>, and <a class="footnote-reference" href="#footnote-5" id="footnote-reference-3">[5]</a>.</p>
 
@@ -86,7 +86,7 @@ $ chmod <span class="m">600</span> .ssh/authorized_keys
 <p>My case is simple. Every user has his own block device as home directory. So
 create user account as described above, <a class="reference external" href="http://linux.die.net/man/8/mount">mount</a> the user's block device back to
 his home directory. Then</p>
-<div class="highlight"><pre><span></span>$ sudo chown foo:foo /home/foo -R
+<div class="highlight"><pre><span></span>$<span class="w"> </span>sudo<span class="w"> </span>chown<span class="w"> </span>foo:foo<span class="w"> </span>/home/foo<span class="w"> </span>-R
 </pre></div>
 <p>For more details or more sophisticated case, see <a class="footnote-reference" href="#footnote-6" id="footnote-reference-4">[6]</a> and <a class="footnote-reference" href="#footnote-7" id="footnote-reference-5">[7]</a>.</p>
 <hr class="docutils" />

@@ -113,50 +113,50 @@ _addEventListener('keydown', document, handleKeyboardEvent);
 </pre></div>
 
 <p>Demo原始碼 (<em>JavaScript</em>):</p>
-<div class="highlight"><pre><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">Key</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="nx">LEFT</span><span class="o">:</span><span class="w">   </span><span class="mf">37</span><span class="p">,</span><span class="w"></span>
-<span class="w">  </span><span class="nx">UP</span><span class="o">:</span><span class="w">     </span><span class="mf">38</span><span class="p">,</span><span class="w"></span>
-<span class="w">  </span><span class="nx">RIGHT</span><span class="o">:</span><span class="w">  </span><span class="mf">39</span><span class="p">,</span><span class="w"></span>
-<span class="w">  </span><span class="nx">DOWN</span><span class="o">:</span><span class="w">   </span><span class="mf">40</span><span class="w"></span>
-<span class="p">};</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">Key</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">LEFT</span><span class="o">:</span><span class="w">   </span><span class="mf">37</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">UP</span><span class="o">:</span><span class="w">     </span><span class="mf">38</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">RIGHT</span><span class="o">:</span><span class="w">  </span><span class="mf">39</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">DOWN</span><span class="o">:</span><span class="w">   </span><span class="mf">40</span>
+<span class="p">};</span>
 
 <span class="cm">/**</span>
 <span class="cm"> * old IE: attachEvent</span>
 <span class="cm"> * Firefox, Chrome, or modern browsers: addEventListener</span>
-<span class="cm"> */</span><span class="w"></span>
-<span class="kd">function</span><span class="w"> </span><span class="nx">_addEventListener</span><span class="p">(</span><span class="nx">evt</span><span class="p">,</span><span class="w"> </span><span class="nx">element</span><span class="p">,</span><span class="w"> </span><span class="nx">fn</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nx">element</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="nx">evt</span><span class="p">,</span><span class="w"> </span><span class="nx">fn</span><span class="p">,</span><span class="w"> </span><span class="kc">false</span><span class="p">);</span><span class="w"></span>
-<span class="w">  </span><span class="p">}</span><span class="w"></span>
-<span class="w">  </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nx">element</span><span class="p">.</span><span class="nx">attachEvent</span><span class="p">(</span><span class="s1">&#39;on&#39;</span><span class="o">+</span><span class="nx">evt</span><span class="p">,</span><span class="w"> </span><span class="nx">fn</span><span class="p">);</span><span class="w"></span>
-<span class="w">  </span><span class="p">}</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="cm"> */</span>
+<span class="kd">function</span><span class="w"> </span><span class="nx">_addEventListener</span><span class="p">(</span><span class="nx">evt</span><span class="p">,</span><span class="w"> </span><span class="nx">element</span><span class="p">,</span><span class="w"> </span><span class="nx">fn</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">element</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="nx">evt</span><span class="p">,</span><span class="w"> </span><span class="nx">fn</span><span class="p">,</span><span class="w"> </span><span class="kc">false</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">element</span><span class="p">.</span><span class="nx">attachEvent</span><span class="p">(</span><span class="s1">&#39;on&#39;</span><span class="o">+</span><span class="nx">evt</span><span class="p">,</span><span class="w"> </span><span class="nx">fn</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
 
-<span class="kd">function</span><span class="w"> </span><span class="nx">handleKeyboardEvent</span><span class="p">(</span><span class="nx">evt</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="nx">evt</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="nx">evt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">window</span><span class="p">.</span><span class="nx">event</span><span class="p">;}</span><span class="w"> </span><span class="c1">// for old IE compatible</span><span class="w"></span>
-<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">keycode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">evt</span><span class="p">.</span><span class="nx">keyCode</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nx">evt</span><span class="p">.</span><span class="nx">which</span><span class="p">;</span><span class="w"> </span><span class="c1">// also for cross-browser compatible</span><span class="w"></span>
+<span class="kd">function</span><span class="w"> </span><span class="nx">handleKeyboardEvent</span><span class="p">(</span><span class="nx">evt</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="nx">evt</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="nx">evt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">window</span><span class="p">.</span><span class="nx">event</span><span class="p">;}</span><span class="w"> </span><span class="c1">// for old IE compatible</span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">keycode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">evt</span><span class="p">.</span><span class="nx">keyCode</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nx">evt</span><span class="p">.</span><span class="nx">which</span><span class="p">;</span><span class="w"> </span><span class="c1">// also for cross-browser compatible</span>
 
-<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">info</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;info&quot;</span><span class="p">);</span><span class="w"></span>
-<span class="w">  </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="nx">keycode</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="nx">Key</span><span class="p">.</span><span class="nx">LEFT</span><span class="o">:</span><span class="w"></span>
-<span class="w">      </span><span class="nx">info</span><span class="p">.</span><span class="nx">innerHTML</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="s2">&quot;&amp;larr; &quot;</span><span class="p">;</span><span class="w"></span>
-<span class="w">      </span><span class="k">break</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="nx">Key</span><span class="p">.</span><span class="nx">UP</span><span class="o">:</span><span class="w"></span>
-<span class="w">      </span><span class="nx">info</span><span class="p">.</span><span class="nx">innerHTML</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="s2">&quot;&amp;uarr; &quot;</span><span class="p">;</span><span class="w"></span>
-<span class="w">      </span><span class="k">break</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="nx">Key</span><span class="p">.</span><span class="nx">RIGHT</span><span class="o">:</span><span class="w"></span>
-<span class="w">      </span><span class="nx">info</span><span class="p">.</span><span class="nx">innerHTML</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="s2">&quot;&amp;rarr; &quot;</span><span class="p">;</span><span class="w"></span>
-<span class="w">      </span><span class="k">break</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="nx">Key</span><span class="p">.</span><span class="nx">DOWN</span><span class="o">:</span><span class="w"></span>
-<span class="w">      </span><span class="nx">info</span><span class="p">.</span><span class="nx">innerHTML</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="s2">&quot;&amp;darr; &quot;</span><span class="p">;</span><span class="w"></span>
-<span class="w">      </span><span class="k">break</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="k">default</span><span class="o">:</span><span class="w"></span>
-<span class="w">      </span><span class="nx">info</span><span class="p">.</span><span class="nx">innerHTML</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="s2">&quot;SOMEKEY &quot;</span><span class="p">;</span><span class="w"></span>
-<span class="w">  </span><span class="p">}</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">info</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;info&quot;</span><span class="p">);</span>
+<span class="w">  </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="nx">keycode</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="nx">Key</span><span class="p">.</span><span class="nx">LEFT</span><span class="o">:</span>
+<span class="w">      </span><span class="nx">info</span><span class="p">.</span><span class="nx">innerHTML</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="s2">&quot;&amp;larr; &quot;</span><span class="p">;</span>
+<span class="w">      </span><span class="k">break</span><span class="p">;</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="nx">Key</span><span class="p">.</span><span class="nx">UP</span><span class="o">:</span>
+<span class="w">      </span><span class="nx">info</span><span class="p">.</span><span class="nx">innerHTML</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="s2">&quot;&amp;uarr; &quot;</span><span class="p">;</span>
+<span class="w">      </span><span class="k">break</span><span class="p">;</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="nx">Key</span><span class="p">.</span><span class="nx">RIGHT</span><span class="o">:</span>
+<span class="w">      </span><span class="nx">info</span><span class="p">.</span><span class="nx">innerHTML</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="s2">&quot;&amp;rarr; &quot;</span><span class="p">;</span>
+<span class="w">      </span><span class="k">break</span><span class="p">;</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="nx">Key</span><span class="p">.</span><span class="nx">DOWN</span><span class="o">:</span>
+<span class="w">      </span><span class="nx">info</span><span class="p">.</span><span class="nx">innerHTML</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="s2">&quot;&amp;darr; &quot;</span><span class="p">;</span>
+<span class="w">      </span><span class="k">break</span><span class="p">;</span>
+<span class="w">    </span><span class="k">default</span><span class="o">:</span>
+<span class="w">      </span><span class="nx">info</span><span class="p">.</span><span class="nx">innerHTML</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="s2">&quot;SOMEKEY &quot;</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
 
-<span class="nx">_addEventListener</span><span class="p">(</span><span class="s1">&#39;keydown&#39;</span><span class="p">,</span><span class="w"> </span><span class="nb">document</span><span class="p">,</span><span class="w"> </span><span class="nx">handleKeyboardEvent</span><span class="p">);</span><span class="w"></span>
+<span class="nx">_addEventListener</span><span class="p">(</span><span class="s1">&#39;keydown&#39;</span><span class="p">,</span><span class="w"> </span><span class="nb">document</span><span class="p">,</span><span class="w"> </span><span class="nx">handleKeyboardEvent</span><span class="p">);</span>
 </pre></div>
 <p>跟鍵盤相關的事件有三個： <em>onkeydown</em>, <em>onkeypress</em>, <em>onkeyup</em> 。
 偵測方向鍵，請用 <a class="reference external" href="http://www.w3schools.com/jsref/event_onkeydown.asp">onkeydown</a> (參看 <a class="footnote-reference" href="#footnote-2" id="footnote-reference-1">[2]</a>).</p>

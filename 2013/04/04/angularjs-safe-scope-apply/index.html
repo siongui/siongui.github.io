@@ -60,23 +60,23 @@ of <a class="reference external" href="https://docs.angularjs.org/guide/scope">s
 <p>The following is my solution (call the following <em>safeApply</em> method instead of
 $apply):</p>
 
-<div class="highlight"><pre><span></span><span class="nx">$scope</span><span class="p">.</span><span class="nx">safeApply</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">fn</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">phase</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">$root</span><span class="p">.</span><span class="nx">$$phase</span><span class="p">;</span><span class="w"></span>
-<span class="w">  </span><span class="k">if</span><span class="p">(</span><span class="nx">phase</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s1">&#39;$apply&#39;</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nx">phase</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s1">&#39;$digest&#39;</span><span class="p">)</span><span class="w"></span>
-<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">$eval</span><span class="p">(</span><span class="nx">fn</span><span class="p">);</span><span class="w"></span>
-<span class="w">  </span><span class="k">else</span><span class="w"></span>
-<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">$apply</span><span class="p">(</span><span class="nx">fn</span><span class="p">);</span><span class="w"></span>
-<span class="p">};</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="nx">$scope</span><span class="p">.</span><span class="nx">safeApply</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">fn</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">phase</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">$root</span><span class="p">.</span><span class="nx">$$phase</span><span class="p">;</span>
+<span class="w">  </span><span class="k">if</span><span class="p">(</span><span class="nx">phase</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s1">&#39;$apply&#39;</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nx">phase</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s1">&#39;$digest&#39;</span><span class="p">)</span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">$eval</span><span class="p">(</span><span class="nx">fn</span><span class="p">);</span>
+<span class="w">  </span><span class="k">else</span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">$apply</span><span class="p">(</span><span class="nx">fn</span><span class="p">);</span>
+<span class="p">};</span>
 
-<span class="c1">// OR</span><span class="w"></span>
+<span class="c1">// OR</span>
 
-<span class="kd">function</span><span class="w"> </span><span class="nx">safeApply</span><span class="p">(</span><span class="nx">scope</span><span class="p">,</span><span class="w"> </span><span class="nx">fn</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">phase</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">scope</span><span class="p">.</span><span class="nx">$root</span><span class="p">.</span><span class="nx">$$phase</span><span class="p">;</span><span class="w"></span>
-<span class="w">  </span><span class="k">if</span><span class="p">(</span><span class="nx">phase</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s1">&#39;$apply&#39;</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nx">phase</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s1">&#39;$digest&#39;</span><span class="p">)</span><span class="w"></span>
-<span class="w">    </span><span class="nx">scope</span><span class="p">.</span><span class="nx">$eval</span><span class="p">(</span><span class="nx">fn</span><span class="p">);</span><span class="w"></span>
-<span class="w">  </span><span class="k">else</span><span class="w"></span>
-<span class="w">    </span><span class="nx">scope</span><span class="p">.</span><span class="nx">$apply</span><span class="p">(</span><span class="nx">fn</span><span class="p">);</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="kd">function</span><span class="w"> </span><span class="nx">safeApply</span><span class="p">(</span><span class="nx">scope</span><span class="p">,</span><span class="w"> </span><span class="nx">fn</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">phase</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">scope</span><span class="p">.</span><span class="nx">$root</span><span class="p">.</span><span class="nx">$$phase</span><span class="p">;</span>
+<span class="w">  </span><span class="k">if</span><span class="p">(</span><span class="nx">phase</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s1">&#39;$apply&#39;</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nx">phase</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s1">&#39;$digest&#39;</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">scope</span><span class="p">.</span><span class="nx">$eval</span><span class="p">(</span><span class="nx">fn</span><span class="p">);</span>
+<span class="w">  </span><span class="k">else</span>
+<span class="w">    </span><span class="nx">scope</span><span class="p">.</span><span class="nx">$apply</span><span class="p">(</span><span class="nx">fn</span><span class="p">);</span>
+<span class="p">}</span>
 </pre></div>
 
 <p>The <em>fn</em> in above sample code could be AngularJS <a class="reference external" href="https://docs.angularjs.org/guide/expression">expression</a> or JavaScript

@@ -64,7 +64,7 @@ format (see <a class="footnote-reference" href="#footnote-7" id="footnote-refere
 <div class="section" id="install-gopherjs">
 <h2>Install <a class="reference external" href="http://www.gopherjs.org/">GopherJS</a></h2>
 <p>Run the following command to install <a class="reference external" href="http://www.gopherjs.org/">GopherJS</a>:</p>
-<div class="highlight"><pre><span></span>$ go get -u github.com/gopherjs/gopherjs
+<div class="highlight"><pre><span></span>$<span class="w"> </span>go<span class="w"> </span>get<span class="w"> </span>-u<span class="w"> </span>github.com/gopherjs/gopherjs
 </pre></div>
 </div>
 <div class="section" id="source-code">
@@ -185,62 +185,62 @@ example, <strong>Home</strong> is a text string to be translated, it will be wra
 <span class="normal">53</span>
 <span class="normal">54</span>
 <span class="normal">55</span>
-<span class="normal">56</span></pre></div></td><td class="code"><div><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w"></span>
+<span class="normal">56</span></pre></div></td><td class="code"><div><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span>
 
-<span class="kn">import</span><span class="w"> </span><span class="s">&quot;github.com/gopherjs/gopherjs/js&quot;</span><span class="w"></span>
-<span class="kn">import</span><span class="w"> </span><span class="s">&quot;encoding/json&quot;</span><span class="w"></span>
-<span class="kn">import</span><span class="w"> </span><span class="s">&quot;strings&quot;</span><span class="w"></span>
+<span class="kn">import</span><span class="w"> </span><span class="s">&quot;github.com/gopherjs/gopherjs/js&quot;</span>
+<span class="kn">import</span><span class="w"> </span><span class="s">&quot;encoding/json&quot;</span>
+<span class="kn">import</span><span class="w"> </span><span class="s">&quot;strings&quot;</span>
 
-<span class="kd">const</span><span class="w"> </span><span class="nx">jsondata</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">`{&quot;vi_VN&quot;:{&quot;About&quot;:&quot;Giới thiệu&quot;,&quot;Canon&quot;:&quot;Kinh điển&quot;,&quot;Home&quot;:&quot;Trang chính&quot;,&quot;Setting&quot;:&quot;Thiết lập&quot;,&quot;Translation&quot;:&quot;Dịch&quot;},&quot;zh_TW&quot;:{&quot;About&quot;:&quot;關於&quot;,&quot;Canon&quot;:&quot;經典&quot;,&quot;Home&quot;:&quot;首頁&quot;,&quot;Setting&quot;:&quot;設定&quot;,&quot;Translation&quot;:&quot;翻譯&quot;}}`</span><span class="w"></span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">jsondata</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">`{&quot;vi_VN&quot;:{&quot;About&quot;:&quot;Giới thiệu&quot;,&quot;Canon&quot;:&quot;Kinh điển&quot;,&quot;Home&quot;:&quot;Trang chính&quot;,&quot;Setting&quot;:&quot;Thiết lập&quot;,&quot;Translation&quot;:&quot;Dịch&quot;},&quot;zh_TW&quot;:{&quot;About&quot;:&quot;關於&quot;,&quot;Canon&quot;:&quot;經典&quot;,&quot;Home&quot;:&quot;首頁&quot;,&quot;Setting&quot;:&quot;設定&quot;,&quot;Translation&quot;:&quot;翻譯&quot;}}`</span>
 
-<span class="kd">type</span><span class="w"> </span><span class="nx">msgIdStrPairs</span><span class="w"> </span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="w"></span>
-<span class="kd">type</span><span class="w"> </span><span class="nx">localesMsg</span><span class="w"> </span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="nx">msgIdStrPairs</span><span class="w"></span>
+<span class="kd">type</span><span class="w"> </span><span class="nx">msgIdStrPairs</span><span class="w"> </span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span>
+<span class="kd">type</span><span class="w"> </span><span class="nx">localesMsg</span><span class="w"> </span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="nx">msgIdStrPairs</span>
 
-<span class="kd">var</span><span class="w"> </span><span class="nx">msg</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">localesMsg</span><span class="p">{}</span><span class="w"></span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">msg</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">localesMsg</span><span class="p">{}</span>
 
-<span class="kd">func</span><span class="w"> </span><span class="nx">setupJSON</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">	</span><span class="nx">dec</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">json</span><span class="p">.</span><span class="nx">NewDecoder</span><span class="p">(</span><span class="nx">strings</span><span class="p">.</span><span class="nx">NewReader</span><span class="p">(</span><span class="nx">jsondata</span><span class="p">))</span><span class="w"></span>
-<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">dec</span><span class="p">.</span><span class="nx">Decode</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">msg</span><span class="p">);</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">		</span><span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"></span>
-<span class="w">	</span><span class="p">}</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">setupJSON</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">	</span><span class="nx">dec</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">json</span><span class="p">.</span><span class="nx">NewDecoder</span><span class="p">(</span><span class="nx">strings</span><span class="p">.</span><span class="nx">NewReader</span><span class="p">(</span><span class="nx">jsondata</span><span class="p">))</span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">dec</span><span class="p">.</span><span class="nx">Decode</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">msg</span><span class="p">);</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">		</span><span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+<span class="w">	</span><span class="p">}</span>
+<span class="p">}</span>
 
-<span class="kd">func</span><span class="w"> </span><span class="nx">gettext</span><span class="p">(</span><span class="nx">locale</span><span class="p">,</span><span class="w"> </span><span class="nx">str</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">val</span><span class="p">,</span><span class="w"> </span><span class="nx">ok</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">msg</span><span class="p">[</span><span class="nx">locale</span><span class="p">];</span><span class="w"> </span><span class="nx">ok</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">		</span><span class="k">if</span><span class="w"> </span><span class="nx">val2</span><span class="p">,</span><span class="w"> </span><span class="nx">ok2</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">val</span><span class="p">[</span><span class="nx">str</span><span class="p">];</span><span class="w"> </span><span class="nx">ok2</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">			</span><span class="k">return</span><span class="w"> </span><span class="nx">val2</span><span class="w"></span>
-<span class="w">		</span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">			</span><span class="k">return</span><span class="w"> </span><span class="nx">str</span><span class="w"></span>
-<span class="w">		</span><span class="p">}</span><span class="w"></span>
-<span class="w">	</span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">		</span><span class="k">return</span><span class="w"> </span><span class="nx">str</span><span class="w"></span>
-<span class="w">	</span><span class="p">}</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">gettext</span><span class="p">(</span><span class="nx">locale</span><span class="p">,</span><span class="w"> </span><span class="nx">str</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="p">{</span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">val</span><span class="p">,</span><span class="w"> </span><span class="nx">ok</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">msg</span><span class="p">[</span><span class="nx">locale</span><span class="p">];</span><span class="w"> </span><span class="nx">ok</span><span class="w"> </span><span class="p">{</span>
+<span class="w">		</span><span class="k">if</span><span class="w"> </span><span class="nx">val2</span><span class="p">,</span><span class="w"> </span><span class="nx">ok2</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">val</span><span class="p">[</span><span class="nx">str</span><span class="p">];</span><span class="w"> </span><span class="nx">ok2</span><span class="w"> </span><span class="p">{</span>
+<span class="w">			</span><span class="k">return</span><span class="w"> </span><span class="nx">val2</span>
+<span class="w">		</span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">			</span><span class="k">return</span><span class="w"> </span><span class="nx">str</span>
+<span class="w">		</span><span class="p">}</span>
+<span class="w">	</span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">		</span><span class="k">return</span><span class="w"> </span><span class="nx">str</span>
+<span class="w">	</span><span class="p">}</span>
+<span class="p">}</span>
 
-<span class="kd">func</span><span class="w"> </span><span class="nx">translate</span><span class="p">(</span><span class="nx">locale</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">	</span><span class="nx">d</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">js</span><span class="p">.</span><span class="nx">Global</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;document&quot;</span><span class="p">)</span><span class="w"></span>
-<span class="w">	</span><span class="nx">nodeList</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">d</span><span class="p">.</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;querySelectorAll&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;[data-default-string]&quot;</span><span class="p">)</span><span class="w"></span>
-<span class="w">	</span><span class="nx">length</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">nodeList</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;length&quot;</span><span class="p">).</span><span class="nx">Int</span><span class="p">()</span><span class="w"></span>
-<span class="w">	</span><span class="k">for</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="p">&lt;</span><span class="w"> </span><span class="nx">length</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="o">++</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">		</span><span class="nx">element</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">nodeList</span><span class="p">.</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;item&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">i</span><span class="p">)</span><span class="w"></span>
-<span class="w">		</span><span class="nx">str</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">element</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;dataset&quot;</span><span class="p">).</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;defaultString&quot;</span><span class="p">).</span><span class="nx">String</span><span class="p">()</span><span class="w"></span>
-<span class="w">		</span><span class="nx">element</span><span class="p">.</span><span class="nx">Set</span><span class="p">(</span><span class="s">&quot;textContent&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">gettext</span><span class="p">(</span><span class="nx">locale</span><span class="p">,</span><span class="w"> </span><span class="nx">str</span><span class="p">))</span><span class="w"></span>
-<span class="w">	</span><span class="p">}</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">translate</span><span class="p">(</span><span class="nx">locale</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">	</span><span class="nx">d</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">js</span><span class="p">.</span><span class="nx">Global</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;document&quot;</span><span class="p">)</span>
+<span class="w">	</span><span class="nx">nodeList</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">d</span><span class="p">.</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;querySelectorAll&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;[data-default-string]&quot;</span><span class="p">)</span>
+<span class="w">	</span><span class="nx">length</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">nodeList</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;length&quot;</span><span class="p">).</span><span class="nx">Int</span><span class="p">()</span>
+<span class="w">	</span><span class="k">for</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="p">&lt;</span><span class="w"> </span><span class="nx">length</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="o">++</span><span class="w"> </span><span class="p">{</span>
+<span class="w">		</span><span class="nx">element</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">nodeList</span><span class="p">.</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;item&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">i</span><span class="p">)</span>
+<span class="w">		</span><span class="nx">str</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">element</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;dataset&quot;</span><span class="p">).</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;defaultString&quot;</span><span class="p">).</span><span class="nx">String</span><span class="p">()</span>
+<span class="w">		</span><span class="nx">element</span><span class="p">.</span><span class="nx">Set</span><span class="p">(</span><span class="s">&quot;textContent&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">gettext</span><span class="p">(</span><span class="nx">locale</span><span class="p">,</span><span class="w"> </span><span class="nx">str</span><span class="p">))</span>
+<span class="w">	</span><span class="p">}</span>
+<span class="p">}</span>
 
-<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">	</span><span class="nx">setupJSON</span><span class="p">()</span><span class="w"></span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">	</span><span class="nx">setupJSON</span><span class="p">()</span>
 
-<span class="w">	</span><span class="nx">d</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">js</span><span class="p">.</span><span class="nx">Global</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;document&quot;</span><span class="p">)</span><span class="w"></span>
-<span class="w">	</span><span class="nx">nodeList</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">d</span><span class="p">.</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;querySelectorAll&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;button&quot;</span><span class="p">)</span><span class="w"></span>
-<span class="w">	</span><span class="nx">length</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">nodeList</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;length&quot;</span><span class="p">).</span><span class="nx">Int</span><span class="p">()</span><span class="w"></span>
-<span class="w">	</span><span class="k">for</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="p">&lt;</span><span class="w"> </span><span class="nx">length</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="o">++</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">		</span><span class="nx">btn</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">nodeList</span><span class="p">.</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;item&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">i</span><span class="p">)</span><span class="w"></span>
-<span class="w">		</span><span class="nx">btn</span><span class="p">.</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;addEventListener&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;click&quot;</span><span class="p">,</span><span class="w"> </span><span class="kd">func</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">			</span><span class="nx">translate</span><span class="p">(</span><span class="nx">btn</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;value&quot;</span><span class="p">).</span><span class="nx">String</span><span class="p">())</span><span class="w"></span>
-<span class="w">		</span><span class="p">})</span><span class="w"></span>
-<span class="w">	</span><span class="p">}</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">	</span><span class="nx">d</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">js</span><span class="p">.</span><span class="nx">Global</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;document&quot;</span><span class="p">)</span>
+<span class="w">	</span><span class="nx">nodeList</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">d</span><span class="p">.</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;querySelectorAll&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;button&quot;</span><span class="p">)</span>
+<span class="w">	</span><span class="nx">length</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">nodeList</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;length&quot;</span><span class="p">).</span><span class="nx">Int</span><span class="p">()</span>
+<span class="w">	</span><span class="k">for</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="p">&lt;</span><span class="w"> </span><span class="nx">length</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="o">++</span><span class="w"> </span><span class="p">{</span>
+<span class="w">		</span><span class="nx">btn</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">nodeList</span><span class="p">.</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;item&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">i</span><span class="p">)</span>
+<span class="w">		</span><span class="nx">btn</span><span class="p">.</span><span class="nx">Call</span><span class="p">(</span><span class="s">&quot;addEventListener&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;click&quot;</span><span class="p">,</span><span class="w"> </span><span class="kd">func</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">			</span><span class="nx">translate</span><span class="p">(</span><span class="nx">btn</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;value&quot;</span><span class="p">).</span><span class="nx">String</span><span class="p">())</span>
+<span class="w">		</span><span class="p">})</span>
+<span class="w">	</span><span class="p">}</span>
+<span class="p">}</span>
 </pre></div></td></tr></table></div>
 </div></figure>
 <p>We put translations converted from PO files in the source code. The translations
@@ -249,7 +249,7 @@ are used by <em>gettext</em> function to translate a text string.</p>
 <em>data-default-string</em> attribute. The string in the attribute will be translated
 by <em>gettext</em> function and replace the original string in the <em>div</em>.</p>
 <p>Compile the <a class="reference external" href="https://golang.org/">Go</a> code to <a class="reference external" href="https://en.wikipedia.org/wiki/JavaScript">JavaScript</a> by:</p>
-<div class="highlight"><pre><span></span>$ gopherjs build jsgettext-raw.go -o demo.js
+<div class="highlight"><pre><span></span>$<span class="w"> </span>gopherjs<span class="w"> </span>build<span class="w"> </span>jsgettext-raw.go<span class="w"> </span>-o<span class="w"> </span>demo.js
 </pre></div>
 <p>Put <em>demo.js</em> together with the <em>index.html</em> in the same directory. Open the
 <em>index.html</em> with your browser. Click language buttons to translate strings.</p>
@@ -259,7 +259,7 @@ by <em>gettext</em> function and replace the original string in the <em>div</em>
 <h2>Appendix</h2>
 <p>If you want to use <a class="reference external" href="https://godoc.org/honnef.co/go/js/dom">GopherJS bindings for the JavaScript DOM APIs</a> to write
 idiomatic <a class="reference external" href="https://golang.org/">Go</a> code, install <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model">DOM</a> binding by:</p>
-<div class="highlight"><pre><span></span>$ go get -u honnef.co/go/js/dom
+<div class="highlight"><pre><span></span>$<span class="w"> </span>go<span class="w"> </span>get<span class="w"> </span>-u<span class="w"> </span>honnef.co/go/js/dom
 </pre></div>
 <p>And compile the following code to JavaScript instead of above:</p>
 
@@ -322,60 +322,60 @@ idiomatic <a class="reference external" href="https://golang.org/">Go</a> code, 
 <span class="normal">51</span>
 <span class="normal">52</span>
 <span class="normal">53</span>
-<span class="normal">54</span></pre></div></td><td class="code"><div><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w"></span>
+<span class="normal">54</span></pre></div></td><td class="code"><div><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span>
 
-<span class="kn">import</span><span class="w"> </span><span class="s">&quot;honnef.co/go/js/dom&quot;</span><span class="w"></span>
-<span class="kn">import</span><span class="w"> </span><span class="s">&quot;encoding/json&quot;</span><span class="w"></span>
-<span class="kn">import</span><span class="w"> </span><span class="s">&quot;strings&quot;</span><span class="w"></span>
+<span class="kn">import</span><span class="w"> </span><span class="s">&quot;honnef.co/go/js/dom&quot;</span>
+<span class="kn">import</span><span class="w"> </span><span class="s">&quot;encoding/json&quot;</span>
+<span class="kn">import</span><span class="w"> </span><span class="s">&quot;strings&quot;</span>
 
-<span class="kd">const</span><span class="w"> </span><span class="nx">jsondata</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">`{&quot;vi_VN&quot;:{&quot;About&quot;:&quot;Giới thiệu&quot;,&quot;Canon&quot;:&quot;Kinh điển&quot;,&quot;Home&quot;:&quot;Trang chính&quot;,&quot;Setting&quot;:&quot;Thiết lập&quot;,&quot;Translation&quot;:&quot;Dịch&quot;},&quot;zh_TW&quot;:{&quot;About&quot;:&quot;關於&quot;,&quot;Canon&quot;:&quot;經典&quot;,&quot;Home&quot;:&quot;首頁&quot;,&quot;Setting&quot;:&quot;設定&quot;,&quot;Translation&quot;:&quot;翻譯&quot;}}`</span><span class="w"></span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">jsondata</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">`{&quot;vi_VN&quot;:{&quot;About&quot;:&quot;Giới thiệu&quot;,&quot;Canon&quot;:&quot;Kinh điển&quot;,&quot;Home&quot;:&quot;Trang chính&quot;,&quot;Setting&quot;:&quot;Thiết lập&quot;,&quot;Translation&quot;:&quot;Dịch&quot;},&quot;zh_TW&quot;:{&quot;About&quot;:&quot;關於&quot;,&quot;Canon&quot;:&quot;經典&quot;,&quot;Home&quot;:&quot;首頁&quot;,&quot;Setting&quot;:&quot;設定&quot;,&quot;Translation&quot;:&quot;翻譯&quot;}}`</span>
 
-<span class="kd">type</span><span class="w"> </span><span class="nx">msgIdStrPairs</span><span class="w"> </span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="w"></span>
-<span class="kd">type</span><span class="w"> </span><span class="nx">localesMsg</span><span class="w"> </span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="nx">msgIdStrPairs</span><span class="w"></span>
+<span class="kd">type</span><span class="w"> </span><span class="nx">msgIdStrPairs</span><span class="w"> </span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span>
+<span class="kd">type</span><span class="w"> </span><span class="nx">localesMsg</span><span class="w"> </span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="nx">msgIdStrPairs</span>
 
-<span class="kd">var</span><span class="w"> </span><span class="nx">msg</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">localesMsg</span><span class="p">{}</span><span class="w"></span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">msg</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">localesMsg</span><span class="p">{}</span>
 
-<span class="kd">func</span><span class="w"> </span><span class="nx">setupJSON</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">	</span><span class="nx">dec</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">json</span><span class="p">.</span><span class="nx">NewDecoder</span><span class="p">(</span><span class="nx">strings</span><span class="p">.</span><span class="nx">NewReader</span><span class="p">(</span><span class="nx">jsondata</span><span class="p">))</span><span class="w"></span>
-<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">dec</span><span class="p">.</span><span class="nx">Decode</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">msg</span><span class="p">);</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">		</span><span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"></span>
-<span class="w">	</span><span class="p">}</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">setupJSON</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">	</span><span class="nx">dec</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">json</span><span class="p">.</span><span class="nx">NewDecoder</span><span class="p">(</span><span class="nx">strings</span><span class="p">.</span><span class="nx">NewReader</span><span class="p">(</span><span class="nx">jsondata</span><span class="p">))</span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">dec</span><span class="p">.</span><span class="nx">Decode</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">msg</span><span class="p">);</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">		</span><span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+<span class="w">	</span><span class="p">}</span>
+<span class="p">}</span>
 
-<span class="kd">func</span><span class="w"> </span><span class="nx">gettext</span><span class="p">(</span><span class="nx">locale</span><span class="p">,</span><span class="w"> </span><span class="nx">str</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">val</span><span class="p">,</span><span class="w"> </span><span class="nx">ok</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">msg</span><span class="p">[</span><span class="nx">locale</span><span class="p">];</span><span class="w"> </span><span class="nx">ok</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">		</span><span class="k">if</span><span class="w"> </span><span class="nx">val2</span><span class="p">,</span><span class="w"> </span><span class="nx">ok2</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">val</span><span class="p">[</span><span class="nx">str</span><span class="p">];</span><span class="w"> </span><span class="nx">ok2</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">			</span><span class="k">return</span><span class="w"> </span><span class="nx">val2</span><span class="w"></span>
-<span class="w">		</span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">			</span><span class="k">return</span><span class="w"> </span><span class="nx">str</span><span class="w"></span>
-<span class="w">		</span><span class="p">}</span><span class="w"></span>
-<span class="w">	</span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">		</span><span class="k">return</span><span class="w"> </span><span class="nx">str</span><span class="w"></span>
-<span class="w">	</span><span class="p">}</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">gettext</span><span class="p">(</span><span class="nx">locale</span><span class="p">,</span><span class="w"> </span><span class="nx">str</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="p">{</span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">val</span><span class="p">,</span><span class="w"> </span><span class="nx">ok</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">msg</span><span class="p">[</span><span class="nx">locale</span><span class="p">];</span><span class="w"> </span><span class="nx">ok</span><span class="w"> </span><span class="p">{</span>
+<span class="w">		</span><span class="k">if</span><span class="w"> </span><span class="nx">val2</span><span class="p">,</span><span class="w"> </span><span class="nx">ok2</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">val</span><span class="p">[</span><span class="nx">str</span><span class="p">];</span><span class="w"> </span><span class="nx">ok2</span><span class="w"> </span><span class="p">{</span>
+<span class="w">			</span><span class="k">return</span><span class="w"> </span><span class="nx">val2</span>
+<span class="w">		</span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">			</span><span class="k">return</span><span class="w"> </span><span class="nx">str</span>
+<span class="w">		</span><span class="p">}</span>
+<span class="w">	</span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">		</span><span class="k">return</span><span class="w"> </span><span class="nx">str</span>
+<span class="w">	</span><span class="p">}</span>
+<span class="p">}</span>
 
-<span class="kd">func</span><span class="w"> </span><span class="nx">translate</span><span class="p">(</span><span class="nx">value</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">	</span><span class="nx">d</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">dom</span><span class="p">.</span><span class="nx">GetWindow</span><span class="p">().</span><span class="nx">Document</span><span class="p">()</span><span class="w"></span>
-<span class="w">	</span><span class="nx">elements</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">d</span><span class="p">.</span><span class="nx">QuerySelectorAll</span><span class="p">(</span><span class="s">&quot;[data-default-string]&quot;</span><span class="p">)</span><span class="w"></span>
-<span class="w">	</span><span class="k">for</span><span class="w"> </span><span class="nx">_</span><span class="p">,</span><span class="w"> </span><span class="nx">element</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="nx">elements</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">		</span><span class="nx">elm</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">element</span><span class="p">.(</span><span class="o">*</span><span class="nx">dom</span><span class="p">.</span><span class="nx">HTMLDivElement</span><span class="p">)</span><span class="w"></span>
-<span class="w">		</span><span class="nx">elm</span><span class="p">.</span><span class="nx">SetTextContent</span><span class="p">(</span><span class="nx">gettext</span><span class="p">(</span><span class="nx">value</span><span class="p">,</span><span class="w"> </span><span class="nx">elm</span><span class="p">.</span><span class="nx">Dataset</span><span class="p">()[</span><span class="s">&quot;defaultString&quot;</span><span class="p">]))</span><span class="w"></span>
-<span class="w">	</span><span class="p">}</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">translate</span><span class="p">(</span><span class="nx">value</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">	</span><span class="nx">d</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">dom</span><span class="p">.</span><span class="nx">GetWindow</span><span class="p">().</span><span class="nx">Document</span><span class="p">()</span>
+<span class="w">	</span><span class="nx">elements</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">d</span><span class="p">.</span><span class="nx">QuerySelectorAll</span><span class="p">(</span><span class="s">&quot;[data-default-string]&quot;</span><span class="p">)</span>
+<span class="w">	</span><span class="k">for</span><span class="w"> </span><span class="nx">_</span><span class="p">,</span><span class="w"> </span><span class="nx">element</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="nx">elements</span><span class="w"> </span><span class="p">{</span>
+<span class="w">		</span><span class="nx">elm</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">element</span><span class="p">.(</span><span class="o">*</span><span class="nx">dom</span><span class="p">.</span><span class="nx">HTMLDivElement</span><span class="p">)</span>
+<span class="w">		</span><span class="nx">elm</span><span class="p">.</span><span class="nx">SetTextContent</span><span class="p">(</span><span class="nx">gettext</span><span class="p">(</span><span class="nx">value</span><span class="p">,</span><span class="w"> </span><span class="nx">elm</span><span class="p">.</span><span class="nx">Dataset</span><span class="p">()[</span><span class="s">&quot;defaultString&quot;</span><span class="p">]))</span>
+<span class="w">	</span><span class="p">}</span>
+<span class="p">}</span>
 
-<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">	</span><span class="nx">setupJSON</span><span class="p">()</span><span class="w"></span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">	</span><span class="nx">setupJSON</span><span class="p">()</span>
 
-<span class="w">	</span><span class="nx">d</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">dom</span><span class="p">.</span><span class="nx">GetWindow</span><span class="p">().</span><span class="nx">Document</span><span class="p">()</span><span class="w"></span>
-<span class="w">	</span><span class="nx">buttons</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">d</span><span class="p">.</span><span class="nx">QuerySelectorAll</span><span class="p">(</span><span class="s">&quot;button&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">	</span><span class="nx">d</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">dom</span><span class="p">.</span><span class="nx">GetWindow</span><span class="p">().</span><span class="nx">Document</span><span class="p">()</span>
+<span class="w">	</span><span class="nx">buttons</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">d</span><span class="p">.</span><span class="nx">QuerySelectorAll</span><span class="p">(</span><span class="s">&quot;button&quot;</span><span class="p">)</span>
 
-<span class="w">	</span><span class="k">for</span><span class="w"> </span><span class="nx">_</span><span class="p">,</span><span class="w"> </span><span class="nx">btn</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="nx">buttons</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">		</span><span class="nx">elm</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">btn</span><span class="p">.(</span><span class="o">*</span><span class="nx">dom</span><span class="p">.</span><span class="nx">HTMLButtonElement</span><span class="p">)</span><span class="w"></span>
-<span class="w">		</span><span class="nx">elm</span><span class="p">.</span><span class="nx">AddEventListener</span><span class="p">(</span><span class="s">&quot;click&quot;</span><span class="p">,</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="nx">event</span><span class="w"> </span><span class="nx">dom</span><span class="p">.</span><span class="nx">Event</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">			</span><span class="nx">translate</span><span class="p">(</span><span class="nx">elm</span><span class="p">.</span><span class="nx">Value</span><span class="p">)</span><span class="w"></span>
-<span class="w">		</span><span class="p">})</span><span class="w"></span>
-<span class="w">	</span><span class="p">}</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">	</span><span class="k">for</span><span class="w"> </span><span class="nx">_</span><span class="p">,</span><span class="w"> </span><span class="nx">btn</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="nx">buttons</span><span class="w"> </span><span class="p">{</span>
+<span class="w">		</span><span class="nx">elm</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">btn</span><span class="p">.(</span><span class="o">*</span><span class="nx">dom</span><span class="p">.</span><span class="nx">HTMLButtonElement</span><span class="p">)</span>
+<span class="w">		</span><span class="nx">elm</span><span class="p">.</span><span class="nx">AddEventListener</span><span class="p">(</span><span class="s">&quot;click&quot;</span><span class="p">,</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="nx">event</span><span class="w"> </span><span class="nx">dom</span><span class="p">.</span><span class="nx">Event</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">			</span><span class="nx">translate</span><span class="p">(</span><span class="nx">elm</span><span class="p">.</span><span class="nx">Value</span><span class="p">)</span>
+<span class="w">		</span><span class="p">})</span>
+<span class="w">	</span><span class="p">}</span>
+<span class="p">}</span>
 </pre></div></td></tr></table></div>
 </div></figure>
 <p>Note that if you wrap strings in <em>span</em> or other elements instead of <em>div</em>,

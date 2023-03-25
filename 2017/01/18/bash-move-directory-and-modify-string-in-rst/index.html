@@ -111,19 +111,19 @@ result will be</p>
 <span class="nv">targetDir</span><span class="o">=</span>../../
 <span class="nv">rstdir</span><span class="o">=</span>../../../articles/
 
-<span class="k">for</span> srcdir <span class="k">in</span> <span class="k">$(</span>ls -d <span class="si">${</span><span class="nv">targetDir</span><span class="si">}</span>*/<span class="k">)</span>
+<span class="k">for</span><span class="w"> </span>srcdir<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="k">$(</span>ls<span class="w"> </span>-d<span class="w"> </span><span class="si">${</span><span class="nv">targetDir</span><span class="si">}</span>*/<span class="k">)</span>
 <span class="k">do</span>
-  <span class="nv">dirprefix</span><span class="o">=</span><span class="k">$(</span>dirname <span class="si">${</span><span class="nv">srcdir</span><span class="si">}</span><span class="k">)</span>
-  <span class="c1"># remove extension</span>
-  <span class="nv">rmext</span><span class="o">=</span><span class="si">${</span><span class="nv">srcdir</span><span class="p">%%/</span><span class="si">}</span>
-  <span class="c1"># remove prefix</span>
-  <span class="nv">rawdir</span><span class="o">=</span><span class="si">${</span><span class="nv">rmext</span><span class="p">##*/</span><span class="si">}</span>
-  <span class="k">if</span> <span class="o">[[</span> <span class="si">${</span><span class="nv">rawdir</span><span class="si">}</span> <span class="o">==</span> <span class="si">${</span><span class="nv">langPrefix</span><span class="si">}</span>* <span class="o">]]</span><span class="p">;</span> <span class="k">then</span>
-    <span class="nv">newdir</span><span class="o">=</span><span class="si">${</span><span class="nv">rawdir</span><span class="p">##</span><span class="si">${</span><span class="nv">langPrefix</span><span class="si">}}</span>
-    <span class="nv">dstdir</span><span class="o">=</span><span class="si">${</span><span class="nv">dirprefix</span><span class="si">}</span>/<span class="si">${</span><span class="nv">langPrefix</span><span class="p">%%-</span><span class="si">}</span>/<span class="si">${</span><span class="nv">newdir</span><span class="si">}</span>
-    mv <span class="si">${</span><span class="nv">srcdir</span><span class="si">}</span> <span class="si">${</span><span class="nv">dstdir</span><span class="si">}</span>
-    find <span class="si">${</span><span class="nv">rstdir</span><span class="si">}</span> -type f -name <span class="s2">&quot;*.rst&quot;</span> <span class="p">|</span> xargs sed -i <span class="s2">&quot;s/</span><span class="si">${</span><span class="nv">rawdir</span><span class="si">}</span><span class="s2">/</span><span class="si">${</span><span class="nv">rawdir</span><span class="p">/-/</span><span class="se">\\\/</span><span class="si">}</span><span class="s2">/g&quot;</span>
-  <span class="k">fi</span>
+<span class="w">  </span><span class="nv">dirprefix</span><span class="o">=</span><span class="k">$(</span>dirname<span class="w"> </span><span class="si">${</span><span class="nv">srcdir</span><span class="si">}</span><span class="k">)</span>
+<span class="w">  </span><span class="c1"># remove extension</span>
+<span class="w">  </span><span class="nv">rmext</span><span class="o">=</span><span class="si">${</span><span class="nv">srcdir</span><span class="p">%%/</span><span class="si">}</span>
+<span class="w">  </span><span class="c1"># remove prefix</span>
+<span class="w">  </span><span class="nv">rawdir</span><span class="o">=</span><span class="si">${</span><span class="nv">rmext</span><span class="p">##*/</span><span class="si">}</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="si">${</span><span class="nv">rawdir</span><span class="si">}</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="si">${</span><span class="nv">langPrefix</span><span class="si">}</span>*<span class="w"> </span><span class="o">]]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span><span class="nv">newdir</span><span class="o">=</span><span class="si">${</span><span class="nv">rawdir</span><span class="p">##</span><span class="si">${</span><span class="nv">langPrefix</span><span class="si">}}</span>
+<span class="w">    </span><span class="nv">dstdir</span><span class="o">=</span><span class="si">${</span><span class="nv">dirprefix</span><span class="si">}</span>/<span class="si">${</span><span class="nv">langPrefix</span><span class="p">%%-</span><span class="si">}</span>/<span class="si">${</span><span class="nv">newdir</span><span class="si">}</span>
+<span class="w">    </span>mv<span class="w"> </span><span class="si">${</span><span class="nv">srcdir</span><span class="si">}</span><span class="w"> </span><span class="si">${</span><span class="nv">dstdir</span><span class="si">}</span>
+<span class="w">    </span>find<span class="w"> </span><span class="si">${</span><span class="nv">rstdir</span><span class="si">}</span><span class="w"> </span>-type<span class="w"> </span>f<span class="w"> </span>-name<span class="w"> </span><span class="s2">&quot;*.rst&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>xargs<span class="w"> </span>sed<span class="w"> </span>-i<span class="w"> </span><span class="s2">&quot;s/</span><span class="si">${</span><span class="nv">rawdir</span><span class="si">}</span><span class="s2">/</span><span class="si">${</span><span class="nv">rawdir</span><span class="p">/-/</span><span class="se">\\\/</span><span class="si">}</span><span class="s2">/g&quot;</span>
+<span class="w">  </span><span class="k">fi</span>
 <span class="k">done</span>
 </pre></div></td></tr></table></div>
 </div></figure>

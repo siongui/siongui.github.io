@@ -257,18 +257,18 @@ directory.</p>
 <span class="normal"> 9</span>
 <span class="normal">10</span>
 <span class="normal">11</span>
-<span class="normal">12</span></pre></div></td><td class="code"><div><pre><span></span><span class="nt">application</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">webpy-multiple-app</span><span class="w"></span>
-<span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w"></span>
-<span class="nt">runtime</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">python27</span><span class="w"></span>
-<span class="nt">api_version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w"></span>
-<span class="nt">threadsafe</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
+<span class="normal">12</span></pre></div></td><td class="code"><div><pre><span></span><span class="nt">application</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">webpy-multiple-app</span>
+<span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="nt">runtime</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">python27</span>
+<span class="nt">api_version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="nt">threadsafe</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 
-<span class="nt">handlers</span><span class="p">:</span><span class="w"></span>
-<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/robots.txt</span><span class="w"></span>
-<span class="w">  </span><span class="nt">script</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">staticweb.app</span><span class="w"></span>
+<span class="nt">handlers</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/robots.txt</span>
+<span class="w">  </span><span class="nt">script</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">staticweb.app</span>
 
-<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/.*</span><span class="w"></span>
-<span class="w">  </span><span class="nt">script</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mainweb.app</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/.*</span>
+<span class="w">  </span><span class="nt">script</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mainweb.app</span>
 </pre></div></td></tr></table></div>
 </div></figure></div>
 <div class="section" id="sample-apache-config">
@@ -291,19 +291,19 @@ directory.</p>
 <span class="normal">10</span>
 <span class="normal">11</span>
 <span class="normal">12</span>
-<span class="normal">13</span></pre></div></td><td class="code"><div><pre><span></span><span class="nt">&lt;VirtualHost</span><span class="w"> </span><span class="s">*:80</span><span class="nt">&gt;</span><span class="w"></span>
-<span class="w">        </span><span class="nb">ServerName</span><span class="w">      </span>{{<span class="w"> </span>domain_name<span class="w"> </span>}}<span class="w"></span>
-<span class="w">        </span><span class="nb">ServerAdmin</span><span class="w">     </span>{{<span class="w"> </span><span class="k">email</span><span class="w"> </span>}}<span class="w"></span>
-<span class="w">        </span><span class="nb">ErrorLog</span><span class="w">        </span>{{<span class="w"> </span>SOME_DIR<span class="w"> </span>}}/logs/error_log<span class="w"></span>
-<span class="w">        </span><span class="nb">CustomLog</span><span class="w">       </span>{{<span class="w"> </span>SOME_DIR<span class="w"> </span>}}/logs/access_log<span class="w"> </span>combined<span class="w"></span>
+<span class="normal">13</span></pre></div></td><td class="code"><div><pre><span></span><span class="nt">&lt;VirtualHost</span><span class="w"> </span><span class="s">*:80</span><span class="nt">&gt;</span>
+<span class="w">        </span><span class="nb">ServerName</span><span class="w">      </span>{{<span class="w"> </span>domain_name<span class="w"> </span>}}
+<span class="w">        </span><span class="nb">ServerAdmin</span><span class="w">     </span>{{<span class="w"> </span><span class="k">email</span><span class="w"> </span>}}
+<span class="w">        </span><span class="nb">ErrorLog</span><span class="w">        </span>{{<span class="w"> </span>SOME_DIR<span class="w"> </span>}}/logs/error_log
+<span class="w">        </span><span class="nb">CustomLog</span><span class="w">       </span>{{<span class="w"> </span>SOME_DIR<span class="w"> </span>}}/logs/access_log<span class="w"> </span>combined
 
-<span class="w">        </span><span class="nb">Alias</span><span class="w">           </span><span class="sx">/favicon.ico</span><span class="w"> </span>{{<span class="w"> </span>REPO_DIR<span class="w"> </span>}}/favicon.ico<span class="w"></span>
-<span class="w">        </span><span class="nb">Alias</span><span class="w">           </span><span class="sx">/robots.txt</span><span class="w"> </span>{{<span class="w"> </span>REPO_DIR<span class="w"> </span>}}/robots.txt<span class="w"></span>
+<span class="w">        </span><span class="nb">Alias</span><span class="w">           </span><span class="sx">/favicon.ico</span><span class="w"> </span>{{<span class="w"> </span>REPO_DIR<span class="w"> </span>}}/favicon.ico
+<span class="w">        </span><span class="nb">Alias</span><span class="w">           </span><span class="sx">/robots.txt</span><span class="w"> </span>{{<span class="w"> </span>REPO_DIR<span class="w"> </span>}}/robots.txt
 
-<span class="w">        </span><span class="nb">WSGIScriptAlias</span><span class="w"> </span>/<span class="w"> </span>{{<span class="w"> </span>REPO_DIR<span class="w"> </span>}}/mainweb.py<span class="w"></span>
+<span class="w">        </span><span class="nb">WSGIScriptAlias</span><span class="w"> </span>/<span class="w"> </span>{{<span class="w"> </span>REPO_DIR<span class="w"> </span>}}/mainweb.py
 
-<span class="w">        </span><span class="nb">AddType</span><span class="w">         </span>text/html<span class="w"> </span>.py<span class="w"></span>
-<span class="nt">&lt;/VirtualHost&gt;</span><span class="w"></span>
+<span class="w">        </span><span class="nb">AddType</span><span class="w">         </span>text/html<span class="w"> </span>.py
+<span class="nt">&lt;/VirtualHost&gt;</span>
 </pre></div></td></tr></table></div>
 </div></figure></div>
 <div class="section" id="sample-makefile-for-development">
@@ -329,16 +329,16 @@ directory.</p>
 <span class="normal">13</span></pre></div></td><td class="code"><div><pre><span></span><span class="c"># path of Google App Engine Python SDK</span>
 <span class="nv">GAE_PY_SDK</span><span class="o">=</span>../../../../../google_appengine
 
-<span class="nf">all</span><span class="o">:</span> <span class="n">local</span>
+<span class="nf">all</span><span class="o">:</span><span class="w"> </span><span class="n">local</span>
 
 <span class="nf">devserver</span><span class="o">:</span>
-	<span class="k">$(</span>GAE_PY_SDK<span class="k">)</span>/dev_appserver.py .
+<span class="w">	</span><span class="k">$(</span>GAE_PY_SDK<span class="k">)</span>/dev_appserver.py<span class="w"> </span>.
 
 <span class="nf">local</span><span class="o">:</span>
-	python delegate.py
+<span class="w">	</span>python<span class="w"> </span>delegate.py
 
 <span class="nf">clean</span><span class="o">:</span>
-	rm *.pyc
+<span class="w">	</span>rm<span class="w"> </span>*.pyc
 </pre></div></td></tr></table></div>
 </div></figure><p>Tested on: <tt class="docutils literal">Ubuntu Linux 14.10</tt>, <tt class="docutils literal">Google App Engine Python SDK 1.9.18</tt></p>
 <hr class="docutils" />

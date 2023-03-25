@@ -81,16 +81,16 @@ online <a class="reference external" href="https://developers.google.com/closure
 
 <span class="c1"># $1 is the directory in which js files to be processed</span>
 <span class="c1"># $2 is the minified js from online Google Closure Compiler</span>
-cat <span class="k">$(</span>find <span class="nv">$1</span> -type f -name <span class="s2">&quot;*.js&quot;</span><span class="k">)</span> &gt; <span class="si">${</span><span class="nv">TMPJS</span><span class="si">}</span>
-curl <span class="se">\</span>
-  -d <span class="nv">compilation_level</span><span class="o">=</span>SIMPLE_OPTIMIZATIONS <span class="se">\</span>
-  -d <span class="nv">language</span><span class="o">=</span>ECMASCRIPT5 <span class="se">\</span>
-  -d <span class="nv">output_format</span><span class="o">=</span>text <span class="se">\</span>
-  -d <span class="nv">output_info</span><span class="o">=</span>compiled_code <span class="se">\</span>
-  --data-urlencode <span class="s2">&quot;js_code@</span><span class="si">${</span><span class="nv">TMPJS</span><span class="si">}</span><span class="s2">&quot;</span> <span class="se">\</span>
-  https://closure-compiler.appspot.com/compile <span class="se">\</span>
-  &gt; <span class="nv">$2</span>
-rm <span class="si">${</span><span class="nv">TMPJS</span><span class="si">}</span>
+cat<span class="w"> </span><span class="k">$(</span>find<span class="w"> </span><span class="nv">$1</span><span class="w"> </span>-type<span class="w"> </span>f<span class="w"> </span>-name<span class="w"> </span><span class="s2">&quot;*.js&quot;</span><span class="k">)</span><span class="w"> </span>&gt;<span class="w"> </span><span class="si">${</span><span class="nv">TMPJS</span><span class="si">}</span>
+curl<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-d<span class="w"> </span><span class="nv">compilation_level</span><span class="o">=</span>SIMPLE_OPTIMIZATIONS<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-d<span class="w"> </span><span class="nv">language</span><span class="o">=</span>ECMASCRIPT5<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-d<span class="w"> </span><span class="nv">output_format</span><span class="o">=</span>text<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-d<span class="w"> </span><span class="nv">output_info</span><span class="o">=</span>compiled_code<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--data-urlencode<span class="w"> </span><span class="s2">&quot;js_code@</span><span class="si">${</span><span class="nv">TMPJS</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>https://closure-compiler.appspot.com/compile<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>&gt;<span class="w"> </span><span class="nv">$2</span>
+rm<span class="w"> </span><span class="si">${</span><span class="nv">TMPJS</span><span class="si">}</span>
 </pre></div></td></tr></table></div>
 </div></figure>
 <hr class="docutils" />

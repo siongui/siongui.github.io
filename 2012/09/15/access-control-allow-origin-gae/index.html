@@ -57,19 +57,19 @@ many search results said that we CAN NOT add it. But actually we CAN add it now.
 The following is an example of how I add <em>Access-Control-Allow-Origin</em> in my
 <em>app.yaml</em> file (<a class="reference external" href="https://cloud.google.com/appengine/docs/python/">Google App Engine for Python</a>, the same for
 <a class="reference external" href="https://cloud.google.com/appengine/docs/go/">Google App Engine for Go</a>).</p>
-<div class="highlight"><pre><span></span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/translation</span><span class="w"></span>
-<span class="w">  </span><span class="nt">static_dir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">static/translation</span><span class="w"></span>
-<span class="w">  </span><span class="nt">http_headers</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">Access-Control-Allow-Origin</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;*&quot;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/translation</span>
+<span class="w">  </span><span class="nt">static_dir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">static/translation</span>
+<span class="w">  </span><span class="nt">http_headers</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">Access-Control-Allow-Origin</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;*&quot;</span>
 </pre></div>
 <p>For Python &amp; Go config details, please refer to reference <a class="footnote-reference" href="#footnote-1" id="footnote-reference-1">[1]</a> and <a class="footnote-reference" href="#footnote-2" id="footnote-reference-2">[2]</a>.</p>
 
 <p>For <a class="reference external" href="https://cloud.google.com/appengine/docs/java/">Google App Engine for Java</a> user, the following is an example from the
 official doc:</p>
 <div class="highlight"><pre><span></span><span class="nt">&lt;static-files&gt;</span>
-  <span class="nt">&lt;include</span> <span class="na">path=</span><span class="s">&quot;/my_static-files&quot;</span> <span class="nt">&gt;</span>
-    <span class="nt">&lt;http-header</span> <span class="na">name=</span><span class="s">&quot;Access-Control-Allow-Origin&quot;</span> <span class="na">value=</span><span class="s">&quot;http://example.org&quot;</span> <span class="nt">/&gt;</span>
-  <span class="nt">&lt;/include&gt;</span>
+<span class="w">  </span><span class="nt">&lt;include</span><span class="w"> </span><span class="na">path=</span><span class="s">&quot;/my_static-files&quot;</span><span class="w"> </span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;http-header</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;Access-Control-Allow-Origin&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;http://example.org&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/include&gt;</span>
 <span class="nt">&lt;/static-files&gt;</span>
 </pre></div>
 <p>For Java config details, please refer to reference <a class="footnote-reference" href="#footnote-3" id="footnote-reference-3">[3]</a>.</p>

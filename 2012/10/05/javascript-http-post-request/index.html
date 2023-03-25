@@ -113,42 +113,42 @@ function demonstrates how to make such AJAX request:</p>
 <span class="cm"> *                 &#39;age&#39;: &#39;21&#39;} represents &quot;name=Bob&amp;age=21&quot;.</span>
 <span class="cm"> * @param {function} callback The callback function if HTTP POST succeeds</span>
 <span class="cm"> * @param {function} failCallback The callback function if HTTP POST fails</span>
-<span class="cm"> */</span><span class="w"></span>
-<span class="nx">HTTPPOST</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span><span class="w"> </span><span class="nx">keyValuePairs</span><span class="p">,</span><span class="w"> </span><span class="nx">callback</span><span class="p">,</span><span class="w"> </span><span class="nx">failCallback</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">xmlhttp</span><span class="p">;</span><span class="w"></span>
+<span class="cm"> */</span>
+<span class="nx">HTTPPOST</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span><span class="w"> </span><span class="nx">keyValuePairs</span><span class="p">,</span><span class="w"> </span><span class="nx">callback</span><span class="p">,</span><span class="w"> </span><span class="nx">failCallback</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">xmlhttp</span><span class="p">;</span>
 
-<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">XMLHttpRequest</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="c1">// code for IE7+, Firefox, Chrome, Opera, Safari</span><span class="w"></span>
-<span class="w">    </span><span class="nx">xmlhttp</span><span class="o">=</span><span class="ow">new</span><span class="w"> </span><span class="nx">XMLHttpRequest</span><span class="p">();</span><span class="w"></span>
-<span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="c1">// code for IE6, IE5</span><span class="w"></span>
-<span class="w">    </span><span class="nx">xmlhttp</span><span class="o">=</span><span class="ow">new</span><span class="w"> </span><span class="nx">ActiveXObject</span><span class="p">(</span><span class="s2">&quot;Microsoft.XMLHTTP&quot;</span><span class="p">);</span><span class="w"></span>
-<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">XMLHttpRequest</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// code for IE7+, Firefox, Chrome, Opera, Safari</span>
+<span class="w">    </span><span class="nx">xmlhttp</span><span class="o">=</span><span class="ow">new</span><span class="w"> </span><span class="nx">XMLHttpRequest</span><span class="p">();</span>
+<span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// code for IE6, IE5</span>
+<span class="w">    </span><span class="nx">xmlhttp</span><span class="o">=</span><span class="ow">new</span><span class="w"> </span><span class="nx">ActiveXObject</span><span class="p">(</span><span class="s2">&quot;Microsoft.XMLHTTP&quot;</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
 
-<span class="w">  </span><span class="nx">xmlhttp</span><span class="p">.</span><span class="nx">onreadystatechange</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">xmlhttp</span><span class="p">.</span><span class="nx">readyState</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mf">4</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">xmlhttp</span><span class="p">.</span><span class="nx">status</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mf">200</span><span class="p">)</span><span class="w"></span>
-<span class="w">        </span><span class="nx">callback</span><span class="p">(</span><span class="nx">xmlhttp</span><span class="p">.</span><span class="nx">responseText</span><span class="p">,</span><span class="w"> </span><span class="nx">url</span><span class="p">);</span><span class="w"></span>
-<span class="w">      </span><span class="k">else</span><span class="w"></span>
-<span class="w">        </span><span class="nx">failCallback</span><span class="p">(</span><span class="nx">url</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="w">  </span><span class="p">};</span><span class="w"></span>
+<span class="w">  </span><span class="nx">xmlhttp</span><span class="p">.</span><span class="nx">onreadystatechange</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">xmlhttp</span><span class="p">.</span><span class="nx">readyState</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mf">4</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">xmlhttp</span><span class="p">.</span><span class="nx">status</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mf">200</span><span class="p">)</span>
+<span class="w">        </span><span class="nx">callback</span><span class="p">(</span><span class="nx">xmlhttp</span><span class="p">.</span><span class="nx">responseText</span><span class="p">,</span><span class="w"> </span><span class="nx">url</span><span class="p">);</span>
+<span class="w">      </span><span class="k">else</span>
+<span class="w">        </span><span class="nx">failCallback</span><span class="p">(</span><span class="nx">url</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">};</span>
 
-<span class="w">  </span><span class="nx">xmlhttp</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="s2">&quot;POST&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">url</span><span class="p">,</span><span class="w"> </span><span class="kc">true</span><span class="p">);</span><span class="w"></span>
-<span class="w">  </span><span class="nx">xmlhttp</span><span class="p">.</span><span class="nx">setRequestHeader</span><span class="p">(</span><span class="s2">&quot;Content-type&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;application/x-www-form-urlencoded&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="nx">xmlhttp</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="s2">&quot;POST&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">url</span><span class="p">,</span><span class="w"> </span><span class="kc">true</span><span class="p">);</span>
+<span class="w">  </span><span class="nx">xmlhttp</span><span class="p">.</span><span class="nx">setRequestHeader</span><span class="p">(</span><span class="s2">&quot;Content-type&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;application/x-www-form-urlencoded&quot;</span><span class="p">);</span>
 
-<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">kvpairs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">;</span><span class="w"></span>
-<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">var</span><span class="w"> </span><span class="nx">key</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nx">keyValuePairs</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">kvpairs</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">)</span><span class="w"></span>
-<span class="w">      </span><span class="nx">kvpairs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">encodeURIComponent</span><span class="p">(</span><span class="nx">key</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s1">&#39;=&#39;</span><span class="w"> </span><span class="o">+</span><span class="w"></span>
-<span class="w">                </span><span class="nb">encodeURIComponent</span><span class="p">(</span><span class="nx">keyValuePairs</span><span class="p">[</span><span class="nx">key</span><span class="p">]);</span><span class="w"></span>
-<span class="w">    </span><span class="k">else</span><span class="w"></span>
-<span class="w">      </span><span class="nx">kvpairs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">kvpairs</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s1">&#39;&amp;&#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">encodeURIComponent</span><span class="p">(</span><span class="nx">key</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s1">&#39;=&#39;</span><span class="w"> </span><span class="o">+</span><span class="w"></span>
-<span class="w">                </span><span class="nb">encodeURIComponent</span><span class="p">(</span><span class="nx">keyValuePairs</span><span class="p">[</span><span class="nx">key</span><span class="p">]);</span><span class="w"></span>
-<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">kvpairs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">;</span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">var</span><span class="w"> </span><span class="nx">key</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nx">keyValuePairs</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">kvpairs</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+<span class="w">      </span><span class="nx">kvpairs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">encodeURIComponent</span><span class="p">(</span><span class="nx">key</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s1">&#39;=&#39;</span><span class="w"> </span><span class="o">+</span>
+<span class="w">                </span><span class="nb">encodeURIComponent</span><span class="p">(</span><span class="nx">keyValuePairs</span><span class="p">[</span><span class="nx">key</span><span class="p">]);</span>
+<span class="w">    </span><span class="k">else</span>
+<span class="w">      </span><span class="nx">kvpairs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">kvpairs</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s1">&#39;&amp;&#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">encodeURIComponent</span><span class="p">(</span><span class="nx">key</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s1">&#39;=&#39;</span><span class="w"> </span><span class="o">+</span>
+<span class="w">                </span><span class="nb">encodeURIComponent</span><span class="p">(</span><span class="nx">keyValuePairs</span><span class="p">[</span><span class="nx">key</span><span class="p">]);</span>
+<span class="w">  </span><span class="p">}</span>
 
-<span class="w">  </span><span class="nx">xmlhttp</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="nx">kvpairs</span><span class="p">);</span><span class="w"></span>
-<span class="p">};</span><span class="w"></span>
+<span class="w">  </span><span class="nx">xmlhttp</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="nx">kvpairs</span><span class="p">);</span>
+<span class="p">};</span>
 </pre></div></td></tr></table></div>
 </div></figure>
 <div class="section" id="usage">
@@ -173,21 +173,21 @@ function demonstrates how to make such AJAX request:</p>
 <span class="normal">12</span>
 <span class="normal">13</span>
 <span class="normal">14</span>
-<span class="normal">15</span></pre></div></td><td class="code"><div><pre><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;/demo/post&#39;</span><span class="p">;</span><span class="w"></span>
-<span class="kd">var</span><span class="w"> </span><span class="nx">keyValuePairs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Bob&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;age&#39;</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;21&#39;</span><span class="p">};</span><span class="w"></span>
+<span class="normal">15</span></pre></div></td><td class="code"><div><pre><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;/demo/post&#39;</span><span class="p">;</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">keyValuePairs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Bob&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;age&#39;</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;21&#39;</span><span class="p">};</span>
 
-<span class="kd">var</span><span class="w"> </span><span class="nx">callback</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">responseText</span><span class="p">,</span><span class="w"> </span><span class="nx">url</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="c1">// write your own handler for success of HTTP POST</span><span class="w"></span>
-<span class="w">  </span><span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;responseText from url &#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">url</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s1">&#39;:\n&#39;</span><span class="w"></span>
-<span class="w">        </span><span class="o">+</span><span class="w"> </span><span class="nx">responseText</span><span class="p">);</span><span class="w"></span>
-<span class="p">};</span><span class="w"></span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">callback</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">responseText</span><span class="p">,</span><span class="w"> </span><span class="nx">url</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">// write your own handler for success of HTTP POST</span>
+<span class="w">  </span><span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;responseText from url &#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">url</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s1">&#39;:\n&#39;</span>
+<span class="w">        </span><span class="o">+</span><span class="w"> </span><span class="nx">responseText</span><span class="p">);</span>
+<span class="p">};</span>
 
-<span class="kd">var</span><span class="w"> </span><span class="nx">failCallback</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">url</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="c1">// write your own handler for failure of HTTP POST</span><span class="w"></span>
-<span class="w">  </span><span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;fail to post &#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">url</span><span class="p">);</span><span class="w"></span>
-<span class="p">};</span><span class="w"></span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">failCallback</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">url</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">// write your own handler for failure of HTTP POST</span>
+<span class="w">  </span><span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;fail to post &#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">url</span><span class="p">);</span>
+<span class="p">};</span>
 
-<span class="nx">HTTPPOST</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span><span class="w"> </span><span class="nx">keyValuePairs</span><span class="p">,</span><span class="w"> </span><span class="nx">callback</span><span class="p">,</span><span class="w"> </span><span class="nx">failCallback</span><span class="p">);</span><span class="w"></span>
+<span class="nx">HTTPPOST</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span><span class="w"> </span><span class="nx">keyValuePairs</span><span class="p">,</span><span class="w"> </span><span class="nx">callback</span><span class="p">,</span><span class="w"> </span><span class="nx">failCallback</span><span class="p">);</span>
 </pre></div></td></tr></table></div>
 </div></figure>
 <p>Note that you can only make requests in the same domain. To make cross-domain

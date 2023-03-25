@@ -55,26 +55,26 @@
 
     <div class="main-content"><p>Example <a class="footnote-reference" href="#footnote-1" id="footnote-reference-1">[1]</a> of <a class="reference external" href="https://www.google.com/search?q=Makefile">Makefile</a> rules for Go linters. Make it a post for search engine
 friendliness.</p>
-<div class="reddit-embed" data-embed-media="www.redditmedia.com" data-embed-parent="false" data-embed-live="false" data-embed-uuid="10d5c777-cbb9-4ae5-a4c3-76127d21d247" data-embed-created="2017-05-10T08:25:21.134Z"><a href="https://www.reddit.com/r/golang/comments/621gk6/linters_do_not_get_attention_they_deserve/dfjub71/">Comment</a> from discussion <a href="https://www.reddit.com/r/golang/comments/621gk6/linters_do_not_get_attention_they_deserve/">Linters do not get attention they deserve</a>.</div><script async src="https://www.redditstatic.com/comment-embed.js"></script><div class="highlight"><pre><span></span><span class="nv">PACKAGES</span><span class="o">=</span><span class="k">$(</span>shell go list ./... <span class="p">|</span> grep -v /vendor<span class="k">)</span>
+<div class="reddit-embed" data-embed-media="www.redditmedia.com" data-embed-parent="false" data-embed-live="false" data-embed-uuid="10d5c777-cbb9-4ae5-a4c3-76127d21d247" data-embed-created="2017-05-10T08:25:21.134Z"><a href="https://www.reddit.com/r/golang/comments/621gk6/linters_do_not_get_attention_they_deserve/dfjub71/">Comment</a> from discussion <a href="https://www.reddit.com/r/golang/comments/621gk6/linters_do_not_get_attention_they_deserve/">Linters do not get attention they deserve</a>.</div><script async src="https://www.redditstatic.com/comment-embed.js"></script><div class="highlight"><pre><span></span><span class="nv">PACKAGES</span><span class="o">=</span><span class="k">$(</span>shell<span class="w"> </span>go<span class="w"> </span>list<span class="w"> </span>./...<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-v<span class="w"> </span>/vendor<span class="k">)</span>
 
-<span class="nf">check</span><span class="o">:</span>  <span class="c">## Check the code using various linters and static checkers.</span>
-      @echo <span class="s2">&quot;Running gofmt...&quot;</span>
-      @gofmt -d <span class="k">$(</span>shell find . -type f -name <span class="s1">&#39;*.go&#39;</span> -not -path <span class="s2">&quot;./vendor/*&quot;</span><span class="k">)</span>
+<span class="nf">check</span><span class="o">:</span><span class="w">  </span><span class="c">## Check the code using various linters and static checkers.</span>
+<span class="w">      </span>@echo<span class="w"> </span><span class="s2">&quot;Running gofmt...&quot;</span>
+<span class="w">      </span>@gofmt<span class="w"> </span>-d<span class="w"> </span><span class="k">$(</span>shell<span class="w"> </span>find<span class="w"> </span>.<span class="w"> </span>-type<span class="w"> </span>f<span class="w"> </span>-name<span class="w"> </span><span class="s1">&#39;*.go&#39;</span><span class="w"> </span>-not<span class="w"> </span>-path<span class="w"> </span><span class="s2">&quot;./vendor/*&quot;</span><span class="k">)</span>
 
-      @echo <span class="s2">&quot;Running go vet...&quot;</span>
-      @for package <span class="k">in</span> <span class="k">$(</span>PACKAGES<span class="k">)</span><span class="p">;</span>  <span class="k">do</span> <span class="se">\</span>
-              go vet -v <span class="nv">$$</span>package <span class="o">||</span> <span class="nb">exit</span> <span class="m">1</span><span class="p">;</span> <span class="se">\</span>
-      <span class="k">done</span>
+<span class="w">      </span>@echo<span class="w"> </span><span class="s2">&quot;Running go vet...&quot;</span>
+<span class="w">      </span>@for<span class="w"> </span>package<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="k">$(</span>PACKAGES<span class="k">)</span><span class="p">;</span><span class="w">  </span><span class="k">do</span><span class="w"> </span><span class="se">\</span>
+<span class="w">              </span>go<span class="w"> </span>vet<span class="w"> </span>-v<span class="w"> </span><span class="nv">$$</span>package<span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">exit</span><span class="w"> </span><span class="m">1</span><span class="p">;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">      </span><span class="k">done</span>
 
-      @echo <span class="s2">&quot;Running golint...&quot;</span>
-      @for package <span class="k">in</span> <span class="k">$(</span>PACKAGES<span class="k">)</span><span class="p">;</span> <span class="k">do</span> <span class="se">\</span>
-              golint -set_exit_status <span class="nv">$$</span>package <span class="o">||</span> <span class="nb">exit</span> <span class="m">1</span><span class="p">;</span> <span class="se">\</span>
-      <span class="k">done</span>
+<span class="w">      </span>@echo<span class="w"> </span><span class="s2">&quot;Running golint...&quot;</span>
+<span class="w">      </span>@for<span class="w"> </span>package<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="k">$(</span>PACKAGES<span class="k">)</span><span class="p">;</span><span class="w"> </span><span class="k">do</span><span class="w"> </span><span class="se">\</span>
+<span class="w">              </span>golint<span class="w"> </span>-set_exit_status<span class="w"> </span><span class="nv">$$</span>package<span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">exit</span><span class="w"> </span><span class="m">1</span><span class="p">;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">      </span><span class="k">done</span>
 
-      @echo <span class="s2">&quot;Running errcheck...&quot;</span>
-      @for package <span class="k">in</span> <span class="k">$(</span>PACKAGES<span class="k">)</span><span class="p">;</span> <span class="k">do</span> <span class="se">\</span>
-              errcheck -ignore <span class="s1">&#39;Close&#39;</span> -ignoretests <span class="nv">$$</span>package <span class="o">||</span> <span class="nb">exit</span> <span class="m">1</span><span class="p">;</span> <span class="se">\</span>
-      <span class="k">done</span>
+<span class="w">      </span>@echo<span class="w"> </span><span class="s2">&quot;Running errcheck...&quot;</span>
+<span class="w">      </span>@for<span class="w"> </span>package<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="k">$(</span>PACKAGES<span class="k">)</span><span class="p">;</span><span class="w"> </span><span class="k">do</span><span class="w"> </span><span class="se">\</span>
+<span class="w">              </span>errcheck<span class="w"> </span>-ignore<span class="w"> </span><span class="s1">&#39;Close&#39;</span><span class="w"> </span>-ignoretests<span class="w"> </span><span class="nv">$$</span>package<span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">exit</span><span class="w"> </span><span class="m">1</span><span class="p">;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">      </span><span class="k">done</span>
 </pre></div>
 <p>References:</p>
 <table class="docutils footnote" frame="void" id="footnote-1" rules="none">

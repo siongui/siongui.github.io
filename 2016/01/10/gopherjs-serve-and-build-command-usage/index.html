@@ -56,57 +56,57 @@
 command. I gave the <em>serve</em> and <em>build</em> command a try and give a summary of the
 usage.</p>
 <p>First we see the <em>help</em> of <em>gopherjs</em> command line tool:</p>
-<div class="highlight"><pre><span></span>$ gopherjs <span class="nb">help</span>
-GopherJS is a tool <span class="k">for</span> compiling Go <span class="nb">source</span> code to JavaScript.
+<div class="highlight"><pre><span></span>$<span class="w"> </span>gopherjs<span class="w"> </span><span class="nb">help</span>
+GopherJS<span class="w"> </span>is<span class="w"> </span>a<span class="w"> </span>tool<span class="w"> </span><span class="k">for</span><span class="w"> </span>compiling<span class="w"> </span>Go<span class="w"> </span><span class="nb">source</span><span class="w"> </span>code<span class="w"> </span>to<span class="w"> </span>JavaScript.
 
 Usage:
-  gopherjs <span class="o">[</span>command<span class="o">]</span>
+<span class="w">  </span>gopherjs<span class="w"> </span><span class="o">[</span>command<span class="o">]</span>
 
-Available Commands:
-  build       compile packages and dependencies
-  get         download and install packages and dependencies
-  install     compile and install packages and dependencies
-  run         compile and run Go program
-  <span class="nb">test</span>        <span class="nb">test</span> packages
-  tool        run specified go tool
-  serve       compile on-the-fly and serve
+Available<span class="w"> </span>Commands:
+<span class="w">  </span>build<span class="w">       </span>compile<span class="w"> </span>packages<span class="w"> </span>and<span class="w"> </span>dependencies
+<span class="w">  </span>get<span class="w">         </span>download<span class="w"> </span>and<span class="w"> </span>install<span class="w"> </span>packages<span class="w"> </span>and<span class="w"> </span>dependencies
+<span class="w">  </span>install<span class="w">     </span>compile<span class="w"> </span>and<span class="w"> </span>install<span class="w"> </span>packages<span class="w"> </span>and<span class="w"> </span>dependencies
+<span class="w">  </span>run<span class="w">         </span>compile<span class="w"> </span>and<span class="w"> </span>run<span class="w"> </span>Go<span class="w"> </span>program
+<span class="w">  </span><span class="nb">test</span><span class="w">        </span><span class="nb">test</span><span class="w"> </span>packages
+<span class="w">  </span>tool<span class="w">        </span>run<span class="w"> </span>specified<span class="w"> </span>go<span class="w"> </span>tool
+<span class="w">  </span>serve<span class="w">       </span>compile<span class="w"> </span>on-the-fly<span class="w"> </span>and<span class="w"> </span>serve
 
 Flags:
-      --color         colored output <span class="o">(</span>default <span class="nb">true</span><span class="o">)</span>
-  -m, --minify        minify generated code
-  -q, --quiet         suppress non-fatal warnings
-      --tags string   a list of build tags to consider satisfied during the build
-  -v, --verbose       print the names of packages as they are compiled
-  -w, --watch         watch <span class="k">for</span> changes to the <span class="nb">source</span> files
+<span class="w">      </span>--color<span class="w">         </span>colored<span class="w"> </span>output<span class="w"> </span><span class="o">(</span>default<span class="w"> </span><span class="nb">true</span><span class="o">)</span>
+<span class="w">  </span>-m,<span class="w"> </span>--minify<span class="w">        </span>minify<span class="w"> </span>generated<span class="w"> </span>code
+<span class="w">  </span>-q,<span class="w"> </span>--quiet<span class="w">         </span>suppress<span class="w"> </span>non-fatal<span class="w"> </span>warnings
+<span class="w">      </span>--tags<span class="w"> </span>string<span class="w">   </span>a<span class="w"> </span>list<span class="w"> </span>of<span class="w"> </span>build<span class="w"> </span>tags<span class="w"> </span>to<span class="w"> </span>consider<span class="w"> </span>satisfied<span class="w"> </span>during<span class="w"> </span>the<span class="w"> </span>build
+<span class="w">  </span>-v,<span class="w"> </span>--verbose<span class="w">       </span>print<span class="w"> </span>the<span class="w"> </span>names<span class="w"> </span>of<span class="w"> </span>packages<span class="w"> </span>as<span class="w"> </span>they<span class="w"> </span>are<span class="w"> </span>compiled
+<span class="w">  </span>-w,<span class="w"> </span>--watch<span class="w">         </span>watch<span class="w"> </span><span class="k">for</span><span class="w"> </span>changes<span class="w"> </span>to<span class="w"> </span>the<span class="w"> </span><span class="nb">source</span><span class="w"> </span>files
 
-Use <span class="s2">&quot;gopherjs [command] --help&quot;</span> <span class="k">for</span> more information about a command.
+Use<span class="w"> </span><span class="s2">&quot;gopherjs [command] --help&quot;</span><span class="w"> </span><span class="k">for</span><span class="w"> </span>more<span class="w"> </span>information<span class="w"> </span>about<span class="w"> </span>a<span class="w"> </span>command.
 </pre></div>
 
 <div class="section" id="build-command-usage">
 <h2>Build Command Usage</h2>
 <p>We will try <em>build</em> command first. See the help of <em>build</em> command first:</p>
-<div class="highlight"><pre><span></span>$ gopherjs build --help
-compile packages and dependencies
+<div class="highlight"><pre><span></span>$<span class="w"> </span>gopherjs<span class="w"> </span>build<span class="w"> </span>--help
+compile<span class="w"> </span>packages<span class="w"> </span>and<span class="w"> </span>dependencies
 
 Usage:
-  gopherjs build <span class="o">[</span>packages<span class="o">]</span> <span class="o">[</span>flags<span class="o">]</span>
+<span class="w">  </span>gopherjs<span class="w"> </span>build<span class="w"> </span><span class="o">[</span>packages<span class="o">]</span><span class="w"> </span><span class="o">[</span>flags<span class="o">]</span>
 
 Flags:
-      --color           colored output <span class="o">(</span>default <span class="nb">true</span><span class="o">)</span>
-  -m, --minify          minify generated code
-  -o, --output string   output file
-  -q, --quiet           suppress non-fatal warnings
-      --tags string     a list of build tags to consider satisfied during the build
-  -v, --verbose         print the names of packages as they are compiled
-  -w, --watch           watch <span class="k">for</span> changes to the <span class="nb">source</span> files
+<span class="w">      </span>--color<span class="w">           </span>colored<span class="w"> </span>output<span class="w"> </span><span class="o">(</span>default<span class="w"> </span><span class="nb">true</span><span class="o">)</span>
+<span class="w">  </span>-m,<span class="w"> </span>--minify<span class="w">          </span>minify<span class="w"> </span>generated<span class="w"> </span>code
+<span class="w">  </span>-o,<span class="w"> </span>--output<span class="w"> </span>string<span class="w">   </span>output<span class="w"> </span>file
+<span class="w">  </span>-q,<span class="w"> </span>--quiet<span class="w">           </span>suppress<span class="w"> </span>non-fatal<span class="w"> </span>warnings
+<span class="w">      </span>--tags<span class="w"> </span>string<span class="w">     </span>a<span class="w"> </span>list<span class="w"> </span>of<span class="w"> </span>build<span class="w"> </span>tags<span class="w"> </span>to<span class="w"> </span>consider<span class="w"> </span>satisfied<span class="w"> </span>during<span class="w"> </span>the<span class="w"> </span>build
+<span class="w">  </span>-v,<span class="w"> </span>--verbose<span class="w">         </span>print<span class="w"> </span>the<span class="w"> </span>names<span class="w"> </span>of<span class="w"> </span>packages<span class="w"> </span>as<span class="w"> </span>they<span class="w"> </span>are<span class="w"> </span>compiled
+<span class="w">  </span>-w,<span class="w"> </span>--watch<span class="w">           </span>watch<span class="w"> </span><span class="k">for</span><span class="w"> </span>changes<span class="w"> </span>to<span class="w"> </span>the<span class="w"> </span><span class="nb">source</span><span class="w"> </span>files
 </pre></div>
 <p>Now I have a <a class="reference external" href="https://golang.org/">Go</a> program named <tt class="docutils literal">dom.js</tt>, put under <tt class="docutils literal">.</tt> directory. Compile
 this file to JavaScript by:</p>
-<div class="highlight"><pre><span></span>$ gopherjs build dom.go -o dom.js
+<div class="highlight"><pre><span></span>$<span class="w"> </span>gopherjs<span class="w"> </span>build<span class="w"> </span>dom.go<span class="w"> </span>-o<span class="w"> </span>dom.js
 </pre></div>
 <p>The JavaScript output file will be <tt class="docutils literal">dom.js</tt>, put under <tt class="docutils literal">.</tt> directory.</p>
 <p>Next we try the <strong>-w</strong> flag of <em>build</em> command:</p>
-<div class="highlight"><pre><span></span>$ gopherjs build dom.go -w -o dom.js
+<div class="highlight"><pre><span></span>$<span class="w"> </span>gopherjs<span class="w"> </span>build<span class="w"> </span>dom.go<span class="w"> </span>-w<span class="w"> </span>-o<span class="w"> </span>dom.js
 </pre></div>
 <p>The GopherJS command line tool will watch the directory, and if you make any
 changes of <tt class="docutils literal">dom.go</tt>, it will automatically recompile the <a class="reference external" href="https://golang.org/">Go</a> code to
@@ -114,7 +114,7 @@ JavaScript. This feature is great for daily development.</p>
 <p>Assume <em>GOPATH</em> is set, and you put the <tt class="docutils literal">dom.go</tt> under <tt class="docutils literal"><span class="pre">$(GOPATH)/src/demo</span></tt>
 directory, you can tell GopherJS command line tool to look for the <em>demo</em>
 directory by:</p>
-<div class="highlight"><pre><span></span>$ gopherjs build demo -w -o src/demo/dom.js
+<div class="highlight"><pre><span></span>$<span class="w"> </span>gopherjs<span class="w"> </span>build<span class="w"> </span>demo<span class="w"> </span>-w<span class="w"> </span>-o<span class="w"> </span>src/demo/dom.js
 </pre></div>
 <p>The command line tool will compile the <tt class="docutils literal">dom.go</tt> under <tt class="docutils literal"><span class="pre">$(GOPATH)/src/demo</span></tt>
 and the JavaScript output file will be <tt class="docutils literal"><span class="pre">$(GOPATH)/src/demo/dom.js</span></tt>.</p>
@@ -123,31 +123,31 @@ and the JavaScript output file will be <tt class="docutils literal"><span class=
 <div class="section" id="serve-command-usage">
 <h2>Serve Command Usage</h2>
 <p>See the <em>help</em> of <em>serve</em> command first:</p>
-<div class="highlight"><pre><span></span>$ gopherjs serve --help
-compile on-the-fly and serve
+<div class="highlight"><pre><span></span>$<span class="w"> </span>gopherjs<span class="w"> </span>serve<span class="w"> </span>--help
+compile<span class="w"> </span>on-the-fly<span class="w"> </span>and<span class="w"> </span>serve
 
 Usage:
-  gopherjs serve <span class="o">[</span>flags<span class="o">]</span>
+<span class="w">  </span>gopherjs<span class="w"> </span>serve<span class="w"> </span><span class="o">[</span>flags<span class="o">]</span>
 
 Flags:
-      --color         colored output <span class="o">(</span>default <span class="nb">true</span><span class="o">)</span>
-      --http string   HTTP <span class="nb">bind</span> address to serve <span class="o">(</span>default <span class="s2">&quot;:8080&quot;</span><span class="o">)</span>
-  -m, --minify        minify generated code
-  -q, --quiet         suppress non-fatal warnings
-      --tags string   a list of build tags to consider satisfied during the build
-  -v, --verbose       print the names of packages as they are compiled
+<span class="w">      </span>--color<span class="w">         </span>colored<span class="w"> </span>output<span class="w"> </span><span class="o">(</span>default<span class="w"> </span><span class="nb">true</span><span class="o">)</span>
+<span class="w">      </span>--http<span class="w"> </span>string<span class="w">   </span>HTTP<span class="w"> </span><span class="nb">bind</span><span class="w"> </span>address<span class="w"> </span>to<span class="w"> </span>serve<span class="w"> </span><span class="o">(</span>default<span class="w"> </span><span class="s2">&quot;:8080&quot;</span><span class="o">)</span>
+<span class="w">  </span>-m,<span class="w"> </span>--minify<span class="w">        </span>minify<span class="w"> </span>generated<span class="w"> </span>code
+<span class="w">  </span>-q,<span class="w"> </span>--quiet<span class="w">         </span>suppress<span class="w"> </span>non-fatal<span class="w"> </span>warnings
+<span class="w">      </span>--tags<span class="w"> </span>string<span class="w">   </span>a<span class="w"> </span>list<span class="w"> </span>of<span class="w"> </span>build<span class="w"> </span>tags<span class="w"> </span>to<span class="w"> </span>consider<span class="w"> </span>satisfied<span class="w"> </span>during<span class="w"> </span>the<span class="w"> </span>build
+<span class="w">  </span>-v,<span class="w"> </span>--verbose<span class="w">       </span>print<span class="w"> </span>the<span class="w"> </span>names<span class="w"> </span>of<span class="w"> </span>packages<span class="w"> </span>as<span class="w"> </span>they<span class="w"> </span>are<span class="w"> </span>compiled
 
-Global Flags:
-  -w, --watch   watch <span class="k">for</span> changes to the <span class="nb">source</span> files
+Global<span class="w"> </span>Flags:
+<span class="w">  </span>-w,<span class="w"> </span>--watch<span class="w">   </span>watch<span class="w"> </span><span class="k">for</span><span class="w"> </span>changes<span class="w"> </span>to<span class="w"> </span>the<span class="w"> </span><span class="nb">source</span><span class="w"> </span>files
 </pre></div>
 <p>Run the command without any flag:</p>
-<div class="highlight"><pre><span></span>$ gopherjs serve
+<div class="highlight"><pre><span></span>$<span class="w"> </span>gopherjs<span class="w"> </span>serve
 </pre></div>
 <p>The GopherJS command line tool will serve <tt class="docutils literal"><span class="pre">$(GOPATH)/src</span></tt> directory by
 default. It looks like there is no way to change the serving directory. Open
 your browser at <tt class="docutils literal"><span class="pre">http://localhost:8080</span></tt> to visit the webpage.</p>
 <p>I like to visit the webpage at <tt class="docutils literal"><span class="pre">http://localhost:8000</span></tt>. Change the port by:</p>
-<div class="highlight"><pre><span></span>$ gopherjs serve --http <span class="s2">&quot;:8000&quot;</span>
+<div class="highlight"><pre><span></span>$<span class="w"> </span>gopherjs<span class="w"> </span>serve<span class="w"> </span>--http<span class="w"> </span><span class="s2">&quot;:8000&quot;</span>
 </pre></div>
 <p>I try to run the <em>serve</em> command with <strong>-w</strong> flag but it looks like the command
 line tool did not watch the changes and recompile for me. So I guess the <strong>-w</strong>

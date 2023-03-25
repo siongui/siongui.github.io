@@ -66,11 +66,11 @@
 <span class="normal">4</span>
 <span class="normal">5</span>
 <span class="normal">6</span></pre></div></td><td class="code"><div><pre><span></span><span class="nv">PACKAGE_NAME</span><span class="o">=</span>python
-<span class="nv">PACKAGE_VERSION</span><span class="o">=</span><span class="k">$(</span>strip <span class="k">$(</span>shell apt-cache policy <span class="k">$(</span>PACKAGE_NAME<span class="k">)</span> <span class="p">|</span> grep Installed: <span class="p">|</span> cut -d: -f2<span class="k">))</span>
+<span class="nv">PACKAGE_VERSION</span><span class="o">=</span><span class="k">$(</span>strip<span class="w"> </span><span class="k">$(</span>shell<span class="w"> </span>apt-cache<span class="w"> </span>policy<span class="w"> </span><span class="k">$(</span>PACKAGE_NAME<span class="k">)</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>Installed:<span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d:<span class="w"> </span>-f2<span class="k">))</span>
 
 <span class="nf">default</span><span class="o">:</span>
-	@echo <span class="s2">&quot;package name: \033[92m</span><span class="k">$(</span>PACKAGE_NAME<span class="k">)</span><span class="s2">\033[0m&quot;</span>
-	@echo <span class="s2">&quot;package version: \033[92m</span><span class="k">$(</span>PACKAGE_VERSION<span class="k">)</span><span class="s2">\033[0m&quot;</span>
+<span class="w">	</span>@echo<span class="w"> </span><span class="s2">&quot;package name: \033[92m</span><span class="k">$(</span>PACKAGE_NAME<span class="k">)</span><span class="s2">\033[0m&quot;</span>
+<span class="w">	</span>@echo<span class="w"> </span><span class="s2">&quot;package version: \033[92m</span><span class="k">$(</span>PACKAGE_VERSION<span class="k">)</span><span class="s2">\033[0m&quot;</span>
 </pre></div></td></tr></table></div>
 </div></figure><p>Note that <a class="reference external" href="https://www.gnu.org/software/make/manual/html_node/Text-Functions.html">strip text function</a> is used to remove spaces of the string.</p>
 

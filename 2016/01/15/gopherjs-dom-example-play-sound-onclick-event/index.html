@@ -65,8 +65,8 @@ posts in <a class="reference internal" href="#gopherjs-dom-example-series">Gophe
 <h2>Install <a class="reference external" href="http://www.gopherjs.org/">GopherJS</a> and <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model">DOM</a> bindings</h2>
 <p>Run the following command to install <a class="reference external" href="http://www.gopherjs.org/">GopherJS</a> and
 <a class="reference external" href="https://godoc.org/honnef.co/go/js/dom">GopherJS bindings for the JavaScript DOM APIs</a>:</p>
-<div class="highlight"><pre><span></span>$ go get -u github.com/gopherjs/gopherjs
-$ go get -u honnef.co/go/js/dom
+<div class="highlight"><pre><span></span>$<span class="w"> </span>go<span class="w"> </span>get<span class="w"> </span>-u<span class="w"> </span>github.com/gopherjs/gopherjs
+$<span class="w"> </span>go<span class="w"> </span>get<span class="w"> </span>-u<span class="w"> </span>honnef.co/go/js/dom
 </pre></div>
 </div>
 <div class="section" id="source-code">
@@ -135,25 +135,25 @@ will be called to play the sound of the mp3 file, which is
 <span class="normal">12</span>
 <span class="normal">13</span>
 <span class="normal">14</span>
-<span class="normal">15</span></pre></div></td><td class="code"><div><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w"></span>
+<span class="normal">15</span></pre></div></td><td class="code"><div><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span>
 
-<span class="kn">import</span><span class="w"> </span><span class="s">&quot;honnef.co/go/js/dom&quot;</span><span class="w"></span>
+<span class="kn">import</span><span class="w"> </span><span class="s">&quot;honnef.co/go/js/dom&quot;</span>
 
-<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">	</span><span class="nx">d</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">dom</span><span class="p">.</span><span class="nx">GetWindow</span><span class="p">().</span><span class="nx">Document</span><span class="p">()</span><span class="w"></span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">	</span><span class="nx">d</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">dom</span><span class="p">.</span><span class="nx">GetWindow</span><span class="p">().</span><span class="nx">Document</span><span class="p">()</span>
 
-<span class="w">	</span><span class="nx">foo</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">d</span><span class="p">.</span><span class="nx">GetElementByID</span><span class="p">(</span><span class="s">&quot;foo&quot;</span><span class="p">).(</span><span class="o">*</span><span class="nx">dom</span><span class="p">.</span><span class="nx">HTMLButtonElement</span><span class="p">)</span><span class="w"></span>
-<span class="w">	</span><span class="nx">foo</span><span class="p">.</span><span class="nx">AddEventListener</span><span class="p">(</span><span class="s">&quot;click&quot;</span><span class="p">,</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="nx">event</span><span class="w"> </span><span class="nx">dom</span><span class="p">.</span><span class="nx">Event</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">		</span><span class="nx">a</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">d</span><span class="p">.</span><span class="nx">GetElementByID</span><span class="p">(</span><span class="s">&quot;audio&quot;</span><span class="p">).(</span><span class="o">*</span><span class="nx">dom</span><span class="p">.</span><span class="nx">HTMLAudioElement</span><span class="p">)</span><span class="w"></span>
-<span class="w">		</span><span class="c1">// already specify source in audio tag, no need to set src</span><span class="w"></span>
-<span class="w">		</span><span class="c1">//a.SetAttribute(&quot;src&quot;, &quot;Wat_Metta_Buddha_Qualities.mp3&quot;)</span><span class="w"></span>
-<span class="w">		</span><span class="nx">a</span><span class="p">.</span><span class="nx">Play</span><span class="p">()</span><span class="w"></span>
-<span class="w">	</span><span class="p">})</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">	</span><span class="nx">foo</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">d</span><span class="p">.</span><span class="nx">GetElementByID</span><span class="p">(</span><span class="s">&quot;foo&quot;</span><span class="p">).(</span><span class="o">*</span><span class="nx">dom</span><span class="p">.</span><span class="nx">HTMLButtonElement</span><span class="p">)</span>
+<span class="w">	</span><span class="nx">foo</span><span class="p">.</span><span class="nx">AddEventListener</span><span class="p">(</span><span class="s">&quot;click&quot;</span><span class="p">,</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="nx">event</span><span class="w"> </span><span class="nx">dom</span><span class="p">.</span><span class="nx">Event</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">		</span><span class="nx">a</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">d</span><span class="p">.</span><span class="nx">GetElementByID</span><span class="p">(</span><span class="s">&quot;audio&quot;</span><span class="p">).(</span><span class="o">*</span><span class="nx">dom</span><span class="p">.</span><span class="nx">HTMLAudioElement</span><span class="p">)</span>
+<span class="w">		</span><span class="c1">// already specify source in audio tag, no need to set src</span>
+<span class="w">		</span><span class="c1">//a.SetAttribute(&quot;src&quot;, &quot;Wat_Metta_Buddha_Qualities.mp3&quot;)</span>
+<span class="w">		</span><span class="nx">a</span><span class="p">.</span><span class="nx">Play</span><span class="p">()</span>
+<span class="w">	</span><span class="p">})</span>
+<span class="p">}</span>
 </pre></div></td></tr></table></div>
 </div></figure>
 <p>Compile the <a class="reference external" href="https://golang.org/">Go</a> code to <a class="reference external" href="https://en.wikipedia.org/wiki/JavaScript">JavaScript</a> by:</p>
-<div class="highlight"><pre><span></span>$ gopherjs build play.go -o demo.js
+<div class="highlight"><pre><span></span>$<span class="w"> </span>gopherjs<span class="w"> </span>build<span class="w"> </span>play.go<span class="w"> </span>-o<span class="w"> </span>demo.js
 </pre></div>
 <p>Put <em>demo.js</em> together with the <em>index.html</em> and the mp3 file in the same
 directory. Open the <em>index.html</em> with your browser. Click the button and you

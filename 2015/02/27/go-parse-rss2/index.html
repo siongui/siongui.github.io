@@ -114,64 +114,64 @@
 <span class="normal">48</span>
 <span class="normal">49</span>
 <span class="normal">50</span>
-<span class="normal">51</span></pre></div></td><td class="code"><div><pre><span></span><span class="c1">// http://www.w3schools.com/rss/default.asp</span><span class="w"></span>
-<span class="c1">// http://www.tutorialspoint.com/rss/what-is-atom.htm</span><span class="w"></span>
-<span class="c1">// http://stackoverflow.com/questions/16309944/atom-to-rss-feeds-converter</span><span class="w"></span>
-<span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w"></span>
+<span class="normal">51</span></pre></div></td><td class="code"><div><pre><span></span><span class="c1">// http://www.w3schools.com/rss/default.asp</span>
+<span class="c1">// http://www.tutorialspoint.com/rss/what-is-atom.htm</span>
+<span class="c1">// http://stackoverflow.com/questions/16309944/atom-to-rss-feeds-converter</span>
+<span class="kn">package</span><span class="w"> </span><span class="nx">main</span>
 
-<span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
-<span class="w">	</span><span class="s">&quot;io/ioutil&quot;</span><span class="w"></span>
-<span class="w">	</span><span class="s">&quot;encoding/xml&quot;</span><span class="w"></span>
-<span class="w">	</span><span class="s">&quot;html/template&quot;</span><span class="w"></span>
-<span class="w">	</span><span class="s">&quot;fmt&quot;</span><span class="w"></span>
-<span class="p">)</span><span class="w"></span>
-
-
-<span class="c1">// http://www.w3schools.com/rss/rss_syntax.asp</span><span class="w"></span>
-<span class="c1">// http://www.w3schools.com/rss/rss_channel.asp</span><span class="w"></span>
-<span class="kd">type</span><span class="w"> </span><span class="nx">Rss2</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">	</span><span class="nx">XMLName</span><span class="w">		</span><span class="nx">xml</span><span class="p">.</span><span class="nx">Name</span><span class="w">	</span><span class="s">`xml:&quot;rss&quot;`</span><span class="w"></span>
-<span class="w">	</span><span class="nx">Version</span><span class="w">		</span><span class="kt">string</span><span class="w">		</span><span class="s">`xml:&quot;version,attr&quot;`</span><span class="w"></span>
-<span class="w">	</span><span class="c1">// Required</span><span class="w"></span>
-<span class="w">	</span><span class="nx">Title</span><span class="w">		</span><span class="kt">string</span><span class="w">		</span><span class="s">`xml:&quot;channel&gt;title&quot;`</span><span class="w"></span>
-<span class="w">	</span><span class="nx">Link</span><span class="w">		</span><span class="kt">string</span><span class="w">		</span><span class="s">`xml:&quot;channel&gt;link&quot;`</span><span class="w"></span>
-<span class="w">	</span><span class="nx">Description</span><span class="w">	</span><span class="kt">string</span><span class="w">		</span><span class="s">`xml:&quot;channel&gt;description&quot;`</span><span class="w"></span>
-<span class="w">	</span><span class="c1">// Optional</span><span class="w"></span>
-<span class="w">	</span><span class="nx">PubDate</span><span class="w">		</span><span class="kt">string</span><span class="w">		</span><span class="s">`xml:&quot;channel&gt;pubDate&quot;`</span><span class="w"></span>
-<span class="w">	</span><span class="nx">ItemList</span><span class="w">	</span><span class="p">[]</span><span class="nx">Item</span><span class="w">		</span><span class="s">`xml:&quot;channel&gt;item&quot;`</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
-
-<span class="c1">// http://www.w3schools.com/rss/rss_item.asp</span><span class="w"></span>
-<span class="c1">// http://stackoverflow.com/questions/7220670/difference-between-description-and-contentencoded-tags-in-rss2</span><span class="w"></span>
-<span class="c1">// https://groups.google.com/d/topic/golang-nuts/uBMo1BpaQCM</span><span class="w"></span>
-<span class="kd">type</span><span class="w"> </span><span class="nx">Item</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">	</span><span class="c1">// Required</span><span class="w"></span>
-<span class="w">	</span><span class="nx">Title</span><span class="w">		</span><span class="kt">string</span><span class="w">		</span><span class="s">`xml:&quot;title&quot;`</span><span class="w"></span>
-<span class="w">	</span><span class="nx">Link</span><span class="w">		</span><span class="kt">string</span><span class="w">		</span><span class="s">`xml:&quot;link&quot;`</span><span class="w"></span>
-<span class="w">	</span><span class="nx">Description</span><span class="w">	</span><span class="nx">template</span><span class="p">.</span><span class="nx">HTML</span><span class="w">	</span><span class="s">`xml:&quot;description&quot;`</span><span class="w"></span>
-<span class="w">	</span><span class="c1">// Optional</span><span class="w"></span>
-<span class="w">	</span><span class="nx">Content</span><span class="w">		</span><span class="nx">template</span><span class="p">.</span><span class="nx">HTML</span><span class="w">	</span><span class="s">`xml:&quot;encoded&quot;`</span><span class="w"></span>
-<span class="w">	</span><span class="nx">PubDate</span><span class="w">		</span><span class="kt">string</span><span class="w">		</span><span class="s">`xml:&quot;pubDate&quot;`</span><span class="w"></span>
-<span class="w">	</span><span class="nx">Comments</span><span class="w">	</span><span class="kt">string</span><span class="w">		</span><span class="s">`xml:&quot;comments&quot;`</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span>
+<span class="w">	</span><span class="s">&quot;io/ioutil&quot;</span>
+<span class="w">	</span><span class="s">&quot;encoding/xml&quot;</span>
+<span class="w">	</span><span class="s">&quot;html/template&quot;</span>
+<span class="w">	</span><span class="s">&quot;fmt&quot;</span>
+<span class="p">)</span>
 
 
-<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">	</span><span class="nx">r</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">Rss2</span><span class="p">{}</span><span class="w"></span>
-<span class="w">	</span><span class="nx">xmlContent</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">ioutil</span><span class="p">.</span><span class="nx">ReadFile</span><span class="p">(</span><span class="s">&quot;example-6.xml&quot;</span><span class="p">)</span><span class="w"></span>
-<span class="w">	</span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">xml</span><span class="p">.</span><span class="nx">Unmarshal</span><span class="p">(</span><span class="nx">xmlContent</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">r</span><span class="p">)</span><span class="w"></span>
-<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
-<span class="w">	</span><span class="k">for</span><span class="w"> </span><span class="nx">_</span><span class="p">,</span><span class="w"> </span><span class="nx">item</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="nx">r</span><span class="p">.</span><span class="nx">ItemList</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">		</span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">item</span><span class="p">)</span><span class="w"></span>
-<span class="w">	</span><span class="p">}</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="c1">// http://www.w3schools.com/rss/rss_syntax.asp</span>
+<span class="c1">// http://www.w3schools.com/rss/rss_channel.asp</span>
+<span class="kd">type</span><span class="w"> </span><span class="nx">Rss2</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">	</span><span class="nx">XMLName</span><span class="w">		</span><span class="nx">xml</span><span class="p">.</span><span class="nx">Name</span><span class="w">	</span><span class="s">`xml:&quot;rss&quot;`</span>
+<span class="w">	</span><span class="nx">Version</span><span class="w">		</span><span class="kt">string</span><span class="w">		</span><span class="s">`xml:&quot;version,attr&quot;`</span>
+<span class="w">	</span><span class="c1">// Required</span>
+<span class="w">	</span><span class="nx">Title</span><span class="w">		</span><span class="kt">string</span><span class="w">		</span><span class="s">`xml:&quot;channel&gt;title&quot;`</span>
+<span class="w">	</span><span class="nx">Link</span><span class="w">		</span><span class="kt">string</span><span class="w">		</span><span class="s">`xml:&quot;channel&gt;link&quot;`</span>
+<span class="w">	</span><span class="nx">Description</span><span class="w">	</span><span class="kt">string</span><span class="w">		</span><span class="s">`xml:&quot;channel&gt;description&quot;`</span>
+<span class="w">	</span><span class="c1">// Optional</span>
+<span class="w">	</span><span class="nx">PubDate</span><span class="w">		</span><span class="kt">string</span><span class="w">		</span><span class="s">`xml:&quot;channel&gt;pubDate&quot;`</span>
+<span class="w">	</span><span class="nx">ItemList</span><span class="w">	</span><span class="p">[]</span><span class="nx">Item</span><span class="w">		</span><span class="s">`xml:&quot;channel&gt;item&quot;`</span>
+<span class="p">}</span>
+
+<span class="c1">// http://www.w3schools.com/rss/rss_item.asp</span>
+<span class="c1">// http://stackoverflow.com/questions/7220670/difference-between-description-and-contentencoded-tags-in-rss2</span>
+<span class="c1">// https://groups.google.com/d/topic/golang-nuts/uBMo1BpaQCM</span>
+<span class="kd">type</span><span class="w"> </span><span class="nx">Item</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">	</span><span class="c1">// Required</span>
+<span class="w">	</span><span class="nx">Title</span><span class="w">		</span><span class="kt">string</span><span class="w">		</span><span class="s">`xml:&quot;title&quot;`</span>
+<span class="w">	</span><span class="nx">Link</span><span class="w">		</span><span class="kt">string</span><span class="w">		</span><span class="s">`xml:&quot;link&quot;`</span>
+<span class="w">	</span><span class="nx">Description</span><span class="w">	</span><span class="nx">template</span><span class="p">.</span><span class="nx">HTML</span><span class="w">	</span><span class="s">`xml:&quot;description&quot;`</span>
+<span class="w">	</span><span class="c1">// Optional</span>
+<span class="w">	</span><span class="nx">Content</span><span class="w">		</span><span class="nx">template</span><span class="p">.</span><span class="nx">HTML</span><span class="w">	</span><span class="s">`xml:&quot;encoded&quot;`</span>
+<span class="w">	</span><span class="nx">PubDate</span><span class="w">		</span><span class="kt">string</span><span class="w">		</span><span class="s">`xml:&quot;pubDate&quot;`</span>
+<span class="w">	</span><span class="nx">Comments</span><span class="w">	</span><span class="kt">string</span><span class="w">		</span><span class="s">`xml:&quot;comments&quot;`</span>
+<span class="p">}</span>
+
+
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">	</span><span class="nx">r</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">Rss2</span><span class="p">{}</span>
+<span class="w">	</span><span class="nx">xmlContent</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">ioutil</span><span class="p">.</span><span class="nx">ReadFile</span><span class="p">(</span><span class="s">&quot;example-6.xml&quot;</span><span class="p">)</span>
+<span class="w">	</span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">xml</span><span class="p">.</span><span class="nx">Unmarshal</span><span class="p">(</span><span class="nx">xmlContent</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">r</span><span class="p">)</span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
+<span class="w">	</span><span class="k">for</span><span class="w"> </span><span class="nx">_</span><span class="p">,</span><span class="w"> </span><span class="nx">item</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="nx">r</span><span class="p">.</span><span class="nx">ItemList</span><span class="w"> </span><span class="p">{</span>
+<span class="w">		</span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">item</span><span class="p">)</span>
+<span class="w">	</span><span class="p">}</span>
+<span class="p">}</span>
 </pre></div></td></tr></table></div>
 </div></figure>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p>The following struct fields in <em>Item</em> strcut have the type <em>template.HTML</em></p>
-<div class="highlight"><pre><span></span><span class="nx">Description</span><span class="w"> </span><span class="nx">template</span><span class="p">.</span><span class="nx">HTML</span><span class="w">   </span><span class="s">`xml:&quot;description&quot;`</span><span class="w"></span>
-<span class="nx">Content</span><span class="w">     </span><span class="nx">template</span><span class="p">.</span><span class="nx">HTML</span><span class="w">   </span><span class="s">`xml:&quot;encoded&quot;`</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="nx">Description</span><span class="w"> </span><span class="nx">template</span><span class="p">.</span><span class="nx">HTML</span><span class="w">   </span><span class="s">`xml:&quot;description&quot;`</span>
+<span class="nx">Content</span><span class="w">     </span><span class="nx">template</span><span class="p">.</span><span class="nx">HTML</span><span class="w">   </span><span class="s">`xml:&quot;encoded&quot;`</span>
 </pre></div>
 <p class="last">If <em>template.HTML</em> are replaced with <em>string</em>, the result is the same.</p>
 </div>

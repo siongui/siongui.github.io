@@ -120,19 +120,19 @@
 <h3>獲取網頁內容</h3>
 <p>用 requests 抓取網頁內容只需要一行代碼: r = requests.get(url).</p>
 <p>代碼返回一個 response 對象, 它包含大量有用的屬性. 其中最重要的屬性是 ok 和 content. 如果請求失敗, r.ok 為 False 並且 r.content 包含該錯誤信息. content 代表一個字節流, 做文本處理時, 你最好將它解碼成 utf-8.</p>
-<div class="highlight"><pre><span></span>&gt;&gt;&gt; <span class="nv">r</span> <span class="o">=</span> requests.get<span class="o">(</span><span class="s1">&#39;http://www.c2.com/no-such-page&#39;</span><span class="o">)</span>
-&gt;&gt;&gt; r.ok
+<div class="highlight"><pre><span></span>&gt;&gt;&gt;<span class="w"> </span><span class="nv">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>requests.get<span class="o">(</span><span class="s1">&#39;http://www.c2.com/no-such-page&#39;</span><span class="o">)</span>
+&gt;&gt;&gt;<span class="w"> </span>r.ok
 False
-&gt;&gt;&gt; print<span class="o">(</span>r.content.decode<span class="o">(</span><span class="s1">&#39;utf-8&#39;</span><span class="o">))</span>
-&lt;!DOCTYPE HTML PUBLIC <span class="s2">&quot;-//IETF//DTD HTML 2.0//EN&quot;</span>&gt;
+&gt;&gt;&gt;<span class="w"> </span>print<span class="o">(</span>r.content.decode<span class="o">(</span><span class="s1">&#39;utf-8&#39;</span><span class="o">))</span>
+&lt;!DOCTYPE<span class="w"> </span>HTML<span class="w"> </span>PUBLIC<span class="w"> </span><span class="s2">&quot;-//IETF//DTD HTML 2.0//EN&quot;</span>&gt;
 &lt;html&gt;&lt;head&gt;
-&lt;title&gt;404 Not Found&lt;/title&gt;
+&lt;title&gt;404<span class="w"> </span>Not<span class="w"> </span>Found&lt;/title&gt;
 &lt;/head&gt;&lt;body&gt;
-&lt;h1&gt;Not Found&lt;/h1&gt;
-&lt;p&gt;The requested URL /ggg was not found on this server.&lt;/p&gt;
+&lt;h1&gt;Not<span class="w"> </span>Found&lt;/h1&gt;
+&lt;p&gt;The<span class="w"> </span>requested<span class="w"> </span>URL<span class="w"> </span>/ggg<span class="w"> </span>was<span class="w"> </span>not<span class="w"> </span>found<span class="w"> </span>on<span class="w"> </span>this<span class="w"> </span>server.&lt;/p&gt;
 &lt;hr&gt;
 &lt;address&gt;
-Apache/2.0.52 <span class="o">(</span>CentOS<span class="o">)</span> Server at www.c2.com Port <span class="m">80</span>
+Apache/2.0.52<span class="w"> </span><span class="o">(</span>CentOS<span class="o">)</span><span class="w"> </span>Server<span class="w"> </span>at<span class="w"> </span>www.c2.com<span class="w"> </span>Port<span class="w"> </span><span class="m">80</span>
 &lt;/address&gt;
 &lt;/body&gt;&lt;/html&gt;
 </pre></div>
@@ -155,11 +155,11 @@ Apache/2.0.52 <span class="o">(</span>CentOS<span class="o">)</span> Server at w
     <span class="k">return</span> <span class="n">articles</span>
 </pre></div>
 <p>The following code gets all the articles from my page and prints them (without the common prefix):</p>
-<div class="highlight"><pre><span></span><span class="nv">page</span> <span class="o">=</span> get_page<span class="o">(</span><span class="s1">&#39;https://tutsplus.com/authors/gigi-sayfan&#39;</span><span class="o">)</span>
-<span class="nv">articles</span> <span class="o">=</span> get_page_articles<span class="o">(</span>page<span class="o">)</span>
-<span class="nv">prefix</span> <span class="o">=</span> <span class="s1">&#39;https://code.tutsplus.com/tutorials&#39;</span>
-<span class="k">for</span> a <span class="k">in</span> articles:
-    print<span class="o">(</span>a<span class="o">[</span>len<span class="o">(</span>prefix<span class="o">)</span>:<span class="o">])</span>
+<div class="highlight"><pre><span></span><span class="nv">page</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>get_page<span class="o">(</span><span class="s1">&#39;https://tutsplus.com/authors/gigi-sayfan&#39;</span><span class="o">)</span>
+<span class="nv">articles</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>get_page_articles<span class="o">(</span>page<span class="o">)</span>
+<span class="nv">prefix</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;https://code.tutsplus.com/tutorials&#39;</span>
+<span class="k">for</span><span class="w"> </span>a<span class="w"> </span><span class="k">in</span><span class="w"> </span>articles:
+<span class="w">    </span>print<span class="o">(</span>a<span class="o">[</span>len<span class="o">(</span>prefix<span class="o">)</span>:<span class="o">])</span>
 
 Output:
 

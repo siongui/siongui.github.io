@@ -55,34 +55,34 @@
 
     <div class="main-content"><p>To add a &quot;back to top&quot; link is very easy, just add one line of code in the <a class="reference external" href="https://www.google.com/search?q=HTML">HTML</a>
 document (from <a class="footnote-reference" href="#footnote-1" id="footnote-reference-1">[1]</a>):</p>
-<div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="nx">a</span><span class="w"> </span><span class="nx">href</span><span class="o">=</span><span class="s2">&quot;#&quot;</span><span class="w"> </span><span class="nx">onclick</span><span class="o">=</span><span class="s2">&quot;window.scrollTo(0,0); return false&quot;</span><span class="o">&gt;</span><span class="nx">Back</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">Top</span><span class="o">&lt;</span><span class="err">/a&gt;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="nx">a</span><span class="w"> </span><span class="nx">href</span><span class="o">=</span><span class="s2">&quot;#&quot;</span><span class="w"> </span><span class="nx">onclick</span><span class="o">=</span><span class="s2">&quot;window.scrollTo(0,0); return false&quot;</span><span class="o">&gt;</span><span class="nx">Back</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">Top</span><span class="o">&lt;</span><span class="err">/a&gt;</span>
 </pre></div>
 <p>The above code is &quot;staic&quot;, what if I want to dynamically create a &quot;back to top&quot;
 link?</p>
 <p>It seems pretty easy, so I wrote the following code:</p>
-<div class="highlight"><pre><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">backToTop</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">);</span><span class="w"></span>
-<span class="nx">backToTop</span><span class="p">.</span><span class="nx">href</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;#&quot;</span><span class="p">;</span><span class="w"></span>
-<span class="nx">backToTop</span><span class="p">.</span><span class="nx">onclick</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;window.scrollTo(0,0); return false;&quot;</span><span class="p">;</span><span class="w"></span>
-<span class="nx">backToTop</span><span class="p">.</span><span class="nx">innerHTML</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Back to Top&quot;</span><span class="p">;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">backToTop</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">);</span>
+<span class="nx">backToTop</span><span class="p">.</span><span class="nx">href</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;#&quot;</span><span class="p">;</span>
+<span class="nx">backToTop</span><span class="p">.</span><span class="nx">onclick</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;window.scrollTo(0,0); return false;&quot;</span><span class="p">;</span>
+<span class="nx">backToTop</span><span class="p">.</span><span class="nx">innerHTML</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Back to Top&quot;</span><span class="p">;</span>
 
-<span class="c1">// append backToTop to some element...</span><span class="w"></span>
+<span class="c1">// append backToTop to some element...</span>
 </pre></div>
 <p>This looks exactly the same as above, but actually not. The correct way to write
 &quot;dynamic&quot; version of &quot;back to top&quot; link should be:</p>
-<div class="highlight"><pre><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">backToTop</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">);</span><span class="w"></span>
-<span class="nx">backToTop</span><span class="p">.</span><span class="nx">href</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;#&quot;</span><span class="p">;</span><span class="w"></span>
-<span class="nx">backToTop</span><span class="p">.</span><span class="nx">onclick</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span><span class="nb">window</span><span class="p">.</span><span class="nx">scrollTo</span><span class="p">(</span><span class="mf">0</span><span class="p">,</span><span class="mf">0</span><span class="p">);</span><span class="k">return</span><span class="w"> </span><span class="kc">false</span><span class="p">;};</span><span class="w"></span>
-<span class="nx">backToTop</span><span class="p">.</span><span class="nx">innerHTML</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Back to Top&quot;</span><span class="p">;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">backToTop</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">);</span>
+<span class="nx">backToTop</span><span class="p">.</span><span class="nx">href</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;#&quot;</span><span class="p">;</span>
+<span class="nx">backToTop</span><span class="p">.</span><span class="nx">onclick</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span><span class="nb">window</span><span class="p">.</span><span class="nx">scrollTo</span><span class="p">(</span><span class="mf">0</span><span class="p">,</span><span class="mf">0</span><span class="p">);</span><span class="k">return</span><span class="w"> </span><span class="kc">false</span><span class="p">;};</span>
+<span class="nx">backToTop</span><span class="p">.</span><span class="nx">innerHTML</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Back to Top&quot;</span><span class="p">;</span>
 
-<span class="c1">// append backToTop to some element...</span><span class="w"></span>
+<span class="c1">// append backToTop to some element...</span>
 </pre></div>
 
 <p>Look at the difference closely again:</p>
 <p><strong>Wrong</strong>:</p>
-<div class="highlight"><pre><span></span><span class="nx">backToTop</span><span class="p">.</span><span class="nx">onclick</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;window.scrollTo(0,0); return false;&quot;</span><span class="p">;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="nx">backToTop</span><span class="p">.</span><span class="nx">onclick</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;window.scrollTo(0,0); return false;&quot;</span><span class="p">;</span>
 </pre></div>
 <p><strong>Right</strong>:</p>
-<div class="highlight"><pre><span></span><span class="nx">backToTop</span><span class="p">.</span><span class="nx">onclick</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span><span class="nb">window</span><span class="p">.</span><span class="nx">scrollTo</span><span class="p">(</span><span class="mf">0</span><span class="p">,</span><span class="mf">0</span><span class="p">);</span><span class="k">return</span><span class="w"> </span><span class="kc">false</span><span class="p">;};</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="nx">backToTop</span><span class="p">.</span><span class="nx">onclick</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span><span class="nb">window</span><span class="p">.</span><span class="nx">scrollTo</span><span class="p">(</span><span class="mf">0</span><span class="p">,</span><span class="mf">0</span><span class="p">);</span><span class="k">return</span><span class="w"> </span><span class="kc">false</span><span class="p">;};</span>
 </pre></div>
 <p>If you do it the wrong way as I originally did, once the link is clicked, users
 will be re-directed to &quot;#&quot; before the window is scrolled to top! That means
@@ -91,11 +91,11 @@ This conclusion comes from my trial and error, and I don't know the syntax
 differences of the two versions.</p>
 
 <p>There is another way to create &quot;back to top&quot; link dynamically:</p>
-<div class="highlight"><pre><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">backToTop</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">);</span><span class="w"></span>
-<span class="nx">backToTop</span><span class="p">.</span><span class="nx">href</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;javascript:window.scrollTo(0,0);&quot;</span><span class="p">;</span><span class="w"></span>
-<span class="nx">backToTop</span><span class="p">.</span><span class="nx">innerHTML</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Back to Top&quot;</span><span class="p">;</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">backToTop</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">);</span>
+<span class="nx">backToTop</span><span class="p">.</span><span class="nx">href</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;javascript:window.scrollTo(0,0);&quot;</span><span class="p">;</span>
+<span class="nx">backToTop</span><span class="p">.</span><span class="nx">innerHTML</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Back to Top&quot;</span><span class="p">;</span>
 
-<span class="c1">// append backToTop to some element...</span><span class="w"></span>
+<span class="c1">// append backToTop to some element...</span>
 </pre></div>
 <p>The above code assigns <a class="reference external" href="https://www.google.com/search?q=JavaScript">JavaScript</a> command directly to the <em>href</em> property.
 However, I don't know whether this is good practice for coding or not. I still

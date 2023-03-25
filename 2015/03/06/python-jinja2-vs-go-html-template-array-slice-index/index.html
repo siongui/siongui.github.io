@@ -77,9 +77,9 @@ access loop index, starting from <strong>0</strong>. (see <a class="citation-ref
 </thead>
 <tbody valign="top">
 <tr><td><p class="first">template:</p>
-<div class="last"><div class="highlight"><pre><span></span><span class="p">{{</span><span class="k">range</span><span class="w"> </span><span class="err">$</span><span class="nx">index</span><span class="p">,</span><span class="w"> </span><span class="err">$</span><span class="nx">link</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="p">.}}</span><span class="w"></span>
-<span class="p">{{</span><span class="err">$</span><span class="nx">index</span><span class="p">}}:</span><span class="w"> </span><span class="p">&lt;</span><span class="nx">a</span><span class="w"> </span><span class="nx">href</span><span class="p">=</span><span class="s">&quot;{{$link.Href}}&quot;</span><span class="p">&gt;{{</span><span class="err">$</span><span class="nx">link</span><span class="p">.</span><span class="nx">Name</span><span class="p">}}&lt;</span><span class="o">/</span><span class="nx">a</span><span class="p">&gt;</span><span class="w"></span>
-<span class="p">{{</span><span class="nx">end</span><span class="p">}}</span><span class="w"></span>
+<div class="last"><div class="highlight"><pre><span></span><span class="p">{{</span><span class="k">range</span><span class="w"> </span><span class="err">$</span><span class="nx">index</span><span class="p">,</span><span class="w"> </span><span class="err">$</span><span class="nx">link</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="p">.}}</span>
+<span class="p">{{</span><span class="err">$</span><span class="nx">index</span><span class="p">}}:</span><span class="w"> </span><span class="p">&lt;</span><span class="nx">a</span><span class="w"> </span><span class="nx">href</span><span class="p">=</span><span class="s">&quot;{{$link.Href}}&quot;</span><span class="p">&gt;{{</span><span class="err">$</span><span class="nx">link</span><span class="p">.</span><span class="nx">Name</span><span class="p">}}&lt;</span><span class="o">/</span><span class="nx">a</span><span class="p">&gt;</span>
+<span class="p">{{</span><span class="nx">end</span><span class="p">}}</span>
 </pre></div>
 </div></td>
 <td><p class="first">template:</p>
@@ -99,20 +99,20 @@ access loop index, starting from <strong>0</strong>. (see <a class="citation-ref
 </div></td>
 </tr>
 <tr><td><p class="first">template values:</p>
-<div class="last"><div class="highlight"><pre><span></span><span class="kd">type</span><span class="w"> </span><span class="nx">Link</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">       </span><span class="nx">Name</span><span class="w">    </span><span class="kt">string</span><span class="w"></span>
-<span class="w">       </span><span class="nx">Href</span><span class="w">    </span><span class="kt">string</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="last"><div class="highlight"><pre><span></span><span class="kd">type</span><span class="w"> </span><span class="nx">Link</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">       </span><span class="nx">Name</span><span class="w">    </span><span class="kt">string</span>
+<span class="w">       </span><span class="nx">Href</span><span class="w">    </span><span class="kt">string</span>
+<span class="p">}</span>
 
-<span class="c1">// arrays</span><span class="w"></span>
-<span class="kd">var</span><span class="w"> </span><span class="nx">la</span><span class="w"> </span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="nx">Link</span><span class="w"></span>
-<span class="nx">la</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">Link</span><span class="p">{</span><span class="s">&quot;Google&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;https://www.google.com/&quot;</span><span class="p">}</span><span class="w"></span>
-<span class="nx">la</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">Link</span><span class="p">{</span><span class="s">&quot;Facebook&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;https://www.facebook.com/&quot;</span><span class="p">}</span><span class="w"></span>
+<span class="c1">// arrays</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">la</span><span class="w"> </span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="nx">Link</span>
+<span class="nx">la</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">Link</span><span class="p">{</span><span class="s">&quot;Google&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;https://www.google.com/&quot;</span><span class="p">}</span>
+<span class="nx">la</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">Link</span><span class="p">{</span><span class="s">&quot;Facebook&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;https://www.facebook.com/&quot;</span><span class="p">}</span>
 
-<span class="c1">// slices</span><span class="w"></span>
-<span class="kd">var</span><span class="w"> </span><span class="nx">ls</span><span class="w"> </span><span class="p">[]</span><span class="nx">Link</span><span class="w"></span>
-<span class="nx">ls</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">append</span><span class="p">(</span><span class="nx">ls</span><span class="p">,</span><span class="w"> </span><span class="nx">Link</span><span class="p">{</span><span class="s">&quot;Google&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;https://www.google.com/&quot;</span><span class="p">})</span><span class="w"></span>
-<span class="nx">ls</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">append</span><span class="p">(</span><span class="nx">ls</span><span class="p">,</span><span class="w"> </span><span class="nx">Link</span><span class="p">{</span><span class="s">&quot;Facebook&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;https://www.facebook.com/&quot;</span><span class="p">})</span><span class="w"></span>
+<span class="c1">// slices</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">ls</span><span class="w"> </span><span class="p">[]</span><span class="nx">Link</span>
+<span class="nx">ls</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">append</span><span class="p">(</span><span class="nx">ls</span><span class="p">,</span><span class="w"> </span><span class="nx">Link</span><span class="p">{</span><span class="s">&quot;Google&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;https://www.google.com/&quot;</span><span class="p">})</span>
+<span class="nx">ls</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">append</span><span class="p">(</span><span class="nx">ls</span><span class="p">,</span><span class="w"> </span><span class="nx">Link</span><span class="p">{</span><span class="s">&quot;Facebook&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;https://www.facebook.com/&quot;</span><span class="p">})</span>
 </pre></div>
 </div></td>
 <td><p class="first">template values:</p>
@@ -164,38 +164,38 @@ access loop index, starting from <strong>0</strong>. (see <a class="citation-ref
 <span class="normal">29</span>
 <span class="normal">30</span>
 <span class="normal">31</span>
-<span class="normal">32</span></pre></div></td><td class="code"><div><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w"></span>
+<span class="normal">32</span></pre></div></td><td class="code"><div><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span>
 
-<span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
-<span class="w">	</span><span class="s">&quot;html/template&quot;</span><span class="w"></span>
-<span class="w">	</span><span class="s">&quot;os&quot;</span><span class="w"></span>
-<span class="p">)</span><span class="w"></span>
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span>
+<span class="w">	</span><span class="s">&quot;html/template&quot;</span>
+<span class="w">	</span><span class="s">&quot;os&quot;</span>
+<span class="p">)</span>
 
 <span class="kd">const</span><span class="w"> </span><span class="nx">tmpl</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">`</span>
 <span class="s">{{range $index, $link := .}}</span>
 <span class="s">{{$index}}: &lt;a href=&quot;{{$link.Href}}&quot;&gt;{{$link.Name}}&lt;/a&gt;</span>
 <span class="s">{{end}}</span>
-<span class="s">`</span><span class="w"></span>
+<span class="s">`</span>
 
-<span class="kd">type</span><span class="w"> </span><span class="nx">Link</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">	</span><span class="nx">Name</span><span class="w">	</span><span class="kt">string</span><span class="w"></span>
-<span class="w">	</span><span class="nx">Href</span><span class="w">	</span><span class="kt">string</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="kd">type</span><span class="w"> </span><span class="nx">Link</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">	</span><span class="nx">Name</span><span class="w">	</span><span class="kt">string</span>
+<span class="w">	</span><span class="nx">Href</span><span class="w">	</span><span class="kt">string</span>
+<span class="p">}</span>
 
-<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">	</span><span class="c1">// arrays</span><span class="w"></span>
-<span class="w">	</span><span class="kd">var</span><span class="w"> </span><span class="nx">la</span><span class="w"> </span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="nx">Link</span><span class="w"></span>
-<span class="w">	</span><span class="nx">la</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">Link</span><span class="p">{</span><span class="s">&quot;Google&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;https://www.google.com/&quot;</span><span class="p">}</span><span class="w"></span>
-<span class="w">	</span><span class="nx">la</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">Link</span><span class="p">{</span><span class="s">&quot;Facebook&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;https://www.facebook.com/&quot;</span><span class="p">}</span><span class="w"></span>
-<span class="w">	</span><span class="nx">t</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">template</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="s">&quot;foo&quot;</span><span class="p">).</span><span class="nx">Parse</span><span class="p">(</span><span class="nx">tmpl</span><span class="p">)</span><span class="w"></span>
-<span class="w">	</span><span class="nx">t</span><span class="p">.</span><span class="nx">Execute</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">Stdout</span><span class="p">,</span><span class="w"> </span><span class="nx">la</span><span class="p">)</span><span class="w"></span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">	</span><span class="c1">// arrays</span>
+<span class="w">	</span><span class="kd">var</span><span class="w"> </span><span class="nx">la</span><span class="w"> </span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="nx">Link</span>
+<span class="w">	</span><span class="nx">la</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">Link</span><span class="p">{</span><span class="s">&quot;Google&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;https://www.google.com/&quot;</span><span class="p">}</span>
+<span class="w">	</span><span class="nx">la</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">Link</span><span class="p">{</span><span class="s">&quot;Facebook&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;https://www.facebook.com/&quot;</span><span class="p">}</span>
+<span class="w">	</span><span class="nx">t</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">template</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="s">&quot;foo&quot;</span><span class="p">).</span><span class="nx">Parse</span><span class="p">(</span><span class="nx">tmpl</span><span class="p">)</span>
+<span class="w">	</span><span class="nx">t</span><span class="p">.</span><span class="nx">Execute</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">Stdout</span><span class="p">,</span><span class="w"> </span><span class="nx">la</span><span class="p">)</span>
 
-<span class="w">	</span><span class="c1">// slices</span><span class="w"></span>
-<span class="w">	</span><span class="kd">var</span><span class="w"> </span><span class="nx">ls</span><span class="w"> </span><span class="p">[]</span><span class="nx">Link</span><span class="w"></span>
-<span class="w">	</span><span class="nx">ls</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">append</span><span class="p">(</span><span class="nx">ls</span><span class="p">,</span><span class="w"> </span><span class="nx">Link</span><span class="p">{</span><span class="s">&quot;Google&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;https://www.google.com/&quot;</span><span class="p">})</span><span class="w"></span>
-<span class="w">	</span><span class="nx">ls</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">append</span><span class="p">(</span><span class="nx">ls</span><span class="p">,</span><span class="w"> </span><span class="nx">Link</span><span class="p">{</span><span class="s">&quot;Facebook&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;https://www.facebook.com/&quot;</span><span class="p">})</span><span class="w"></span>
-<span class="w">	</span><span class="nx">t</span><span class="p">.</span><span class="nx">Execute</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">Stdout</span><span class="p">,</span><span class="w"> </span><span class="nx">ls</span><span class="p">)</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="w">	</span><span class="c1">// slices</span>
+<span class="w">	</span><span class="kd">var</span><span class="w"> </span><span class="nx">ls</span><span class="w"> </span><span class="p">[]</span><span class="nx">Link</span>
+<span class="w">	</span><span class="nx">ls</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">append</span><span class="p">(</span><span class="nx">ls</span><span class="p">,</span><span class="w"> </span><span class="nx">Link</span><span class="p">{</span><span class="s">&quot;Google&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;https://www.google.com/&quot;</span><span class="p">})</span>
+<span class="w">	</span><span class="nx">ls</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">append</span><span class="p">(</span><span class="nx">ls</span><span class="p">,</span><span class="w"> </span><span class="nx">Link</span><span class="p">{</span><span class="s">&quot;Facebook&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;https://www.facebook.com/&quot;</span><span class="p">})</span>
+<span class="w">	</span><span class="nx">t</span><span class="p">.</span><span class="nx">Execute</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">Stdout</span><span class="p">,</span><span class="w"> </span><span class="nx">ls</span><span class="p">)</span>
+<span class="p">}</span>
 </pre></div></td></tr></table></div>
 </div></figure><p>Complete <em>Python Jinja2</em> source code:</p>
 <figure class="github-file">
