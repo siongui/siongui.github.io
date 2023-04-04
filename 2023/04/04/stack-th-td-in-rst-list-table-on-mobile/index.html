@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script data-ad-client="ca-pub-0436733829999264" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><meta charset="utf-8">
+  <title>[CSS] Stack td and th in reStructuredText list table on Mobile Screen</title>
+  <meta name="keywords" content="reStructuredText,CSS,Responsive Web Design,SCSS"/>
+  <meta name="description" content="Stack td and th elements in reStructuredText list table on small screen."/>
+  <meta name="author" content="Siong-Ui Te"/><meta property="og:title" content="[CSS] Stack td and th in reStructuredText list table on Mobile Screen" /><meta property="og:image" content="https://www.maxpixel.net/static/photo/1x/Table-List-Personal-Data-Data-Names-Column-428312.jpg" />
+<meta property="og:description" content="Stack td and th elements in reStructuredText list table on small screen." /><meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="/./extra/Dharma_wheel.png" />
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" type="text/css" href="/./theme/css/style.css">
+</head>
+<body>
+
+<div>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item" href="/">Theory and Practice</a>
+  </div>
+
+  <label for="menu-toggle" class="nav-toggle">&equiv;</label>
+  <input type="checkbox" id="menu-toggle" class="is-hidden"/>
+
+  <div class="nav-right nav-menu">
+<a class="nav-item" href="/pages/about.html">About</a>
+    <a class="nav-item" href="/archives.html">Archives</a>
+    <a class="nav-item" href="/categories.html">Categories</a>
+    <a class="nav-item" href="/tags.html">Tags</a>
+    <a class="nav-item" href="/authors.html">Authors</a>
+    <!--TODO: add links for Links(optional), and RSS -->
+
+    <span class="vertical-divider"></span>
+
+        <a class="nav-item" href="/zh/">中文</a>
+        <a class="nav-item" href="/th/">ไทย</a>
+  </div>
+</nav><gcse:search></gcse:search><main role="main" class="article">
+  <article>
+    <header>
+      <h1>
+        <a href="/2023/04/04/stack-th-td-in-rst-list-table-on-mobile/"
+           rel="bookmark"
+           title="Permalink to [CSS] Stack td and th in reStructuredText list table on Mobile Screen">
+          [CSS] Stack td and th in reStructuredText list table on Mobile Screen
+        </a>
+      </h1>
+    </header>
+<aside><time datetime="2023-04-04T22:53:00+07:00">
+    April 04, 2023
+  </time></aside>
+    <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2023/04/04/stack-th-td-in-rst-list-table-on-mobile%25en.rst">Edit on Github</a></div></aside>
+    <hr>
+
+    <div class="main-content"><p>Stack <em>td</em> and <em>th</em> elements in <a class="reference external" href="https://docutils.sourceforge.io/docs/ref/rst/directives.html#list-table">reStructuredText list table</a> on mobile devices
+with small screen. <a class="footnote-reference" href="#footnote-1" id="footnote-reference-1">[1]</a> <a class="footnote-reference" href="#footnote-2" id="footnote-reference-2">[2]</a> <a class="footnote-reference" href="#footnote-3" id="footnote-reference-3">[3]</a></p>
+<p><strong>Demo</strong>: <a class="reference external" href="https://siongui.github.io/pali-chanting/bhikkhu-patimokkha/">Bhikkhu Pāṭimokkha</a></p>
+<p><strong>reStructuredText code</strong>:</p>
+<div class="highlight"><pre><span></span><span class="p">..</span> <span class="ow">list-table</span><span class="p">::</span> Pubba-kicca
+   <span class="nc">:header-rows:</span> 1
+   <span class="nc">:class:</span> stack-th-td-on-mobile
+   <span class="nc">:widths:</span> auto
+
+   <span class="m">*</span> - Pāli
+     <span class="m">-</span> English
+     <span class="m">-</span> Chinese
+
+   <span class="m">*</span> - Okāsaṃ me bhante thero detu, pāṭimokkhaṃ uddesituṃ
+     <span class="m">-</span> May the senior monk give me the opportunity to recite the Pāṭimokkha
+     <span class="m">-</span> 願長老給我機會背誦波羅提木叉
+</pre></div>
+<p><strong>SCSS code</strong>:</p>
+<div class="highlight"><pre><span></span><span class="nv">$screen-xs-max</span><span class="o">:</span><span class="w"> </span><span class="mi">767</span><span class="p">;</span>
+<span class="nv">$smartphone</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;(max-width: </span><span class="si">#{</span><span class="nv">$screen-xs-max</span><span class="si">}</span><span class="s2">px)&quot;</span><span class="p">;</span>
+
+<span class="c1">// Google search: stack td on mobile</span>
+<span class="c1">// Stack two &lt;td&gt; over each other</span>
+<span class="c1">// https://stackoverflow.com/a/15571109</span>
+<span class="nc">.stack-th-td-on-mobile</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">@media</span><span class="w"> </span><span class="si">#{</span><span class="nv">$smartphone</span><span class="si">}</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">th</span><span class="o">,</span><span class="nt">td</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">display</span><span class="nd">:</span><span class="w"> </span><span class="nt">block</span><span class="o">;</span>
+<span class="w">      </span><span class="nt">clear</span><span class="nd">:</span><span class="w"> </span><span class="nt">both</span><span class="o">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<hr class="docutils" />
+<p><strong>Bonus</strong> <a class="footnote-reference" href="#footnote-4" id="footnote-reference-4">[4]</a> <a class="footnote-reference" href="#footnote-5" id="footnote-reference-5">[5]</a> <a class="footnote-reference" href="#footnote-6" id="footnote-reference-6">[6]</a></p>
+<p>Add background color for th and td elements.</p>
+<div class="highlight"><pre><span></span><span class="nv">$screen-xs-max</span><span class="o">:</span><span class="w"> </span><span class="mi">767</span><span class="p">;</span>
+<span class="nv">$smartphone</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;(max-width: </span><span class="si">#{</span><span class="nv">$screen-xs-max</span><span class="si">}</span><span class="s2">px)&quot;</span><span class="p">;</span>
+
+<span class="c1">// Google search: stack td on mobile</span>
+<span class="c1">// Stack two &lt;td&gt; over each other</span>
+<span class="c1">// https://stackoverflow.com/a/15571109</span>
+<span class="nc">.stack-th-td-on-mobile</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">@media</span><span class="w"> </span><span class="si">#{</span><span class="nv">$smartphone</span><span class="si">}</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">th</span><span class="o">,</span><span class="nt">td</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">display</span><span class="nd">:</span><span class="w"> </span><span class="nt">block</span><span class="o">;</span>
+<span class="w">      </span><span class="nt">clear</span><span class="nd">:</span><span class="w"> </span><span class="nt">both</span><span class="o">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="c1">// https://stackoverflow.com/a/28186676</span>
+<span class="w">  </span><span class="c1">// https://www.w3schools.com/cssref/sel_nth-child.php</span>
+<span class="w">  </span><span class="nt">tr</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="nt">td</span><span class="nd">:first-child</span><span class="o">,</span><span class="nt">th</span><span class="nd">:first-child</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">background-color</span><span class="nd">:</span><span class="w"> </span><span class="nt">None</span><span class="o">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="nt">tr</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="nt">td</span><span class="nd">:nth-child</span><span class="o">(</span><span class="nt">2</span><span class="o">),</span><span class="nt">th</span><span class="nd">:nth-child</span><span class="o">(</span><span class="nt">2</span><span class="o">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">background-color</span><span class="nd">:</span><span class="w"> </span><span class="nt">Azure</span><span class="o">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="nt">tr</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="nt">td</span><span class="nd">:last-child</span><span class="o">,</span><span class="nt">th</span><span class="nd">:last-child</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">background-color</span><span class="nd">:</span><span class="w"> </span><span class="nt">Cornsilk</span><span class="o">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<hr class="docutils" />
+<p>Tested on: Python <tt class="docutils literal">3.10.6</tt>, <tt class="docutils literal">Pelican 4.8.0</tt>.</p>
+<hr class="docutils" />
+<p>References:</p>
+<table class="docutils footnote" frame="void" id="footnote-1" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#footnote-reference-1">[1]</a></td><td><div class="first last line-block">
+<div class="line"><a class="reference external" href="https://www.google.com/search?q=stack+td+on+mobile">stack td on mobile - Google search</a></div>
+<div class="line"><a class="reference external" href="https://duckduckgo.com/?q=stack+td+on+mobile">stack td on mobile - DuckDuckGo search</a></div>
+<div class="line"><a class="reference external" href="https://www.ecosia.org/search?q=stack+td+on+mobile">stack td on mobile - Ecosia search</a></div>
+<div class="line"><a class="reference external" href="https://www.qwant.com/?q=stack+td+on+mobile">stack td on mobile - Qwant search</a></div>
+<div class="line"><a class="reference external" href="https://www.bing.com/search?q=stack+td+on+mobile">stack td on mobile - Bing search</a></div>
+<div class="line"><a class="reference external" href="https://search.yahoo.com/search?p=stack+td+on+mobile">stack td on mobile - Yahoo search</a></div>
+<div class="line"><a class="reference external" href="https://www.baidu.com/s?wd=stack+td+on+mobile">stack td on mobile - Baidu search</a></div>
+<div class="line"><a class="reference external" href="https://www.yandex.com/search/?text=stack+td+on+mobile">stack td on mobile - Yandex search</a></div>
+</div>
+</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="footnote-2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#footnote-reference-2">[2]</a></td><td><a class="reference external" href="https://stackoverflow.com/a/15571109">html - Stack two &lt;td&gt; over each other - Stack Overflow</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="footnote-3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#footnote-reference-3">[3]</a></td><td><a class="reference external" href="https://github.com/siongui/pali-chanting/commit/6b9c4ca4ddefa316a9ebee3cc00ade1f4994d6c6">stack th td on mobile · siongui/pali-chanting&#64;6b9c4ca</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="footnote-4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#footnote-reference-4">[4]</a></td><td><a class="reference external" href="https://github.com/siongui/pali-chanting/commit/97a981a60488b73420a200d8ecea31559a3e0b3f">add td background color · siongui/pali-chanting&#64;97a981a</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="footnote-5" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#footnote-reference-5">[5]</a></td><td><a class="reference external" href="https://stackoverflow.com/a/28186676">html - How to set background color of td in CSS - Stack Overflow</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="footnote-6" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#footnote-reference-6">[6]</a></td><td><a class="reference external" href="https://www.w3schools.com/cssref/sel_nth-child.php">CSS :nth-child() Selector</a></td></tr>
+</tbody>
+</table>
+</div>
+
+    <footer><hr><address><b>Author</b>:
+    <a rel="author"
+       href="/author/siong-ui-te.html">Siong-Ui Te</a>
+  </address><aside>
+    <i>&isin;</i> <b>Category</b>:
+    <a href="/category/css.html">CSS</a>
+  </aside><aside>
+    <i>&sum;</i> <b>Tags</b>:
+      <a href="/tag/restructuredtext.html">reStructuredText</a>
+,       <a href="/tag/css.html">CSS</a>
+,       <a href="/tag/responsive-web-design.html">Responsive Web Design</a>
+,       <a href="/tag/scss.html">SCSS</a>
+  </aside></footer>
+  </article>
+</main>
+</div>
+<div class="layout-footer">Powered by
+  <a href="https://pages.github.com/">Github Pages</a>,
+  <a href="http://blog.getpelican.com/">Pelican</a>,
+  <a href="https://github.com/Kronuz/pyScss">pyScss</a>.
+</div>
+<script>
+  (function() {
+    var cx = '000759460633137666077:43yuu4nvb0c';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-31712770-3', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+navigator.serviceWorker && navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  console.log('Excellent, registered with scope: ', registration.scope);
+});
+</script></body>
+</html>
