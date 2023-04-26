@@ -47,8 +47,8 @@
         </a>
       </h1>
     </header>
-<aside><time datetime="2022-01-02T22:51:00+08:00">
-    Updated: January 02, 2022
+<aside><time datetime="2023-04-26T11:55:00+07:00">
+    Updated: April 26, 2023
   </time></aside>
     <aside><div class="edit-on-github"><a href="https://github.com/siongui/userpages/tree/master/content/articles/2021/12/31/update-mtime-according-to-exif-data%25en.rst">Edit on Github</a></div></aside>
     <hr>
@@ -66,6 +66,9 @@ according to EXIF data.</blockquote>
 </pre></div>
 <p>Update modification time according to EXIF data.</p>
 <div class="highlight"><pre><span></span>$<span class="w"> </span>find<span class="w"> </span>.<span class="w"> </span>-type<span class="w"> </span>f<span class="w"> </span>-iregex<span class="w"> </span><span class="s1">&#39;.*\.\(jpg\|gif\|png\|jpeg\|mov\|mp4\|heic\)$&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>xargs<span class="w"> </span>-I<span class="w"> </span><span class="o">{}</span><span class="w"> </span>exiftool<span class="w"> </span><span class="s2">&quot;-DateTimeOriginal&gt;FileModifyDate&quot;</span><span class="w"> </span><span class="o">{}</span>
+</pre></div>
+<p>Update modification time according to creation date (for iPhone MOV file). <a class="footnote-reference" href="#footnote-5" id="footnote-reference-1">[5]</a></p>
+<div class="highlight"><pre><span></span>$<span class="w"> </span>find<span class="w"> </span>.<span class="w"> </span>-type<span class="w"> </span>f<span class="w"> </span>-iregex<span class="w"> </span><span class="s1">&#39;.*\.\(jpg\|gif\|png\|jpeg\|mov\|mp4\|heic\)$&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>xargs<span class="w"> </span>-I<span class="w"> </span><span class="o">{}</span><span class="w"> </span>exiftool<span class="w"> </span><span class="s2">&quot;-CreationDate&gt;FileModifyDate&quot;</span><span class="w"> </span><span class="o">{}</span>
 </pre></div>
 <hr class="docutils" />
 <p>Instead of <em>exiftool</em>, you can also use <em>jhead</em> to update mtime.</p>
@@ -98,6 +101,12 @@ according to EXIF data.</blockquote>
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
 <tr><td class="label">[4]</td><td><a class="reference external" href="https://askubuntu.com/questions/62492/how-can-i-change-the-date-modified-created-of-a-file">timestamp - How can I change the date modified/created of a file? - Ask Ubuntu</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="footnote-5" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#footnote-reference-1">[5]</a></td><td><a class="reference external" href="https://stackoverflow.com/questions/21355316/getting-metadata-for-mov-video">Getting metadata for MOV video - Stack Overflow</a></td></tr>
 </tbody>
 </table>
 </div>
