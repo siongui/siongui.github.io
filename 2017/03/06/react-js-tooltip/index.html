@@ -164,59 +164,59 @@ following is complete <a class="reference external" href="https://facebook.githu
 <span class="normal">50</span>
 <span class="normal">51</span>
 <span class="normal">52</span>
-<span class="normal">53</span></pre></div></td><td class="code"><div><pre><span></span>function Tooltip(props) {
-  if (props.isVisible) {
-    return &lt;div className=&quot;tooltip&quot; style={props.style}&gt;{props.textContent}&lt;/div&gt;;
-  }
-  return &lt;div className=&quot;tooltip invisible&quot; style={props.style}&gt;{props.textContent}&lt;/div&gt;;
-}
+<span class="normal">53</span></pre></div></td><td class="code"><div><pre><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">Tooltip</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">props</span><span class="p">.</span><span class="nx">isVisible</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">&lt;</span><span class="nt">div</span><span class="w"> </span><span class="na">className</span><span class="o">=</span><span class="s">&quot;tooltip&quot;</span><span class="w"> </span><span class="na">style</span><span class="o">=</span><span class="p">{</span><span class="nx">props</span><span class="p">.</span><span class="nx">style</span><span class="p">}&gt;{</span><span class="nx">props</span><span class="p">.</span><span class="nx">textContent</span><span class="p">}&lt;/</span><span class="nt">div</span><span class="p">&gt;;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="p">&lt;</span><span class="nt">div</span><span class="w"> </span><span class="na">className</span><span class="o">=</span><span class="s">&quot;tooltip invisible&quot;</span><span class="w"> </span><span class="na">style</span><span class="o">=</span><span class="p">{</span><span class="nx">props</span><span class="p">.</span><span class="nx">style</span><span class="p">}&gt;{</span><span class="nx">props</span><span class="p">.</span><span class="nx">textContent</span><span class="p">}&lt;/</span><span class="nt">div</span><span class="p">&gt;;</span>
+<span class="p">}</span>
 
-class TooltipApp extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isShowTooltip: false,
-      tooltipContent: &quot;&quot;,
-      tooltipStyle: {}
-    };
-    this.ShowTooltip = this.ShowTooltip.bind(this);
-    this.HideTooltip = this.HideTooltip.bind(this);
-  }
+<span class="kd">class</span><span class="w"> </span><span class="nx">TooltipApp</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nx">React</span><span class="p">.</span><span class="nx">Component</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kr">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">super</span><span class="p">(</span><span class="nx">props</span><span class="p">);</span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">isShowTooltip</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">tooltipContent</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">tooltipStyle</span><span class="o">:</span><span class="w"> </span><span class="p">{}</span>
+<span class="w">    </span><span class="p">};</span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">ShowTooltip</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">ShowTooltip</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">HideTooltip</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">HideTooltip</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
 
-  ShowTooltip(event) {
-    var elm = event.target;
-    var tTop = (elm.offsetTop + elm.offsetHeight + 5) + &#39;px&#39;;
-    var tLeft = elm.offsetLeft + &#39;px&#39;;
-    this.setState({
-      isShowTooltip: true,
-      tooltipContent: event.target.dataset.descr,
-      tooltipStyle: {
-        top: tTop,
-        left: tLeft
-      }
-    });
-  }
+<span class="w">  </span><span class="nx">ShowTooltip</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">elm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">event</span><span class="p">.</span><span class="nx">target</span><span class="p">;</span>
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">tTop</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nx">elm</span><span class="p">.</span><span class="nx">offsetTop</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">elm</span><span class="p">.</span><span class="nx">offsetHeight</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">5</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s1">&#39;px&#39;</span><span class="p">;</span>
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">tLeft</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">elm</span><span class="p">.</span><span class="nx">offsetLeft</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s1">&#39;px&#39;</span><span class="p">;</span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span>
+<span class="w">      </span><span class="nx">isShowTooltip</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">tooltipContent</span><span class="o">:</span><span class="w"> </span><span class="nx">event</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">dataset</span><span class="p">.</span><span class="nx">descr</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">tooltipStyle</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">top</span><span class="o">:</span><span class="w"> </span><span class="nx">tTop</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">left</span><span class="o">:</span><span class="w"> </span><span class="nx">tLeft</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">});</span>
+<span class="w">  </span><span class="p">}</span>
 
-  HideTooltip() {
-    this.setState({isShowTooltip: false});
-  }
+<span class="w">  </span><span class="nx">HideTooltip</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span><span class="nx">isShowTooltip</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span><span class="p">});</span>
+<span class="w">  </span><span class="p">}</span>
 
-  render() {
-    return (
-      &lt;div&gt;
-        &lt;Tooltip style={this.state.tooltipStyle} textContent={this.state.tooltipContent} isVisible={this.state.isShowTooltip} /&gt;
-        &lt;p&gt;This is a example of{&quot; &quot;}
-          &lt;span onMouseEnter={this.ShowTooltip} onMouseLeave={this.HideTooltip} data-descr=&quot;Hello, I am tooltip!&quot;&gt;tooltip&lt;/span&gt; via{&quot; &quot;}
-          &lt;span onMouseEnter={this.ShowTooltip} onMouseLeave={this.HideTooltip} data-descr=&quot;Hello, I am React!&quot;&gt;React&lt;/span&gt;&lt;/p&gt;
-      &lt;/div&gt;
-    );
-  }
-}
+<span class="w">  </span><span class="nx">render</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">(</span>
+<span class="w">      </span><span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="w">        </span><span class="p">&lt;</span><span class="nt">Tooltip</span><span class="w"> </span><span class="na">style</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">tooltipStyle</span><span class="p">}</span><span class="w"> </span><span class="na">textContent</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">tooltipContent</span><span class="p">}</span><span class="w"> </span><span class="na">isVisible</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">isShowTooltip</span><span class="p">}</span><span class="w"> </span><span class="p">/&gt;</span>
+<span class="w">        </span><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span><span class="nx">This</span><span class="w"> </span><span class="nx">is</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="nx">example</span><span class="w"> </span><span class="k">of</span><span class="p">{</span><span class="s2">&quot; &quot;</span><span class="p">}</span>
+<span class="w">          </span><span class="p">&lt;</span><span class="nt">span</span><span class="w"> </span><span class="na">onMouseEnter</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">ShowTooltip</span><span class="p">}</span><span class="w"> </span><span class="na">onMouseLeave</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">HideTooltip</span><span class="p">}</span><span class="w"> </span><span class="na">data-descr</span><span class="o">=</span><span class="s">&quot;Hello, I am tooltip!&quot;</span><span class="p">&gt;</span><span class="nx">tooltip</span><span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span><span class="w"> </span><span class="nx">via</span><span class="p">{</span><span class="s2">&quot; &quot;</span><span class="p">}</span>
+<span class="w">          </span><span class="p">&lt;</span><span class="nt">span</span><span class="w"> </span><span class="na">onMouseEnter</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">ShowTooltip</span><span class="p">}</span><span class="w"> </span><span class="na">onMouseLeave</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">HideTooltip</span><span class="p">}</span><span class="w"> </span><span class="na">data-descr</span><span class="o">=</span><span class="s">&quot;Hello, I am React!&quot;</span><span class="p">&gt;</span><span class="nx">React</span><span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="w">      </span><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="w">    </span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
 
-ReactDOM.render(
-  &lt;TooltipApp /&gt;,
-  document.getElementById(&#39;root&#39;)
-);
+<span class="nx">ReactDOM</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span>
+<span class="w">  </span><span class="p">&lt;</span><span class="nt">TooltipApp</span><span class="w"> </span><span class="p">/&gt;,</span>
+<span class="w">  </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;root&#39;</span><span class="p">)</span>
+<span class="p">);</span>
 </pre></div></td></tr></table></div>
 </div></figure>
 <hr class="docutils" />

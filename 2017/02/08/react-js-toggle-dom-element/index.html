@@ -96,40 +96,40 @@ out with my favorite exercise: Toggle (Show/Hide) <a class="reference external" 
 <span class="normal">31</span>
 <span class="normal">32</span>
 <span class="normal">33</span>
-<span class="normal">34</span></pre></div></td><td class="code"><div><pre><span></span>function contentClass(isShow) {
-  if (isShow) {
-    return &quot;content&quot;;
-  }
-  return &quot;content invisible&quot;;
-}
+<span class="normal">34</span></pre></div></td><td class="code"><div><pre><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">contentClass</span><span class="p">(</span><span class="nx">isShow</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">isShow</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="s2">&quot;content&quot;</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="s2">&quot;content invisible&quot;</span><span class="p">;</span>
+<span class="p">}</span>
 
-class Toggle extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {isShow: false};
-    this.handleClick = this.handleClick.bind(this);
-  }
+<span class="kd">class</span><span class="w"> </span><span class="nx">Toggle</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nx">React</span><span class="p">.</span><span class="nx">Component</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kr">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">super</span><span class="p">(</span><span class="nx">props</span><span class="p">);</span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="nx">isShow</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span><span class="p">};</span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">handleClick</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">handleClick</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
 
-  handleClick() {
-    this.setState(function(prevState) {
-      return {isShow: !prevState.isShow};
-    });
-  }
+<span class="w">  </span><span class="nx">handleClick</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">prevState</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="p">{</span><span class="nx">isShow</span><span class="o">:</span><span class="w"> </span><span class="o">!</span><span class="nx">prevState</span><span class="p">.</span><span class="nx">isShow</span><span class="p">};</span>
+<span class="w">    </span><span class="p">});</span>
+<span class="w">  </span><span class="p">}</span>
 
-  render() {
-    return (
-      &lt;div&gt;
-        &lt;div className=&#39;control&#39; onClick={this.handleClick}&gt;Click me to toggle&lt;/div&gt;
-        &lt;div className={contentClass(this.state.isShow)}&gt;contents&lt;/div&gt;
-      &lt;/div&gt;
-    );
-  }
-}
+<span class="w">  </span><span class="nx">render</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">(</span>
+<span class="w">      </span><span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="w">        </span><span class="p">&lt;</span><span class="nt">div</span><span class="w"> </span><span class="na">className</span><span class="o">=</span><span class="s">&#39;control&#39;</span><span class="w"> </span><span class="na">onClick</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">handleClick</span><span class="p">}&gt;</span><span class="nx">Click</span><span class="w"> </span><span class="nx">me</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">toggle</span><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="w">        </span><span class="p">&lt;</span><span class="nt">div</span><span class="w"> </span><span class="na">className</span><span class="o">=</span><span class="p">{</span><span class="nx">contentClass</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">isShow</span><span class="p">)}&gt;</span><span class="nx">contents</span><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="w">      </span><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="w">    </span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
 
-ReactDOM.render(
-  &lt;Toggle /&gt;,
-  document.getElementById(&#39;root&#39;)
-);
+<span class="nx">ReactDOM</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span>
+<span class="w">  </span><span class="p">&lt;</span><span class="nt">Toggle</span><span class="w"> </span><span class="p">/&gt;,</span>
+<span class="w">  </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;root&#39;</span><span class="p">)</span>
+<span class="p">);</span>
 </pre></div></td></tr></table></div>
 </div></figure>
 <p>The following is key points in the code:</p>
