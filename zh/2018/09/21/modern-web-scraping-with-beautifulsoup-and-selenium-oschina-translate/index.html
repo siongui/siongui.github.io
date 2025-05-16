@@ -141,7 +141,7 @@ Apache/2.0.52<span class="w"> </span><span class="o">(</span>CentOS<span class="
 <div class="section" id="beautifulsoup">
 <h3>用 BeautifulSoup 查找元素</h3>
 <p>下面的 get_page() 函數會獲取給定 URL 的網頁源碼, 然後解碼成 utf-8, 最後再將 content 傳遞給 BeautifulSoup 對象並返回, BeautifulSoup 使用 HTML 解析器進行解析.</p>
-<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_page</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">get_page</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
     <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
     <span class="n">content</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">content</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">content</span><span class="p">,</span> <span class="s1">&#39;html.parser&#39;</span><span class="p">)</span>
@@ -149,7 +149,7 @@ Apache/2.0.52<span class="w"> </span><span class="o">(</span>CentOS<span class="
 <p>我們獲取到 BeautifulSoup 對象後, 就可以開始解析所需要的信息了.</p>
 <p>BeautifulSoup 提供了很多查找方法來定位網頁中的元素, 並可以深入挖掘出嵌套的元素.</p>
 <p>Tuts+ 網站包含了很多培訓教程, <a class="reference external" href="https://tutsplus.com/authors/gigi-sayfan">這裡</a> 是我的主頁. 在每一個頁面包含最多12篇教程, 如果你已經獲取了12篇的教程, 你就可以進入下一頁面了. 每一篇文章都被 &lt;article&gt; 標籤包圍著. 下面的函數就是發現頁面裡的所有 article 元素, 然後找到對應的鏈接, 最後提取出教程的 URL.</p>
-<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_page_articles</span><span class="p">(</span><span class="n">page</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">get_page_articles</span><span class="p">(</span><span class="n">page</span><span class="p">):</span>
     <span class="n">elements</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">findAll</span><span class="p">(</span><span class="s1">&#39;article&#39;</span><span class="p">)</span>
     <span class="n">articles</span> <span class="o">=</span> <span class="p">[</span><span class="n">e</span><span class="o">.</span><span class="n">a</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;href&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">elements</span><span class="p">]</span>
     <span class="k">return</span> <span class="n">articles</span>
@@ -197,15 +197,15 @@ make-your-go-programs-lightning-fast-with-profiling--cms-29809
 <div class="section" id="disqus">
 <h3>統計 Disqus 評論數量</h3>
 <p>我們來搞點動態抓取，使用 Selenium 統計 Tuts+ 手機的 Disqus 評論數量。下面需要導入的內容。</p>
-<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">selenium</span> <span class="kn">import</span> <span class="n">webdriver</span>
-<span class="kn">from</span> <span class="nn">selenium.webdriver.common.by</span> <span class="kn">import</span> <span class="n">By</span>
-<span class="kn">from</span> <span class="nn">selenium.webdriver.support.expected_conditions</span> <span class="kn">import</span> <span class="p">(</span>
+<div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">selenium</span><span class="w"> </span><span class="kn">import</span> <span class="n">webdriver</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">selenium.webdriver.common.by</span><span class="w"> </span><span class="kn">import</span> <span class="n">By</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">selenium.webdriver.support.expected_conditions</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">presence_of_element_located</span><span class="p">)</span>
-<span class="kn">from</span> <span class="nn">selenium.webdriver.support.wait</span> <span class="kn">import</span> <span class="n">WebDriverWait</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">selenium.webdriver.support.wait</span><span class="w"> </span><span class="kn">import</span> <span class="n">WebDriverWait</span>
 </pre></div>
 <p>get_comment_count() 函數需要傳入 Selenium 驅動和 URL 作為參數。它使用驅動的 get() 方法從 URL 獲取內容。這和requests.get()相似，其不同之處在於使用驅動對象管理 DOM 的實時呈現。</p>
 <p>然後，它獲取教程的標題，並使用 iframe 的父級 id，disqus_thread，和 iframe 標籤來定位 iframe：</p>
-<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_comment_count</span><span class="p">(</span><span class="n">driver</span><span class="p">,</span> <span class="n">url</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">get_comment_count</span><span class="p">(</span><span class="n">driver</span><span class="p">,</span> <span class="n">url</span><span class="p">):</span>
     <span class="n">driver</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
     <span class="n">class_name</span> <span class="o">=</span> <span class="s1">&#39;content-banner__title&#39;</span>
     <span class="n">name</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_class_name</span><span class="p">(</span><span class="n">class_name</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>

@@ -86,18 +86,18 @@ details.</p>
 
 <p>In my application, I defile a <em>kind</em> called <em>PaliWord</em> for storing xml files in
 the datastore.</p>
-<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">google.appengine.ext</span> <span class="kn">import</span> <span class="n">ndb</span>
+<div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">google.appengine.ext</span><span class="w"> </span><span class="kn">import</span> <span class="n">ndb</span>
 
 <span class="o">...</span>
 
-<span class="k">class</span> <span class="nc">PaliWord</span><span class="p">(</span><span class="n">ndb</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">PaliWord</span><span class="p">(</span><span class="n">ndb</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
   <span class="n">xmlfilename</span> <span class="o">=</span> <span class="n">ndb</span><span class="o">.</span><span class="n">StringProperty</span><span class="p">()</span>
   <span class="n">xmlfiledata</span> <span class="o">=</span> <span class="n">ndb</span><span class="o">.</span><span class="n">TextProperty</span><span class="p">()</span>
 </pre></div>
 <p>To store one xml file in the datastore, I use file name of the xml file without
 <cite>.xml</cite> extension as <em>id</em> for manipulating the <em>entity</em>. The name and data of the
 file is store in the <em>entity</em>.</p>
-<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">storeToNDB</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">filedata</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">storeToNDB</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">filedata</span><span class="p">):</span>
   <span class="c1"># id = filename without .xml extension</span>
   <span class="n">paliword</span> <span class="o">=</span> <span class="n">PaliWord</span><span class="p">(</span><span class="nb">id</span> <span class="o">=</span> <span class="n">filename</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">4</span><span class="p">],</span>
                       <span class="n">xmlfilename</span> <span class="o">=</span> <span class="n">filename</span><span class="p">,</span>
@@ -110,7 +110,7 @@ file is store in the <em>entity</em>.</p>
 without <cite>.xml</cite> extension, to the <a class="reference external" href="https://cloud.google.com/appengine/docs/python/datastore/modelclass#Model_get_by_id">get_by_id()</a> of <em>PaliWord</em> <em>kind</em>. The
 <em>entity</em> will be returned by this call if exists. Then we can further process
 the <em>entity</em> the way we want.</p>
-<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">lookup</span><span class="p">(</span><span class="n">word</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">lookup</span><span class="p">(</span><span class="n">word</span><span class="p">):</span>
   <span class="n">paliword</span> <span class="o">=</span> <span class="n">PaliWord</span><span class="o">.</span><span class="n">get_by_id</span><span class="p">(</span><span class="n">word</span><span class="p">)</span>
   <span class="k">if</span> <span class="p">(</span><span class="n">paliword</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">decodeXML</span><span class="p">(</span><span class="n">paliword</span><span class="o">.</span><span class="n">xmlfilename</span><span class="p">,</span> <span class="n">paliword</span><span class="o">.</span><span class="n">xmlfiledata</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf8&#39;</span><span class="p">))</span>

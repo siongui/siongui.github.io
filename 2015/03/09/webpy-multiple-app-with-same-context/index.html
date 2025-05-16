@@ -59,8 +59,8 @@ the sub application. This post shows multiple applications with the same context
 <a class="reference external" href="https://cloud.google.com/appengine/docs/python/">Google App Engine Python</a> (the same as <a class="footnote-reference" href="#footnote-3" id="footnote-reference-2">[3]</a>).</p>
 <p>The point is to overwrite the <em>_delegate_sub_application</em> in <em>web.applcation</em>
 class. a <em>customApp</em> is declared:</p>
-<div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">customApp</span><span class="p">(</span><span class="n">web</span><span class="o">.</span><span class="n">application</span><span class="p">):</span>
-  <span class="k">def</span> <span class="nf">_delegate_sub_application</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">dir</span><span class="p">,</span> <span class="n">app</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">customApp</span><span class="p">(</span><span class="n">web</span><span class="o">.</span><span class="n">application</span><span class="p">):</span>
+  <span class="k">def</span><span class="w"> </span><span class="nf">_delegate_sub_application</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">dir</span><span class="p">,</span> <span class="n">app</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">app</span><span class="o">.</span><span class="n">handle_with_processors</span><span class="p">()</span>
 </pre></div>
 <p>The <em>customApp</em> will be used for the mapping of applications.</p>
@@ -100,17 +100,17 @@ class. a <em>customApp</em> is declared:</p>
 
 <span class="c1"># Simulate app.yaml of Google App Engine</span>
 
-<span class="kn">import</span> <span class="nn">web</span>
-<span class="kn">import</span> <span class="nn">staticweb</span>
-<span class="kn">import</span> <span class="nn">mainweb</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">web</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">staticweb</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">mainweb</span>
 
 <span class="n">mapping</span> <span class="o">=</span> <span class="p">(</span>
   <span class="sa">r</span><span class="s1">&#39;/robots.txt&#39;</span><span class="p">,</span> <span class="n">staticweb</span><span class="o">.</span><span class="n">app</span><span class="p">,</span>
   <span class="sa">r</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="n">mainweb</span><span class="o">.</span><span class="n">app</span><span class="p">,</span>
 <span class="p">)</span>
 
-<span class="k">class</span> <span class="nc">customApp</span><span class="p">(</span><span class="n">web</span><span class="o">.</span><span class="n">application</span><span class="p">):</span>
-  <span class="k">def</span> <span class="nf">_delegate_sub_application</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">dir</span><span class="p">,</span> <span class="n">app</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">customApp</span><span class="p">(</span><span class="n">web</span><span class="o">.</span><span class="n">application</span><span class="p">):</span>
+  <span class="k">def</span><span class="w"> </span><span class="nf">_delegate_sub_application</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">dir</span><span class="p">,</span> <span class="n">app</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">app</span><span class="o">.</span><span class="n">handle_with_processors</span><span class="p">()</span>
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
@@ -161,24 +161,24 @@ directory.</p>
 <span class="normal">25</span></pre></div></td><td class="code"><div><pre><span></span><span class="ch">#!/usr/bin/env python</span>
 <span class="c1"># -*- coding:utf-8 -*-</span>
 
-<span class="kn">import</span> <span class="nn">web</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">web</span>
 
 <span class="n">urls</span> <span class="o">=</span> <span class="p">(</span>
   <span class="sa">r</span><span class="s2">&quot;/about&quot;</span><span class="p">,</span> <span class="s2">&quot;AboutPage&quot;</span><span class="p">,</span>
   <span class="sa">r</span><span class="s2">&quot;/&quot;</span><span class="p">,</span> <span class="s2">&quot;MainPage&quot;</span><span class="p">,</span>
 <span class="p">)</span>
 
-<span class="k">class</span> <span class="nc">AboutPage</span><span class="p">:</span>
-  <span class="k">def</span> <span class="nf">GET</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">AboutPage</span><span class="p">:</span>
+  <span class="k">def</span><span class="w"> </span><span class="nf">GET</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="k">return</span> <span class="s2">&quot;Hello About&quot;</span>
 
-<span class="k">class</span> <span class="nc">MainPage</span><span class="p">:</span>
-  <span class="k">def</span> <span class="nf">GET</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">MainPage</span><span class="p">:</span>
+  <span class="k">def</span><span class="w"> </span><span class="nf">GET</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="k">return</span> <span class="s2">&quot;Hello World&quot;</span>
 
 <span class="n">app</span> <span class="o">=</span> <span class="n">web</span><span class="o">.</span><span class="n">application</span><span class="p">(</span><span class="n">urls</span><span class="p">,</span> <span class="nb">globals</span><span class="p">())</span>
 <span class="k">try</span><span class="p">:</span>
-  <span class="kn">from</span> <span class="nn">google.appengine.ext</span> <span class="kn">import</span> <span class="n">ndb</span>
+  <span class="kn">from</span><span class="w"> </span><span class="nn">google.appengine.ext</span><span class="w"> </span><span class="kn">import</span> <span class="n">ndb</span>
   <span class="c1"># runs on Google App Engine</span>
   <span class="n">app</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">gaerun</span><span class="p">()</span>
 <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
@@ -217,21 +217,21 @@ directory.</p>
 <span class="normal">22</span></pre></div></td><td class="code"><div><pre><span></span><span class="ch">#!/usr/bin/env python</span>
 <span class="c1"># -*- coding:utf-8 -*-</span>
 
-<span class="kn">import</span> <span class="nn">web</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">web</span>
 
 <span class="n">urls</span> <span class="o">=</span> <span class="p">(</span>
   <span class="sa">r</span><span class="s2">&quot;/robots.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;StaticPage&quot;</span><span class="p">,</span>
 <span class="p">)</span>
 
 
-<span class="k">class</span> <span class="nc">StaticPage</span><span class="p">:</span>
-  <span class="k">def</span> <span class="nf">GET</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">StaticPage</span><span class="p">:</span>
+  <span class="k">def</span><span class="w"> </span><span class="nf">GET</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="k">return</span> <span class="s1">&#39;User-agent: *</span><span class="se">\n</span><span class="s1">Disallow: /&#39;</span>
 
 
 <span class="n">app</span> <span class="o">=</span> <span class="n">web</span><span class="o">.</span><span class="n">application</span><span class="p">(</span><span class="n">urls</span><span class="p">,</span> <span class="nb">globals</span><span class="p">())</span>
 <span class="k">try</span><span class="p">:</span>
-  <span class="kn">from</span> <span class="nn">google.appengine.ext</span> <span class="kn">import</span> <span class="n">ndb</span>
+  <span class="kn">from</span><span class="w"> </span><span class="nn">google.appengine.ext</span><span class="w"> </span><span class="kn">import</span> <span class="n">ndb</span>
   <span class="c1"># runs on Google App Engine</span>
   <span class="n">app</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">gaerun</span><span class="p">()</span>
 <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>

@@ -296,9 +296,9 @@ application-independent code is put in the following module:</p>
 <span class="sd">http://docs.python.org/2/library/threading.html</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">gettext</span>
-<span class="kn">import</span> <span class="nn">threading</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">gettext</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">threading</span>
 
 <span class="n">localedir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">),</span> <span class="s1">&#39;locale&#39;</span><span class="p">)</span>
 <span class="n">domain</span> <span class="o">=</span> <span class="s1">&#39;messages&#39;</span>
@@ -316,19 +316,19 @@ application-independent code is put in the following module:</p>
 <span class="k">for</span> <span class="n">locale</span> <span class="ow">in</span> <span class="n">locales</span><span class="p">:</span>
   <span class="n">AllTranslations</span><span class="p">[</span><span class="n">locale</span><span class="p">]</span> <span class="o">=</span> <span class="n">gettext</span><span class="o">.</span><span class="n">translation</span><span class="p">(</span><span class="n">domain</span><span class="p">,</span> <span class="n">localedir</span><span class="p">,</span> <span class="p">[</span><span class="n">locale</span><span class="p">])</span>
 
-<span class="k">def</span> <span class="nf">gettext</span><span class="p">(</span><span class="n">message</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">gettext</span><span class="p">(</span><span class="n">message</span><span class="p">):</span>
   <span class="k">return</span> <span class="n">AllTranslations</span><span class="p">[</span> <span class="n">threadLocalData</span><span class="o">.</span><span class="n">locale</span> <span class="p">]</span><span class="o">.</span><span class="n">gettext</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">ugettext</span><span class="p">(</span><span class="n">message</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">ugettext</span><span class="p">(</span><span class="n">message</span><span class="p">):</span>
   <span class="k">return</span> <span class="n">AllTranslations</span><span class="p">[</span> <span class="n">threadLocalData</span><span class="o">.</span><span class="n">locale</span> <span class="p">]</span><span class="o">.</span><span class="n">ugettext</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">ngettext</span><span class="p">(</span><span class="n">singular</span><span class="p">,</span> <span class="n">plural</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">ngettext</span><span class="p">(</span><span class="n">singular</span><span class="p">,</span> <span class="n">plural</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
   <span class="k">return</span> <span class="n">AllTranslations</span><span class="p">[</span> <span class="n">threadLocalData</span><span class="o">.</span><span class="n">locale</span> <span class="p">]</span><span class="o">.</span><span class="n">ngettext</span><span class="p">(</span><span class="n">singular</span><span class="p">,</span> <span class="n">plural</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">ungettext</span><span class="p">(</span><span class="n">singular</span><span class="p">,</span> <span class="n">plural</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">ungettext</span><span class="p">(</span><span class="n">singular</span><span class="p">,</span> <span class="n">plural</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
   <span class="k">return</span> <span class="n">AllTranslations</span><span class="p">[</span> <span class="n">threadLocalData</span><span class="o">.</span><span class="n">locale</span> <span class="p">]</span><span class="o">.</span><span class="n">ungettext</span><span class="p">(</span><span class="n">singular</span><span class="p">,</span> <span class="n">plural</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">setLocale</span><span class="p">(</span><span class="n">locale</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">setLocale</span><span class="p">(</span><span class="n">locale</span><span class="p">):</span>
   <span class="k">if</span> <span class="n">locale</span> <span class="ow">in</span> <span class="n">locales</span><span class="p">:</span>
     <span class="n">threadLocalData</span><span class="o">.</span><span class="n">locale</span> <span class="o">=</span> <span class="n">locale</span>
 
@@ -408,9 +408,9 @@ application-independent code is put in the following module:</p>
 <span class="normal">24</span></pre></div></td><td class="code"><div><pre><span></span><span class="ch">#!/usr/bin/env python</span>
 <span class="c1"># -*- coding:utf-8 -*-</span>
 
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">jinja2</span>
-<span class="kn">import</span> <span class="nn">i18n</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">jinja2</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">i18n</span>
 
 <span class="n">env</span> <span class="o">=</span> <span class="n">jinja2</span><span class="o">.</span><span class="n">Environment</span><span class="p">(</span>
     <span class="n">loader</span><span class="o">=</span><span class="n">jinja2</span><span class="o">.</span><span class="n">FileSystemLoader</span><span class="p">(</span>

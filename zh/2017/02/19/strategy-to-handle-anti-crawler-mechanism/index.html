@@ -63,9 +63,9 @@
 <div class="section" id="user-agent">
 <h3>User-Agent</h3>
 <p>User-Agent是檢查用戶所用客戶端的種類和版本，在Scrapy中，通常是在下載器中間件中進行處理。比如在setting.py中建立一個包含很多瀏覽器User-Agent的列表，然後新建一個random_user_agent文件：</p>
-<div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">RandomUserAgentMiddleware</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">RandomUserAgentMiddleware</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">process_request</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">spider</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">process_request</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">spider</span><span class="p">):</span>
         <span class="n">ua</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">spider</span><span class="o">.</span><span class="n">settings</span><span class="p">[</span><span class="s1">&#39;USER_AGENT_LIST&#39;</span><span class="p">])</span>
         <span class="k">if</span> <span class="n">ua</span><span class="p">:</span>
             <span class="n">request</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;User-Agent&#39;</span><span class="p">,</span> <span class="n">ua</span><span class="p">)</span>
@@ -104,7 +104,7 @@
 <span class="p">}</span>
 </pre></div>
 <p>然而Scrapy不支持這種認證方式，需要將認證信息base64編碼後，加入Headers的Proxy-Authorization字段：</p>
-<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">base64</span>
+<div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">base64</span>
 
 <span class="c1"># Set the location of the proxy</span>
 <span class="n">proxy_string</span> <span class="o">=</span> <span class="n">choice</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_proxies_from_file</span><span class="p">(</span><span class="s1">&#39;proxies.txt&#39;</span><span class="p">))</span> <span class="c1"># user:pass@ip:port</span>

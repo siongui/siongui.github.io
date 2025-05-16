@@ -88,8 +88,8 @@ When users choose multiple files, the files will be listed on the webpage.</p>
 </div>
 
 <p>On server side (<strong>Python</strong> code for Google App Engine):</p>
-<div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MultipleFilePage</span><span class="p">(</span><span class="n">webapp2</span><span class="o">.</span><span class="n">RequestHandler</span><span class="p">):</span>
-  <span class="k">def</span> <span class="nf">post</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">MultipleFilePage</span><span class="p">(</span><span class="n">webapp2</span><span class="o">.</span><span class="n">RequestHandler</span><span class="p">):</span>
+  <span class="k">def</span><span class="w"> </span><span class="nf">post</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="k">for</span> <span class="n">file_data</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">getall</span><span class="p">(</span><span class="s1">&#39;filesToUpload[]&#39;</span><span class="p">):</span>
       <span class="n">file_name</span> <span class="o">=</span> <span class="n">file_data</span><span class="o">.</span><span class="n">filename</span>
       <span class="n">file_content</span> <span class="o">=</span> <span class="n">file_data</span><span class="o">.</span><span class="n">value</span>

@@ -56,7 +56,7 @@
 <div class="highlight"><pre><span></span>%2c%e3%80%90%e5%bd%a2%e3%80%91%e6%97%a0%e7%a2%8d%e7%9a%84%e3%80%82
 </pre></div>
 <p>Pass to the following function</p>
-<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">HexStringToString</span><span class="p">(</span><span class="n">hexString</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">HexStringToString</span><span class="p">(</span><span class="n">hexString</span><span class="p">):</span>
   <span class="c1"># convert hex string to utf8 string</span>
   <span class="c1"># example: &quot;%2c%e3%80&quot; -&gt; &quot;\x2C\xE3\x80&quot;</span>
   <span class="nb">bytes</span> <span class="o">=</span> <span class="p">[]</span>
@@ -74,7 +74,7 @@
 </pre></div>
 
 <p>Pass again to the following function</p>
-<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">StringToHexString</span><span class="p">(</span><span class="n">string</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">StringToHexString</span><span class="p">(</span><span class="n">string</span><span class="p">):</span>
   <span class="c1"># convert string to hex string</span>
   <span class="n">string</span> <span class="o">=</span> <span class="n">string</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf8&#39;</span><span class="p">)</span>
   <span class="k">return</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span> <span class="p">[</span> <span class="s2">&quot;</span><span class="si">%02X</span><span class="s2"> &quot;</span> <span class="o">%</span> <span class="nb">ord</span><span class="p">(</span> <span class="n">x</span> <span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">string</span> <span class="p">]</span> <span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="s1">&#39;%&#39;</span><span class="p">)</span>

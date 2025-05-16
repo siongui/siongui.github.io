@@ -57,11 +57,11 @@
 <div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
 <span class="c1"># -*- coding:utf-8 -*-</span>
 
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">urllib</span>
-<span class="kn">from</span> <span class="nn">bs4</span> <span class="kn">import</span> <span class="n">BeautifulSoup</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">urllib</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">bs4</span><span class="w"> </span><span class="kn">import</span> <span class="n">BeautifulSoup</span>
 
-<span class="k">def</span> <span class="nf">string2rst</span><span class="p">(</span><span class="n">string</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">string2rst</span><span class="p">(</span><span class="n">string</span><span class="p">):</span>
   <span class="n">result</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
   <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
   <span class="k">for</span> <span class="n">string2</span> <span class="ow">in</span> <span class="n">string</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\r</span><span class="s2">&quot;</span><span class="p">):</span>
@@ -73,7 +73,7 @@
   <span class="k">return</span> <span class="n">result</span>
 
 
-<span class="k">def</span> <span class="nf">processTd</span><span class="p">(</span><span class="n">td</span><span class="p">,</span> <span class="n">fo</span><span class="p">,</span> <span class="n">count</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">processTd</span><span class="p">(</span><span class="n">td</span><span class="p">,</span> <span class="n">fo</span><span class="p">,</span> <span class="n">count</span><span class="p">):</span>
   <span class="k">if</span> <span class="n">count</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
     <span class="n">count2</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="k">for</span> <span class="n">string</span> <span class="ow">in</span> <span class="n">td</span><span class="o">.</span><span class="n">stripped_strings</span><span class="p">:</span>
@@ -93,7 +93,7 @@
   <span class="n">fo</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">htmlTable2Rst</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="n">url</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">htmlTable2Rst</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="n">url</span><span class="p">):</span>
   <span class="n">num</span> <span class="o">=</span> <span class="n">url</span><span class="p">[</span><span class="o">-</span><span class="mi">6</span><span class="p">:</span><span class="o">-</span><span class="mi">4</span><span class="p">]</span>
   <span class="n">dstpath</span> <span class="o">=</span> <span class="s2">&quot;../content/articles/tipitaka/sutta/khuddaka/dhammapada/dhp-chap</span><span class="si">{}</span><span class="s2">%zh.rst&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">num</span><span class="p">)</span>
   <span class="n">tmppath</span> <span class="o">=</span> <span class="s2">&quot;/tmp/tmp.rst&quot;</span>

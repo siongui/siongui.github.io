@@ -59,14 +59,14 @@
 translatable strings from given input files. This post, however, will use
 <a class="reference external" href="https://www.google.com/search?q=Regular+Expression">regular expression</a> in Python to do the work.</p>
 <p>The basic pattern to search <tt class="docutils literal"><span class="pre">_(&quot;string&quot;)</span></tt> is:</p>
-<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">searchI18n</span><span class="p">(</span><span class="n">string</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">searchI18n</span><span class="p">(</span><span class="n">string</span><span class="p">):</span>
   <span class="c1"># only first match and longest match</span>
   <span class="c1"># i.e., the string {{_(&quot;ddd&quot;)}}12345{{_(&quot;sss&quot;)}} will return</span>
   <span class="c1"># {{_(&quot;ddd&quot;)}}12345{{_(&quot;sss&quot;)}}, not return {{_(&quot;ddd&quot;)}}</span>
   <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;{{\s*_\(\s*(.+)\s*\)\s*}}&#39;</span><span class="p">,</span> <span class="n">string</span><span class="p">)</span>
 </pre></div>
 <p>A more advanced pattern is:</p>
-<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">getAllMatchesInFile</span><span class="p">(</span><span class="n">filepath</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">getAllMatchesInFile</span><span class="p">(</span><span class="n">filepath</span><span class="p">):</span>
   <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
     <span class="c1"># [^)] to prevent {{_(&quot;ddd&quot;)}}12345{{_(&quot;sss&quot;)}}</span>
     <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;{{\s*_\(\s*([^)]+)\s*\)\s*}}&#39;</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
